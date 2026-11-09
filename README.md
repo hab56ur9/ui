@@ -27,11 +27,26 @@ import "ui/tokens.css";
 import { Button, UIProvider } from "ui";
 ```
 
-A page without a bundler links the two stylesheets and imports the component module through an importmap. The documentation site lists the full setup.
+A page without a bundler links the two stylesheets and imports the component module in a module script. The module leaves react out, so an importmap points `react` at a CDN.
 
 ```html
 <link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/tokens.css">
 <link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/ui.css">
+<script type="importmap">
+{ "imports": {
+  "react": "https://esm.sh/react@19.3.1",
+  "react/jsx-runtime": "https://esm.sh/react@19.3.1/jsx-runtime",
+  "react-dom": "https://esm.sh/react-dom@19.3.1?external=react",
+  "react-dom/client": "https://esm.sh/react-dom@19.3.1/client?external=react",
+  "ui": "https://hab56ur9.github.io/ui/dist/ui.js"
+} }
+</script>
+<script type="module">
+  import { createElement as h } from "react";
+  import { createRoot } from "react-dom/client";
+  import { Calendar } from "ui";
+  createRoot(document.querySelector("#app")).render(h(Calendar));
+</script>
 ```
 
 ## Develop
