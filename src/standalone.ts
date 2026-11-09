@@ -1,0 +1,19 @@
+import { createElement, type ReactNode } from "react";
+import { createRoot } from "react-dom/client";
+import { UIProvider } from "./overlay/Provider";
+
+export * from "./index";
+export { createElement as h, Fragment, useEffect, useMemo, useRef, useState } from "react";
+
+for (const file of ["tokens.css", "ui.css"]) {
+  const href = new URL(file, import.meta.url).href;
+  if (!document.querySelector(`link[href="${href}"]`)) document.head.append(Object.assign(document.createElement("link"), { rel: "stylesheet", href }));
+}
+
+export function render(target: string | Element, node: ReactNode, options: { lang?: string } = {}) {
+  const element = typeof target === "string" ? document.querySelector(target) : target;
+  if (!element) throw new Error(`render target "${target}" not found`);
+  const root = createRoot(element);
+  root.render(createElement(UIProvider, { lang: options.lang, children: node }));
+  return root;
+}

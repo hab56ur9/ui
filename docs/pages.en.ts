@@ -84,13 +84,13 @@ export const pages: Page[] = [
         "type": "text",
         "title": "HTML without a bundler",
         "body": [
-          "`dist/ui.js`, built at each release, is an ES module with every component. It leaves react out, so an importmap loads react next to it. The two CSS files carry the styles.",
-          "The `ui.js` on the site is always the latest release. To pin a version, use `v/<tag>/ui.js` on the site. The latest 100 releases stay there with their `ui.css` and `tokens.css`."
+          "One line of `dist/ui.js` is enough. It carries React and loads the two stylesheets itself. Next to every component it exports `render(target, content)`, `h` for elements, and hooks such as `useState`.",
+          "The `dist/ui.js` on the site is always the latest release. To pin a version, use `v/<tag>/ui.js` on the site; the latest 100 releases stay there."
         ]
       },
       {
         "type": "code",
-        "code": "<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">\n<script type=\"importmap\">\n{\n  \"imports\": {\n    \"react\": \"https://esm.sh/react@19.3.1\",\n    \"react/jsx-runtime\": \"https://esm.sh/react@19.3.1/jsx-runtime\",\n    \"react-dom\": \"https://esm.sh/react-dom@19.3.1?external=react\",\n    \"react-dom/client\": \"https://esm.sh/react-dom@19.3.1/client?external=react\",\n    \"ui\": \"{homepage}dist/ui.js\"\n  }\n}\n</script>\n<div id=\"app\"></div>\n<script type=\"module\">\n  import { createElement as h } from \"react\";\n  import { createRoot } from \"react-dom/client\";\n  import { Calendar, UIProvider } from \"ui\";\n\n  createRoot(document.getElementById(\"app\")).render(h(UIProvider, null, h(Calendar)));\n</script>"
+        "code": "<div id=\"app\"></div>\n<script type=\"module\">\n  import { render, h, Button, Calendar } from \"{homepage}dist/ui.js\";\n\n  render(\"#app\", [h(Button, { variant: \"primary\" }, \"Save\"), h(Calendar)]);\n</script>"
       },
       {
         "type": "text",

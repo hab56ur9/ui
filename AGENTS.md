@@ -46,7 +46,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - `npm run check` runs the token build, the prop schema, the lint, `tsc`, the library build and the site build. Run it before every commit.
 - `scripts/build.mjs` writes `dist/tokens.css` (with one `@font-face` per font subset), `tokens.json`, `catalog.json`, `icons.svg`, `icons.json`, `ui.css` and the presets.
 - `scripts/components.mjs` reads every exported component's props through the TypeScript API and writes `dist/components.json`.
-- `vite.lib.config.ts` builds `dist/ui.js`, every component as one ES module with react left out. The stylesheet import is stubbed there because `ui.css` ships on its own. `dist/ui.js` stays out of git; the rest of `dist/` is committed so pages can link it.
+- `vite.lib.config.ts` builds `dist/ui.js` from `src/standalone.ts`: one self-contained module with React inside for pages without a bundler. It loads `tokens.css` and `ui.css` beside itself and exports every component plus `render(target, node)`, `h`, `Fragment` and the common hooks. The stylesheet import is stubbed in this build because the CSS ships on its own. `dist/ui.js` stays out of git; the rest of `dist/` is committed so pages can link it.
 - Vite builds the docs into `site/`.
 
 ## Components

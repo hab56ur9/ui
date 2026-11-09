@@ -5,11 +5,12 @@ const root = import.meta.dirname;
 
 export default defineConfig({
   publicDir: false,
+  define: { "process.env.NODE_ENV": JSON.stringify("production") },
   build: {
     outDir: resolve(root, "dist"),
     emptyOutDir: false,
-    lib: { entry: resolve(root, "src/index.ts"), formats: ["es"], fileName: () => "ui.js" },
-    rollupOptions: { external: [/^react($|\/)/, /^react-dom($|\/)/] },
+    minify: true,
+    lib: { entry: resolve(root, "src/standalone.ts"), formats: ["es"], fileName: () => "ui.js" },
   },
   plugins: [
     {

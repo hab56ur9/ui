@@ -101,13 +101,13 @@ export const pages: Page[] = [
         "type": "text",
         "title": "번들러 없는 HTML",
         "body": [
-          "릴리즈 때 빌드되는 `dist/ui.js`는 모든 컴포넌트를 담은 ES 모듈입니다. react는 넣지 않으므로 importmap으로 react와 함께 불러옵니다. 스타일은 두 CSS 파일이 맡습니다.",
-          "사이트 주소의 `ui.js`는 항상 최신 릴리즈입니다. 버전을 고정하려면 사이트의 `v/<태그>/ui.js`를 씁니다. 최근 100개 릴리즈가 같은 폴더에 `ui.css`, `tokens.css`와 함께 남습니다."
+          "`dist/ui.js` 한 줄이면 됩니다. React가 들어 있고, 두 CSS 파일도 스스로 불러옵니다. 모든 컴포넌트와 함께 `render(대상, 내용)`, `h`(요소 만들기), `useState` 같은 훅을 내보냅니다.",
+          "사이트의 `dist/ui.js`는 항상 최신 릴리즈입니다. 버전을 고정하려면 사이트의 `v/<태그>/ui.js`를 씁니다. 최근 100개 릴리즈가 남습니다."
         ]
       },
       {
         "type": "code",
-        "code": "<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">\n<script type=\"importmap\">\n{\n  \"imports\": {\n    \"react\": \"https://esm.sh/react@19.3.1\",\n    \"react/jsx-runtime\": \"https://esm.sh/react@19.3.1/jsx-runtime\",\n    \"react-dom\": \"https://esm.sh/react-dom@19.3.1?external=react\",\n    \"react-dom/client\": \"https://esm.sh/react-dom@19.3.1/client?external=react\",\n    \"ui\": \"{homepage}dist/ui.js\"\n  }\n}\n</script>\n<div id=\"app\"></div>\n<script type=\"module\">\n  import { createElement as h } from \"react\";\n  import { createRoot } from \"react-dom/client\";\n  import { Calendar, UIProvider } from \"ui\";\n\n  createRoot(document.getElementById(\"app\")).render(h(UIProvider, null, h(Calendar)));\n</script>"
+        "code": "<div id=\"app\"></div>\n<script type=\"module\">\n  import { render, h, Button, Calendar } from \"{homepage}dist/ui.js\";\n\n  render(\"#app\", [h(Button, { variant: \"primary\" }, \"저장\"), h(Calendar)]);\n</script>"
       },
       {
         "type": "text",
