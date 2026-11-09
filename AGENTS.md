@@ -20,6 +20,7 @@ docs/                          the single docs page (index.html → docs/main.ts
 scripts/build.mjs              token build
 scripts/components.mjs         prop schema from TypeScript types
 scripts/lint.mjs               color-literal and local-path lint
+bin/ui.mjs                     CLI: dev server and starter pages
 plugin/                        Claude Code and Codex plugin, one shared skill
 ```
 
@@ -95,9 +96,14 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Versioned folders share the site's fonts. A release that renames or removes font files keeps the old paths in `assets/fonts` until those versions leave the latest 100.
 - The site address lives in `package.json` as `homepage`.
 
+## CLI
+
+- `bin/ui.mjs` is dependency-free. `ui serve [dir]` serves the folder at `/` and `dist/` and `assets/` at `/ui/`, injects a live-reload script into HTML, and redirects `/ui/dist/*` to the docs site when there is no local build. `--host` listens on the local network. `ui new <file>` writes a starter page.
+- Requests outside the served folder, `dist/` and `assets/` return 404.
+
 ## Plugin
 
-- `plugin/skills/design-system/SKILL.md` is the shared skill. `plugin/.claude-plugin` and `plugin/.codex-plugin` hold the manifests, and the root `.claude-plugin/` and `.agents/plugins/` hold the marketplaces.
+- `plugin/skills/design-system/SKILL.md` and `plugin/skills/dev-server/SKILL.md` are the shared skills. `plugin/.claude-plugin` and `plugin/.codex-plugin` hold the manifests, and the root `.claude-plugin/` and `.agents/plugins/` hold the marketplaces.
 - The skill links the live stylesheet for pages and inlines `dist/tokens.json` values for decks and Artifacts.
 
 ## Rules

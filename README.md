@@ -37,6 +37,12 @@ A page without a bundler imports one module. It carries React, loads the stylesh
 </script>
 ```
 
+A local server serves a folder of such pages with the design system and live reload.
+
+```bash
+npx github:hab56ur9/ui serve pages
+```
+
 ## Develop
 
 The check builds the tokens, lints, type-checks and builds the documentation site.

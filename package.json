@@ -16,7 +16,8 @@
   "files": [
     "src",
     "dist",
-    "assets"
+    "assets",
+    "bin"
   ],
   "scripts": {
     "tokens": "node scripts/build.mjs && node scripts/components.mjs",
@@ -25,7 +26,8 @@
     "typecheck": "tsc",
     "lint": "node scripts/lint.mjs",
     "check": "node scripts/build.mjs && node scripts/components.mjs && node scripts/lint.mjs && tsc && npm run build:lib && vite build",
-    "build:lib": "vite build -c vite.lib.config.ts"
+    "build:lib": "vite build -c vite.lib.config.ts",
+    "serve": "node bin/ui.mjs serve"
   },
   "peerDependencies": {
     "react": "^19.0.0",
@@ -38,5 +40,8 @@
     "vite": "^8.3.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
+  },
+  "bin": {
+    "ui": "bin/ui.mjs"
   }
 }
