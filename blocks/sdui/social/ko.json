@@ -1,0 +1,547 @@
+{
+  "version": 3,
+  "app": "모먼트",
+  "density": "compact",
+  "start": "home",
+  "nav": [
+    {
+      "id": "home",
+      "label": "홈",
+      "icon": "home"
+    },
+    {
+      "id": "explore",
+      "label": "탐색",
+      "icon": "compass"
+    },
+    {
+      "id": "activity",
+      "label": "알림",
+      "icon": "heart"
+    },
+    {
+      "id": "profile",
+      "label": "프로필",
+      "icon": "user"
+    }
+  ],
+  "screens": {
+    "home": {
+      "actions": [
+        {
+          "label": "새 게시물",
+          "variant": "primary",
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "compose"
+            }
+          }
+        }
+      ],
+      "widgets": [
+        {
+          "id": "stories",
+          "w": 12,
+          "h": 2,
+          "frame": "plain",
+          "content": {
+            "type": "Stories",
+            "props": {
+              "items": {
+                "$data": "stories"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "story"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "p1",
+          "w": 12,
+          "h": 9,
+          "frame": "plain",
+          "content": {
+            "type": "Post",
+            "props": {
+              "author": "minji.cooks",
+              "place": "망원동",
+              "photo": {
+                "alt": "토마토 파스타",
+                "seed": 1
+              },
+              "likes": 1204,
+              "caption": "주말엔 역시 직접 만든 파스타. 레시피는 댓글에!",
+              "comments": 38,
+              "time": "2시간 전",
+              "onLike": {
+                "$action": {
+                  "name": "like-post",
+                  "params": {
+                    "id": "p1"
+                  }
+                }
+              },
+              "onComment": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "comments"
+                  }
+                }
+              },
+              "onShare": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "share"
+                  }
+                }
+              },
+              "onSave": {
+                "$action": {
+                  "name": "save-post",
+                  "params": {
+                    "id": "p1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "p2",
+          "w": 12,
+          "h": 9,
+          "frame": "plain",
+          "content": {
+            "type": "Post",
+            "props": {
+              "author": "seoul.frames",
+              "place": "한강공원",
+              "photo": {
+                "alt": "한강 노을",
+                "seed": 2
+              },
+              "likes": 3891,
+              "caption": "오늘 노을은 10분 만에 지나갔다.",
+              "comments": 112,
+              "time": "5시간 전",
+              "onLike": {
+                "$action": {
+                  "name": "like-post",
+                  "params": {
+                    "id": "p2"
+                  }
+                }
+              },
+              "onComment": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "comments"
+                  }
+                }
+              },
+              "onShare": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "share"
+                  }
+                }
+              },
+              "onSave": {
+                "$action": {
+                  "name": "save-post",
+                  "params": {
+                    "id": "p2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "p3",
+          "w": 12,
+          "h": 9,
+          "frame": "plain",
+          "content": {
+            "type": "Post",
+            "props": {
+              "author": "pine.trail",
+              "place": "북한산",
+              "photo": {
+                "alt": "산 능선",
+                "seed": 7
+              },
+              "likes": 642,
+              "caption": "첫눈 오기 전 마지막 능선 산행.",
+              "comments": 12,
+              "time": "어제",
+              "onLike": {
+                "$action": {
+                  "name": "like-post",
+                  "params": {
+                    "id": "p3"
+                  }
+                }
+              },
+              "onComment": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "comments"
+                  }
+                }
+              },
+              "onShare": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "share"
+                  }
+                }
+              },
+              "onSave": {
+                "$action": {
+                  "name": "save-post",
+                  "params": {
+                    "id": "p3"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "explore": {
+      "widgets": [
+        {
+          "id": "topics",
+          "title": "주제",
+          "w": 12,
+          "h": 3,
+          "frame": "plain",
+          "content": {
+            "type": "Carousel",
+            "props": {
+              "size": "mini",
+              "label": "주제"
+            },
+            "children": {
+              "$each": {
+                "$data": "topics"
+              },
+              "$as": {
+                "type": "MiniCard",
+                "props": {
+                  "image": {
+                    "alt": {
+                      "$field": "title"
+                    },
+                    "seed": {
+                      "$field": "seed"
+                    }
+                  },
+                  "title": {
+                    "$field": "title"
+                  },
+                  "meta": {
+                    "$field": "meta"
+                  },
+                  "onSelect": {
+                    "$action": {
+                      "name": "open-topic"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "places",
+          "title": "추천 장소",
+          "w": 12,
+          "h": 5,
+          "frame": "plain",
+          "content": {
+            "type": "Carousel",
+            "props": {
+              "label": "추천 장소",
+              "size": "card"
+            },
+            "children": {
+              "$each": {
+                "$data": "places"
+              },
+              "$as": {
+                "type": "ImageCard",
+                "props": {
+                  "image": {
+                    "alt": {
+                      "$field": "title"
+                    },
+                    "seed": {
+                      "$field": "seed"
+                    },
+                    "ratio": "3:4"
+                  },
+                  "title": {
+                    "$field": "title"
+                  },
+                  "description": {
+                    "$field": "description"
+                  },
+                  "meta": {
+                    "$field": "meta"
+                  },
+                  "badge": {
+                    "$field": "badge"
+                  },
+                  "onSelect": {
+                    "$action": {
+                      "name": "open-place"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "grid",
+          "w": 12,
+          "h": 7,
+          "frame": "plain",
+          "content": {
+            "type": "PhotoGrid",
+            "props": {
+              "items": {
+                "$data": "explore"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open-post"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "activity": {
+      "title": "알림",
+      "widgets": [
+        {
+          "id": "list",
+          "w": 12,
+          "h": 6,
+          "frame": "plain",
+          "content": {
+            "type": "List",
+            "props": {
+              "items": {
+                "$data": "activity"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open-activity"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "profile": {
+      "widgets": [
+        {
+          "id": "header",
+          "w": 12,
+          "h": 4,
+          "frame": "plain",
+          "content": {
+            "type": "ProfileHeader",
+            "props": {
+              "name": "하늘_산책",
+              "handle": "@haneul.walks",
+              "bio": "걷고, 찍고, 기록합니다. 서울 곳곳의 산책길.",
+              "stats": {
+                "$data": "me.stats"
+              }
+            },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "onClick": {
+                    "$action": {
+                      "name": "open",
+                      "params": {
+                        "overlay": "edit"
+                      }
+                    }
+                  }
+                },
+                "children": "프로필 편집"
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "onClick": {
+                    "$action": {
+                      "name": "open",
+                      "params": {
+                        "overlay": "share"
+                      }
+                    }
+                  }
+                },
+                "children": "프로필 공유"
+              }
+            ]
+          }
+        },
+        {
+          "id": "photos",
+          "w": 12,
+          "h": 5,
+          "frame": "plain",
+          "content": {
+            "type": "PhotoGrid",
+            "props": {
+              "items": {
+                "$data": "me.photos"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open-post"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "overlays": {
+    "compose": {
+      "kind": "modal",
+      "title": "새 게시물",
+      "description": "사진을 고르고 글을 적습니다.",
+      "body": "사진은 최대 10장까지 올릴 수 있습니다.",
+      "actions": [
+        {
+          "label": "취소",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "공유",
+          "variant": "primary",
+          "action": {
+            "name": "create-post",
+            "close": true
+          }
+        }
+      ]
+    },
+    "story": {
+      "kind": "modal",
+      "title": "스토리",
+      "body": "스토리는 24시간 동안 보입니다.",
+      "actions": [
+        {
+          "label": "닫기",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "메시지 보내기",
+          "variant": "primary",
+          "action": {
+            "name": "reply-story",
+            "close": true
+          }
+        }
+      ]
+    },
+    "comments": {
+      "kind": "sheet",
+      "title": "댓글",
+      "description": "댓글 38개",
+      "body": "jun_runs  레시피 꼭 올려 주세요!\nbada  면 삶는 시간이 궁금해요.",
+      "actions": [
+        {
+          "label": "닫기",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "댓글 달기",
+          "variant": "primary",
+          "action": {
+            "name": "add-comment",
+            "close": true
+          }
+        }
+      ]
+    },
+    "share": {
+      "kind": "sheet",
+      "title": "공유",
+      "body": "링크를 복사하거나 메시지로 보냅니다.",
+      "actions": [
+        {
+          "label": "메시지로 보내기",
+          "action": {
+            "name": "send-message",
+            "close": true
+          }
+        },
+        {
+          "label": "링크 복사",
+          "variant": "primary",
+          "action": {
+            "name": "copy-link",
+            "close": true
+          }
+        }
+      ]
+    },
+    "edit": {
+      "kind": "sheet",
+      "title": "프로필 편집",
+      "body": "이름, 소개, 사진을 바꿉니다.",
+      "actions": [
+        {
+          "label": "취소",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "저장",
+          "variant": "primary",
+          "action": {
+            "name": "save-profile",
+            "close": true
+          }
+        }
+      ]
+    }
+  }
+}

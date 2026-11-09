@@ -1,0 +1,15 @@
+{
+  "name": "ui",
+  "description": "ui — personal design system: tokens, React components and the skill that builds on them.",
+  "owner": {
+    "name": "nathan",
+    "email": "hab5bur9@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "design-system",
+      "source": "./plugin",
+      "description": "Skill that builds pages, widget dashboards, documents and decks on the ui design system."
+    }
+  ]
+}

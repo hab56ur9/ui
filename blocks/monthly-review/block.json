@@ -1,0 +1,38 @@
+{
+  "title": "월간 리뷰 발표 자료",
+  "description": "서비스 지표 대시보드의 데이터로 만든 10장짜리 발표 자료입니다. 표지, 목차, 큰 숫자, 장 구분, 차트 두 장, 좌우 두 단 전망, 한 문장 메시지, 다음 할 일, 마무리 순서입니다. 결론 문장은 데이터에서 계산합니다.",
+  "category": "슬라이드",
+  "kind": "deck",
+  "uses": [
+    "슬라이드 묶음",
+    "표지",
+    "목차",
+    "큰 숫자",
+    "장 구분",
+    "차트 슬라이드",
+    "두 단",
+    "한 문장 메시지",
+    "마무리",
+    "단계",
+    "강조 상자",
+    "선 차트"
+  ],
+  "en": {
+    "title": "Monthly review deck",
+    "description": "A ten-slide deck built from the service metrics dashboard data: cover, agenda, big numbers, a section divider, two chart slides, a two-column outlook, a one-line message, next steps and a closing slide. The takeaway sentences are computed from the data.",
+    "uses": [
+      "Deck",
+      "Title slide",
+      "Agenda",
+      "Big numbers",
+      "Section divider",
+      "Chart slide",
+      "Split",
+      "Statement",
+      "Closing",
+      "Steps",
+      "Callout",
+      "Line chart"
+    ]
+  }
+}

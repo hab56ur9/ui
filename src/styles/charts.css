@@ -1,0 +1,327 @@
+.chart {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.chart-plot {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.chart-plot svg {
+  display: block;
+  overflow: visible;
+}
+
+.chart svg text {
+  fill: var(--color-fg-muted);
+  font-size: var(--font-size-label);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-caption);
+}
+
+.chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.key {
+  display: inline-block;
+  flex: none;
+}
+
+.key-line,
+.key-dashed {
+  width: var(--space-3);
+  height: var(--chart-stroke-line);
+  border-radius: var(--chart-stroke-line);
+  background: var(--c);
+}
+
+.key-dashed {
+  background: repeating-linear-gradient(90deg, var(--c) 0 4px, transparent 4px 6px);
+}
+
+.key-rect,
+.key-band {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--c);
+}
+
+.key-band {
+  opacity: 0.35;
+}
+
+.chart-grid line {
+  stroke: var(--color-chart-grid);
+  stroke-width: var(--chart-stroke-hairline);
+  shape-rendering: crispEdges;
+}
+
+.chart-axis line,
+.chart-baseline {
+  stroke: var(--color-chart-axis);
+  stroke-width: var(--chart-stroke-hairline);
+  shape-rendering: crispEdges;
+}
+
+.chart-annotation line {
+  stroke: var(--color-chart-axis);
+  stroke-width: var(--chart-stroke-hairline);
+}
+
+.chart .chart-annotation text {
+  fill: var(--color-fg-secondary);
+  font-size: var(--font-size-caption);
+}
+
+.chart-threshold line {
+  stroke: var(--color-status-critical);
+  stroke-width: var(--chart-stroke-hairline);
+  stroke-dasharray: 4 3;
+}
+
+.status-icon {
+  display: inline-flex;
+}
+
+.chart .chart-threshold text {
+  fill: var(--color-fg-secondary);
+  font-size: var(--font-size-caption);
+}
+
+.chart-threshold-icon,
+.status-icon.status-critical {
+  fill: var(--color-status-critical);
+  color: var(--color-status-critical);
+}
+
+.series-line {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: var(--chart-stroke-line);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.series-line.is-dashed {
+  stroke-dasharray: 6 4;
+}
+
+.series-line.is-muted {
+  stroke: var(--color-chart-de-emphasis);
+}
+
+.series-area {
+  fill: var(--c);
+  fill-opacity: var(--chart-area-opacity);
+  stroke: none;
+}
+
+.series-dot {
+  r: var(--chart-marker-radius);
+  fill: var(--c);
+  stroke: var(--color-bg-surface);
+  stroke-width: var(--chart-marker-ring);
+}
+
+.series-dot.is-critical {
+  --c: var(--color-status-critical);
+  r: 3px;
+}
+
+.chart .chart-end-label {
+  fill: var(--color-fg-secondary);
+  font-size: var(--font-size-caption);
+}
+
+.chart .chart-end-label .is-value {
+  fill: var(--color-fg-default);
+  font-weight: var(--font-weight-medium);
+}
+
+.chart-crosshair {
+  stroke: var(--color-chart-crosshair);
+  stroke-width: var(--chart-stroke-hairline);
+  pointer-events: none;
+}
+
+.chart-overlay {
+  fill: transparent;
+  outline: none;
+}
+
+.chart-plot:has(.chart-overlay:focus-visible) {
+  outline: 2px solid var(--color-main-default);
+  outline-offset: 2px;
+  border-radius: var(--radius-control);
+}
+
+.chart-bar {
+  fill: var(--c);
+  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.chart-bar.is-hover {
+  opacity: 0.7;
+}
+
+.chart-cell {
+  fill: var(--seq);
+  rx: 2px;
+}
+
+.chart-cell.is-hover {
+  stroke: var(--color-fg-default);
+  stroke-width: 1.5px;
+}
+
+.chart-scale {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-scale span:first-child {
+  margin-right: var(--space-2);
+}
+
+.chart-scale span:last-child {
+  margin-left: var(--space-2);
+}
+
+.chart-scale .chart-scale-gap {
+  margin: 0 var(--space-4) 0 var(--space-1);
+}
+
+.chart-scale-step {
+  width: var(--space-5);
+  height: var(--space-2);
+  border-radius: 2px;
+  background: var(--seq);
+}
+
+.chart-tooltip {
+  position: absolute;
+  z-index: 5;
+  min-width: 160px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-bg-raised);
+  box-shadow: var(--elevation-lifted);
+  font-size: var(--font-size-caption);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.chart-tooltip-title {
+  margin-bottom: var(--space-1);
+  color: var(--color-fg-muted);
+}
+
+.chart-tooltip-row {
+  display: grid;
+  grid-template-columns: var(--space-3) auto 1fr;
+  align-items: center;
+  gap: var(--space-2);
+  line-height: 1.6;
+}
+
+.chart-tooltip-row strong {
+  color: var(--color-fg-default);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-tooltip-row span:last-child {
+  color: var(--color-fg-secondary);
+}
+
+.chart-tooltip-note {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-border-default);
+  color: var(--color-fg-secondary);
+}
+
+.sparkline {
+  position: absolute;
+  inset: 0;
+}
+
+.chart-sparkline {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.data-table-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-label);
+}
+
+.data-table th {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg-surface);
+  color: var(--color-fg-muted);
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-strong);
+  padding: var(--space-2) var(--space-3);
+}
+
+.data-table td {
+  border-bottom: 1px solid var(--color-border-default);
+  padding: var(--space-2) var(--space-3);
+  white-space: nowrap;
+}
+
+.data-table td .key {
+  margin-right: var(--space-2);
+  vertical-align: middle;
+}
+
+.data-table .is-numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table-figure {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: var(--chart-size-sparkline);
+  vertical-align: middle;
+}

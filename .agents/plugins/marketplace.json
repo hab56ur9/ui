@@ -1,0 +1,19 @@
+{
+  "name": "ui",
+  "interface": {
+    "displayName": "ui"
+  },
+  "plugins": [
+    {
+      "name": "design-system",
+      "source": {
+        "source": "local",
+        "path": "./plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE"
+      },
+      "category": "Design"
+    }
+  ]
+}

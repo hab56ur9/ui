@@ -1,0 +1,1836 @@
+{
+  "components": [
+    {
+      "name": "LangProvider",
+      "props": [
+        {
+          "name": "lang",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Board",
+      "props": [
+        {
+          "name": "initialLayout",
+          "optional": true,
+          "kind": "list",
+          "type": "LayoutItem[]"
+        },
+        {
+          "name": "onLayoutChange",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "onLayoutCommit",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "commitDelay",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "toolbar",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "busy",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Widget",
+      "props": [
+        {
+          "name": "id",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "subtitle",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "w",
+          "optional": false,
+          "kind": "number"
+        },
+        {
+          "name": "h",
+          "optional": false,
+          "kind": "number"
+        },
+        {
+          "name": "minW",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "minH",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "maxH",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "table",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "frame",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "card",
+            "plain"
+          ]
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Doc",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "summary",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "meta",
+          "optional": false,
+          "kind": "object",
+          "type": "DocMeta"
+        },
+        {
+          "name": "toc",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "printable",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "DocSection",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "id",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Ref",
+      "props": [
+        {
+          "name": "to",
+          "optional": false,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "ChangeLog",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "Change[]"
+        }
+      ]
+    },
+    {
+      "name": "Figure",
+      "props": [
+        {
+          "name": "caption",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "kind",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "figure",
+            "table"
+          ]
+        },
+        {
+          "name": "height",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Options",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "Option[]"
+        }
+      ]
+    },
+    {
+      "name": "RequirementTable",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "Requirement[]"
+        },
+        {
+          "name": "prefix",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Deck",
+      "props": [
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "start",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "controls",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Slide",
+      "props": [
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "accent",
+            "dark",
+            "plain"
+          ]
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "footer",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "SlideFooter",
+      "props": [
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "SlideHeader",
+      "props": [
+        {
+          "name": "kicker",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "subtitle",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "AgendaSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "string[]"
+        },
+        {
+          "name": "current",
+          "optional": true,
+          "kind": "number"
+        }
+      ]
+    },
+    {
+      "name": "ChartSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "takeaway",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "aside",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "ClosingSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "items",
+          "optional": true,
+          "kind": "list",
+          "type": "string[]"
+        },
+        {
+          "name": "contact",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "accent",
+            "dark",
+            "plain"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CompareSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "takeaway",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "before",
+          "optional": false,
+          "kind": "object",
+          "type": "ComparePane"
+        },
+        {
+          "name": "after",
+          "optional": false,
+          "kind": "object",
+          "type": "ComparePane"
+        }
+      ]
+    },
+    {
+      "name": "MetricSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "takeaway",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "metrics",
+          "optional": false,
+          "kind": "list",
+          "type": "Metric[]"
+        }
+      ]
+    },
+    {
+      "name": "QuoteSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "quote",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "by",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "role",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "accent",
+            "dark",
+            "plain"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SectionSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "number",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "subtitle",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "accent",
+            "dark",
+            "plain"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SplitSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "takeaway",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "left",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "right",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "ratio",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "1:1",
+            "2:3",
+            "3:2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "StatementSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "kicker",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "statement",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "detail",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "accent",
+            "dark",
+            "plain"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TableSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "takeaway",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "table",
+          "optional": false,
+          "kind": "object",
+          "type": "DataTableProps"
+        }
+      ]
+    },
+    {
+      "name": "TimelineSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "takeaway",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "Milestone[]"
+        }
+      ]
+    },
+    {
+      "name": "TitleSlide",
+      "props": [
+        {
+          "name": "notes",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "source",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "kicker",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "subtitle",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "accent",
+            "dark",
+            "plain"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bullets",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "BulletItem[]"
+        }
+      ]
+    },
+    {
+      "name": "Callout",
+      "props": [
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "good",
+            "info",
+            "warning"
+          ]
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Steps",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "Step[]"
+        }
+      ]
+    },
+    {
+      "name": "Takeaway",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "AppShell",
+      "props": [
+        {
+          "name": "brand",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "nav",
+          "optional": false,
+          "kind": "list",
+          "type": "ShellGroup[]"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "mobileNav",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "drawer",
+            "tabs"
+          ]
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "props": [
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "marks",
+          "optional": true,
+          "kind": "list",
+          "type": "number[]"
+        },
+        {
+          "name": "month",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "today",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "size",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "card",
+            "full",
+            "mini"
+          ]
+        },
+        {
+          "name": "peek",
+          "optional": true,
+          "kind": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "Image",
+      "props": [
+        {
+          "name": "alt",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "src",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "seed",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "ratio",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "16:9",
+            "1:1",
+            "3:4",
+            "4:3"
+          ]
+        },
+        {
+          "name": "fit",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "contain",
+            "cover"
+          ]
+        },
+        {
+          "name": "rounded",
+          "optional": true,
+          "kind": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "ImageCard",
+      "props": [
+        {
+          "name": "image",
+          "optional": false,
+          "kind": "object",
+          "type": "ImageProps"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "badge",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "name": "MiniCard",
+      "props": [
+        {
+          "name": "image",
+          "optional": false,
+          "kind": "object",
+          "type": "ImageProps"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "name": "Avatar",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "src",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "size",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "lg",
+            "md",
+            "sm"
+          ]
+        },
+        {
+          "name": "ring",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "new",
+            "seen"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "List",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "ListItem[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "PhotoGrid",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "GridPhoto[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "name": "Post",
+      "props": [
+        {
+          "name": "author",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "avatar",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "place",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "photo",
+          "optional": false,
+          "kind": "object",
+          "type": "ImageProps"
+        },
+        {
+          "name": "likes",
+          "optional": false,
+          "kind": "number"
+        },
+        {
+          "name": "liked",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "caption",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "comments",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "time",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "onLike",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "onComment",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "onShare",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "onSave",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "name": "ProfileHeader",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "handle",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "avatar",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "bio",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "stats",
+          "optional": true,
+          "kind": "list",
+          "type": "ProfileStat[]"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Stories",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "StoryItem[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "TabBar",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "TabBarItem[]"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "DisplaySwitch",
+      "props": [
+        {
+          "name": "display",
+          "optional": false,
+          "kind": "object",
+          "type": "{ theme: Theme; medium: Medium; setTheme: (theme: Theme) => void; setMedium: (medium: Medium) => void; switchable: boolean; }"
+        }
+      ]
+    },
+    {
+      "name": "DataTable",
+      "props": [
+        {
+          "name": "columns",
+          "optional": false,
+          "kind": "list",
+          "type": "{ label: string; numeric?: boolean | undefined; }[]"
+        },
+        {
+          "name": "rows",
+          "optional": false,
+          "kind": "list",
+          "type": "Cell[][]"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "props": [
+        {
+          "name": "disabled",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "onClick",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "variant",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "danger",
+            "primary",
+            "secondary"
+          ]
+        },
+        {
+          "name": "icon",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Delta",
+      "props": [
+        {
+          "name": "change",
+          "optional": false,
+          "kind": "number"
+        },
+        {
+          "name": "goodWhenUp",
+          "optional": true,
+          "kind": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "Segmented",
+      "props": [
+        {
+          "name": "options",
+          "optional": false,
+          "kind": "list",
+          "type": "SegmentedOption<V>[]"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "object",
+          "type": "V"
+        },
+        {
+          "name": "defaultValue",
+          "optional": true,
+          "kind": "object",
+          "type": "V"
+        },
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "name": "Stat",
+      "props": [
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "delta",
+          "optional": true,
+          "kind": "object",
+          "type": "{ change: number; goodWhenUp?: boolean | undefined; label?: string | undefined; }"
+        },
+        {
+          "name": "note",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "trend",
+          "optional": true,
+          "kind": "list",
+          "type": "Point[]"
+        },
+        {
+          "name": "color",
+          "optional": true,
+          "kind": "scalar"
+        }
+      ]
+    },
+    {
+      "name": "CodeBlock",
+      "props": [
+        {
+          "name": "code",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "lang",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "html",
+            "json",
+            "plain",
+            "sql",
+            "tsx"
+          ]
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Highlight",
+      "props": [
+        {
+          "name": "code",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "lang",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "html",
+            "json",
+            "plain",
+            "sql",
+            "tsx"
+          ]
+        },
+        {
+          "name": "numbers",
+          "optional": true,
+          "kind": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "size",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "lg",
+            "md",
+            "sm"
+          ]
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "LineChart",
+      "props": [
+        {
+          "name": "series",
+          "optional": false,
+          "kind": "list",
+          "type": "LineSeries[]"
+        },
+        {
+          "name": "format",
+          "optional": true,
+          "kind": "object",
+          "type": "Format"
+        },
+        {
+          "name": "band",
+          "optional": true,
+          "kind": "object",
+          "type": "{ name: string; lower: Point[]; upper: Point[]; color?: Color | undefined; }"
+        },
+        {
+          "name": "threshold",
+          "optional": true,
+          "kind": "object",
+          "type": "{ value: number; label: string; breach: string; }"
+        },
+        {
+          "name": "baseline",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "annotations",
+          "optional": true,
+          "kind": "list",
+          "type": "{ t: number; label: string; }[]"
+        },
+        {
+          "name": "endLabels",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "BarChart",
+      "props": [
+        {
+          "name": "points",
+          "optional": false,
+          "kind": "list",
+          "type": "Point[]"
+        },
+        {
+          "name": "name",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "color",
+          "optional": true,
+          "kind": "scalar"
+        },
+        {
+          "name": "colorOf",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "format",
+          "optional": true,
+          "kind": "object",
+          "type": "Format"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Heatmap",
+      "props": [
+        {
+          "name": "rows",
+          "optional": false,
+          "kind": "list",
+          "type": "string[]"
+        },
+        {
+          "name": "columns",
+          "optional": false,
+          "kind": "list",
+          "type": "C[]"
+        },
+        {
+          "name": "values",
+          "optional": false,
+          "kind": "list",
+          "type": "(number | null)[][]"
+        },
+        {
+          "name": "format",
+          "optional": false,
+          "kind": "object",
+          "type": "{ value: (value: number) => string; column?: ((column: C) => string) | undefined; cell?: ((row: number, column: number) => string) | undefined; }"
+        },
+        {
+          "name": "labelEvery",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "ramp",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "sequential",
+            "sequential-main"
+          ]
+        },
+        {
+          "name": "zeroIsEmpty",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Sparkline",
+      "props": [
+        {
+          "name": "points",
+          "optional": false,
+          "kind": "list",
+          "type": "Point[]"
+        },
+        {
+          "name": "color",
+          "optional": true,
+          "kind": "scalar"
+        }
+      ]
+    },
+    {
+      "name": "Modal",
+      "props": [
+        {
+          "name": "open",
+          "optional": false,
+          "kind": "boolean"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "kind": "action"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "list",
+          "type": "DialogAction<V>[]"
+        },
+        {
+          "name": "dismissible",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "inline",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "size",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "lg",
+            "md",
+            "sm"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sheet",
+      "props": [
+        {
+          "name": "open",
+          "optional": false,
+          "kind": "boolean"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "kind": "action"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "list",
+          "type": "DialogAction<V>[]"
+        },
+        {
+          "name": "dismissible",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "inline",
+          "optional": true,
+          "kind": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "Toast",
+      "props": [
+        {
+          "name": "message",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "critical",
+            "good",
+            "info",
+            "warning"
+          ]
+        },
+        {
+          "name": "action",
+          "optional": true,
+          "kind": "object",
+          "type": "{ label: string; onClick?: (() => void) | undefined; }"
+        },
+        {
+          "name": "duration",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "onDismiss",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "name": "UIProvider",
+      "props": [
+        {
+          "name": "lang",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    }
+  ]
+}

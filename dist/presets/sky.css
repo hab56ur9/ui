@@ -1,0 +1,61 @@
+/* sky: Sky + neutral */
+
+[data-preset="sky"] {
+  --color-main-default: var(--color-sky-700);
+  --color-main-subtle: var(--color-sky-100);
+  --color-main-fill: var(--color-sky-300);
+  --color-main-on: var(--color-neutral-1000);
+  --color-sub-default: var(--color-neutral-700);
+  --color-sub-subtle: var(--color-neutral-150);
+  --color-sub-fill: var(--color-neutral-200);
+  --color-sub-on: var(--color-neutral-900);
+  --color-chart-emphasis: var(--color-sky-600);
+  --color-sequential-main-1: var(--color-sky-50);
+  --color-sequential-main-2: var(--color-sky-100);
+  --color-sequential-main-3: var(--color-sky-200);
+  --color-sequential-main-4: var(--color-sky-300);
+  --color-sequential-main-5: var(--color-sky-400);
+  --color-sequential-main-6: var(--color-sky-500);
+  --color-sequential-main-7: var(--color-sky-600);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-preset="sky"]:not([data-theme="light"]) {
+    --color-main-default: var(--color-sky-300);
+    --color-main-subtle: var(--color-sky-900);
+    --color-main-fill: var(--color-sky-300);
+    --color-main-on: var(--color-neutral-1000);
+    --color-sub-default: var(--color-neutral-300);
+    --color-sub-subtle: var(--color-neutral-825);
+    --color-sub-fill: var(--color-neutral-800);
+    --color-sub-on: var(--color-neutral-100);
+    --color-chart-emphasis: var(--color-sky-300);
+    --color-sequential-main-1: var(--color-sky-900);
+    --color-sequential-main-2: var(--color-sky-800);
+    --color-sequential-main-3: var(--color-sky-700);
+    --color-sequential-main-4: var(--color-sky-600);
+    --color-sequential-main-5: var(--color-sky-500);
+    --color-sequential-main-6: var(--color-sky-400);
+    --color-sequential-main-7: var(--color-sky-300);
+  }
+}
+
+[data-preset="sky"][data-theme="dark"],
+[data-preset="sky"] [data-theme="dark"] {
+  --color-main-default: var(--color-sky-300);
+  --color-main-subtle: var(--color-sky-900);
+  --color-main-fill: var(--color-sky-300);
+  --color-main-on: var(--color-neutral-1000);
+  --color-sub-default: var(--color-neutral-300);
+  --color-sub-subtle: var(--color-neutral-825);
+  --color-sub-fill: var(--color-neutral-800);
+  --color-sub-on: var(--color-neutral-100);
+  --color-chart-emphasis: var(--color-sky-300);
+  --color-sequential-main-1: var(--color-sky-900);
+  --color-sequential-main-2: var(--color-sky-800);
+  --color-sequential-main-3: var(--color-sky-700);
+  --color-sequential-main-4: var(--color-sky-600);
+  --color-sequential-main-5: var(--color-sky-500);
+  --color-sequential-main-6: var(--color-sky-400);
+  --color-sequential-main-7: var(--color-sky-300);
+}

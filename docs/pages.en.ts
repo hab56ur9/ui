@@ -1,0 +1,1715 @@
+import type { Page } from "./pages";
+
+export const pages: Page[] = [
+  {
+    "id": "intro",
+    "group": "시작하기",
+    "title": "Introduction",
+    "lede": "This design system is a personal set of tokens and React components that gives apps, technical documents and slides the same look. Editing one token file changes every live page that uses the token.",
+    "sections": [
+      {
+        "type": "cards",
+        "title": "Principles",
+        "items": [
+          {
+            "title": "Data leads",
+            "body": "The frame of the screen recedes into grays, and color goes only to data and state."
+          },
+          {
+            "title": "Defined in one place",
+            "body": "Color, size and spacing live only in tokens, and pages read them with `var(--…)`."
+          },
+          {
+            "title": "Sized for the medium",
+            "body": "A token with one name takes the right size in apps, documents and slides."
+          },
+          {
+            "title": "Accessible by default",
+            "body": "Contrast targets, keyboard control and table views are built in from the start."
+          },
+          {
+            "title": "Reversible",
+            "body": "Irreversible actions ask for confirmation, and reversible actions offer undo."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "title": "Contents",
+        "body": [
+          "Foundations are the rules every screen shares, such as color, typography, spacing, shape and motion.",
+          "Components are the React components you assemble, from buttons to charts, the widget board, modals and toasts.",
+          "The token review page checks every token value and every contrast failure automatically."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "getting-started",
+    "group": "시작하기",
+    "title": "Getting started",
+    "lede": "React apps use the components of the `ui` package, and HTML documents and slides without React link only the token CSS and the style CSS. Both pick up changes when the tokens are rebuilt.",
+    "sections": [
+      {
+        "type": "list",
+        "title": "React apps",
+        "ordered": true,
+        "items": [
+          "Install `ui`, `react` and `react-dom` from the GitHub repository.",
+          "Import `ui/tokens.css` in the app entry point and wrap the root in `UIProvider`.",
+          "Set the medium on `<html>`. Dashboards use `app`, technical documents use `doc`, and presentations use `slide`.",
+          "Use only `var(--…)` tokens for color, size and spacing. The lint catches hard-coded color values."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "npm install github:hab56ur9/ui react react-dom"
+      },
+      {
+        "type": "code",
+        "code": "import { createRoot } from \"react-dom/client\";\nimport \"ui/tokens.css\";\nimport { UIProvider } from \"ui\";\nimport { App } from \"./App\";\n\ncreateRoot(document.getElementById(\"root\")!).render(\n  <UIProvider>\n    <App />\n  </UIProvider>,\n);"
+      },
+      {
+        "type": "text",
+        "title": "HTML documents and slides",
+        "body": [
+          "Pages without React link the two CSS files and use classes such as buttons, segments and tables directly. Parts that need behavior, such as charts and overlays, are built with React."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "<html lang=\"ko\" data-medium=\"doc\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">"
+      },
+      {
+        "type": "text",
+        "title": "HTML without a bundler",
+        "body": [
+          "`dist/ui.js`, built at each release, is an ES module with every component. It leaves react out, so an importmap loads react next to it. The two CSS files carry the styles.",
+          "The `ui.js` on the site is always the latest release. To pin a version, use `v/<tag>/ui.js` on the site. The latest 100 releases stay there with their `ui.css` and `tokens.css`."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">\n<script type=\"importmap\">\n{\n  \"imports\": {\n    \"react\": \"https://esm.sh/react@19.3.1\",\n    \"react/jsx-runtime\": \"https://esm.sh/react@19.3.1/jsx-runtime\",\n    \"react-dom\": \"https://esm.sh/react-dom@19.3.1?external=react\",\n    \"react-dom/client\": \"https://esm.sh/react-dom@19.3.1/client?external=react\",\n    \"ui\": \"{homepage}dist/ui.js\"\n  }\n}\n</script>\n<div id=\"app\"></div>\n<script type=\"module\">\n  import { createElement as h } from \"react\";\n  import { createRoot } from \"react-dom/client\";\n  import { Calendar, UIProvider } from \"ui\";\n\n  createRoot(document.getElementById(\"app\")).render(h(UIProvider, null, h(Calendar)));\n</script>"
+      },
+      {
+        "type": "text",
+        "title": "Building with Claude",
+        "body": [
+          "The `design-system` skill knows these rules. Ask for something like \"Build a dashboard with the design system\".",
+          "Outputs that cannot load CSS, such as PPT files or Artifacts, copy the values from `dist/tokens.json` at that moment and record the token version."
+        ]
+      },
+      {
+        "type": "code",
+        "title": "Checks",
+        "code": "npm run check\nnode scripts/lint.mjs path/to/page.html"
+      }
+    ]
+  },
+  {
+    "id": "structure",
+    "group": "시작하기",
+    "title": "Token structure",
+    "lede": "Tokens have three layers: primitive, theme and medium. Pages use only names from the theme and medium layers.",
+    "sections": [
+      {
+        "type": "anatomy",
+        "title": "Three layers",
+        "items": [
+          [
+            "Primitive",
+            "The source palette and scales. Names state the value itself, such as `color.blue.450` and `space.4`."
+          ],
+          [
+            "Theme",
+            "Names state the role. `color.bg.surface` points to a light gray in the light theme and a dark gray in the dark theme."
+          ],
+          [
+            "Medium",
+            "Tokens such as `font.size.body` take a different size in apps, documents and slides."
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "title": "Naming",
+        "body": [
+          "A name puts the property first and the role after it. For example, `color.fg.secondary` is the secondary role among text colors.",
+          "Primitive color steps follow OKLab lightness, so the same step number has similar brightness across hues."
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Use theme tokens such as `var(--color-bg-surface)`.",
+            "Use primitive colors such as `var(--color-neutral-25)` directly in a page. They do not change in dark mode."
+          ],
+          [
+            "When a new value is needed, add a primitive step and point a theme token at it.",
+            "Write hex values directly in page CSS."
+          ]
+        ]
+      },
+      {
+        "type": "code",
+        "title": "Files",
+        "code": "tokens/primitive/color.json\ntokens/primitive/base.json\ntokens/theme/light.json\ntokens/theme/dark.json\ntokens/medium/app.json\ntokens/medium/doc.json\ntokens/medium/slide.json"
+      }
+    ]
+  },
+  {
+    "id": "color",
+    "group": "기반",
+    "title": "Color",
+    "lede": "Colors divide into the roles background, text, border, accent and danger. The light theme uses a warm off-white instead of white so large surfaces do not glare.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Colors by role",
+        "example": "color-roles"
+      },
+      {
+        "type": "text",
+        "title": "Presets",
+        "body": [
+          "A preset is a pair of main and sub colors. Components use only the `main` and `sub` role tokens, so adding one preset stylesheet and switching `data-preset` changes buttons, links, focus, the current item and emphasized charts together. Compare them with the Color switch at the top right."
+        ]
+      },
+      {
+        "type": "list",
+        "items": [
+          "`lime` Light green + neutral: the default, used when no preset is set.",
+          "`sky` Sky + neutral",
+          "`mono` Neutral: a calm set where the main color is neutral too.",
+          "For a new preset, copy `tokens/preset/lime.json` and change the colors; the build writes `dist/presets/<name>.css`. Pick steps that pass the contrast checks."
+        ]
+      },
+      {
+        "type": "code",
+        "lang": "html",
+        "code": "<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/presets/sky.css\">\n<html data-preset=\"sky\">"
+      },
+      {
+        "type": "anatomy",
+        "title": "Roles",
+        "items": [
+          [
+            "bg",
+            "Backgrounds. Surfaces rise in the order page < surface < raised. subtle is the background for hover and controls."
+          ],
+          [
+            "fg",
+            "Text. default is body text, secondary is supporting text, and muted is axes and captions."
+          ],
+          [
+            "border",
+            "Borders. Cards and tables use default, and dividers that need emphasis use strong."
+          ],
+          [
+            "main",
+            "The preset's main color (light green by default). Primary buttons put `on` text on `fill`; links, focus, the current item and emphasized data use the deeper `default`."
+          ],
+          [
+            "sub",
+            "The preset's sub color (neutral by default). Secondary buttons use `fill`, and tags and chips use `subtle`."
+          ],
+          [
+            "danger",
+            "Used only for buttons of irreversible actions such as delete."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Build hierarchy with `fg.default` for body text and `fg.secondary` for descriptions.",
+            "Color text with series or status colors for emphasis."
+          ],
+          [
+            "Use `bg.raised` only for overlaps, such as a card on a card.",
+            "Paint every area near white so the surfaces lose their separation."
+          ],
+          [
+            "Mark success and healthy states with the `status.good` green and the `success` icon, distinct from the brand light green.",
+            "Mark a success state with the brand light green."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.bg.*",
+          "color.fg.*",
+          "color.border.*",
+          "color.main.*",
+          "color.danger.*"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Body text reaches 4.5:1 or more on every background.",
+          "Muted text and the accent reach 3:1 or more and serve only supporting information such as axes and captions.",
+          "The contrast matrix on the token review page checks both themes."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dataviz-color",
+    "group": "기반",
+    "title": "Data visualization color",
+    "lede": "Chart colors follow their job. Series colors tell items apart, sequential colors show magnitude, and status colors show state.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Palette",
+        "caption": "8 series colors, 7 sequential steps, 7 brand sequential steps, 4 status colors",
+        "example": "dataviz-palette"
+      },
+      {
+        "type": "anatomy",
+        "title": "What each color does",
+        "items": [
+          [
+            "Series",
+            "Tells different items apart. Colors apply in a fixed order from slot 1, and a color stays the same when a filter removes items."
+          ],
+          [
+            "Sequential",
+            "Shows magnitude as the lightness of one hue. In dark mode the order flips, so small values sit close to the background."
+          ],
+          [
+            "Status",
+            "Means good, warning, serious or critical. It always comes with an icon and a label."
+          ],
+          [
+            "Change",
+            "`delta.good` and `delta.bad` are text colors chosen by whether a rise or a fall is good."
+          ],
+          [
+            "Emphasis",
+            "Draw the one key series in the brand light green `chart.emphasis` and comparisons in the gray `chart.de-emphasis`. Brand heatmaps use the 7 steps of `sequential-main`."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "With many series, color at most 4 and group the rest as 'Other' or split them into small charts.",
+            "Invent a 9th color."
+          ],
+          [
+            "To highlight one series, color only that series and leave the rest in `chart.de-emphasis`.",
+            "Use status colors as ordinary series colors."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.series.*",
+          "color.sequential.*",
+          "color.sequential-main.*",
+          "color.status.*",
+          "color.delta.*",
+          "color.chart.*"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The series palette passed a color vision deficiency simulation with a ΔE of 8 or more between adjacent colors.",
+          "Some series colors fall below 3:1 on light surfaces, so charts carry direct labels or a table view."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "typography",
+    "group": "기반",
+    "title": "Typography",
+    "lede": "Font size has seven steps, and each name takes a different size per medium. Numeric columns use tabular figures.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Sizes by medium",
+        "caption": "One token name becomes a different size in apps, documents and slides",
+        "example": "typography-sizes"
+      },
+      {
+        "type": "demo",
+        "title": "Mixed languages",
+        "caption": "An element with a `lang` attribute uses that language's font and letter spacing, whatever the page language",
+        "example": "typography-lang"
+      },
+      {
+        "type": "anatomy",
+        "title": "Language structure",
+        "items": [
+          [
+            "`font.stack.*`",
+            "Font stacks per writing system. Two exist today: `hangul` and `latin`."
+          ],
+          [
+            "`tokens/lang/*.json`",
+            "One file per language. It sets which stack serves as `font.family.sans` and how much letter spacing to use."
+          ],
+          [
+            "`:lang()` selector",
+            "The build generates a `:lang(ko)` or `:lang(en)` block per language file. A page only sets `<html lang>` or an element's `lang`."
+          ],
+          [
+            "Adding a language",
+            "For Japanese, add `font.stack.kana` and create `tokens/lang/ja.json`, and the build picks it up automatically."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Korean paragraphs keep word-unit line breaks with `word-break: keep-all`. The component styles apply it under `:lang(ko)`.",
+            "Break Korean sentences between any two characters."
+          ],
+          [
+            "Align numbers in tables and axes with `tabular-nums`.",
+            "Use tabular figures in large stat cards so the digits spread apart."
+          ],
+          [
+            "Build hierarchy with two weights: semibold for titles and numbers, regular for body text.",
+            "Mix four or more weights."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "font.size.*",
+          "line-height.*",
+          "font.stack.*",
+          "font.family.*",
+          "letter-spacing.*",
+          "font.weight.*"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "spacing",
+    "group": "기반",
+    "title": "Spacing and layout",
+    "lede": "Spacing follows a 4px grid. Common values, such as card padding and the gap between cards, are set as layout tokens per medium.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Spacing scale",
+        "example": "spacing-scale"
+      },
+      {
+        "type": "anatomy",
+        "title": "Layout tokens",
+        "items": [
+          [
+            "layout.inset",
+            "The inner padding of cards and panels."
+          ],
+          [
+            "layout.gap",
+            "The gap between cards and widgets."
+          ],
+          [
+            "layout.section",
+            "The large gap between sections."
+          ],
+          [
+            "layout.stack",
+            "The gap between closely related elements, such as a title and its body."
+          ],
+          [
+            "widget.row",
+            "The height of one widget board row."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "layout.*",
+          "widget.*",
+          "grid.columns",
+          "chart-size.*"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "shape",
+    "group": "기반",
+    "title": "Shape and elevation",
+    "lede": "Corner radius comes in four sizes, and shadows show in three steps how far a surface floats.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Radius and shadow",
+        "example": "shape-radius"
+      },
+      {
+        "type": "anatomy",
+        "title": "Elevation",
+        "items": [
+          [
+            "card",
+            "Cards and widgets resting on the page."
+          ],
+          [
+            "lifted",
+            "Surfaces that float briefly, such as a dragged widget, a tooltip or a menu."
+          ],
+          [
+            "overlay",
+            "Surfaces that cover the screen, such as a modal, a bottom sheet or a toast."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "radius.*",
+          "elevation.*"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "motion",
+    "group": "기반",
+    "title": "Motion",
+    "lede": "Motion serves only to explain a change of state. Entrances use a decelerating curve, exits use an accelerating curve, and exits are shorter.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Duration and easing",
+        "caption": "Press play to compare the three combinations",
+        "example": "motion-curves"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Use motion to follow a change of position, such as a widget moving to a new slot.",
+            "Add decorative effects that move continuously."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "motion.*"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "When the user turns on reduced motion, every component animation turns off."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "icons",
+    "group": "기반",
+    "title": "Icons",
+    "lede": "The icons are a custom set drawn with round-capped strokes on a 24 grid. Color follows the surrounding text color, and tokens set the size and stroke width.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "All icons",
+        "caption": "Click an icon to copy its name",
+        "example": "icons-all"
+      },
+      {
+        "type": "demo",
+        "title": "Size and color",
+        "caption": "Sizes are `sm` · `md` · `lg`, and the color is the text color of the wrapping element",
+        "center": true,
+        "example": "icons-size"
+      },
+      {
+        "type": "demo",
+        "title": "Icons in buttons",
+        "center": true,
+        "example": "icons-button"
+      },
+      {
+        "type": "anatomy",
+        "title": "Drawing rules",
+        "items": [
+          [
+            "Grid",
+            "Draw inside 24 × 24 and leave the outer 2px empty."
+          ],
+          [
+            "Stroke",
+            "Draw only with strokes that have round caps and round joins. The `icon.stroke` token sets the on-screen width."
+          ],
+          [
+            "Color",
+            "Use only `currentColor`. Status icons also take their color from the wrapping element."
+          ],
+          [
+            "Adding",
+            "Add `assets/icons/<name>.svg` and build, and the icon joins the list, the sprite and the data automatically."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Give a meaningful standalone icon a `label` so screen readers announce it.",
+            "Add a `label` with the same meaning to a decorative icon next to text."
+          ],
+          [
+            "Show state with the icon shape (`success` for done, `warning` for caution) together with text.",
+            "Tell states apart with the same icon in different colors."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "icon.*"
+        ]
+      },
+      {
+        "type": "code",
+        "code": "<svg class=\"icon icon-sm\"><use href=\"{homepage}dist/icons.svg#chart-line\"/></svg>",
+        "title": "In HTML"
+      }
+    ]
+  },
+  {
+    "id": "button",
+    "group": "컴포넌트",
+    "title": "Button",
+    "lede": "A button runs an action. Only the single most important action on a screen becomes a primary button.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "center": true,
+        "example": "button-basic"
+      },
+      {
+        "type": "anatomy",
+        "title": "Variants",
+        "items": [
+          [
+            "Secondary `.button`",
+            "Most actions."
+          ],
+          [
+            "Primary `.is-primary`",
+            "The one key action of a screen. It moves the flow forward, such as Save or OK."
+          ],
+          [
+            "Danger `.is-danger`",
+            "An irreversible action such as delete. It appears inside a confirm dialog."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Name a button with a verb that states the result, such as \"Save\" or \"Reset\".",
+            "Use names that hide what happens, such as \"OK\" or \"Yes\"."
+          ],
+          [
+            "Place only one primary button on a screen.",
+            "Make every button a primary button."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.main.fill",
+          "color.main.on",
+          "color.danger.*",
+          "radius.control"
+        ]
+      },
+      {
+        "type": "code",
+        "code": "<button class=\"button\">Cancel</button>\n<button class=\"button is-primary\">Save</button>\n<button class=\"button is-danger\">Delete</button>",
+        "title": "In HTML"
+      }
+    ]
+  },
+  {
+    "id": "segmented",
+    "group": "컴포넌트",
+    "title": "Segmented control",
+    "lede": "A segmented control picks one of two to five options. It serves values that affect the whole screen, such as the period, the theme or the view.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "center": true,
+        "example": "segmented-basic"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "There are 2 to 5 options and all of them must be visible at a glance",
+          "A choice changes the result immediately"
+        ],
+        "avoid": [
+          "6 or more options call for a dropdown menu",
+          "A single on/off setting calls for a switch"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The group carries `role=\"group\"` and an `aria-label`.",
+          "The selected button carries `aria-pressed=\"true\"`."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "<div class=\"segmented\" role=\"group\" aria-label=\"Period\">\n  <button aria-pressed=\"false\">7 days</button>\n  <button aria-pressed=\"true\">30 days</button>\n</div>",
+        "title": "In HTML"
+      }
+    ]
+  },
+  {
+    "id": "stat",
+    "group": "컴포넌트",
+    "title": "Stat card",
+    "lede": "A stat card shows the single most important value right now and its change. It replaces a chart with a single bar.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "stat-basic"
+      },
+      {
+        "type": "gallery",
+        "title": "More examples",
+        "items": [
+          {
+            "title": "Stat card",
+            "example": "stat-card"
+          }
+        ]
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Value",
+            "The large number. Values of 1,000 or more are abbreviated, such as \"48K\"."
+          ],
+          [
+            "Change",
+            "An up or down arrow icon together with the comparison period. The color depends on whether a rise is good. Inside a table, the `delta` cell uses the same form."
+          ],
+          [
+            "Trend",
+            "A small sparkline. The line is gray, and only the last value takes the accent color."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "For values where lower is better, such as response time, pass `goodWhenUp: false` so a fall shows in green.",
+            "Always show a rise in green and a fall in red."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "font.size.stat",
+          "color.delta.*"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "board",
+    "group": "컴포넌트",
+    "title": "Widget board",
+    "lede": "The widget board is a dashboard frame that places widgets on a 12-column grid. Users drag widgets to move them, resize them and hide them, and the layout is saved.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "caption": "Drag a title bar to move a widget, and drag the bottom-right corner to resize it",
+        "example": "board-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Layout events",
+        "caption": "Move the widgets a few times. A change event fires on every move and a commit event fires once, 1.5 seconds after you stop. The example code, not the board, takes the commit event and saves it to a server",
+        "example": "board-events"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Title bar",
+            "Grab and drag it to move the widget. A drag starts only after 4px of movement, which keeps it distinct from a click."
+          ],
+          [
+            "Actions",
+            "The table view and hide buttons. They appear on hover."
+          ],
+          [
+            "Body",
+            "The element that `render()` returns. Charts redraw themselves to fit the widget size."
+          ],
+          [
+            "Resize handle",
+            "The bottom-right corner. While dragging it shows the size, such as `8 × 4`."
+          ],
+          [
+            "Board actions",
+            "The toolbar above the board. It puts hidden widgets back and resets the layout, and takes filters through `toolbar`."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Focus the handle button in a title bar and use the arrow keys to change the order.",
+          "Focus the resize handle and use the arrow keys to change the size.",
+          "Moves and resizes are announced to screen readers."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "grid.columns",
+          "widget.*",
+          "elevation.lifted",
+          "layer.ghost"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "line-chart",
+    "group": "컴포넌트",
+    "sub": "차트",
+    "title": "Line chart",
+    "lede": "A line chart shows change over time. It supports multiple series, forecast bands, baselines and event markers such as launches.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Multiple series and event annotations",
+        "caption": "Hover to see every value on that date",
+        "example": "line-annotations"
+      },
+      {
+        "type": "demo",
+        "title": "Threshold and breaches",
+        "example": "line-threshold"
+      },
+      {
+        "type": "gallery",
+        "title": "More examples",
+        "items": [
+          {
+            "title": "Multiple series",
+            "example": "line-series"
+          },
+          {
+            "title": "Single area",
+            "example": "line-area"
+          },
+          {
+            "title": "Emphasis comparison",
+            "caption": "The key series in the brand accent, comparisons as gray dashed lines",
+            "example": "line-emphasis"
+          },
+          {
+            "title": "Forecast band",
+            "example": "line-forecast"
+          },
+          {
+            "title": "Index comparison",
+            "caption": "Two values with different units on one axis, indexed to 100 at the start date",
+            "example": "line-index"
+          }
+        ]
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Legend",
+            "Shown above the chart when there are two or more series."
+          ],
+          [
+            "Line",
+            "2px wide. Forecasts are dashed."
+          ],
+          [
+            "End label",
+            "The last value sits at the end of the line. Overlapping labels are dropped and left to the legend."
+          ],
+          [
+            "Crosshair",
+            "A vertical line snaps to the nearest date, and the tooltip shows the values of every series."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Plot two values with different units on one axis by indexing both to 100 at the start date.",
+            "Build a dual-axis chart with two y-axes."
+          ],
+          [
+            "Keep gridlines as thin solid lines in the background.",
+            "Draw gridlines as dashed lines that look like a threshold."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "chart.stroke.*",
+          "chart.marker.*",
+          "chart.area.opacity",
+          "color.chart.*"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "When the chart has focus, the arrow keys move between dates and read the values.",
+          "The widget's `Table` button shows the same data as a table."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bar-chart",
+    "group": "컴포넌트",
+    "sub": "차트",
+    "title": "Bar chart",
+    "lede": "A bar chart compares amounts per period. Bars start at the baseline, and only their top corners are rounded.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Current period highlighted",
+        "caption": "Only the last bar takes the brand accent, and the rest are gray",
+        "example": "bar-emphasis"
+      },
+      {
+        "type": "gallery",
+        "title": "More examples",
+        "items": [
+          {
+            "title": "Basic",
+            "example": "bar-basic"
+          },
+          {
+            "title": "Current period highlighted",
+            "example": "bar-weekly"
+          }
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "When there are many bars, group days into weeks to reduce the count.",
+            "Fill the whole slot with the bar so the bars merge into a block."
+          ],
+          [
+            "When only one bar remains, use a stat card instead.",
+            "Paint each value a different color."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "chart.bar.*",
+          "chart.gap"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "heatmap",
+    "group": "컴포넌트",
+    "sub": "차트",
+    "title": "Heatmap",
+    "lede": "A heatmap shows the magnitude of each cell where two axes meet as color intensity. It serves to find repeating patterns, such as weekdays by hour.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Weekday × hour",
+        "example": "heatmap-week"
+      },
+      {
+        "type": "gallery",
+        "title": "More examples",
+        "items": [
+          {
+            "title": "Calendar · brand sequential",
+            "caption": "Rest days in gray, distance run in 7 light green steps",
+            "example": "heatmap-calendar"
+          }
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Use 7 lightness steps of one hue together with a legend.",
+            "Express magnitude by mixing many hues like a rainbow."
+          ]
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.sequential.*",
+          "chart.gap"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sparkline",
+    "group": "컴포넌트",
+    "sub": "차트",
+    "title": "Sparkline",
+    "lede": "A sparkline is a small line that shows only the trend, without axes. It appears inside stat cards and tables.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Color per slot",
+        "center": true,
+        "example": "sparkline-slots"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Only the direction needs to show next to a value",
+          "Trends are compared row by row in a table"
+        ],
+        "avoid": [
+          "Exact values must be readable, which calls for a line chart"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table",
+    "group": "컴포넌트",
+    "title": "Table",
+    "lede": "A table compares exact values. Every chart must be able to show the same data as a table.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Table with trends",
+        "example": "table-trend"
+      },
+      {
+        "type": "gallery",
+        "title": "More examples",
+        "items": [
+          {
+            "title": "Table with trends",
+            "example": "table-small"
+          }
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Numeric columns use right alignment and tabular figures.",
+            "Center numbers so digits are hard to compare."
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "modal",
+    "group": "컴포넌트",
+    "title": "Modal",
+    "lede": "A modal pauses the current task to collect a required input or decision. While it is open, the screen behind it cannot be used.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Sizes",
+        "center": true,
+        "example": "modal-sizes"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Title",
+            "One line that says what the dialog does."
+          ],
+          [
+            "Description",
+            "One or two sentences on the result of the choice."
+          ],
+          [
+            "Body",
+            "Inputs or content. When it grows long, only this area scrolls."
+          ],
+          [
+            "Actions",
+            "The primary action sits at the far right. Cancel sits to its left."
+          ]
+        ]
+      },
+      {
+        "type": "usage",
+        "when": [
+          "An input or decision is required before moving on"
+        ],
+        "avoid": [
+          "A simple notice calls for a toast",
+          "A list of options on mobile calls for a bottom sheet",
+          "A reversible action runs without confirmation and offers undo"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The native `<dialog>` keeps focus inside the dialog.",
+          "Esc and an outside click close it.",
+          "On close, focus returns to the element that opened it."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.modal.*",
+          "color.bg.scrim",
+          "elevation.overlay",
+          "motion.easing.enter",
+          "motion.easing.exit"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "confirm",
+    "group": "컴포넌트",
+    "title": "Confirm dialog",
+    "lede": "A confirm dialog is a small modal that asks once more right before an irreversible action.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Dangerous action",
+        "caption": "When no cancel label is passed, the component fills it in the page language",
+        "center": true,
+        "example": "confirm-danger"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Write the title as a question, such as \"Delete this widget?\", and the button as the result, such as \"Delete\".",
+            "Write vague text that hides what happens, such as \"Are you sure you want to proceed?\"."
+          ],
+          [
+            "Put the initial focus on the Cancel button.",
+            "Let a single Enter run the dangerous action."
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sheet",
+    "group": "컴포넌트",
+    "title": "Bottom sheet",
+    "lede": "A bottom sheet is a panel that rises from the bottom of the screen. On narrow screens it puts menus, options and short decisions within reach of the thumb.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "List sheet and action sheet",
+        "caption": "Drag the handle down to close the sheet",
+        "center": true,
+        "example": "sheet-list"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Menus or options appear on mobile",
+          "A dropdown on wide screens needs a narrow-screen replacement"
+        ],
+        "avoid": [
+          "Wide screens call for a menu or a modal",
+          "Long forms call for a separate screen"
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.sheet",
+          "radius.sheet",
+          "motion.duration.slow"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "toast",
+    "group": "컴포넌트",
+    "title": "Toast",
+    "lede": "A toast briefly reports what just happened and then disappears. For a reversible action it also offers undo.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Status and undo",
+        "center": true,
+        "example": "toast-status"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Icon",
+            "Shows the status by shape as well. The icons are `info` for notices, `success` for done, `warning` for caution and `error` for errors."
+          ],
+          [
+            "Message",
+            "One sentence on what happened. Warnings and errors start with a label."
+          ],
+          [
+            "Action",
+            "Only one, such as Undo or Retry."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Run reversible actions without a confirm dialog and offer Undo in a toast.",
+            "Open a confirm dialog before every action."
+          ],
+          [
+            "Toasts stack up to 3, and the oldest disappears first.",
+            "Deliver content that must be read only through a toast."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Info, done and warning toasts are read as `role=\"status\"`, and errors as `role=\"alert\"`.",
+          "Hover or focus pauses the dismiss timer.",
+          "Toasts show above an open modal."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.toast",
+          "color.status.*",
+          "elevation.overlay"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tabbar",
+    "group": "컴포넌트",
+    "title": "Tab bar",
+    "lede": "A tab bar is the menu fixed to the bottom of a phone app. It moves between three to five main screens with icons and names. Give `AppShell` `mobileNav=\"tabs\"` and it draws a tab bar instead of the drawer on narrow screens.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "tabbar-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The current tab announces itself with `aria-current=\"page\"`.",
+          "Every tab keeps its name next to the icon."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "calendar",
+    "group": "컴포넌트",
+    "title": "Calendar",
+    "lede": "A calendar shows a month as a grid and lets people pick one day. Today has a ring, the picked day takes the main color, and days with records get a dot. The picked day leaves through `onChange`; the calendar stores nothing.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "calendar-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The grid is `role=\"grid\"`: arrows move by a day or a week, PageUp and PageDown by a month, Home and End to the start and end of the week.",
+          "Each date button reads as the full date, today carries `aria-current=\"date\"`, and the picked day `aria-selected`."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "image",
+    "group": "컴포넌트",
+    "title": "Image",
+    "lede": "An image fills its box at a fixed ratio. Without `src` it draws a gradient placeholder from the series colors, so it also serves examples and loading states. Portrait photos use 3:4, landscape ones 16:9 or 4:3. An image card groups an image with a title and description, and a carousel pages sideways in three sizes: one slide at a time (`full`), several cards (`card`) or many small cards (`mini`).",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Image and image card",
+        "example": "image-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Carousel",
+        "example": "carousel-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Card carousel",
+        "example": "carousel-card"
+      },
+      {
+        "type": "demo",
+        "title": "Mini card carousel",
+        "example": "carousel-mini"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Every image gets `alt`; the placeholder reads it as its name too.",
+          "Each carousel slide reads as `n / total`, and it pages with the previous and next buttons or a swipe."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "social",
+    "group": "컴포넌트",
+    "title": "Social",
+    "lede": "Social components make up the screens of a photo-sharing app: avatar, stories, post, profile header, photo grid and list. Taps such as a like leave as events, and the app does the storing.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Feed",
+        "example": "social-feed"
+      },
+      {
+        "type": "demo",
+        "title": "Profile and activity",
+        "example": "social-profile"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The like button reports its state with `aria-pressed`, and a double tap on the photo likes it too.",
+          "Every icon button has a name."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "blocks",
+    "group": "블록",
+    "title": "Dashboard",
+    "wide": true,
+    "lede": "Finished screens assembled only from components. Drag the widgets in the preview, change the screen width, and copy the full files from the code tab as the starting point of a new dashboard.",
+    "sections": [
+      {
+        "type": "block",
+        "id": "dashboard-01",
+        "title": "dashboard-01"
+      }
+    ]
+  },
+  {
+    "id": "sdui-mobile",
+    "group": "SDUI",
+    "title": "Mobile app builder",
+    "wide": true,
+    "lede": "Compose a phone app screen from widgets. The phone on the left is what users see, and its bottom tab bar comes from the menu the server sends. Copy the result as JSON to start a server response.",
+    "sections": [
+      {
+        "type": "sdui",
+        "device": "mobile"
+      }
+    ]
+  },
+  {
+    "id": "sdui-desktop",
+    "group": "SDUI",
+    "title": "Desktop app builder",
+    "wide": true,
+    "lede": "Compose a desktop app screen from widgets. The browser window on top is what users see, and its sidebar comes from the menu the server sends. Drag and resize on the board below to set the 12-column layout.",
+    "sections": [
+      {
+        "type": "sdui",
+        "device": "desktop"
+      }
+    ]
+  },
+  {
+    "id": "slides",
+    "group": "슬라이드",
+    "title": "Deck",
+    "lede": "A deck is the frame for slides built in HTML. It draws on a 1920×1080 canvas and scales it to fit, so the layout stays the same on any screen, and it applies the slide medium tokens inside.",
+    "sections": [
+      {
+        "type": "block",
+        "id": "monthly-review",
+        "title": "Full example"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Claude makes decks of the same look again and again",
+          "Charts and numbers come from the same data as a web page"
+        ],
+        "avoid": [
+          "A deck people will edit in PowerPoint needs a .pptx template",
+          "A single picture belongs on a doc page"
+        ]
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "`Deck`",
+            "Shows one slide at a time and holds the next, present and print buttons and the page number."
+          ],
+          [
+            "`Slide`",
+            "One slide. It takes a background tone (`plain`, `dark`, `accent`), a source and speaker notes."
+          ],
+          [
+            "`SlideHeader`",
+            "Kicker, title and subtitle, in the same place on every slide."
+          ],
+          [
+            "`SlideFooter`",
+            "Source, deck title and page number. `Slide` adds it on its own."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Put a one-line takeaway (`Takeaway`) under the title.",
+            "Show only a title and say the conclusion out loud."
+          ],
+          [
+            "Cite a source on number and chart slides.",
+            "Show numbers without a source."
+          ]
+        ]
+      },
+      {
+        "type": "list",
+        "title": "Save as PDF",
+        "items": [
+          "The print button sends only this deck to the print dialog. Choose Save as PDF and each slide becomes one 16:9 page.",
+          "On an HTML page that holds only a deck, the browser's Print (⌘P) gives the same result.",
+          "The design system ships no PDF tool; it provides the print CSS only."
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Focus the deck and use the arrow keys, Space, PageUp and PageDown, Home and End.",
+          "F turns the presenter view on and off.",
+          "Screen readers read the new slide when it changes."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "slide-layouts",
+    "group": "슬라이드",
+    "title": "Layouts",
+    "wide": true,
+    "lede": "Layouts are twelve common slide shapes. Fill in the content and the title, takeaway and source fall into place.",
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "Openers",
+        "items": [
+          {
+            "title": "Title",
+            "example": "slide-title"
+          },
+          {
+            "title": "Agenda",
+            "example": "slide-agenda"
+          },
+          {
+            "title": "Section",
+            "example": "slide-section"
+          },
+          {
+            "title": "Statement",
+            "example": "slide-statement"
+          }
+        ]
+      },
+      {
+        "type": "gallery",
+        "title": "Content",
+        "items": [
+          {
+            "title": "Big numbers",
+            "example": "slide-metric"
+          },
+          {
+            "title": "Chart",
+            "example": "slide-chart"
+          },
+          {
+            "title": "Split",
+            "example": "slide-split"
+          }
+        ]
+      },
+      {
+        "type": "gallery",
+        "title": "Closers and evidence",
+        "items": [
+          {
+            "title": "Compare",
+            "example": "slide-compare"
+          },
+          {
+            "title": "Timeline",
+            "example": "slide-timeline"
+          },
+          {
+            "title": "Table",
+            "example": "slide-table"
+          },
+          {
+            "title": "Quote",
+            "example": "slide-quote"
+          },
+          {
+            "title": "Closing",
+            "example": "slide-closing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "slide-parts",
+    "group": "슬라이드",
+    "title": "Content parts",
+    "wide": true,
+    "lede": "Content parts are small pieces that go inside any slide: a takeaway, a list, steps and a callout.",
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "Parts",
+        "items": [
+          {
+            "title": "Takeaway and list",
+            "example": "slide-takeaway"
+          },
+          {
+            "title": "Steps",
+            "example": "slide-steps"
+          },
+          {
+            "title": "Callout",
+            "example": "slide-callout"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "doc-frame",
+    "group": "기술 문서",
+    "title": "Doc frame",
+    "lede": "The doc frame is the shell of a technical document written in HTML. It draws the header, contents and section numbers on its own, and the doc medium tokens give it a readable text size and line height.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "caption": "Click the contents and the R2 reference. The button at the top right prints only this document on A4",
+        "example": "doc-basic",
+        "medium": "doc"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Writing something that gets reviewed, such as a design doc, RFC or decision record",
+          "Tying requirements and design together by number"
+        ],
+        "avoid": [
+          "A one-screen notice belongs on a plain page",
+          "A talk belongs in slides"
+        ]
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Header",
+            "Status (draft, in review, final), title, one-line summary, authors, reviewers, date and version."
+          ],
+          [
+            "Contents",
+            "Built from the `DocSection` titles, numbered 1 and 1.1."
+          ],
+          [
+            "Section",
+            "Nested `DocSection`s continue the numbering two levels deep."
+          ],
+          [
+            "Reference",
+            "`Ref` jumps to a requirement row by its ID and highlights it for a moment."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Write the summary as the conclusion, in one sentence.",
+            "Fill the summary with background."
+          ],
+          [
+            "Tie each design decision to the requirement it meets, like `R1`.",
+            "Leave requirements and design to be read apart."
+          ],
+          [
+            "Give open questions their own section, phrased as questions.",
+            "Write undecided points in the body as if settled."
+          ]
+        ]
+      },
+      {
+        "type": "list",
+        "title": "Save as PDF",
+        "items": [
+          "The print button sends only this document to the print dialog, split into A4 portrait pages.",
+          "Pages never break right after a heading, and figures, tables and code blocks stay whole."
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Contents and references are links, so the keyboard can follow them.",
+          "Section titles are h2 and h3, so screen readers can move by heading."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "doc-parts",
+    "group": "기술 문서",
+    "title": "Doc parts",
+    "lede": "Doc parts are the pieces technical documents use most: requirements, options, code blocks, figures and tables, and the change log.",
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "Parts",
+        "items": [
+          {
+            "title": "Requirements",
+            "example": "doc-requirements",
+            "medium": "doc"
+          },
+          {
+            "title": "Options",
+            "example": "doc-options",
+            "medium": "doc"
+          },
+          {
+            "title": "Code block",
+            "example": "doc-code",
+            "medium": "doc"
+          },
+          {
+            "title": "Figures and tables",
+            "example": "doc-figure",
+            "medium": "doc"
+          },
+          {
+            "title": "Change log",
+            "example": "doc-changelog",
+            "medium": "doc"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "doc-design",
+    "group": "기술 문서",
+    "title": "Design doc",
+    "lede": "The design doc example is a finished document of eight sections, from background to change history. Copy its files from the code tab as the starting point of a new document.",
+    "sections": [
+      {
+        "type": "block",
+        "id": "design-doc",
+        "title": "design-doc"
+      }
+    ]
+  },
+  {
+    "id": "doc-rfc",
+    "group": "기술 문서",
+    "title": "RFC",
+    "lede": "The RFC example is a short document that works through three linked questions and ends with the decision.",
+    "sections": [
+      {
+        "type": "block",
+        "id": "rfc",
+        "title": "rfc"
+      }
+    ]
+  },
+  {
+    "id": "theme",
+    "group": "테마",
+    "title": "Token review",
+    "wide": true,
+    "lede": "Shows the value and references of every token and finds contrast failures and unused colors automatically. Edit a token, run `npm run build` and reload the page to recalculate.",
+    "sections": [
+      {
+        "type": "review",
+        "title": ""
+      }
+    ]
+  }
+];

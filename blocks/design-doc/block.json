@@ -1,0 +1,32 @@
+{
+  "title": "설계 문서",
+  "description": "배경, 목표와 비목표, 요구사항, 설계, 대안, 배포, 열린 질문, 변경 이력 순서의 설계 문서입니다. 요구사항 번호(R1~R5)를 본문에서 참조하고, 그림과 표에 번호가 자동으로 붙습니다.",
+  "category": "기술 문서",
+  "kind": "doc",
+  "uses": [
+    "문서 틀",
+    "장",
+    "요구사항 표",
+    "참조",
+    "코드 블록",
+    "그림·표",
+    "선택지 비교",
+    "변경 이력",
+    "선 차트"
+  ],
+  "en": {
+    "title": "Design doc",
+    "description": "A design doc in the order background, goals and non-goals, requirements, design, alternatives, rollout, open questions and change history. The body refers to requirement IDs (R1–R5), and figures and tables are numbered automatically.",
+    "uses": [
+      "Doc",
+      "Section",
+      "Requirements",
+      "Reference",
+      "Code block",
+      "Figure and table",
+      "Options",
+      "Change log",
+      "Line chart"
+    ]
+  }
+}

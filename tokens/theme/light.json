@@ -1,0 +1,108 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": {
+      "$description": "Light surfaces sit a step below white so large areas stay calm: page 76%, surface 83%, raised 87% of white luminance.",
+      "page": { "$value": "{color.neutral.150}" },
+      "surface": { "$value": "{color.neutral.125}" },
+      "raised": { "$value": "{color.neutral.100}" },
+      "subtle": { "$value": "{color.neutral.200}" },
+      "scrim": { "$value": "{color.alpha.black-32}" }
+    },
+    "fg": {
+      "default": { "$value": "{color.neutral.900}" },
+      "secondary": { "$value": "{color.neutral.700}" },
+      "muted": { "$value": "{color.neutral.600}" },
+      "on-fill": { "$value": "{color.neutral.0}" },
+      "on-fill-light": { "$value": "{color.neutral.1000}" }
+    },
+    "border": {
+      "default": { "$value": "{color.neutral.250}" },
+      "strong": { "$value": "{color.neutral.300}" }
+    },
+    "main": {
+      "$description": "Main color of the preset: light green by default. Primary buttons fill with it and carry dark text; links, focus rings, current items and emphasized data use the deeper default so they stay readable on light surfaces.",
+      "default": { "$value": "{color.lime.450}" },
+      "subtle": { "$value": "{color.lime.50}" },
+      "fill": { "$value": "{color.lime.200}" },
+      "on": { "$value": "{color.neutral.1000}" }
+    },
+    "sub": {
+      "$description": "Sub color of the preset: neutral by default. Secondary buttons fill with it, and tags and chips sit on its subtle step.",
+      "default": { "$value": "{color.neutral.700}" },
+      "subtle": { "$value": "{color.neutral.150}" },
+      "fill": { "$value": "{color.neutral.200}" },
+      "on": { "$value": "{color.neutral.900}" }
+    },
+    "danger": {
+      "$description": "Destructive actions. Text on the fill uses danger.on.",
+      "default": { "$value": "{color.red.500}" },
+      "on": { "$value": "{color.neutral.0}" }
+    },
+    "shadow": {
+      "default": { "$value": "{color.alpha.black-08}" },
+      "lifted": { "$value": "{color.alpha.black-16}" }
+    },
+    "chart": {
+      "grid": { "$value": "{color.neutral.200}" },
+      "axis": { "$value": "{color.neutral.300}" },
+      "crosshair": { "$value": "{color.neutral.500}" },
+      "de-emphasis": { "$value": "{color.neutral.300}" },
+      "emphasis": { "$value": "{color.lime.450}" }
+    },
+    "sequential-main": {
+      "$description": "Brand light-green ramp for magnitude, low to high. Use when one brand-colored heatmap is the story; the blue sequential ramp stays the default.",
+      "1": { "$value": "{color.lime.50}" },
+      "2": { "$value": "{color.lime.100}" },
+      "3": { "$value": "{color.lime.200}" },
+      "4": { "$value": "{color.lime.300}" },
+      "5": { "$value": "{color.lime.400}" },
+      "6": { "$value": "{color.lime.500}" },
+      "7": { "$value": "{color.lime.600}" }
+    },
+    "series": {
+      "$description": "Categorical slots in fixed order. Validated: adjacent CVD ΔE ≥ 9.1, normal-vision ΔE ≥ 19.6. Slots 2 to 5 sit below 3:1 on the off-white surface, so charts ship direct labels or a table view.",
+      "1": { "$value": "{color.blue.450}" },
+      "2": { "$value": "{color.orange.350}" },
+      "3": { "$value": "{color.aqua.350}" },
+      "4": { "$value": "{color.yellow.250}" },
+      "5": { "$value": "{color.magenta.300}" },
+      "6": { "$value": "{color.green.450}" },
+      "7": { "$value": "{color.violet.450}" },
+      "8": { "$value": "{color.red.400}" }
+    },
+    "sequential": {
+      "$description": "One hue, low to high magnitude.",
+      "1": { "$value": "{color.blue.100}" },
+      "2": { "$value": "{color.blue.200}" },
+      "3": { "$value": "{color.blue.300}" },
+      "4": { "$value": "{color.blue.400}" },
+      "5": { "$value": "{color.blue.500}" },
+      "6": { "$value": "{color.blue.600}" },
+      "7": { "$value": "{color.blue.700}" }
+    },
+    "status": {
+      "$description": "Reserved for state. Always paired with an icon and a label.",
+      "good": { "$value": "{color.green.400}" },
+      "warning": { "$value": "{color.yellow.200}" },
+      "serious": { "$value": "{color.orange.300}" },
+      "critical": { "$value": "{color.red.450}" }
+    },
+    "code": {
+      "$description": "Code sits in an inset well on the page tone, one step below the card around it; every syntax role clears 4.5:1 on it in both themes.",
+      "background": { "$value": "{color.neutral.150}" },
+      "keyword": { "$value": "{color.violet.500}" },
+      "string": { "$value": "{color.green.550}" },
+      "number": { "$value": "{color.red.500}" },
+      "comment": { "$value": "{color.neutral.700}" },
+      "function": { "$value": "{color.blue.600}" },
+      "tag": { "$value": "{color.red.500}" },
+      "attr": { "$value": "{color.violet.500}" }
+    },
+    "delta": {
+      "$description": "Text color for a change whose direction is good or bad.",
+      "good": { "$value": "{color.green.550}" },
+      "bad": { "$value": "{color.red.500}" }
+    }
+  }
+}

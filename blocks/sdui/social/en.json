@@ -1,0 +1,547 @@
+{
+  "version": 3,
+  "app": "Moments",
+  "density": "compact",
+  "start": "home",
+  "nav": [
+    {
+      "id": "home",
+      "label": "Home",
+      "icon": "home"
+    },
+    {
+      "id": "explore",
+      "label": "Explore",
+      "icon": "compass"
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "icon": "heart"
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "icon": "user"
+    }
+  ],
+  "screens": {
+    "home": {
+      "actions": [
+        {
+          "label": "New post",
+          "variant": "primary",
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "compose"
+            }
+          }
+        }
+      ],
+      "widgets": [
+        {
+          "id": "stories",
+          "w": 12,
+          "h": 2,
+          "frame": "plain",
+          "content": {
+            "type": "Stories",
+            "props": {
+              "items": {
+                "$data": "stories"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "story"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "p1",
+          "w": 12,
+          "h": 9,
+          "frame": "plain",
+          "content": {
+            "type": "Post",
+            "props": {
+              "author": "minji.cooks",
+              "place": "Mangwon",
+              "photo": {
+                "alt": "Tomato pasta",
+                "seed": 1
+              },
+              "likes": 1204,
+              "caption": "Weekend pasta from scratch. Recipe in the comments!",
+              "comments": 38,
+              "time": "2 hours ago",
+              "onLike": {
+                "$action": {
+                  "name": "like-post",
+                  "params": {
+                    "id": "p1"
+                  }
+                }
+              },
+              "onComment": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "comments"
+                  }
+                }
+              },
+              "onShare": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "share"
+                  }
+                }
+              },
+              "onSave": {
+                "$action": {
+                  "name": "save-post",
+                  "params": {
+                    "id": "p1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "p2",
+          "w": 12,
+          "h": 9,
+          "frame": "plain",
+          "content": {
+            "type": "Post",
+            "props": {
+              "author": "seoul.frames",
+              "place": "Han River Park",
+              "photo": {
+                "alt": "Han River sunset",
+                "seed": 2
+              },
+              "likes": 3891,
+              "caption": "Tonight's sunset lasted ten minutes.",
+              "comments": 112,
+              "time": "5 hours ago",
+              "onLike": {
+                "$action": {
+                  "name": "like-post",
+                  "params": {
+                    "id": "p2"
+                  }
+                }
+              },
+              "onComment": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "comments"
+                  }
+                }
+              },
+              "onShare": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "share"
+                  }
+                }
+              },
+              "onSave": {
+                "$action": {
+                  "name": "save-post",
+                  "params": {
+                    "id": "p2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "p3",
+          "w": 12,
+          "h": 9,
+          "frame": "plain",
+          "content": {
+            "type": "Post",
+            "props": {
+              "author": "pine.trail",
+              "place": "Bukhansan",
+              "photo": {
+                "alt": "Mountain ridge",
+                "seed": 7
+              },
+              "likes": 642,
+              "caption": "Last ridge hike before the first snow.",
+              "comments": 12,
+              "time": "Yesterday",
+              "onLike": {
+                "$action": {
+                  "name": "like-post",
+                  "params": {
+                    "id": "p3"
+                  }
+                }
+              },
+              "onComment": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "comments"
+                  }
+                }
+              },
+              "onShare": {
+                "$action": {
+                  "name": "open",
+                  "params": {
+                    "overlay": "share"
+                  }
+                }
+              },
+              "onSave": {
+                "$action": {
+                  "name": "save-post",
+                  "params": {
+                    "id": "p3"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "explore": {
+      "widgets": [
+        {
+          "id": "topics",
+          "title": "Topics",
+          "w": 12,
+          "h": 3,
+          "frame": "plain",
+          "content": {
+            "type": "Carousel",
+            "props": {
+              "size": "mini",
+              "label": "Topics"
+            },
+            "children": {
+              "$each": {
+                "$data": "topics"
+              },
+              "$as": {
+                "type": "MiniCard",
+                "props": {
+                  "image": {
+                    "alt": {
+                      "$field": "title"
+                    },
+                    "seed": {
+                      "$field": "seed"
+                    }
+                  },
+                  "title": {
+                    "$field": "title"
+                  },
+                  "meta": {
+                    "$field": "meta"
+                  },
+                  "onSelect": {
+                    "$action": {
+                      "name": "open-topic"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "places",
+          "title": "Places to go",
+          "w": 12,
+          "h": 5,
+          "frame": "plain",
+          "content": {
+            "type": "Carousel",
+            "props": {
+              "label": "Places to go",
+              "size": "card"
+            },
+            "children": {
+              "$each": {
+                "$data": "places"
+              },
+              "$as": {
+                "type": "ImageCard",
+                "props": {
+                  "image": {
+                    "alt": {
+                      "$field": "title"
+                    },
+                    "seed": {
+                      "$field": "seed"
+                    },
+                    "ratio": "3:4"
+                  },
+                  "title": {
+                    "$field": "title"
+                  },
+                  "description": {
+                    "$field": "description"
+                  },
+                  "meta": {
+                    "$field": "meta"
+                  },
+                  "badge": {
+                    "$field": "badge"
+                  },
+                  "onSelect": {
+                    "$action": {
+                      "name": "open-place"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "grid",
+          "w": 12,
+          "h": 7,
+          "frame": "plain",
+          "content": {
+            "type": "PhotoGrid",
+            "props": {
+              "items": {
+                "$data": "explore"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open-post"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "activity": {
+      "title": "Activity",
+      "widgets": [
+        {
+          "id": "list",
+          "w": 12,
+          "h": 6,
+          "frame": "plain",
+          "content": {
+            "type": "List",
+            "props": {
+              "items": {
+                "$data": "activity"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open-activity"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "profile": {
+      "widgets": [
+        {
+          "id": "header",
+          "w": 12,
+          "h": 4,
+          "frame": "plain",
+          "content": {
+            "type": "ProfileHeader",
+            "props": {
+              "name": "haneul.walks",
+              "handle": "@haneul.walks",
+              "bio": "Walking, shooting, writing it down. Walks around Seoul.",
+              "stats": {
+                "$data": "me.stats"
+              }
+            },
+            "children": [
+              {
+                "type": "Button",
+                "props": {
+                  "onClick": {
+                    "$action": {
+                      "name": "open",
+                      "params": {
+                        "overlay": "edit"
+                      }
+                    }
+                  }
+                },
+                "children": "Edit profile"
+              },
+              {
+                "type": "Button",
+                "props": {
+                  "onClick": {
+                    "$action": {
+                      "name": "open",
+                      "params": {
+                        "overlay": "share"
+                      }
+                    }
+                  }
+                },
+                "children": "Share profile"
+              }
+            ]
+          }
+        },
+        {
+          "id": "photos",
+          "w": 12,
+          "h": 5,
+          "frame": "plain",
+          "content": {
+            "type": "PhotoGrid",
+            "props": {
+              "items": {
+                "$data": "me.photos"
+              },
+              "onSelect": {
+                "$action": {
+                  "name": "open-post"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "overlays": {
+    "compose": {
+      "kind": "modal",
+      "title": "New post",
+      "description": "Pick a photo and write a caption.",
+      "body": "You can add up to 10 photos.",
+      "actions": [
+        {
+          "label": "Cancel",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "Share",
+          "variant": "primary",
+          "action": {
+            "name": "create-post",
+            "close": true
+          }
+        }
+      ]
+    },
+    "story": {
+      "kind": "modal",
+      "title": "Story",
+      "body": "Stories stay up for 24 hours.",
+      "actions": [
+        {
+          "label": "Close",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "Send message",
+          "variant": "primary",
+          "action": {
+            "name": "reply-story",
+            "close": true
+          }
+        }
+      ]
+    },
+    "comments": {
+      "kind": "sheet",
+      "title": "Comments",
+      "description": "38 comments",
+      "body": "jun_runs  Please post the recipe!\nbada  How long do you boil the pasta?",
+      "actions": [
+        {
+          "label": "Close",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "Add comment",
+          "variant": "primary",
+          "action": {
+            "name": "add-comment",
+            "close": true
+          }
+        }
+      ]
+    },
+    "share": {
+      "kind": "sheet",
+      "title": "Share",
+      "body": "Copy the link or send it in a message.",
+      "actions": [
+        {
+          "label": "Send in message",
+          "action": {
+            "name": "send-message",
+            "close": true
+          }
+        },
+        {
+          "label": "Copy link",
+          "variant": "primary",
+          "action": {
+            "name": "copy-link",
+            "close": true
+          }
+        }
+      ]
+    },
+    "edit": {
+      "kind": "sheet",
+      "title": "Edit profile",
+      "body": "Change your name, bio and photo.",
+      "actions": [
+        {
+          "label": "Cancel",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "Save",
+          "variant": "primary",
+          "action": {
+            "name": "save-profile",
+            "close": true
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "ui",
+  "version": "0.3.0-alpha.0",
+  "private": true,
+  "type": "module",
+  "homepage": "https://hab56ur9.github.io/ui/",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./dist/tokens.css",
+    "./ui.css": "./dist/ui.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./presets.css": "./dist/presets.css",
+    "./presets/*": "./dist/presets/*",
+    "./components.json": "./dist/components.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "assets"
+  ],
+  "scripts": {
+    "tokens": "node scripts/build.mjs && node scripts/components.mjs",
+    "dev": "node scripts/build.mjs && node scripts/components.mjs && vite",
+    "build": "node scripts/build.mjs && node scripts/components.mjs && npm run build:lib && vite build",
+    "typecheck": "tsc",
+    "lint": "node scripts/lint.mjs",
+    "check": "node scripts/build.mjs && node scripts/components.mjs && node scripts/lint.mjs && tsc && npm run build:lib && vite build",
+    "build:lib": "vite build -c vite.lib.config.ts"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

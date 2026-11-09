@@ -1,0 +1,60 @@
+name: release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+
+  deploy:
+    needs: release
+    if: needs.release.outputs.release_created == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - if: needs.release.outputs.release_created == 'true'
+        run: gh release upload "${{ needs.release.outputs.tag_name }}" dist/ui.js dist/ui.css dist/tokens.css dist/presets.css dist/components.json --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Collect the latest 100 versions
+        run: |
+          gh release list --limit 100 --exclude-drafts --json tagName --jq '.[].tagName' | while read -r tag; do
+            gh release download "$tag" --pattern ui.js --pattern ui.css --pattern tokens.css --dir "site/v/$tag" || continue
+            sed -i 's|url("\.\./assets/|url("../../assets/|g' "site/v/$tag/tokens.css"
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
+        id: deployment

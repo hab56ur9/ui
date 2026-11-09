@@ -1,0 +1,33 @@
+{
+  "title": "서비스 지표 대시보드",
+  "description": "숫자 카드 4개와 플랫폼별 추이, 주간 가입, 성장 지수, SLO 임계선, 예측 구간, 요일 × 시간 히트맵, 요약 표를 드래그 가능한 위젯 보드에 배치한 대시보드입니다. 기간 필터 하나가 모든 위젯을 함께 바꿉니다.",
+  "category": "대시보드",
+  "uses": [
+    "앱 틀",
+    "위젯 보드",
+    "선 차트",
+    "막대 차트",
+    "히트맵",
+    "숫자 카드",
+    "표",
+    "확인 창",
+    "토스트",
+    "바텀 시트"
+  ],
+  "en": {
+    "title": "Service metrics dashboard",
+    "description": "A dashboard that places four stat cards, per-platform trends, weekly sign-ups, a growth index, an SLO threshold, a forecast band, a weekday × hour heatmap and a summary table on a draggable widget board. One period filter changes every widget together.",
+    "uses": [
+      "App shell",
+      "Widget board",
+      "Line chart",
+      "Bar chart",
+      "Heatmap",
+      "Stat card",
+      "Table",
+      "Confirm dialog",
+      "Toast",
+      "Bottom sheet"
+    ]
+  }
+}

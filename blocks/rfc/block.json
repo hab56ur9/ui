@@ -1,0 +1,24 @@
+{
+  "title": "RFC",
+  "description": "질문 세 개(Q1~Q3)를 차례로 풀고, 질문마다 문제와 해결을 한 단락씩 쓰는 RFC입니다. 결정과 변경 이력으로 끝납니다.",
+  "category": "기술 문서",
+  "kind": "doc",
+  "uses": [
+    "문서 틀",
+    "장",
+    "코드 블록",
+    "강조 상자",
+    "변경 이력"
+  ],
+  "en": {
+    "title": "RFC",
+    "description": "An RFC that works through three linked questions (Q1–Q3), with one paragraph of problem and one of solution for each, and ends with the decision and change history.",
+    "uses": [
+      "Doc",
+      "Section",
+      "Code block",
+      "Callout",
+      "Change log"
+    ]
+  }
+}

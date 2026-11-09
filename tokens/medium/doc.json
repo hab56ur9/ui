@@ -1,0 +1,119 @@
+{
+  "$description": "Long-form reading: technical pages, specs, reports.",
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "caption": {
+        "$value": {
+          "value": 13,
+          "unit": "px"
+        }
+      },
+      "label": {
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        }
+      },
+      "body": {
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        }
+      },
+      "title": {
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "heading": {
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        }
+      },
+      "stat": {
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        }
+      },
+      "display": {
+        "$value": {
+          "value": 56,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "line-height": {
+    "$type": "number",
+    "body": {
+      "$value": 1.65
+    },
+    "tight": {
+      "$value": 1.25
+    }
+  },
+  "layout": {
+    "$type": "dimension",
+    "inset": {
+      "$value": "{space.6}"
+    },
+    "gap": {
+      "$value": "{space.6}"
+    },
+    "section": {
+      "$value": "{space.12}"
+    },
+    "stack": {
+      "$value": "{space.3}"
+    },
+    "compact": {
+      "$description": "Tighter layout for screens that put content first, such as a built SDUI app. An element with data-density=\"compact\" swaps these in for inset, gap, section and stack.",
+      "inset": {
+        "$value": "{space.4}"
+      },
+      "gap": {
+        "$value": "{space.4}"
+      },
+      "section": {
+        "$value": "{space.8}"
+      },
+      "stack": {
+        "$value": "{space.2}"
+      }
+    }
+  },
+  "widget": {
+    "$type": "dimension",
+    "header": {
+      "$value": {
+        "value": 44,
+        "unit": "px"
+      }
+    },
+    "row": {
+      "$value": {
+        "value": 96,
+        "unit": "px"
+      }
+    }
+  },
+  "chart-size": {
+    "$type": "dimension",
+    "default": {
+      "$value": {
+        "value": 280,
+        "unit": "px"
+      }
+    },
+    "sparkline": {
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    }
+  }
+}

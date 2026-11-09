@@ -1,0 +1,145 @@
+{
+  "space": {
+    "$type": "dimension",
+    "$description": "4px grid. The key is the multiple of 4.",
+    "1": { "$value": { "value": 4, "unit": "px" } },
+    "2": { "$value": { "value": 8, "unit": "px" } },
+    "3": { "$value": { "value": 12, "unit": "px" } },
+    "4": { "$value": { "value": 16, "unit": "px" } },
+    "5": { "$value": { "value": 20, "unit": "px" } },
+    "6": { "$value": { "value": 24, "unit": "px" } },
+    "8": { "$value": { "value": 32, "unit": "px" } },
+    "10": { "$value": { "value": 40, "unit": "px" } },
+    "12": { "$value": { "value": 48, "unit": "px" } },
+    "16": { "$value": { "value": 64, "unit": "px" } },
+    "24": { "$value": { "value": 96, "unit": "px" } }
+  },
+  "radius": {
+    "$type": "dimension",
+    "control": { "$value": { "value": 6, "unit": "px" } },
+    "card": { "$value": { "value": 10, "unit": "px" } },
+    "mark": { "$value": { "value": 4, "unit": "px" } },
+    "sheet": { "$value": { "value": 16, "unit": "px" } },
+    "pill": { "$value": { "value": 999, "unit": "px" } }
+  },
+  "font": {
+    "stack": {
+      "$type": "fontFamily",
+      "$description": "Font stacks per writing system. A lang file picks one as font.family.sans; adding a language adds a stack here and a file in tokens/lang.",
+      "hangul": { "$value": ["Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "system-ui", "sans-serif"] },
+      "latin": { "$value": ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif"] }
+    },
+    "family": {
+      "$type": "fontFamily",
+      "mono": { "$value": ["JetBrains Mono", "SF Mono", "ui-monospace", "Menlo", "monospace"] }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "semibold": { "$value": 600 }
+    }
+  },
+  "chart": {
+    "$description": "Mark specs shared by every chart, independent of theme and medium.",
+    "stroke": {
+      "$type": "dimension",
+      "line": { "$value": { "value": 2, "unit": "px" } },
+      "hairline": { "$value": { "value": 1, "unit": "px" } }
+    },
+    "bar": {
+      "$type": "dimension",
+      "max": { "$value": { "value": 24, "unit": "px" } },
+      "radius": { "$value": "{radius.mark}" }
+    },
+    "marker": {
+      "$type": "dimension",
+      "radius": { "$value": { "value": 4, "unit": "px" } },
+      "ring": { "$value": { "value": 2, "unit": "px" } }
+    },
+    "gap": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+    "hit": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } },
+    "area": {
+      "$type": "number",
+      "opacity": { "$value": 0.1 }
+    },
+    "refetch": {
+      "$type": "number",
+      "opacity": { "$value": 0.5 }
+    }
+  },
+  "elevation": {
+    "$type": "shadow",
+    "card": {
+      "$value": {
+        "color": "{color.shadow.default}",
+        "offsetX": { "value": 0, "unit": "px" },
+        "offsetY": { "value": 1, "unit": "px" },
+        "blur": { "value": 2, "unit": "px" },
+        "spread": { "value": 0, "unit": "px" }
+      }
+    },
+    "lifted": {
+      "$value": {
+        "color": "{color.shadow.lifted}",
+        "offsetX": { "value": 0, "unit": "px" },
+        "offsetY": { "value": 12, "unit": "px" },
+        "blur": { "value": 32, "unit": "px" },
+        "spread": { "value": 0, "unit": "px" }
+      }
+    },
+    "overlay": {
+      "$value": {
+        "color": "{color.shadow.lifted}",
+        "offsetX": { "value": 0, "unit": "px" },
+        "offsetY": { "value": 24, "unit": "px" },
+        "blur": { "value": 64, "unit": "px" },
+        "spread": { "value": -8, "unit": "px" }
+      }
+    }
+  },
+  "grid": {
+    "$type": "number",
+    "columns": { "$value": 12 }
+  },
+  "icon": {
+    "$description": "Icons sit on a 24 grid and draw with currentColor, so they take the text color around them.",
+    "size": {
+      "$type": "dimension",
+      "sm": { "$value": { "value": 16, "unit": "px" } },
+      "md": { "$value": { "value": 20, "unit": "px" } },
+      "lg": { "$value": { "value": 24, "unit": "px" } }
+    },
+    "stroke": { "$type": "number", "$value": 1.75 }
+  },
+  "layer": {
+    "$type": "number",
+    "$description": "Stacking order for fixed layers. Modals, sheets and toasts render in the browser top layer instead.",
+    "menu": { "$value": 20 },
+    "ghost": { "$value": 30 }
+  },
+  "size": {
+    "$type": "dimension",
+    "modal": {
+      "sm": { "$value": { "value": 400, "unit": "px" } },
+      "md": { "$value": { "value": 560, "unit": "px" } },
+      "lg": { "$value": { "value": 800, "unit": "px" } }
+    },
+    "sheet": { "$value": { "value": 640, "unit": "px" } },
+    "toast": { "$value": { "value": 380, "unit": "px" } }
+  },
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "fast": { "$value": { "value": 120, "unit": "ms" } },
+      "base": { "$value": { "value": 200, "unit": "ms" } },
+      "slow": { "$value": { "value": 280, "unit": "ms" } }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard": { "$value": [0.2, 0, 0, 1] },
+      "enter": { "$value": [0, 0, 0, 1] },
+      "exit": { "$value": [0.3, 0, 1, 1] }
+    }
+  }
+}

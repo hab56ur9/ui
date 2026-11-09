@@ -1,0 +1,119 @@
+{
+  "$description": "Projected decks: large type, generous space.",
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "caption": {
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        }
+      },
+      "label": {
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        }
+      },
+      "body": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        }
+      },
+      "title": {
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        }
+      },
+      "heading": {
+        "$value": {
+          "value": 56,
+          "unit": "px"
+        }
+      },
+      "stat": {
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        }
+      },
+      "display": {
+        "$value": {
+          "value": 112,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "line-height": {
+    "$type": "number",
+    "body": {
+      "$value": 1.35
+    },
+    "tight": {
+      "$value": 1.1
+    }
+  },
+  "layout": {
+    "$type": "dimension",
+    "inset": {
+      "$value": "{space.10}"
+    },
+    "gap": {
+      "$value": "{space.8}"
+    },
+    "section": {
+      "$value": "{space.16}"
+    },
+    "stack": {
+      "$value": "{space.4}"
+    },
+    "compact": {
+      "$description": "Tighter layout for screens that put content first, such as a built SDUI app. An element with data-density=\"compact\" swaps these in for inset, gap, section and stack.",
+      "inset": {
+        "$value": "{space.8}"
+      },
+      "gap": {
+        "$value": "{space.6}"
+      },
+      "section": {
+        "$value": "{space.12}"
+      },
+      "stack": {
+        "$value": "{space.3}"
+      }
+    }
+  },
+  "widget": {
+    "$type": "dimension",
+    "header": {
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      }
+    },
+    "row": {
+      "$value": {
+        "value": 140,
+        "unit": "px"
+      }
+    }
+  },
+  "chart-size": {
+    "$type": "dimension",
+    "default": {
+      "$value": {
+        "value": 420,
+        "unit": "px"
+      }
+    },
+    "sparkline": {
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    }
+  }
+}

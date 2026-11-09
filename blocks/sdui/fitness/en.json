@@ -1,0 +1,666 @@
+{
+  "version": 3,
+  "app": "FitNote",
+  "start": "today",
+  "nav": [
+    {
+      "id": "today",
+      "label": "Today",
+      "icon": "home"
+    },
+    {
+      "id": "workouts",
+      "label": "Workouts",
+      "icon": "calendar"
+    },
+    {
+      "id": "trends",
+      "label": "Trends",
+      "icon": "chart-line"
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "icon": "user"
+    }
+  ],
+  "screens": {
+    "today": {
+      "title": "Today's activity",
+      "lede": "The server response (screen.json) decides the menu, the screens, the modals and sheets, and what buttons and widgets do when tapped.",
+      "actions": [
+        {
+          "label": "Start workout",
+          "variant": "primary",
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "start"
+            }
+          }
+        }
+      ],
+      "widgets": [
+        {
+          "id": "steps",
+          "title": "Steps",
+          "subtitle": "Today · vs 7-day average",
+          "w": 3,
+          "h": 2,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "steps.today",
+                "$format": "full"
+              },
+              "delta": {
+                "change": {
+                  "$data": "steps.delta"
+                },
+                "label": "vs usual"
+              },
+              "trend": {
+                "$data": "steps.trend"
+              }
+            }
+          }
+        },
+        {
+          "id": "active",
+          "title": "Active time",
+          "subtitle": "Today",
+          "w": 3,
+          "h": 2,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "active.today",
+                "$format": "minutes"
+              },
+              "delta": {
+                "change": {
+                  "$data": "active.delta"
+                },
+                "label": "vs usual"
+              }
+            }
+          }
+        },
+        {
+          "id": "calories",
+          "title": "Calories burned",
+          "subtitle": "Today",
+          "w": 3,
+          "h": 2,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "calories.today",
+                "$format": "kcal"
+              },
+              "delta": {
+                "change": {
+                  "$data": "calories.delta"
+                },
+                "label": "vs yesterday"
+              }
+            }
+          }
+        },
+        {
+          "id": "sleep",
+          "title": "Sleep",
+          "subtitle": "Last night",
+          "w": 3,
+          "h": 2,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "sleep.last",
+                "$format": "hours"
+              },
+              "delta": {
+                "change": {
+                  "$data": "sleep.delta"
+                },
+                "label": "vs usual"
+              }
+            }
+          }
+        },
+        {
+          "id": "heart",
+          "title": "Heart rate",
+          "subtitle": "Last 30 days · daily",
+          "w": 8,
+          "h": 4,
+          "content": {
+            "type": "LineChart",
+            "props": {
+              "series": [
+                {
+                  "name": "Average",
+                  "color": 2,
+                  "points": {
+                    "$data": "heart.average"
+                  }
+                },
+                {
+                  "name": "Resting",
+                  "color": 1,
+                  "points": {
+                    "$data": "heart.resting"
+                  }
+                }
+              ],
+              "format": {
+                "axis": {
+                  "$format": "bpm"
+                }
+              }
+            }
+          },
+          "action": {
+            "name": "navigate",
+            "params": {
+              "screen": "trends"
+            }
+          }
+        },
+        {
+          "id": "goal",
+          "title": "Today's goal",
+          "w": 4,
+          "h": 4,
+          "content": [
+            {
+              "type": "Callout",
+              "props": {
+                "tone": "good",
+                "title": "2,140 steps to go"
+              },
+              "children": "A 20-minute evening walk gets you to the 10,000-step goal."
+            },
+            {
+              "type": "Button",
+              "props": {
+                "onClick": {
+                  "$action": {
+                    "name": "start-workout",
+                    "params": {
+                      "kind": "walk"
+                    }
+                  }
+                }
+              },
+              "children": "Start a walk"
+            }
+          ],
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "goal"
+            }
+          }
+        },
+        {
+          "id": "weekly",
+          "title": "Weekly active time",
+          "subtitle": "Last 8 weeks",
+          "w": 5,
+          "h": 4,
+          "content": {
+            "type": "BarChart",
+            "props": {
+              "name": "Active time",
+              "points": {
+                "$data": "active.weekly"
+              },
+              "format": {
+                "axis": {
+                  "$format": "minutes"
+                },
+                "value": {
+                  "$format": "minutes"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "workouts",
+          "title": "Recent workouts",
+          "subtitle": "Last 5 sessions",
+          "w": 7,
+          "h": 4,
+          "content": {
+            "type": "DataTable",
+            "props": {
+              "columns": [
+                {
+                  "label": "Date",
+                  "numeric": true
+                },
+                {
+                  "label": "Workouts"
+                },
+                {
+                  "label": "Time",
+                  "numeric": true
+                },
+                {
+                  "label": "Distance",
+                  "numeric": true
+                },
+                {
+                  "label": "Calories",
+                  "numeric": true
+                }
+              ],
+              "rows": {
+                "$each": {
+                  "$data": "workouts.recent"
+                },
+                "$as": [
+                  {
+                    "$field": "date",
+                    "$format": "date"
+                  },
+                  {
+                    "$field": "kind",
+                    "$labels": {
+                      "run": "Run",
+                      "ride": "Ride",
+                      "strength": "Strength",
+                      "yoga": "Yoga"
+                    }
+                  },
+                  {
+                    "$field": "minutes",
+                    "$format": "minutes"
+                  },
+                  {
+                    "$field": "distance",
+                    "$format": "km"
+                  },
+                  {
+                    "$field": "calories",
+                    "$format": "kcal"
+                  }
+                ]
+              }
+            }
+          },
+          "action": {
+            "name": "navigate",
+            "params": {
+              "screen": "workouts"
+            }
+          }
+        }
+      ]
+    },
+    "workouts": {
+      "title": "Workouts",
+      "lede": "Recent sessions and weekly active time.",
+      "actions": [
+        {
+          "label": "Start workout",
+          "variant": "primary",
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "start"
+            }
+          }
+        }
+      ],
+      "widgets": [
+        {
+          "id": "workouts",
+          "title": "Recent workouts",
+          "subtitle": "Last 5 sessions",
+          "w": 12,
+          "h": 5,
+          "content": {
+            "type": "DataTable",
+            "props": {
+              "columns": [
+                {
+                  "label": "Date",
+                  "numeric": true
+                },
+                {
+                  "label": "Workouts"
+                },
+                {
+                  "label": "Time",
+                  "numeric": true
+                },
+                {
+                  "label": "Distance",
+                  "numeric": true
+                },
+                {
+                  "label": "Calories",
+                  "numeric": true
+                }
+              ],
+              "rows": {
+                "$each": {
+                  "$data": "workouts.recent"
+                },
+                "$as": [
+                  {
+                    "$field": "date",
+                    "$format": "date"
+                  },
+                  {
+                    "$field": "kind",
+                    "$labels": {
+                      "run": "Run",
+                      "ride": "Ride",
+                      "strength": "Strength",
+                      "yoga": "Yoga"
+                    }
+                  },
+                  {
+                    "$field": "minutes",
+                    "$format": "minutes"
+                  },
+                  {
+                    "$field": "distance",
+                    "$format": "km"
+                  },
+                  {
+                    "$field": "calories",
+                    "$format": "kcal"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "calendar",
+          "title": "Workout calendar",
+          "subtitle": "Dots mark workout days · tapping a date notifies the server",
+          "w": 6,
+          "h": 5,
+          "content": {
+            "type": "Calendar",
+            "props": {
+              "today": {
+                "$data": "today"
+              },
+              "marks": {
+                "$data": "workouts.days"
+              },
+              "onChange": {
+                "$action": {
+                  "name": "select-day"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "weekly",
+          "title": "Weekly active time",
+          "subtitle": "Last 8 weeks",
+          "w": 6,
+          "h": 5,
+          "content": {
+            "type": "BarChart",
+            "props": {
+              "name": "Active time",
+              "points": {
+                "$data": "active.weekly"
+              },
+              "format": {
+                "axis": {
+                  "$format": "minutes"
+                },
+                "value": {
+                  "$format": "minutes"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "trends": {
+      "title": "Trends",
+      "lede": "How heart rate and steps are moving.",
+      "widgets": [
+        {
+          "id": "heart",
+          "title": "Heart rate",
+          "subtitle": "Last 30 days · daily",
+          "w": 12,
+          "h": 4,
+          "content": {
+            "type": "LineChart",
+            "props": {
+              "series": [
+                {
+                  "name": "Average",
+                  "color": 2,
+                  "points": {
+                    "$data": "heart.average"
+                  }
+                },
+                {
+                  "name": "Resting",
+                  "color": 1,
+                  "points": {
+                    "$data": "heart.resting"
+                  }
+                }
+              ],
+              "format": {
+                "axis": {
+                  "$format": "bpm"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "steps",
+          "title": "Steps",
+          "subtitle": "Today · vs 7-day average",
+          "w": 6,
+          "h": 3,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "steps.today",
+                "$format": "full"
+              },
+              "delta": {
+                "change": {
+                  "$data": "steps.delta"
+                },
+                "label": "vs usual"
+              },
+              "trend": {
+                "$data": "steps.trend"
+              }
+            }
+          }
+        },
+        {
+          "id": "active",
+          "title": "Active time",
+          "subtitle": "Today",
+          "w": 6,
+          "h": 3,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "active.today",
+                "$format": "minutes"
+              },
+              "delta": {
+                "change": {
+                  "$data": "active.delta"
+                },
+                "label": "vs usual"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "profile": {
+      "title": "Profile",
+      "widgets": [
+        {
+          "id": "sleep",
+          "title": "Sleep",
+          "subtitle": "Last night",
+          "w": 6,
+          "h": 2,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "sleep.last",
+                "$format": "hours"
+              },
+              "delta": {
+                "change": {
+                  "$data": "sleep.delta"
+                },
+                "label": "vs usual"
+              }
+            }
+          }
+        },
+        {
+          "id": "calories",
+          "title": "Calories burned",
+          "subtitle": "Today",
+          "w": 6,
+          "h": 2,
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "calories.today",
+                "$format": "kcal"
+              },
+              "delta": {
+                "change": {
+                  "$data": "calories.delta"
+                },
+                "label": "vs yesterday"
+              }
+            }
+          }
+        },
+        {
+          "id": "device",
+          "title": "Connected device",
+          "w": 12,
+          "h": 3,
+          "content": [
+            {
+              "type": "Callout",
+              "props": {
+                "tone": "info",
+                "title": "Apple Watch"
+              },
+              "children": "Last synced 5 minutes ago. Heart rate and steps come from it."
+            },
+            {
+              "type": "Button",
+              "props": {
+                "onClick": {
+                  "$action": {
+                    "name": "manage-devices"
+                  }
+                }
+              },
+              "children": "Manage devices"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "overlays": {
+    "start": {
+      "kind": "modal",
+      "title": "Start workout",
+      "description": "Which workout should we record?",
+      "body": "Once started, recording continues even with the screen off.",
+      "actions": [
+        {
+          "label": "Cancel",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "Walk",
+          "action": {
+            "name": "start-workout",
+            "params": {
+              "kind": "walk"
+            },
+            "close": true
+          }
+        },
+        {
+          "label": "Run",
+          "variant": "primary",
+          "action": {
+            "name": "start-workout",
+            "params": {
+              "kind": "run"
+            },
+            "close": true
+          }
+        }
+      ]
+    },
+    "goal": {
+      "kind": "sheet",
+      "title": "Today's goal",
+      "description": "2,140 steps to go.",
+      "body": "A 20-minute evening walk gets you to 10,000 steps. You can change the goal in Profile.",
+      "actions": [
+        {
+          "label": "Change goal",
+          "action": {
+            "name": "navigate",
+            "params": {
+              "screen": "profile"
+            },
+            "close": true
+          }
+        },
+        {
+          "label": "Start a walk",
+          "variant": "primary",
+          "action": {
+            "name": "start-workout",
+            "params": {
+              "kind": "walk"
+            },
+            "close": true
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": {
+      "page": { "$value": "{color.neutral.900}" },
+      "surface": { "$value": "{color.neutral.875}" },
+      "raised": { "$value": "{color.neutral.850}" },
+      "subtle": { "$value": "{color.neutral.825}" },
+      "scrim": { "$value": "{color.alpha.black-64}" }
+    },
+    "fg": {
+      "default": { "$value": "{color.neutral.100}" },
+      "secondary": { "$value": "{color.neutral.300}" },
+      "muted": { "$value": "{color.neutral.450}" },
+      "on-fill": { "$value": "{color.neutral.0}" },
+      "on-fill-light": { "$value": "{color.neutral.1000}" }
+    },
+    "border": {
+      "default": { "$value": "{color.neutral.800}" },
+      "strong": { "$value": "{color.neutral.750}" }
+    },
+    "main": {
+      "default": { "$value": "{color.lime.200}" },
+      "subtle": { "$value": "{color.lime.700}" },
+      "fill": { "$value": "{color.lime.200}" },
+      "on": { "$value": "{color.neutral.1000}" }
+    },
+    "sub": {
+      "default": { "$value": "{color.neutral.300}" },
+      "subtle": { "$value": "{color.neutral.825}" },
+      "fill": { "$value": "{color.neutral.800}" },
+      "on": { "$value": "{color.neutral.100}" }
+    },
+    "danger": {
+      "default": { "$value": "{color.red.300}" },
+      "on": { "$value": "{color.neutral.1000}" }
+    },
+    "shadow": {
+      "default": { "$value": "{color.alpha.black-48}" },
+      "lifted": { "$value": "{color.alpha.black-48}" }
+    },
+    "chart": {
+      "grid": { "$value": "{color.neutral.800}" },
+      "axis": { "$value": "{color.neutral.750}" },
+      "crosshair": { "$value": "{color.neutral.500}" },
+      "de-emphasis": { "$value": "{color.neutral.700}" },
+      "emphasis": { "$value": "{color.lime.200}" }
+    },
+    "sequential-main": {
+      "1": { "$value": "{color.lime.700}" },
+      "2": { "$value": "{color.lime.600}" },
+      "3": { "$value": "{color.lime.500}" },
+      "4": { "$value": "{color.lime.400}" },
+      "5": { "$value": "{color.lime.300}" },
+      "6": { "$value": "{color.lime.200}" },
+      "7": { "$value": "{color.lime.100}" }
+    },
+    "series": {
+      "$description": "Same hues as light, stepped for the dark surface. Validated: adjacent CVD ΔE ≥ 8.4, normal-vision ΔE ≥ 19.3, all ≥ 3:1.",
+      "1": { "$value": "{color.blue.400}" },
+      "2": { "$value": "{color.orange.400}" },
+      "3": { "$value": "{color.aqua.400}" },
+      "4": { "$value": "{color.yellow.350}" },
+      "5": { "$value": "{color.magenta.400}" },
+      "6": { "$value": "{color.green.450}" },
+      "7": { "$value": "{color.violet.350}" },
+      "8": { "$value": "{color.red.350}" }
+    },
+    "sequential": {
+      "$description": "Inverted for dark: the step nearest the surface means low.",
+      "1": { "$value": "{color.blue.700}" },
+      "2": { "$value": "{color.blue.600}" },
+      "3": { "$value": "{color.blue.500}" },
+      "4": { "$value": "{color.blue.400}" },
+      "5": { "$value": "{color.blue.300}" },
+      "6": { "$value": "{color.blue.200}" },
+      "7": { "$value": "{color.blue.100}" }
+    },
+    "status": {
+      "good": { "$value": "{color.green.400}" },
+      "warning": { "$value": "{color.yellow.200}" },
+      "serious": { "$value": "{color.orange.300}" },
+      "critical": { "$value": "{color.red.450}" }
+    },
+    "code": {
+      "background": { "$value": "{color.neutral.900}" },
+      "keyword": { "$value": "{color.magenta.300}" },
+      "string": { "$value": "{color.lime.200}" },
+      "number": { "$value": "{color.yellow.200}" },
+      "comment": { "$value": "{color.neutral.400}" },
+      "function": { "$value": "{color.blue.300}" },
+      "tag": { "$value": "{color.red.300}" },
+      "attr": { "$value": "{color.orange.300}" }
+    },
+    "delta": {
+      "good": { "$value": "{color.green.350}" },
+      "bad": { "$value": "{color.red.300}" }
+    }
+  }
+}

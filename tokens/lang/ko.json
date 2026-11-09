@@ -1,0 +1,15 @@
+{
+  "$description": "Korean. Hangul stack first; Pretendard carries Latin glyphs drawn to match.",
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": { "$value": "{font.stack.hangul}" }
+    }
+  },
+  "letter-spacing": {
+    "$type": "number",
+    "$description": "Tracking in em, applied as calc(value * 1em).",
+    "body": { "$value": 0 },
+    "heading": { "$value": -0.01 }
+  }
+}

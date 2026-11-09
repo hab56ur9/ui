@@ -1,0 +1,127 @@
+{
+  "$description": "Preset mono: main and sub colors for light and dark. Copy this file to make a new preset; only these roles change.",
+  "label": {
+    "ko": "무채색",
+    "en": "Neutral"
+  },
+  "light": {
+    "color": {
+      "main": {
+        "default": {
+          "$value": "{color.neutral.900}"
+        },
+        "subtle": {
+          "$value": "{color.neutral.150}"
+        },
+        "fill": {
+          "$value": "{color.neutral.900}"
+        },
+        "on": {
+          "$value": "{color.neutral.0}"
+        }
+      },
+      "sub": {
+        "default": {
+          "$value": "{color.neutral.700}"
+        },
+        "subtle": {
+          "$value": "{color.neutral.150}"
+        },
+        "fill": {
+          "$value": "{color.neutral.200}"
+        },
+        "on": {
+          "$value": "{color.neutral.900}"
+        }
+      },
+      "chart": {
+        "emphasis": {
+          "$value": "{color.neutral.900}"
+        }
+      },
+      "sequential-main": {
+        "1": {
+          "$value": "{color.neutral.100}"
+        },
+        "2": {
+          "$value": "{color.neutral.200}"
+        },
+        "3": {
+          "$value": "{color.neutral.300}"
+        },
+        "4": {
+          "$value": "{color.neutral.400}"
+        },
+        "5": {
+          "$value": "{color.neutral.500}"
+        },
+        "6": {
+          "$value": "{color.neutral.700}"
+        },
+        "7": {
+          "$value": "{color.neutral.900}"
+        }
+      }
+    }
+  },
+  "dark": {
+    "color": {
+      "main": {
+        "default": {
+          "$value": "{color.neutral.100}"
+        },
+        "subtle": {
+          "$value": "{color.neutral.825}"
+        },
+        "fill": {
+          "$value": "{color.neutral.100}"
+        },
+        "on": {
+          "$value": "{color.neutral.1000}"
+        }
+      },
+      "sub": {
+        "default": {
+          "$value": "{color.neutral.300}"
+        },
+        "subtle": {
+          "$value": "{color.neutral.825}"
+        },
+        "fill": {
+          "$value": "{color.neutral.800}"
+        },
+        "on": {
+          "$value": "{color.neutral.100}"
+        }
+      },
+      "chart": {
+        "emphasis": {
+          "$value": "{color.neutral.100}"
+        }
+      },
+      "sequential-main": {
+        "1": {
+          "$value": "{color.neutral.850}"
+        },
+        "2": {
+          "$value": "{color.neutral.800}"
+        },
+        "3": {
+          "$value": "{color.neutral.700}"
+        },
+        "4": {
+          "$value": "{color.neutral.600}"
+        },
+        "5": {
+          "$value": "{color.neutral.500}"
+        },
+        "6": {
+          "$value": "{color.neutral.300}"
+        },
+        "7": {
+          "$value": "{color.neutral.100}"
+        }
+      }
+    }
+  }
+}

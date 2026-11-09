@@ -1,0 +1,119 @@
+{
+  "$description": "Dense product UI: dashboards, tools, widgets.",
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "caption": {
+        "$value": {
+          "value": 11,
+          "unit": "px"
+        }
+      },
+      "label": {
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        }
+      },
+      "body": {
+        "$value": {
+          "value": 13,
+          "unit": "px"
+        }
+      },
+      "title": {
+        "$value": {
+          "value": 15,
+          "unit": "px"
+        }
+      },
+      "heading": {
+        "$value": {
+          "value": 22,
+          "unit": "px"
+        }
+      },
+      "stat": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        }
+      },
+      "display": {
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "line-height": {
+    "$type": "number",
+    "body": {
+      "$value": 1.45
+    },
+    "tight": {
+      "$value": 1.2
+    }
+  },
+  "layout": {
+    "$type": "dimension",
+    "inset": {
+      "$value": "{space.4}"
+    },
+    "gap": {
+      "$value": "{space.3}"
+    },
+    "section": {
+      "$value": "{space.6}"
+    },
+    "stack": {
+      "$value": "{space.2}"
+    },
+    "compact": {
+      "$description": "Tighter layout for screens that put content first, such as a built SDUI app. An element with data-density=\"compact\" swaps these in for inset, gap, section and stack.",
+      "inset": {
+        "$value": "{space.3}"
+      },
+      "gap": {
+        "$value": "{space.2}"
+      },
+      "section": {
+        "$value": "{space.3}"
+      },
+      "stack": {
+        "$value": "{space.1}"
+      }
+    }
+  },
+  "widget": {
+    "$type": "dimension",
+    "header": {
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      }
+    },
+    "row": {
+      "$value": {
+        "value": 72,
+        "unit": "px"
+      }
+    }
+  },
+  "chart-size": {
+    "$type": "dimension",
+    "default": {
+      "$value": {
+        "value": 220,
+        "unit": "px"
+      }
+    },
+    "sparkline": {
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      }
+    }
+  }
+}
