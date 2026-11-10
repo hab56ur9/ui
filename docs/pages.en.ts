@@ -1387,17 +1387,82 @@ export const pages: Page[] = [
     "id": "markdown",
     "group": "컴포넌트",
     "title": "Markdown",
-    "lede": "Markdown draws standard markdown (CommonMark plus GitHub extensions) with our components. A table in standard syntax becomes the table component, code becomes a code block, and a `> [!NOTE]` callout becomes a callout. A JSON node in a ` ```ui ` code block is drawn by JSON UI. It parses without an outside library, and for safety it shows raw HTML as text instead of rendering it.",
+    "lede": "Markdown is a document component you read and edit in place, like Notion. It parses standard markdown (CommonMark plus GitHub extensions) into blocks drawn with our components, and typing `- `, `1. `, `[] `, `# `, `> `, three backticks or `---` changes a block on the spot. `/` inserts blocks and UI components, and blocks move by their drag handle. Where nothing should change (AI answers, shared views, SDUI notices, print), `readOnly` shows the same look. Edits leave through `onChange` as standard markdown, and the app does the storing.",
     "sections": [
       {
         "type": "demo",
-        "title": "Document",
+        "title": "Editing",
+        "example": "markdown-editor"
+      },
+      {
+        "type": "demo",
+        "title": "Read-only",
         "example": "markdown-basic"
       },
       {
         "type": "demo",
         "title": "UI blocks",
         "example": "markdown-ui"
+      },
+      {
+        "type": "api",
+        "title": "Keys",
+        "rows": [
+          [
+            "- · 1. · [] · # · > · ``` · ---",
+            "",
+            "",
+            "At the start of a paragraph, turns the block on the spot"
+          ],
+          [
+            "/",
+            "",
+            "",
+            "Opens the block and UI menu; type to filter, pick with ↑ ↓ Enter"
+          ],
+          [
+            "Enter",
+            "",
+            "",
+            "New block; next item in a list, leaves the list on an empty item"
+          ],
+          [
+            "Shift + Enter",
+            "",
+            "",
+            "Line break inside the block"
+          ],
+          [
+            "Tab · Shift + Tab",
+            "",
+            "",
+            "Indents or outdents a list item"
+          ],
+          [
+            "Backspace",
+            "",
+            "",
+            "At the start, turns the block back into a paragraph, or merges a paragraph into the previous block"
+          ],
+          [
+            "↑ · ↓",
+            "",
+            "",
+            "From the first or last line, moves to the previous or next block"
+          ],
+          [
+            "Alt + Shift + ↑ · ↓",
+            "",
+            "",
+            "Moves the block up or down, like dragging the handle"
+          ],
+          [
+            "Esc",
+            "",
+            "",
+            "Stops editing"
+          ]
+        ]
       },
       {
         "type": "api",
@@ -1480,92 +1545,13 @@ export const pages: Page[] = [
       {
         "type": "a11y",
         "items": [
-          "Heading levels stay as written; avoid skipping levels.",
+          "The block being edited is a plain text field, and Alt+Shift+↑ ↓ moves blocks without dragging.",
+          "In read-only mode list items group as `list` and `listitem`, and headings get an `id` to link to.",
           "Images use their description as alt text."
         ]
       }
-    ]
-  },
-  {
-    "id": "markdown-editor",
-    "group": "컴포넌트",
-    "title": "Markdown editor",
-    "wide": true,
-    "lede": "The markdown editor edits blocks in place, like Notion. Typing `- `, `1. `, `[] `, `# `, `> `, three backticks or `---` turns the block into a list, to-do, heading, quote, code or divider on the spot, and `/` inserts blocks and UI components. Drag a block by its handle to move it. The result leaves through `onChange` as standard markdown, and the app does the storing.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "Editor",
-        "example": "markdown-editor"
-      },
-      {
-        "type": "api",
-        "title": "Keys",
-        "rows": [
-          [
-            "- · 1. · [] · # · > · ``` · ---",
-            "",
-            "",
-            "At the start of a paragraph, turns the block on the spot"
-          ],
-          [
-            "/",
-            "",
-            "",
-            "Opens the block and UI menu; type to filter, pick with ↑ ↓ Enter"
-          ],
-          [
-            "Enter",
-            "",
-            "",
-            "New block; next item in a list, leaves the list on an empty item"
-          ],
-          [
-            "Shift + Enter",
-            "",
-            "",
-            "Line break inside the block"
-          ],
-          [
-            "Tab · Shift + Tab",
-            "",
-            "",
-            "Indents or outdents a list item"
-          ],
-          [
-            "Backspace",
-            "",
-            "",
-            "At the start, turns the block back into a paragraph, or merges a paragraph into the previous block"
-          ],
-          [
-            "↑ · ↓",
-            "",
-            "",
-            "From the first or last line, moves to the previous or next block"
-          ],
-          [
-            "Alt + Shift + ↑ · ↓",
-            "",
-            "",
-            "Moves the block up or down, like dragging the handle"
-          ],
-          [
-            "Esc",
-            "",
-            "",
-            "Stops editing"
-          ]
-        ]
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "Every block is a plain text field usable with screen readers and keyboards, and Alt+Shift+↑ ↓ moves blocks without dragging.",
-          "The block menu is a `listbox` that marks the current item with `aria-selected`."
-        ]
-      }
-    ]
+    ],
+    "wide": true
   },
   {
     "id": "image",

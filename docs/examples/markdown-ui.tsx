@@ -35,7 +35,7 @@ The card below is drawn from JSON written in a \`ui\` code block inside the mark
 \`\`\``,
   });
   return (
-    <Markdown data={data} formats={{ count: (v) => number.format(v) }} onAction={({ name }) => toast({ message: name, status: "info" })}>
+    <Markdown readOnly data={data} formats={{ count: (v) => number.format(v) }} onAction={({ name }) => toast({ message: name, status: "info" })}>
       {source}
     </Markdown>
   );

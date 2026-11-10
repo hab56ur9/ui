@@ -490,18 +490,9 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<Markdown>",
       rows: [
-        ["children", "string", "", "마크다운 글입니다."],
-        ["data · formats · onAction", "JSON UI와 같음", "", "` ```ui ` 블록이 쓰는 값·형식·동작 처리기입니다."],
-      ],
-    },
-  ],
-  "markdown-editor": [
-    {
-      type: "api",
-      title: "<MarkdownEditor>",
-      rows: [
-        ["defaultValue", "string", "\"\"", "처음 마크다운입니다. 저장된 값은 앱이 넘깁니다."],
-        ["onChange", "(markdown: string) => void", "", "고칠 때마다 정리된 마크다운 전체를 넘깁니다."],
+        ["defaultValue · children", "string", "\"\"", "처음 마크다운입니다. 읽기 전용에서는 `children`으로 넘겨도 됩니다."],
+        ["readOnly", "boolean", "false", "편집 도구 없이 같은 모양으로 보여 줍니다. 서버 렌더링·인쇄에도 씁니다."],
+        ["onChange", "(markdown: string) => void", "", "고칠 때마다 표준 마크다운 전체를 넘깁니다."],
         ["data · formats · onAction", "JSON UI와 같음", "", "` ```ui ` 블록이 씁니다."],
       ],
     },

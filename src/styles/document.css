@@ -613,6 +613,18 @@ h3.doc-heading::before {
   padding-left: var(--space-12);
 }
 
+.md-list {
+  display: contents;
+}
+
+.md-editor.is-read-only {
+  padding-left: 0;
+}
+
+.md-editor.is-read-only .md-row {
+  cursor: auto;
+}
+
 .md-row {
   position: relative;
   display: flex;

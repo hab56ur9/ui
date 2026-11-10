@@ -69,5 +69,5 @@ const unread = notifications.filter((n) => !n.read);
 
 export default function Example() {
   const t = useT();
-  return <Markdown>{t({ ko: KO, en: EN })}</Markdown>;
+  return <Markdown readOnly>{t({ ko: KO, en: EN })}</Markdown>;
 }

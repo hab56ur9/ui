@@ -24,9 +24,9 @@ export type Block =
 
 export type Footnote = { id: string; number: number; children: Block[] };
 export type Segment = { start: number; end: number; block?: Block };
-export type MarkdownDocument = { blocks: Block[]; footnotes: Footnote[]; segments: Segment[]; lines: string[] };
+export type MarkdownDocument = { blocks: Block[]; footnotes: Footnote[]; segments: Segment[]; lines: string[]; refs: Refs };
 
-type Refs = { links: Map<string, { href: string; title?: string }>; notes: Map<string, string>; order: string[] };
+export type Refs = { links: Map<string, { href: string; title?: string }>; notes: Map<string, string>; order: string[] };
 
 const CALLOUTS: Record<string, Tone> = { NOTE: "info", INFO: "info", TIP: "good", GOOD: "good", SUCCESS: "good", WARNING: "warning", CAUTION: "warning", IMPORTANT: "warning" };
 
@@ -343,7 +343,7 @@ export function parseMarkdown(markdown: string): MarkdownDocument {
     const id = refs.order[n];
     footnotes.push({ id, number: n + 1, children: parseBlocks(refs.notes.get(id) ?? "", refs) });
   }
-  return { blocks, footnotes, lines, segments: [...ranges, ...definitions].sort((x, y) => x.start - y.start) };
+  return { blocks, footnotes, lines, refs, segments: [...ranges, ...definitions].sort((x, y) => x.start - y.start) };
 }
 
-export const inlineOf = (text: string) => parseInline(text, { links: new Map(), notes: new Map(), order: [] });
+export const inlineOf = (text: string, refs: Refs = { links: new Map(), notes: new Map(), order: [] }) => parseInline(text, refs);

@@ -1,4 +1,4 @@
-import { MarkdownEditor } from "ui";
+import { Markdown } from "ui";
 import { useT } from "../demo";
 
 const KO = `# 주간 회고
@@ -48,5 +48,5 @@ Write what **went well** and what didn't, block by block. Type \`- \` and it bec
 export default function Example() {
   const t = useT();
   const initial = t({ ko: KO, en: EN });
-  return <MarkdownEditor key={initial} defaultValue={initial} />;
+  return <Markdown key={initial} defaultValue={initial} />;
 }

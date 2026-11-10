@@ -490,18 +490,9 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<Markdown>",
       rows: [
-        ["children", "string", "", "The markdown text."],
-        ["data · formats · onAction", "same as JSON UI", "", "Values, formats and the action handler for ` ```ui ` blocks."],
-      ],
-    },
-  ],
-  "markdown-editor": [
-    {
-      type: "api",
-      title: "<MarkdownEditor>",
-      rows: [
-        ["defaultValue", "string", "\"\"", "The starting markdown; the app passes any saved value."],
-        ["onChange", "(markdown: string) => void", "", "Called with the whole tidied markdown on every edit."],
+        ["defaultValue · children", "string", "\"\"", "The starting markdown; read-only views can pass it as `children`."],
+        ["readOnly", "boolean", "false", "Shows the same look without editing; also for server rendering and print."],
+        ["onChange", "(markdown: string) => void", "", "Called with the whole standard markdown on every edit."],
         ["data · formats · onAction", "same as JSON UI", "", "Used by ` ```ui ` blocks."],
       ],
     },
