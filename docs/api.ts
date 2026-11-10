@@ -511,4 +511,38 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  badge: [
+    {
+      type: "api",
+      title: "<Badge>",
+      rows: [
+        ["tone", "\"neutral\" | \"main\" | \"good\" | \"warning\" | \"critical\"", "\"neutral\"", "뜻에 맞는 색입니다."],
+        ["variant", "\"soft\" | \"outline\" | \"solid\"", "\"soft\"", "옅은 바탕, 테두리, 채움입니다."],
+        ["children", "ReactNode", "", "한두 단어나 숫자입니다."],
+      ],
+    },
+  ],
+  card: [
+    {
+      type: "api",
+      title: "<Card>",
+      rows: [
+        ["title · description", "ReactNode", "", "제목과 한 줄 설명입니다."],
+        ["aside", "ReactNode", "", "제목 옆에 두는 배지나 버튼입니다."],
+        ["selected", "boolean", "false", "고른 카드를 강조합니다."],
+        ["children", "ReactNode", "", "카드 내용입니다."],
+      ],
+    },
+  ],
+  callout: [
+    {
+      type: "api",
+      title: "<Callout>",
+      rows: [
+        ["tone", "\"info\" | \"good\" | \"warning\"", "\"info\"", "알림, 팁, 주의입니다."],
+        ["title", "string", "", "굵은 제목입니다."],
+        ["children", "ReactNode", "", "본문입니다."],
+      ],
+    },
+  ],
 };

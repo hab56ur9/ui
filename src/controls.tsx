@@ -22,6 +22,7 @@ export type StatProps = {
   note?: string;
   trend?: Point[];
   color?: Color;
+  size?: "md" | "sm";
 };
 
 export type DeltaProps = { change: number; goodWhenUp?: boolean };
@@ -36,9 +37,9 @@ export function Delta({ change, goodWhenUp = true }: DeltaProps) {
   );
 }
 
-export function Stat({ label, value, delta, note, trend, color = 1 }: StatProps) {
+export function Stat({ label, value, delta, note, trend, color = 1, size = "md" }: StatProps) {
   return (
-    <div className="stat">
+    <div className={`stat is-${size}`}>
       {label && <div className="stat-label">{label}</div>}
       <div className="stat-value">{value}</div>
       {delta && (

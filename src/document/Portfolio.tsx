@@ -1,4 +1,6 @@
 import { useCallback, useState, type ReactNode } from "react";
+import { Badge } from "../Badge";
+import { Stat } from "../controls";
 import { Image, type ImageProps } from "../Image";
 import { Icon } from "../Icon";
 import { useI18n } from "../i18n";
@@ -74,20 +76,19 @@ export function Project({ title, period, role, image, summary, metrics = [], tag
         {role && <p className="resume-entry-org">{role}</p>}
         {summary && <p className="project-summary">{summary}</p>}
         {metrics.length > 0 && (
-          <dl className="project-metrics">
+          <div className="project-metrics">
             {metrics.map(({ label, value }) => (
-              <div key={label}>
-                <dd>{value}</dd>
-                <dt>{label}</dt>
-              </div>
+              <Stat key={label} size="sm" label={label} value={value} />
             ))}
-          </dl>
+          </div>
         )}
         {children}
         {tags.length > 0 && (
           <ul className="resume-tags">
             {tags.map((tag) => (
-              <li key={tag}>{tag}</li>
+              <li key={tag}>
+                <Badge>{tag}</Badge>
+              </li>
             ))}
           </ul>
         )}

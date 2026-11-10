@@ -308,6 +308,21 @@
   white-space: nowrap;
 }
 
+.data-table-wrap.is-fit {
+  position: static;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.data-table.has-wrap td {
+  vertical-align: top;
+}
+
+.data-table td.is-wrap {
+  min-width: 200px;
+  white-space: normal;
+}
+
 .data-table td .key {
   margin-right: var(--space-2);
   vertical-align: middle;

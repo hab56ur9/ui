@@ -23,26 +23,6 @@
   align-items: center;
 }
 
-.doc-status {
-  padding: 2px var(--space-2);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-pill);
-  color: var(--color-fg-secondary);
-  font-size: var(--font-size-caption);
-  font-weight: var(--font-weight-medium);
-}
-
-.doc-status.is-review {
-  border-color: var(--color-status-warning);
-  color: var(--color-fg-default);
-}
-
-.doc-status.is-final {
-  border-color: var(--color-main-fill);
-  background: var(--color-main-fill);
-  color: var(--color-main-on);
-}
-
 .doc-print {
   display: inline-grid;
   place-items: center;
@@ -221,18 +201,6 @@ h3.doc-heading::before {
   text-decoration: underline;
 }
 
-.doc-table-wrap {
-  overflow-x: auto;
-}
-
-.doc-table {
-  font-size: var(--font-size-label);
-}
-
-.doc-table td {
-  vertical-align: top;
-}
-
 .doc-id {
   color: var(--color-fg-muted);
   font-variant-numeric: tabular-nums;
@@ -270,39 +238,6 @@ h3.doc-heading::before {
 .doc-options {
   display: grid;
   gap: var(--space-3);
-}
-
-.doc-option {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-card);
-  font-size: var(--font-size-label);
-}
-
-.doc-option.is-chosen {
-  border-color: var(--color-main-default);
-}
-
-.doc-option-head {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--font-size-body);
-}
-
-.doc-option-badge {
-  padding: 0 var(--space-2);
-  border-radius: var(--radius-pill);
-  background: var(--color-main-fill);
-  color: var(--color-main-on);
-  font-size: var(--font-size-caption);
-}
-
-.doc-option-summary {
-  color: var(--color-fg-secondary);
 }
 
 .doc-option-label {
@@ -467,13 +402,6 @@ h3.doc-heading::before {
   list-style: none;
 }
 
-.resume-tags li {
-  padding: 2px var(--space-2);
-  border-radius: var(--radius-pill);
-  background: var(--color-sub-subtle);
-  color: var(--color-fg-secondary);
-  font-size: var(--font-size-caption);
-}
 
 @container (max-width: 600px) {
   .resume-section {
@@ -1025,11 +953,6 @@ h3.doc-heading::before {
   color: var(--color-fg-default);
 }
 
-.markdown-table .data-table-wrap {
-  position: static;
-  scrollbar-width: thin;
-}
-
 .markdown-ui {
   display: flex;
   flex-direction: column;
@@ -1132,17 +1055,8 @@ h3.doc-heading::before {
   margin: var(--space-2) 0 0;
 }
 
-.project-metrics dd {
-  margin: 0;
-  color: var(--color-fg-default);
-  font-size: var(--font-size-title);
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums;
-}
-
-.project-metrics dt {
-  color: var(--color-fg-muted);
-  font-size: var(--font-size-caption);
+.project-metrics .stat {
+  height: auto;
 }
 
 @container (max-width: 600px) {
@@ -1179,9 +1093,9 @@ h3.doc-heading::before {
   }
 
   .doc-figure,
-  .doc-option,
+  .doc-options .card,
   .code-block,
-  .doc-table tr {
+  .doc .data-table tr {
     break-inside: avoid;
   }
 }

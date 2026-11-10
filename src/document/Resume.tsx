@@ -1,4 +1,5 @@
 import { useCallback, useState, type ReactNode } from "react";
+import { Badge } from "../Badge";
 import { Icon } from "../Icon";
 import { useI18n } from "../i18n";
 import { PrintCopy } from "../print";
@@ -79,7 +80,9 @@ export function ResumeEntry({ title, org, period, place, items = [], tags = [], 
       {tags.length > 0 && (
         <ul className="resume-tags">
           {tags.map((tag) => (
-            <li key={tag}>{tag}</li>
+            <li key={tag}>
+              <Badge>{tag}</Badge>
+            </li>
           ))}
         </ul>
       )}

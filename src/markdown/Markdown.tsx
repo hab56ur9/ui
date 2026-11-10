@@ -4,7 +4,7 @@ import { DataTable } from "../DataTable";
 import { Icon, type IconName } from "../Icon";
 import { useI18n, type MessageKey } from "../i18n";
 import { JsonUI, type JsonUIAction, type JsonUIFormat, type JsonUINode } from "../JsonUI";
-import { Callout } from "../slides/parts";
+import { Callout } from "../Callout";
 import { fromMarkdown, LIST_KINDS, make, numbers, TEXT_KINDS, toMarkdown, type EditorBlock, type Kind } from "./blocks";
 import { parseMarkdown } from "./parse";
 import { Footnotes, renderInline, slug } from "./render";
@@ -527,7 +527,7 @@ function Row({ block, readOnly, inline, anchor, number, focus, dropBefore, dropA
       if (readOnly) {
         body = (
           <div className="markdown-table">
-            <DataTable columns={(rows[0] ?? []).map((cell, c) => ({ label: cell, numeric: block.align?.[c] === "right" }))} rows={rows.slice(1).map((row) => Array.from({ length: width }, (_, c) => ({ render: () => inline(row[c] ?? "") })))} />
+            <DataTable fit columns={(rows[0] ?? []).map((cell, c) => ({ label: cell, numeric: block.align?.[c] === "right" }))} rows={rows.slice(1).map((row) => Array.from({ length: width }, (_, c) => ({ content: inline(row[c] ?? "") })))} />
           </div>
         );
         break;

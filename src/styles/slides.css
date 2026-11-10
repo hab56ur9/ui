@@ -399,38 +399,6 @@
   translate: 0 -50%;
 }
 
-.callout {
-  --callout: var(--color-main-default);
-  display: flex;
-  gap: var(--space-4);
-  padding: var(--space-6) var(--space-8);
-  border-left: 4px solid var(--callout);
-  border-radius: var(--radius-card);
-  background: var(--color-bg-subtle);
-}
-
-.callout.is-warning {
-  --callout: var(--color-status-warning);
-}
-
-.callout.is-good {
-  --callout: var(--color-status-good);
-}
-
-.callout > .icon {
-  color: var(--callout);
-}
-
-.callout-title {
-  display: block;
-  margin-bottom: var(--space-2);
-  font-size: var(--font-size-title);
-}
-
-.callout-body {
-  color: var(--color-fg-secondary);
-}
-
 .compare {
   display: grid;
   flex: 1;

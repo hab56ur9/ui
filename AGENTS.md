@@ -32,9 +32,9 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Primitive color steps follow OKLab lightness: step ≈ (1 − L) × 1000.
 - Text never wears a series color. Status colors always pair with an icon and a label.
 - The series palette passes the dataviz validator in both modes: adjacent CVD ΔE ≥ 8 and normal-vision ΔE ≥ 15. Slots 2 to 5 sit below 3:1 on the light surface, so charts ship direct labels or a table view. Re-run the validator on any categorical change.
-- The light theme keeps large areas off-white (page about 83%, cards about 91% of white luminance).
+- The light theme keeps large areas off-white (page ~83%, cards ~91% of white).
 - `layout.compact.*` holds tighter inset, gap, section and stack values; an element with `data-density="compact"` swaps them in.
-- Files follow DTCG Format Module 2025.10; colors stay hex strings.
+- Files follow DTCG Format Module 2025.10; colors are hex.
 
 ## Presets
 
@@ -47,7 +47,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - `npm run check` runs the token build, the prop schema, the lint, `tsc`, the library build and the site build. Run it before every commit.
 - `scripts/build.mjs` writes `dist/tokens.css` (with one `@font-face` per font subset), `tokens.json`, `catalog.json`, `icons.svg`, `icons.json`, `ui.css` and the presets.
 - `scripts/components.mjs` reads every exported component's props through the TypeScript API and writes `dist/components.json`.
-- `vite.lib.config.ts` builds `dist/ui.js` from `src/standalone.ts`: one module with React inside that loads `tokens.css`, `ui.css` and `presets.css` beside itself and exports every component plus `render`, `h` and common hooks. It stays out of git; the rest of `dist/` is committed.
+- `vite.lib.config.ts` builds `dist/ui.js` from `src/standalone.ts`: one module with React that loads `tokens.css`, `ui.css` and `presets.css` beside itself and exports every component plus `render`, `h` and hooks. Only it stays out of git.
 - Vite builds the docs into `site/`.
 
 ## Components
@@ -57,18 +57,20 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Time series are `{ t, v }`; colors are a series slot or token name; formats group under `format`. Component text lives in `src/i18n.tsx`.
 - Style colors with `var(--color-*)` only; the lint rejects raw color literals and local machine paths.
 - Icons: add or redraw `assets/icons/<name>.svg` on the 24 grid with round-capped `currentColor` strokes; the build bundles them.
-- `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card and an untitled widget drops its header. Plain static widgets size to their content.
+- `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card, an untitled widget drops its header.
 - `Modal` and `Sheet` are controlled native dialogs with an `inline` docs mode; `UIProvider` hosts toasts and confirms.
 - `AppShell` takes `mobileNav="tabs"` to show `TabBar` instead of the drawer below 1024px, and `tabBar` for its `variant` (`bar`, `floating`) and `labels` (`show`, `active`, `hide`). An SDUI app sets the same through `navBar`.
 - `ThemePicker` opens a palette of the color presets and the mode switch, applies `data-preset` and `data-theme` to the root, and reports through `onChange`. `ui.js` loads `presets.css` so review pages can carry `ThemePicker` with `floating`.
 - Each preset's sub color is a gray tinted toward its main hue (`lime-gray`, `sky-gray`); the theme's default sub matches the lime preset.
 - `Image` draws a gradient placeholder without `src`; portrait is 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
+- `Badge`, `Card` and `Callout` are the shared status label, bordered group and notice; `DataTable` takes `fit` and column `wrap` for documents.
 - `Markdown` is one Notion-style block editor for CommonMark + GFM (shortcuts, `/` menu, drag, `onChange` markdown); `readOnly` shows the same blocks without editing. No raw HTML; `ui` fences use `JsonUI`.
 
 ## Templates
 
-- The repository manages templates and their parts only; writing rules for documents live in a separate docs plugin, not here.
-- The Templates tab groups Slides, Tech docs, Resume and Portfolio. A template is a block whose `block.json` sets `category` (슬라이드, 기술 문서, 이력서) and `kind` (`deck` or `doc`); a `templates` section shows them as cards with live thumbnails and the picked one below.
+- The repository manages templates and their parts only; writing rules live in a separate docs plugin.
+- Template parts only compose exported components. A new look (table, card, badge, callout) becomes a component in `src/` first; template CSS keeps layout only.
+- The Templates tab groups Slides, Tech docs, Resume and Portfolio. A template is a block whose `block.json` sets `category` and `kind` (`deck` or `doc`); a `templates` section shows live thumbnail cards and the picked one.
 - Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`, parts in `src/slides/parts.tsx`. PDF is print CSS only.
 - Tech docs: `Doc`, `DocSection`, `Ref`, `RequirementTable`, `Options`, `Figure`, `ChangeLog`. Resume: `Resume`, `ResumeSection`, `ResumeEntry`. Portfolio: `Portfolio`, `PortfolioSection`, `Project`. All print to A4 via `src/print.tsx`.
 
@@ -95,13 +97,12 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - A push to master updates the release pull request only. Merging it tags the release and runs the deploy job.
 - The deploy job builds, attaches `ui.js`, `ui.css`, `tokens.css`, `presets.css` and `components.json` to the GitHub release, collects the latest 100 releases into `site/v/<tag>/`, and deploys Pages.
 - Addresses: site `https://hab56ur9.github.io/ui/`, latest module `dist/ui.js`, pinned module `v/<tag>/ui.js`.
-- Versioned folders share the site's fonts. A release that renames or removes font files keeps the old paths in `assets/fonts` until those versions leave the latest 100.
+- Versioned folders share the site's fonts; renamed or removed font files keep their old paths until those versions leave the latest 100.
 - The site address lives in `package.json` as `homepage`.
 
 ## CLI
 
-- `bin/ui.mjs` is dependency-free. `ui serve [dir]` serves the folder at `/` and `dist/` and `assets/` at `/ui/`, injects a live-reload script into HTML, and redirects `/ui/dist/*` to the docs site when there is no local build. `--host` listens on the local network. `ui new <file>` writes a starter page.
-- Requests outside the served folder, `dist/` and `assets/` return 404.
+- `bin/ui.mjs` is dependency-free. `ui serve [dir]` serves the folder at `/` and `dist/` and `assets/` at `/ui/`, injects live reload, and falls back to the docs site for `/ui/dist/*` without a local build. `--host` listens on the local network. `ui new <file>` writes a starter page.
 
 ## Plugin
 

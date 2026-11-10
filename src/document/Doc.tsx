@@ -1,9 +1,12 @@
 import { createContext, useCallback, useContext, useId, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { Badge, type BadgeTone } from "../Badge";
 import { Icon } from "../Icon";
 import { useI18n } from "../i18n";
 import { PrintCopy } from "../print";
 
 export type DocStatus = "draft" | "review" | "final";
+const STATUS_TONE: Record<DocStatus, BadgeTone> = { draft: "neutral", review: "warning", final: "main" };
+
 export type DocMeta = { status: DocStatus; authors: string[]; reviewers?: string[]; date: string; version?: string };
 export type DocProps = { title: ReactNode; summary?: ReactNode; meta: DocMeta; toc?: boolean; printable?: boolean; children: ReactNode };
 
@@ -53,7 +56,9 @@ export function Doc({ title, summary, meta, toc = true, printable = true, childr
     <article ref={root} className="doc" data-medium="doc">
       <header className="doc-head">
         <div className="doc-head-row">
-          <span className={`doc-status is-${meta.status}`}>{text(`doc.${meta.status}`)}</span>
+          <Badge tone={STATUS_TONE[meta.status]} variant={meta.status === "final" ? "solid" : "outline"}>
+            {text(`doc.${meta.status}`)}
+          </Badge>
           <span className="toolbar-spacer" />
           {printable && (
             <button type="button" className="doc-print" aria-label={text("print")} title={text("print")} onClick={() => setPrinting(true)}>

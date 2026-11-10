@@ -511,4 +511,38 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  badge: [
+    {
+      type: "api",
+      title: "<Badge>",
+      rows: [
+        ["tone", "\"neutral\" | \"main\" | \"good\" | \"warning\" | \"critical\"", "\"neutral\"", "The color for the meaning."],
+        ["variant", "\"soft\" | \"outline\" | \"solid\"", "\"soft\"", "Soft fill, outline or solid fill."],
+        ["children", "ReactNode", "", "A word or two, or a number."],
+      ],
+    },
+  ],
+  card: [
+    {
+      type: "api",
+      title: "<Card>",
+      rows: [
+        ["title · description", "ReactNode", "", "The title and a one-line description."],
+        ["aside", "ReactNode", "", "A badge or button beside the title."],
+        ["selected", "boolean", "false", "Emphasizes the chosen card."],
+        ["children", "ReactNode", "", "The card's content."],
+      ],
+    },
+  ],
+  callout: [
+    {
+      type: "api",
+      title: "<Callout>",
+      rows: [
+        ["tone", "\"info\" | \"good\" | \"warning\"", "\"info\"", "Note, tip or warning."],
+        ["title", "string", "", "A bold title."],
+        ["children", "ReactNode", "", "The body."],
+      ],
+    },
+  ],
 };

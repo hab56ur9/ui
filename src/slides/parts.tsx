@@ -49,17 +49,3 @@ export function Steps({ items }: { items: Step[] }) {
     </ol>
   );
 }
-
-const CALLOUT_ICON = { info: "info", warning: "warning", good: "success" };
-
-export function Callout({ tone = "info", title, children }: { tone?: "info" | "warning" | "good"; title?: string; children: ReactNode }) {
-  return (
-    <aside className={`callout is-${tone}`}>
-      <Icon name={CALLOUT_ICON[tone]} />
-      <div>
-        {title && <strong className="callout-title">{title}</strong>}
-        <div className="callout-body">{children}</div>
-      </div>
-    </aside>
-  );
-}

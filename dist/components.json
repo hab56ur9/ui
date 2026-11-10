@@ -1003,6 +1003,59 @@
       ]
     },
     {
+      "name": "Steps",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "Step[]"
+        }
+      ]
+    },
+    {
+      "name": "Takeaway",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "critical",
+            "good",
+            "main",
+            "neutral",
+            "warning"
+          ]
+        },
+        {
+          "name": "variant",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "outline",
+            "soft",
+            "solid"
+          ]
+        }
+      ]
+    },
+    {
       "name": "Callout",
       "props": [
         {
@@ -1028,22 +1081,31 @@
       ]
     },
     {
-      "name": "Steps",
+      "name": "Card",
       "props": [
         {
-          "name": "items",
-          "optional": false,
-          "kind": "list",
-          "type": "Step[]"
-        }
-      ]
-    },
-    {
-      "name": "Takeaway",
-      "props": [
+          "name": "title",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "aside",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "selected",
+          "optional": true,
+          "kind": "boolean"
+        },
         {
           "name": "children",
-          "optional": false,
+          "optional": true,
           "kind": "node"
         }
       ]
@@ -1709,13 +1771,18 @@
           "name": "columns",
           "optional": false,
           "kind": "list",
-          "type": "{ label: string; numeric?: boolean | undefined; }[]"
+          "type": "{ label: string; numeric?: boolean | undefined; wrap?: boolean | undefined; }[]"
         },
         {
           "name": "rows",
           "optional": false,
           "kind": "list",
           "type": "Cell[][]"
+        },
+        {
+          "name": "fit",
+          "optional": true,
+          "kind": "boolean"
         }
       ]
     },
@@ -1836,6 +1903,15 @@
           "name": "color",
           "optional": true,
           "kind": "scalar"
+        },
+        {
+          "name": "size",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "md",
+            "sm"
+          ]
         }
       ]
     },

@@ -738,6 +738,52 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "badge",
+    "group": "컴포넌트",
+    "title": "Badge",
+    "lede": "A badge labels a status, a count or a category in a word. Its `tone` is neutral, main, good, warning or critical, and its `variant` is soft, outline or solid. Soft status badges carry a colored dot so color never carries meaning alone. Tabs, the tab bar, document status, resume tags and option comparisons all use this badge.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Tones and variants",
+        "example": "badge-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The badge text carries the meaning; color only supports it.",
+          "Count badges are read with the label beside them; don't leave a bare number."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "card",
+    "group": "컴포넌트",
+    "title": "Card",
+    "lede": "A card groups a title, a description and content inside one border. `selected` emphasizes the chosen card, and `aside` puts a badge or button beside the title. Dashboard cells use `Widget`; every other grouping uses a card.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Default and selected",
+        "example": "card-basic"
+      }
+    ]
+  },
+  {
+    "id": "callout",
+    "group": "컴포넌트",
+    "title": "Callout",
+    "lede": "A callout lifts one must-read passage out of the flow. It comes in note, tip and warning, each with an icon. Markdown `> [!NOTE]` blocks, tech docs and slides share this callout.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Three tones",
+        "example": "callout-basic"
+      }
+    ]
+  },
+  {
     "id": "stat",
     "group": "컴포넌트",
     "title": "Stat card",

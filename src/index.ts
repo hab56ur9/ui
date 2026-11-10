@@ -10,7 +10,10 @@ export { Resume, ResumeEntry, ResumeSection, type ResumeContact, type ResumeEntr
 export { ChangeLog, Figure, Options, RequirementTable, type Change, type Option, type Priority, type Requirement } from "./document/parts";
 export { Deck, Slide, SlideFooter, SlideHeader, type DeckProps, type SlideHeaderProps, type SlideProps, type SlideTone } from "./slides/Deck";
 export { AgendaSlide, ChartSlide, ClosingSlide, CompareSlide, MetricSlide, QuoteSlide, SectionSlide, SplitSlide, StatementSlide, TableSlide, TimelineSlide, TitleSlide, type AgendaSlideProps, type ChartSlideProps, type ClosingSlideProps, type ComparePane, type CompareSlideProps, type Metric, type MetricSlideProps, type Milestone, type QuoteSlideProps, type SectionSlideProps, type SplitSlideProps, type StatementSlideProps, type TableSlideProps, type TimelineSlideProps, type TitleSlideProps } from "./slides/layouts";
-export { Bullets, Callout, Steps, Takeaway, type BulletItem, type Step } from "./slides/parts";
+export { Bullets, Steps, Takeaway, type BulletItem, type Step } from "./slides/parts";
+export { Badge, type BadgeProps, type BadgeTone } from "./Badge";
+export { Callout, type CalloutProps } from "./Callout";
+export { Card, type CardProps } from "./Card";
 export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from "./AppShell";
 export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";

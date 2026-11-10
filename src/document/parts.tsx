@@ -1,4 +1,7 @@
 import type { ReactNode } from "react";
+import { Badge } from "../Badge";
+import { Card } from "../Card";
+import { DataTable } from "../DataTable";
 import { useI18n } from "../i18n";
 
 export type Priority = "must" | "should" | "could";
@@ -7,36 +10,23 @@ export type Requirement = { text: ReactNode; priority: Priority; status?: "open"
 export function RequirementTable({ items, prefix = "R" }: { items: Requirement[]; prefix?: string }) {
   const { text } = useI18n();
   return (
-    <div className="doc-table-wrap">
-      <table className="data-table doc-table">
-        <thead>
-          <tr>
-            <th>{text("doc.id")}</th>
-            <th>{text("doc.requirement")}</th>
-            <th>{text("doc.priority")}</th>
-            <th>{text("doc.state")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, i) => {
-            const id = `${prefix}${i + 1}`;
-            return (
-              <tr key={id} data-ref={id}>
-                <td className="doc-id">{id}</td>
-                <td>
-                  {item.text}
-                  {item.note && <div className="doc-note">{item.note}</div>}
-                </td>
-                <td>
-                  <span className={`doc-priority is-${item.priority}`}>{text(`doc.${item.priority}`)}</span>
-                </td>
-                <td>{text(`doc.${item.status ?? "open"}`)}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <DataTable
+      fit
+      columns={[{ label: text("doc.id") }, { label: text("doc.requirement"), wrap: true }, { label: text("doc.priority") }, { label: text("doc.state") }]}
+      rows={items.map((item, i) => [
+        { text: `${prefix}${i + 1}`, className: "doc-id" },
+        {
+          content: (
+            <>
+              {item.text}
+              {item.note && <div className="doc-note">{item.note}</div>}
+            </>
+          ),
+        },
+        { text: text(`doc.${item.priority}`), className: `doc-priority is-${item.priority}` },
+        text(`doc.${item.status ?? "open"}`),
+      ])}
+    />
   );
 }
 
@@ -47,12 +37,19 @@ export function Options({ items }: { items: Option[] }) {
   return (
     <div className="doc-options" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
       {items.map((item) => (
-        <div key={item.name} className={`doc-option${item.chosen ? " is-chosen" : ""}`}>
-          <div className="doc-option-head">
-            <strong>{item.name}</strong>
-            {item.chosen && <span className="doc-option-badge">{text("doc.chosen")}</span>}
-          </div>
-          {item.summary && <p className="doc-option-summary">{item.summary}</p>}
+        <Card
+          key={item.name}
+          title={item.name}
+          aside={
+            item.chosen && (
+              <Badge tone="main" variant="solid">
+                {text("doc.chosen")}
+              </Badge>
+            )
+          }
+          description={item.summary}
+          selected={item.chosen}
+        >
           <div className="doc-option-label">{text("doc.pros")}</div>
           <ul>
             {item.pros.map((pro) => (
@@ -65,7 +62,7 @@ export function Options({ items }: { items: Option[] }) {
               <li key={con}>{con}</li>
             ))}
           </ul>
-        </div>
+        </Card>
       ))}
     </div>
   );
@@ -87,28 +84,5 @@ export type Change = { version: string; date: string; author: string; note: Reac
 
 export function ChangeLog({ items }: { items: Change[] }) {
   const { text } = useI18n();
-  return (
-    <div className="doc-table-wrap">
-      <table className="data-table doc-table">
-        <thead>
-          <tr>
-            <th>{text("doc.version")}</th>
-            <th>{text("doc.date")}</th>
-            <th>{text("doc.author")}</th>
-            <th>{text("doc.change")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.version}>
-              <td className="doc-id">{item.version}</td>
-              <td>{item.date}</td>
-              <td>{item.author}</td>
-              <td>{item.note}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  return <DataTable fit columns={[{ label: text("doc.version") }, { label: text("doc.date") }, { label: text("doc.author") }, { label: text("doc.change"), wrap: true }]} rows={items.map((item) => [{ text: item.version, className: "doc-id" }, item.date, item.author, { content: item.note }])} />;
 }

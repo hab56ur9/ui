@@ -1,3 +1,4 @@
+import { Badge } from "./Badge";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
 
@@ -13,7 +14,13 @@ export function TabBar({ items, value, onChange, label, variant = "bar", labels 
         <button key={item.id} type="button" className="tab-bar-item" aria-current={item.id === value ? "page" : undefined} aria-label={labels === "show" ? undefined : item.label} title={labels === "hide" ? item.label : undefined} onClick={() => onChange?.(item.id)}>
           <span className="tab-bar-icon">
             <Icon name={item.icon} />
-            {item.badge !== undefined && <span className="tab-bar-badge">{item.badge}</span>}
+            {item.badge !== undefined && (
+              <span className="tab-bar-badge">
+                <Badge tone="critical" variant="solid">
+                  {item.badge}
+                </Badge>
+              </span>
+            )}
           </span>
           <span className="tab-bar-label">{item.label}</span>
         </button>
