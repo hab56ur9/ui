@@ -3,7 +3,7 @@ title: Resume Reference Guide
 updated: 2026-11-11
 ---
 
-# Resume Reference Guide
+Resume Reference Guide
 
 This guide lists five resume rules drawn from recent research. The studied groups differ from our situation, so the rules serve only as a reference for direction.
 
@@ -16,4 +16,3 @@ This guide lists five resume rules drawn from recent research. The studied group
 | 3 | Put comparable numbers and results first | When qualifications were similar, comparable evidence such as grades decided the choice |
 | 4 | Use one common sans-serif typeface with default letter spacing | Roboto and Arial were read fastest, and changing the format left comprehension unchanged |
 | 5 | Leave out decoration such as mixed typefaces and many colors | Decoration played almost no part in judging applicants; conscientiousness showed in the amount of experience and in grades |
-

@@ -3,7 +3,7 @@ title: Recent Design Languages
 updated: 2026-11-11
 ---
 
-# Recent Design Languages
+Recent Design Languages
 
 This document is a reference on the platform design languages and web and product styles that drew attention as of 2026-11-11.
 
@@ -50,4 +50,3 @@ Since 2025, design has been moving from flat design back toward texture, depth, 
 | Minimal SaaS | Closest; it is the current direction of ui |
 | Material 3 Expressive | Its principle of drawing the eye to what matters is worth considering for document and slide templates |
 | Liquid Glass | Text contrast shifts with the background, which conflicts with the 4.5:1 text standard |
-
