@@ -1,58 +1,58 @@
 ---
-title: 최근 디자인 언어 참고 자료
+title: Recent Design Languages
 updated: 2026-11-11
 ---
 
-# 최근 디자인 언어 참고 자료
+# Recent Design Languages
 
-이 문서는 2026-11-11 기준으로 주목받는 플랫폼 디자인 언어와 웹·제품 스타일을 정리한 참고 자료다. 출처에는 디자인 에이전시 블로그가 많으므로, 구체적인 수치는 Apple·Google 공식 문서로 다시 확인한다.
+This document is a reference on the platform design languages and web and product styles that drew attention as of 2026-11-11. Many sources are design agency blogs, so specific figures need checking against Apple's and Google's official documentation.
 
-## 흐름
+## Direction
 
-2025년 이후 디자인은 플랫 디자인에서 질감, 깊이, 움직임, 개성이 있는 디자인으로 돌아오고 있다.
+Since 2025, design has been moving from flat design back toward texture, depth, motion and character.
 
-- Apple의 Liquid Glass는 사실적인 재질을 내세운다.
-- Google의 Material 3 Expressive는 색, 모양, 움직임으로 감정과 주목을 끈다.
-- Google은 CHI 2026 논문에서 Material 3 Expressive가 이전 Material 3보다 올바른 요소를 33% 빨리 보게 하고 과제를 20% 빨리 끝내게 했다고 보고했다.
+- Apple's Liquid Glass leads with realistic material.
+- Google's Material 3 Expressive draws emotion and attention through color, shape and motion.
+- In a CHI 2026 paper, Google reported that Material 3 Expressive let users fixate on the correct element 33% faster and finish tasks 20% faster than the previous Material 3 guidelines.
 
-## 플랫폼 디자인 언어
+## Platform design languages
 
-| 언어 | 회사·시기 | 핵심 |
+| Language | Company and period | Core |
 | --- | --- | --- |
-| Liquid Glass | Apple, 2025 | 조작 요소를 굴절·반사하는 유리로 콘텐츠 위에 띄운다. 빛, 깊이, 물방울 같은 움직임이 특징이다 |
-| Material 3 Expressive | Google, 2025 (Android 16) | 크고 다양한 모양, 강한 색, 튕기는 움직임으로 중요한 요소에 시선을 모은다 |
-| Fluent 2 | Microsoft, 2023~ | Mica(바탕화면 색이 은은히 비치는 재질), Acrylic(흐린 반투명), 둥근 모서리를 쓴다 |
-| visionOS 공간 디자인 | Apple, 2023~ | 공간에 떠 있는 유리 창을 시선과 손으로 조작한다. Liquid Glass의 출발점이다 |
+| Liquid Glass | Apple, 2025 | Controls float above content as glass that refracts and reflects it, with light, depth and droplet-like motion |
+| Material 3 Expressive | Google, 2025 (Android 16) | Large, varied shapes, strong color and springy motion draw the eye to key elements |
+| Fluent 2 | Microsoft, 2023– | Mica (a material tinted faintly by the desktop wallpaper), Acrylic (blurred translucency) and rounded corners |
+| visionOS spatial design | Apple, 2023– | Glass windows float in space and respond to gaze and hands; it is the origin of Liquid Glass |
 
-## 웹·제품 스타일
+## Web and product styles
 
-| 스타일 | 특징 | 예 |
+| Style | Traits | Examples |
 | --- | --- | --- |
-| 벤토 그리드 | 크기가 다른 카드를 도시락처럼 배치한다 | Apple 제품 소개 페이지, SaaS 랜딩 페이지 |
-| 네오 브루탈리즘 | 굵은 테두리, 원색, 딱딱한 그림자로 일부러 거칠게 만든다 | Gumroad, 개인 포트폴리오 |
-| 미니멀 SaaS | 무채색, 얇은 테두리, 절제된 강조색을 쓴다 | shadcn/ui, Linear, Vercel |
-| 촉각적 스큐어모피즘 | Y2K 감성의 광택과 입체감을 되살린다 | 음악·크리에이터 앱 |
-| 의도된 불완전함 | 손글씨, 거친 질감, 비대칭을 쓴다 | 브랜드 사이트 |
-| 움직이는 타이포그래피 | 가변 글꼴의 굵기·폭을 움직인다 | 브랜드·캠페인 페이지 |
-| AI 네이티브 UI | 대화창, 생성되는 화면, 진행 상태 표시를 쓴다 | AI 어시스턴트 앱 |
+| Bento grid | Cards of different sizes laid out like a lunch box | Apple product pages, SaaS landing pages |
+| Neo-brutalism | Thick borders, primary colors and hard shadows, rough on purpose | Gumroad, personal portfolios |
+| Minimal SaaS | Neutral colors, thin borders and a restrained accent | shadcn/ui, Linear, Vercel |
+| Tactile skeuomorphism | Y2K gloss and depth brought back | Music and creator apps |
+| Deliberate imperfection | Handwriting, rough texture and asymmetry | Brand sites |
+| Kinetic typography | Variable fonts with animated weight and width | Brand and campaign pages |
+| AI-native UI | Chat panes, generated screens and progress states | AI assistant apps |
 
-## 이전 스타일
+## Earlier styles
 
-| 스타일 | 시기 | 표현 |
+| Style | Period | Expression |
 | --- | --- | --- |
-| 스큐어모피즘 | ~2012 | 가죽, 나무 같은 실물 재질을 흉내 낸다 |
-| 플랫 디자인 | 2013~ | 그림자와 질감을 빼고 색과 면으로만 표현한다 |
-| 글래스모피즘 | 2020년 전후 | 반투명과 배경 흐림을 쓴다 |
+| Skeuomorphism | Until about 2012 | Imitates real materials such as leather and wood |
+| Flat design | 2013– | Drops shadows and texture for color and plain shapes |
+| Glassmorphism | Around 2020 | Translucency with a blurred background |
 
-## ui와의 거리
+## Distance from ui
 
-| 언어·스타일 | 거리 |
+| Language or style | Distance |
 | --- | --- |
-| 미니멀 SaaS | 가장 가깝다. 지금 ui의 방향이다 |
-| Material 3 Expressive | 중요한 것에 시선을 모은다는 원칙은 문서·슬라이드 템플릿에 참고할 만하다 |
-| Liquid Glass | 배경에 따라 글자 대비가 달라져 텍스트 4.5:1 기준과 부딪힌다 |
+| Minimal SaaS | Closest; it is the current direction of ui |
+| Material 3 Expressive | Its principle of drawing the eye to what matters is worth considering for document and slide templates |
+| Liquid Glass | Text contrast shifts with the background, which conflicts with the 4.5:1 text standard |
 
-## 출처
+## Sources
 
 - [Liquid Glass vs Material 3 Expressive — OrangeLoops](https://orangeloops.com/2025/12/liquid-glass-vs-material-3-expressive-next‑gen-ui-design-compared)
 - [Recap: Material 3 Expressive — 9to5Google](https://9to5google.com/2025/12/27/recap-material-3-expressive/)

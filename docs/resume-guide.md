@@ -1,26 +1,26 @@
 ---
-title: 이력서 작성 참고 가이드
+title: Resume Reference Guide
 updated: 2026-11-11
 ---
 
-# 이력서 작성 참고 가이드
+# Resume Reference Guide
 
-이 가이드는 2024년 논문 3편에서 참고할 만한 이력서 규칙 다섯 가지를 추린 것이다. 근거 집단이 우리 상황과 달라, 규칙은 방향을 잡는 참고로만 쓴다.
+This guide draws five resume rules worth considering from three papers published in 2024. The studied groups differ from our situation, so the rules serve only as a reference for direction.
 
-## 규칙
+## Rules
 
-| # | 규칙 | 사유 |
+| # | Rule | Reason |
 | --- | --- | --- |
-| 1 | 15초 안에 판단 근거가 보이게 쓴다 | 채용 담당자 40명이 한 장을 평균 약 14.5초 봤고, 오래 본다고 평점이 오르지 않았다 (Törngren) |
-| 2 | 지원 동기 한 줄, 프로젝트·논문 주제, 경력의 종류를 직무에 맞춰 쓴다 | 담당자는 이 세 곳에서 조직 적합성을 짐작했다 (Törngren) |
-| 3 | 비교할 수 있는 숫자와 성과를 앞에 둔다 | 자격이 비슷하면 성적처럼 비교 가능한 근거가 결정을 갈랐다 (Törngren) |
-| 4 | 흔한 산세리프 글꼴 하나와 기본 자간을 쓴다 | Roboto·Arial이 가장 빨리 읽혔고, 형식을 바꿔도 이해도는 그대로였다 (Day) |
-| 5 | 글꼴 섞기, 여러 색 같은 꾸밈은 하지 않는다 | 꾸밈은 지원자 판단에 거의 쓰이지 않았고, 성실함은 경험의 수와 성적에서 드러났다 (Härtel) |
+| 1 | Make the grounds for a decision visible within 15 seconds | Forty recruiters looked at each page for about 14.5 seconds on average, and longer looking did not raise the rating (Törngren) |
+| 2 | Tailor the one-line motivation, the project or thesis topic, and the kind of work experience to the role | Recruiters inferred organizational fit from these three places (Törngren) |
+| 3 | Put comparable numbers and results first | When qualifications were similar, comparable evidence such as grades decided the choice (Törngren) |
+| 4 | Use one common sans-serif typeface with default letter spacing | Roboto and Arial were read fastest, and changing the format left comprehension unchanged (Day) |
+| 5 | Leave out decoration such as mixed typefaces and many colors | Decoration played almost no part in judging applicants; conscientiousness showed in the amount of experience and in grades (Härtel) |
 
-## 근거
+## Evidence
 
-| 약칭 | 연구 | 한계 |
+| Short name | Study | Limits |
 | --- | --- | --- |
-| Törngren | Osanami Törngren 외 (2024), *Frontiers in Sociology*, https://doi.org/10.3389/fsoc.2024.1222850 | 스웨덴 대기업 경제직 채용 담당자 40명, 가상 이력서 |
-| Day | Day 외 (2024), *Education Sciences*, https://doi.org/10.3390/educsci14080854 | 미국 초등학생 51명의 화면 읽기 |
-| Härtel | Härtel 외 (2024), *Applied Psychology*, https://doi.org/10.1111/apps.12522 | 독일 학생 141명, 사전 등록 없음 |
+| Törngren | Osanami Törngren et al. (2024), *Frontiers in Sociology*, <https://doi.org/10.3389/fsoc.2024.1222850> | Forty recruiters for economist roles at large Swedish firms, fictional resumes |
+| Day | Day et al. (2024), *Education Sciences*, <https://doi.org/10.3390/educsci14080854> | Fifty-one US elementary school students reading on screen |
+| Härtel | Härtel et al. (2024), *Applied Psychology*, <https://doi.org/10.1111/apps.12522> | 141 German-speaking students, no preregistration |
