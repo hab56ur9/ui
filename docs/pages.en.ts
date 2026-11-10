@@ -1242,7 +1242,7 @@ export const pages: Page[] = [
     "id": "tabbar",
     "group": "컴포넌트",
     "title": "Tab bar",
-    "lede": "A tab bar is the menu fixed to the bottom of a phone app. It moves between three to five main screens with icons and names. Give `AppShell` `mobileNav=\"tabs\"` and it draws a tab bar instead of the drawer on narrow screens.",
+    "lede": "A tab bar is the menu fixed to the bottom of a phone app. It moves between three to five main screens with icons and names. Give `AppShell` `mobileNav=\"tabs\"` and it draws a tab bar instead of the drawer on narrow screens. It comes docked (`bar`) or floating (`floating`), and its names show always, on the current tab only, or never. `AppShell` takes the same settings through `tabBar`.",
     "sections": [
       {
         "type": "demo",
@@ -1250,10 +1250,16 @@ export const pages: Page[] = [
         "example": "tabbar-basic"
       },
       {
+        "type": "demo",
+        "title": "Floating and labels",
+        "example": "tabbar-floating"
+      },
+      {
         "type": "a11y",
         "items": [
           "The current tab announces itself with `aria-current=\"page\"`.",
-          "Every tab keeps its name next to the icon."
+          "Every tab keeps its name next to the icon.",
+          "With names hidden, each button carries its name as `aria-label`."
         ]
       }
     ]

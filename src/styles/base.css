@@ -854,6 +854,42 @@ p {
   text-align: center;
 }
 
+.tab-bar.labels-hide .tab-bar-label,
+.tab-bar.labels-active .tab-bar-item:not([aria-current="page"]) .tab-bar-label {
+  display: none;
+}
+
+.tab-bar.labels-hide .tab-bar-item,
+.tab-bar.labels-active .tab-bar-item {
+  justify-content: center;
+  min-height: var(--space-12);
+}
+
+.tab-bar.is-floating {
+  gap: var(--space-1);
+  margin: 0 auto;
+  padding: var(--space-1);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-raised);
+  box-shadow: var(--elevation-lifted);
+}
+
+.tab-bar.is-floating .tab-bar-item {
+  border-radius: var(--radius-pill);
+  transition: background var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.tab-bar.is-floating .tab-bar-item[aria-current="page"] {
+  background: var(--color-main-subtle);
+}
+
+.tab-bar.is-floating.labels-active .tab-bar-item[aria-current="page"] {
+  flex: 1.6;
+  flex-direction: row;
+  gap: var(--space-2);
+}
+
 .shell-tabs {
   display: none;
 }
@@ -865,6 +901,16 @@ p {
     z-index: 1;
     display: block;
     margin-top: auto;
+  }
+
+  .shell-frame.has-tabs .shell-tabs.is-floating {
+    padding: 0 var(--layout-inset) calc(var(--layout-inset) + env(safe-area-inset-bottom));
+    pointer-events: none;
+  }
+
+  .shell-tabs.is-floating .tab-bar {
+    max-width: 420px;
+    pointer-events: auto;
   }
 
   .shell-frame.has-tabs .shell-menu,

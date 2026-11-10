@@ -25,6 +25,10 @@
       "icon": "user"
     }
   ],
+  "navBar": {
+    "variant": "floating",
+    "labels": "active"
+  },
   "screens": {
     "home": {
       "actions": [

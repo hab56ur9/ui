@@ -891,6 +891,12 @@
           ]
         },
         {
+          "name": "tabBar",
+          "optional": true,
+          "kind": "object",
+          "type": "TabBarStyle"
+        },
+        {
           "name": "children",
           "optional": false,
           "kind": "node"
@@ -1272,6 +1278,25 @@
     {
       "name": "TabBar",
       "props": [
+        {
+          "name": "variant",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "bar",
+            "floating"
+          ]
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "active",
+            "hide",
+            "show"
+          ]
+        },
         {
           "name": "items",
           "optional": false,

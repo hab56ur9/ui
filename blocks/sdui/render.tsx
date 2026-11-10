@@ -1,5 +1,6 @@
 import { createElement, Fragment, isValidElement, type ComponentType, type CSSProperties, type ReactNode } from "react";
 import * as ui from "ui";
+import type { TabBarStyle } from "ui";
 
 export type Action = { name: string; params?: Record<string, unknown>; close?: boolean };
 export type Node = { type: string; props?: Record<string, unknown>; children?: unknown };
@@ -10,7 +11,7 @@ export type NavItem = { id: string; label: string; icon: string };
 export type ButtonDef = { label: string; variant?: "primary" | "secondary" | "danger"; action: Action };
 export type ScreenDef = { title?: string; lede?: string; actions?: ButtonDef[]; widgets: ScreenWidget[] };
 export type Overlay = { kind: "modal" | "sheet"; title: string; description?: string; body?: string; actions: ButtonDef[] };
-export type App = { version: number; app: string; density?: "comfortable" | "compact"; start: string; nav: NavItem[]; screens: Record<string, ScreenDef>; overlays?: Record<string, Overlay> };
+export type App = { version: number; app: string; density?: "comfortable" | "compact"; start: string; nav: NavItem[]; navBar?: TabBarStyle; screens: Record<string, ScreenDef>; overlays?: Record<string, Overlay> };
 
 type Format = (v: number) => string;
 type Row = Record<string, unknown>;

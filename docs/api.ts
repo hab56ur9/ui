@@ -141,6 +141,7 @@ export const api: Record<string, Section[]> = {
         ["title · actions", "ReactNode", "", "상단 바의 제목과 오른쪽 버튼입니다."],
         ["children", "ReactNode", "", "본문입니다. 본문만 스크롤되고 사이드바와 상단 바는 그대로 있습니다."],
         ["mobileNav", "\"drawer\" | \"tabs\"", "\"drawer\"", "1024px보다 좁을 때의 메뉴입니다. `tabs`면 아래 탭 바로, `drawer`면 왼쪽 서랍으로 보입니다."],
+        ["tabBar", "{ variant?, labels? }", "", "`tabs`일 때 탭 바의 모양입니다. `TabBar`와 같은 값을 씁니다."],
       ],
     },
   ],
@@ -341,6 +342,8 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<TabBar>",
       rows: [
+        ["variant", "\"bar\" | \"floating\"", "\"bar\"", "하단에 붙은 막대이거나, 떠 있는 알약 모양입니다."],
+        ["labels", "\"show\" | \"active\" | \"hide\"", "\"show\"", "이름을 항상, 현재 탭만, 또는 숨겨서 보여 줍니다."],
         ["items", "{ id, label, icon, badge? }[]", "", "탭 목록입니다. 3~5개를 권합니다."],
         ["value · onChange", "string · (id) => void", "", "현재 탭과, 누른 탭의 id를 받는 함수입니다."],
         ["label", "string", "\"탐색\"", "스크린리더에 읽힐 메뉴 이름입니다."],

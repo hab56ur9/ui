@@ -1095,8 +1095,12 @@
   pointer-events: none;
 }
 
-.phone-screen .shell-tabs .tab-bar {
+.phone-screen .shell-tabs.is-bar .tab-bar {
   padding-bottom: var(--space-6);
+}
+
+.phone-screen .shell-frame.has-tabs .shell-tabs.is-floating {
+  padding-bottom: var(--space-8);
 }
 
 .browser {

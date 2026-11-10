@@ -1,10 +1,10 @@
 import { Component, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
-import { Board, Button, useI18n, useToast, Widget, type LayoutItem } from "ui";
+import { Board, Button, iconNames, useI18n, useToast, Widget, type LayoutItem, type TabBarStyle } from "ui";
 import { AppView } from "../blocks/sdui/AppView";
 import { data as fitnessData } from "../blocks/sdui/fitness/data";
 import fitnessEn from "../blocks/sdui/fitness/en.json";
 import fitnessKo from "../blocks/sdui/fitness/ko.json";
-import { formatsFor, isNode, renderNode, type Action, type App, type Content, type Node, type ScreenWidget } from "../blocks/sdui/render";
+import { formatsFor, isNode, renderNode, type Action, type App, type Content, type NavItem, type Node, type ScreenWidget } from "../blocks/sdui/render";
 import { data as socialData, dataEn as socialDataEn } from "../blocks/sdui/social/data";
 import socialEn from "../blocks/sdui/social/en.json";
 import socialKo from "../blocks/sdui/social/ko.json";
@@ -35,6 +35,16 @@ const COPY = {
     card: "카드",
     plain: "없음",
     reset: "처음으로",
+    menu: "메뉴바",
+    menuHint: "메뉴 항목의 이름·아이콘·순서와 메뉴바 모양을 정합니다. 항목은 화면과 하나씩 짝을 이룹니다.",
+    barVariant: "모양",
+    barLabels: "이름 표시",
+    variants: { bar: "하단 고정", floating: "플로팅" },
+    labelModes: { show: "항상", active: "현재 탭만", hide: "숨김" },
+    name: "이름",
+    icon: "아이콘",
+    up: "위로",
+    down: "아래로",
     copy: "JSON 복사",
     copied: "서버에 보낼 JSON을 복사했습니다",
     hint: (mobile: boolean) => `위젯을 끌어 순서를 바꾸고, 눌러서 내용과 크기를 고칩니다. ${mobile ? "왼쪽 휴대폰" : "위의 브라우저 창"}이 실제 사용자에게 보이는 화면이고, 그 메뉴를 누르면 그 화면을 편집합니다.`,
@@ -66,6 +76,16 @@ const COPY = {
     card: "Card",
     plain: "None",
     reset: "Start over",
+    menu: "Menu bar",
+    menuHint: "Set each menu item's name, icon and order, and the bar's look. Each item pairs with one screen.",
+    barVariant: "Style",
+    barLabels: "Labels",
+    variants: { bar: "Docked", floating: "Floating" },
+    labelModes: { show: "Always", active: "Current tab only", hide: "Hidden" },
+    name: "Name",
+    icon: "Icon",
+    up: "Move up",
+    down: "Move down",
     copy: "Copy JSON",
     copied: "Copied the JSON to send from the server",
     hint: (mobile: boolean) => `Drag widgets to reorder them, and click one to edit its content and size. The ${mobile ? "phone on the left" : "browser window above"} is the screen users actually see; tap its menu to edit that screen.`,
@@ -99,6 +119,22 @@ const nodesOf = (value: unknown): Node[] => {
 const SEEN = nodesOf([SAMPLES.mobile.ko.app, SAMPLES.desktop.ko.app]);
 const serverActions = (app: App) => [...new Set(JSON.stringify(app).match(/"name":"[a-z-]+"/g) ?? [])].map((match) => match.slice(8, -1)).filter((name) => !["open", "navigate", "close"].includes(name));
 const templateOf = (type: string): Node => structuredClone(SEEN.find((node) => node.type === type) ?? { type, props: {} });
+
+const MENU = "__menu";
+const loadMenu = (key: string) => {
+  try {
+    return JSON.parse(localStorage.getItem(key) ?? "null") as Menu | null;
+  } catch {
+    return null;
+  }
+};
+const saveMenu = (key: string, value: Menu) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    return;
+  }
+};
 
 const load = (key: string) => {
   try {
@@ -273,6 +309,48 @@ function NodeEditor({ node, env, onChange, onRemove }: { node: Node; env: Env; o
   );
 }
 
+type Menu = { items: NavItem[]; style: TabBarStyle };
+
+function MenuEditor({ menu, c, mobile, onChange }: { menu: Menu; c: Copy; mobile: boolean; onChange: (next: Menu) => void }) {
+  const setItem = (i: number, patch: Partial<NavItem>) => onChange({ ...menu, items: menu.items.map((item, j) => (j === i ? { ...item, ...patch } : item)) });
+  const move = (i: number, by: number) => {
+    const items = [...menu.items];
+    const [item] = items.splice(i, 1);
+    items.splice(i + by, 0, item);
+    onChange({ ...menu, items });
+  };
+  return (
+    <div className="sdui-inspector">
+      <p className="sdui-hint">{c.menuHint}</p>
+      {mobile && (
+        <div className="sdui-fields">
+          <Field label={c.barVariant}>
+            <Choice value={menu.style.variant ?? "bar"} options={["bar", "floating"]} labels={c.variants} onChange={(variant) => onChange({ ...menu, style: { ...menu.style, variant: variant as TabBarStyle["variant"] } })} />
+          </Field>
+          <Field label={c.barLabels}>
+            <Choice value={menu.style.labels ?? "show"} options={["show", "active", "hide"]} labels={c.labelModes} onChange={(labels) => onChange({ ...menu, style: { ...menu.style, labels: labels as TabBarStyle["labels"] } })} />
+          </Field>
+        </div>
+      )}
+      {menu.items.map((item, i) => (
+        <fieldset className="sdui-node" key={item.id}>
+          <legend>
+            <code>{item.id}</code>
+            <Button icon="arrow-up" aria-label={c.up} title={c.up} disabled={i === 0} onClick={() => move(i, -1)} />
+            <Button icon="arrow-down" aria-label={c.down} title={c.down} disabled={i === menu.items.length - 1} onClick={() => move(i, 1)} />
+          </legend>
+          <Field label={c.name}>
+            <input value={item.label} onChange={(e) => setItem(i, { label: e.target.value })} />
+          </Field>
+          <Field label={c.icon}>
+            <Choice value={item.icon} options={iconNames} onChange={(icon) => icon && setItem(i, { icon })} />
+          </Field>
+        </fieldset>
+      ))}
+    </div>
+  );
+}
+
 function Inspector({ widget, env, mobile, onChange }: { widget: Draft; env: Env; mobile: boolean; onChange: (next: Draft) => void }) {
   const { c, targets } = env;
   const parts: Node[] = Array.isArray(widget.content) ? widget.content : [widget.content];
@@ -332,11 +410,15 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
   const [screenId, setScreenId] = useState(sample.start);
   const [selected, setSelected] = useState<string | undefined>();
 
+  const menuKey = `${key}.menu`;
+  const [menu, setMenu] = useState<Menu>(() => loadMenu(menuKey) ?? { items: sample.nav, style: sample.navBar ?? {} });
+
   useEffect(() => save(key, drafts), [key, drafts]);
+  useEffect(() => saveMenu(menuKey, menu), [menuKey, menu]);
 
   const widgets = drafts[screenId] ?? [];
   const setWidgets = (next: Draft[] | ((list: Draft[]) => Draft[])) => setDrafts((all) => ({ ...all, [screenId]: typeof next === "function" ? next(all[screenId] ?? []) : next }));
-  const app: App = { ...sample, screens: Object.fromEntries(Object.entries(sample.screens).map(([id, def]) => [id, { ...def, widgets: (drafts[id] ?? []).filter((widget) => !widget.hidden).map(({ hidden: _, ...widget }) => widget) }])) };
+  const app: App = { ...sample, nav: menu.items, navBar: menu.style, screens: Object.fromEntries(Object.entries(sample.screens).map(([id, def]) => [id, { ...def, widgets: (drafts[id] ?? []).filter((widget) => !widget.hidden).map(({ hidden: _, ...widget }) => widget) }])) };
   const targets = Object.fromEntries([
     ...Object.entries(sample.overlays ?? {}).map(([id, overlay]) => [`open:${id}`, `${overlay.kind === "sheet" ? c.openSheet : c.openModal}: ${overlay.title}`]),
     ...sample.nav.map((item) => [`navigate:${item.id}`, `${c.goTo}: ${item.label}`]),
@@ -414,7 +496,16 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
         <div className="sdui-pane-head">
           <strong>{c.builder}</strong>
           <span className="toolbar-spacer" />
-          <Button icon="refresh" onClick={() => setDrafts(draftsOf(sample))}>
+          <Button icon="menu" aria-pressed={selected === MENU} onClick={() => setSelected(selected === MENU ? undefined : MENU)}>
+            {c.menu}
+          </Button>
+          <Button
+            icon="refresh"
+            onClick={() => {
+              setDrafts(draftsOf(sample));
+              setMenu({ items: sample.nav, style: sample.navBar ?? {} });
+            }}
+          >
             {c.reset}
           </Button>
           <Button icon="copy" onClick={copy}>
@@ -432,7 +523,7 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
         </div>
         <div className="sdui-work">
           <div className="sdui-builder">{builder}</div>
-          <div className="sdui-inspector-wrap">{editing ? <Inspector key={editing.id} widget={editing} env={env} mobile={mobile} onChange={update} /> : <p className="sdui-hint">{c.pick}</p>}</div>
+          <div className="sdui-inspector-wrap">{selected === MENU ? <MenuEditor menu={menu} c={c} mobile={mobile} onChange={setMenu} /> : editing ? <Inspector key={editing.id} widget={editing} env={env} mobile={mobile} onChange={update} /> : <p className="sdui-hint">{c.pick}</p>}</div>
         </div>
       </section>
     </div>

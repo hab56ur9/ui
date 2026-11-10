@@ -141,6 +141,7 @@ export const api: Record<string, Section[]> = {
         ["title · actions", "ReactNode", "", "The top bar title and its right-hand buttons."],
         ["children", "ReactNode", "", "The content. Only the content scrolls; the sidebar and top bar stay put."],
         ["mobileNav", "\"drawer\" | \"tabs\"", "\"drawer\"", "The menu below 1024px: `tabs` shows a bottom tab bar, `drawer` a left drawer."],
+        ["tabBar", "{ variant?, labels? }", "", "The tab bar's look when `tabs`; same values as `TabBar`."],
       ],
     },
   ],
@@ -341,6 +342,8 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<TabBar>",
       rows: [
+        ["variant", "\"bar\" | \"floating\"", "\"bar\"", "A bar docked to the bottom, or a floating pill."],
+        ["labels", "\"show\" | \"active\" | \"hide\"", "\"show\"", "Show names always, on the current tab only, or never."],
         ["items", "{ id, label, icon, badge? }[]", "", "The tabs. Three to five work best."],
         ["value · onChange", "string · (id) => void", "", "The current tab, and the function that gets the id of the tapped one."],
         ["label", "string", "\"Navigation\"", "The menu name screen readers read."],

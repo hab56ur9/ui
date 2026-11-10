@@ -60,7 +60,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Icons: add or redraw `assets/icons/<name>.svg` on the 24 grid with round-capped `currentColor` strokes; the build bundles them.
 - `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card and an untitled widget drops its header. Plain static widgets size to their content.
 - Overlays: `Modal` and `Sheet` are controlled native dialogs with an `inline` mode for docs. `UIProvider` hosts toasts and confirm dialogs.
-- `AppShell` takes `mobileNav="tabs"` to show `TabBar` instead of the drawer below 1024px.
+- `AppShell` takes `mobileNav="tabs"` to show `TabBar` instead of the drawer below 1024px, and `tabBar` for its `variant` (`bar`, `floating`) and `labels` (`show`, `active`, `hide`). An SDUI app sets the same through `navBar`.
 - `Image` draws a gradient placeholder from series colors when `src` is missing. Portrait images use 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
 
 ## Templates

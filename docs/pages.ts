@@ -1259,7 +1259,7 @@ export const pages: Page[] = [
     "id": "tabbar",
     "group": "컴포넌트",
     "title": "탭 바",
-    "lede": "탭 바는 휴대폰 앱 아래쪽에 고정되는 메뉴입니다. 3~5개의 주요 화면을 아이콘과 이름으로 오갑니다. `AppShell`에 `mobileNav=\"tabs\"`를 주면 좁은 화면에서 서랍 대신 탭 바를 그립니다.",
+    "lede": "탭 바는 휴대폰 앱 아래쪽에 고정되는 메뉴입니다. 3~5개의 주요 화면을 아이콘과 이름으로 오갑니다. `AppShell`에 `mobileNav=\"tabs\"`를 주면 좁은 화면에서 서랍 대신 탭 바를 그립니다. 모양은 하단 고정(`bar`)과 플로팅(`floating`) 두 가지이고, 이름은 항상·현재 탭만·숨김 중에 고릅니다. `AppShell`은 `tabBar`로 같은 설정을 받습니다.",
     "sections": [
       {
         "type": "demo",
@@ -1267,10 +1267,16 @@ export const pages: Page[] = [
         "example": "tabbar-basic"
       },
       {
+        "type": "demo",
+        "title": "플로팅과 이름 표시",
+        "example": "tabbar-floating"
+      },
+      {
         "type": "a11y",
         "items": [
           "현재 탭은 `aria-current=\"page\"`로 알립니다.",
-          "아이콘만 두지 않고 항상 이름을 함께 씁니다."
+          "아이콘만 두지 않고 항상 이름을 함께 씁니다.",
+          "이름을 숨기면 각 버튼이 이름을 `aria-label`로 갖습니다."
         ]
       }
     ]

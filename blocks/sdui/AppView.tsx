@@ -47,6 +47,7 @@ export function AppView({ app, values, mobileNav = "tabs", screen: controlled, o
     <div style={{ position: "relative", height: "100%" }} data-density={app.density}>
       <AppShell
         mobileNav={mobileNav}
+        tabBar={app.navBar}
         brand={
           <>
             <Icon name="trend-up" />

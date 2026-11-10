@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
-import { TabBar } from "./TabBar";
+import { TabBar, type TabBarStyle } from "./TabBar";
 
 export type ShellItem = { id: string; label: string; icon: IconName; current?: boolean; onSelect?: () => void };
 export type ShellGroup = { title?: string; items: ShellItem[] };
-export type AppShellProps = { brand: ReactNode; nav: ShellGroup[]; title?: ReactNode; actions?: ReactNode; mobileNav?: "drawer" | "tabs"; children: ReactNode };
+export type AppShellProps = { brand: ReactNode; nav: ShellGroup[]; title?: ReactNode; actions?: ReactNode; mobileNav?: "drawer" | "tabs"; tabBar?: TabBarStyle; children: ReactNode };
 
 function ShellNav({ nav, onPick }: { nav: ShellGroup[]; onPick?: () => void }) {
   const { text } = useI18n();
@@ -35,7 +35,7 @@ function ShellNav({ nav, onPick }: { nav: ShellGroup[]; onPick?: () => void }) {
   );
 }
 
-export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", children }: AppShellProps) {
+export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", tabBar, children }: AppShellProps) {
   const { text } = useI18n();
   const [open, setOpen] = useState(false);
   const items = nav.flatMap((group) => group.items);
@@ -74,8 +74,9 @@ export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", chi
           </header>
           <div className="shell-body">{children}</div>
           {mobileNav === "tabs" && (
-            <div className="shell-tabs">
+            <div className={`shell-tabs is-${tabBar?.variant ?? "bar"}`}>
               <TabBar
+                {...tabBar}
                 items={items}
                 value={items.find((item) => item.current)?.id}
                 onChange={(id) => items.find((item) => item.id === id)?.onSelect?.()}
