@@ -595,7 +595,7 @@ export const pages: Page[] = [
   },
   {
     "id": "button",
-    "group": "컴포넌트",
+    "group": "입력",
     "title": "Button",
     "lede": "A button runs an action. Only the single most important action on a screen becomes a primary button.",
     "sections": [
@@ -654,7 +654,7 @@ export const pages: Page[] = [
   },
   {
     "id": "segmented",
-    "group": "컴포넌트",
+    "group": "입력",
     "title": "Segmented control",
     "lede": "A segmented control picks one of two to five options. It serves values that affect the whole screen, such as the period, the theme or the view.",
     "sections": [
@@ -690,8 +690,53 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "calendar",
+    "group": "입력",
+    "title": "Calendar",
+    "lede": "A calendar shows a month as a grid and lets people pick one day. Today has a ring, the picked day takes the main color, and days with records get a dot. The picked day leaves through `onChange`; the calendar stores nothing.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "calendar-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The grid is `role=\"grid\"`: arrows move by a day or a week, PageUp and PageDown by a month, Home and End to the start and end of the week.",
+          "Each date button reads as the full date, today carries `aria-current=\"date\"`, and the picked day `aria-selected`."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "themepicker",
+    "group": "입력",
+    "title": "Theme picker",
+    "lede": "A theme picker switches the color preset and the mode (system, light, dark) from one Theme button. Opening it shows each preset's main and sub colors as a palette. The choice applies at once to `data-preset` and `data-theme` on the document root and leaves through `onChange`. Placed with `floating` on a page an AI made, it lets a reviewer check that page under every preset.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Floating",
+        "example": "themepicker-floating"
+      },
+      {
+        "type": "demo",
+        "title": "Button and panel",
+        "example": "themepicker-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The panel is a `dialog` and the presets a `radiogroup`; Escape or a click outside closes it.",
+          "Several pickers on one page follow the document root together, so they never disagree."
+        ]
+      }
+    ]
+  },
+  {
     "id": "tabs",
-    "group": "컴포넌트",
+    "group": "탐색",
     "title": "Tabs",
     "lede": "Tabs switch between views of the same subject on one screen. Picking a tab changes only the content below; the address and screen stay. There are two looks, underline (`line`) and pill (`pill`), and a long row of tabs scrolls sideways. Use the tab bar to move between screens, and a segmented control for two or three ways to filter the same data.",
     "sections": [
@@ -738,158 +783,240 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "badge",
-    "group": "컴포넌트",
-    "title": "Badge",
-    "lede": "A badge labels a status, a count or a category in a word. Its `tone` is neutral, main, good, warning or critical, and its `variant` is soft, outline or solid. Soft status badges carry a colored dot so color never carries meaning alone. Tabs, the tab bar, document status, resume tags and option comparisons all use this badge.",
+    "id": "tabbar",
+    "group": "탐색",
+    "title": "Tab bar",
+    "lede": "A tab bar is the menu fixed to the bottom of a phone app. It moves between three to five main screens with icons and names. Give `AppShell` `mobileNav=\"tabs\"` and it draws a tab bar instead of the drawer on narrow screens. It comes docked (`bar`) or floating (`floating`), and its names show always, on the current tab only, or never. `AppShell` takes the same settings through `tabBar`.",
     "sections": [
       {
         "type": "demo",
-        "title": "Tones and variants",
-        "example": "badge-basic"
+        "title": "Basic",
+        "example": "tabbar-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Floating and labels",
+        "example": "tabbar-floating"
       },
       {
         "type": "a11y",
         "items": [
-          "The badge text carries the meaning; color only supports it.",
-          "Count badges are read with the label beside them; don't leave a bare number."
+          "The current tab announces itself with `aria-current=\"page\"`.",
+          "Every tab keeps its name next to the icon.",
+          "With names hidden, each button carries its name as `aria-label`."
         ]
       }
     ]
   },
   {
-    "id": "card",
-    "group": "컴포넌트",
-    "title": "Card",
-    "lede": "A card groups a title, a description and content inside one border. `selected` emphasizes the chosen card, and `aside` puts a badge or button beside the title. Dashboard cells use `Widget`; every other grouping uses a card.",
+    "id": "modal",
+    "group": "피드백",
+    "title": "Modal",
+    "lede": "A modal pauses the current task to collect a required input or decision. While it is open, the screen behind it cannot be used.",
     "sections": [
       {
         "type": "demo",
-        "title": "Default and selected",
-        "example": "card-basic"
+        "title": "Desktop",
+        "center": true,
+        "example": "modal-sizes"
+      },
+      {
+        "type": "demo",
+        "title": "Mobile",
+        "example": "modal-mobile"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Title",
+            "One line that says what the dialog does."
+          ],
+          [
+            "Description",
+            "One or two sentences on the result of the choice."
+          ],
+          [
+            "Body",
+            "Inputs or content. When it grows long, only this area scrolls."
+          ],
+          [
+            "Actions",
+            "The primary action sits at the far right. Cancel sits to its left."
+          ]
+        ]
+      },
+      {
+        "type": "usage",
+        "when": [
+          "An input or decision is required before moving on"
+        ],
+        "avoid": [
+          "A simple notice calls for a toast",
+          "A list of options on mobile calls for a bottom sheet",
+          "A reversible action runs without confirmation and offers undo"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The native `<dialog>` keeps focus inside the dialog.",
+          "Esc and an outside click close it.",
+          "On close, focus returns to the element that opened it."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.modal.*",
+          "color.bg.scrim",
+          "elevation.overlay",
+          "motion.easing.enter",
+          "motion.easing.exit"
+        ]
       }
     ]
   },
   {
-    "id": "callout",
-    "group": "컴포넌트",
-    "title": "Callout",
-    "lede": "A callout lifts one must-read passage out of the flow. It comes in note, tip and warning, each with an icon. Markdown `> [!NOTE]` blocks, tech docs and slides share this callout.",
+    "id": "confirm",
+    "group": "피드백",
+    "title": "Confirm dialog",
+    "lede": "A confirm dialog is a small modal that asks once more right before an irreversible action.",
     "sections": [
       {
         "type": "demo",
-        "title": "Three tones",
-        "example": "callout-basic"
+        "title": "Desktop",
+        "caption": "When no cancel label is passed, the component fills it in the page language",
+        "center": true,
+        "example": "confirm-danger"
+      },
+      {
+        "type": "demo",
+        "title": "Mobile",
+        "example": "confirm-mobile"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Write the title as a question, such as \"Delete this widget?\", and the button as the result, such as \"Delete\".",
+            "Write vague text that hides what happens, such as \"Are you sure you want to proceed?\"."
+          ],
+          [
+            "Put the initial focus on the Cancel button.",
+            "Let a single Enter run the dangerous action."
+          ]
+        ]
       }
     ]
   },
   {
-    "id": "takeaway",
-    "group": "컴포넌트",
-    "title": "Takeaway",
-    "lede": "A takeaway states the conclusion of a section in one sentence right below its title, set apart by an accent rule and larger type.",
+    "id": "sheet",
+    "group": "피드백",
+    "title": "Bottom sheet",
+    "lede": "A bottom sheet is a panel that rises from the bottom of the screen. On narrow screens it puts menus, options and short decisions within reach of the thumb.",
     "sections": [
       {
         "type": "demo",
-        "title": "Basic",
-        "example": "takeaway-basic"
+        "title": "Mobile",
+        "caption": "Drag the handle down to close the sheet",
+        "center": true,
+        "example": "sheet-list"
+      },
+      {
+        "type": "demo",
+        "title": "Desktop",
+        "example": "sheet-desktop"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Menus or options appear on mobile",
+          "A dropdown on wide screens needs a narrow-screen replacement"
+        ],
+        "avoid": [
+          "Wide screens call for a menu or a modal",
+          "Long forms call for a separate screen"
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.sheet",
+          "radius.sheet",
+          "motion.duration.slow"
+        ]
       }
     ]
   },
   {
-    "id": "bullets",
-    "group": "컴포넌트",
-    "title": "Bullets",
-    "lede": "Bullets list key points up to two levels; sub-items sit indented, smaller and lighter. Around five lines reads best.",
+    "id": "toast",
+    "group": "피드백",
+    "title": "Toast",
+    "lede": "A toast briefly reports what just happened and then disappears. For a reversible action it also offers undo. On desktop it appears at the bottom right; on mobile it spans the bottom of the screen, above a bottom tab bar and clear of the iPhone home indicator.",
     "sections": [
       {
         "type": "demo",
-        "title": "Two levels",
-        "example": "bullets-basic"
-      }
-    ]
-  },
-  {
-    "id": "steps",
-    "group": "컴포넌트",
-    "title": "Steps",
-    "lede": "Steps connect an ordered process with numbers and arrows: side by side on wide screens, stacked on narrow ones. Three to five steps read best.",
-    "sections": [
+        "title": "Desktop",
+        "center": true,
+        "example": "toast-status"
+      },
       {
         "type": "demo",
-        "title": "Three steps",
-        "example": "steps-basic"
-      }
-    ]
-  },
-  {
-    "id": "figure",
-    "group": "컴포넌트",
-    "title": "Figure",
-    "lede": "A figure captions a chart or table: below for figures, above for tables. Inside the tech doc frame, numbers like \"Figure N.\" and \"Table N.\" are added automatically.",
-    "sections": [
+        "title": "Mobile",
+        "example": "toast-place-mobile"
+      },
       {
-        "type": "demo",
-        "title": "Figure and table",
-        "example": "figure-basic"
-      }
-    ]
-  },
-  {
-    "id": "code",
-    "group": "컴포넌트",
-    "title": "Code block",
-    "lede": "A code block shows code with syntax colors and a copy button; without a language it guesses from the content.",
-    "sections": [
+        "type": "anatomy",
+        "items": [
+          [
+            "Icon",
+            "Shows the status by shape as well. The icons are `info` for notices, `success` for done, `warning` for caution and `error` for errors."
+          ],
+          [
+            "Message",
+            "One sentence on what happened. Warnings and errors start with a label."
+          ],
+          [
+            "Action",
+            "Only one, such as Undo or Retry."
+          ]
+        ]
+      },
       {
-        "type": "demo",
-        "title": "Basic",
-        "example": "code-basic"
-      }
-    ]
-  },
-  {
-    "id": "requirement-table",
-    "group": "컴포넌트",
-    "title": "Requirement table",
-    "lede": "A requirement table numbers each requirement (R1, R2…) with its priority and status, so other text can point to it by number.",
-    "sections": [
+        "type": "guidelines",
+        "items": [
+          [
+            "Run reversible actions without a confirm dialog and offer Undo in a toast.",
+            "Open a confirm dialog before every action."
+          ],
+          [
+            "Toasts stack up to 3, and the oldest disappears first.",
+            "Deliver content that must be read only through a toast."
+          ]
+        ]
+      },
       {
-        "type": "demo",
-        "title": "Basic",
-        "example": "requirements-basic"
-      }
-    ]
-  },
-  {
-    "id": "options",
-    "group": "컴포넌트",
-    "title": "Options",
-    "lede": "Options set each candidate's summary, pros and cons side by side in cards and highlight the chosen one.",
-    "sections": [
+        "type": "a11y",
+        "items": [
+          "Info, done and warning toasts are read as `role=\"status\"`, and errors as `role=\"alert\"`.",
+          "Hover or focus pauses the dismiss timer.",
+          "Toasts show above an open modal."
+        ]
+      },
       {
-        "type": "demo",
-        "title": "Two options",
-        "example": "options-basic"
-      }
-    ]
-  },
-  {
-    "id": "changelog",
-    "group": "컴포넌트",
-    "title": "Change log",
-    "lede": "A change log records versions, dates, authors and changes in a table.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "Basic",
-        "example": "changelog-basic"
+        "type": "tokens",
+        "paths": [
+          "size.toast",
+          "color.status.*",
+          "elevation.overlay"
+        ]
       }
     ]
   },
   {
     "id": "stat",
-    "group": "컴포넌트",
+    "group": "데이터",
     "title": "Stat card",
     "lede": "A stat card shows the single most important value right now and its change. It replaces a chart with a single bar.",
     "sections": [
@@ -945,7 +1072,7 @@ export const pages: Page[] = [
   },
   {
     "id": "board",
-    "group": "컴포넌트",
+    "group": "데이터",
     "title": "Widget board",
     "lede": "The widget board is a dashboard frame that places widgets on a 12-column grid. Users drag widgets to move them, resize them and hide them, and the layout is saved.",
     "sections": [
@@ -1007,7 +1134,7 @@ export const pages: Page[] = [
   },
   {
     "id": "line-chart",
-    "group": "컴포넌트",
+    "group": "데이터",
     "sub": "차트",
     "title": "Line chart",
     "lede": "A line chart shows change over time. It supports multiple series, forecast bands, baselines and event markers such as launches.",
@@ -1105,7 +1232,7 @@ export const pages: Page[] = [
   },
   {
     "id": "bar-chart",
-    "group": "컴포넌트",
+    "group": "데이터",
     "sub": "차트",
     "title": "Bar chart",
     "lede": "A bar chart compares amounts per period. Bars start at the baseline, and only their top corners are rounded.",
@@ -1154,7 +1281,7 @@ export const pages: Page[] = [
   },
   {
     "id": "heatmap",
-    "group": "컴포넌트",
+    "group": "데이터",
     "sub": "차트",
     "title": "Heatmap",
     "lede": "A heatmap shows the magnitude of each cell where two axes meet as color intensity. It serves to find repeating patterns, such as weekdays by hour.",
@@ -1195,7 +1322,7 @@ export const pages: Page[] = [
   },
   {
     "id": "sparkline",
-    "group": "컴포넌트",
+    "group": "데이터",
     "sub": "차트",
     "title": "Sparkline",
     "lede": "A sparkline is a small line that shows only the trend, without axes. It appears inside stat cards and tables.",
@@ -1220,7 +1347,7 @@ export const pages: Page[] = [
   },
   {
     "id": "table",
-    "group": "컴포넌트",
+    "group": "데이터",
     "title": "Table",
     "lede": "A table compares exact values. Every chart must be able to show the same data as a table.",
     "sections": [
@@ -1251,285 +1378,218 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "modal",
-    "group": "컴포넌트",
-    "title": "Modal",
-    "lede": "A modal pauses the current task to collect a required input or decision. While it is open, the screen behind it cannot be used.",
+    "id": "badge",
+    "group": "콘텐츠",
+    "title": "Badge",
+    "lede": "A badge labels a status, a count or a category in a word. Its `tone` is neutral, main, good, warning or critical, and its `variant` is soft, outline or solid. Soft status badges carry a colored dot so color never carries meaning alone. Tabs, the tab bar, document status, resume tags and option comparisons all use this badge.",
     "sections": [
       {
         "type": "demo",
-        "title": "Desktop",
-        "center": true,
-        "example": "modal-sizes"
-      },
-      {
-        "type": "demo",
-        "title": "Mobile",
-        "example": "modal-mobile"
-      },
-      {
-        "type": "anatomy",
-        "items": [
-          [
-            "Title",
-            "One line that says what the dialog does."
-          ],
-          [
-            "Description",
-            "One or two sentences on the result of the choice."
-          ],
-          [
-            "Body",
-            "Inputs or content. When it grows long, only this area scrolls."
-          ],
-          [
-            "Actions",
-            "The primary action sits at the far right. Cancel sits to its left."
-          ]
-        ]
-      },
-      {
-        "type": "usage",
-        "when": [
-          "An input or decision is required before moving on"
-        ],
-        "avoid": [
-          "A simple notice calls for a toast",
-          "A list of options on mobile calls for a bottom sheet",
-          "A reversible action runs without confirmation and offers undo"
-        ]
+        "title": "Tones and variants",
+        "example": "badge-basic"
       },
       {
         "type": "a11y",
         "items": [
-          "The native `<dialog>` keeps focus inside the dialog.",
-          "Esc and an outside click close it.",
-          "On close, focus returns to the element that opened it."
-        ]
-      },
-      {
-        "type": "tokens",
-        "paths": [
-          "size.modal.*",
-          "color.bg.scrim",
-          "elevation.overlay",
-          "motion.easing.enter",
-          "motion.easing.exit"
+          "The badge text carries the meaning; color only supports it.",
+          "Count badges are read with the label beside them; don't leave a bare number."
         ]
       }
     ]
   },
   {
-    "id": "confirm",
-    "group": "컴포넌트",
-    "title": "Confirm dialog",
-    "lede": "A confirm dialog is a small modal that asks once more right before an irreversible action.",
+    "id": "card",
+    "group": "콘텐츠",
+    "title": "Card",
+    "lede": "A card groups a title, a description and content inside one border. `selected` emphasizes the chosen card, and `aside` puts a badge or button beside the title. Dashboard cells use `Widget`; every other grouping uses a card.",
     "sections": [
       {
         "type": "demo",
-        "title": "Desktop",
-        "caption": "When no cancel label is passed, the component fills it in the page language",
-        "center": true,
-        "example": "confirm-danger"
-      },
-      {
-        "type": "demo",
-        "title": "Mobile",
-        "example": "confirm-mobile"
-      },
-      {
-        "type": "guidelines",
-        "items": [
-          [
-            "Write the title as a question, such as \"Delete this widget?\", and the button as the result, such as \"Delete\".",
-            "Write vague text that hides what happens, such as \"Are you sure you want to proceed?\"."
-          ],
-          [
-            "Put the initial focus on the Cancel button.",
-            "Let a single Enter run the dangerous action."
-          ]
-        ]
+        "title": "Default and selected",
+        "example": "card-basic"
       }
     ]
   },
   {
-    "id": "sheet",
-    "group": "컴포넌트",
-    "title": "Bottom sheet",
-    "lede": "A bottom sheet is a panel that rises from the bottom of the screen. On narrow screens it puts menus, options and short decisions within reach of the thumb.",
+    "id": "callout",
+    "group": "콘텐츠",
+    "title": "Callout",
+    "lede": "A callout lifts one must-read passage out of the flow. It comes in note, tip and warning, each with an icon. Markdown `> [!NOTE]` blocks, tech docs and slides share this callout.",
     "sections": [
       {
         "type": "demo",
-        "title": "Mobile",
-        "caption": "Drag the handle down to close the sheet",
-        "center": true,
-        "example": "sheet-list"
-      },
-      {
-        "type": "demo",
-        "title": "Desktop",
-        "example": "sheet-desktop"
-      },
-      {
-        "type": "usage",
-        "when": [
-          "Menus or options appear on mobile",
-          "A dropdown on wide screens needs a narrow-screen replacement"
-        ],
-        "avoid": [
-          "Wide screens call for a menu or a modal",
-          "Long forms call for a separate screen"
-        ]
-      },
-      {
-        "type": "tokens",
-        "paths": [
-          "size.sheet",
-          "radius.sheet",
-          "motion.duration.slow"
-        ]
+        "title": "Three tones",
+        "example": "callout-basic"
       }
     ]
   },
   {
-    "id": "toast",
-    "group": "컴포넌트",
-    "title": "Toast",
-    "lede": "A toast briefly reports what just happened and then disappears. For a reversible action it also offers undo. On desktop it appears at the bottom right; on mobile it spans the bottom of the screen, above a bottom tab bar and clear of the iPhone home indicator.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "Desktop",
-        "center": true,
-        "example": "toast-status"
-      },
-      {
-        "type": "demo",
-        "title": "Mobile",
-        "example": "toast-place-mobile"
-      },
-      {
-        "type": "anatomy",
-        "items": [
-          [
-            "Icon",
-            "Shows the status by shape as well. The icons are `info` for notices, `success` for done, `warning` for caution and `error` for errors."
-          ],
-          [
-            "Message",
-            "One sentence on what happened. Warnings and errors start with a label."
-          ],
-          [
-            "Action",
-            "Only one, such as Undo or Retry."
-          ]
-        ]
-      },
-      {
-        "type": "guidelines",
-        "items": [
-          [
-            "Run reversible actions without a confirm dialog and offer Undo in a toast.",
-            "Open a confirm dialog before every action."
-          ],
-          [
-            "Toasts stack up to 3, and the oldest disappears first.",
-            "Deliver content that must be read only through a toast."
-          ]
-        ]
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "Info, done and warning toasts are read as `role=\"status\"`, and errors as `role=\"alert\"`.",
-          "Hover or focus pauses the dismiss timer.",
-          "Toasts show above an open modal."
-        ]
-      },
-      {
-        "type": "tokens",
-        "paths": [
-          "size.toast",
-          "color.status.*",
-          "elevation.overlay"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "tabbar",
-    "group": "컴포넌트",
-    "title": "Tab bar",
-    "lede": "A tab bar is the menu fixed to the bottom of a phone app. It moves between three to five main screens with icons and names. Give `AppShell` `mobileNav=\"tabs\"` and it draws a tab bar instead of the drawer on narrow screens. It comes docked (`bar`) or floating (`floating`), and its names show always, on the current tab only, or never. `AppShell` takes the same settings through `tabBar`.",
+    "id": "takeaway",
+    "group": "콘텐츠",
+    "title": "Takeaway",
+    "lede": "A takeaway states the conclusion of a section in one sentence right below its title, set apart by an accent rule and larger type.",
     "sections": [
       {
         "type": "demo",
         "title": "Basic",
-        "example": "tabbar-basic"
-      },
-      {
-        "type": "demo",
-        "title": "Floating and labels",
-        "example": "tabbar-floating"
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "The current tab announces itself with `aria-current=\"page\"`.",
-          "Every tab keeps its name next to the icon.",
-          "With names hidden, each button carries its name as `aria-label`."
-        ]
+        "example": "takeaway-basic"
       }
     ]
   },
   {
-    "id": "calendar",
-    "group": "컴포넌트",
-    "title": "Calendar",
-    "lede": "A calendar shows a month as a grid and lets people pick one day. Today has a ring, the picked day takes the main color, and days with records get a dot. The picked day leaves through `onChange`; the calendar stores nothing.",
+    "id": "bullets",
+    "group": "콘텐츠",
+    "title": "Bullets",
+    "lede": "Bullets list key points up to two levels; sub-items sit indented, smaller and lighter. Around five lines reads best.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Two levels",
+        "example": "bullets-basic"
+      }
+    ]
+  },
+  {
+    "id": "steps",
+    "group": "콘텐츠",
+    "title": "Steps",
+    "lede": "Steps connect an ordered process with numbers and arrows: side by side on wide screens, stacked on narrow ones. Three to five steps read best.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Three steps",
+        "example": "steps-basic"
+      }
+    ]
+  },
+  {
+    "id": "figure",
+    "group": "콘텐츠",
+    "title": "Figure",
+    "lede": "A figure captions a chart or table: below for figures, above for tables. Inside the tech doc frame, numbers like \"Figure N.\" and \"Table N.\" are added automatically.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Figure and table",
+        "example": "figure-basic"
+      }
+    ]
+  },
+  {
+    "id": "code",
+    "group": "콘텐츠",
+    "title": "Code block",
+    "lede": "A code block shows code with syntax colors and a copy button; without a language it guesses from the content.",
     "sections": [
       {
         "type": "demo",
         "title": "Basic",
-        "example": "calendar-basic"
+        "example": "code-basic"
+      }
+    ]
+  },
+  {
+    "id": "requirement-table",
+    "group": "콘텐츠",
+    "title": "Requirement table",
+    "lede": "A requirement table numbers each requirement (R1, R2…) with its priority and status, so other text can point to it by number.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "requirements-basic"
+      }
+    ]
+  },
+  {
+    "id": "options",
+    "group": "콘텐츠",
+    "title": "Options",
+    "lede": "Options set each candidate's summary, pros and cons side by side in cards and highlight the chosen one.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Two options",
+        "example": "options-basic"
+      }
+    ]
+  },
+  {
+    "id": "changelog",
+    "group": "콘텐츠",
+    "title": "Change log",
+    "lede": "A change log records versions, dates, authors and changes in a table.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "changelog-basic"
+      }
+    ]
+  },
+  {
+    "id": "image",
+    "group": "콘텐츠",
+    "title": "Image",
+    "lede": "An image fills its box at a fixed ratio. Without `src` it draws a gradient placeholder from the series colors, so it also serves examples and loading states. Portrait photos use 3:4, landscape ones 16:9 or 4:3. An image card groups an image with a title and description, and a carousel pages sideways in three sizes: one slide at a time (`full`), several cards (`card`) or many small cards (`mini`).",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Image and image card",
+        "example": "image-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Carousel",
+        "example": "carousel-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Card carousel",
+        "example": "carousel-card"
+      },
+      {
+        "type": "demo",
+        "title": "Mini card carousel",
+        "example": "carousel-mini"
       },
       {
         "type": "a11y",
         "items": [
-          "The grid is `role=\"grid\"`: arrows move by a day or a week, PageUp and PageDown by a month, Home and End to the start and end of the week.",
-          "Each date button reads as the full date, today carries `aria-current=\"date\"`, and the picked day `aria-selected`."
+          "Every image gets `alt`; the placeholder reads it as its name too.",
+          "Each carousel slide reads as `n / total`, and it pages with the previous and next buttons or a swipe."
         ]
       }
     ]
   },
   {
-    "id": "themepicker",
-    "group": "컴포넌트",
-    "title": "Theme picker",
-    "lede": "A theme picker switches the color preset and the mode (system, light, dark) from one Theme button. Opening it shows each preset's main and sub colors as a palette. The choice applies at once to `data-preset` and `data-theme` on the document root and leaves through `onChange`. Placed with `floating` on a page an AI made, it lets a reviewer check that page under every preset.",
+    "id": "social",
+    "group": "콘텐츠",
+    "title": "Social",
+    "lede": "Social components make up the screens of a photo-sharing app: avatar, stories, post, profile header, photo grid and list. Taps such as a like leave as events, and the app does the storing.",
     "sections": [
       {
         "type": "demo",
-        "title": "Floating",
-        "example": "themepicker-floating"
+        "title": "Feed",
+        "example": "social-feed"
       },
       {
         "type": "demo",
-        "title": "Button and panel",
-        "example": "themepicker-basic"
+        "title": "Profile and activity",
+        "example": "social-profile"
       },
       {
         "type": "a11y",
         "items": [
-          "The panel is a `dialog` and the presets a `radiogroup`; Escape or a click outside closes it.",
-          "Several pickers on one page follow the document root together, so they never disagree."
+          "The like button reports its state with `aria-pressed`, and a double tap on the photo likes it too.",
+          "Every icon button has a name."
         ]
       }
     ]
   },
   {
     "id": "jsonui",
-    "group": "컴포넌트",
+    "group": "렌더러",
     "title": "JSON UI",
     "lede": "JSON UI is the engine that takes a JSON template and draws components under it. Write the screen as JSON, place one `<JsonUI>`, and pass data, number formats and an action handler. The components below don't know they came from JSON and behave as usual. For SDUI, an app only adds an adapter that turns its server response into this format.",
     "sections": [
@@ -1608,7 +1668,7 @@ export const pages: Page[] = [
   },
   {
     "id": "markdown",
-    "group": "컴포넌트",
+    "group": "렌더러",
     "title": "Markdown",
     "lede": "Markdown is a document component you read and edit in place, like Notion. It parses standard markdown (CommonMark plus GitHub extensions) into blocks drawn with our components, and typing `- `, `1. `, `[] `, `# `, `> `, three backticks or `---` changes a block on the spot. `/` inserts blocks and UI components, and blocks move by their drag handle. Where nothing should change (AI answers, shared views, SDUI notices, print), `readOnly` shows the same look. Edits leave through `onChange` as standard markdown, and the app does the storing.",
     "sections": [
@@ -1777,62 +1837,177 @@ export const pages: Page[] = [
     "wide": true
   },
   {
-    "id": "image",
-    "group": "컴포넌트",
-    "title": "Image",
-    "lede": "An image fills its box at a fixed ratio. Without `src` it draws a gradient placeholder from the series colors, so it also serves examples and loading states. Portrait photos use 3:4, landscape ones 16:9 or 4:3. An image card groups an image with a title and description, and a carousel pages sideways in three sizes: one slide at a time (`full`), several cards (`card`) or many small cards (`mini`).",
+    "id": "slides",
+    "group": "틀",
+    "title": "Slide frame",
+    "lede": "A deck is the frame for slides built in HTML. It draws on a 1920×1080 canvas and scales it to fit, so the layout stays the same on any screen, and it applies the slide medium tokens inside.",
     "sections": [
       {
-        "type": "demo",
-        "title": "Image and image card",
-        "example": "image-basic"
+        "type": "usage",
+        "when": [
+          "Claude makes decks of the same look again and again",
+          "Charts and numbers come from the same data as a web page"
+        ],
+        "avoid": [
+          "A deck people will edit in PowerPoint needs a .pptx template",
+          "A single picture belongs on a doc page"
+        ]
       },
       {
-        "type": "demo",
-        "title": "Carousel",
-        "example": "carousel-basic"
+        "type": "anatomy",
+        "items": [
+          [
+            "`Deck`",
+            "Shows one slide at a time and holds the next, present and print buttons and the page number."
+          ],
+          [
+            "`Slide`",
+            "One slide. It takes a background tone (`plain`, `dark`, `accent`), a source and speaker notes."
+          ],
+          [
+            "`SlideHeader`",
+            "Kicker, title and subtitle, in the same place on every slide."
+          ],
+          [
+            "`SlideFooter`",
+            "Source, deck title and page number. `Slide` adds it on its own."
+          ]
+        ]
       },
       {
-        "type": "demo",
-        "title": "Card carousel",
-        "example": "carousel-card"
+        "type": "guidelines",
+        "items": [
+          [
+            "Put a one-line takeaway (`Takeaway`) under the title.",
+            "Show only a title and say the conclusion out loud."
+          ],
+          [
+            "Cite a source on number and chart slides.",
+            "Show numbers without a source."
+          ]
+        ]
       },
       {
-        "type": "demo",
-        "title": "Mini card carousel",
-        "example": "carousel-mini"
+        "type": "list",
+        "title": "Save as PDF",
+        "items": [
+          "The print button sends only this deck to the print dialog. Choose Save as PDF and each slide becomes one 16:9 page.",
+          "On an HTML page that holds only a deck, the browser's Print (⌘P) gives the same result.",
+          "The design system ships no PDF tool; it provides the print CSS only."
+        ]
       },
       {
         "type": "a11y",
         "items": [
-          "Every image gets `alt`; the placeholder reads it as its name too.",
-          "Each carousel slide reads as `n / total`, and it pages with the previous and next buttons or a swipe."
+          "Focus the deck and use the arrow keys, Space, PageUp and PageDown, Home and End.",
+          "F turns the presenter view on and off.",
+          "Screen readers read the new slide when it changes."
         ]
       }
     ]
   },
   {
-    "id": "social",
-    "group": "컴포넌트",
-    "title": "Social",
-    "lede": "Social components make up the screens of a photo-sharing app: avatar, stories, post, profile header, photo grid and list. Taps such as a like leave as events, and the app does the storing.",
+    "id": "doc-frame",
+    "group": "틀",
+    "title": "Doc frame",
+    "lede": "The doc frame is the shell of a technical document written in HTML. It draws the header, contents and section numbers on its own, and the doc medium tokens give it a readable text size and line height.",
     "sections": [
       {
         "type": "demo",
-        "title": "Feed",
-        "example": "social-feed"
+        "title": "Basic",
+        "caption": "Click the contents and the R2 reference. The button at the top right prints only this document on A4",
+        "example": "doc-basic",
+        "medium": "doc"
       },
       {
-        "type": "demo",
-        "title": "Profile and activity",
-        "example": "social-profile"
+        "type": "usage",
+        "when": [
+          "Writing something that gets reviewed, such as a design doc, RFC or decision record",
+          "Tying requirements and design together by number"
+        ],
+        "avoid": [
+          "A one-screen notice belongs on a plain page",
+          "A talk belongs in slides"
+        ]
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Header",
+            "Status (draft, in review, final), title, one-line summary, authors, reviewers, date and version."
+          ],
+          [
+            "Contents",
+            "Built from the `DocSection` titles, numbered 1 and 1.1."
+          ],
+          [
+            "Section",
+            "Nested `DocSection`s continue the numbering two levels deep."
+          ],
+          [
+            "Reference",
+            "`Ref` jumps to a requirement row by its ID and highlights it for a moment."
+          ]
+        ]
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Write the summary as the conclusion, in one sentence.",
+            "Fill the summary with background."
+          ],
+          [
+            "Tie each design decision to the requirement it meets, like `R1`.",
+            "Leave requirements and design to be read apart."
+          ],
+          [
+            "Give open questions their own section, phrased as questions.",
+            "Write undecided points in the body as if settled."
+          ]
+        ]
+      },
+      {
+        "type": "list",
+        "title": "Save as PDF",
+        "items": [
+          "The print button sends only this document to the print dialog, split into A4 portrait pages.",
+          "Pages never break right after a heading, and figures, tables and code blocks stay whole."
+        ]
       },
       {
         "type": "a11y",
         "items": [
-          "The like button reports its state with `aria-pressed`, and a double tap on the photo likes it too.",
-          "Every icon button has a name."
+          "Contents and references are links, so the keyboard can follow them.",
+          "Section titles are h2 and h3, so screen readers can move by heading."
         ]
+      }
+    ]
+  },
+  {
+    "id": "resume",
+    "group": "틀",
+    "title": "Resume frame",
+    "lede": "The resume frame stacks sections and entries under a header with name, role and contacts. An entry takes a title, organization, period, achievements and skill badges, and printing splits it into A4 portrait pages.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "resume-frame"
+      }
+    ]
+  },
+  {
+    "id": "portfolio",
+    "group": "틀",
+    "title": "Portfolio frame",
+    "lede": "The portfolio frame lays out projects under an intro header, each with an image, summary, key numbers and skill badges, and prints as A4 portrait.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "portfolio-frame"
       }
     ]
   },
@@ -1912,76 +2087,6 @@ export const pages: Page[] = [
       {
         "type": "templates",
         "category": "슬라이드"
-      }
-    ]
-  },
-  {
-    "id": "slides",
-    "group": "슬라이드",
-    "title": "Deck",
-    "lede": "A deck is the frame for slides built in HTML. It draws on a 1920×1080 canvas and scales it to fit, so the layout stays the same on any screen, and it applies the slide medium tokens inside.",
-    "sections": [
-      {
-        "type": "usage",
-        "when": [
-          "Claude makes decks of the same look again and again",
-          "Charts and numbers come from the same data as a web page"
-        ],
-        "avoid": [
-          "A deck people will edit in PowerPoint needs a .pptx template",
-          "A single picture belongs on a doc page"
-        ]
-      },
-      {
-        "type": "anatomy",
-        "items": [
-          [
-            "`Deck`",
-            "Shows one slide at a time and holds the next, present and print buttons and the page number."
-          ],
-          [
-            "`Slide`",
-            "One slide. It takes a background tone (`plain`, `dark`, `accent`), a source and speaker notes."
-          ],
-          [
-            "`SlideHeader`",
-            "Kicker, title and subtitle, in the same place on every slide."
-          ],
-          [
-            "`SlideFooter`",
-            "Source, deck title and page number. `Slide` adds it on its own."
-          ]
-        ]
-      },
-      {
-        "type": "guidelines",
-        "items": [
-          [
-            "Put a one-line takeaway (`Takeaway`) under the title.",
-            "Show only a title and say the conclusion out loud."
-          ],
-          [
-            "Cite a source on number and chart slides.",
-            "Show numbers without a source."
-          ]
-        ]
-      },
-      {
-        "type": "list",
-        "title": "Save as PDF",
-        "items": [
-          "The print button sends only this deck to the print dialog. Choose Save as PDF and each slide becomes one 16:9 page.",
-          "On an HTML page that holds only a deck, the browser's Print (⌘P) gives the same result.",
-          "The design system ships no PDF tool; it provides the print CSS only."
-        ]
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "Focus the deck and use the arrow keys, Space, PageUp and PageDown, Home and End.",
-          "F turns the presenter view on and off.",
-          "Screen readers read the new slide when it changes."
-        ]
       }
     ]
   },
@@ -2070,85 +2175,6 @@ export const pages: Page[] = [
       {
         "type": "templates",
         "category": "기술 문서"
-      }
-    ]
-  },
-  {
-    "id": "doc-frame",
-    "group": "기술 문서",
-    "title": "Doc frame",
-    "lede": "The doc frame is the shell of a technical document written in HTML. It draws the header, contents and section numbers on its own, and the doc medium tokens give it a readable text size and line height.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "Basic",
-        "caption": "Click the contents and the R2 reference. The button at the top right prints only this document on A4",
-        "example": "doc-basic",
-        "medium": "doc"
-      },
-      {
-        "type": "usage",
-        "when": [
-          "Writing something that gets reviewed, such as a design doc, RFC or decision record",
-          "Tying requirements and design together by number"
-        ],
-        "avoid": [
-          "A one-screen notice belongs on a plain page",
-          "A talk belongs in slides"
-        ]
-      },
-      {
-        "type": "anatomy",
-        "items": [
-          [
-            "Header",
-            "Status (draft, in review, final), title, one-line summary, authors, reviewers, date and version."
-          ],
-          [
-            "Contents",
-            "Built from the `DocSection` titles, numbered 1 and 1.1."
-          ],
-          [
-            "Section",
-            "Nested `DocSection`s continue the numbering two levels deep."
-          ],
-          [
-            "Reference",
-            "`Ref` jumps to a requirement row by its ID and highlights it for a moment."
-          ]
-        ]
-      },
-      {
-        "type": "guidelines",
-        "items": [
-          [
-            "Write the summary as the conclusion, in one sentence.",
-            "Fill the summary with background."
-          ],
-          [
-            "Tie each design decision to the requirement it meets, like `R1`.",
-            "Leave requirements and design to be read apart."
-          ],
-          [
-            "Give open questions their own section, phrased as questions.",
-            "Write undecided points in the body as if settled."
-          ]
-        ]
-      },
-      {
-        "type": "list",
-        "title": "Save as PDF",
-        "items": [
-          "The print button sends only this document to the print dialog, split into A4 portrait pages.",
-          "Pages never break right after a heading, and figures, tables and code blocks stay whole."
-        ]
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "Contents and references are links, so the keyboard can follow them.",
-          "Section titles are h2 and h3, so screen readers can move by heading."
-        ]
       }
     ]
   },

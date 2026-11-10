@@ -70,9 +70,9 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 - The repository manages templates only; writing rules live in a separate docs plugin.
 - Components never assume the document they serve. Every part (table, card, badge, callout, steps, figure) is a component in `src/`; a template only composes them, and its CSS keeps layout.
-- The Templates tab groups Slides, Tech docs, Resume and Portfolio. A template is a block whose `block.json` sets `category` and `kind` (`deck` or `doc`); a `templates` section shows live thumbnail cards and the picked one.
+- A template is a block whose `block.json` sets `category` and `kind` (`deck` or `doc`); a `templates` section shows live thumbnail cards and the picked one.
 - Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`. PDF is print CSS only.
-- Tech docs: `Doc`, `DocSection`, `Ref`; content parts live in `src/content.tsx` and `src/records.tsx`. Resume: `Resume`, `ResumeSection`, `ResumeEntry`. Portfolio: `Portfolio`, `PortfolioSection`, `Project`. All print to A4 via `src/print.tsx`.
+- Frames `Doc`, `Resume` and `Portfolio` print to A4 via `src/print.tsx`; content parts live in `src/content.tsx` and `src/records.tsx`.
 
 ## SDUI
 
@@ -85,10 +85,10 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 ## Docs
 
-- The docs are one page. Never add HTML entry points; new examples and blocks become sections or tabs.
+- The docs are one page; new examples and blocks become sections or tabs, never HTML entry points.
+- Components group into inputs, navigation, feedback, data, content, renderers and frames; Templates holds templates and slide layouts.
 - A component page needs an example file in `docs/examples/`, an entry in `docs/pages.ts` and `docs/pages.en.ts`, and an API table in `docs/api.ts` and `docs/api.en.ts`.
 - Examples show without clicks, one per row. Overlays and screen-anchored parts render `inline` in `docs/Mockup.tsx`: a text-free app in a browser or phone (`device`, `place`).
-- `docs/demo.tsx` holds sample data and `useT`.
 - The Theme tab (`docs/TokenReview.tsx`) lists contrast failures, low-contrast series slots, misordered type scales and unused primitives.
 
 ## Release

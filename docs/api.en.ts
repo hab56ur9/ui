@@ -597,4 +597,43 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "resume": [
+    {
+      type: "api",
+      title: "<Resume>",
+      rows: [
+        ["name · role", "string", "", "Name and role."],
+        ["contacts", "{ label, href? }[]", "[]", "Contacts; with `href` they become links."],
+        ["summary", "ReactNode", "", "A one- or two-sentence intro."],
+        ["printable", "boolean", "true", "Shows the print button."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<ResumeSection> · <ResumeEntry>",
+      rows: [
+        ["<ResumeSection title>", "string", "", "A group such as experience or education."],
+        ["<ResumeEntry>", "title? · org? · period? · place? · items? · tags?", "", "One entry; `items` lists achievements and `tags` are skill badges."],
+      ],
+    },
+  ],
+  "portfolio": [
+    {
+      type: "api",
+      title: "<Portfolio>",
+      rows: [
+        ["name · role · intro", "string · string · ReactNode", "", "Name, role and intro."],
+        ["contacts", "{ label, href? }[]", "[]", "Contacts."],
+        ["printable", "boolean", "true", "Shows the print button."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<PortfolioSection> · <Project>",
+      rows: [
+        ["<PortfolioSection title>", "string", "", "A group of projects."],
+        ["<Project>", "title · period? · role? · image? · summary? · metrics? · tags?", "", "`metrics` is `{ label, value }[]` drawn with `Stat`; `tags` are skill badges."],
+      ],
+    },
+  ],
 };

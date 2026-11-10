@@ -597,4 +597,43 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "resume": [
+    {
+      type: "api",
+      title: "<Resume>",
+      rows: [
+        ["name · role", "string", "", "이름과 직무입니다."],
+        ["contacts", "{ label, href? }[]", "[]", "연락처입니다. `href`가 있으면 링크가 됩니다."],
+        ["summary", "ReactNode", "", "한두 문장 소개입니다."],
+        ["printable", "boolean", "true", "인쇄 버튼을 보여 줍니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<ResumeSection> · <ResumeEntry>",
+      rows: [
+        ["<ResumeSection title>", "string", "", "경력·학력 같은 묶음입니다."],
+        ["<ResumeEntry>", "title? · org? · period? · place? · items? · tags?", "", "한 항목입니다. `items`는 성과 목록, `tags`는 기술 배지입니다."],
+      ],
+    },
+  ],
+  "portfolio": [
+    {
+      type: "api",
+      title: "<Portfolio>",
+      rows: [
+        ["name · role · intro", "string · string · ReactNode", "", "이름, 직무, 소개입니다."],
+        ["contacts", "{ label, href? }[]", "[]", "연락처입니다."],
+        ["printable", "boolean", "true", "인쇄 버튼을 보여 줍니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<PortfolioSection> · <Project>",
+      rows: [
+        ["<PortfolioSection title>", "string", "", "프로젝트 묶음입니다."],
+        ["<Project>", "title · period? · role? · image? · summary? · metrics? · tags?", "", "`metrics`는 `{ label, value }[]`로 `Stat`이 그리고, `tags`는 기술 배지입니다."],
+      ],
+    },
+  ],
 };

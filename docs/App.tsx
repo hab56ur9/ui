@@ -51,7 +51,7 @@ const COPY = {
   en: {
     titles: { usage: "When to use", anatomy: "Anatomy", demo: "Examples", guidelines: "Do and don't", tokens: "Tokens", code: "Usage", api: "API", a11y: "Accessibility" } as Record<string, string>,
     tabs: ["Docs", "Components", "Blocks", "SDUI", "Templates", "Theme"],
-    groups: { 시작하기: "Get started", 기반: "Foundations", 컴포넌트: "Components", 차트: "Charts", 블록: "Blocks", 슬라이드: "Slides", "기술 문서": "Tech docs", 이력서: "Resume", 포트폴리오: "Portfolio", 테마: "Theme" } as Record<string, string>,
+    groups: { 시작하기: "Get started", 기반: "Foundations", 컴포넌트: "Components", 입력: "Inputs", 탐색: "Navigation", 피드백: "Feedback", 데이터: "Data", 콘텐츠: "Content", 렌더러: "Renderers", 틀: "Frames", 차트: "Charts", 블록: "Blocks", 슬라이드: "Slides", "기술 문서": "Tech docs", 이력서: "Resume", 포트폴리오: "Portfolio", 테마: "Theme" } as Record<string, string>,
     copied: (label: string) => `Copied ${label}`,
     copyFailed: "Could not copy",
     theCode: "the code",
@@ -86,7 +86,7 @@ function useDocs() {
   return { lang: key, c: COPY[key], ...CONTENT[key] };
 }
 
-const TABS = [["시작하기", "기반"], ["컴포넌트"], ["블록"], ["SDUI"], ["슬라이드", "기술 문서", "이력서", "포트폴리오"], ["테마"]].map((groups, index) => ({ index, groups }));
+const TABS = [["시작하기", "기반"], ["입력", "탐색", "피드백", "데이터", "콘텐츠", "렌더러", "틀"], ["블록"], ["SDUI"], ["슬라이드", "기술 문서", "이력서", "포트폴리오"], ["테마"]].map((groups, index) => ({ index, groups }));
 const fullWidth = (page: Page) => page.group === "블록" || page.group === "SDUI";
 const tabOf = (page: Page) => TABS.find((tab) => tab.groups.includes(page.group)) ?? TABS[0];
 const groupsInOrder = [...new Set(pages.map((p) => p.group))];
