@@ -3,7 +3,7 @@ import { existsSync, readFileSync, statSync, watch, writeFileSync, readdirSync, 
 import { createServer } from "node:http";
 import { networkInterfaces } from "node:os";
 import { dirname, extname, join, relative, resolve, sep } from "node:path";
-import { checkSpec } from "./spec.mjs";
+import { buildHtml, checkSpec } from "./spec.mjs";
 
 const pkgRoot = resolve(import.meta.dirname, "..");
 const pkg = JSON.parse(readFileSync(join(pkgRoot, "package.json"), "utf8"));
@@ -31,6 +31,7 @@ Usage
   ui serve [dir] [--port 4321] [--host] [--no-reload]
   ui new <file.html> [--lang en|ko] [--medium app|doc|slide] [--cdn]
   ui spec check <spec.json>
+  ui spec build <spec.json> [--out app.html] [--cdn]
   ui help
 
 serve   Serves [dir] (default: current folder) at / and this design system at /ui/.
@@ -39,7 +40,9 @@ serve   Serves [dir] (default: current folder) at / and this design system at /u
 new     Writes a starter page that imports the design system in one line.
         --cdn imports the released module from ${pkg.homepage} instead of /ui/.
 spec    check validates an app spec against the components and its own data,
-        formats, actions, screens and overlays. The schema is dist/spec.schema.json.`;
+        formats, actions, screens and overlays. The schema is dist/spec.schema.json.
+        build checks the spec, then writes one editable HTML file: a function per
+        screen and overlay, example data inline, widgets marked with data-id.`;
 
 function parse(argv) {
   const args = { _: [] };
@@ -50,7 +53,7 @@ function parse(argv) {
       continue;
     }
     const [key, inline] = arg.slice(2).split("=");
-    if (!["port", "lang", "medium"].includes(key)) {
+    if (!["port", "lang", "medium", "out"].includes(key)) {
       args[key] = true;
       continue;
     }
@@ -226,12 +229,25 @@ function checkFile(file) {
   if (errors.length) process.exitCode = 1;
 }
 
+function buildFile(file, args) {
+  if (!file) throw new Error("ui spec build <spec.json> [--out app.html] [--cdn]");
+  checkFile(file);
+  if (process.exitCode) return;
+  const spec = JSON.parse(readFileSync(resolve(file), "utf8"));
+  const out = resolve(args.out ?? file.replace(/\.json$/, "") + ".html");
+  const module = args.cdn ? new URL("dist/ui.js", pkg.homepage).href : "/ui/dist/ui.js";
+  writeFileSync(out, buildHtml(spec, { module }));
+  console.log(`built ${relative(process.cwd(), out)}`);
+  if (!args.cdn) console.log(`open it with: ui serve ${relative(process.cwd(), dirname(out)) || "."}`);
+}
+
 const args = parse(process.argv.slice(2));
 const command = args._[0] ?? "help";
 try {
   if (command === "serve") serve(args);
   else if (command === "new") create(args);
   else if (command === "spec" && args._[1] === "check") checkFile(args._[2]);
+  else if (command === "spec" && args._[1] === "build") buildFile(args._[2], args);
   else console.log(HELP);
 } catch (error) {
   console.error(`ui: ${error.message}`);

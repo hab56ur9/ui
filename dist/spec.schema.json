@@ -26,6 +26,12 @@
         "name": {
           "type": "string"
         },
+        "lang": {
+          "enum": [
+            "en",
+            "ko"
+          ]
+        },
         "density": {
           "enum": [
             "comfortable",

@@ -108,9 +108,9 @@ export type BoardProps = {
 
 export type WidgetProps = Omit<WidgetSpec, "render"> & { frame?: "card" | "plain"; children: ReactNode };
 
-export function Widget({ title, subtitle, w, h, frame = "card", children }: WidgetProps) {
+export function Widget({ id, title, subtitle, w, h, frame = "card", children }: WidgetProps) {
   return (
-    <section className={`widget is-static is-${frame}`} style={{ "--w": w, "--h": h } as CSSProperties}>
+    <section className={`widget is-static is-${frame}`} data-id={id} style={{ "--w": w, "--h": h } as CSSProperties}>
       {title && (
         <header className="widget-head">
           <div className="widget-titles">

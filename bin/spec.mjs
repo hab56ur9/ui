@@ -156,7 +156,7 @@ export function specSchema(components) {
     required: ["spec", "app", "start", "screens"],
     properties: {
       spec: { const: SPEC_VERSION },
-      app: entry({ name: { type: "string" }, density: { enum: ["comfortable", "compact"] } }, ["name"]),
+      app: entry({ name: { type: "string" }, lang: { enum: ["en", "ko"] }, density: { enum: ["comfortable", "compact"] } }, ["name"]),
       start: { type: "string" },
       nav: { type: "array", items: { type: "object", required: ["screen", "label"], properties: { screen: { type: "string" }, label: { type: "string" }, icon: { type: "string" } }, additionalProperties: false } },
       data: { type: "object", additionalProperties: entry({ example: {} }, ["example"]) },
@@ -174,4 +174,151 @@ export function specSchema(components) {
     additionalProperties: false,
     $defs: { action, button, node, widget },
   };
+}
+
+const FRAME = ["AppShell", "Page", "WidgetGrid", "Widget", "Button", "Icon", "Modal", "Sheet", "useToast", "useState", "render", "h"];
+const quote = (value) => JSON.stringify(value);
+const keyOf = (key) => (/^[A-Za-z_$][\w$]*$/.test(key) ? key : quote(key));
+const indent = (text, depth) => text.replace(/\n/g, `\n${"  ".repeat(depth)}`);
+const screenName = (id) => `${id.replace(/(^|[-_.\s])(\w)/g, (_, __, c) => c.toUpperCase())}Screen`;
+const overlayName = (id) => `${id.replace(/(^|[-_.\s])(\w)/g, (_, __, c) => c.toUpperCase())}Overlay`;
+
+function emitter(used) {
+  const shown = (value, spec) => {
+    if (spec.$labels && typeof spec.$labels === "object") return `label(${quote(spec.$labels)}, ${value})`;
+    return spec.$format ? `format[${quote(spec.$format)}](${value})` : value;
+  };
+  const list = (items, depth) => (items.length ? `[\n  ${indent(items.join(",\n"), 1)},\n]` : "[]");
+  const expr = (value, row, depth = 0) => {
+    if (Array.isArray(value)) return list(value.map((item) => expr(item, row, depth)), depth);
+    if (value === null || typeof value !== "object") return quote(value);
+    if ("$data" in value) return shown(`data[${quote(value.$data)}]`, value);
+    if ("$field" in value) return shown(`${row}[${quote(value.$field)}]`, value);
+    if ("$each" in value) {
+      const next = `row${depth + 1}`;
+      return `(${expr(value.$each, row, depth)} ?? []).map((${next}, i${depth + 1}) =>\n  ${indent(expr(value.$as, next, depth + 1).replace(/^h\((\w+), \{/, `h($1, { key: i${depth + 1},`), 1)},\n)`;
+    }
+    if ("$action" in value) return `(value) => act(${quote(value.$action)}, value)`;
+    if ("$format" in value) return `format[${quote(value.$format)}]`;
+    if (typeof value.type === "string" && /^[A-Z]/.test(value.type)) return node(value, row, depth);
+    const entries = Object.entries(value).map(([key, item]) => `${keyOf(key)}: ${expr(item, row, depth)}`);
+    return entries.length ? `{\n  ${indent(entries.join(",\n"), 1)},\n}` : "{}";
+  };
+  const node = (value, row, depth) => {
+    used.add(value.type);
+    const props = expr(value.props ?? {}, row, depth);
+    const children = value.children === undefined ? [] : [value.children].flat().map((child) => expr(child, row, depth));
+    return children.length ? `h(${value.type}, ${props},\n  ${indent(children.join(",\n"), 1)},\n)` : `h(${value.type}, ${props})`;
+  };
+  const content = (value) => {
+    if (!Array.isArray(value)) return expr(value, "row0");
+    return `h("div", { className: "stack" },\n  ${indent(value.map((item) => `h("div", null, ${expr(item, "row0")})`).join(",\n"), 1)},\n)`;
+  };
+  return { expr, content };
+}
+
+const PRESS = '{ position: "absolute", inset: 0, zIndex: 1, border: 0, borderRadius: "var(--radius-card)", background: "transparent", cursor: "pointer" }';
+
+export function buildHtml(spec, { module }) {
+  const used = new Set();
+  const { expr, content } = emitter(used);
+  const lang = spec.app.lang ?? "en";
+  const buttons = (items = []) =>
+    items.map((button) => `h(Button, { variant: ${quote(button.variant ?? "secondary")}, onClick: () => act(${quote(button.action)}) }, ${quote(button.label)})`);
+  const screens = Object.entries(spec.screens).map(([id, screen]) => {
+    const widgets = (screen.widgets ?? []).map((widget) => {
+      const head = { id: widget.id, title: widget.title ?? "", ...(widget.subtitle && { subtitle: widget.subtitle }), w: widget.w, h: widget.h, ...(widget.frame && { frame: widget.frame }) };
+      const press = widget.action ? `,\n  h("button", { type: "button", "aria-label": ${quote(widget.title ?? widget.id)}, style: ${PRESS}, onClick: () => act(${quote(widget.action)}) })` : "";
+      return `h(Widget, { ${Object.entries(head).map(([key, value]) => `${key}: ${quote(value)}`).join(", ")} },\n  ${indent(content(widget.content), 1)}${press},\n)`;
+    });
+    const actions = buttons(screen.actions);
+    const page = { ...(screen.title && { title: screen.title }), ...(screen.lede && { lede: screen.lede }) };
+    const pageProps = actions.length ? `{ ...${quote(page)}, actions: [${actions.join(", ")}] }` : quote(page);
+    return `function ${screenName(id)}({ act }) {\n  return h(Page, ${pageProps},\n    h(WidgetGrid, null,\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
+  });
+  const overlays = Object.entries(spec.overlays ?? {}).map(([id, overlay]) => {
+    const kind = overlay.kind === "sheet" ? "Sheet" : "Modal";
+    const actions = (overlay.actions ?? []).map((button, i) => ({ label: button.label, variant: button.variant ?? "secondary", value: i }));
+    return `function ${overlayName(id)}({ act, close }) {\n  const actions = ${quote((overlay.actions ?? []).map((button) => button.action))};\n  return h(${kind}, {\n    open: true,\n    title: ${quote(overlay.title)},\n    ${overlay.lede ? `description: ${quote(overlay.lede)},\n    ` : ""}actions: ${quote(actions)},\n    onClose: (i) => (i === null ? close() : act(actions[i])),\n  }${overlay.body ? `, ${quote(overlay.body)}` : ""});\n}`;
+  });
+  const formats = Object.entries(spec.formats ?? {}).map(([name, f]) => `${keyOf(name)}: ${f.style === "date" ? "date()" : f.style === "percent" ? `percent(${f.digits ?? 1})` : `number(${f.digits ?? 0}, ${quote(f.unit ?? "")}${f.style === "compact" ? ", true" : ""})`}`);
+  const dataLines = Object.entries(spec.data ?? {}).map(([key, slot]) => `${quote(key)}: ${JSON.stringify(slot.example)}`);
+  const described = Object.entries(spec.actions ?? {}).map(([name, action]) => `${quote(name)}: ${quote(action.description)}`);
+  const names = [...new Set([...FRAME, ...used])].sort();
+  const nav = (spec.nav ?? []).map((item) => ({ id: item.screen, label: item.label, ...(item.icon && { icon: item.icon }) }));
+  const script = `import { ${names.join(", ")} } from ${quote(module)};
+
+const locale = ${quote(lang === "ko" ? "ko-KR" : "en-US")};
+const number = (digits, unit = "", compact = false) => {
+  const f = new Intl.NumberFormat(locale, { maximumFractionDigits: digits, ...(compact && { notation: "compact" }) });
+  return (v) => \`\${f.format(v)}\${unit}\`;
+};
+const percent = (digits) => (v) => \`\${(v * 100).toFixed(digits)}%\`;
+const date = () => {
+  const f = new Intl.DateTimeFormat(locale, { month: "numeric", day: "numeric", weekday: "short" });
+  return (v) => f.format(v);
+};
+const label = (labels, v) => labels[String(v)] ?? String(v);
+
+const format = {
+  ${indent(formats.join(",\n"), 1)},
+};
+
+const data = {
+  ${indent(dataLines.join(",\n"), 1)},
+};
+
+const actionNotes = {
+  ${indent(described.join(",\n"), 1)},
+};
+
+${screens.join("\n\n")}
+
+${overlays.join("\n\n")}
+
+const screens = { ${Object.keys(spec.screens).map((id) => `${keyOf(id)}: ${screenName(id)}`).join(", ")} };
+const overlays = { ${Object.keys(spec.overlays ?? {}).map((id) => `${keyOf(id)}: ${overlayName(id)}`).join(", ")} };
+const nav = ${quote(nav)};
+
+function App() {
+  const toast = useToast();
+  const [screen, setScreen] = useState(${quote(spec.start)});
+  const [overlay, setOverlay] = useState(null);
+  const act = (action, value) => {
+    if (action.name === "navigate") setScreen(action.params.screen);
+    if (action.name === "open") setOverlay(action.params.overlay);
+    if (action.name === "close" || action.close) setOverlay(null);
+    const detail = ["string", "number", "boolean"].includes(typeof value) ? value : action.params && JSON.stringify(action.params);
+    const shown = detail ? \` \${detail}\` : "";
+    if (action.name in actionNotes) toast({ message: \`\${action.name}\${shown}: \${actionNotes[action.name]}\`, status: "info" });
+  };
+  const Screen = screens[screen];
+  const Overlay = overlay && overlays[overlay];
+  return h("div", { "data-density": ${quote(spec.app.density ?? "comfortable")} },
+    h(AppShell, {
+      mobileNav: "tabs",
+      brand: ${quote(spec.app.name)},
+      nav: [{ items: nav.map((item) => ({ ...item, current: item.id === screen, onSelect: () => setScreen(item.id) })) }],
+      title: nav.find((item) => item.id === screen)?.label,
+    }, h(Screen, { act })),
+    Overlay && h(Overlay, { act, close: () => setOverlay(null) }),
+  );
+}
+
+render("#app", h(App), { lang: ${quote(lang)} });`;
+  return `<!doctype html>
+<html lang="${lang}" data-medium="app">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${spec.app.name}</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+${script}
+</script>
+</body>
+</html>
+`;
 }
