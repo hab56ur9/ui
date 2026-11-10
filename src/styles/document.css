@@ -482,6 +482,125 @@ h3.doc-heading::before {
   }
 }
 
+.markdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: var(--color-fg-default);
+  line-height: var(--line-height-body);
+}
+
+.markdown > :is(h1, h2, h3, h4, h5, h6) {
+  margin: var(--space-4) 0 0;
+  line-height: var(--line-height-tight);
+  scroll-margin-top: var(--space-6);
+}
+
+.markdown > :first-child {
+  margin-top: 0;
+}
+
+.markdown h1 {
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-semibold);
+}
+
+.markdown h2 {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+}
+
+.markdown :is(h3, h4, h5, h6) {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+}
+
+.markdown :is(p, ul, ol, blockquote, figure) {
+  margin: 0;
+}
+
+.markdown :is(ul, ol) {
+  padding-left: var(--space-6);
+}
+
+.markdown li + li,
+.markdown li > :is(ul, ol) {
+  margin-top: var(--space-1);
+}
+
+.markdown li.is-task {
+  list-style: none;
+  margin-left: calc(-1 * var(--space-5));
+}
+
+.markdown li.is-task > input {
+  margin: 0 var(--space-2) 0 0;
+  accent-color: var(--color-main-default);
+  vertical-align: -2px;
+}
+
+.markdown a {
+  color: var(--color-main-default);
+}
+
+.markdown code {
+  padding: 1px var(--space-1);
+  border-radius: var(--radius-control);
+  background: var(--color-bg-subtle);
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+}
+
+.markdown .code-block code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+.markdown blockquote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--color-border-strong);
+  color: var(--color-fg-secondary);
+}
+
+.markdown hr {
+  width: 100%;
+  margin: var(--space-2) 0;
+  border: 0;
+  border-top: 1px solid var(--color-border-default);
+}
+
+.markdown img {
+  max-width: 100%;
+  border-radius: var(--radius-card);
+}
+
+.markdown-image figcaption {
+  margin-top: var(--space-2);
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+  text-align: center;
+}
+
+.markdown-table .data-table-wrap {
+  position: static;
+}
+
+.markdown-ui {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.markdown-ui > .json-ui > .widget,
+.markdown-ui .board-frame {
+  align-self: stretch;
+}
+
 @page doc {
   size: A4;
   margin: 16mm 18mm;

@@ -1403,6 +1403,33 @@
       ]
     },
     {
+      "name": "Markdown",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "data",
+          "optional": true,
+          "kind": "object",
+          "type": "Record<string, unknown>"
+        },
+        {
+          "name": "formats",
+          "optional": true,
+          "kind": "object",
+          "type": "Record<string, JsonUIFormat>"
+        },
+        {
+          "name": "onAction",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
       "name": "JsonUI",
       "props": [
         {

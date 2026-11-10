@@ -1384,6 +1384,91 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "markdown",
+    "group": "컴포넌트",
+    "title": "Markdown",
+    "lede": "Markdown draws markdown text with our components: tables become the table component, code becomes a code block, and callouts like `> [!NOTE]` become callouts. A JSON node in a ` ```ui ` code block is drawn by JSON UI. It parses the common syntax without an outside library and never renders raw HTML.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Document",
+        "example": "markdown-basic"
+      },
+      {
+        "type": "demo",
+        "title": "UI blocks",
+        "example": "markdown-ui"
+      },
+      {
+        "type": "api",
+        "title": "Supported syntax",
+        "rows": [
+          [
+            "Headings",
+            "# … ######",
+            "",
+            "Get an `id` you can link to."
+          ],
+          [
+            "Emphasis",
+            "**굵게** *기울임* ~~취소~~ `코드`",
+            "",
+            ""
+          ],
+          [
+            "Links and images",
+            "[글](url) ![설명](url)",
+            "",
+            "Only http(s), mailto and relative URLs."
+          ],
+          [
+            "Lists",
+            "- 항목 · 1. 항목 · - [ ] 할 일",
+            "",
+            "Nest by indenting."
+          ],
+          [
+            "Quotes and callouts",
+            "> 글 · > [!NOTE|TIP|WARNING] 제목",
+            "",
+            ""
+          ],
+          [
+            "Tables",
+            "| a | b | + | --- | ---: |",
+            "",
+            "Right-aligned columns become numeric."
+          ],
+          [
+            "Code",
+            "```ts … ```",
+            "",
+            "tsx, html, json and sql are highlighted; others are plain."
+          ],
+          [
+            "UI blocks",
+            "```ui { JSON 노드 } ```",
+            "",
+            "`data`, `formats` and `onAction` come from the Markdown props."
+          ],
+          [
+            "Rule",
+            "---",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Heading levels stay as written; avoid skipping levels.",
+          "Images use their description as alt text."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image",
     "group": "컴포넌트",
     "title": "Image",

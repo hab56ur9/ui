@@ -485,4 +485,14 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  markdown: [
+    {
+      type: "api",
+      title: "<Markdown>",
+      rows: [
+        ["children", "string", "", "마크다운 글입니다."],
+        ["data · formats · onAction", "JSON UI와 같음", "", "` ```ui ` 블록이 쓰는 값·형식·동작 처리기입니다."],
+      ],
+    },
+  ],
 };
