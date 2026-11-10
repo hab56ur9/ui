@@ -34,7 +34,7 @@ const origin = `http://127.0.0.1:${server.address().port}`;
 
 const profile = mkdtempSync(join(tmpdir(), "slides-check-"));
 const port = 9400 + Math.floor(Math.random() * 400);
-const chrome = spawn(chromePath, ["--headless=new", "--no-sandbox", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore" });
+const chrome = spawn(chromePath, ["--headless=new", "--no-sandbox", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore", detached: true });
 let targets;
 for (let i = 0; i < 100 && !targets; i++) {
   await sleep(100);
@@ -118,10 +118,19 @@ for (const lang of ["ko", "en"]) {
 
 socket.close();
 const exited = new Promise((done) => chrome.once("exit", done));
-chrome.kill();
+try {
+  process.kill(-chrome.pid, "SIGKILL");
+} catch {
+  chrome.kill("SIGKILL");
+}
 await exited;
 server.close();
-rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+await sleep(300);
+try {
+  rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+} catch {
+  console.log(`slides-check: left ${profile} behind`);
+}
 
 const failures = [];
 const near = (value, line) => Math.abs(value - line) <= TOLERANCE;
