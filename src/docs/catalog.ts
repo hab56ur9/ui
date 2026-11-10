@@ -1,4 +1,4 @@
-import data from "../dist/catalog.json";
+import data from "../../dist/catalog.json";
 
 export type Token = {
   path: string;

@@ -16,7 +16,8 @@ src/                           components, exported from src/index.ts
 src/styles/*.css               component styles, concatenated into dist/ui.css
 blocks/<id>/                   compositions the docs render inline
 blocks/sdui/                   SDUI renderer, app view, sample apps
-docs/                          the single docs page (index.html → docs/main.tsx)
+src/docs/                      the docs site (entry main.tsx)
+docs/                          Markdown documents
 scripts/build.mjs              token build
 scripts/components.mjs         prop schema from TypeScript types
 scripts/lint.mjs               color-literal and local-path lint
@@ -85,10 +86,10 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 - The docs are one page; new examples and blocks become sections or tabs, never HTML entry points.
 - Components group into inputs, navigation, feedback, data, content, renderers and frames; Templates holds templates and slide layouts.
-- Components take one value per prop and inherit the language from `UIProvider lang`. Example text lives in `docs/text/{ko,en}.json`; an example reads one language with `useText(name)`, as if a server sent it.
-- A component page needs an example file in `docs/examples/`, an entry in `docs/pages.ts` and `docs/pages.en.ts`, and an API table in `docs/api.ts` and `docs/api.en.ts`.
-- Examples show without clicks, one per row; a demo's `layout` is `padded` (default), `centered` for small parts, or `fullscreen`. Overlays and screen-anchored parts render `inline` in `docs/Mockup.tsx`: a text-free app in a browser or phone (`device`, `place`). A demo with both screens uses `variants` (desktop, mobile) as one demo with a device switch.
-- The Theme tab (`docs/TokenReview.tsx`) lists contrast failures, low-contrast series slots, misordered type scales and unused primitives.
+- Components take one value per prop and inherit the language from `UIProvider lang`. Example text lives in `src/docs/text/{ko,en}.json`; an example reads one language with `useText(name)`, as if a server sent it.
+- A component page needs an example file in `src/docs/examples/`, an entry in `src/docs/pages{,.en}.ts` and an API table in `src/docs/api{,.en}.ts`.
+- Examples show without clicks, one per row; a demo's `layout` is `padded` (default), `centered` for small parts, or `fullscreen`. Overlays and screen-anchored parts render `inline` in `src/docs/Mockup.tsx`: a text-free app in a browser or phone (`device`, `place`). A demo with both screens uses `variants` (desktop, mobile) as one demo with a device switch.
+- The Theme tab (`src/docs/TokenReview.tsx`) lists contrast failures, low-contrast series slots, misordered type scales and unused primitives.
 
 ## Release
 

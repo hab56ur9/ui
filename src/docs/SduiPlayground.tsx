@@ -1,14 +1,14 @@
 import { Component, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
 import { Board, Button, iconNames, useI18n, useToast, Widget, type LayoutItem, type TabBarStyle } from "ui";
-import { AppView } from "../blocks/sdui/AppView";
-import { data as fitnessData } from "../blocks/sdui/fitness/data";
-import fitnessEn from "../blocks/sdui/fitness/en.json";
-import fitnessKo from "../blocks/sdui/fitness/ko.json";
-import { formatsFor, isNode, renderNode, type Action, type App, type Content, type NavItem, type Node, type ScreenWidget } from "../blocks/sdui/render";
-import { data as socialData, dataEn as socialDataEn } from "../blocks/sdui/social/data";
-import socialEn from "../blocks/sdui/social/en.json";
-import socialKo from "../blocks/sdui/social/ko.json";
-import schema from "../dist/components.json";
+import { AppView } from "../../blocks/sdui/AppView";
+import { data as fitnessData } from "../../blocks/sdui/fitness/data";
+import fitnessEn from "../../blocks/sdui/fitness/en.json";
+import fitnessKo from "../../blocks/sdui/fitness/ko.json";
+import { formatsFor, isNode, renderNode, type Action, type App, type Content, type NavItem, type Node, type ScreenWidget } from "../../blocks/sdui/render";
+import { data as socialData, dataEn as socialDataEn } from "../../blocks/sdui/social/data";
+import socialEn from "../../blocks/sdui/social/en.json";
+import socialKo from "../../blocks/sdui/social/ko.json";
+import schema from "../../dist/components.json";
 import { Browser } from "./Browser";
 import { Phone } from "./Phone";
 
