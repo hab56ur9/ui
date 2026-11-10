@@ -1,4 +1,4 @@
-import { Component, Fragment, useEffect, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
+import { Component, Fragment, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
 import { Button, Highlight, Icon, Segmented, ThemePicker, UIProvider, useI18n, useToast } from "ui";
 import { api as apiKo } from "./api";
 import { api as apiEn } from "./api.en";
@@ -11,7 +11,7 @@ import { reviewOutline, TokenReview } from "./TokenReview";
 const modules = import.meta.glob<{ default: () => ReactNode }>("./examples/*.tsx", { eager: true });
 const sources = import.meta.glob<string>("./examples/*.tsx", { eager: true, query: "?raw", import: "default" });
 type BlockText = { title: string; description: string; uses: string[] };
-const blockMeta = import.meta.glob<BlockText & { kind?: "deck" | "doc"; en: BlockText }>("../blocks/*/block.json", { eager: true, import: "default" });
+const blockMeta = import.meta.glob<BlockText & { kind?: "deck" | "doc"; category?: string; en: BlockText }>("../blocks/*/block.json", { eager: true, import: "default" });
 const blockFiles = import.meta.glob<string>(["../blocks/*/*.tsx", "../blocks/*/*.ts", "../blocks/*/*.json", "!../blocks/*/block.json"], { eager: true, query: "?raw", import: "default" });
 const blockViews = import.meta.glob<{ default: ComponentType }>(["../blocks/*/Dashboard.tsx", "../blocks/*/Deck.tsx", "../blocks/*/Doc.tsx", "../blocks/*/Screen.tsx"], { eager: true });
 
@@ -20,7 +20,7 @@ const example = (name: string) => ({ Demo: modules[`./examples/${name}.tsx`].def
 const COPY = {
   ko: {
     titles: { usage: "언제 쓰나", anatomy: "구성", demo: "예시", guidelines: "권장과 지양", tokens: "쓰는 토큰", code: "사용법", api: "API", a11y: "접근성" } as Record<string, string>,
-    tabs: ["문서", "컴포넌트", "블록", "SDUI", "슬라이드", "기술 문서", "테마"],
+    tabs: ["문서", "컴포넌트", "블록", "SDUI", "템플릿", "테마"],
     groups: {} as Record<string, string>,
     copied: (label: string) => `${label} 복사했습니다`,
     copyFailed: "복사하지 못했습니다",
@@ -49,8 +49,8 @@ const COPY = {
   },
   en: {
     titles: { usage: "When to use", anatomy: "Anatomy", demo: "Examples", guidelines: "Do and don't", tokens: "Tokens", code: "Usage", api: "API", a11y: "Accessibility" } as Record<string, string>,
-    tabs: ["Docs", "Components", "Blocks", "SDUI", "Slides", "Tech docs", "Theme"],
-    groups: { 시작하기: "Get started", 기반: "Foundations", 컴포넌트: "Components", 차트: "Charts", 블록: "Blocks", 슬라이드: "Slides", "기술 문서": "Tech docs", 테마: "Theme" } as Record<string, string>,
+    tabs: ["Docs", "Components", "Blocks", "SDUI", "Templates", "Theme"],
+    groups: { 시작하기: "Get started", 기반: "Foundations", 컴포넌트: "Components", 차트: "Charts", 블록: "Blocks", 슬라이드: "Slides", "기술 문서": "Tech docs", 이력서: "Resume", 테마: "Theme" } as Record<string, string>,
     copied: (label: string) => `Copied ${label}`,
     copyFailed: "Could not copy",
     theCode: "the code",
@@ -85,7 +85,7 @@ function useDocs() {
   return { lang: key, c: COPY[key], ...CONTENT[key] };
 }
 
-const TABS = [["시작하기", "기반"], ["컴포넌트"], ["블록"], ["SDUI"], ["슬라이드"], ["기술 문서"], ["테마"]].map((groups, index) => ({ index, groups }));
+const TABS = [["시작하기", "기반"], ["컴포넌트"], ["블록"], ["SDUI"], ["슬라이드", "기술 문서", "이력서"], ["테마"]].map((groups, index) => ({ index, groups }));
 const fullWidth = (page: Page) => page.group === "블록" || page.group === "SDUI";
 const tabOf = (page: Page) => TABS.find((tab) => tab.groups.includes(page.group)) ?? TABS[0];
 const groupsInOrder = [...new Set(pages.map((p) => p.group))];
@@ -337,6 +337,62 @@ function Block({ id }: { id: string }) {
   );
 }
 
+const THUMB = { deck: [1280, 720], doc: [880, 1100] } as const;
+
+function Thumb({ id }: { id: string }) {
+  const { lang } = useDocs();
+  const box = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0);
+  const kind = blockMeta[`../blocks/${id}/block.json`].kind ?? "deck";
+  const [width, height] = THUMB[kind];
+  const View = Object.entries(blockViews).find(([path]) => path.startsWith(`../blocks/${id}/`))?.[1].default;
+  useLayoutEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => setScale(el.clientWidth / width));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [width]);
+  return (
+    <div ref={box} className={`docs-template-thumb is-${kind}`} style={{ aspectRatio: `${width} / ${kind === "deck" ? height : height * 0.5}` }} inert>
+      <div className="docs-template-canvas" data-medium="app" lang={lang} style={{ width, height, transform: `scale(${scale})` }}>
+        {View && scale > 0 && (
+          <Boundary>
+            <View />
+          </Boundary>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Templates({ category }: { category: string }) {
+  const { lang } = useDocs();
+  const ids = Object.entries(blockMeta)
+    .filter(([, json]) => json.category === category)
+    .map(([path]) => path.split("/")[2])
+    .sort();
+  const [selected, setSelected] = useState(ids[0]);
+  return (
+    <>
+      <div className="docs-templates" role="radiogroup">
+        {ids.map((id) => {
+          const json = blockMeta[`../blocks/${id}/block.json`];
+          const meta = lang === "en" ? json.en : json;
+          return (
+            <button key={id} type="button" role="radio" aria-checked={id === selected} className="docs-template" onClick={() => setSelected(id)}>
+              <Thumb id={id} />
+              <span className="docs-template-title">{meta.title}</span>
+              <span className="docs-template-description">{meta.description}</span>
+            </button>
+          );
+        })}
+      </div>
+      {selected && <Block key={selected} id={selected} />}
+    </>
+  );
+}
+
 function Tokens({ paths, notes }: { paths: string[]; notes?: Record<string, string> }) {
   const copy = useCopy();
   const { c } = useDocs();
@@ -480,6 +536,8 @@ function SectionBody({ section }: { section: Section }) {
       );
     case "block":
       return <Block id={section.id} />;
+    case "templates":
+      return <Templates category={section.category} />;
     case "guidelines":
       return (
         <>

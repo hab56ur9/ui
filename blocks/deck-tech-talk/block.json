@@ -1,0 +1,12 @@
+{
+  "title": "기술 공유",
+  "description": "사내 세미나에서 한 가지 기술 경험을 나누는 9장짜리 발표 자료입니다. 표지, 순서, 문제 한 문장, 접근, 코드, 결과 차트, 인용, 배운 점, 질문 순서입니다.",
+  "category": "슬라이드",
+  "kind": "deck",
+  "uses": ["슬라이드 묶음", "표지", "목차", "한 문장 메시지", "두 단", "코드 블록", "차트 슬라이드", "막대 차트", "인용", "단계", "마무리"],
+  "en": {
+    "title": "Tech talk",
+    "description": "A nine-slide deck for sharing one engineering story at an internal seminar: cover, agenda, the problem in one line, approach, code, a results chart, a quote, lessons and questions.",
+    "uses": ["Deck", "Title slide", "Agenda", "Statement", "Split", "Code block", "Chart slide", "Bar chart", "Quote", "Steps", "Closing"]
+  }
+}

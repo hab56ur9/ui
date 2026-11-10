@@ -1405,16 +1405,24 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "slide-templates",
+    "group": "슬라이드",
+    "title": "Slide templates",
+    "wide": true,
+    "lede": "Deck templates. Pick a card to page through it below and read its code. Every template uses the same layouts and parts, so they all follow the theme.",
+    "sections": [
+      {
+        "type": "templates",
+        "category": "슬라이드"
+      }
+    ]
+  },
+  {
     "id": "slides",
     "group": "슬라이드",
     "title": "Deck",
     "lede": "A deck is the frame for slides built in HTML. It draws on a 1920×1080 canvas and scales it to fit, so the layout stays the same on any screen, and it applies the slide medium tokens inside.",
     "sections": [
-      {
-        "type": "block",
-        "id": "monthly-review",
-        "title": "Full example"
-      },
       {
         "type": "usage",
         "when": [
@@ -1582,6 +1590,19 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "doc-templates",
+    "group": "기술 문서",
+    "title": "Tech doc templates",
+    "wide": true,
+    "lede": "Design doc and RFC templates. Pick a card to read the whole document and its code below. Printing splits it into A4 pages.",
+    "sections": [
+      {
+        "type": "templates",
+        "category": "기술 문서"
+      }
+    ]
+  },
+  {
     "id": "doc-frame",
     "group": "기술 문서",
     "title": "Doc frame",
@@ -1700,28 +1721,15 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "doc-design",
-    "group": "기술 문서",
-    "title": "Design doc",
-    "lede": "The design doc example is a finished document of eight sections, from background to change history. Copy its files from the code tab as the starting point of a new document.",
+    "id": "resume-templates",
+    "group": "이력서",
+    "title": "Resume templates",
+    "wide": true,
+    "lede": "Resume templates, built from three parts: `Resume`, `ResumeSection` and `ResumeEntry`. Printing splits them into A4 portrait pages, and the accent follows the theme.",
     "sections": [
       {
-        "type": "block",
-        "id": "design-doc",
-        "title": "design-doc"
-      }
-    ]
-  },
-  {
-    "id": "doc-rfc",
-    "group": "기술 문서",
-    "title": "RFC",
-    "lede": "The RFC example is a short document that works through three linked questions and ends with the decision.",
-    "sections": [
-      {
-        "type": "block",
-        "id": "rfc",
-        "title": "rfc"
+        "type": "templates",
+        "category": "이력서"
       }
     ]
   },

@@ -28,8 +28,8 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 - Pages consume the semantic layer only; the primitive layer exists so the semantic layer has something to point at.
 - Theme (`data-theme`), medium (`data-medium`) and language (`lang`) are independent mode axes. A token added to one file of an axis appears in every file of that axis, or the build fails.
-- The build discovers every file in `tokens/medium` and `tokens/lang`; a new language is one stack in `font.stack` plus one file.
-- Names follow property-then-role. Primitive color steps follow OKLab lightness: step ≈ (1 − L) × 1000, rounded to 50.
+- A new language is one stack in `font.stack` plus one file in `tokens/lang`.
+- Primitive color steps follow OKLab lightness: step ≈ (1 − L) × 1000.
 - Text never wears a series color. Status colors always pair with an icon and a label.
 - The series palette passes the dataviz validator in both modes: adjacent CVD ΔE ≥ 8 and normal-vision ΔE ≥ 15. Slots 2 to 5 sit below 3:1 on the light surface, so charts ship direct labels or a table view. Re-run the validator on any categorical change.
 - The light theme keeps large areas off-white (page about 83%, cards about 91% of white luminance).
@@ -47,7 +47,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - `npm run check` runs the token build, the prop schema, the lint, `tsc`, the library build and the site build. Run it before every commit.
 - `scripts/build.mjs` writes `dist/tokens.css` (with one `@font-face` per font subset), `tokens.json`, `catalog.json`, `icons.svg`, `icons.json`, `ui.css` and the presets.
 - `scripts/components.mjs` reads every exported component's props through the TypeScript API and writes `dist/components.json`.
-- `vite.lib.config.ts` builds `dist/ui.js` from `src/standalone.ts`: one self-contained module with React inside for pages without a bundler. It loads `tokens.css` and `ui.css` beside itself and exports every component plus `render(target, node)`, `h`, `Fragment` and the common hooks. The stylesheet import is stubbed in this build because the CSS ships on its own. `dist/ui.js` stays out of git; the rest of `dist/` is committed so pages can link it.
+- `vite.lib.config.ts` builds `dist/ui.js` from `src/standalone.ts`: one module with React inside that loads `tokens.css`, `ui.css` and `presets.css` beside itself and exports every component plus `render`, `h` and common hooks. It stays out of git; the rest of `dist/` is committed.
 - Vite builds the docs into `site/`.
 
 ## Components
@@ -67,9 +67,10 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 ## Templates
 
-- Slides: `Deck` scales a 1920×1080 canvas, handles keys, presenter view and notes. Layouts live in `src/slides/layouts.tsx`, parts in `src/slides/parts.tsx`. PDF is a print stylesheet only; the design system ships no PDF tool.
-- Tech docs: `Doc`, `DocSection`, `Ref`, `RequirementTable`, `Options`, `Figure`, `ChangeLog` and `CodeBlock`. Print splits into A4 pages.
-- Print copies render offscreen through `src/print.tsx` so charts keep their size.
+- The repository manages templates and their parts only; writing rules for documents live in a separate docs plugin, not here.
+- The Templates tab groups Slides, Tech docs and Resume. A template is a block whose `block.json` sets `category` (슬라이드, 기술 문서, 이력서) and `kind` (`deck` or `doc`); a `templates` section shows them as cards with live thumbnails and the picked one below.
+- Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`, parts in `src/slides/parts.tsx`. PDF is print CSS only.
+- Tech docs: `Doc`, `DocSection`, `Ref`, `RequirementTable`, `Options`, `Figure`, `ChangeLog`, `CodeBlock`. Resume: `Resume`, `ResumeSection`, `ResumeEntry`. Both print to A4 through `src/print.tsx`.
 
 ## SDUI
 
@@ -85,9 +86,8 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - The docs are one page. Never add HTML entry points; new examples and blocks become sections or tabs.
 - A component page needs an example file in `docs/examples/`, an entry in `docs/pages.ts` and `docs/pages.en.ts`, and an API table in `docs/api.ts` and `docs/api.en.ts`.
 - Examples show without clicks, one per row. Overlays render `inline` in examples.
-- `docs/demo.tsx` holds shared sample data and `useT` for ko/en text.
+- `docs/demo.tsx` holds sample data and `useT`.
 - The Theme tab (`docs/TokenReview.tsx`) lists contrast failures, low-contrast series slots, misordered type scales and unused primitives.
-- Blocks: `blocks/<id>/` with `Dashboard.tsx`, `Deck.tsx` or `Doc.tsx`, data, copy and `block.json`.
 
 ## Release
 

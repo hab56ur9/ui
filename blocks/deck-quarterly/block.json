@@ -1,0 +1,12 @@
+{
+  "title": "분기 성과 보고",
+  "description": "분기 목표 대비 결과를 보고하는 9장짜리 발표 자료입니다. 표지, 순서, 큰 숫자 요약, 장 구분, 목표 대비 표, 월별 차트, 잘 된 것과 아쉬운 것, 다음 분기 계획, 마무리 순서입니다.",
+  "category": "슬라이드",
+  "kind": "deck",
+  "uses": ["슬라이드 묶음", "표지", "목차", "큰 숫자", "장 구분", "표 슬라이드", "차트 슬라이드", "막대 차트", "전후 비교", "단계", "마무리"],
+  "en": {
+    "title": "Quarterly results",
+    "description": "A nine-slide deck reporting a quarter against its goals: cover, agenda, big-number summary, a section divider, a goals table, a monthly chart, what worked and what didn't, next quarter's plan and closing.",
+    "uses": ["Deck", "Title slide", "Agenda", "Big numbers", "Section divider", "Table slide", "Chart slide", "Bar chart", "Compare", "Steps", "Closing"]
+  }
+}

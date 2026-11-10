@@ -5,6 +5,7 @@ export { DAY, color } from "./format";
 export { LangProvider, languages, useI18n } from "./i18n";
 export { Board, Widget, type BoardProps, type LayoutItem, type WidgetProps } from "./Board";
 export { Doc, DocSection, Ref, type DocMeta, type DocProps, type DocSectionProps, type DocStatus } from "./document/Doc";
+export { Resume, ResumeEntry, ResumeSection, type ResumeContact, type ResumeEntryProps, type ResumeProps, type ResumeSectionProps } from "./document/Resume";
 export { ChangeLog, Figure, Options, RequirementTable, type Change, type Option, type Priority, type Requirement } from "./document/parts";
 export { Deck, Slide, SlideFooter, SlideHeader, type DeckProps, type SlideHeaderProps, type SlideProps, type SlideTone } from "./slides/Deck";
 export { AgendaSlide, ChartSlide, ClosingSlide, CompareSlide, MetricSlide, QuoteSlide, SectionSlide, SplitSlide, StatementSlide, TableSlide, TimelineSlide, TitleSlide, type AgendaSlideProps, type ChartSlideProps, type ClosingSlideProps, type ComparePane, type CompareSlideProps, type Metric, type MetricSlideProps, type Milestone, type QuoteSlideProps, type SectionSlideProps, type SplitSlideProps, type StatementSlideProps, type TableSlideProps, type TimelineSlideProps, type TitleSlideProps } from "./slides/layouts";

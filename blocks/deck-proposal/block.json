@@ -1,0 +1,12 @@
+{
+  "title": "프로젝트 제안",
+  "description": "새 프로젝트의 승인을 받는 8장짜리 제안 자료입니다. 표지, 순서, 문제, 전후 비교, 기대 효과, 일정, 결정 요청, 마무리 순서입니다.",
+  "category": "슬라이드",
+  "kind": "deck",
+  "uses": ["슬라이드 묶음", "표지", "목차", "글머리 목록", "전후 비교", "큰 숫자", "일정", "단계", "마무리"],
+  "en": {
+    "title": "Project proposal",
+    "description": "An eight-slide deck that asks for approval of a new project: cover, agenda, problem, before and after, expected impact, timeline, decisions needed and closing.",
+    "uses": ["Deck", "Title slide", "Agenda", "Bullets", "Compare", "Big numbers", "Timeline", "Steps", "Closing"]
+  }
+}

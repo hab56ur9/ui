@@ -361,6 +361,127 @@ h3.doc-heading::before {
   position: static;
 }
 
+.resume-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-3) var(--space-4);
+  padding-bottom: var(--space-6);
+  border-bottom: 2px solid var(--color-main-default);
+}
+
+.resume-role {
+  margin: var(--space-1) 0 0;
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-title);
+}
+
+.resume-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: 0;
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-label);
+  list-style: none;
+}
+
+.resume-contacts a {
+  color: var(--color-main-default);
+}
+
+.resume-summary {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.resume-section {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.resume-section:last-child {
+  border-bottom: 0;
+}
+
+.resume-section-title {
+  margin: 0;
+  color: var(--color-main-default);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.resume-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.resume-entry-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.resume-entry-title {
+  margin: 0;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+}
+
+.resume-entry-org {
+  margin: 2px 0 0;
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-label);
+}
+
+.resume-entry-period {
+  flex: none;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-label);
+  font-variant-numeric: tabular-nums;
+}
+
+.resume-entry-items {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-5);
+}
+
+.resume-entry-items li + li {
+  margin-top: var(--space-1);
+}
+
+.resume-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-tags li {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-sub-subtle);
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-caption);
+}
+
+@container (max-width: 600px) {
+  .resume-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+}
+
 @page doc {
   size: A4;
   margin: 16mm 18mm;
@@ -377,6 +498,10 @@ h3.doc-heading::before {
 
   .doc-print {
     display: none;
+  }
+
+  .resume-entry {
+    break-inside: avoid;
   }
 
   .doc-heading {

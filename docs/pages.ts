@@ -13,7 +13,8 @@ export type Section =
   | { type: "a11y"; title?: string; items: string[] }
   | { type: "api"; title?: string; description?: string; rows: string[][] }
   | { type: "review"; title?: string }
-  | { type: "sdui"; title?: string; device?: "mobile" | "desktop" };
+  | { type: "sdui"; title?: string; device?: "mobile" | "desktop" }
+  | { type: "templates"; title?: string; category: string };
 
 export type Page = { id: string; group: string; sub?: string; title: string; lede: string; wide?: boolean; sections: Section[] };
 
@@ -1422,16 +1423,24 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "slide-templates",
+    "group": "슬라이드",
+    "title": "슬라이드 템플릿",
+    "wide": true,
+    "lede": "발표 자료 템플릿입니다. 카드를 고르면 아래에서 한 장씩 넘겨 보고 코드를 볼 수 있습니다. 모든 템플릿은 같은 레이아웃과 부품으로 만들어, 테마를 바꾸면 함께 바뀝니다.",
+    "sections": [
+      {
+        "type": "templates",
+        "category": "슬라이드"
+      }
+    ]
+  },
+  {
     "id": "slides",
     "group": "슬라이드",
     "title": "슬라이드 묶음",
     "lede": "슬라이드 묶음은 HTML로 만드는 발표 자료의 틀입니다. 1920×1080 화면에 그린 뒤 크기에 맞춰 줄이거나 키우므로 어떤 화면에서도 배치가 같고, 안쪽에는 slide 용도 토큰이 적용됩니다.",
     "sections": [
-      {
-        "type": "block",
-        "id": "monthly-review",
-        "title": "완성 예시"
-      },
       {
         "type": "usage",
         "when": [
@@ -1599,6 +1608,19 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "doc-templates",
+    "group": "기술 문서",
+    "title": "기술 문서 템플릿",
+    "wide": true,
+    "lede": "설계 문서와 RFC 템플릿입니다. 카드를 고르면 아래에서 전체 문서와 코드를 볼 수 있습니다. 인쇄하면 A4로 나뉩니다.",
+    "sections": [
+      {
+        "type": "templates",
+        "category": "기술 문서"
+      }
+    ]
+  },
+  {
     "id": "doc-frame",
     "group": "기술 문서",
     "title": "문서 틀",
@@ -1717,28 +1739,15 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "doc-design",
-    "group": "기술 문서",
-    "title": "설계 문서",
-    "lede": "설계 문서 예시는 배경에서 변경 이력까지 여덟 장으로 이루어진 완성 문서입니다. 코드 탭의 파일을 복사해 새 문서의 출발점으로 씁니다.",
+    "id": "resume-templates",
+    "group": "이력서",
+    "title": "이력서 템플릿",
+    "wide": true,
+    "lede": "이력서 템플릿입니다. `Resume`, `ResumeSection`, `ResumeEntry` 세 부품으로 만들고, 인쇄하면 A4 세로로 나뉩니다. 테마를 바꾸면 강조색이 함께 바뀝니다.",
     "sections": [
       {
-        "type": "block",
-        "id": "design-doc",
-        "title": "design-doc"
-      }
-    ]
-  },
-  {
-    "id": "doc-rfc",
-    "group": "기술 문서",
-    "title": "RFC",
-    "lede": "RFC 예시는 이어지는 질문 세 개를 차례로 풀고 결정으로 끝나는 짧은 문서입니다.",
-    "sections": [
-      {
-        "type": "block",
-        "id": "rfc",
-        "title": "rfc"
+        "type": "templates",
+        "category": "이력서"
       }
     ]
   },

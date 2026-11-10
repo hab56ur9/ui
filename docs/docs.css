@@ -1320,3 +1320,73 @@
 .sdui-json[aria-invalid="true"] {
   border-color: var(--color-status-critical);
 }
+
+.docs-templates {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.docs-template {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-surface);
+  color: var(--color-fg-default);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.docs-template:hover {
+  border-color: var(--color-border-strong);
+}
+
+.docs-template[aria-checked="true"] {
+  border-color: var(--color-main-default);
+  box-shadow: 0 0 0 1px var(--color-main-default);
+}
+
+.docs-template-thumb {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-bg-page);
+  pointer-events: none;
+}
+
+.docs-template-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.docs-template-canvas > .deck,
+.docs-template-canvas .deck {
+  height: 100%;
+}
+
+.docs-template-title {
+  font-weight: var(--font-weight-semibold);
+}
+
+.docs-template-description {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-label);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.docs-template-thumb .deck-controls,
+.docs-template-thumb .deck-notes,
+.docs-template-thumb .doc-print {
+  display: none;
+}

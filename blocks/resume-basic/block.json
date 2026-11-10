@@ -1,0 +1,12 @@
+{
+  "title": "기본 이력서",
+  "description": "한 장짜리 이력서입니다. 이름·직무·연락처·요약 머리말 아래에 경력, 프로젝트, 학력, 기술을 왼쪽 제목과 오른쪽 내용의 두 단으로 놓습니다. 인쇄하면 A4 세로로 나뉩니다.",
+  "category": "이력서",
+  "kind": "doc",
+  "uses": ["이력서", "이력서 섹션", "이력서 항목"],
+  "en": {
+    "title": "Basic resume",
+    "description": "A one-page resume. Under a header with name, role, contacts and summary, experience, projects, education and skills sit in two columns: the heading on the left, the content on the right. Printing splits it into A4 portrait pages.",
+    "uses": ["Resume", "Resume section", "Resume entry"]
+  }
+}

@@ -192,6 +192,98 @@
       ]
     },
     {
+      "name": "Resume",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "role",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "contacts",
+          "optional": true,
+          "kind": "list",
+          "type": "ResumeContact[]"
+        },
+        {
+          "name": "summary",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "printable",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "ResumeEntry",
+      "props": [
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "org",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "period",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "place",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "items",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "tags",
+          "optional": true,
+          "kind": "list",
+          "type": "string[]"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "ResumeSection",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
       "name": "ChangeLog",
       "props": [
         {
