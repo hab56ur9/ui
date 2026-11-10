@@ -17,8 +17,8 @@ The design system is a common language that both the agent and the person read a
 
 - The agent describes the app as a JSON spec built only from design system components.
 - A builder turns the spec into editable React code.
-- The person reviews the rendered code and corrects it by editing the UI directly.
-- The agent receives the corrected spec, not a description of the correction.
+- The person reviews the rendered code and corrects it by editing the UI into a sample of what they want.
+- The agent reads the sample and writes a new spec from it, instead of guessing from a description.
 
 ## Flow
 
@@ -28,8 +28,8 @@ The loop repeats steps 2 to 4 until the person approves the UI.
 | --- | --- | --- | --- |
 | 1. Spec | Agent | The request and its context | A JSON spec: screens, components, data slots, actions, and a description on each part |
 | 2. Generate | Builder | The JSON spec | Editable React code at mockup level, with example data and no API |
-| 3. Review | Person | The rendered code | Feedback as edits made in an editor |
-| 4. Revise | Person, agent | The feedback | A revised spec, which goes back to step 2 |
+| 3. Review | Person | The rendered code | A sample: the same UI edited into what the person wants, with notes where needed |
+| 4. Revise | Agent | The sample | A new spec, which goes back to step 2 |
 | 5. Approve | Person | The rendered code | Approval of the UI |
 | 6. Connect | Agent | The approved code | API calls and use cases connected to the code through its data slots and actions |
 | 7. Build | Agent | The connected code | The final app, built with the app's own build tool |
@@ -42,7 +42,7 @@ The spec is both the screen source and the behavior specification.
 - Navigation, overlays and actions are part of the spec, so the mockup behaves like the app.
 - A `description` on the app, screens, widgets, components, actions and data fields explains intent. The builder keeps descriptions out of the screen; they make the same JSON readable as a specification.
 - Data slots carry example values. The mockup shows them in place of live data.
-- Every screen is a widget grid. Forms, lists and headers each sit in a widget, so one editing unit covers the whole app.
+- Every screen is a widget grid. Forms, lists and headers each sit in a widget, so one unit of editing covers the whole app.
 
 ## The builder
 
@@ -56,13 +56,13 @@ The builder reads a spec and writes editable React code. Its job ends there.
 
 ## The editor
 
-The editor lets a person correct the result directly instead of describing the correction.
+The editor is a means of communication between the person and the agent, not a complete design tool.
 
-- It renders the generated code, splits it into its widgets and components, and lets the person reassemble them.
-- Widgets are the main unit of editing: a person moves, resizes, removes and adds them on a grid.
-- Everything in the spec is editable: each component's props, screens, navigation, overlays and the action wiring between them.
-- The edit result is a new spec. The difference between the old and new spec is the feedback.
-- The person can attach a short note to any change in the difference. The difference says what changed; the note says why.
+- It opens the file the agent gave and lets the person rearrange and change it with design system components and widgets.
+- It needs only the edits that make a person's intent clear: moving, resizing, removing and adding widgets, and changing visible content.
+- The person can leave notes on the sample where an edit alone does not explain the intent.
+- The edited sample goes back to the agent. The agent compares it with what it sent, writes a new spec, and generates the next version for review.
+- Because the sample uses the same components as the spec, the agent reads it in the vocabulary it wrote in.
 
 ## Logic stays separate
 
