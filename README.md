@@ -11,7 +11,7 @@ ui is a personal design system: design tokens and React components for apps, tec
 | Tokens | Color, type, space and motion in the DTCG format, built into CSS variables and a JSON snapshot |
 | Components | React components for controls, charts, boards, overlays, navigation, images and social screens |
 | Templates | Slide decks, technical documents and dashboards built from the components |
-| SDUI | An example of drawing server-driven screens with the components, with a visual builder |
+| App spec | A JSON app spec that agents build into one editable HTML page for people to review |
 | Presets | Main and sub color pairs that restyle every component |
 
 ## Use

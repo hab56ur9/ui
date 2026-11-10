@@ -449,18 +449,6 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
-  jsonui: [
-    {
-      type: "api",
-      title: "<JsonUI>",
-      rows: [
-        ["node", "JsonUINode | JsonUINode[]", "", "그릴 JSON 템플릿입니다."],
-        ["data", "Record<string, unknown>", "{}", "`$data`가 읽는 값입니다."],
-        ["formats", "Record<string, (value: number) => string>", "{}", "`$format`이 고르는 형식 함수입니다."],
-        ["onAction", "({ name, params }) => void", "", "`$action`이 놓인 곳에서 사건이 생기면 불립니다."],
-      ],
-    },
-  ],
   markdown: [
     {
       type: "api",

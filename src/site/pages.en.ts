@@ -1655,85 +1655,6 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "jsonui",
-    "group": "렌더러",
-    "title": "JSON UI",
-    "lede": "JSON UI is the engine that takes a JSON template and draws components under it. Write the screen as JSON, place one `<JsonUI>`, and pass data, number formats and an action handler. The components below don't know they came from JSON and behave as usual. For SDUI, an app only adds an adapter that turns its server response into this format.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "Basic",
-        "example": "jsonui-basic"
-      },
-      {
-        "type": "demo",
-        "title": "Template and data",
-        "example": "jsonui-template"
-      },
-      {
-        "type": "text",
-        "title": "Node format",
-        "body": [
-          "A node is an exported component name (`type`), its props and children. An array stacks vertically. Inside props, five markers connect values to the app's data, formats and actions."
-        ]
-      },
-      {
-        "type": "code",
-        "code": "{\n  \"type\": \"Widget\",\n  \"props\": { \"title\": \"Visitors\", \"w\": 6, \"h\": 3 },\n  \"children\": {\n    \"type\": \"Stat\",\n    \"props\": { \"value\": { \"$data\": \"visits\", \"$format\": \"count\" } }\n  }\n}",
-        "lang": "plain"
-      },
-      {
-        "type": "api",
-        "title": "Markers",
-        "rows": [
-          [
-            "$data",
-            "{ \"$data\": key }",
-            "",
-            "Reads a value from `data`; combine with `$format` or `$labels`."
-          ],
-          [
-            "$format",
-            "{ \"$format\": name }",
-            "",
-            "A named function from `formats`; with a value it becomes formatted text."
-          ],
-          [
-            "$each · $as",
-            "{ \"$each\": list, \"$as\": template }",
-            "",
-            "Stamps the template for each item; inside it `$field` reads the item."
-          ],
-          [
-            "$field",
-            "{ \"$field\": key }",
-            "",
-            "The current item's value inside `$each`."
-          ],
-          [
-            "$action",
-            "{ \"$action\": { name, params? } }",
-            "",
-            "In a callback slot it becomes a function that calls `onAction`; a primitive argument arrives as `params.value`."
-          ]
-        ]
-      },
-      {
-        "type": "text",
-        "title": "When it renders",
-        "body": [
-          "By default it renders at request time: the app receives JSON and interprets it in the browser. A web page whose first paint matters can pre-render HTML on the server with the same engine at publish time and hydrate in the browser. JSON stays the source, and both produce the same result."
-        ]
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "JSON UI adds or removes no accessibility attributes; each drawn component keeps its own."
-        ]
-      }
-    ]
-  },
-  {
     "id": "markdown",
     "group": "렌더러",
     "title": "Markdown",
@@ -2144,27 +2065,15 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "sdui-dashboard",
-    "group": "SDUI",
-    "title": "Mobile dashboard",
+    "id": "app-spec",
+    "group": "앱 스펙",
+    "title": "App spec",
     "wide": true,
-    "lede": "The Blocks tab's \"Mobile dashboard\" drawn from one JSON template. The app passes the template and data to `<JsonUI>`, and the components receive the same props as in code.",
+    "lede": "An app spec is a JSON description of an app's screens, data, actions and the intent of each part, written with the components. An agent writes it, `ui spec build` turns it into one editable HTML file, and a person reviews that file under `ui serve`: widgets move, resize, hide and take notes, and text edits in place. The saved review goes back to the agent, which rewrites the spec until the person approves.",
     "sections": [
       {
-        "type": "block",
-        "id": "sdui-dashboard"
-      }
-    ]
-  },
-  {
-    "id": "sdui-builder",
-    "group": "SDUI",
-    "title": "App builder",
-    "wide": true,
-    "lede": "Compose an app screen from widgets. Desktop shows a browser window with a sidebar and mobile shows a phone with a bottom tab bar, both drawing the menu the server sends. Drag and resize on the board to set the layout, then copy the result as JSON to start a server response.",
-    "sections": [
-      {
-        "type": "sdui"
+        "type": "spec",
+        "title": "Built preview"
       }
     ]
   },

@@ -27,7 +27,7 @@ import { homepage, MODE_LABELS, tokensFor, version } from "./catalog";
 import { pages, type Page, type Section } from "./pages";
 import { pages as pagesEn } from "./pages.en";
 import { Phone } from "./Phone";
-import { SduiPlayground } from "./SduiPlayground";
+import { SpecPreview } from "./SpecPreview";
 import { reviewOutline, TokenReview } from "./TokenReview";
 
 const modules = import.meta.glob<{ default: () => ReactNode }>("./examples/*.tsx", { eager: true });
@@ -43,7 +43,7 @@ const textOf = (name: string, lang: Lang) => (lang === "en" ? enText : koText)[n
 const COPY = {
   ko: {
     titles: { usage: "언제 쓰나", anatomy: "구성", demo: "예시", guidelines: "권장과 지양", tokens: "쓰는 토큰", code: "사용법", api: "API", a11y: "접근성" } as Record<string, string>,
-    tabs: ["문서", "컴포넌트", "블록", "SDUI", "템플릿", "테마"],
+    tabs: ["문서", "컴포넌트", "블록", "앱 스펙", "템플릿", "테마"],
     device: "화면 크기",
     desktop: "데스크톱",
     mobile: "모바일",
@@ -75,7 +75,7 @@ const COPY = {
   },
   en: {
     titles: { usage: "When to use", anatomy: "Anatomy", demo: "Examples", guidelines: "Do and don't", tokens: "Tokens", code: "Usage", api: "API", a11y: "Accessibility" } as Record<string, string>,
-    tabs: ["Docs", "Components", "Blocks", "SDUI", "Templates", "Theme"],
+    tabs: ["Docs", "Components", "Blocks", "App spec", "Templates", "Theme"],
     device: "Screen size",
     desktop: "Desktop",
     mobile: "Mobile",
@@ -89,6 +89,7 @@ const COPY = {
       데이터: "Data",
       콘텐츠: "Content",
       렌더러: "Renderers",
+      "앱 스펙": "App spec",
       틀: "Frames",
       차트: "Charts",
       블록: "Blocks",
@@ -132,10 +133,10 @@ function useDocs() {
   return { lang: key, c: COPY[key], ...CONTENT[key] };
 }
 
-const TABS = [["시작하기", "기반"], ["입력", "탐색", "피드백", "데이터", "콘텐츠", "렌더러", "틀"], ["블록"], ["SDUI"], ["슬라이드", "기술 문서", "이력서", "포트폴리오"], ["테마"]].map(
+const TABS = [["시작하기", "기반"], ["입력", "탐색", "피드백", "데이터", "콘텐츠", "렌더러", "틀"], ["블록"], ["앱 스펙"], ["슬라이드", "기술 문서", "이력서", "포트폴리오"], ["테마"]].map(
   (groups, index) => ({ index, groups }),
 );
-const fullWidth = (page: Page) => page.group === "블록" || page.group === "SDUI";
+const fullWidth = (page: Page) => page.group === "블록" || page.group === "앱 스펙";
 const tabOf = (page: Page) => TABS.find((tab) => tab.groups.includes(page.group)) ?? TABS[0];
 const groupsInOrder = [...new Set(pages.map((p) => p.group))];
 
@@ -236,25 +237,6 @@ class Boundary extends Component<{ children: ReactNode }, { error: Error | null 
 
 function Tabs<K extends string>({ value, onChange, options, label }: { value: K; onChange: (key: K) => void; options: [K, string][]; label?: string }) {
   return <UITabs label={label} value={value} onChange={(id) => onChange(id as K)} items={options.map(([id, text]) => ({ id, label: text }))} />;
-}
-
-function SduiSwitch() {
-  const { c } = useDocs();
-  const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
-  return (
-    <div className="docs-sdui-switch">
-      <Segmented
-        label={c.device}
-        value={device}
-        onChange={setDevice}
-        options={[
-          { value: "desktop", label: c.desktop },
-          { value: "mobile", label: c.mobile },
-        ]}
-      />
-      <SduiPlayground key={device} device={device} />
-    </div>
-  );
 }
 
 function Demo({
@@ -661,8 +643,8 @@ function SectionBody({ section }: { section: Section }) {
       return <Api description={section.description} rows={section.rows} />;
     case "review":
       return <TokenReview lang={lang} />;
-    case "sdui":
-      return section.device ? <SduiPlayground device={section.device} /> : <SduiSwitch />;
+    case "spec":
+      return <SpecPreview />;
   }
 }
 

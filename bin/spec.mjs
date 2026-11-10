@@ -1,6 +1,6 @@
 export const SPEC_VERSION = 1;
 export const BUILTIN_ACTIONS = { navigate: ["screen"], open: ["overlay"], close: [] };
-const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "Page", "WidgetGrid", "Board", "Widget", "JsonUI", "ThemePicker", "Modal", "Sheet", "Toast"]);
+const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "Page", "WidgetGrid", "Board", "Widget", "ThemePicker", "Modal", "Sheet", "Toast"]);
 const KINDS = ["modal", "sheet"];
 const VARIANTS = ["primary", "secondary", "danger"];
 

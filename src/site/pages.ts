@@ -13,7 +13,7 @@ export type Section =
   | { type: "a11y"; title?: string; items: string[] }
   | { type: "api"; title?: string; description?: string; rows: string[][] }
   | { type: "review"; title?: string }
-  | { type: "sdui"; title?: string; device?: "mobile" | "desktop" }
+  | { type: "spec"; title?: string }
   | { type: "templates"; title?: string; category: string };
 
 export type Page = { id: string; group: string; sub?: string; title: string; lede: string; wide?: boolean; sections: Section[] };
@@ -1673,85 +1673,6 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "jsonui",
-    "group": "렌더러",
-    "title": "JSON UI",
-    "lede": "JSON UI는 JSON 템플릿을 받아 그 아래에 컴포넌트를 그리는 해석 엔진입니다. 화면을 JSON으로 적으면, 앱은 `<JsonUI>` 하나만 두고 데이터·숫자 형식·동작 처리기를 넘깁니다. 그 아래 컴포넌트는 자기가 JSON으로 그려졌는지 모르고 평소와 똑같이 동작합니다. SDUI는 서버 응답을 이 형식으로 바꾸는 어댑터만 두면 됩니다.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "기본",
-        "example": "jsonui-basic"
-      },
-      {
-        "type": "demo",
-        "title": "템플릿과 데이터",
-        "example": "jsonui-template"
-      },
-      {
-        "type": "text",
-        "title": "노드 형식",
-        "body": [
-          "노드는 export된 컴포넌트 이름(`type`), props, children으로 이루어집니다. 배열을 주면 세로로 쌓습니다. props 안의 값은 아래 다섯 표식으로 앱의 데이터·형식·동작과 이어집니다."
-        ]
-      },
-      {
-        "type": "code",
-        "code": "{\n  \"type\": \"Widget\",\n  \"props\": { \"title\": \"Visitors\", \"w\": 6, \"h\": 3 },\n  \"children\": {\n    \"type\": \"Stat\",\n    \"props\": { \"value\": { \"$data\": \"visits\", \"$format\": \"count\" } }\n  }\n}",
-        "lang": "plain"
-      },
-      {
-        "type": "api",
-        "title": "표식",
-        "rows": [
-          [
-            "$data",
-            "{ \"$data\": key }",
-            "",
-            "`data`에서 값을 꺼냅니다. `$format`이나 `$labels`를 함께 쓸 수 있습니다."
-          ],
-          [
-            "$format",
-            "{ \"$format\": name }",
-            "",
-            "`formats`의 이름 붙은 함수입니다. 값과 함께 쓰면 형식을 입힌 글자가 됩니다."
-          ],
-          [
-            "$each · $as",
-            "{ \"$each\": list, \"$as\": template }",
-            "",
-            "목록을 돌며 템플릿을 찍습니다. 템플릿 안에서는 `$field`로 항목 값을 꺼냅니다."
-          ],
-          [
-            "$field",
-            "{ \"$field\": key }",
-            "",
-            "`$each` 안에서 지금 항목의 값입니다."
-          ],
-          [
-            "$action",
-            "{ \"$action\": { name, params? } }",
-            "",
-            "콜백 자리에 놓으면 `onAction`을 부르는 함수가 됩니다. 값 하나를 넘기는 콜백은 `params.value`로 전달합니다."
-          ]
-        ]
-      },
-      {
-        "type": "text",
-        "title": "렌더링 시점",
-        "body": [
-          "기본은 호출 시점입니다. 앱이 JSON을 받아 브라우저에서 해석합니다. 첫 화면이 중요한 웹 페이지는 게시할 때 같은 엔진으로 서버에서 HTML을 미리 그려 두고, 브라우저가 이어받을 수 있습니다. JSON이 원본이고, 두 시점의 결과는 같습니다."
-        ]
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "JSON UI는 접근성 속성을 더하거나 빼지 않습니다. 그려지는 컴포넌트의 접근성이 그대로 적용됩니다."
-        ]
-      }
-    ]
-  },
-  {
     "id": "markdown",
     "group": "렌더러",
     "title": "마크다운",
@@ -2162,27 +2083,15 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "sdui-dashboard",
-    "group": "SDUI",
-    "title": "모바일 대시보드",
+    "id": "app-spec",
+    "group": "앱 스펙",
+    "title": "앱 스펙",
     "wide": true,
-    "lede": "블록 탭의 \"모바일 대시보드\"와 같은 화면을 JSON 템플릿 하나로 그렸습니다. 앱은 `<JsonUI>`에 템플릿과 데이터만 넘기고, 컴포넌트는 코드로 그릴 때와 똑같은 props로 불립니다.",
+    "lede": "앱 스펙은 앱의 화면, 데이터, 동작과 각 부분의 의도를 컴포넌트로 적은 JSON입니다. 에이전트가 쓰고, `ui spec build`가 편집 가능한 HTML 한 파일로 만들며, 사람은 `ui serve`로 그 파일을 리뷰합니다. 위젯을 옮기고·크기를 바꾸고·숨기고 메모를 달고, 글자는 그 자리에서 고칩니다. 저장한 리뷰는 에이전트에게 돌아가고, 에이전트는 승인될 때까지 스펙을 다시 씁니다.",
     "sections": [
       {
-        "type": "block",
-        "id": "sdui-dashboard"
-      }
-    ]
-  },
-  {
-    "id": "sdui-builder",
-    "group": "SDUI",
-    "title": "앱 빌더",
-    "wide": true,
-    "lede": "앱 화면을 위젯으로 조립합니다. 데스크톱은 브라우저 창과 사이드바, 모바일은 휴대폰과 아래 탭 바로 보여 주고, 메뉴는 서버가 보낸 값으로 그립니다. 보드에서 끌고 크기를 바꿔 배치를 정하고, 결과는 JSON으로 복사해 서버 응답의 출발점으로 씁니다.",
-    "sections": [
-      {
-        "type": "sdui"
+        "type": "spec",
+        "title": "빌드 결과"
       }
     ]
   },
