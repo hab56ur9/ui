@@ -152,6 +152,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["series", "{ name, points, color?, dashed?, area?, flagBreaches? }[]", "", `When color is omitted, slots 1, 2, 3 apply in order. ${COLOR_NOTE}`],
         ["format", "{ axis, value?, date? }", "", "Formats for axis ticks, tooltip and end values, and tooltip dates."],
+        ["categories", "string[]", "", "Names for a category axis; point t is the index into it instead of a time."],
         ["band", "{ name, lower, upper, color? }", "", "Fills between an upper and a lower bound, such as a forecast band."],
         ["threshold", "{ value, label, breach }", "", "The threshold line. It marks breaches in `flagBreaches` series and adds `breach` to the tooltip."],
         ["baseline", "number", "", "The baseline, such as 100 in an index comparison."],
@@ -168,6 +169,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["points", POINTS, "", "The bar data."],
         ["name", "string", "", "The data name in the tooltip."],
+        ["categories", "string[]", "", "Names for a category axis; point t is the index into it instead of a time."],
         ["color", COLOR, "1", COLOR_NOTE],
         ["colorOf", "(point, index) => Color", "", "The color per bar. Used to highlight only the current period."],
         ["format", "{ axis, value?, date? }", "", "Formats for axis ticks, tooltip values and tooltip dates."],
@@ -457,7 +459,7 @@ export const api: Record<string, Section[]> = {
         ["defaultValue · children", "string", "\"\"", "The starting markdown; read-only views can pass it as `children`."],
         ["readOnly", "boolean", "false", "Shows the same look without editing; also for server rendering and print."],
         ["onChange", "(markdown: string) => void", "", "Called with the whole standard markdown on every edit."],
-        ["data · formats · onAction", "same as JSON UI", "", "Used by ` ```ui ` blocks."],
+        ["data · formats · onAction", "data map · format functions · action handler", "", "Used by ` ```ui ` blocks. ` ```mermaid ` `xychart-beta` and `pie` blocks draw with the chart components; other Mermaid blocks stay as code."],
       ],
     },
   ],

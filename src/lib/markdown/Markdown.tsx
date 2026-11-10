@@ -6,6 +6,7 @@ import { useI18n, type MessageKey } from "../i18n";
 import { JsonUI, type JsonUIAction, type JsonUIFormat, type JsonUINode } from "../JsonUI";
 import { Callout } from "../Callout";
 import { fromMarkdown, LIST_KINDS, make, numbers, TEXT_KINDS, toMarkdown, type EditorBlock, type Kind } from "./blocks";
+import { MermaidView, parseMermaid } from "./mermaid";
 import { parseMarkdown } from "./parse";
 import { Footnotes, renderInline, slug } from "./render";
 
@@ -501,12 +502,14 @@ function Row({ block, readOnly, inline, anchor, number, focus, dropBefore, dropA
       );
       break;
     case "code":
-    case "ui":
+    case "ui": {
+      const chart = block.kind === "code" && block.lang === "mermaid" ? parseMermaid(block.text) : null;
       body = editing ? (
         <div className="md-code">
           <div className="md-code-bar">{block.kind === "code" ? <input className="md-lang" value={block.lang ?? ""} placeholder="lang" aria-label="lang" onChange={(e) => onPatch({ lang: e.target.value })} onBlur={(e) => onLeave(e.relatedTarget)} /> : <span className="md-lang">ui · JSON</span>}</div>
           <textarea ref={field} className="md-field is-code" value={block.text} rows={3} spellCheck={false} aria-label={text("md.code")} onChange={(e) => onPatch({ text: e.target.value })} onKeyDown={blockKey} onBlur={(e) => onLeave(e.relatedTarget)} />
           {block.kind === "ui" && <div className="md-ui-preview">{ui(block.text)}</div>}
+          {chart && <div className="md-ui-preview"><MermaidView chart={chart} /></div>}
         </div>
       ) : (
         <div
@@ -517,10 +520,11 @@ function Row({ block, readOnly, inline, anchor, number, focus, dropBefore, dropA
             onFocus("end");
           }}
         >
-          {block.kind === "ui" ? <div className="md-ui">{ui(block.text)}</div> : <CodeBlock code={block.text} lang={LANGS[block.lang ?? ""] ?? "plain"} />}
+          {block.kind === "ui" ? <div className="md-ui">{ui(block.text)}</div> : chart ? <MermaidView chart={chart} /> : <CodeBlock code={block.text} lang={LANGS[block.lang ?? ""] ?? "plain"} />}
         </div>
       );
       break;
+    }
     case "table": {
       const rows = block.rows?.length ? block.rows : [["", ""]];
       const width = Math.max(...rows.map((row) => row.length));

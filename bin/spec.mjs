@@ -156,7 +156,7 @@ export function specSchema(components) {
     required: ["spec", "app", "start", "screens"],
     properties: {
       spec: { const: SPEC_VERSION },
-      app: entry({ name: { type: "string" }, lang: { enum: ["en", "ko"] }, density: { enum: ["comfortable", "compact"] } }, ["name"]),
+      app: entry({ name: { type: "string" }, density: { enum: ["comfortable", "compact"] } }, ["name"]),
       start: { type: "string" },
       nav: { type: "array", items: { type: "object", required: ["screen", "label"], properties: { screen: { type: "string" }, label: { type: "string" }, icon: { type: "string" } }, additionalProperties: false } },
       data: { type: "object", additionalProperties: entry({ example: {} }, ["example"]) },
@@ -219,10 +219,9 @@ function emitter(used) {
 
 const PRESS = '{ position: "absolute", inset: 0, zIndex: 1, border: 0, borderRadius: "var(--radius-card)", background: "transparent", cursor: "pointer" }';
 
-export function buildHtml(spec, { module }) {
+export function buildHtml(spec, { module, lang = "en" }) {
   const used = new Set();
   const { expr, content } = emitter(used);
-  const lang = spec.app.lang ?? "en";
   const buttons = (items = []) =>
     items.map((button) => `h(Button, { variant: ${quote(button.variant ?? "secondary")}, onClick: () => act(${quote(button.action)}) }, ${quote(button.label)})`);
   const screens = Object.entries(spec.screens).map(([id, screen]) => {

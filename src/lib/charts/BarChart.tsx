@@ -4,7 +4,7 @@ import { tokenPx, useSize } from "../hooks";
 import { useI18n } from "../i18n";
 import type { Color, Format, Point } from "../types";
 import { Tooltip, XAxis, YGrid, paint, useScrub } from "./parts";
-import { linear, niceTicks, textWidth, timeTicks } from "./scale";
+import { linear, niceTicks, textWidth, categoryTicks, timeTicks } from "./scale";
 
 export type BarChartProps = {
   points: Point[];
@@ -13,6 +13,7 @@ export type BarChartProps = {
   colorOf?: (point: Point, index: number) => Color;
   format?: Format;
   title?: string;
+  categories?: string[];
 };
 
 export function BarChart(props: BarChartProps) {
@@ -42,7 +43,8 @@ function BarPlot({ points, name = "", format, title, width, height, node, ...pro
   const first = points[0].t;
   const final = points[points.length - 1].t;
   const time = linear([first, final], [x(0), x(points.length - 1)]);
-  const axis = timeTicks(first, final, Math.floor((time(final) - time(first)) / (size * 6)), locale);
+  const count = Math.floor((time(final) - time(first)) / (size * 6));
+  const axis = props.categories ? categoryTicks(props.categories, count) : timeTicks(first, final, count, locale);
   const { index, handlers } = useScrub(
     svg,
     points.map((_, i) => x(i)),
@@ -61,7 +63,7 @@ function BarPlot({ points, name = "", format, title, width, height, node, ...pro
       : {
           x: x(index),
           y: y(points[index].v) - size * 3,
-          title: f.date(points[index].t),
+          title: props.categories?.[index] ?? f.date(points[index].t),
           rows: [{ paint: paintOf(points[index], index), swatch: "rect" as const, name, value: f.value(points[index].v) }],
         };
 

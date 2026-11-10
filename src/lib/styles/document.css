@@ -1090,3 +1090,22 @@ h3.doc-heading::before {
 .resume[data-density="compact"] .resume-head {
   padding-bottom: var(--space-4);
 }
+
+.md-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  margin: 0 0 var(--space-4);
+}
+
+.md-chart-title {
+  color: var(--color-fg-default);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+}
+
+.md-chart-plot {
+  position: relative;
+  height: calc(var(--widget-row) * 3);
+}

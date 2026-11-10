@@ -94,7 +94,7 @@ An app request starts as a JSON app spec, not as code, so a person can review th
 
 ```bash
 ui spec check app.json
-ui spec build app.json --out app.html
+ui spec build app.json --out app.html --lang ko
 ui serve .
 ```
 

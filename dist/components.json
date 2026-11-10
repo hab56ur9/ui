@@ -2246,6 +2246,12 @@
           "name": "title",
           "optional": true,
           "kind": "string"
+        },
+        {
+          "name": "categories",
+          "optional": true,
+          "kind": "list",
+          "type": "string[]"
         }
       ]
     },
@@ -2283,6 +2289,12 @@
           "name": "title",
           "optional": true,
           "kind": "string"
+        },
+        {
+          "name": "categories",
+          "optional": true,
+          "kind": "list",
+          "type": "string[]"
         }
       ]
     },

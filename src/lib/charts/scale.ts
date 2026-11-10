@@ -25,6 +25,11 @@ export function niceTicks(min: number, max: number, count: number) {
   return Array.from({ length: Math.round((end - start) / step) + 1 }, (_, i) => +(start + i * step).toFixed(10));
 }
 
+export function categoryTicks(labels: string[], count: number) {
+  const step = Math.max(1, Math.ceil(labels.length / Math.max(count, 1)));
+  return { ticks: labels.map((_, i) => i).filter((i) => i % step === 0), format: (t: number) => labels[t] ?? "" };
+}
+
 export function timeTicks(t0: number, t1: number, count: number, locale: string) {
   const perTick = (t1 - t0) / DAY / Math.max(count, 1);
   const dayStep = [1, 2, 7, 14, 28].find((s) => s >= perTick);

@@ -5,7 +5,7 @@ import { useI18n } from "../i18n";
 import { Icon } from "../Icon";
 import type { Color, Format, Point } from "../types";
 import { Legend, Tooltip, XAxis, YGrid, paint, useScrub, type LegendItem } from "./parts";
-import { finite, linear, niceTicks, pathOf, textWidth, timeTicks } from "./scale";
+import { categoryTicks, finite, linear, niceTicks, pathOf, textWidth, timeTicks } from "./scale";
 
 export type LineSeries = { name: string; points: Point[]; color?: Color; dashed?: boolean; area?: boolean; flagBreaches?: boolean };
 
@@ -18,6 +18,7 @@ export type LineChartProps = {
   annotations?: { t: number; label: string }[];
   endLabels?: boolean;
   title?: string;
+  categories?: string[];
 };
 
 export function LineChart(props: LineChartProps) {
@@ -38,7 +39,7 @@ export function LineChart(props: LineChartProps) {
 
 type Drawn = LineSeries & { paint: string; swatch: "line" | "dashed" };
 
-function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabels = true, format, title, width, height, node }: LineChartProps & { drawn: Drawn[]; width: number; height: number; node: HTMLDivElement | null }) {
+function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabels = true, format, title, categories, width, height, node }: LineChartProps & { drawn: Drawn[]; width: number; height: number; node: HTMLDivElement | null }) {
   const svg = useRef<SVGSVGElement>(null);
   const { locale } = useI18n();
   const f = formats(format, locale);
@@ -60,7 +61,8 @@ function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabel
   const t1 = times[times.length - 1];
   const x = linear([t0, t1], [margin.left, width - margin.right]);
   const y = linear([yTicks[0], yTicks[yTicks.length - 1]], [height - margin.bottom, margin.top]);
-  const axis = timeTicks(t0, t1, Math.floor((x(t1) - x(t0)) / (size * 6)), locale);
+  const count = Math.floor((x(t1) - x(t0)) / (size * 6));
+  const axis = categories ? categoryTicks(categories, count) : timeTicks(t0, t1, count, locale);
   const breaching = (v: number) => threshold !== undefined && v > threshold.value;
   const lookup = drawn.map((s) => new Map(s.points.map(({ t, v }) => [t, v])));
   const positions = times.map(x);
@@ -87,7 +89,7 @@ function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabel
       : {
           x: positions[index ?? 0],
           y: margin.top,
-          title: f.date(active),
+          title: categories?.[active] ?? f.date(active),
           rows: present.map(({ s, v }) => ({ paint: s.paint, swatch: s.swatch, name: s.name, value: f.value(v) })),
           notes: threshold ? present.filter(({ s, v }) => s.flagBreaches && breaching(v)).map(() => threshold.breach) : [],
         };

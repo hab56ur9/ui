@@ -35,7 +35,7 @@ Usage
   ui serve [dir] [--port 4321] [--host] [--no-reload]
   ui new <file.html> [--lang en|ko] [--medium app|doc|slide] [--cdn]
   ui spec check <spec.json>
-  ui spec build <spec.json> [--out app.html] [--cdn]
+  ui spec build <spec.json> [--out app.html] [--lang en|ko] [--cdn]
   ui help
 
 serve   Serves [dir] (default: current folder) at / and this design system at /ui/.
@@ -46,7 +46,8 @@ new     Writes a starter page that imports the design system in one line.
 spec    check validates an app spec against the components and its own data,
         formats, actions, screens and overlays. The schema is dist/spec.schema.json.
         build checks the spec, then writes one editable HTML file: a function per
-        screen and overlay, example data inline, widgets marked with data-id.`;
+        screen and overlay, example data inline, widgets marked with data-id.
+        --lang sets the page language, number and date formats (default en).`;
 
 function parse(argv) {
   const args = { _: [] };
@@ -264,7 +265,7 @@ function buildFile(file, args) {
   const spec = JSON.parse(readFileSync(resolve(file), "utf8"));
   const out = resolve(args.out ?? file.replace(/\.json$/, "") + ".html");
   const module = args.cdn ? new URL("dist/ui.js", pkg.homepage).href : "/ui/dist/ui.js";
-  writeFileSync(out, buildHtml(spec, { module }));
+  writeFileSync(out, buildHtml(spec, { module, lang: args.lang === "ko" ? "ko" : "en" }));
   console.log(`built ${relative(process.cwd(), out)}`);
   if (!args.cdn) console.log(`open it with: ui serve ${relative(process.cwd(), dirname(out)) || "."}`);
 }

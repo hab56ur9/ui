@@ -26,12 +26,6 @@
         "name": {
           "type": "string"
         },
-        "lang": {
-          "enum": [
-            "en",
-            "ko"
-          ]
-        },
         "density": {
           "enum": [
             "comfortable",
@@ -2007,7 +2001,8 @@
                   "baseline": {},
                   "annotations": {},
                   "endLabels": {},
-                  "title": {}
+                  "title": {},
+                  "categories": {}
                 },
                 "required": [
                   "series"
@@ -2035,7 +2030,8 @@
                   "color": {},
                   "colorOf": {},
                   "format": {},
-                  "title": {}
+                  "title": {},
+                  "categories": {}
                 },
                 "required": [
                   "points"

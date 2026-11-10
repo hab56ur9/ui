@@ -152,6 +152,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["series", "{ name, points, color?, dashed?, area?, flagBreaches? }[]", "", `색을 생략하면 순서대로 슬롯 1, 2, 3입니다. ${COLOR_NOTE}`],
         ["format", "{ axis, value?, date? }", "", "축 눈금, 툴팁·끝점 값, 툴팁 날짜 형식입니다."],
+        ["categories", "string[]", "", "범주 축의 이름입니다. 점의 t는 시간 대신 이 목록의 순번입니다."],
         ["band", "{ name, lower, upper, color? }", "", "예측 구간처럼 위아래 경계 사이를 칠합니다."],
         ["threshold", "{ value, label, breach }", "", "임계선입니다. `flagBreaches` 시리즈의 초과 지점을 표시하고 툴팁에 `breach`를 붙입니다."],
         ["baseline", "number", "", "기준선입니다. 지수 비교의 100처럼 씁니다."],
@@ -168,6 +169,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["points", POINTS, "", "막대 데이터입니다."],
         ["name", "string", "", "툴팁의 데이터 이름입니다."],
+        ["categories", "string[]", "", "범주 축의 이름입니다. 점의 t는 시간 대신 이 목록의 순번입니다."],
         ["color", COLOR, "1", COLOR_NOTE],
         ["colorOf", "(point, index) => Color", "", "막대별 색입니다. 이번 기간만 강조할 때 씁니다."],
         ["format", "{ axis, value?, date? }", "", "축 눈금, 툴팁 값, 툴팁 날짜 형식입니다."],
@@ -457,7 +459,7 @@ export const api: Record<string, Section[]> = {
         ["defaultValue · children", "string", "\"\"", "처음 마크다운입니다. 읽기 전용에서는 `children`으로 넘겨도 됩니다."],
         ["readOnly", "boolean", "false", "편집 도구 없이 같은 모양으로 보여 줍니다. 서버 렌더링·인쇄에도 씁니다."],
         ["onChange", "(markdown: string) => void", "", "고칠 때마다 표준 마크다운 전체를 넘깁니다."],
-        ["data · formats · onAction", "JSON UI와 같음", "", "` ```ui ` 블록이 씁니다."],
+        ["data · formats · onAction", "데이터 맵 · 형식 함수 · 동작 처리기", "", "` ```ui ` 블록이 씁니다. ` ```mermaid `의 `xychart-beta`·`pie` 블록은 차트 컴포넌트로 그리고, 그 밖의 Mermaid는 코드로 둡니다."],
       ],
     },
   ],
