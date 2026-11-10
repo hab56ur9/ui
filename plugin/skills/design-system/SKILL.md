@@ -82,22 +82,6 @@ const ok = await confirm({ title, description, confirmLabel, danger: true });
 
 Shared overlays follow one rule set. A destructive action asks through useConfirm, whose cancel button holds focus, and a reversible action reports through useToast with an undo action. Modal and Sheet are controlled by open and onClose; narrow screens use a Sheet where wide screens use a menu. Component text such as Cancel or Close follows the provider language; the page supplies only its own sentences. Icons come from the Icon component, or an svg use element points at dist/icons.svg; icons take the surrounding text color.
 
-## App specs and review
-
-An app request starts as a JSON app spec, not as code, so a person can review the screens before any logic exists. The spec lists the data slots with example values, the formats, the app actions, the screens as widget grids and the overlays, and every part carries a description of its intent. Every component sits inside a widget; review happens at the widget level, so components need nothing for it. The sample spec lives at src/blocks/fitnote/spec.en.json, with a Korean copy in spec.ko.json; one spec holds one language.
-
-- Write the spec, then check it; fix every reported problem before building.
-- Build it into one HTML file and hand the person the page under ui serve.
-- The person reviews in the editor at /__ui/edit?file=/app.html under ui serve: the page renders on a canvas, widgets drag to reorder, corners resize, text edits on double-click, notes go in the side panel, and Save writes a ui-review block into the same file.
-- Read the saved block together with the spec: order, sizes, removals and added widgets are layout changes, text entries are wording changes, and notes say why. Rewrite the spec to match, build again, and repeat until the person approves.
-- After approval, write the app code from the approved spec and connect real data and actions through the data slot and action names.
-
-```bash
-ui spec check app.json
-ui spec build app.json --out app.html --lang ko
-ui serve .
-```
-
 ## Slides
 
 A deck is HTML. Deck holds the slides on a 1920×1080 canvas with the slide medium tokens, arrow-key paging, a presenter view, speaker notes and a print button whose dialog saves a PDF with one page per slide. Each slide carries a title and a one-line Takeaway that states the conclusion, and number or chart slides cite a source. A new deck starts from the monthly-review example and uses the twelve layouts before composing a custom Slide.
