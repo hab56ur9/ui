@@ -1182,13 +1182,23 @@ export const pages: Page[] = [
     "id": "toast",
     "group": "컴포넌트",
     "title": "Toast",
-    "lede": "A toast briefly reports what just happened and then disappears. For a reversible action it also offers undo.",
+    "lede": "A toast briefly reports what just happened and then disappears. For a reversible action it also offers undo. On desktop it appears at the bottom right; on mobile it spans the bottom of the screen, above a bottom tab bar and clear of the iPhone home indicator.",
     "sections": [
       {
         "type": "demo",
         "title": "Status and undo",
         "center": true,
         "example": "toast-status"
+      },
+      {
+        "type": "demo",
+        "title": "Where it appears on desktop",
+        "example": "toast-place"
+      },
+      {
+        "type": "demo",
+        "title": "Where it appears on mobile",
+        "example": "toast-place-mobile"
       },
       {
         "type": "anatomy",

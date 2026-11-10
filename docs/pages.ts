@@ -1200,13 +1200,23 @@ export const pages: Page[] = [
     "id": "toast",
     "group": "컴포넌트",
     "title": "토스트",
-    "lede": "토스트는 방금 일어난 일을 잠깐 알려 주고 사라집니다. 되돌릴 수 있는 동작이라면 실행 취소를 함께 줍니다.",
+    "lede": "토스트는 방금 일어난 일을 잠깐 알려 주고 사라집니다. 되돌릴 수 있는 동작이라면 실행 취소를 함께 줍니다. 데스크톱에서는 오른쪽 아래에, 모바일에서는 화면 아래 전체 폭으로 뜹니다. 아래쪽 탭 바가 있으면 그 위로, 아이폰 홈 표시줄 영역도 피해서 뜹니다.",
     "sections": [
       {
         "type": "demo",
         "title": "상태와 실행 취소",
         "center": true,
         "example": "toast-status"
+      },
+      {
+        "type": "demo",
+        "title": "데스크톱에서 뜨는 곳",
+        "example": "toast-place"
+      },
+      {
+        "type": "demo",
+        "title": "모바일에서 뜨는 곳",
+        "example": "toast-place-mobile"
       },
       {
         "type": "anatomy",

@@ -2170,7 +2170,7 @@ button.mini-card {
 }
 
 .toast-region {
-  inset: auto var(--space-4) var(--space-4) auto;
+  inset: auto var(--space-4) calc(var(--space-4) + var(--shell-tabs-height, 0px) + env(safe-area-inset-bottom)) auto;
   width: min(calc(100% - 2 * var(--space-4)), var(--size-toast));
   margin: 0;
   padding: 0;
@@ -2243,7 +2243,7 @@ button.mini-card {
 
 @media (max-width: 760px) {
   .toast-region {
-    inset: auto var(--space-4) var(--space-4) var(--space-4);
+    inset: auto var(--space-4) calc(var(--space-4) + var(--shell-tabs-height, 0px) + env(safe-area-inset-bottom)) var(--space-4);
     width: auto;
   }
 }

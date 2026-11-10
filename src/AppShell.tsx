@@ -41,6 +41,23 @@ export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", tab
   const items = nav.flatMap((group) => group.items);
   const menu = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
+  const tabs = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = tabs.current;
+    if (!el) return;
+    const root = document.documentElement;
+    const frame = el.closest<HTMLElement>(".shell-frame");
+    const measure = () => {
+      if (frame && frame.offsetHeight >= window.innerHeight - 1) root.style.setProperty("--shell-tabs-height", `${el.offsetHeight}px`);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    if (frame) observer.observe(frame);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--shell-tabs-height");
+    };
+  }, [mobileNav]);
   const close = () => {
     setOpen(false);
     menu.current?.focus();
@@ -74,7 +91,7 @@ export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", tab
           </header>
           <div className="shell-body">{children}</div>
           {mobileNav === "tabs" && (
-            <div className={`shell-tabs is-${tabBar?.variant ?? "bar"}`}>
+            <div ref={tabs} className={`shell-tabs is-${tabBar?.variant ?? "bar"}`}>
               <TabBar
                 {...tabBar}
                 items={items}
