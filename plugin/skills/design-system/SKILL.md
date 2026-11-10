@@ -84,7 +84,7 @@ Shared overlays follow one rule set. A destructive action asks through useConfir
 
 ## App specs and review
 
-An app request starts as a JSON app spec, not as code, so a person can review the screens before any logic exists. The spec lists the data slots with example values, the formats, the app actions, the screens as widget grids and the overlays, and every part carries a description of its intent. Every component sits inside a widget; review happens at the widget level, so components need nothing for it. The sample spec lives at src/blocks/fitnote/spec.json.
+An app request starts as a JSON app spec, not as code, so a person can review the screens before any logic exists. The spec lists the data slots with example values, the formats, the app actions, the screens as widget grids and the overlays, and every part carries a description of its intent. Every component sits inside a widget; review happens at the widget level, so components need nothing for it. The sample spec lives at src/blocks/fitnote/spec.en.json, with a Korean copy in spec.ko.json; one spec holds one language.
 
 - Write the spec, then check it; fix every reported problem before building.
 - Build it into one HTML file and hand the person the page under ui serve.

@@ -1,0 +1,1200 @@
+{
+  "spec": 1,
+  "app": {
+    "name": "FitNote",
+    "description": "FitNote는 운동을 기록하고 하루 활동, 심박수, 수면을 한눈에 보여 준다."
+  },
+  "start": "today",
+  "nav": [
+    {
+      "screen": "today",
+      "label": "오늘",
+      "icon": "home"
+    },
+    {
+      "screen": "workouts",
+      "label": "운동",
+      "icon": "calendar"
+    },
+    {
+      "screen": "trends",
+      "label": "추세",
+      "icon": "chart-line"
+    },
+    {
+      "screen": "profile",
+      "label": "프로필",
+      "icon": "user"
+    }
+  ],
+  "data": {
+    "steps.today": {
+      "description": "오늘 걸은 걸음 수.",
+      "example": 7860
+    },
+    "steps.delta": {
+      "description": "오늘 걸음 수를 7일 평균과 비교한 변화율.",
+      "example": -0.17294250281848933
+    },
+    "steps.trend": {
+      "description": "최근 14일의 날짜별 걸음 수.",
+      "example": [
+        {
+          "t": 1793026800000,
+          "v": 8977
+        },
+        {
+          "t": 1793113200000,
+          "v": 8958
+        },
+        {
+          "t": 1793199600000,
+          "v": 7923
+        },
+        {
+          "t": 1793286000000,
+          "v": 9232
+        },
+        {
+          "t": 1793372400000,
+          "v": 11636
+        },
+        {
+          "t": 1793458800000,
+          "v": 11583
+        },
+        {
+          "t": 1793545200000,
+          "v": 9631
+        },
+        {
+          "t": 1793631600000,
+          "v": 8102
+        },
+        {
+          "t": 1793718000000,
+          "v": 8962
+        },
+        {
+          "t": 1793804400000,
+          "v": 8575
+        },
+        {
+          "t": 1793890800000,
+          "v": 9247
+        },
+        {
+          "t": 1793977200000,
+          "v": 11039
+        },
+        {
+          "t": 1794063600000,
+          "v": 10969
+        },
+        {
+          "t": 1794150000000,
+          "v": 7860
+        }
+      ]
+    },
+    "active.today": {
+      "description": "오늘 활동한 시간(분).",
+      "example": 63
+    },
+    "active.delta": {
+      "description": "오늘 활동 시간을 7일 평균과 비교한 변화율.",
+      "example": 0.11999952934964875
+    },
+    "calories.today": {
+      "description": "오늘 소모한 칼로리.",
+      "example": 2140
+    },
+    "calories.delta": {
+      "description": "오늘 칼로리를 7일 평균과 비교한 변화율.",
+      "example": 0.06
+    },
+    "sleep.last": {
+      "description": "지난밤 잔 시간.",
+      "example": 7.2
+    },
+    "sleep.delta": {
+      "description": "지난밤 수면을 7일 평균과 비교한 변화율.",
+      "example": -0.04
+    },
+    "heart.resting": {
+      "description": "최근 30일의 날짜별 안정 심박수.",
+      "example": [
+        {
+          "t": 1791644400000,
+          "v": 64.1914508576465
+        },
+        {
+          "t": 1791730800000,
+          "v": 65.5945644648534
+        },
+        {
+          "t": 1791817200000,
+          "v": 65.44496079122878
+        },
+        {
+          "t": 1791903600000,
+          "v": 65.77601818221436
+        },
+        {
+          "t": 1791990000000,
+          "v": 65.5775884767145
+        },
+        {
+          "t": 1792076400000,
+          "v": 64.28952814037424
+        },
+        {
+          "t": 1792162800000,
+          "v": 64.57945526984496
+        },
+        {
+          "t": 1792249200000,
+          "v": 66.10472028405626
+        },
+        {
+          "t": 1792335600000,
+          "v": 63.953814133458685
+        },
+        {
+          "t": 1792422000000,
+          "v": 64.39414104010638
+        },
+        {
+          "t": 1792508400000,
+          "v": 64.68846106775499
+        },
+        {
+          "t": 1792594800000,
+          "v": 65.04516575811671
+        },
+        {
+          "t": 1792681200000,
+          "v": 63.900896667605686
+        },
+        {
+          "t": 1792767600000,
+          "v": 62.89029244872289
+        },
+        {
+          "t": 1792854000000,
+          "v": 64.38518568567241
+        },
+        {
+          "t": 1792940400000,
+          "v": 64.77581909633047
+        },
+        {
+          "t": 1793026800000,
+          "v": 63.87155202619338
+        },
+        {
+          "t": 1793113200000,
+          "v": 64.57490423214385
+        },
+        {
+          "t": 1793199600000,
+          "v": 63.535429641611614
+        },
+        {
+          "t": 1793286000000,
+          "v": 62.80598656630422
+        },
+        {
+          "t": 1793372400000,
+          "v": 61.77621987507503
+        },
+        {
+          "t": 1793458800000,
+          "v": 62.20744038595233
+        },
+        {
+          "t": 1793545200000,
+          "v": 62.45056670083225
+        },
+        {
+          "t": 1793631600000,
+          "v": 63.39454088764011
+        },
+        {
+          "t": 1793718000000,
+          "v": 62.48869856732371
+        },
+        {
+          "t": 1793804400000,
+          "v": 63.716821009627
+        },
+        {
+          "t": 1793890800000,
+          "v": 62.49070880089454
+        },
+        {
+          "t": 1793977200000,
+          "v": 62.942816634505434
+        },
+        {
+          "t": 1794063600000,
+          "v": 63.23917613286487
+        },
+        {
+          "t": 1794150000000,
+          "v": 61.87326505981073
+        }
+      ]
+    },
+    "heart.average": {
+      "description": "최근 30일의 날짜별 평균 심박수.",
+      "example": [
+        {
+          "t": 1791644400000,
+          "v": 94.65172047757159
+        },
+        {
+          "t": 1791730800000,
+          "v": 97.26606654555819
+        },
+        {
+          "t": 1791817200000,
+          "v": 93.7804311965501
+        },
+        {
+          "t": 1791903600000,
+          "v": 95.90712041766714
+        },
+        {
+          "t": 1791990000000,
+          "v": 92.37285973167646
+        },
+        {
+          "t": 1792076400000,
+          "v": 93.25351028621826
+        },
+        {
+          "t": 1792162800000,
+          "v": 93.54738047027372
+        },
+        {
+          "t": 1792249200000,
+          "v": 95.82356389054263
+        },
+        {
+          "t": 1792335600000,
+          "v": 90.83830835001464
+        },
+        {
+          "t": 1792422000000,
+          "v": 94.84843869612014
+        },
+        {
+          "t": 1792508400000,
+          "v": 90.30916569116953
+        },
+        {
+          "t": 1792594800000,
+          "v": 89.94777148614999
+        },
+        {
+          "t": 1792681200000,
+          "v": 95.19536772295616
+        },
+        {
+          "t": 1792767600000,
+          "v": 92.74531972433688
+        },
+        {
+          "t": 1792854000000,
+          "v": 93.98860692996001
+        },
+        {
+          "t": 1792940400000,
+          "v": 93.11667183792063
+        },
+        {
+          "t": 1793026800000,
+          "v": 91.70357993212696
+        },
+        {
+          "t": 1793113200000,
+          "v": 91.06791925768736
+        },
+        {
+          "t": 1793199600000,
+          "v": 88.71896395157975
+        },
+        {
+          "t": 1793286000000,
+          "v": 91.02713420075698
+        },
+        {
+          "t": 1793372400000,
+          "v": 89.64451212233142
+        },
+        {
+          "t": 1793458800000,
+          "v": 91.11524002427014
+        },
+        {
+          "t": 1793545200000,
+          "v": 90.8390879081744
+        },
+        {
+          "t": 1793631600000,
+          "v": 88.75047268744115
+        },
+        {
+          "t": 1793718000000,
+          "v": 92.59445782331493
+        },
+        {
+          "t": 1793804400000,
+          "v": 91.65263645381324
+        },
+        {
+          "t": 1793890800000,
+          "v": 91.66087923909578
+        },
+        {
+          "t": 1793977200000,
+          "v": 87.39737148284789
+        },
+        {
+          "t": 1794063600000,
+          "v": 89.82251222460648
+        },
+        {
+          "t": 1794150000000,
+          "v": 86.36295896105607
+        }
+      ]
+    },
+    "active.weekly": {
+      "description": "최근 8주의 주별 총 활동 시간.",
+      "example": [
+        {
+          "t": 1789916400000,
+          "v": 265
+        },
+        {
+          "t": 1790521200000,
+          "v": 294
+        },
+        {
+          "t": 1791126000000,
+          "v": 287
+        },
+        {
+          "t": 1791730800000,
+          "v": 324
+        },
+        {
+          "t": 1792335600000,
+          "v": 348
+        },
+        {
+          "t": 1792940400000,
+          "v": 352
+        },
+        {
+          "t": 1793545200000,
+          "v": 358
+        },
+        {
+          "t": 1794150000000,
+          "v": 409
+        }
+      ]
+    },
+    "workouts.recent": {
+      "description": "최근 운동 다섯 건의 날짜, 종류, 시간, 거리, 칼로리.",
+      "example": [
+        {
+          "date": 1794150000000,
+          "kind": "run",
+          "minutes": 34,
+          "distance": 5.2,
+          "calories": 348
+        },
+        {
+          "date": 1794063600000,
+          "kind": "ride",
+          "minutes": 52,
+          "distance": 18.4,
+          "calories": 512
+        },
+        {
+          "date": 1793977200000,
+          "kind": "strength",
+          "minutes": 40,
+          "distance": 0,
+          "calories": 286
+        },
+        {
+          "date": 1793890800000,
+          "kind": "yoga",
+          "minutes": 30,
+          "distance": 0,
+          "calories": 120
+        },
+        {
+          "date": 1793804400000,
+          "kind": "run",
+          "minutes": 28,
+          "distance": 4.1,
+          "calories": 290
+        }
+      ]
+    },
+    "workouts.days": {
+      "description": "지난 한 달 중 운동한 날. 달력 표시에 쓴다.",
+      "example": [
+        1791644400000,
+        1791817200000,
+        1791903600000,
+        1792076400000,
+        1792162800000,
+        1792335600000,
+        1792422000000,
+        1792594800000,
+        1792681200000,
+        1792854000000,
+        1792940400000,
+        1793113200000,
+        1793199600000,
+        1793372400000,
+        1793458800000,
+        1793631600000,
+        1793718000000,
+        1793890800000,
+        1793977200000
+      ]
+    },
+    "today": {
+      "description": "오늘 날짜(타임스탬프).",
+      "example": 1794150000000
+    }
+  },
+  "formats": {
+    "full": {
+      "description": "걸음 수 같은 자릿수 구분 정수.",
+      "style": "number",
+      "digits": 0
+    },
+    "minutes": {
+      "description": "활동 시간(분).",
+      "style": "number",
+      "digits": 0,
+      "unit": "분"
+    },
+    "hours": {
+      "description": "소수 한 자리 수면 시간.",
+      "style": "number",
+      "digits": 1,
+      "unit": "시간"
+    },
+    "kcal": {
+      "description": "칼로리.",
+      "style": "number",
+      "digits": 0,
+      "unit": "kcal"
+    },
+    "km": {
+      "description": "소수 한 자리 거리.",
+      "style": "number",
+      "digits": 1,
+      "unit": "km"
+    },
+    "bpm": {
+      "description": "심박수.",
+      "style": "number",
+      "digits": 0,
+      "unit": "bpm"
+    },
+    "date": {
+      "description": "요일이 붙은 짧은 날짜.",
+      "style": "date"
+    }
+  },
+  "actions": {
+    "start-workout": {
+      "description": "고른 종류의 운동 기록을 시작하고, 화면이 꺼져도 기록을 이어 간다.",
+      "params": {
+        "kind": "walk | run"
+      }
+    },
+    "select-day": {
+      "description": "누른 날짜의 운동 기록을 보여 준다.",
+      "params": {
+        "value": "누른 날짜"
+      }
+    },
+    "manage-devices": {
+      "description": "기기 설정을 열어 워치를 연결하거나 해제한다."
+    }
+  },
+  "screens": {
+    "today": {
+      "description": "첫 화면. 오늘의 활동을 한눈에 보여 주고 운동을 시작하는 길을 둔다.",
+      "title": "오늘의 활동",
+      "lede": "오늘의 걸음 수, 활동, 칼로리, 수면과 운동 시작 버튼이에요.",
+      "actions": [
+        {
+          "label": "운동 시작",
+          "variant": "primary",
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "start"
+            }
+          }
+        }
+      ],
+      "widgets": [
+        {
+          "id": "steps",
+          "title": "걸음 수",
+          "subtitle": "오늘 · 7일 평균 대비",
+          "w": 3,
+          "h": 2,
+          "description": "오늘 걸음 수와 7일 평균 대비 변화, 14일 추이.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "steps.today",
+                "$format": "full"
+              },
+              "delta": {
+                "change": {
+                  "$data": "steps.delta"
+                },
+                "label": "평소 대비"
+              },
+              "trend": {
+                "$data": "steps.trend"
+              }
+            }
+          }
+        },
+        {
+          "id": "active",
+          "title": "활동 시간",
+          "subtitle": "오늘",
+          "w": 3,
+          "h": 2,
+          "description": "오늘 활동 시간과 7일 평균 대비 변화.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "active.today",
+                "$format": "minutes"
+              },
+              "delta": {
+                "change": {
+                  "$data": "active.delta"
+                },
+                "label": "평소 대비"
+              }
+            }
+          }
+        },
+        {
+          "id": "calories",
+          "title": "소모 칼로리",
+          "subtitle": "오늘",
+          "w": 3,
+          "h": 2,
+          "description": "오늘 소모 칼로리와 7일 평균 대비 변화.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "calories.today",
+                "$format": "kcal"
+              },
+              "delta": {
+                "change": {
+                  "$data": "calories.delta"
+                },
+                "label": "어제 대비"
+              }
+            }
+          }
+        },
+        {
+          "id": "sleep",
+          "title": "수면",
+          "subtitle": "지난밤",
+          "w": 3,
+          "h": 2,
+          "description": "지난밤 수면 시간과 7일 평균 대비 변화.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "sleep.last",
+                "$format": "hours"
+              },
+              "delta": {
+                "change": {
+                  "$data": "sleep.delta"
+                },
+                "label": "평소 대비"
+              }
+            }
+          }
+        },
+        {
+          "id": "heart",
+          "title": "심박수",
+          "subtitle": "최근 30일 · 일별",
+          "w": 8,
+          "h": 4,
+          "description": "30일 동안의 평균·안정 심박수. 오늘 화면에서 누르면 추세 화면으로 간다.",
+          "action": {
+            "name": "navigate",
+            "params": {
+              "screen": "trends"
+            }
+          },
+          "content": {
+            "type": "LineChart",
+            "props": {
+              "series": [
+                {
+                  "name": "평균",
+                  "color": 2,
+                  "points": {
+                    "$data": "heart.average"
+                  }
+                },
+                {
+                  "name": "안정",
+                  "color": 1,
+                  "points": {
+                    "$data": "heart.resting"
+                  }
+                }
+              ],
+              "format": {
+                "axis": {
+                  "$format": "bpm"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "goal",
+          "title": "오늘의 목표",
+          "w": 4,
+          "h": 4,
+          "description": "오늘 걸음 목표까지 남은 양과 채우는 방법. 누르면 목표 시트가 열린다.",
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "goal"
+            }
+          },
+          "content": [
+            {
+              "type": "Callout",
+              "props": {
+                "tone": "good",
+                "title": "목표까지 2,140걸음"
+              },
+              "children": "저녁에 20분 걸으면 10,000걸음 목표를 채워요."
+            },
+            {
+              "type": "Button",
+              "props": {
+                "onClick": {
+                  "$action": {
+                    "name": "start-workout",
+                    "params": {
+                      "kind": "walk"
+                    }
+                  }
+                }
+              },
+              "children": "걷기 시작"
+            }
+          ]
+        },
+        {
+          "id": "weekly",
+          "title": "주간 활동 시간",
+          "subtitle": "최근 8주",
+          "w": 5,
+          "h": 4,
+          "description": "8주 동안 주별 활동 시간.",
+          "content": {
+            "type": "BarChart",
+            "props": {
+              "name": "활동 시간",
+              "points": {
+                "$data": "active.weekly"
+              },
+              "format": {
+                "axis": {
+                  "$format": "minutes"
+                },
+                "value": {
+                  "$format": "minutes"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "workouts",
+          "title": "최근 운동",
+          "subtitle": "최근 5회",
+          "w": 7,
+          "h": 4,
+          "description": "최근 운동 다섯 건. 오늘 화면에서 누르면 운동 화면으로 간다.",
+          "action": {
+            "name": "navigate",
+            "params": {
+              "screen": "workouts"
+            }
+          },
+          "content": {
+            "type": "DataTable",
+            "props": {
+              "columns": [
+                {
+                  "label": "날짜",
+                  "numeric": true
+                },
+                {
+                  "label": "운동"
+                },
+                {
+                  "label": "시간",
+                  "numeric": true
+                },
+                {
+                  "label": "거리",
+                  "numeric": true
+                },
+                {
+                  "label": "칼로리",
+                  "numeric": true
+                }
+              ],
+              "rows": {
+                "$each": {
+                  "$data": "workouts.recent"
+                },
+                "$as": [
+                  {
+                    "$field": "date",
+                    "$format": "date"
+                  },
+                  {
+                    "$field": "kind",
+                    "$labels": {
+                      "run": "달리기",
+                      "ride": "자전거",
+                      "strength": "근력",
+                      "yoga": "요가"
+                    }
+                  },
+                  {
+                    "$field": "minutes",
+                    "$format": "minutes"
+                  },
+                  {
+                    "$field": "distance",
+                    "$format": "km"
+                  },
+                  {
+                    "$field": "calories",
+                    "$format": "kcal"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "workouts": {
+      "description": "운동 기록을 표와 달력으로, 주간 합계와 함께 보여 준다.",
+      "title": "운동",
+      "lede": "최근 운동과 주간 활동 시간이에요.",
+      "actions": [
+        {
+          "label": "운동 시작",
+          "variant": "primary",
+          "action": {
+            "name": "open",
+            "params": {
+              "overlay": "start"
+            }
+          }
+        }
+      ],
+      "widgets": [
+        {
+          "id": "workouts",
+          "title": "최근 운동",
+          "subtitle": "최근 5회",
+          "w": 12,
+          "h": 5,
+          "description": "최근 운동 다섯 건. 오늘 화면에서 누르면 운동 화면으로 간다.",
+          "content": {
+            "type": "DataTable",
+            "props": {
+              "columns": [
+                {
+                  "label": "날짜",
+                  "numeric": true
+                },
+                {
+                  "label": "운동"
+                },
+                {
+                  "label": "시간",
+                  "numeric": true
+                },
+                {
+                  "label": "거리",
+                  "numeric": true
+                },
+                {
+                  "label": "칼로리",
+                  "numeric": true
+                }
+              ],
+              "rows": {
+                "$each": {
+                  "$data": "workouts.recent"
+                },
+                "$as": [
+                  {
+                    "$field": "date",
+                    "$format": "date"
+                  },
+                  {
+                    "$field": "kind",
+                    "$labels": {
+                      "run": "달리기",
+                      "ride": "자전거",
+                      "strength": "근력",
+                      "yoga": "요가"
+                    }
+                  },
+                  {
+                    "$field": "minutes",
+                    "$format": "minutes"
+                  },
+                  {
+                    "$field": "distance",
+                    "$format": "km"
+                  },
+                  {
+                    "$field": "calories",
+                    "$format": "kcal"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "calendar",
+          "title": "운동 달력",
+          "subtitle": "점은 운동한 날 · 날짜를 누르면 서버에 알림",
+          "w": 6,
+          "h": 5,
+          "description": "운동한 날에 점이 찍히고, 날짜를 누르면 select-day가 실행된다.",
+          "content": {
+            "type": "Calendar",
+            "props": {
+              "today": {
+                "$data": "today"
+              },
+              "marks": {
+                "$data": "workouts.days"
+              },
+              "onChange": {
+                "$action": {
+                  "name": "select-day"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "weekly",
+          "title": "주간 활동 시간",
+          "subtitle": "최근 8주",
+          "w": 6,
+          "h": 5,
+          "description": "8주 동안 주별 활동 시간.",
+          "content": {
+            "type": "BarChart",
+            "props": {
+              "name": "활동 시간",
+              "points": {
+                "$data": "active.weekly"
+              },
+              "format": {
+                "axis": {
+                  "$format": "minutes"
+                },
+                "value": {
+                  "$format": "minutes"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "trends": {
+      "description": "심박수, 걸음 수, 활동의 긴 흐름.",
+      "title": "추세",
+      "lede": "심박수와 걸음 수의 흐름이에요.",
+      "widgets": [
+        {
+          "id": "heart",
+          "title": "심박수",
+          "subtitle": "최근 30일 · 일별",
+          "w": 12,
+          "h": 4,
+          "description": "30일 동안의 평균·안정 심박수. 오늘 화면에서 누르면 추세 화면으로 간다.",
+          "content": {
+            "type": "LineChart",
+            "props": {
+              "series": [
+                {
+                  "name": "평균",
+                  "color": 2,
+                  "points": {
+                    "$data": "heart.average"
+                  }
+                },
+                {
+                  "name": "안정",
+                  "color": 1,
+                  "points": {
+                    "$data": "heart.resting"
+                  }
+                }
+              ],
+              "format": {
+                "axis": {
+                  "$format": "bpm"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "steps",
+          "title": "걸음 수",
+          "subtitle": "오늘 · 7일 평균 대비",
+          "w": 6,
+          "h": 3,
+          "description": "오늘 걸음 수와 7일 평균 대비 변화, 14일 추이.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "steps.today",
+                "$format": "full"
+              },
+              "delta": {
+                "change": {
+                  "$data": "steps.delta"
+                },
+                "label": "평소 대비"
+              },
+              "trend": {
+                "$data": "steps.trend"
+              }
+            }
+          }
+        },
+        {
+          "id": "active",
+          "title": "활동 시간",
+          "subtitle": "오늘",
+          "w": 6,
+          "h": 3,
+          "description": "오늘 활동 시간과 7일 평균 대비 변화.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "active.today",
+                "$format": "minutes"
+              },
+              "delta": {
+                "change": {
+                  "$data": "active.delta"
+                },
+                "label": "평소 대비"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "profile": {
+      "description": "개인 요약과 연결된 기기.",
+      "title": "프로필",
+      "widgets": [
+        {
+          "id": "sleep",
+          "title": "수면",
+          "subtitle": "지난밤",
+          "w": 6,
+          "h": 2,
+          "description": "지난밤 수면 시간과 7일 평균 대비 변화.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "sleep.last",
+                "$format": "hours"
+              },
+              "delta": {
+                "change": {
+                  "$data": "sleep.delta"
+                },
+                "label": "평소 대비"
+              }
+            }
+          }
+        },
+        {
+          "id": "calories",
+          "title": "소모 칼로리",
+          "subtitle": "오늘",
+          "w": 6,
+          "h": 2,
+          "description": "오늘 소모 칼로리와 7일 평균 대비 변화.",
+          "content": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "calories.today",
+                "$format": "kcal"
+              },
+              "delta": {
+                "change": {
+                  "$data": "calories.delta"
+                },
+                "label": "어제 대비"
+              }
+            }
+          }
+        },
+        {
+          "id": "device",
+          "title": "연결된 기기",
+          "w": 12,
+          "h": 3,
+          "description": "연결된 워치와 동기화 상태, 기기 관리로 가는 길.",
+          "content": [
+            {
+              "type": "Callout",
+              "props": {
+                "tone": "info",
+                "title": "Apple Watch"
+              },
+              "children": "5분 전에 동기화했어요. 심박수와 걸음 수를 여기서 받아요."
+            },
+            {
+              "type": "Button",
+              "props": {
+                "onClick": {
+                  "$action": {
+                    "name": "manage-devices"
+                  }
+                }
+              },
+              "children": "기기 관리"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "overlays": {
+    "start": {
+      "kind": "modal",
+      "title": "Start workout",
+      "description": "Asks which workout to record before starting.",
+      "lede": "Which workout should we record?",
+      "body": "Once started, recording continues even with the screen off.",
+      "actions": [
+        {
+          "label": "Cancel",
+          "action": {
+            "name": "close"
+          }
+        },
+        {
+          "label": "Walk",
+          "action": {
+            "name": "start-workout",
+            "params": {
+              "kind": "walk"
+            },
+            "close": true
+          }
+        },
+        {
+          "label": "Run",
+          "variant": "primary",
+          "action": {
+            "name": "start-workout",
+            "params": {
+              "kind": "run"
+            },
+            "close": true
+          }
+        }
+      ]
+    },
+    "goal": {
+      "kind": "sheet",
+      "title": "오늘의 목표",
+      "description": "오늘의 목표를 설명하고 걷기 시작이나 목표 변경을 권한다.",
+      "lede": "목표까지 2,140걸음 남았어요.",
+      "body": "저녁에 20분만 걸으면 10,000걸음을 채워요. 목표는 프로필에서 바꿀 수 있어요.",
+      "actions": [
+        {
+          "label": "목표 바꾸기",
+          "action": {
+            "name": "navigate",
+            "params": {
+              "screen": "profile"
+            },
+            "close": true
+          }
+        },
+        {
+          "label": "걷기 시작",
+          "variant": "primary",
+          "action": {
+            "name": "start-workout",
+            "params": {
+              "kind": "walk"
+            },
+            "close": true
+          }
+        }
+      ]
+    }
+  }
+}

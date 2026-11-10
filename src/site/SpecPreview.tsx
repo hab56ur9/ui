@@ -1,23 +1,26 @@
 import { useMemo, useState } from "react";
 import { buildHtml } from "../../bin/spec.mjs";
-import fitnote from "../blocks/fitnote/spec.json";
+import en from "../blocks/fitnote/spec.en.json";
+import ko from "../blocks/fitnote/spec.ko.json";
 import { CodeBlock, Tabs, useI18n } from "ui";
 
-const TABS = [
+const tabsOf = (lang: "en" | "ko") => [
   { id: "preview", label: "Preview" },
-  { id: "spec", label: "spec.json" },
+  { id: "spec", label: `spec.${lang}.json` },
   { id: "html", label: "app.html" },
 ];
 
 export function SpecPreview() {
   const { lang } = useI18n();
   const [tab, setTab] = useState("preview");
-  const html = useMemo(() => buildHtml(fitnote, { module: new URL("dist/ui.js", document.baseURI).href, lang: lang === "ko" ? "ko" : "en" }), [lang]);
+  const code = lang === "ko" ? "ko" : "en";
+  const spec = code === "ko" ? ko : en;
+  const html = useMemo(() => buildHtml(spec, { module: new URL("dist/ui.js", document.baseURI).href, lang: code }), [spec, code]);
   return (
     <div className="docs-spec">
-      <Tabs label="App spec" value={tab} onChange={setTab} items={TABS} />
-      {tab === "preview" && <iframe className="docs-spec-frame" title="FitNote" srcDoc={html} />}
-      {tab === "spec" && <CodeBlock code={JSON.stringify(fitnote, null, 2)} lang="json" />}
+      <Tabs label="App spec" value={tab} onChange={setTab} items={tabsOf(code)} />
+      {tab === "preview" && <iframe className="docs-spec-frame" title={spec.app.name} srcDoc={html} />}
+      {tab === "spec" && <CodeBlock code={JSON.stringify(spec, null, 2)} lang="json" />}
       {tab === "html" && <CodeBlock code={html} lang="html" />}
     </div>
   );
