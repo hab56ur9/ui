@@ -867,8 +867,10 @@ p {
 
 .tab-bar.is-floating {
   gap: var(--space-1);
-  margin: 0 auto;
-  padding: var(--space-1);
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  padding: var(--space-2);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-pill);
   background: var(--color-bg-raised);
@@ -876,8 +878,11 @@ p {
 }
 
 .tab-bar.is-floating .tab-bar-item {
+  min-height: var(--space-12);
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-pill);
-  transition: background var(--motion-duration-fast) var(--motion-easing-standard);
+  font-size: var(--font-size-caption);
+  transition: background var(--motion-duration-fast) var(--motion-easing-standard), flex-grow var(--motion-duration-base) var(--motion-easing-standard);
 }
 
 .tab-bar.is-floating .tab-bar-item[aria-current="page"] {
@@ -885,9 +890,10 @@ p {
 }
 
 .tab-bar.is-floating.labels-active .tab-bar-item[aria-current="page"] {
-  flex: 1.6;
+  flex-grow: 2;
   flex-direction: row;
   gap: var(--space-2);
+  font-size: var(--font-size-label);
 }
 
 .shell-tabs {
