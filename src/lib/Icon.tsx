@@ -1,5 +1,5 @@
 import { createElement } from "react";
-import data from "../dist/icons.json";
+import data from "../../dist/icons.json";
 
 type Shape = [string, Record<string, string>];
 const icons = data as unknown as Record<string, Shape[]>;

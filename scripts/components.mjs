@@ -29,7 +29,7 @@ function kindOf(type) {
   return { kind: "object", type: text };
 }
 
-const exports = checker.getExportsOfModule(checker.getSymbolAtLocation(project.program.getSourceFile(join(root, "src/index.ts"))));
+const exports = checker.getExportsOfModule(checker.getSymbolAtLocation(project.program.getSourceFile(join(root, "src/lib/index.ts"))));
 const components = exports
   .filter((symbol) => /^[A-Z]/.test(symbol.name))
   .map((symbol) => ({ name: symbol.name, target: has(symbol.flags, SymbolFlags.Alias) ? checker.getAliasedSymbol(symbol) : symbol }))

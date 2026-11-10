@@ -19,7 +19,7 @@
     ],
     "paths": {
       "ui": [
-        "./src/index.ts"
+        "./src/lib/index.ts"
       ]
     }
   },

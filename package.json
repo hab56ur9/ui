@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://hab56ur9.github.io/ui/",
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./src/lib/index.ts",
     "./tokens.css": "./dist/tokens.css",
     "./ui.css": "./dist/ui.css",
     "./tokens.json": "./dist/tokens.json",
@@ -14,9 +14,7 @@
     "./components.json": "./dist/components.json"
   },
   "files": [
-    "src",
-    "!src/docs",
-    "!src/blocks",
+    "src/lib",
     "dist",
     "assets",
     "bin"

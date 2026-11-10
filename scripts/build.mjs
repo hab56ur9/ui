@@ -234,6 +234,6 @@ const presets = readdirSync(join(root, "tokens/preset"))
 writeFileSync(join(root, "dist/presets.css"), `${presets.map((p) => p.css).join("\n\n")}\n`);
 writeFileSync(join(root, "dist/presets.json"), `${JSON.stringify(presets.map(({ name, label }) => ({ name, label })))}\n`);
 const STYLES = ["base", "charts", "overlay", "slides", "document"];
-writeFileSync(join(root, "dist/ui.css"), STYLES.map((name) => readFileSync(join(root, "src/styles", `${name}.css`), "utf8")).join("\n"));
+writeFileSync(join(root, "dist/ui.css"), STYLES.map((name) => readFileSync(join(root, "src/lib/styles", `${name}.css`), "utf8")).join("\n"));
 writeFileSync(join(root, "dist/tokens.json"), `${JSON.stringify({ version, ...snapshot }, null, 2)}\n`);
 console.log(`built ${global.length} global, ${themes.light.length} theme, ${media[DEFAULT.medium].length} medium, ${langs[DEFAULT.lang].length} lang tokens (${Object.keys(langs).join(", ")}), ${Object.keys(icons).length} icons → dist/`);

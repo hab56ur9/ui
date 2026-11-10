@@ -8,7 +8,7 @@ const page = (path: string) => resolve(root, path);
 export default defineConfig({
   base: "./",
   publicDir: false,
-  resolve: { alias: [{ find: /^ui\/(tokens|ui)\.css$/, replacement: page("dist/$1.css") }, { find: /^ui$/, replacement: page("src/index.ts") }] },
+  resolve: { alias: [{ find: /^ui\/(tokens|ui)\.css$/, replacement: page("dist/$1.css") }, { find: /^ui$/, replacement: page("src/lib/index.ts") }] },
   build: {
     outDir: "site",
     emptyOutDir: true,

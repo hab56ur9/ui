@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import presets from "../dist/presets.json";
+import presets from "../../dist/presets.json";
 import { Segmented } from "./controls";
 import { useI18n } from "./i18n";
 

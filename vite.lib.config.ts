@@ -10,7 +10,7 @@ export default defineConfig({
     outDir: resolve(root, "dist"),
     emptyOutDir: false,
     minify: true,
-    lib: { entry: resolve(root, "src/standalone.ts"), formats: ["es"], fileName: () => "ui.js" },
+    lib: { entry: resolve(root, "src/lib/standalone.ts"), formats: ["es"], fileName: () => "ui.js" },
   },
   plugins: [
     {
