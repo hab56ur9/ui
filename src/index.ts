@@ -19,6 +19,7 @@ export { Page, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout
 export { Markdown, type MarkdownProps } from "./markdown/Markdown";
 export { JsonUI, isJsonUINode, type JsonUIAction, type JsonUIContent, type JsonUIFormat, type JsonUINode, type JsonUIProps } from "./JsonUI";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
+export { Tabs, type TabItem, type TabsProps } from "./Tabs";
 export { DisplaySwitch, ThemePicker, useDisplay, type ThemePickerProps, type ThemePickerValue, type Display, type DisplayOptions, type DisplaySwitchProps, type DisplayValue, type Medium, type Theme } from "./display";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";
 export { Button, Delta, Segmented, Stat, type ButtonProps, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";

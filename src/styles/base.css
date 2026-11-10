@@ -904,6 +904,117 @@ p {
   font-size: var(--font-size-label);
 }
 
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.tabs-list {
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs.is-line .tabs-list {
+  gap: var(--space-5);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.tabs-tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  background: transparent;
+  color: var(--color-fg-secondary);
+  font: inherit;
+  font-size: var(--font-size-label);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--motion-duration-fast) var(--motion-easing-standard), box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.tabs-tab:focus-visible {
+  outline-offset: -2px;
+}
+
+.tabs-tab:hover:not(:disabled) {
+  color: var(--color-fg-default);
+}
+
+.tabs-tab[aria-selected="true"] {
+  color: var(--color-fg-default);
+  font-weight: var(--font-weight-medium);
+}
+
+.tabs-tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tabs.is-line .tabs-tab {
+  padding: var(--space-3) 0;
+  font-size: var(--font-size-body);
+  box-shadow: inset 0 -2px transparent;
+}
+
+.tabs.is-line .tabs-tab[aria-selected="true"] {
+  box-shadow: inset 0 -2px var(--color-main-default);
+}
+
+.tabs.is-pill .tabs-tab {
+  border-radius: var(--radius-pill);
+}
+
+.tabs.is-pill .tabs-tab:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+}
+
+.tabs.is-pill .tabs-tab[aria-selected="true"] {
+  background: var(--color-main-subtle);
+}
+
+.tabs.is-fill .tabs-tab {
+  flex: 1;
+}
+
+.tabs-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-border-default);
+  color: var(--color-fg-default);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+}
+
+.tabs-tab[aria-selected="true"] .tabs-badge {
+  background: var(--color-main-fill);
+  color: var(--color-main-on);
+}
+
+.tabs-panel {
+  min-width: 0;
+}
+
+.tabs-panel:focus-visible {
+  outline-offset: 4px;
+}
+
 .shell-tabs {
   display: none;
 }

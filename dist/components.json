@@ -1617,6 +1617,51 @@
       ]
     },
     {
+      "name": "Tabs",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "TabItem[]"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "defaultValue",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "variant",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "line",
+            "pill"
+          ]
+        },
+        {
+          "name": "fill",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
       "name": "DisplaySwitch",
       "props": [
         {

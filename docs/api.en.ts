@@ -497,4 +497,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  tabs: [
+    {
+      type: "api",
+      title: "<Tabs>",
+      rows: [
+        ["items", "{ id, label, icon?, badge?, disabled?, content? }[]", "", "The tabs. When items have `content`, the selected one renders below."],
+        ["value · defaultValue", "string", "first enabled tab", "The selected tab (controlled) and the initial tab (uncontrolled)."],
+        ["onChange", "(id: string) => void", "", "Called with the id when another tab is picked."],
+        ["variant", "\"line\" | \"pill\"", "\"line\"", "Underline or pill."],
+        ["fill", "boolean", "false", "Tabs share the full width."],
+        ["label", "string", "", "The tab group's name for screen readers."],
+      ],
+    },
+  ],
 };

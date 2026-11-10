@@ -690,6 +690,54 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "tabs",
+    "group": "컴포넌트",
+    "title": "Tabs",
+    "lede": "Tabs switch between views of the same subject on one screen. Picking a tab changes only the content below; the address and screen stay. There are two looks, underline (`line`) and pill (`pill`), and a long row of tabs scrolls sideways. Use the tab bar to move between screens, and a segmented control for two or three ways to filter the same data.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Underline tabs with panels",
+        "example": "tabs-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Pill tabs",
+        "example": "tabs-pill"
+      },
+      {
+        "type": "demo",
+        "title": "Many tabs",
+        "example": "tabs-scroll"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Keep tab names to one or two words.",
+            "Don't use tabs to move to another screen."
+          ],
+          [
+            "Put the most used tab first.",
+            "Don't nest tabs inside tabs."
+          ],
+          [
+            "Use `line` on wide screens and `pill` inside cards or narrow spaces.",
+            "Don't split sequential steps into tabs."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Follows the WAI-ARIA tabs pattern: `tablist`, `tab`, `tabpanel`, `aria-selected`.",
+          "Tab enters on the selected tab only; ←, →, Home and End move and select, skipping disabled tabs.",
+          "Name the tab group with `label`."
+        ]
+      }
+    ]
+  },
+  {
     "id": "stat",
     "group": "컴포넌트",
     "title": "Stat card",

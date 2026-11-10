@@ -497,4 +497,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  tabs: [
+    {
+      type: "api",
+      title: "<Tabs>",
+      rows: [
+        ["items", "{ id, label, icon?, badge?, disabled?, content? }[]", "", "탭 목록입니다. `content`가 있으면 선택한 탭의 내용을 아래에 그립니다."],
+        ["value · defaultValue", "string", "첫 번째 켜진 탭", "현재 탭(제어)과 처음 탭(비제어)입니다."],
+        ["onChange", "(id: string) => void", "", "다른 탭을 고르면 그 id를 받습니다."],
+        ["variant", "\"line\" | \"pill\"", "\"line\"", "밑줄이거나 알약 모양입니다."],
+        ["fill", "boolean", "false", "탭이 폭을 나눠 채웁니다."],
+        ["label", "string", "", "스크린리더에 읽힐 탭 묶음 이름입니다."],
+      ],
+    },
+  ],
 };
