@@ -1,14 +1,27 @@
-import { Component, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import enText from "./text/en.json";
 import koText from "./text/ko.json";
 import {
+  Anatomy,
   AppShell,
+  Article as UIArticle,
+  ArticleSection,
   Badge,
+  Brand,
+  CardGrid,
+  CopyCode,
+  ErrorBoundary,
+  Example,
+  Paragraphs,
+  PropsTable,
+  RichText,
+  TextList,
+  TokenTable,
+  useCopy,
   Button,
   Callout,
   Card as UICard,
   CodeBlock,
-  DataTable,
   Icon,
   Pager,
   Segmented,
@@ -18,7 +31,6 @@ import {
   Toc,
   UIProvider,
   useI18n,
-  useToast,
   type ShellGroup,
 } from "ui";
 import { api as apiKo } from "./api";
@@ -157,82 +169,17 @@ const store = (key: string, value: string) => {
   }
 };
 
-function Rich({ text }: { text: string }) {
-  return (
-    <>
-      {String(text)
-        .split(/`([^`]+)`/)
-        .map((part, i) => (i % 2 ? <code key={i}>{part}</code> : part))}
-    </>
-  );
-}
-
-function useCopy() {
-  const toast = useToast();
-  const { c } = useDocs();
-  return async (text: string, label: string) => {
-    const copied = await (navigator.clipboard?.writeText(text).then(
-      () => true,
-      () => false,
-    ) ?? false);
-    toast({ message: copied ? c.copied(label) : c.copyFailed, status: copied ? "good" : "warning", duration: 1800 });
-  };
-}
-
 function Card({ title, body, items }: { title?: string; body?: string; items?: string[] }) {
   return (
     <UICard title={title}>
       {body && (
         <p>
-          <Rich text={body} />
+          <RichText text={body} />
         </p>
       )}
-      {items && <List items={items} />}
+      {items && <TextList items={items} />}
     </UICard>
   );
-}
-
-function List({ items, ordered = false }: { items: string[]; ordered?: boolean }) {
-  const Tag = ordered ? "ol" : "ul";
-  return (
-    <Tag>
-      {items.map((item) => (
-        <li key={item}>
-          <Rich text={item} />
-        </li>
-      ))}
-    </Tag>
-  );
-}
-
-function CodeBox({ code, title }: { code: string; title?: string }) {
-  const copy = useCopy();
-  const { c } = useDocs();
-  return (
-    <CodeBlock
-      code={code}
-      title={title}
-      actions={
-        <Button className="docs-copy" onClick={() => copy(code, c.theCode)}>
-          {c.copy}
-        </Button>
-      }
-    />
-  );
-}
-
-class Boundary extends Component<{ children: ReactNode }, { error: Error | null }> {
-  state = { error: null as Error | null };
-  static getDerivedStateFromError(error: Error) {
-    return { error };
-  }
-  componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error(error, info.componentStack);
-  }
-  render() {
-    if (this.state.error) return <pre className="docs-example-error">{String(this.state.error)}</pre>;
-    return this.props.children;
-  }
 }
 
 function Tabs<K extends string>({ value, onChange, options, label }: { value: K; onChange: (key: K) => void; options: [K, string][]; label?: string }) {
@@ -252,67 +199,27 @@ function Demo({
   layout?: "centered" | "padded" | "fullscreen";
   medium?: string;
 }) {
-  const copy = useCopy();
-  const { c, lang } = useDocs();
+  const { lang } = useDocs();
   const { locale } = useI18n();
-  const [tab, setTab] = useState<"preview" | "code">("preview");
-  const [variant, setVariant] = useState(variants?.[0]?.example ?? name);
-  const [file, setFile] = useState<"tsx" | "json">("tsx");
-  const { Demo: Preview, source } = example(variant);
-  const text = textOf(variant, lang);
-  const json = text ? JSON.stringify(text, null, 2) : "";
-  const shown = file === "json" && text ? json : source;
+  const filesOf = (id: string) => {
+    const text = textOf(id, lang);
+    return [{ name: `${id}.tsx`, code: example(id).source }, ...(text ? [{ name: `text.${lang}.json`, code: JSON.stringify(text, null, 2), lang: "json" as const }] : [])];
+  };
+  const previewOf = (id: string) => {
+    const { Demo: Preview } = example(id);
+    return <Preview />;
+  };
   return (
-    <>
-      {caption && (
-        <p className="docs-example-caption">
-          <Rich text={caption} />
-        </p>
-      )}
-      <div className="docs-example">
-        <div className="docs-example-bar">
-          <Tabs
-            value={tab}
-            onChange={setTab}
-            options={[
-              ["preview", c.preview],
-              ["code", c.code],
-            ]}
-          />
-          <span className="toolbar-spacer" />
-          {variants && <Segmented label={c.device} value={variant} onChange={setVariant} options={variants.map((item) => ({ value: item.example, label: item.label }))} />}
-          <Button className="docs-copy" onClick={() => copy(tab === "code" ? shown : source, c.theCode)}>
-            {c.copy}
-          </Button>
-        </div>
-        <div className={`docs-example-preview is-${layout}`} data-medium={medium ?? "app"} lang={locale} hidden={tab !== "preview"}>
-          <div className="docs-example-stage">
-            <Boundary key={variant}>
-              <Preview />
-            </Boundary>
-          </div>
-        </div>
-        {tab === "code" && (
-          <div className="docs-example-code">
-            {text && (
-              <div className="docs-example-files">
-                <UITabs
-                  label={c.code}
-                  variant="pill"
-                  value={file}
-                  onChange={(id) => setFile(id as "tsx" | "json")}
-                  items={[
-                    { id: "tsx", label: `${variant}.tsx` },
-                    { id: "json", label: `text.${lang}.json` },
-                  ]}
-                />
-              </div>
-            )}
-            <CodeBlock code={shown} lang={file === "json" && text ? "json" : "tsx"} />
-          </div>
-        )}
-      </div>
-    </>
+    <Example
+      caption={caption}
+      layout={layout}
+      medium={medium}
+      lang={locale}
+      files={variants ? undefined : filesOf(name)}
+      variants={variants?.map((item) => ({ value: item.example, label: item.label, preview: previewOf(item.example), files: filesOf(item.example) }))}
+    >
+      {variants ? undefined : previewOf(name)}
+    </Example>
   );
 }
 
@@ -366,7 +273,7 @@ function Block({ id }: { id: string }) {
   return (
     <>
       <p>
-        <Rich text={meta.description} />
+        <RichText text={meta.description} />
       </p>
       <div className="docs-block-uses">
         {meta.uses.map((name) => (
@@ -398,7 +305,7 @@ function Block({ id }: { id: string }) {
           {current.name}
         </Button>
       </div>
-      <div ref={preview} className={`docs-block-preview${dragging ? " is-dragging" : ""}`} hidden={tab !== "preview"} style={{ "--frame-w": width } as CSSProperties}>
+      <div ref={preview} className={`block-preview${dragging ? " is-dragging" : ""}`} hidden={tab !== "preview"} style={{ "--frame-w": width } as CSSProperties}>
         {!json.kind && (
           <span
             className="docs-block-handle"
@@ -417,7 +324,7 @@ function Block({ id }: { id: string }) {
           />
         )}
         <div className={`docs-block-frame${json.kind ? ` is-${json.kind}` : ""}`} data-medium="app" lang={lang}>
-          <Boundary>
+          <ErrorBoundary>
             {json.kind === "mobile" ? (
               <Phone>
                 <View key={run} />
@@ -425,7 +332,7 @@ function Block({ id }: { id: string }) {
             ) : (
               <View key={run} />
             )}
-          </Boundary>
+          </ErrorBoundary>
         </div>
       </div>
       {tab === "code" && current && (
@@ -462,9 +369,9 @@ function Thumb({ id }: { id: string }) {
     <div ref={box} className={`docs-template-thumb is-${kind}`} style={{ aspectRatio: `${width} / ${kind === "deck" ? height : height * 0.5}` }} inert>
       <div className="docs-template-canvas" data-medium="app" lang={lang} style={{ width, height, transform: `scale(${scale})` }}>
         {View && scale > 0 && (
-          <Boundary>
+          <ErrorBoundary>
             <View />
-          </Boundary>
+          </ErrorBoundary>
         )}
       </div>
     </div>
@@ -499,110 +406,49 @@ function Templates({ category }: { category: string }) {
 }
 
 function Tokens({ paths, notes }: { paths: string[]; notes?: Record<string, string> }) {
-  const copy = useCopy();
-  const { c, lang } = useDocs();
+  const { lang } = useDocs();
   return (
-    <DataTable
-      fit
-      columns={c.tokenHead.map((label, column) => ({ label, wrap: column === 2 }))}
-      rows={tokensFor(paths).map((t) => [
-        {
-          content: (
-            <button type="button" className="copy-name" onClick={() => copy(`var(${t.name})`, t.name)}>
-              {t.name}
-            </button>
-          ),
-        },
-        {
-          content: Object.entries(t.values).map(([mode, value]) => (
-            <span className="docs-token-value" key={mode}>
-              {MODE_LABELS[lang][mode] && <em>{MODE_LABELS[lang][mode]}</em>}
-              {t.type === "color" && <i style={{ "--sw": value } as CSSProperties} />}
-              <span>{value}</span>
-            </span>
-          )),
-        },
-        { content: <Rich text={notes?.[t.path] ?? t.description ?? ""} /> },
-      ])}
+    <TokenTable
+      rows={tokensFor(paths).map((t) => ({
+        name: t.name,
+        color: t.type === "color",
+        values: Object.entries(t.values).map(([mode, value]) => ({ mode: MODE_LABELS[lang][mode] || undefined, value })),
+        use: notes?.[t.path] ?? t.description ?? "",
+      }))}
     />
   );
 }
 
 function Api({ description, rows }: { description?: string; rows: string[][] }) {
-  const { c } = useDocs();
-  return (
-    <>
-      {description && (
-        <p>
-          <Rich text={description} />
-        </p>
-      )}
-      <div className="docs-api">
-        <DataTable
-          fit
-          columns={c.apiHead.map((label, column) => ({ label, wrap: true, width: ["24%", "30%", "14%", "32%"][column] }))}
-          rows={rows.map(([name, type, fallback, description]) => [
-            { text: name, className: "docs-api-name" },
-            {
-              className: "docs-api-type",
-              content: type.split(" · ").map((part, i) => <span key={i}>{part}</span>),
-            },
-            { text: fallback, className: "docs-api-default" },
-            { content: <Rich text={description} /> },
-          ])}
-        />
-      </div>
-    </>
-  );
+  return <PropsTable description={description} rows={rows as [string, string, string, string][]} />;
 }
 
 function SectionBody({ section }: { section: Section }) {
   const { lang, c } = useDocs();
   switch (section.type) {
     case "text":
-      return (
-        <>
-          {section.body.map((text) => (
-            <p key={text}>
-              <Rich text={text} />
-            </p>
-          ))}
-        </>
-      );
+      return <Paragraphs items={section.body} />;
     case "list":
-      return <List items={section.items} ordered={section.ordered} />;
+      return <TextList items={section.items} ordered={section.ordered} />;
     case "a11y":
-      return <List items={section.items} />;
+      return <TextList items={section.items} />;
     case "cards":
       return (
-        <div className="docs-cards">
+        <CardGrid>
           {section.items.map((item, i) => (
             <Card key={item.title ?? i} {...item} />
           ))}
-        </div>
+        </CardGrid>
       );
     case "usage":
       return (
-        <div className="docs-cards">
+        <CardGrid>
           <Card title={c.when} items={section.when} />
           <Card title={c.avoid} items={section.avoid} />
-        </div>
+        </CardGrid>
       );
     case "anatomy":
-      return (
-        <ol className="docs-anatomy">
-          {section.items.map(([name, description]) => (
-            <li key={name}>
-              <strong>
-                <Rich text={name} />
-              </strong>
-              <span>
-                <Rich text={description} />
-              </span>
-            </li>
-          ))}
-        </ol>
-      );
+      return <Anatomy items={section.items as [string, string][]} />;
     case "demo":
       return <Demo name={section.example} variants={section.variants} caption={section.caption} layout={section.layout} medium={section.medium} />;
     case "gallery":
@@ -624,13 +470,15 @@ function SectionBody({ section }: { section: Section }) {
       return (
         <>
           {section.items.map(([good, bad]) => (
-            <div className="docs-cards" style={{ marginBottom: "var(--space-4)" }} key={good}>
-              <Callout tone="do" accent="top">
-                <Rich text={good} />
-              </Callout>
-              <Callout tone="dont" accent="top">
-                <Rich text={bad} />
-              </Callout>
+            <div style={{ marginBottom: "var(--space-4)" }} key={good}>
+              <CardGrid>
+                <Callout tone="do" accent="top">
+                  <RichText text={good} />
+                </Callout>
+                <Callout tone="dont" accent="top">
+                  <RichText text={bad} />
+                </Callout>
+              </CardGrid>
             </div>
           ))}
         </>
@@ -638,7 +486,7 @@ function SectionBody({ section }: { section: Section }) {
     case "tokens":
       return <Tokens paths={section.paths} notes={section.notes} />;
     case "code":
-      return <CodeBox code={section.code.trim().replaceAll("{homepage}", homepage)} />;
+      return <CopyCode code={section.code.trim().replaceAll("{homepage}", homepage)} />;
     case "api":
       return <Api description={section.description} rows={section.rows} />;
     case "review":
@@ -660,29 +508,24 @@ function useOutline(page: Page) {
 }
 
 function Article({ page }: { page: Page }) {
-  const { lang, c, pages, api } = useDocs();
+  const { c, pages, api } = useDocs();
   const sections = [...page.sections, ...(api[page.id] ?? [])];
   const index = pages.findIndex((p) => p.id === page.id);
   const link = (target?: Page) => target && { label: target.title, href: `#/${target.id}` };
   return (
-    <main className="docs-main">
-      <article className={`docs-article${page.wide ? " is-wide" : ""}`} data-medium="doc" lang={lang}>
-        <div className="docs-eyebrow">{c.groups[page.group] ?? page.group}</div>
-        <h1 className="docs-title">{page.title}</h1>
-        <p className="docs-lede">
-          <Rich text={page.lede} />
-        </p>
-        {sections.map((section, i) => (
-          <section className="docs-section" id={`section-${i}`} key={`${page.id}-${i}`}>
-            {titleOf(section, c.titles) && <h2>{titleOf(section, c.titles)}</h2>}
-            <SectionBody section={section} />
-          </section>
-        ))}
-        <div className="docs-pager">
-          <Pager label={c.pager} previous={link(pages[index - 1])} next={link(pages[index + 1])} />
-        </div>
-      </article>
-    </main>
+    <UIArticle
+      eyebrow={c.groups[page.group] ?? page.group}
+      title={page.title}
+      lede={<RichText text={page.lede} />}
+      wide={page.wide}
+      pager={<Pager label={c.pager} previous={link(pages[index - 1])} next={link(pages[index + 1])} />}
+    >
+      {sections.map((section, i) => (
+        <ArticleSection id={`section-${i}`} key={`${page.id}-${i}`} title={titleOf(section, c.titles) || undefined}>
+          <SectionBody section={section} />
+        </ArticleSection>
+      ))}
+    </UIArticle>
   );
 }
 
@@ -710,9 +553,7 @@ function Shell({ page, lang, setLang }: { page: Page; lang: Lang; setLang: (lang
       <AppShell
         scroll="page"
         brand={
-          <a className="docs-brand" href="#/intro">
-            ui <span>{`v${version}`}</span>
-          </a>
+          <Brand name="ui" version={`v${version}`} href="#/intro" />
         }
         nav={nav}
         navHeader={<TextField label={c.find} hideLabel type="search" icon="search" placeholder={c.find} value={query} onChange={setQuery} />}

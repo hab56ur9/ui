@@ -69,9 +69,7 @@ export function Panel({ height, children }: { height?: number; children: ReactNo
   );
 }
 
-export function Row({ children }: { children: ReactNode }) {
-  return <div className="docs-demo-row">{children}</div>;
-}
+export { Row } from "ui";
 
 export function Swatches({ paths }: { paths: string[] }) {
   return (

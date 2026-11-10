@@ -250,7 +250,7 @@ const looks = readdirSync(join(root, "tokens/style"))
   });
 writeFileSync(join(root, "dist/styles.css"), `${looks.map((s) => s.css).join("\n\n")}\n`);
 writeFileSync(join(root, "dist/styles.json"), `${JSON.stringify(looks.map(({ name, label }) => ({ name, label })))}\n`);
-const STYLES = ["base", "charts", "overlay", "slides", "document"];
+const STYLES = ["base", "charts", "overlay", "slides", "document", "article"];
 writeFileSync(join(root, "dist/ui.css"), STYLES.map((name) => readFileSync(join(root, "src/lib/styles", `${name}.css`), "utf8")).join("\n"));
 writeFileSync(join(root, "dist/tokens.json"), `${JSON.stringify({ version, ...snapshot }, null, 2)}\n`);
 console.log(`built ${global.length} global, ${themes.light.length} theme, ${media[DEFAULT.medium].length} medium, ${langs[DEFAULT.lang].length} lang tokens (${Object.keys(langs).join(", ")}), ${Object.keys(icons).length} icons → dist/`);

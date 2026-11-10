@@ -2520,6 +2520,238 @@
           "kind": "node"
         }
       ]
+    },
+    {
+      "name": "Anatomy",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "[string, string][]"
+        }
+      ]
+    },
+    {
+      "name": "Article",
+      "props": [
+        {
+          "name": "eyebrow",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "lede",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "wide",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "pager",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "ArticleSection",
+      "props": [
+        {
+          "name": "id",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Brand",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "version",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "href",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "CardGrid",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "CopyCode",
+      "props": [
+        {
+          "name": "code",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Example",
+      "props": [
+        {
+          "name": "caption",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "layout",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "centered",
+            "fullscreen",
+            "padded"
+          ]
+        },
+        {
+          "name": "medium",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "lang",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "files",
+          "optional": true,
+          "kind": "list",
+          "type": "ExampleFile[]"
+        },
+        {
+          "name": "variants",
+          "optional": true,
+          "kind": "list",
+          "type": "ExampleVariant[]"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Paragraphs",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "string[]"
+        }
+      ]
+    },
+    {
+      "name": "PropsTable",
+      "props": [
+        {
+          "name": "description",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "rows",
+          "optional": false,
+          "kind": "list",
+          "type": "[string, string, string, string][]"
+        }
+      ]
+    },
+    {
+      "name": "RichText",
+      "props": [
+        {
+          "name": "text",
+          "optional": false,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Row",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "TextList",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "string[]"
+        },
+        {
+          "name": "ordered",
+          "optional": true,
+          "kind": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "TokenTable",
+      "props": [
+        {
+          "name": "rows",
+          "optional": false,
+          "kind": "list",
+          "type": "TokenRow[]"
+        }
+      ]
     }
   ]
 }
