@@ -318,6 +318,10 @@
   vertical-align: top;
 }
 
+.data-table.has-widths {
+  table-layout: fixed;
+}
+
 .data-table td.is-wrap {
   min-width: 200px;
   white-space: normal;

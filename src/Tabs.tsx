@@ -3,16 +3,18 @@ import { Badge } from "./Badge";
 import { Icon, type IconName } from "./Icon";
 
 export type TabItem = { id: string; label: string; icon?: IconName; badge?: string | number; disabled?: boolean; content?: ReactNode };
-export type TabsProps = { items: TabItem[]; value?: string; defaultValue?: string; onChange?: (id: string) => void; variant?: "line" | "pill"; fill?: boolean; label?: string };
+export type TabsProps = { items: TabItem[]; value?: string; defaultValue?: string; onChange?: (id: string) => void; variant?: "line" | "pill"; fill?: boolean; orientation?: "horizontal" | "vertical"; label?: string };
 
 const STEP: Record<string, (index: number, count: number) => number> = {
   ArrowRight: (index, count) => (index + 1) % count,
   ArrowLeft: (index, count) => (index - 1 + count) % count,
+  ArrowDown: (index, count) => (index + 1) % count,
+  ArrowUp: (index, count) => (index - 1 + count) % count,
   Home: () => 0,
   End: (_, count) => count - 1,
 };
 
-export function Tabs({ items, value, defaultValue, onChange, variant = "line", fill = false, label }: TabsProps) {
+export function Tabs({ items, value, defaultValue, onChange, variant = "line", fill = false, orientation = "horizontal", label }: TabsProps) {
   const base = useId();
   const list = useRef<HTMLDivElement>(null);
   const [own, setOwn] = useState(defaultValue ?? items.find((item) => !item.disabled)?.id);
@@ -28,7 +30,8 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
 
   const onKeyDown = (e: KeyboardEvent) => {
     const step = STEP[e.key];
-    if (!step) return;
+    const vertical = e.key === "ArrowUp" || e.key === "ArrowDown";
+    if (!step || vertical !== (orientation === "vertical")) return;
     e.preventDefault();
     const enabled = items.filter((item) => !item.disabled);
     const next =
@@ -47,8 +50,8 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
   };
 
   return (
-    <div className={`tabs is-${variant}${fill ? " is-fill" : ""}`}>
-      <div ref={list} className="tabs-list" role="tablist" aria-label={label} onKeyDown={onKeyDown}>
+    <div className={`tabs is-${variant} is-${orientation}${fill ? " is-fill" : ""}`}>
+      <div ref={list} className="tabs-list" role="tablist" aria-label={label} aria-orientation={orientation} onKeyDown={onKeyDown}>
         {items.map((item) => {
           const active = item.id === selected;
           return (

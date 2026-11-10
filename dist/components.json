@@ -1722,6 +1722,15 @@
           "kind": "boolean"
         },
         {
+          "name": "orientation",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
           "name": "label",
           "optional": true,
           "kind": "string"
@@ -1776,7 +1785,7 @@
           "name": "columns",
           "optional": false,
           "kind": "list",
-          "type": "{ label: string; numeric?: boolean | undefined; wrap?: boolean | undefined; }[]"
+          "type": "{ label: string; numeric?: boolean | undefined; wrap?: boolean | undefined; width?: string | undefined; }[]"
         },
         {
           "name": "rows",
@@ -1944,6 +1953,11 @@
           "name": "title",
           "optional": true,
           "kind": "string"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "node"
         }
       ]
     },

@@ -483,6 +483,7 @@ export const api: Record<string, Section[]> = {
         ["onChange", "(id: string) => void", "", "다른 탭을 고르면 그 id를 받습니다."],
         ["variant", "\"line\" | \"pill\"", "\"line\"", "밑줄이거나 알약 모양입니다."],
         ["fill", "boolean", "false", "탭이 폭을 나눠 채웁니다."],
+        ["orientation", "\"horizontal\" | \"vertical\"", "\"horizontal\"", "가로 줄이거나 세로 목록입니다. 세로면 ↑·↓로 옮깁니다."],
         ["label", "string", "", "스크린리더에 읽힐 탭 묶음 이름입니다."],
       ],
     },

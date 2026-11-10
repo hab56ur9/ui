@@ -6,17 +6,17 @@ import type { Color } from "./types";
 
 export type Cell = string | { text?: string; content?: ReactNode; color?: Color; swatch?: "line" | "rect"; className?: string; delta?: DeltaProps; render?: () => ReactNode };
 
-export type DataTableProps = { columns: { label: string; numeric?: boolean; wrap?: boolean }[]; rows: Cell[][]; fit?: boolean };
+export type DataTableProps = { columns: { label: string; numeric?: boolean; wrap?: boolean; width?: string }[]; rows: Cell[][]; fit?: boolean };
 
 export function DataTable({ columns, rows, fit = false }: DataTableProps) {
   const wrap = columns.some((column) => column.wrap);
   return (
     <div className={`data-table-wrap${fit ? " is-fit" : ""}`}>
-      <table className={`data-table${wrap ? " has-wrap" : ""}`}>
+      <table className={`data-table${wrap ? " has-wrap" : ""}${columns.some((column) => column.width) ? " has-widths" : ""}`}>
         <thead>
           <tr>
             {columns.map((column) => (
-              <th key={column.label} className={column.numeric ? "is-numeric" : ""}>
+              <th key={column.label} className={column.numeric ? "is-numeric" : ""} style={column.width ? { width: column.width } : undefined}>
                 {column.label}
               </th>
             ))}

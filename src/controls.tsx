@@ -58,7 +58,7 @@ export function Stat({ label, value, delta, note, trend, color = 1, size = "md" 
   );
 }
 
-export type SegmentedOption<V extends string> = { value: V; label: ReactNode; lang?: string };
+export type SegmentedOption<V extends string> = { value: V; label: ReactNode; title?: string; lang?: string };
 
 export type SegmentedProps<V extends string> = {
   options: SegmentedOption<V>[];
@@ -78,6 +78,8 @@ export function Segmented<V extends string>({ options, value, defaultValue, labe
           key={option.value}
           type="button"
           lang={option.lang}
+          aria-label={option.title}
+          title={option.title}
           aria-pressed={option.value === selected}
           onClick={() => {
             if (option.value === selected) return;

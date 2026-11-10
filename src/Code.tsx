@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 const KEYWORDS = "const|let|var|function|return|if|else|for|of|in|new|async|await|true|false|null|undefined|typeof|class|export|import|from|default|type|as";
 
 const GRAMMARS = {
@@ -116,12 +118,17 @@ export function Highlight({ code, lang = guess(code), numbers = false }: { code:
   );
 }
 
-export type CodeBlockProps = { code: string; lang?: CodeLang; title?: string };
+export type CodeBlockProps = { code: string; lang?: CodeLang; title?: string; actions?: ReactNode };
 
-export function CodeBlock({ code, lang, title }: CodeBlockProps) {
+export function CodeBlock({ code, lang, title, actions }: CodeBlockProps) {
   return (
     <figure className="code-block">
-      {title && <figcaption className="code-block-title">{title}</figcaption>}
+      {(title || actions) && (
+        <figcaption className="code-block-title">
+          <span>{title}</span>
+          {actions}
+        </figcaption>
+      )}
       <pre>
         <Highlight code={code.trimEnd()} lang={lang} numbers={code.trimEnd().split("\n").length > 3} />
       </pre>

@@ -1321,6 +1321,23 @@ p {
   min-width: 0;
 }
 
+.tabs.is-vertical .tabs-list {
+  flex-direction: column;
+  gap: 2px;
+  border-bottom: 0;
+  overflow: visible;
+}
+
+.tabs.is-vertical .tabs-tab {
+  justify-content: flex-start;
+  border-radius: var(--radius-control);
+  box-shadow: none;
+}
+
+.tabs.is-vertical .tabs-tab[aria-selected="true"] {
+  background: var(--color-bg-subtle);
+}
+
 .tabs-panel:focus-visible {
   outline-offset: 4px;
 }
@@ -1454,7 +1471,12 @@ p {
 }
 
 .code-block-title {
-  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: var(--space-10);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
   border-bottom: 1px solid var(--color-border-default);
   color: var(--color-fg-muted);
   font-family: var(--font-family-mono);
@@ -2419,6 +2441,10 @@ button.mini-card {
 
 .data-table.has-wrap td {
   vertical-align: top;
+}
+
+.data-table.has-widths {
+  table-layout: fixed;
 }
 
 .data-table td.is-wrap {

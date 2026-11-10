@@ -483,6 +483,7 @@ export const api: Record<string, Section[]> = {
         ["onChange", "(id: string) => void", "", "Called with the id when another tab is picked."],
         ["variant", "\"line\" | \"pill\"", "\"line\"", "Underline or pill."],
         ["fill", "boolean", "false", "Tabs share the full width."],
+        ["orientation", "\"horizontal\" | \"vertical\"", "\"horizontal\"", "A row or a vertical list; vertical moves with ↑ and ↓."],
         ["label", "string", "", "The tab group's name for screen readers."],
       ],
     },

@@ -1,5 +1,5 @@
 import { Component, Fragment, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
-import { Button, Highlight, Icon, Segmented, ThemePicker, UIProvider, useI18n, useToast } from "ui";
+import { Badge, Button, Card as UICard, CodeBlock, DataTable, Icon, Segmented, Tabs as UITabs, ThemePicker, UIProvider, useI18n, useToast } from "ui";
 import { api as apiKo } from "./api";
 import { api as apiEn } from "./api.en";
 import { homepage, MODE_LABEL, tokensFor, version } from "./catalog";
@@ -156,23 +156,24 @@ function useCopy() {
   };
 }
 
-function Card({ title, body, items, kind, label, icon }: { title?: string; body?: string; items?: string[]; kind?: string; label?: string; icon?: string }) {
+function Card({ title, body, items, kind, label }: { title?: string; body?: string; items?: string[]; kind?: "do" | "dont"; label?: string }) {
   return (
-    <div className={`docs-card${kind ? ` is-${kind}` : ""}`}>
-      {label && (
-        <div className="docs-card-label">
-          {icon && <Icon name={icon} size="sm" />}
-          {label}
-        </div>
-      )}
-      {title && <h3>{title}</h3>}
+    <UICard
+      title={
+        label ? (
+          <Badge tone={kind === "dont" ? "critical" : "good"}>{label}</Badge>
+        ) : (
+          title
+        )
+      }
+    >
       {body && (
         <p>
           <Rich text={body} />
         </p>
       )}
       {items && <List items={items} />}
-    </div>
+    </UICard>
   );
 }
 
@@ -189,16 +190,19 @@ function List({ items, ordered = false }: { items: string[]; ordered?: boolean }
   );
 }
 
-function CodeBox({ code, className = "" }: { code: string; className?: string }) {
+function CodeBox({ code, title }: { code: string; title?: string }) {
   const copy = useCopy();
   const { c } = useDocs();
   return (
-    <figure className={`docs-code ${className}`.trim()}>
-      <pre>
-        <Highlight code={code} />
-      </pre>
-      <Button onClick={() => copy(code, c.theCode)}>{c.copy}</Button>
-    </figure>
+    <CodeBlock
+      code={code}
+      title={title}
+      actions={
+        <Button className="docs-copy" onClick={() => copy(code, c.theCode)}>
+          {c.copy}
+        </Button>
+      }
+    />
   );
 }
 
@@ -216,16 +220,8 @@ class Boundary extends Component<{ children: ReactNode }, { error: Error | null 
   }
 }
 
-function Tabs<K extends string>({ value, onChange, options }: { value: K; onChange: (key: K) => void; options: [K, string][] }) {
-  return (
-    <div className="docs-tabs" role="tablist">
-      {options.map(([key, label]) => (
-        <button key={key} type="button" role="tab" aria-selected={key === value} onClick={() => onChange(key)}>
-          {label}
-        </button>
-      ))}
-    </div>
-  );
+function Tabs<K extends string>({ value, onChange, options, label }: { value: K; onChange: (key: K) => void; options: [K, string][]; label?: string }) {
+  return <UITabs label={label} value={value} onChange={(id) => onChange(id as K)} items={options.map(([id, text]) => ({ id, label: text }))} />;
 }
 
 function SduiSwitch() {
@@ -285,11 +281,9 @@ function Demo({ name, variants, caption, center, medium }: { name: string; varia
           </div>
         </div>
         {tab === "code" && (
-          <figure className="docs-code docs-example-code">
-            <pre>
-              <Highlight code={source.trimEnd()} lang="tsx" numbers />
-            </pre>
-          </figure>
+          <div className="docs-example-code">
+            <CodeBlock code={source} lang="tsx" />
+          </div>
         )}
       </div>
     </>
@@ -325,7 +319,9 @@ function Block({ id }: { id: string }) {
       </p>
       <div className="docs-block-uses">
         {meta.uses.map((name) => (
-          <span key={name}>{name}</span>
+          <Badge key={name} variant="outline">
+            {name}
+          </Badge>
         ))}
       </div>
       <div className="docs-block-bar">
@@ -342,16 +338,9 @@ function Block({ id }: { id: string }) {
         <span className="docs-block-title">{meta.title}</span>
         <span className="toolbar-spacer" />
         {tab === "preview" && !json.kind && (
-          <div className="docs-block-tools" role="group" aria-label={c.width}>
-            {VIEWPORTS.map(([value, icon], i) => (
-              <button key={value} type="button" aria-pressed={width === value} aria-label={c.viewports[i]} title={c.viewports[i]} onClick={() => setWidth(value)}>
-                <Icon name={icon} size="sm" />
-              </button>
-            ))}
-            <span className="docs-block-divider" aria-hidden="true" />
-            <button type="button" aria-label={c.rerun} title={c.rerun} onClick={() => setRun((n) => n + 1)}>
-              <Icon name="refresh" size="sm" />
-            </button>
+          <div className="docs-block-tools">
+            <Segmented label={c.width} value={width} onChange={setWidth} options={VIEWPORTS.map(([value, icon], i) => ({ value, title: c.viewports[i], label: <Icon name={icon} size="sm" /> }))} />
+            <Button icon="refresh" aria-label={c.rerun} title={c.rerun} onClick={() => setRun((n) => n + 1)} />
           </div>
         )}
         <Button icon="copy" onClick={() => copy(current.content, current.name)}>
@@ -374,17 +363,11 @@ function Block({ id }: { id: string }) {
       {tab === "code" && current && (
         <div className="docs-example docs-block-code">
           <div className="docs-block-files">
-            {files.map((f) => (
-              <button key={f.name} type="button" aria-current={f.name === current.name} onClick={() => setFile(f.name)}>
-                {f.name}
-              </button>
-            ))}
+            <UITabs label={c.code} orientation="vertical" variant="pill" value={current.name} onChange={setFile} items={files.map((f) => ({ id: f.name, label: f.name }))} />
           </div>
-          <figure className="docs-code docs-example-code">
-            <pre>
-              <Highlight code={current.content.trimEnd()} lang={current.name.endsWith(".json") ? "json" : "tsx"} numbers />
-            </pre>
-          </figure>
+          <div className="docs-example-code">
+            <CodeBlock code={current.content} lang={current.name.endsWith(".json") ? "json" : "tsx"} />
+          </div>
         </div>
       )}
     </>
@@ -451,40 +434,29 @@ function Tokens({ paths, notes }: { paths: string[]; notes?: Record<string, stri
   const copy = useCopy();
   const { c } = useDocs();
   return (
-    <div className="docs-table-wrap">
-      <table className="data-table">
-        <thead>
-          <tr>
-            {c.tokenHead.map((head) => (
-              <th key={head}>{head}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {tokensFor(paths).map((t) => (
-            <tr key={t.path}>
-              <td>
-                <button type="button" className="copy-name" onClick={() => copy(`var(${t.name})`, t.name)}>
-                  {t.name}
-                </button>
-              </td>
-              <td>
-                {Object.entries(t.values).map(([mode, value]) => (
-                  <span className="docs-token-value" key={mode}>
-                    {MODE_LABEL[mode] && <em>{MODE_LABEL[mode]}</em>}
-                    {t.type === "color" && <i style={{ "--sw": value } as CSSProperties} />}
-                    <span>{value}</span>
-                  </span>
-                ))}
-              </td>
-              <td>
-                <Rich text={notes?.[t.path] ?? t.description ?? ""} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <DataTable
+      fit
+      columns={c.tokenHead.map((label, column) => ({ label, wrap: column === 2 }))}
+      rows={tokensFor(paths).map((t) => [
+        {
+          content: (
+            <button type="button" className="copy-name" onClick={() => copy(`var(${t.name})`, t.name)}>
+              {t.name}
+            </button>
+          ),
+        },
+        {
+          content: Object.entries(t.values).map(([mode, value]) => (
+            <span className="docs-token-value" key={mode}>
+              {MODE_LABEL[mode] && <em>{MODE_LABEL[mode]}</em>}
+              {t.type === "color" && <i style={{ "--sw": value } as CSSProperties} />}
+              <span>{value}</span>
+            </span>
+          )),
+        },
+        { content: <Rich text={notes?.[t.path] ?? t.description ?? ""} /> },
+      ])}
+    />
   );
 }
 
@@ -497,32 +469,20 @@ function Api({ description, rows }: { description?: string; rows: string[][] }) 
           <Rich text={description} />
         </p>
       )}
-      <div className="docs-table-wrap">
-        <table className="data-table docs-api">
-          <thead>
-            <tr>
-              {c.apiHead.map((head) => (
-                <th key={head}>{head}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(([name, type, fallback, description]) => (
-              <tr key={name}>
-                <td className="docs-api-name">{name}</td>
-                <td className="docs-api-type">
-                  {type.split(" · ").map((part, i) => (
-                    <span key={i}>{part}</span>
-                  ))}
-                </td>
-                <td className="docs-api-default">{fallback}</td>
-                <td>
-                  <Rich text={description} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="docs-api">
+        <DataTable
+          fit
+          columns={c.apiHead.map((label, column) => ({ label, wrap: true, width: ["24%", "30%", "14%", "32%"][column] }))}
+          rows={rows.map(([name, type, fallback, description]) => [
+            { text: name, className: "docs-api-name" },
+            {
+              className: "docs-api-type",
+              content: type.split(" · ").map((part, i) => <span key={i}>{part}</span>),
+            },
+            { text: fallback, className: "docs-api-default" },
+            { content: <Rich text={description} /> },
+          ])}
+        />
       </div>
     </>
   );
@@ -597,8 +557,8 @@ function SectionBody({ section }: { section: Section }) {
         <>
           {section.items.map(([good, bad]) => (
             <div className="docs-cards" style={{ marginBottom: "var(--space-4)" }} key={good}>
-              <Card kind="do" icon="check" label={c.do} body={good} />
-              <Card kind="dont" icon="close" label={c.dont} body={bad} />
+              <Card kind="do" label={c.do} body={good} />
+              <Card kind="dont" label={c.dont} body={bad} />
             </div>
           ))}
         </>
