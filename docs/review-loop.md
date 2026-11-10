@@ -59,7 +59,7 @@ The editor is a means of communication between the person and the agent, not a c
 
 - It opens the HTML file the agent gave and lets the person edit it directly with design system components and widgets.
 - It needs only the edits that make a person's intent clear: moving, resizing, removing and adding widgets, and changing visible content.
-- The person can leave notes in the HTML where an edit alone does not explain the intent.
+- The person can attach a note to a widget or component where an edit alone does not explain the intent. The note is saved in the HTML with that element's id, so the agent knows what it refers to.
 - The edited HTML goes back to the agent. The agent compares it with what it sent and rewrites the spec.
 - Because the edited HTML uses the same components as the spec, the agent reads it in the vocabulary it wrote in.
 
