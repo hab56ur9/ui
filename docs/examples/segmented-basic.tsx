@@ -1,18 +1,18 @@
 import { Segmented, useToast } from "ui";
-import { useT } from "../demo";
+import { useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("segmented-basic");
   const toast = useToast();
   return (
     <Segmented
-      label={t({ ko: "기간", en: "Range" })}
+      label={text.range}
       defaultValue="90"
       options={[
-        { value: "7", label: t({ ko: "7일", en: "7D" }) },
-        { value: "30", label: t({ ko: "30일", en: "30D" }) },
-        { value: "90", label: t({ ko: "90일", en: "90D" }) },
-        { value: "365", label: t({ ko: "1년", en: "1Y" }) },
+        { value: "7", label: text.n7d },
+        { value: "30", label: text.n30d },
+        { value: "90", label: text.n90d },
+        { value: "365", label: text.n1y },
       ]}
       onChange={(value) => toast({ message: value })}
     />

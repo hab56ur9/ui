@@ -1,0 +1,588 @@
+{
+  "badge-basic": {
+    "neutral": "Neutral",
+    "main": "Main",
+    "good": "Good",
+    "warning": "Warning",
+    "critical": "Critical"
+  },
+  "bar-basic": {
+    "signUps": "Sign-ups"
+  },
+  "bar-emphasis": {
+    "signUps": "Sign-ups"
+  },
+  "bar-weekly": {
+    "weeklyDistance": "Weekly distance"
+  },
+  "board-basic": {
+    "vsPrevious30": "vs previous 30 days",
+    "activeUsers": "Active users",
+    "dailyAverage": "Daily average",
+    "revenue": "Revenue",
+    "total": "Total",
+    "errorRate": "Error rate",
+    "average": "Average",
+    "usersByPlatform": "Users by platform",
+    "last60Days": "Last 60 days"
+  },
+  "board-events": {
+    "layoutSavedTo": "Layout saved to the server",
+    "activeUsers": "Active users",
+    "revenue": "Revenue",
+    "errorRate": "Error rate",
+    "counts": "Changes {changes} · Commits {commits}"
+  },
+  "bullets-basic": {
+    "items": [
+      "The verification text arrives late",
+      {
+        "text": "People can't tell which documents they need",
+        "items": [
+          "ID types aren't listed",
+          "Photo rules appear at the end"
+        ]
+      },
+      "A failure sends them back to the start"
+    ]
+  },
+  "button-basic": {
+    "secondary": "Secondary",
+    "primary": "Primary",
+    "danger": "Danger",
+    "disabled": "Disabled"
+  },
+  "callout-basic": {
+    "note": "Note",
+    "newDataArrives": "New data arrives on the hour.",
+    "tip": "Tip",
+    "dragWidgetsTo": "Drag widgets to reorder them.",
+    "decisionNeeded": "Decision needed",
+    "turningPromoAlerts": "Turning promo alerts off by default needs marketing sign-off."
+  },
+  "card-basic": {
+    "basicPlan": "Basic plan",
+    "oneDashboardFor": "One dashboard for a small team.",
+    "teamPlan": "Team plan",
+    "current": "Current",
+    "unlimitedDashboardsAnd": "Unlimited dashboards and alerts.",
+    "viewSettings": "View settings",
+    "billingSync": "Billing sync",
+    "needsReview": "Needs review",
+    "theCardExpires": "The card expires this month."
+  },
+  "carousel-basic": {
+    "mangwonHanRiver": "Mangwon Han River Park",
+    "sunsetSpot": "Sunset spot",
+    "baegundaeBukhansan": "Baegundae, Bukhansan",
+    "lastColorsBefore": "Last colors before the snow",
+    "seongsuCafeStreet": "Seongsu cafe street",
+    "weekendBrunch": "Weekend brunch",
+    "seoulForestGinkgo": "Seoul Forest ginkgo road",
+    "theYellowestPath": "The yellowest path right now",
+    "placesToGo": "Places to go"
+  },
+  "carousel-card": {
+    "mangwonHanRiver": "Mangwon Han River Park",
+    "sunsetSpot": "Sunset spot",
+    "baegundaeBukhansan": "Baegundae, Bukhansan",
+    "lastColorsBefore": "Last colors before the snow",
+    "seongsuCafeStreet": "Seongsu cafe street",
+    "weekendBrunch": "Weekend brunch",
+    "seoulForestGinkgo": "Seoul Forest ginkgo road",
+    "theYellowestPath": "The yellowest path right now",
+    "ikseonDongAlleys": "Ikseon-dong alleys",
+    "aWalkBetween": "A walk between hanoks",
+    "placesToGo": "Places to go"
+  },
+  "carousel-mini": {
+    "nature": "Nature",
+    "food": "Food",
+    "travel": "Travel",
+    "cafes": "Cafes",
+    "fitness": "Fitness",
+    "photo": "Photo",
+    "pets": "Pets",
+    "topics": "Topics",
+    "posts": "{count}K posts"
+  },
+  "changelog-basic": {
+    "frontendTeam": "Frontend team",
+    "addedFailureHandling": "Added failure handling.",
+    "firstDraft": "First draft"
+  },
+  "confirm-danger": {
+    "deleteThisWidget": "Delete this widget?",
+    "theWidgetAnd": "The widget and its settings can't be restored.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleted": "Deleted",
+    "canceled": "Canceled",
+    "deleteWidget": "Delete widget"
+  },
+  "confirm-mobile": {
+    "deleteThisWidget": "Delete this widget?",
+    "theWidgetAnd": "The widget and its settings can't be restored.",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "deck-basic": {
+    "signUpFixes": "Sign-up fixes",
+    "productReviewNovember": "Product review · November",
+    "signUpFix": "Sign-up fix plan",
+    "swipeUseThe": "Swipe, use the arrow keys or the buttons",
+    "source12User": "Source: 12 user interviews",
+    "leadWithThe": "Lead with the verification drop-off.",
+    "whyPeopleQuit": "Why people quit sign-up",
+    "halfOfThem": "Half of them leave at identity verification.",
+    "items": [
+      "The verification text arrives late",
+      "People can't tell which documents they need"
+    ],
+    "nextSteps": "Next steps",
+    "items2": [
+      {
+        "title": "Shorten the text wait"
+      },
+      {
+        "title": "List documents up front"
+      },
+      {
+        "title": "Resume from the failure"
+      }
+    ]
+  },
+  "doc-basic": {
+    "batchingNotifications": "Batching notifications",
+    "sendAUser": "Send a user's notifications together in five-minute batches.",
+    "notificationsTeam": "Notifications team",
+    "background": "Background",
+    "atPeakHours": "At peak hours a user gets more than ten notifications a minute.",
+    "requirements": "Requirements",
+    "aUserGets": "A user gets at most one send every five minutes.",
+    "securityAlertsSkip": "Security alerts skip batching.",
+    "design": "Design",
+    "securityAlertsBypass": "Security alerts bypass the queue. That meets ",
+    "text": "."
+  },
+  "figure-basic": {
+    "dailyLayoutResets": "Daily layout resets",
+    "resets": "Resets",
+    "savedSizeBy": "Saved size by widget count",
+    "widgets": "Widgets",
+    "savedSize": "Saved size"
+  },
+  "heatmap-calendar": {
+    "items": [
+      "Mon",
+      "",
+      "Wed",
+      "",
+      "Fri",
+      "",
+      "Sun"
+    ]
+  },
+  "heatmap-week": {
+    "items": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "h": "h"
+  },
+  "icons-button": {
+    "addWidget": "Add widget",
+    "download": "Download",
+    "delete": "Delete"
+  },
+  "icons-size": {
+    "done": "Done"
+  },
+  "image-basic": {
+    "squarePhoto": "Square photo",
+    "portraitPhoto": "Portrait photo",
+    "landscapePhoto": "Landscape photo",
+    "seoulForestGinkgo": "Seoul Forest ginkgo road",
+    "theYellowestPath": "The yellowest path right now",
+    "n21kPosts": "2.1K posts",
+    "popular": "Popular"
+  },
+  "jsonui-basic": {
+    "visitors": "Visitors",
+    "vsLastWeek": "vs last week",
+    "openReport": "Open report"
+  },
+  "jsonui-template": {
+    "ordersToday": "Orders today",
+    "recentOrders": "Recent orders",
+    "order": "Order",
+    "item": "Item",
+    "amount": "Amount",
+    "status": "Status",
+    "item2": {
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "refunded": "Refunded"
+    },
+    "export": "Export"
+  },
+  "line-area": {
+    "activeUsers": "Active users"
+  },
+  "line-emphasis": {
+    "thisYear": "This year",
+    "lastYear": "Last year"
+  },
+  "line-forecast": {
+    "actual": "Actual",
+    "forecast": "Forecast",
+    "n95Interval": "95% interval"
+  },
+  "line-index": {
+    "revenue": "Revenue",
+    "users": "Users"
+  },
+  "line-threshold": {
+    "overSlo": "Over SLO"
+  },
+  "markdown-basic": {
+    "source": "# Notification center redesign\n\nGather scattered notifications in **one place** so important ones like failed payments are *never missed*. The background is in the [design doc](#).\n\n## Goals\n\n1. See failed payments `within a day`\n2. Cut muted notifications to 10%\n   - Promotions off by default\n   - ~~Bundle every notification~~ is out of scope\n\n## To do\n\n- [x] Screen design\n- [ ] Beta\n- [ ] Full launch\n\n> [!WARNING] Decision needed\n> Turning promotions off by default needs marketing sign-off.\n\n| Metric | Now | Goal |\n| --- | ---: | ---: |\n| Failed payment seen | 2.4 days | 1 day |\n| Muted | 18% | 10% |\n\n```ts\nconst unread = notifications.filter((n) => !n.read);\n```\n\n---\n\n> Fewer notifications get read more."
+  },
+  "markdown-editor": {
+    "source": "# Weekly retro\n\nWrite what **went well** and what didn't, block by block. Type `- ` and it becomes a list right away, type `/` to pick blocks and UI, and drag a block by its handle.\n\n## Went well\n\n- Notification center beta shipped\n- Failed payments seen in 1.2 days instead of 2.4\n\n## Next week\n\n- [x] Write up the retro\n- [ ] Prepare the staged rollout\n\n> [!NOTE] Note\n> Standard markdown tables are drawn as the design system's table.\n\n| Metric | Last week | This week |\n| --- | ---: | ---: |\n| Failed payment seen | 2.4 days | 1.2 days |\n| Muted | 18% | 15% |"
+  },
+  "markdown-ui": {
+    "todaySVisits": "## Today's visits\n\nThe card below is drawn from JSON written in a `ui` code block inside the markdown.\n\n```ui\n{ \"type\": \"Widget\", \"props\": { \"id\": \"visits\", \"title\": \"Visitors\", \"w\": 6, \"h\": 2 },\n  \"children\": { \"type\": \"Stat\", \"props\": { \"value\": { \"$data\": \"visits.today\", \"$format\": \"count\" }, \"delta\": { \"change\": { \"$data\": \"visits.change\" }, \"label\": \"vs yesterday\" } } } }\n```\n\n```ui\n{ \"type\": \"Button\", \"props\": { \"variant\": \"primary\", \"onClick\": { \"$action\": { \"name\": \"open-report\" } } }, \"children\": \"Open report\" }\n```"
+  },
+  "modal-mobile": {
+    "exportReport": "Export report",
+    "downloadTheSelected": "Download the selected period as CSV.",
+    "cancel": "Cancel",
+    "export": "Export"
+  },
+  "modal-sizes": {
+    "exportReport": "Export report",
+    "downloadTheSelected": "Download the selected period as CSV.",
+    "cancel": "Cancel",
+    "export": "Export",
+    "theFileHolds": "The file holds daily values per widget.",
+    "open": "Open {size}"
+  },
+  "motion-curves": {
+    "play": "Play"
+  },
+  "options-basic": {
+    "saveInThe": "Save in the browser.",
+    "noServerWork": "No server work",
+    "savedPerDevice": "Saved per device",
+    "estimatedWork": "Estimated work",
+    "n2Days": "2 days",
+    "server": "Server",
+    "saveThroughA": "Save through a settings API.",
+    "followsTheUser": "Follows the user",
+    "needsAnApi": "Needs an API and auth",
+    "needsASecurity": "Needs a security review",
+    "n2Weeks": "2 weeks"
+  },
+  "portfolio-frame": {
+    "haneulKim": "Haneul Kim",
+    "backendEngineerPortfolio": "Backend engineer portfolio",
+    "projectsWhereSmall": "Projects where small changes moved big numbers.",
+    "keyProjects": "Key projects",
+    "rewardPayoutRedesign": "Reward payout redesign",
+    "designAndBuild": "Design and build lead",
+    "payoutFlow": "Payout flow",
+    "aDedupKey": "A dedup key design ended double payouts.",
+    "doublePayouts": "Double payouts",
+    "n0": "0",
+    "throughput": "Throughput"
+  },
+  "requirements-basic": {
+    "theLayoutSurvives": "The layout survives a refresh.",
+    "itWorksWithout": "It works without storage.",
+    "privateMode": "Private mode",
+    "aLayoutReset": "A layout reset can be undone.",
+    "layoutsAreSaved": "Layouts are saved on the server."
+  },
+  "resume-frame": {
+    "haneulKim": "Haneul Kim",
+    "backendEngineer": "Backend engineer",
+    "eightYearsBuilding": "Eight years building payment and settlement systems.",
+    "experience": "Experience",
+    "seniorEngineer": "Senior engineer",
+    "examplepay": "ExamplePay",
+    "cutSettlementDelay": "Cut settlement delay from a day to ten minutes."
+  },
+  "segmented-basic": {
+    "range": "Range",
+    "n7d": "7D",
+    "n30d": "30D",
+    "n90d": "90D",
+    "n1y": "1Y"
+  },
+  "sheet-desktop": {
+    "saveYourChanges": "Save your changes?",
+    "discard": "Discard",
+    "save": "Save",
+    "unsavedEditsWill": "Unsaved edits will be lost."
+  },
+  "sheet-list": {
+    "items": [
+      "Last 7 days",
+      "Last 30 days",
+      "Last 90 days"
+    ],
+    "chooseARange": "Choose a range",
+    "openListSheet": "Open list sheet",
+    "openActionSheet": "Open action sheet",
+    "saveYourChanges": "Save your changes?",
+    "discard": "Discard",
+    "save": "Save",
+    "unsavedEditsWill": "Unsaved edits will be lost."
+  },
+  "slide-agenda": {
+    "agenda": "Agenda",
+    "items": [
+      "Month in brief",
+      "Users",
+      "Performance",
+      "Next steps"
+    ]
+  },
+  "slide-chart": {
+    "activeUsersBy": "Active users by platform",
+    "androidIsThe": "Android is the largest; iOS grew fastest.",
+    "sourceAcmeAnalytics": "Source: Acme Analytics, daily totals"
+  },
+  "slide-closing": {
+    "summary": "Summary",
+    "items": [
+      "Users and revenue rose together",
+      "Latency and errors are steady",
+      "Next month we focus on web growth"
+    ],
+    "dataTeamQuestions": "Data team · questions in #data"
+  },
+  "slide-compare": {
+    "signUpSteps": "Sign-up steps",
+    "twoFewerSteps": "Two fewer steps lift the completion rate.",
+    "now5Steps": "Now · 5 steps",
+    "emailPasswordIdentity": "Email, password, identity check, terms and profile, one after another.",
+    "after3Steps": "After · 3 steps",
+    "anEmailLink": "An email link signs people in, and the identity check and terms share one screen."
+  },
+  "slide-metric": {
+    "vsPrevious30": "vs previous 30 days",
+    "monthInBrief": "Month in brief",
+    "usersAndRevenue": "Users and revenue rose together.",
+    "sourceAcmeAnalytics": "Source: Acme Analytics",
+    "activeUsers": "Active users",
+    "revenue": "Revenue",
+    "p95Latency": "p95 latency"
+  },
+  "slide-quote": {
+    "iWaitedFor": "I waited for the verification text and just closed the app.",
+    "interviewee7": "Interviewee 7",
+    "threeDaysAfter": "Three days after sign-up",
+    "source12User": "Source: 12 user interviews"
+  },
+  "slide-section": {
+    "performance": "Performance",
+    "latencyAndError": "Latency and error rate"
+  },
+  "slide-split": {
+    "signUps": "Sign-ups",
+    "weekendSignUps": "Weekend sign-ups run 25% above weekdays.",
+    "items": [
+      "Campaign weeks were the highest",
+      "We shift more ad spend to weekends",
+      "The shorter sign-up lands next month"
+    ]
+  },
+  "slide-statement": {
+    "bottomLine": "Bottom line",
+    "nextMonthWe": "Next month we focus on steady latency.",
+    "usersKeepGrowing": "Users keep growing, so fewer slow days keep that growth intact."
+  },
+  "slide-table": {
+    "platformSummary": "Platform summary",
+    "androidIsThe": "Android is the largest; iOS grew fastest.",
+    "sourceAcmeAnalytics": "Source: Acme Analytics",
+    "platform": "Platform",
+    "dailyAverage": "Daily average",
+    "share": "Share",
+    "change": "Change",
+    "web": "Web"
+  },
+  "slide-timeline": {
+    "releasePlan": "Release plan",
+    "twoStagesAre": "Two stages are done; the public launch is in December.",
+    "items": [
+      {
+        "date": "Sep",
+        "title": "Design",
+        "body": "Requirements and screens set",
+        "done": true
+      },
+      {
+        "date": "Oct",
+        "title": "Build",
+        "body": "API and screens built",
+        "done": true
+      },
+      {
+        "date": "Nov",
+        "title": "Beta",
+        "body": "200 users"
+      },
+      {
+        "date": "Dec",
+        "title": "Launch",
+        "body": "Everyone"
+      }
+    ]
+  },
+  "slide-title": {
+    "acmeAnalyticsNovember": "Acme Analytics · November 2026",
+    "monthlyServiceReview": "Monthly service review",
+    "theLast30": "The last 30 days compared with the 30 days before",
+    "dataTeamNovember": "Data team · November 9, 2026"
+  },
+  "social-feed": {
+    "hanRiverPark": "Han River Park",
+    "hanRiverSunset": "Han River sunset",
+    "tonightSSunset": "Tonight's sunset lasted ten minutes.",
+    "n5HoursAgo": "5 hours ago"
+  },
+  "social-profile": {
+    "walkingShootingWriting": "Walking, shooting, writing it down.",
+    "posts": "Posts",
+    "followers": "Followers",
+    "following": "Following",
+    "editProfile": "Edit profile",
+    "shareProfile": "Share profile",
+    "minjiCooksLiked": "minji.cooks liked your photo",
+    "n5m": "5m",
+    "badaStartedFollowing": "bada started following you",
+    "n3h": "3h",
+    "photo": "Photo {n}"
+  },
+  "stat-basic": {
+    "vsPrevious30": "vs previous 30 days"
+  },
+  "stat-card": {
+    "vsPrevious30": "vs previous 30 days"
+  },
+  "steps-basic": {
+    "items": [
+      {
+        "title": "Find the cause",
+        "body": "Match the over-SLO days against deploys and traffic."
+      },
+      {
+        "title": "Improve caching",
+        "body": "Add caching to the three slowest APIs."
+      },
+      {
+        "title": "Tune alerts",
+        "body": "Alert early when p95 passes 230ms."
+      }
+    ]
+  },
+  "tabbar-basic": {
+    "today": "Today",
+    "workouts": "Workouts",
+    "trends": "Trends",
+    "profile": "Profile"
+  },
+  "tabbar-floating": {
+    "home": "Home",
+    "explore": "Explore",
+    "activity": "Activity",
+    "profile": "Profile",
+    "labels": "Labels"
+  },
+  "table-small": {
+    "platform": "Platform",
+    "dailyAvg": "Daily avg",
+    "trend": "Trend"
+  },
+  "table-trend": {
+    "platform": "Platform",
+    "dailyAvg": "Daily avg",
+    "change": "Change",
+    "trend": "Trend"
+  },
+  "tabs-basic": {
+    "campaign": "Campaign",
+    "overview": "Overview",
+    "reach": "Reach",
+    "clicks": "Clicks",
+    "cost": "Cost",
+    "activity": "Activity",
+    "budgetRaised": "Budget raised",
+    "dailyBudget600k": "Daily budget ₩600k → ₩800k",
+    "n10MinAgo": "10 min ago",
+    "twoCreativesAdded": "Two creatives added",
+    "n1HrAgo": "1 hr ago",
+    "reviewPassed": "Review passed",
+    "yesterday": "Yesterday",
+    "settings": "Settings",
+    "changeThePeriod": "Change the period, budget and targeting.",
+    "billing": "Billing"
+  },
+  "tabs-pill": {
+    "range": "Range",
+    "today": "Today",
+    "n7Days": "7 days",
+    "n30Days": "30 days",
+    "n90Days": "90 days",
+    "view": "View",
+    "chart": "Chart",
+    "table": "Table",
+    "alerts": "Alerts"
+  },
+  "tabs-scroll": {
+    "items": [
+      "All",
+      "Display",
+      "Video",
+      "Search",
+      "Shopping",
+      "App installs",
+      "Retargeting",
+      "Brand",
+      "Events"
+    ],
+    "campaignType": "Campaign type"
+  },
+  "takeaway-basic": {
+    "halfOfSign": "Half of sign-ups leave at identity verification."
+  },
+  "toast-place-mobile": {
+    "saved": "Saved",
+    "undo": "Undo"
+  },
+  "toast-status": {
+    "undo": "Undo",
+    "info": "Info",
+    "newDataArrived": "New data arrived",
+    "done": "Done",
+    "saved": "Saved",
+    "warning": "Warning",
+    "responsesAreSlower": "Responses are slower than usual",
+    "error": "Error",
+    "couldnTSave": "Couldn't save",
+    "retry": "Retry",
+    "widgetHidden": "Widget hidden",
+    "restored": "Restored"
+  },
+  "typography-sizes": {
+    "quickBrownFox": "Quick brown fox 48.2K"
+  }
+}

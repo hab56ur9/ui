@@ -1,22 +1,22 @@
 import { Carousel, MiniCard } from "ui";
-import { useT } from "../demo";
+import { fill, useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("carousel-mini");
   const topics = [
-    [t({ ko: "자연", en: "Nature" }), 7],
-    [t({ ko: "음식", en: "Food" }), 1],
-    [t({ ko: "여행", en: "Travel" }), 2],
-    [t({ ko: "카페", en: "Cafes" }), 4],
-    [t({ ko: "운동", en: "Fitness" }), 5],
-    [t({ ko: "사진", en: "Photo" }), 3],
-    [t({ ko: "반려동물", en: "Pets" }), 6],
+    [text.nature, 7],
+    [text.food, 1],
+    [text.travel, 2],
+    [text.cafes, 4],
+    [text.fitness, 5],
+    [text.photo, 3],
+    [text.pets, 6],
   ] as const;
   return (
     <div style={{ maxWidth: 420 }}>
-      <Carousel size="mini" label={t({ ko: "주제", en: "Topics" })}>
+      <Carousel size="mini" label={text.topics}>
         {topics.map(([title, seed], i) => (
-          <MiniCard key={title} image={{ alt: title, seed }} title={title} meta={t({ ko: `게시물 ${i + 2}.${i}천개`, en: `${i + 2}.${i}K posts` })} onSelect={() => undefined} />
+          <MiniCard key={title} image={{ alt: title, seed }} title={title} meta={fill(text.posts, { count: `${i + 2}.${i}` })} onSelect={() => undefined} />
         ))}
       </Carousel>
     </div>

@@ -1,32 +1,32 @@
 import { useState } from "react";
 import { Tabs } from "ui";
-import { useT } from "../demo";
+import { useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("tabs-pill");
   const [range, setRange] = useState("7d");
   return (
     <div style={{ display: "grid", gap: "var(--space-6)" }}>
       <Tabs
         variant="pill"
-        label={t({ ko: "기간", en: "Range" })}
+        label={text.range}
         value={range}
         onChange={setRange}
         items={[
-          { id: "1d", label: t({ ko: "오늘", en: "Today" }) },
-          { id: "7d", label: t({ ko: "7일", en: "7 days" }) },
-          { id: "30d", label: t({ ko: "30일", en: "30 days" }) },
-          { id: "90d", label: t({ ko: "90일", en: "90 days" }) },
+          { id: "1d", label: text.today },
+          { id: "7d", label: text.n7Days },
+          { id: "30d", label: text.n30Days },
+          { id: "90d", label: text.n90Days },
         ]}
       />
       <Tabs
         variant="pill"
         fill
-        label={t({ ko: "보기", en: "View" })}
+        label={text.view}
         items={[
-          { id: "chart", label: t({ ko: "차트", en: "Chart" }), icon: "chart-line" },
-          { id: "table", label: t({ ko: "표", en: "Table" }), icon: "table" },
-          { id: "alerts", label: t({ ko: "알림", en: "Alerts" }), icon: "bell", badge: 12 },
+          { id: "chart", label: text.chart, icon: "chart-line" },
+          { id: "table", label: text.table, icon: "table" },
+          { id: "alerts", label: text.alerts, icon: "bell", badge: 12 },
         ]}
       />
     </div>

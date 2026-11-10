@@ -1,5 +1,5 @@
 import { LineChart, type Point } from "ui";
-import { Canvas, DAY, series, useFmt, useT } from "../demo";
+import { Canvas, DAY, series, useFmt, useText } from "../demo";
 
 const actual = series(17, 45, 400000, 900, 16000);
 const last = actual[actual.length - 1];
@@ -8,16 +8,16 @@ const spread = (k: number) => 9000 * Math.sqrt(k + 1);
 const edge = (sign: number): Point[] => [last, ...ahead.map(({ t, v }, k) => ({ t, v: v + sign * spread(k) }))];
 
 export default function Example() {
-  const t = useT();
+  const text = useText("line-forecast");
   const fmt = useFmt();
   return (
     <Canvas height={220}>
       <LineChart
         series={[
-          { name: t({ ko: "실측", en: "Actual" }), color: 1, points: actual },
-          { name: t({ ko: "예측", en: "Forecast" }), color: 1, dashed: true, points: [last, ...ahead] },
+          { name: text.actual, color: 1, points: actual },
+          { name: text.forecast, color: 1, dashed: true, points: [last, ...ahead] },
         ]}
-        band={{ name: t({ ko: "95% 구간", en: "95% interval" }), color: 1, lower: edge(-1), upper: edge(1) }}
+        band={{ name: text.n95Interval, color: 1, lower: edge(-1), upper: edge(1) }}
         format={{ axis: fmt.count }}
         endLabels={false}
       />

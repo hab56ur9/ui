@@ -1,20 +1,15 @@
 import { DataTable, Sparkline } from "ui";
-import { Canvas, useFmt, usePlatforms, useT } from "../demo";
+import { Canvas, useFmt, usePlatforms, useText } from "../demo";
 
 const CHANGES = [0.049, 0.031, -0.012];
 
 export default function Example() {
-  const t = useT();
+  const text = useText("table-trend");
   const fmt = useFmt();
   return (
     <Canvas height={200}>
       <DataTable
-        columns={[
-          { label: t({ ko: "플랫폼", en: "Platform" }) },
-          { label: t({ ko: "일 평균", en: "Daily avg" }), numeric: true },
-          { label: t({ ko: "변화", en: "Change" }), numeric: true },
-          { label: t({ ko: "추이", en: "Trend" }) },
-        ]}
+        columns={[{ label: text.platform }, { label: text.dailyAvg, numeric: true }, { label: text.change, numeric: true }, { label: text.trend }]}
         rows={usePlatforms().map((platform, i) => [
           { text: platform.name, color: platform.color },
           fmt.full(platform.points[platform.points.length - 1].v),

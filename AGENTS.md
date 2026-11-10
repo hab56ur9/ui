@@ -58,7 +58,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card, an untitled widget drops its header.
 - `Modal` and `Sheet` are controlled native dialogs with an `inline` docs mode; `UIProvider` hosts toasts and confirms.
 - `AppShell` takes `mobileNav="tabs"` to show `TabBar` instead of the drawer below 1024px, and `tabBar` for its `variant` (`bar`, `floating`) and `labels` (`show`, `active`, `hide`). An SDUI app sets the same through `navBar`.
-- `ThemePicker` opens a palette of the color presets and the mode switch, applies `data-preset` and `data-theme` to the root, and reports through `onChange`. `ui.js` loads `presets.css` so review pages can carry `ThemePicker` with `floating`.
+- `ThemePicker` opens the preset palette and mode switch, sets `data-preset` and `data-theme` on the root, and reports through `onChange`.
 - Each preset's sub color is a gray tinted toward its main hue (`lime-gray`, `sky-gray`); the theme's default sub matches the lime preset.
 - `Image` draws a gradient placeholder without `src`; portrait is 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
 - `Badge`, `Card` and `Callout` are the shared status label, bordered group and notice; `DataTable` takes `fit` and column `wrap` for documents.
@@ -79,12 +79,13 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - JSON is the source; it renders at request time in the browser and can be pre-rendered on the server with the same engine.
 - `Page` and `WidgetGrid` make the page frame and static grid expressible as nodes.
 - `blocks/dashboard-mobile` (TSX) and `blocks/sdui-dashboard` (JSON) draw the same screen; their HTML must match.
-- `blocks/sdui` holds the sample app protocol (`AppView`: menu, screens, overlays, `navBar`, `density`) and the social and fitness apps; the builder reads `dist/components.json`.
+- `blocks/sdui` holds the sample app protocol (`AppView`) and two sample apps; the builder reads `dist/components.json`.
 
 ## Docs
 
 - The docs are one page; new examples and blocks become sections or tabs, never HTML entry points.
 - Components group into inputs, navigation, feedback, data, content, renderers and frames; Templates holds templates and slide layouts.
+- Components take one value per prop and inherit the language from `UIProvider lang`. Example text lives in `docs/text/{ko,en}.json`; an example reads one language with `useText(name)`, as if a server sent it.
 - A component page needs an example file in `docs/examples/`, an entry in `docs/pages.ts` and `docs/pages.en.ts`, and an API table in `docs/api.ts` and `docs/api.en.ts`.
 - Examples show without clicks, one per row. Overlays and screen-anchored parts render `inline` in `docs/Mockup.tsx`: a text-free app in a browser or phone (`device`, `place`). A demo with both screens uses `variants` (desktop, mobile) as one demo with a device switch.
 - The Theme tab (`docs/TokenReview.tsx`) lists contrast failures, low-contrast series slots, misordered type scales and unused primitives.

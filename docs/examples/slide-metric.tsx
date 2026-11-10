@@ -1,20 +1,20 @@
 import { Deck, MetricSlide } from "ui";
-import { useFmt, useT } from "../demo";
+import { useFmt, useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("slide-metric");
   const fmt = useFmt();
-  const since = t({ ko: "이전 30일 대비", en: "vs previous 30 days" });
+  const since = text.vsPrevious30;
   return (
     <Deck controls={false}>
       <MetricSlide
-        title={t({ ko: "한 달 요약", en: "Month in brief" })}
-        takeaway={t({ ko: "사용자와 매출이 함께 늘었습니다.", en: "Users and revenue rose together." })}
-        source={t({ ko: "출처: Acme 분석", en: "Source: Acme Analytics" })}
+        title={text.monthInBrief}
+        takeaway={text.usersAndRevenue}
+        source={text.sourceAcmeAnalytics}
         metrics={[
-          { label: t({ ko: "활성 사용자", en: "Active users" }), value: fmt.count(471000), delta: { change: 0.063, label: since } },
-          { label: t({ ko: "매출", en: "Revenue" }), value: fmt.won(3810000000), delta: { change: 0.046, label: since } },
-          { label: t({ ko: "p95 응답 시간", en: "p95 latency" }), value: fmt.ms(176), delta: { change: -0.04, goodWhenUp: false, label: since } },
+          { label: text.activeUsers, value: fmt.count(471000), delta: { change: 0.063, label: since } },
+          { label: text.revenue, value: fmt.won(3810000000), delta: { change: 0.046, label: since } },
+          { label: text.p95Latency, value: fmt.ms(176), delta: { change: -0.04, goodWhenUp: false, label: since } },
         ]}
       />
     </Deck>

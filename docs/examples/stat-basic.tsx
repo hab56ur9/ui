@@ -1,10 +1,10 @@
 import { Stat } from "ui";
-import { Panel, series, useFmt, useT } from "../demo";
+import { Panel, series, useFmt, useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("stat-basic");
   const fmt = useFmt();
-  const label = t({ ko: "이전 30일 대비", en: "vs previous 30 days" });
+  const label = text.vsPrevious30;
   return (
     <div className="docs-cards">
       <Panel height={150}>

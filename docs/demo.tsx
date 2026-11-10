@@ -1,5 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { DAY, useI18n, type Point } from "ui";
+import en from "./text/en.json";
+import ko from "./text/ko.json";
 
 export { DAY };
 export const END = new Date(2026, 10, 7).getTime();
@@ -17,6 +19,13 @@ export const series = (seed: number, n: number, base: number, drift: number, noi
     return { t: END - (n - 1 - i) * DAY, v };
   });
 };
+
+export const fill = (template: string, values: Record<string, string | number>) => template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ""));
+
+export function useText<K extends keyof typeof en>(name: K): (typeof en)[K] {
+  const { lang } = useI18n();
+  return (lang === "en" ? en : ko)[name] as (typeof en)[K];
+}
 
 export function useT() {
   const { lang } = useI18n();

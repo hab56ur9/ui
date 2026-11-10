@@ -1,15 +1,11 @@
 import { AgendaSlide, Deck } from "ui";
-import { useT } from "../demo";
+import { useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("slide-agenda");
   return (
     <Deck controls={false}>
-      <AgendaSlide
-        title={t({ ko: "순서", en: "Agenda" })}
-        current={1}
-        items={t({ ko: ["한 달 요약", "사용자", "성능", "다음 할 일"], en: ["Month in brief", "Users", "Performance", "Next steps"] })}
-      />
+      <AgendaSlide title={text.agenda} current={1} items={text.items} />
     </Deck>
   );
 }

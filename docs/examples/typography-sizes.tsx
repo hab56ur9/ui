@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Segmented } from "ui";
-import { Row, useT } from "../demo";
+import { Row, useText } from "../demo";
 
 const SIZES = ["caption", "label", "body", "title", "heading", "stat", "display"];
 const MEDIA = ["app", "doc", "slide"] as const;
 
 export default function Example() {
-  const t = useT();
+  const text = useText("typography-sizes");
   const [medium, setMedium] = useState<(typeof MEDIA)[number]>("app");
   return (
     <>
@@ -17,7 +17,7 @@ export default function Example() {
         {SIZES.map((size) => (
           <div className="docs-specimen" key={size}>
             <code>{`font.size.${size}`}</code>
-            <span style={{ fontSize: `var(--font-size-${size})` }}>{t({ ko: "다람쥐 헌 쳇바퀴 47.1만", en: "Quick brown fox 48.2K" })}</span>
+            <span style={{ fontSize: `var(--font-size-${size})` }}>{text.quickBrownFox}</span>
           </div>
         ))}
       </div>

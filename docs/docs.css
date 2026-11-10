@@ -1611,3 +1611,13 @@
 .docs-cards .card ul {
   margin: 0;
 }
+
+.docs-example-files {
+  padding: var(--space-2) var(--space-3) 0;
+}
+
+.docs-example-files .tabs-tab {
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-caption);
+}

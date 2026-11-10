@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button } from "ui";
-import { Row, useT } from "../demo";
+import { Row, useText } from "../demo";
 
 const PAIRS = [
   { duration: "fast", easing: "exit" },
@@ -11,7 +11,7 @@ const PAIRS = [
 const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 export default function Example() {
-  const t = useT();
+  const text = useText("motion-curves");
   const tracks = useRef<HTMLDivElement[]>([]);
   const forward = useRef(true);
   const play = () => {
@@ -38,7 +38,7 @@ export default function Example() {
       ))}
       <Row>
         <Button variant="primary" onClick={play}>
-          {t({ ko: "재생", en: "Play" })}
+          {text.play}
         </Button>
       </Row>
     </>

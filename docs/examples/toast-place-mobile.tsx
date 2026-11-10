@@ -1,12 +1,12 @@
 import { Toast } from "ui";
-import { useT } from "../demo";
+import { useText } from "../demo";
 import { Mockup } from "../Mockup";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("toast-place-mobile");
   return (
     <Mockup device="mobile">
-      <Toast status="good" message={t({ ko: "저장했습니다", en: "Saved" })} action={{ label: t({ ko: "되돌리기", en: "Undo" }) }} />
+      <Toast status="good" message={text.saved} action={{ label: text.undo }} />
     </Mockup>
   );
 }

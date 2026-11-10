@@ -1,21 +1,21 @@
 import { Button, Toast, useToast, type ToastProps } from "ui";
-import { Row, useT } from "../demo";
+import { Row, useText } from "../demo";
 import { Mockup } from "../Mockup";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("toast-status");
   const toast = useToast();
-  const undo = t({ ko: "실행 취소", en: "Undo" });
+  const undo = text.undo;
   const samples: [string, ToastProps][] = [
-    [t({ ko: "알림", en: "Info" }), { message: t({ ko: "새 데이터가 들어왔습니다", en: "New data arrived" }) }],
-    [t({ ko: "완료", en: "Done" }), { message: t({ ko: "저장했습니다", en: "Saved" }), status: "good" }],
-    [t({ ko: "주의", en: "Warning" }), { message: t({ ko: "응답이 평소보다 느립니다", en: "Responses are slower than usual" }), status: "warning" }],
-    [t({ ko: "오류", en: "Error" }), { message: t({ ko: "저장하지 못했습니다", en: "Couldn't save" }), status: "critical", action: { label: t({ ko: "다시 시도", en: "Retry" }) } }],
+    [text.info, { message: text.newDataArrived }],
+    [text.done, { message: text.saved, status: "good" }],
+    [text.warning, { message: text.responsesAreSlower, status: "warning" }],
+    [text.error, { message: text.couldnTSave, status: "critical", action: { label: text.retry } }],
     [
       undo,
       {
-        message: t({ ko: "위젯을 숨겼습니다", en: "Widget hidden" }),
-        action: { label: undo, onClick: () => toast({ message: t({ ko: "되돌렸습니다", en: "Restored" }), status: "good" }) },
+        message: text.widgetHidden,
+        action: { label: undo, onClick: () => toast({ message: text.restored, status: "good" }) },
       },
     ],
   ];

@@ -1,13 +1,13 @@
 import { DataTable, Sparkline } from "ui";
-import { Canvas, useFmt, usePlatforms, useT } from "../demo";
+import { Canvas, useFmt, usePlatforms, useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("table-small");
   const fmt = useFmt();
   return (
     <Canvas height={200}>
       <DataTable
-        columns={[{ label: t({ ko: "플랫폼", en: "Platform" }) }, { label: t({ ko: "일 평균", en: "Daily avg" }), numeric: true }, { label: t({ ko: "추이", en: "Trend" }) }]}
+        columns={[{ label: text.platform }, { label: text.dailyAvg, numeric: true }, { label: text.trend }]}
         rows={usePlatforms().map((platform) => [
           { text: platform.name, color: platform.color },
           fmt.full(platform.points[platform.points.length - 1].v),

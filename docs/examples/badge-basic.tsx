@@ -1,16 +1,16 @@
 import { Badge, type BadgeTone } from "ui";
-import { Row, useT } from "../demo";
+import { Row, useText } from "../demo";
 
 const TONES: BadgeTone[] = ["neutral", "main", "good", "warning", "critical"];
 
 export default function Example() {
-  const t = useT();
+  const text = useText("badge-basic");
   const names: Record<BadgeTone, string> = {
-    neutral: t({ ko: "기본", en: "Neutral" }),
-    main: t({ ko: "강조", en: "Main" }),
-    good: t({ ko: "정상", en: "Good" }),
-    warning: t({ ko: "주의", en: "Warning" }),
-    critical: t({ ko: "오류", en: "Critical" }),
+    neutral: text.neutral,
+    main: text.main,
+    good: text.good,
+    warning: text.warning,
+    critical: text.critical,
   };
   return (
     <div style={{ display: "grid", gap: "var(--space-4)" }}>

@@ -1,0 +1,588 @@
+{
+  "badge-basic": {
+    "neutral": "기본",
+    "main": "강조",
+    "good": "정상",
+    "warning": "주의",
+    "critical": "오류"
+  },
+  "bar-basic": {
+    "signUps": "신규 가입"
+  },
+  "bar-emphasis": {
+    "signUps": "신규 가입"
+  },
+  "bar-weekly": {
+    "weeklyDistance": "주간 거리"
+  },
+  "board-basic": {
+    "vsPrevious30": "이전 30일 대비",
+    "activeUsers": "활성 사용자",
+    "dailyAverage": "일 평균",
+    "revenue": "매출",
+    "total": "합계",
+    "errorRate": "오류율",
+    "average": "평균",
+    "usersByPlatform": "플랫폼별 사용자",
+    "last60Days": "최근 60일"
+  },
+  "board-events": {
+    "layoutSavedTo": "배치를 서버에 저장했습니다",
+    "activeUsers": "활성 사용자",
+    "revenue": "매출",
+    "errorRate": "오류율",
+    "counts": "변경 {changes} · 커밋 {commits}"
+  },
+  "bullets-basic": {
+    "items": [
+      "인증 문자가 늦게 옵니다",
+      {
+        "text": "필요한 서류를 미리 알 수 없습니다",
+        "items": [
+          "신분증 종류가 안내되지 않습니다",
+          "사진 조건이 마지막에 나옵니다"
+        ]
+      },
+      "실패하면 처음부터 다시 해야 합니다"
+    ]
+  },
+  "button-basic": {
+    "secondary": "보조",
+    "primary": "주요",
+    "danger": "위험",
+    "disabled": "비활성"
+  },
+  "callout-basic": {
+    "note": "알아 두기",
+    "newDataArrives": "새 데이터는 매시 정각에 들어옵니다.",
+    "tip": "팁",
+    "dragWidgetsTo": "위젯을 끌어 순서를 바꿀 수 있습니다.",
+    "decisionNeeded": "결정 필요",
+    "turningPromoAlerts": "홍보 알림 기본값 끄기는 마케팅 팀 합의가 필요합니다."
+  },
+  "card-basic": {
+    "basicPlan": "기본 요금제",
+    "oneDashboardFor": "작은 팀이 대시보드 하나를 씁니다.",
+    "teamPlan": "팀 요금제",
+    "current": "사용 중",
+    "unlimitedDashboardsAnd": "대시보드와 알림을 무제한으로 씁니다.",
+    "viewSettings": "설정 보기",
+    "billingSync": "결제 연동",
+    "needsReview": "확인 필요",
+    "theCardExpires": "카드 만료일이 이번 달입니다."
+  },
+  "carousel-basic": {
+    "mangwonHanRiver": "망원 한강공원",
+    "sunsetSpot": "노을 명소",
+    "baegundaeBukhansan": "북한산 백운대",
+    "lastColorsBefore": "첫눈 전 마지막 단풍",
+    "seongsuCafeStreet": "성수 카페 거리",
+    "weekendBrunch": "주말 브런치",
+    "seoulForestGinkgo": "서울숲 은행나무길",
+    "theYellowestPath": "지금 가장 노란 길",
+    "placesToGo": "추천 장소"
+  },
+  "carousel-card": {
+    "mangwonHanRiver": "망원 한강공원",
+    "sunsetSpot": "노을 명소",
+    "baegundaeBukhansan": "북한산 백운대",
+    "lastColorsBefore": "첫눈 전 마지막 단풍",
+    "seongsuCafeStreet": "성수 카페 거리",
+    "weekendBrunch": "주말 브런치",
+    "seoulForestGinkgo": "서울숲 은행나무길",
+    "theYellowestPath": "지금 가장 노란 길",
+    "ikseonDongAlleys": "익선동 골목",
+    "aWalkBetween": "한옥 사이 산책",
+    "placesToGo": "추천 장소"
+  },
+  "carousel-mini": {
+    "nature": "자연",
+    "food": "음식",
+    "travel": "여행",
+    "cafes": "카페",
+    "fitness": "운동",
+    "photo": "사진",
+    "pets": "반려동물",
+    "topics": "주제",
+    "posts": "게시물 {count}천개"
+  },
+  "changelog-basic": {
+    "frontendTeam": "프론트엔드 팀",
+    "addedFailureHandling": "실패 처리를 추가했습니다.",
+    "firstDraft": "초안"
+  },
+  "confirm-danger": {
+    "deleteThisWidget": "위젯을 삭제할까요?",
+    "theWidgetAnd": "삭제한 위젯과 설정은 되돌릴 수 없습니다.",
+    "cancel": "취소",
+    "delete": "삭제",
+    "deleted": "삭제했습니다",
+    "canceled": "취소했습니다",
+    "deleteWidget": "위젯 삭제"
+  },
+  "confirm-mobile": {
+    "deleteThisWidget": "위젯을 삭제할까요?",
+    "theWidgetAnd": "삭제한 위젯과 설정은 되돌릴 수 없습니다.",
+    "cancel": "취소",
+    "delete": "삭제"
+  },
+  "deck-basic": {
+    "signUpFixes": "가입 개선",
+    "productReviewNovember": "제품 리뷰 · 11월",
+    "signUpFix": "가입 개선 계획",
+    "swipeUseThe": "넘겨 보세요: 스와이프, 방향키, 버튼",
+    "source12User": "출처: 사용자 인터뷰 12건",
+    "leadWithThe": "인증 단계 이탈을 먼저 말합니다.",
+    "whyPeopleQuit": "가입을 그만둔 이유",
+    "halfOfThem": "본인 인증 단계에서 절반이 떠납니다.",
+    "items": [
+      "인증 문자가 늦게 옵니다",
+      "필요한 서류를 미리 알 수 없습니다"
+    ],
+    "nextSteps": "다음 할 일",
+    "items2": [
+      {
+        "title": "문자 대기 줄이기"
+      },
+      {
+        "title": "서류 미리 안내"
+      },
+      {
+        "title": "실패 지점 저장"
+      }
+    ]
+  },
+  "doc-basic": {
+    "batchingNotifications": "알림 묶어 보내기",
+    "sendAUser": "같은 사용자에게 가는 알림을 5분 단위로 묶어 한 번에 보냅니다.",
+    "notificationsTeam": "알림 팀",
+    "background": "배경",
+    "atPeakHours": "바쁜 시간대에는 한 사용자가 1분에 알림을 열 개 넘게 받습니다.",
+    "requirements": "요구사항",
+    "aUserGets": "같은 사용자의 알림은 5분 안에 한 번만 보냅니다.",
+    "securityAlertsSkip": "보안 알림은 묶지 않고 바로 보냅니다.",
+    "design": "설계",
+    "securityAlertsBypass": "보안 알림은 큐를 건너뜁니다. 이렇게 ",
+    "text": "를 만족합니다."
+  },
+  "figure-basic": {
+    "dailyLayoutResets": "일별 배치 초기화 횟수",
+    "resets": "초기화",
+    "savedSizeBy": "위젯 수에 따른 저장 크기",
+    "widgets": "위젯 수",
+    "savedSize": "저장 크기"
+  },
+  "heatmap-calendar": {
+    "items": [
+      "월",
+      "",
+      "수",
+      "",
+      "금",
+      "",
+      "일"
+    ]
+  },
+  "heatmap-week": {
+    "items": [
+      "월",
+      "화",
+      "수",
+      "목",
+      "금",
+      "토",
+      "일"
+    ],
+    "h": "시"
+  },
+  "icons-button": {
+    "addWidget": "위젯 추가",
+    "download": "내려받기",
+    "delete": "삭제"
+  },
+  "icons-size": {
+    "done": "완료"
+  },
+  "image-basic": {
+    "squarePhoto": "정사각형 사진",
+    "portraitPhoto": "세로 사진",
+    "landscapePhoto": "가로 사진",
+    "seoulForestGinkgo": "서울숲 은행나무길",
+    "theYellowestPath": "지금 가장 노란 길",
+    "n21kPosts": "게시물 2.1천개",
+    "popular": "인기"
+  },
+  "jsonui-basic": {
+    "visitors": "방문자",
+    "vsLastWeek": "지난주 대비",
+    "openReport": "리포트 열기"
+  },
+  "jsonui-template": {
+    "ordersToday": "오늘 주문",
+    "recentOrders": "최근 주문",
+    "order": "주문",
+    "item": "상품",
+    "amount": "금액",
+    "status": "상태",
+    "item2": {
+      "paid": "결제 완료",
+      "shipped": "배송 중",
+      "refunded": "환불"
+    },
+    "export": "내려받기"
+  },
+  "line-area": {
+    "activeUsers": "활성 사용자"
+  },
+  "line-emphasis": {
+    "thisYear": "올해",
+    "lastYear": "작년"
+  },
+  "line-forecast": {
+    "actual": "실측",
+    "forecast": "예측",
+    "n95Interval": "95% 구간"
+  },
+  "line-index": {
+    "revenue": "매출",
+    "users": "사용자"
+  },
+  "line-threshold": {
+    "overSlo": "SLO 초과"
+  },
+  "markdown-basic": {
+    "source": "# 알림 센터 개편\n\n흩어진 알림을 **한곳**에 모아, 결제 실패 같은 중요한 알림을 *놓치지 않게* 합니다. 자세한 배경은 [설계 문서](#)에 있습니다.\n\n## 목표\n\n1. 결제 실패 확인을 `1일 이내`로 줄입니다\n2. 알림 끄기 비율을 10%로 낮춥니다\n   - 홍보 알림은 기본값을 끔\n   - ~~모든 알림 묶기~~는 이번 범위에서 뺍니다\n\n## 할 일\n\n- [x] 화면 설계\n- [ ] 베타 배포\n- [ ] 전체 출시\n\n> [!WARNING] 결정 필요\n> 홍보 알림 기본값 끄기는 마케팅 팀 합의가 필요합니다.\n\n| 지표 | 지금 | 목표 |\n| --- | ---: | ---: |\n| 결제 실패 확인 | 2.4일 | 1일 |\n| 알림 끄기 | 18% | 10% |\n\n```ts\nconst unread = notifications.filter((n) => !n.read);\n```\n\n---\n\n> 알림은 적을수록 잘 읽힙니다."
+  },
+  "markdown-editor": {
+    "source": "# 주간 회고\n\n이번 주에 **잘 된 것**과 아쉬운 것을 블록 단위로 적습니다. `- `를 치면 바로 목록이 되고, `/`를 치면 블록과 UI를 고를 수 있습니다. 왼쪽 손잡이로 블록을 끌어 옮깁니다.\n\n## 잘 된 것\n\n- 알림 센터 베타 배포\n- 결제 실패 확인 시간 2.4일 → 1.2일\n\n## 다음 주\n\n- [x] 회고 정리\n- [ ] 단계 출시 준비\n\n> [!NOTE] 메모\n> 표준 마크다운 표는 디자인 시스템의 표로 그려집니다.\n\n| 지표 | 지난주 | 이번 주 |\n| --- | ---: | ---: |\n| 결제 실패 확인 | 2.4일 | 1.2일 |\n| 알림 끄기 | 18% | 15% |"
+  },
+  "markdown-ui": {
+    "todaySVisits": "## 오늘의 방문\n\n아래 카드는 마크다운 안의 `ui` 코드 블록에 적은 JSON으로 그렸습니다.\n\n```ui\n{ \"type\": \"Widget\", \"props\": { \"id\": \"visits\", \"title\": \"방문자\", \"w\": 6, \"h\": 2 },\n  \"children\": { \"type\": \"Stat\", \"props\": { \"value\": { \"$data\": \"visits.today\", \"$format\": \"count\" }, \"delta\": { \"change\": { \"$data\": \"visits.change\" }, \"label\": \"어제 대비\" } } } }\n```\n\n```ui\n{ \"type\": \"Button\", \"props\": { \"variant\": \"primary\", \"onClick\": { \"$action\": { \"name\": \"open-report\" } } }, \"children\": \"리포트 열기\" }\n```"
+  },
+  "modal-mobile": {
+    "exportReport": "보고서 내보내기",
+    "downloadTheSelected": "선택한 기간의 데이터를 CSV로 내려받습니다.",
+    "cancel": "취소",
+    "export": "내보내기"
+  },
+  "modal-sizes": {
+    "exportReport": "보고서 내보내기",
+    "downloadTheSelected": "선택한 기간의 데이터를 CSV로 내려받습니다.",
+    "cancel": "취소",
+    "export": "내보내기",
+    "theFileHolds": "파일에는 위젯별 일간 값이 들어갑니다.",
+    "open": "{size} 열기"
+  },
+  "motion-curves": {
+    "play": "재생"
+  },
+  "options-basic": {
+    "saveInThe": "브라우저에 저장합니다.",
+    "noServerWork": "서버 작업이 없습니다",
+    "savedPerDevice": "기기마다 따로 저장됩니다",
+    "estimatedWork": "예상 작업",
+    "n2Days": "2일",
+    "server": "서버 저장",
+    "saveThroughA": "설정 API에 저장합니다.",
+    "followsTheUser": "기기 사이에 이어집니다",
+    "needsAnApi": "API와 인증이 필요합니다",
+    "needsASecurity": "보안 검토 필요",
+    "n2Weeks": "2주"
+  },
+  "portfolio-frame": {
+    "haneulKim": "김하늘",
+    "backendEngineerPortfolio": "백엔드 엔지니어 포트폴리오",
+    "projectsWhereSmall": "작은 변경으로 큰 지표를 움직인 프로젝트입니다.",
+    "keyProjects": "주요 프로젝트",
+    "rewardPayoutRedesign": "보상 지급 시스템 재설계",
+    "designAndBuild": "설계·구현 리드",
+    "payoutFlow": "지급 흐름도",
+    "aDedupKey": "중복 지급을 막는 키를 설계해 사고를 없앴습니다.",
+    "doublePayouts": "중복 지급",
+    "n0": "0건",
+    "throughput": "처리량"
+  },
+  "requirements-basic": {
+    "theLayoutSurvives": "새로고침 뒤에도 배치가 유지됩니다.",
+    "itWorksWithout": "저장소가 없어도 동작합니다.",
+    "privateMode": "사생활 보호 모드",
+    "aLayoutReset": "배치 초기화를 되돌릴 수 있습니다.",
+    "layoutsAreSaved": "서버에 저장합니다."
+  },
+  "resume-frame": {
+    "haneulKim": "김하늘",
+    "backendEngineer": "백엔드 엔지니어",
+    "eightYearsBuilding": "결제와 정산 시스템을 8년 동안 만들었습니다.",
+    "experience": "경력",
+    "seniorEngineer": "시니어 엔지니어",
+    "examplepay": "예시페이",
+    "cutSettlementDelay": "정산 지연을 하루에서 10분으로 줄였습니다."
+  },
+  "segmented-basic": {
+    "range": "기간",
+    "n7d": "7일",
+    "n30d": "30일",
+    "n90d": "90일",
+    "n1y": "1년"
+  },
+  "sheet-desktop": {
+    "saveYourChanges": "변경 사항을 저장할까요?",
+    "discard": "버리기",
+    "save": "저장",
+    "unsavedEditsWill": "저장하지 않으면 이번 수정 내용이 사라집니다."
+  },
+  "sheet-list": {
+    "items": [
+      "최근 7일",
+      "최근 30일",
+      "최근 90일"
+    ],
+    "chooseARange": "기간 선택",
+    "openListSheet": "목록 시트 열기",
+    "openActionSheet": "액션 시트 열기",
+    "saveYourChanges": "변경 사항을 저장할까요?",
+    "discard": "버리기",
+    "save": "저장",
+    "unsavedEditsWill": "저장하지 않으면 이번 수정 내용이 사라집니다."
+  },
+  "slide-agenda": {
+    "agenda": "순서",
+    "items": [
+      "한 달 요약",
+      "사용자",
+      "성능",
+      "다음 할 일"
+    ]
+  },
+  "slide-chart": {
+    "activeUsersBy": "플랫폼별 활성 사용자",
+    "androidIsThe": "Android가 가장 많고, iOS가 가장 빠르게 늘었습니다.",
+    "sourceAcmeAnalytics": "출처: Acme 분석, 일간 집계"
+  },
+  "slide-closing": {
+    "summary": "정리",
+    "items": [
+      "사용자와 매출이 함께 늘었습니다",
+      "응답 시간과 오류율은 안정적입니다",
+      "다음 달에는 웹 성장에 집중합니다"
+    ],
+    "dataTeamQuestions": "데이터 팀 · 질문은 #data 채널로"
+  },
+  "slide-compare": {
+    "signUpSteps": "가입 단계",
+    "twoFewerSteps": "단계를 둘 줄이면 완료율이 오릅니다.",
+    "now5Steps": "지금 · 5단계",
+    "emailPasswordIdentity": "이메일, 비밀번호, 본인 인증, 약관, 프로필을 차례로 받습니다.",
+    "after3Steps": "바꾼 뒤 · 3단계",
+    "anEmailLink": "이메일 링크로 들어오고, 인증과 약관을 한 화면에 모읍니다."
+  },
+  "slide-metric": {
+    "vsPrevious30": "이전 30일 대비",
+    "monthInBrief": "한 달 요약",
+    "usersAndRevenue": "사용자와 매출이 함께 늘었습니다.",
+    "sourceAcmeAnalytics": "출처: Acme 분석",
+    "activeUsers": "활성 사용자",
+    "revenue": "매출",
+    "p95Latency": "p95 응답 시간"
+  },
+  "slide-quote": {
+    "iWaitedFor": "인증 문자를 기다리다가 그냥 앱을 닫았어요.",
+    "interviewee7": "인터뷰 참가자 7",
+    "threeDaysAfter": "가입 3일 차 사용자",
+    "source12User": "출처: 사용자 인터뷰 12건"
+  },
+  "slide-section": {
+    "performance": "성능",
+    "latencyAndError": "응답 시간과 오류율"
+  },
+  "slide-split": {
+    "signUps": "신규 가입",
+    "weekendSignUps": "주말 가입이 평일보다 25% 많습니다.",
+    "items": [
+      "캠페인 주에 가장 많았습니다",
+      "주말 광고 비중을 늘립니다",
+      "가입 단계 축소는 다음 달에 반영됩니다"
+    ]
+  },
+  "slide-statement": {
+    "bottomLine": "결론",
+    "nextMonthWe": "다음 달에는 응답 시간을 안정시키는 데 집중합니다.",
+    "usersKeepGrowing": "사용자는 늘고 있어서, 느려지는 날이 줄면 성장이 그대로 이어집니다."
+  },
+  "slide-table": {
+    "platformSummary": "플랫폼 요약",
+    "androidIsThe": "Android가 가장 크고, iOS가 가장 빠르게 늘었습니다.",
+    "sourceAcmeAnalytics": "출처: Acme 분석",
+    "platform": "플랫폼",
+    "dailyAverage": "일 평균",
+    "share": "비중",
+    "change": "변화",
+    "web": "웹"
+  },
+  "slide-timeline": {
+    "releasePlan": "출시 일정",
+    "twoStagesAre": "두 단계가 끝났고, 공개 출시는 12월입니다.",
+    "items": [
+      {
+        "date": "9월",
+        "title": "설계",
+        "body": "요구사항과 화면 확정",
+        "done": true
+      },
+      {
+        "date": "10월",
+        "title": "개발",
+        "body": "API와 화면 구현",
+        "done": true
+      },
+      {
+        "date": "11월",
+        "title": "베타",
+        "body": "사용자 200명"
+      },
+      {
+        "date": "12월",
+        "title": "공개 출시",
+        "body": "전체 사용자"
+      }
+    ]
+  },
+  "slide-title": {
+    "acmeAnalyticsNovember": "Acme 분석 · 2026년 11월",
+    "monthlyServiceReview": "서비스 지표 월간 리뷰",
+    "theLast30": "최근 30일과 그 이전 30일을 비교합니다",
+    "dataTeamNovember": "데이터 팀 · 2026년 11월 9일"
+  },
+  "social-feed": {
+    "hanRiverPark": "한강공원",
+    "hanRiverSunset": "한강 노을",
+    "tonightSSunset": "오늘 노을은 10분 만에 지나갔다.",
+    "n5HoursAgo": "5시간 전"
+  },
+  "social-profile": {
+    "walkingShootingWriting": "걷고, 찍고, 기록합니다.",
+    "posts": "게시물",
+    "followers": "팔로워",
+    "following": "팔로잉",
+    "editProfile": "프로필 편집",
+    "shareProfile": "프로필 공유",
+    "minjiCooksLiked": "minji.cooks님이 사진을 좋아합니다",
+    "n5m": "5분",
+    "badaStartedFollowing": "bada님이 팔로우하기 시작했습니다",
+    "n3h": "3시간",
+    "photo": "사진 {n}"
+  },
+  "stat-basic": {
+    "vsPrevious30": "이전 30일 대비"
+  },
+  "stat-card": {
+    "vsPrevious30": "이전 30일 대비"
+  },
+  "steps-basic": {
+    "items": [
+      {
+        "title": "원인 찾기",
+        "body": "SLO를 넘은 날의 배포와 트래픽을 맞춰 봅니다."
+      },
+      {
+        "title": "캐시 개선",
+        "body": "가장 느린 API 세 개에 캐시를 붙입니다."
+      },
+      {
+        "title": "알림 조정",
+        "body": "p95가 230ms를 넘으면 미리 알립니다."
+      }
+    ]
+  },
+  "tabbar-basic": {
+    "today": "오늘",
+    "workouts": "운동",
+    "trends": "추세",
+    "profile": "내 정보"
+  },
+  "tabbar-floating": {
+    "home": "홈",
+    "explore": "탐색",
+    "activity": "알림",
+    "profile": "프로필",
+    "labels": "이름 표시"
+  },
+  "table-small": {
+    "platform": "플랫폼",
+    "dailyAvg": "일 평균",
+    "trend": "추이"
+  },
+  "table-trend": {
+    "platform": "플랫폼",
+    "dailyAvg": "일 평균",
+    "change": "변화",
+    "trend": "추이"
+  },
+  "tabs-basic": {
+    "campaign": "캠페인",
+    "overview": "개요",
+    "reach": "도달",
+    "clicks": "클릭",
+    "cost": "비용",
+    "activity": "활동",
+    "budgetRaised": "예산을 늘렸습니다",
+    "dailyBudget600k": "일 예산 ₩60만 → ₩80만",
+    "n10MinAgo": "10분 전",
+    "twoCreativesAdded": "소재 2개를 추가했습니다",
+    "n1HrAgo": "1시간 전",
+    "reviewPassed": "검수를 통과했습니다",
+    "yesterday": "어제",
+    "settings": "설정",
+    "changeThePeriod": "기간, 예산, 타기팅을 바꿉니다.",
+    "billing": "정산"
+  },
+  "tabs-pill": {
+    "range": "기간",
+    "today": "오늘",
+    "n7Days": "7일",
+    "n30Days": "30일",
+    "n90Days": "90일",
+    "view": "보기",
+    "chart": "차트",
+    "table": "표",
+    "alerts": "알림"
+  },
+  "tabs-scroll": {
+    "items": [
+      "전체",
+      "디스플레이",
+      "동영상",
+      "검색",
+      "쇼핑",
+      "앱 설치",
+      "리타기팅",
+      "브랜드",
+      "이벤트"
+    ],
+    "campaignType": "캠페인 유형"
+  },
+  "takeaway-basic": {
+    "halfOfSign": "본인 인증 단계에서 가입자 절반이 떠납니다."
+  },
+  "toast-place-mobile": {
+    "saved": "저장했습니다",
+    "undo": "되돌리기"
+  },
+  "toast-status": {
+    "undo": "실행 취소",
+    "info": "알림",
+    "newDataArrived": "새 데이터가 들어왔습니다",
+    "done": "완료",
+    "saved": "저장했습니다",
+    "warning": "주의",
+    "responsesAreSlower": "응답이 평소보다 느립니다",
+    "error": "오류",
+    "couldnTSave": "저장하지 못했습니다",
+    "retry": "다시 시도",
+    "widgetHidden": "위젯을 숨겼습니다",
+    "restored": "되돌렸습니다"
+  },
+  "typography-sizes": {
+    "quickBrownFox": "다람쥐 헌 쳇바퀴 47.1만"
+  }
+}

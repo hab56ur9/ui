@@ -1,23 +1,23 @@
 import { Board, LineChart, Stat, Widget } from "ui";
-import { series, useFmt, usePlatforms, useT } from "../demo";
+import { series, useFmt, usePlatforms, useText } from "../demo";
 
 export default function Example() {
-  const t = useT();
+  const text = useText("board-basic");
   const fmt = useFmt();
   const platforms = usePlatforms();
-  const label = t({ ko: "이전 30일 대비", en: "vs previous 30 days" });
+  const label = text.vsPrevious30;
   return (
     <Board>
-      <Widget id="users" w={4} h={2} title={t({ ko: "활성 사용자", en: "Active users" })} subtitle={t({ ko: "일 평균", en: "Daily average" })}>
+      <Widget id="users" w={4} h={2} title={text.activeUsers} subtitle={text.dailyAverage}>
         <Stat value={fmt.count(471000)} delta={{ change: 0.063, label }} trend={series(5, 24, 100, 1, 6)} />
       </Widget>
-      <Widget id="revenue" w={4} h={2} title={t({ ko: "매출", en: "Revenue" })} subtitle={t({ ko: "합계", en: "Total" })}>
+      <Widget id="revenue" w={4} h={2} title={text.revenue} subtitle={text.total}>
         <Stat value={fmt.won(3810000000)} delta={{ change: 0.046, label }} trend={series(6, 24, 100, 1, 9)} />
       </Widget>
-      <Widget id="errors" w={4} h={2} title={t({ ko: "오류율", en: "Error rate" })} subtitle={t({ ko: "평균", en: "Average" })}>
+      <Widget id="errors" w={4} h={2} title={text.errorRate} subtitle={text.average}>
         <Stat value={fmt.percent(0.0035)} delta={{ change: -0.11, goodWhenUp: false, label }} trend={series(8, 24, 40, -0.3, 5)} />
       </Widget>
-      <Widget id="platforms" w={12} h={4} title={t({ ko: "플랫폼별 사용자", en: "Users by platform" })} subtitle={t({ ko: "최근 60일", en: "Last 60 days" })}>
+      <Widget id="platforms" w={12} h={4} title={text.usersByPlatform} subtitle={text.last60Days}>
         <LineChart series={platforms} format={{ axis: fmt.count }} />
       </Widget>
     </Board>

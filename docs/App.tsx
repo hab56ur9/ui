@@ -1,4 +1,6 @@
 import { Component, Fragment, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
+import enText from "./text/en.json";
+import koText from "./text/ko.json";
 import { Badge, Button, Card as UICard, CodeBlock, DataTable, Icon, Segmented, Tabs as UITabs, ThemePicker, UIProvider, useI18n, useToast } from "ui";
 import { api as apiKo } from "./api";
 import { api as apiEn } from "./api.en";
@@ -17,6 +19,7 @@ const blockFiles = import.meta.glob<string>(["../blocks/*/*.tsx", "../blocks/*/*
 const blockViews = import.meta.glob<{ default: ComponentType }>(["../blocks/*/Dashboard.tsx", "../blocks/*/Deck.tsx", "../blocks/*/Doc.tsx", "../blocks/*/Screen.tsx"], { eager: true });
 
 const example = (name: string) => ({ Demo: modules[`./examples/${name}.tsx`].default, source: sources[`./examples/${name}.tsx`] });
+const textOf = (name: string, lang: Lang) => (lang === "en" ? enText : koText)[name as keyof typeof enText];
 
 const COPY = {
   ko: {
@@ -158,15 +161,7 @@ function useCopy() {
 
 function Card({ title, body, items, kind, label }: { title?: string; body?: string; items?: string[]; kind?: "do" | "dont"; label?: string }) {
   return (
-    <UICard
-      title={
-        label ? (
-          <Badge tone={kind === "dont" ? "critical" : "good"}>{label}</Badge>
-        ) : (
-          title
-        )
-      }
-    >
+    <UICard title={label ? <Badge tone={kind === "dont" ? "critical" : "good"}>{label}</Badge> : title}>
       {body && (
         <p>
           <Rich text={body} />
@@ -245,11 +240,15 @@ function SduiSwitch() {
 
 function Demo({ name, variants, caption, center, medium }: { name: string; variants?: { label: string; example: string }[]; caption?: string; center?: boolean; medium?: string }) {
   const copy = useCopy();
-  const { c } = useDocs();
+  const { c, lang } = useDocs();
   const { locale } = useI18n();
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [variant, setVariant] = useState(variants?.[0]?.example ?? name);
+  const [file, setFile] = useState<"tsx" | "json">("tsx");
   const { Demo: Preview, source } = example(variant);
+  const text = textOf(variant, lang);
+  const json = text ? JSON.stringify(text, null, 2) : "";
+  const shown = file === "json" && text ? json : source;
   return (
     <>
       {caption && (
@@ -269,7 +268,7 @@ function Demo({ name, variants, caption, center, medium }: { name: string; varia
           />
           <span className="toolbar-spacer" />
           {variants && <Segmented label={c.device} value={variant} onChange={setVariant} options={variants.map((item) => ({ value: item.example, label: item.label }))} />}
-          <Button className="docs-copy" onClick={() => copy(source, c.theCode)}>
+          <Button className="docs-copy" onClick={() => copy(tab === "code" ? shown : source, c.theCode)}>
             {c.copy}
           </Button>
         </div>
@@ -282,7 +281,21 @@ function Demo({ name, variants, caption, center, medium }: { name: string; varia
         </div>
         {tab === "code" && (
           <div className="docs-example-code">
-            <CodeBlock code={source} lang="tsx" />
+            {text && (
+              <div className="docs-example-files">
+                <UITabs
+                  label={c.code}
+                  variant="pill"
+                  value={file}
+                  onChange={(id) => setFile(id as "tsx" | "json")}
+                  items={[
+                    { id: "tsx", label: `${variant}.tsx` },
+                    { id: "json", label: `text.${lang}.json` },
+                  ]}
+                />
+              </div>
+            )}
+            <CodeBlock code={shown} lang={file === "json" && text ? "json" : "tsx"} />
           </div>
         )}
       </div>
