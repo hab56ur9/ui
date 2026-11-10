@@ -457,7 +457,9 @@
 }
 
 .docs-block-frame.is-doc {
+  height: auto;
   padding: var(--space-6);
+  overflow: visible;
   background: var(--color-bg-page);
 }
 
