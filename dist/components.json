@@ -439,6 +439,11 @@
           "kind": "boolean"
         },
         {
+          "name": "grid",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
           "name": "children",
           "optional": false,
           "kind": "node"

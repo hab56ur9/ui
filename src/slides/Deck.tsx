@@ -7,10 +7,10 @@ import { PrintCopy } from "../print";
 const WIDTH = 1920;
 const HEIGHT = 1080;
 
-type SlideContextValue = { index: number; total: number; title?: string };
+type SlideContextValue = { index: number; total: number; title?: string; grid?: boolean };
 const SlideContext = createContext<SlideContextValue>({ index: 0, total: 1 });
 
-export type DeckProps = { title?: string; start?: number; controls?: boolean; children: ReactNode };
+export type DeckProps = { title?: string; start?: number; controls?: boolean; grid?: boolean; children: ReactNode };
 
 const NEXT = ["ArrowRight", "ArrowDown", "PageDown", " "];
 const PREVIOUS = ["ArrowLeft", "ArrowUp", "PageUp"];
@@ -18,21 +18,22 @@ const SLOP = 8;
 
 type Swipe = { id: number; x: number; y: number; time: number; locked: boolean };
 
-function Pages({ slides, title, current }: { slides: ReactNode[]; title?: string; current?: number }) {
+function Pages({ slides, title, current, grid }: { slides: ReactNode[]; title?: string; current?: number; grid?: boolean }) {
   return slides.map((slide, index) => (
     <div key={index} className={`deck-page${index === current ? " is-current" : ""}`}>
-      <SlideContext.Provider value={{ index, total: slides.length, title }}>{slide}</SlideContext.Provider>
+      <SlideContext.Provider value={{ index, total: slides.length, title, grid }}>{slide}</SlideContext.Provider>
     </div>
   ));
 }
 
-export function Deck({ title, start = 0, controls = true, children }: DeckProps) {
+export function Deck({ title, start = 0, controls = true, grid: initialGrid = false, children }: DeckProps) {
   const { text } = useI18n();
   const slides = Children.toArray(children);
   const last = slides.length - 1;
   const [index, setIndex] = useState(Math.min(start, last));
   const [full, setFull] = useState(false);
   const [notes, setNotes] = useState(false);
+  const [grid, setGrid] = useState(initialGrid);
   const [printing, setPrinting] = useState(false);
   const stopPrinting = useCallback(() => setPrinting(false), []);
   const root = useRef<HTMLDivElement>(null);
@@ -108,6 +109,7 @@ export function Deck({ title, start = 0, controls = true, children }: DeckProps)
     if (e.key === "Home") go(0);
     if (e.key === "End") go(last);
     if (e.key === "f") present();
+    if (e.key === "g") setGrid((on) => !on);
     if ([...NEXT, ...PREVIOUS, "Home", "End"].includes(e.key)) e.preventDefault();
   };
   const current = slides[index] as { props?: { notes?: string } } | undefined;
@@ -116,7 +118,7 @@ export function Deck({ title, start = 0, controls = true, children }: DeckProps)
     <div ref={root} className={`deck${full ? " is-full" : ""}`} tabIndex={0} role="region" aria-roledescription="slides" aria-label={title} onKeyDown={onKey}>
       <div ref={stage} className="deck-stage" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
         <div className={`deck-viewport${settling ? " is-settling" : ""}`} data-medium="slide" style={{ transform: `translate(${offset.x + drag}px, ${offset.y}px) scale(${scale})` } as CSSProperties} aria-live="polite" onTransitionEnd={() => setSettling(false)}>
-          <Pages slides={slides} title={title} current={index} />
+          <Pages slides={slides} title={title} current={index} grid={grid} />
         </div>
       </div>
       {controls && (
@@ -134,6 +136,9 @@ export function Deck({ title, start = 0, controls = true, children }: DeckProps)
               {text("notes")}
             </button>
           )}
+          <button type="button" className="deck-button" aria-label={text("grid")} title={text("grid")} aria-pressed={grid} onClick={() => setGrid(!grid)}>
+            <Icon name="grid" />
+          </button>
           <button type="button" className="deck-button" aria-label={text("print")} title={text("print")} onClick={() => setPrinting(true)}>
             <Icon name="printer" />
           </button>
@@ -155,12 +160,30 @@ export function Deck({ title, start = 0, controls = true, children }: DeckProps)
 export type SlideTone = "plain" | "dark" | "accent";
 export type SlideProps = { tone?: SlideTone; source?: ReactNode; footer?: boolean; notes?: string; className?: string; children: ReactNode };
 
+const GRID_LINES = ["top", "content", "hero", "foot"];
+
+function SlideGrid() {
+  return (
+    <div className="slide-grid" aria-hidden="true">
+      <div className="slide-grid-columns">
+        {Array.from({ length: 12 }, (_, i) => (
+          <span key={i} />
+        ))}
+      </div>
+      {GRID_LINES.map((line) => (
+        <span key={line} className="slide-grid-line" data-line={line} />
+      ))}
+    </div>
+  );
+}
+
 export function Slide({ tone = "plain", source, footer = true, className, children }: SlideProps) {
-  const { index, total } = useContext(SlideContext);
+  const { index, total, grid } = useContext(SlideContext);
   return (
     <section className={["slide", `is-${tone}`, className ?? ""].filter(Boolean).join(" ")} data-theme={tone === "dark" ? "dark" : undefined} aria-label={`${index + 1} / ${total}`}>
       <div className="slide-body">{children}</div>
       {footer && <SlideFooter source={source} />}
+      {grid && <SlideGrid />}
     </section>
   );
 }

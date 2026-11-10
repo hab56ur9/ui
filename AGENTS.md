@@ -69,7 +69,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - The repository manages templates only; writing rules live in a separate docs plugin.
 - Components never assume the document they serve. Every part (table, card, badge, callout, steps, figure) is a component in `src/`; a template only composes them, and its CSS keeps layout.
 - A template is a block whose `block.json` sets `category` and `kind` (`deck` or `doc`); a `templates` section shows live thumbnail cards and the picked one.
-- Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`. Slide grid: title at the top, `Takeaway` below it, content top-aligned; hero slides start their main line at one height under a fixed kicker slot. PDF is print CSS only.
+- Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`. The slide grid (`--slide-*` vars, shown with G) fixes the top, content, hero and footer lines; `npm run check:slides` fails on drift. PDF is print CSS only.
 - Frames `Doc`, `Resume` and `Portfolio` print to A4 via `src/print.tsx`; content parts live in `src/content.tsx` and `src/records.tsx`.
 
 ## SDUI

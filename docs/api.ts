@@ -255,6 +255,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["title", "string", "", "자료 이름입니다. 모든 장의 하단과 스크린리더 이름에 씁니다."],
         ["start", "number", "0", "처음 보여 줄 장의 번호(0부터)입니다."],
+        ["grid", "boolean", "false", "격자선을 켠 채로 시작합니다. 안전 영역, 12열, 제목·내용·큰 글자·꼬리말 기준선을 그립니다. G 키나 격자 버튼으로 켜고 끕니다."],
         ["controls", "boolean", "true", "넘기기, 노트, 인쇄, 발표 버튼을 보여 줍니다. 한 장짜리 미리보기에서는 끕니다."],
         ["children", "ReactNode", "", "`Slide`나 레이아웃 컴포넌트를 순서대로 넣습니다."],
       ],

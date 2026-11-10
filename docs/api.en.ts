@@ -255,6 +255,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["title", "string", "", "The deck title. It appears in every footer and names the region for screen readers."],
         ["start", "number", "0", "The slide shown first, counted from 0."],
+        ["grid", "boolean", "false", "Starts with the grid on: the safe area, 12 columns and the title, content, hero and footer lines. G or the grid button toggles it."],
         ["controls", "boolean", "true", "Shows the next, notes, print and present buttons. Turn it off for one-slide previews."],
         ["children", "ReactNode", "", "`Slide` or layout components, in order."],
       ],

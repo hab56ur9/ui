@@ -27,7 +27,8 @@
     "lint": "node scripts/lint.mjs",
     "check": "node scripts/build.mjs && node scripts/components.mjs && node scripts/lint.mjs && tsc && npm run build:lib && vite build",
     "build:lib": "vite build -c vite.lib.config.ts",
-    "serve": "node bin/ui.mjs serve"
+    "serve": "node bin/ui.mjs serve",
+    "check:slides": "node scripts/slides-check.mjs"
   },
   "peerDependencies": {
     "react": "^19.0.0",

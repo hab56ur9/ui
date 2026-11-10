@@ -1916,6 +1916,15 @@ export const pages: Page[] = [
         ]
       },
       {
+        "type": "list",
+        "title": "Grid and automatic check",
+        "items": [
+          "Every slide uses the same lines: the title on the top line (y64), the takeaway or content on the content line (y160), the main line of title, section, statement, quote and closing slides on the hero line (y384), and nothing past the footer line or the 96px side margins.",
+          "Press G or the grid button to overlay these lines and 12 columns. Turn it on only while arranging; it stays off for presenting and print.",
+          "`npm run check:slides` renders every template and layout in Korean and English, turns the grid on and compares against its lines. It fails, and so does CI, on any drift over 1px or a title or takeaway that wraps to two lines."
+        ]
+      },
+      {
         "type": "a11y",
         "items": [
           "Focus the deck and use the arrow keys, Space, PageUp and PageDown, Home and End.",
