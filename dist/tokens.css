@@ -1014,6 +1014,13 @@
   --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --motion-easing-enter: cubic-bezier(0, 0, 0, 1);
   --motion-easing-exit: cubic-bezier(0.3, 0, 1, 1);
+  --border-width-default: 1px;
+  --border-width-strong: 2px;
+  --border-width-accent: 3px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --material-surface-opacity: 1;
+  --material-backdrop: none;
 }
 
 :root,

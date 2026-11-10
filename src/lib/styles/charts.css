@@ -169,8 +169,8 @@
 }
 
 .chart-plot:has(.chart-overlay:focus-visible) {
-  outline: 2px solid var(--color-main-default);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--color-main-default);
+  outline-offset: var(--focus-ring-offset);
   border-radius: var(--radius-control);
 }
 
@@ -226,9 +226,10 @@
   z-index: 5;
   min-width: 160px;
   padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-control);
-  background: var(--color-bg-raised);
+  background: color-mix(in oklab, var(--color-bg-raised) calc(var(--material-surface-opacity) * 100%), transparent);
+  backdrop-filter: var(--material-backdrop);
   box-shadow: var(--elevation-lifted);
   font-size: var(--font-size-caption);
   pointer-events: none;
@@ -264,7 +265,7 @@
   gap: var(--space-1);
   margin-top: var(--space-1);
   padding-top: var(--space-1);
-  border-top: 1px solid var(--color-border-default);
+  border-top: var(--border-width-default) solid var(--color-border-default);
   color: var(--color-fg-secondary);
 }
 
@@ -298,12 +299,12 @@
   color: var(--color-fg-muted);
   font-weight: var(--font-weight-medium);
   text-align: left;
-  border-bottom: 1px solid var(--color-border-strong);
+  border-bottom: var(--border-width-default) solid var(--color-border-strong);
   padding: var(--space-2) var(--space-3);
 }
 
 .data-table td {
-  border-bottom: 1px solid var(--color-border-default);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
   padding: var(--space-2) var(--space-3);
   white-space: nowrap;
 }

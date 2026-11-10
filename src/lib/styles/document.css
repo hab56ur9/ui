@@ -15,7 +15,7 @@
   flex-direction: column;
   gap: var(--space-3);
   padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border-default);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
 }
 
 .doc-head-row {
@@ -71,7 +71,7 @@
 .doc-toc {
   margin-top: var(--space-6);
   padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--color-border-default);
+  border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-card);
   background: var(--color-bg-page);
   font-size: var(--font-size-label);
@@ -249,7 +249,7 @@ h3.doc-heading::before {
   grid-template-columns: 1fr auto;
   gap: var(--space-3) var(--space-4);
   padding-bottom: var(--space-6);
-  border-bottom: 2px solid var(--color-main-default);
+  border-bottom: var(--border-width-strong) solid var(--color-main-default);
 }
 
 .resume-role {
@@ -284,7 +284,7 @@ h3.doc-heading::before {
   grid-template-columns: 9rem minmax(0, 1fr);
   gap: var(--space-6);
   padding: var(--space-6) 0;
-  border-bottom: 1px solid var(--color-border-default);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
 }
 
 .resume-section:last-child {
@@ -438,7 +438,7 @@ h3.doc-heading::before {
   flex-direction: column;
   gap: var(--space-2);
   padding-left: var(--space-4);
-  border-left: 3px solid var(--color-border-strong);
+  border-left: var(--border-width-accent) solid var(--color-border-strong);
   color: var(--color-fg-secondary);
 }
 
@@ -446,7 +446,7 @@ h3.doc-heading::before {
   width: 100%;
   margin: var(--space-2) 0;
   border: 0;
-  border-top: 1px solid var(--color-border-default);
+  border-top: var(--border-width-default) solid var(--color-border-default);
 }
 
 .markdown img {
@@ -469,7 +469,7 @@ h3.doc-heading::before {
 
 .markdown-footnotes {
   padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border-default);
+  border-top: var(--border-width-default) solid var(--color-border-default);
   color: var(--color-fg-secondary);
   font-size: var(--font-size-label);
 }
@@ -667,7 +667,7 @@ h3.doc-heading::before {
 
 .md-quote {
   padding-left: var(--space-4);
-  border-left: 3px solid var(--color-border-strong);
+  border-left: var(--border-width-accent) solid var(--color-border-strong);
   color: var(--color-fg-secondary);
 }
 
@@ -678,14 +678,14 @@ h3.doc-heading::before {
 
 .md-code {
   overflow: hidden;
-  border: 1px solid var(--color-border-default);
+  border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-card);
   background: var(--color-code-background);
 }
 
 .md-code-bar {
   padding: var(--space-1) var(--space-3);
-  border-bottom: 1px solid var(--color-border-default);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
 }
 
 .md-lang {
@@ -706,7 +706,7 @@ h3.doc-heading::before {
 
 .md-ui-preview {
   padding: var(--space-3);
-  border-top: 1px dashed var(--color-border-default);
+  border-top: var(--border-width-default) dashed var(--color-border-default);
   background: var(--color-bg-page);
 }
 
@@ -763,7 +763,7 @@ h3.doc-heading::before {
 }
 
 .md-table input:focus {
-  box-shadow: inset 0 0 0 2px var(--color-main-default);
+  box-shadow: inset 0 0 0 var(--border-width-strong) var(--color-main-default);
 }
 
 .md-table-tools {
@@ -804,7 +804,7 @@ h3.doc-heading::before {
   display: grid;
   place-items: center;
   height: 120px;
-  border: 1px dashed var(--color-border-strong);
+  border: var(--border-width-default) dashed var(--color-border-strong);
   border-radius: var(--radius-card);
   color: var(--color-fg-muted);
 }
@@ -835,7 +835,7 @@ h3.doc-heading::before {
 .md-divider hr {
   margin: 0;
   border: 0;
-  border-top: 1px solid var(--color-border-default);
+  border-top: var(--border-width-default) solid var(--color-border-default);
 }
 
 .md-definition {
@@ -853,9 +853,10 @@ h3.doc-heading::before {
   margin: 0;
   padding: var(--space-1);
   overflow-y: auto;
-  border: 1px solid var(--color-border-default);
+  border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-card);
-  background: var(--color-bg-raised);
+  background: color-mix(in oklab, var(--color-bg-raised) calc(var(--material-surface-opacity) * 100%), transparent);
+  backdrop-filter: var(--material-backdrop);
   box-shadow: var(--elevation-overlay);
   list-style: none;
 }
@@ -918,7 +919,7 @@ h3.doc-heading::before {
   grid-template-columns: 1fr auto;
   gap: var(--space-4);
   padding-bottom: var(--space-8);
-  border-bottom: 2px solid var(--color-main-default);
+  border-bottom: var(--border-width-strong) solid var(--color-main-default);
 }
 
 .portfolio-role {
@@ -953,7 +954,7 @@ h3.doc-heading::before {
   flex-direction: column;
   gap: var(--space-6);
   padding: var(--space-8) 0;
-  border-bottom: 1px solid var(--color-border-default);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
 }
 
 .portfolio-section:last-child {
