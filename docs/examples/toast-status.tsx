@@ -1,5 +1,7 @@
 import { Button, Toast, useToast, type ToastProps } from "ui";
-import { Row, Stage, useT } from "../demo";
+import { Browser } from "../Browser";
+import { Row, useT } from "../demo";
+import { Wireframe } from "../Wireframe";
 
 export default function Example() {
   const t = useT();
@@ -20,11 +22,13 @@ export default function Example() {
   ];
   return (
     <>
-      <Stage kind="toast">
-        {samples.slice(0, 4).map(([label, props]) => (
-          <Toast key={label} {...props} />
-        ))}
-      </Stage>
+      <Browser address="app.example.com">
+        <Wireframe>
+          {samples.slice(0, 4).map(([label, props]) => (
+            <Toast key={label} {...props} />
+          ))}
+        </Wireframe>
+      </Browser>
       <Row>
         {samples.map(([label, props]) => (
           <Button key={label} onClick={() => toast(props)}>

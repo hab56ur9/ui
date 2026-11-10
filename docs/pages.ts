@@ -1204,19 +1204,14 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "데스크톱에서 뜨는 곳",
-        "example": "toast-place"
-      },
-      {
-        "type": "demo",
-        "title": "모바일에서 뜨는 곳",
-        "example": "toast-place-mobile"
-      },
-      {
-        "type": "demo",
-        "title": "상태와 실행 취소",
+        "title": "데스크톱",
         "center": true,
         "example": "toast-status"
+      },
+      {
+        "type": "demo",
+        "title": "모바일",
+        "example": "toast-place-mobile"
       },
       {
         "type": "anatomy",
