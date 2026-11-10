@@ -24,6 +24,10 @@ const TYPES = {
   ".txt": "text/plain; charset=utf-8",
 };
 const CLIENT = `<script type="module">new EventSource("${RELOAD}").onmessage = () => location.reload();</script>`;
+const REVIEW = "/__ui/review";
+const REVIEW_CLIENT = `<script type="module" src="${REVIEW}.js"></script>`;
+const isGenerated = (html) => html.includes('<meta name="generator" content="ui spec build">');
+const REVIEW_BLOCK = /<script type="application\/json" id="ui-review">[\s\S]*?<\/script>\n?/;
 
 const HELP = `ui ${pkg.version}
 
@@ -90,6 +94,27 @@ function addresses(port, host) {
   return urls;
 }
 
+function saveReview(req, res, root, send) {
+  const target = resolve(root, `.${new URL(req.url, "http://localhost").searchParams.get("file") ?? ""}`);
+  if (!inside(root, target) || extname(target) !== ".html" || !existsSync(target)) return send(res, 404, "not a page under this folder");
+  const html = readFileSync(target, "utf8");
+  if (!isGenerated(html)) return send(res, 403, "only pages built by ui spec build take reviews");
+  let body = "";
+  req.on("data", (chunk) => (body += chunk));
+  req.on("end", () => {
+    let review;
+    try {
+      review = JSON.parse(body);
+    } catch {
+      return send(res, 400, "review is not JSON");
+    }
+    const block = `<script type="application/json" id="ui-review">\n${JSON.stringify(review, null, 2).replace(/<\//g, "<\\/")}\n</script>\n`;
+    const next = REVIEW_BLOCK.test(html) ? html.replace(REVIEW_BLOCK, () => block) : html.replace('<div id="app"></div>\n', () => `<div id="app"></div>\n${block}`);
+    writeFileSync(target, next);
+    send(res, 200, "saved");
+  });
+}
+
 function serve(args) {
   const root = resolve(args._[1] ?? ".");
   if (!existsSync(root) || !statSync(root).isDirectory()) throw new Error(`not a folder: ${root}`);
@@ -105,9 +130,10 @@ function serve(args) {
   const file = (res, path) => {
     const type = TYPES[extname(path).toLowerCase()] ?? "application/octet-stream";
     let body = readFileSync(path);
-    if (reload && type.startsWith("text/html")) {
+    if (type.startsWith("text/html")) {
       const html = body.toString("utf8");
-      body = html.includes("</body>") ? html.replace("</body>", `${CLIENT}</body>`) : html + CLIENT;
+      const inject = `${reload ? CLIENT : ""}${isGenerated(html) ? REVIEW_CLIENT : ""}`;
+      if (inject) body = html.includes("</body>") ? html.replace("</body>", `${inject}</body>`) : html + inject;
     }
     send(res, 200, body, type);
   };
@@ -121,6 +147,8 @@ function serve(args) {
       req.on("close", () => clients.delete(res));
       return;
     }
+    if (path === `${REVIEW}.js`) return send(res, 200, readFileSync(join(pkgRoot, "bin/review.js")), TYPES[".js"]);
+    if (path === REVIEW && req.method === "POST") return saveReview(req, res, root, send);
     if (path.startsWith("/ui/")) {
       const rest = path.slice(4);
       const target = resolve(pkgRoot, rest);

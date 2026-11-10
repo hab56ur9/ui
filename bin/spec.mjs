@@ -228,7 +228,7 @@ export function buildHtml(spec, { module }) {
   const screens = Object.entries(spec.screens).map(([id, screen]) => {
     const widgets = (screen.widgets ?? []).map((widget) => {
       const head = { id: widget.id, title: widget.title ?? "", ...(widget.subtitle && { subtitle: widget.subtitle }), w: widget.w, h: widget.h, ...(widget.frame && { frame: widget.frame }) };
-      const press = widget.action ? `,\n  h("button", { type: "button", "aria-label": ${quote(widget.title ?? widget.id)}, style: ${PRESS}, onClick: () => act(${quote(widget.action)}) })` : "";
+      const press = widget.action ? `,\n  h("button", { type: "button", "data-press": "", "aria-label": ${quote(widget.title ?? widget.id)}, style: ${PRESS}, onClick: () => act(${quote(widget.action)}) })` : "";
       return `h(Widget, { ${Object.entries(head).map(([key, value]) => `${key}: ${quote(value)}`).join(", ")} },\n  ${indent(content(widget.content), 1)}${press},\n)`;
     });
     const actions = buttons(screen.actions);
@@ -300,8 +300,8 @@ function App() {
       brand: ${quote(spec.app.name)},
       nav: [{ items: nav.map((item) => ({ ...item, current: item.id === screen, onSelect: () => setScreen(item.id) })) }],
       title: nav.find((item) => item.id === screen)?.label,
-    }, h(Screen, { act })),
-    Overlay && h(Overlay, { act, close: () => setOverlay(null) }),
+    }, h("div", { "data-screen": screen, style: { display: "contents" } }, h(Screen, { act }))),
+    Overlay && h("div", { "data-overlay": overlay, style: { display: "contents" } }, h(Overlay, { act, close: () => setOverlay(null) })),
   );
 }
 
@@ -311,6 +311,7 @@ render("#app", h(App), { lang: ${quote(lang)} });`;
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="ui spec build">
 <title>${spec.app.name}</title>
 </head>
 <body>

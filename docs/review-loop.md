@@ -49,7 +49,7 @@ The JSON spec is the app's specification schema. Only the agent reads and writes
 The builder turns a spec into an editable HTML file. Its job ends there, and only the agent runs it.
 
 - The HTML is built only from design system components and widgets, with navigation, overlays and actions working as the spec says.
-- Each widget and component in the HTML keeps a stable identity, so the agent can match an edited part back to the spec node it came from.
+- Every component sits inside a widget, and every widget, screen and overlay carries a marker with its spec id. Review happens at that level, so components know nothing about review.
 - The structure is fixed in the file. Nothing reads JSON at run time to decide what to draw.
 - Until approval, the agent regenerates the HTML from the spec after every round of feedback.
 
@@ -59,7 +59,8 @@ The editor is a means of communication between the person and the agent, not a c
 
 - It opens the HTML file the agent gave and lets the person edit it directly with design system components and widgets.
 - It needs only the edits that make a person's intent clear: moving, resizing, removing and adding widgets, and changing visible content.
-- The person can attach a note to a widget or component where an edit alone does not explain the intent. The note is saved in the HTML with that element's id, so the agent knows what it refers to.
+- The person can attach a note to a widget where an edit alone does not explain the intent.
+- Saving writes the edits and notes into the same HTML file as one review block keyed by screen and widget id. The agent reads the original code and that block together.
 - The edited HTML goes back to the agent. The agent compares it with what it sent and rewrites the spec.
 - Because the edited HTML uses the same components as the spec, the agent reads it in the vocabulary it wrote in.
 
