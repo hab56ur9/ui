@@ -25,9 +25,9 @@ The design system is a common language that both the agent and the person read a
 | Step | Actor | Input | Output |
 | --- | --- | --- | --- |
 | 1. Spec | Agent | The request and its context | A JSON spec: screens, components, data slots, actions, and a description on each part |
-| 2. Build | Builder | The JSON spec | One static HTML file at mockup level, with example data and no API |
+| 2. Build | Builder | The JSON spec | A React app codebase, and one static HTML file of it at mockup level with example data and no API |
 | 3. Review | Person | The HTML file | A corrected spec, made by taking the UI apart and putting it back together in an editor |
-| 4. Logic | Agent | The corrected spec | API calls and use cases connected to the static UI through its data slots and actions |
+| 4. Logic | Agent | The corrected spec | API calls and use cases connected to the generated React code through its data slots and actions |
 
 ## The spec
 
@@ -37,31 +37,36 @@ The spec is both the screen source and the behavior specification.
 - Navigation, overlays and actions are part of the spec, so the mockup behaves like the app.
 - A `description` on the app, screens, widgets, components, actions and data fields explains intent. The builder keeps descriptions out of the screen; they make the same JSON readable as a specification.
 - Data slots carry example values. The mockup shows them in place of live data.
+- Every screen is a widget grid. Forms, lists and headers each sit in a widget, so one editing unit covers the whole app.
 
 ## The builder
 
-The builder reads a spec and writes one static file.
+The builder reads a spec and writes a React app codebase.
 
-- The file is self-contained: components, styles and behavior travel together.
-- The structure is fixed at build time. Nothing in the file reads JSON at run time to decide what to draw.
-- The file embeds its spec, so an editor can open the file and recover the spec without the agent.
+- The codebase holds one component per screen, built only from design system components, with routes, overlays and actions wired as the spec says.
+- The same codebase builds into one self-contained static HTML file for review: components, styles and behavior travel together.
+- The structure is fixed at build time. Nothing reads JSON at run time to decide what to draw.
+- The HTML file embeds its spec, so an editor can open the file and recover the spec without the agent.
+- The generated codebase is the starting point of the real app, so the screen a person reviewed is the screen that ships.
 
 ## The editor
 
 The editor lets a person correct the result directly instead of describing the correction.
 
 - It opens a built file, splits it into its widgets and components, and lets the person reassemble them.
-- Widgets are the main unit of editing: a person moves, resizes, removes and adds them on a grid, and edits each one's props.
+- Widgets are the main unit of editing: a person moves, resizes, removes and adds them on a grid.
+- Everything in the spec is editable: each component's props, screens, navigation, overlays and the action wiring between them.
 - The edit result is a new spec. The difference between the old and new spec is the feedback.
+- The person can attach a short note to any change in the difference. The difference says what changed; the note says why.
 
 ## Logic stays separate
 
-The static UI file and the app's logic are separate artifacts that meet at a contract.
+The generated UI and the app's logic are separate artifacts that meet at a contract.
 
 - The contract is the set of data slots and action names in the spec.
-- The agent writes use cases, API calls and data flow against that contract, independent of the UI file.
+- The agent writes use cases, API calls and data flow against that contract, independent of the generated UI code.
 - UI feedback changes the spec, and logic work changes the logic; neither has to wait for the other.
-- The app is finished when the agent connects real data and actions to the reviewed static UI.
+- The app is finished when the agent connects real data and actions to the generated UI code that the person reviewed.
 
 ## Role of the design system
 
