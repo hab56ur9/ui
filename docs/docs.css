@@ -1412,8 +1412,10 @@
 .docs-place {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-card);
+}
+
+.browser-screen:has(> .docs-place) {
+  height: auto;
 }
 
 .docs-place.is-mobile {

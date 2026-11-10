@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { AppShell, Icon, Page, Stat, Toast, Widget, WidgetGrid } from "ui";
+import { Browser } from "../Browser";
 import { useT } from "../demo";
 
 export function GhostApp({ mobile, toast }: { mobile?: boolean; toast: ReactNode }) {
@@ -15,13 +16,13 @@ export function GhostApp({ mobile, toast }: { mobile?: boolean; toast: ReactNode
   useLayoutEffect(() => {
     const el = box.current;
     if (mobile || !el) return;
-    const observer = new ResizeObserver(() => setScale(el.clientWidth / 1280));
+    const observer = new ResizeObserver(() => setScale(el.clientWidth / 1024));
     observer.observe(el);
     return () => observer.disconnect();
   }, [mobile]);
-  const canvas = mobile ? undefined : ({ width: 1280, height: 720, transform: `scale(${scale})`, transformOrigin: "0 0" } as CSSProperties);
-  return (
-    <div ref={box} className={`docs-place${mobile ? " is-mobile" : ""}`} style={mobile ? undefined : { height: 720 * scale }}>
+  const canvas = mobile ? undefined : ({ width: 1024, height: 640, transform: `scale(${scale})`, transformOrigin: "0 0" } as CSSProperties);
+  const place = (
+    <div ref={box} className={`docs-place${mobile ? " is-mobile" : ""}`} style={mobile ? undefined : { height: 640 * scale }}>
       <div className="docs-place-canvas" style={canvas}>
         <div className="docs-ghost" aria-hidden="true" inert>
           <AppShell
@@ -56,6 +57,7 @@ export function GhostApp({ mobile, toast }: { mobile?: boolean; toast: ReactNode
       </div>
     </div>
   );
+  return mobile ? place : <Browser address="metrics.app/home">{place}</Browser>;
 }
 
 export default function Example() {

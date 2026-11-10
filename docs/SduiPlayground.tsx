@@ -9,6 +9,7 @@ import { data as socialData, dataEn as socialDataEn } from "../blocks/sdui/socia
 import socialEn from "../blocks/sdui/social/en.json";
 import socialKo from "../blocks/sdui/social/ko.json";
 import schema from "../dist/components.json";
+import { Browser } from "./Browser";
 import { Phone } from "./Phone";
 
 type Lang = "ko" | "en";
@@ -48,7 +49,8 @@ const COPY = {
     down: "아래로",
     copy: "JSON 복사",
     copied: "서버에 보낼 JSON을 복사했습니다",
-    hint: (mobile: boolean) => `위젯을 끌어 순서를 바꾸고, 눌러서 내용과 크기를 고칩니다. ${mobile ? "왼쪽 휴대폰" : "위의 브라우저 창"}이 실제 사용자에게 보이는 화면이고, 그 메뉴를 누르면 그 화면을 편집합니다.`,
+    hint: (mobile: boolean) =>
+      `위젯을 끌어 순서를 바꾸고, 눌러서 내용과 크기를 고칩니다. ${mobile ? "왼쪽 휴대폰" : "위의 브라우저 창"}이 실제 사용자에게 보이는 화면이고, 그 메뉴를 누르면 그 화면을 편집합니다.`,
     pick: "위젯을 누르면 여기서 내용을 고칩니다.",
     title: "제목",
     subtitle: "부제",
@@ -89,7 +91,8 @@ const COPY = {
     down: "Move down",
     copy: "Copy JSON",
     copied: "Copied the JSON to send from the server",
-    hint: (mobile: boolean) => `Drag widgets to reorder them, and click one to edit its content and size. The ${mobile ? "phone on the left" : "browser window above"} is the screen users actually see; tap its menu to edit that screen.`,
+    hint: (mobile: boolean) =>
+      `Drag widgets to reorder them, and click one to edit its content and size. The ${mobile ? "phone on the left" : "browser window above"} is the screen users actually see; tap its menu to edit that screen.`,
     pick: "Click a widget to edit it here.",
     title: "Title",
     subtitle: "Subtitle",
@@ -118,7 +121,8 @@ const nodesOf = (value: unknown): Node[] => {
   return [...(isNode(value) ? [value] : []), ...Object.values(value).flatMap(nodesOf)];
 };
 const SEEN = nodesOf([SAMPLES.mobile.ko.app, SAMPLES.desktop.ko.app]);
-const serverActions = (app: App) => [...new Set(JSON.stringify(app).match(/"name":"[a-z-]+"/g) ?? [])].map((match) => match.slice(8, -1)).filter((name) => !["open", "navigate", "close"].includes(name));
+const serverActions = (app: App) =>
+  [...new Set(JSON.stringify(app).match(/"name":"[a-z-]+"/g) ?? [])].map((match) => match.slice(8, -1)).filter((name) => !["open", "navigate", "close"].includes(name));
 const templateOf = (type: string): Node => structuredClone(SEEN.find((node) => node.type === type) ?? { type, props: {} });
 
 const MENU = "__menu";
@@ -140,7 +144,12 @@ const saveMenu = (key: string, value: Menu) => {
 const load = (key: string) => {
   try {
     const drafts = JSON.parse(localStorage.getItem(key) ?? "null") as Record<string, Draft[]> | null;
-    return drafts && Object.values(drafts).flat().every((widget) => [widget.content].flat().every(isNode)) ? drafts : null;
+    return drafts &&
+      Object.values(drafts)
+        .flat()
+        .every((widget) => [widget.content].flat().every(isNode))
+      ? drafts
+      : null;
   } catch {
     return null;
   }
@@ -243,13 +252,24 @@ function PropField({ prop, value, env, onChange }: { prop: Prop; value: unknown;
   if (prop.kind === "action")
     return (
       <Field label={label}>
-        <Choice value={actionKey(ref?.$action as Action | undefined)} options={Object.keys(targets)} labels={targets} empty={c.none} onChange={(key) => onChange(key ? { $action: actionOf(key) } : undefined)} />
+        <Choice
+          value={actionKey(ref?.$action as Action | undefined)}
+          options={Object.keys(targets)}
+          labels={targets}
+          empty={c.none}
+          onChange={(key) => onChange(key ? { $action: actionOf(key) } : undefined)}
+        />
       </Field>
     );
   if (prop.kind === "enum")
     return (
       <Field label={label}>
-        <Choice value={value === undefined ? undefined : String(value)} options={(prop.values ?? []).map(String)} empty={c.none} onChange={(next) => onChange(next === undefined ? undefined : prop.values?.find((v) => String(v) === next))} />
+        <Choice
+          value={value === undefined ? undefined : String(value)}
+          options={(prop.values ?? []).map(String)}
+          empty={c.none}
+          onChange={(next) => onChange(next === undefined ? undefined : prop.values?.find((v) => String(v) === next))}
+        />
       </Field>
     );
   if (prop.kind === "boolean")
@@ -326,10 +346,20 @@ function MenuEditor({ menu, c, mobile, onChange }: { menu: Menu; c: Copy; mobile
       {mobile && (
         <div className="sdui-fields">
           <Field label={c.barVariant}>
-            <Choice value={menu.style.variant ?? "bar"} options={["bar", "floating"]} labels={c.variants} onChange={(variant) => onChange({ ...menu, style: { ...menu.style, variant: variant as TabBarStyle["variant"] } })} />
+            <Choice
+              value={menu.style.variant ?? "bar"}
+              options={["bar", "floating"]}
+              labels={c.variants}
+              onChange={(variant) => onChange({ ...menu, style: { ...menu.style, variant: variant as TabBarStyle["variant"] } })}
+            />
           </Field>
           <Field label={c.barLabels}>
-            <Choice value={menu.style.labels ?? "show"} options={["show", "active", "hide"]} labels={c.labelModes} onChange={(labels) => onChange({ ...menu, style: { ...menu.style, labels: labels as TabBarStyle["labels"] } })} />
+            <Choice
+              value={menu.style.labels ?? "show"}
+              options={["show", "active", "hide"]}
+              labels={c.labelModes}
+              onChange={(labels) => onChange({ ...menu, style: { ...menu.style, labels: labels as TabBarStyle["labels"] } })}
+            />
           </Field>
         </div>
       )}
@@ -371,13 +401,24 @@ function Inspector({ widget, env, mobile, onChange }: { widget: Draft; env: Env;
           </Field>
         )}
         <Field label={c.frame}>
-          <Choice value={widget.frame ?? "card"} options={["card", "plain"]} labels={{ card: c.card, plain: c.plain }} onChange={(frame) => onChange({ ...widget, frame: frame === "plain" ? "plain" : undefined })} />
+          <Choice
+            value={widget.frame ?? "card"}
+            options={["card", "plain"]}
+            labels={{ card: c.card, plain: c.plain }}
+            onChange={(frame) => onChange({ ...widget, frame: frame === "plain" ? "plain" : undefined })}
+          />
         </Field>
         <Field label={c.height}>
           <Choice value={String(widget.h)} options={["2", "3", "4", "5", "6", "7", "8"]} onChange={(h) => onChange({ ...widget, h: Number(h) })} />
         </Field>
         <Field label={c.press}>
-          <Choice value={actionKey(widget.action)} options={Object.keys(targets).filter((key) => !key.startsWith("server:"))} labels={targets} empty={c.none} onChange={(key) => onChange({ ...widget, action: actionOf(key) })} />
+          <Choice
+            value={actionKey(widget.action)}
+            options={Object.keys(targets).filter((key) => !key.startsWith("server:"))}
+            labels={targets}
+            empty={c.none}
+            onChange={(key) => onChange({ ...widget, action: actionOf(key) })}
+          />
         </Field>
       </div>
       {parts.map((node, i) => (
@@ -419,7 +460,14 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
 
   const widgets = drafts[screenId] ?? [];
   const setWidgets = (next: Draft[] | ((list: Draft[]) => Draft[])) => setDrafts((all) => ({ ...all, [screenId]: typeof next === "function" ? next(all[screenId] ?? []) : next }));
-  const app: App = { ...sample, nav: menu.items, navBar: menu.style, screens: Object.fromEntries(Object.entries(sample.screens).map(([id, def]) => [id, { ...def, widgets: (drafts[id] ?? []).filter((widget) => !widget.hidden).map(({ hidden: _, ...widget }) => widget) }])) };
+  const app: App = {
+    ...sample,
+    nav: menu.items,
+    navBar: menu.style,
+    screens: Object.fromEntries(
+      Object.entries(sample.screens).map(([id, def]) => [id, { ...def, widgets: (drafts[id] ?? []).filter((widget) => !widget.hidden).map(({ hidden: _, ...widget }) => widget) }]),
+    ),
+  };
   const targets = Object.fromEntries([
     ...Object.entries(sample.overlays ?? {}).map(([id, overlay]) => [`open:${id}`, `${overlay.kind === "sheet" ? c.openSheet : c.openModal}: ${overlay.title}`]),
     ...sample.nav.map((item) => [`navigate:${item.id}`, `${c.goTo}: ${item.label}`]),
@@ -447,10 +495,16 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
 
   const preview = (
     <Guard key={JSON.stringify(app)} fallback={c.broken}>
-      <AppView app={app} values={data} mobileNav="tabs" screen={screenId} onNavigate={(id) => {
-        setScreenId(id);
-        setSelected(undefined);
-      }} />
+      <AppView
+        app={app}
+        values={data}
+        mobileNav="tabs"
+        screen={screenId}
+        onNavigate={(id) => {
+          setScreenId(id);
+          setSelected(undefined);
+        }}
+      />
     </Guard>
   );
   const builder = (
@@ -473,17 +527,7 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
         <div className="sdui-pane-head">
           <strong>{c.preview}</strong>
         </div>
-        {mobile ? (
-          <Phone>{preview}</Phone>
-        ) : (
-          <div className="browser">
-            <div className="browser-bar" aria-hidden="true">
-              <span className="browser-dots" />
-              <span className="browser-address">fitnote.app/today</span>
-            </div>
-            <div className="browser-screen">{preview}</div>
-          </div>
-        )}
+        {mobile ? <Phone>{preview}</Phone> : <Browser address="fitnote.app/today">{preview}</Browser>}
       </section>
       <section className="sdui-pane">
         <div className="sdui-pane-head">
@@ -516,7 +560,15 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
         </div>
         <div className="sdui-work">
           <div className="sdui-builder">{builder}</div>
-          <div className="sdui-inspector-wrap">{selected === MENU ? <MenuEditor menu={menu} c={c} mobile={mobile} onChange={setMenu} /> : editing ? <Inspector key={editing.id} widget={editing} env={env} mobile={mobile} onChange={update} /> : <p className="sdui-hint">{c.pick}</p>}</div>
+          <div className="sdui-inspector-wrap">
+            {selected === MENU ? (
+              <MenuEditor menu={menu} c={c} mobile={mobile} onChange={setMenu} />
+            ) : editing ? (
+              <Inspector key={editing.id} widget={editing} env={env} mobile={mobile} onChange={update} />
+            ) : (
+              <p className="sdui-hint">{c.pick}</p>
+            )}
+          </div>
         </div>
       </section>
     </div>
