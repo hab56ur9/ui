@@ -4,7 +4,7 @@ export type Section =
   | { type: "cards"; title?: string; items: { title?: string; body?: string; items?: string[] }[] }
   | { type: "usage"; title?: string; when: string[]; avoid: string[] }
   | { type: "anatomy"; title?: string; items: string[][] }
-  | { type: "demo"; title?: string; example: string; caption?: string; center?: boolean; medium?: string }
+  | { type: "demo"; title?: string; example: string; variants?: { label: string; example: string }[]; caption?: string; center?: boolean; medium?: string }
   | { type: "gallery"; title?: string; items: { title: string; example: string; caption?: string; medium?: string }[] }
   | { type: "block"; title?: string; id: string }
   | { type: "guidelines"; title?: string; items: string[][] }
@@ -834,14 +834,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "데스크톱",
-        "center": true,
-        "example": "modal-sizes"
-      },
-      {
-        "type": "demo",
-        "title": "모바일",
-        "example": "modal-mobile"
+        "title": "크기",
+        "example": "modal-sizes",
+        "variants": [
+          {
+            "label": "데스크톱",
+            "example": "modal-sizes"
+          },
+          {
+            "label": "모바일",
+            "example": "modal-mobile"
+          }
+        ]
       },
       {
         "type": "anatomy",
@@ -903,15 +907,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "데스크톱",
-        "caption": "취소 버튼 문구는 넘기지 않아도 컴포넌트가 페이지 언어로 채웁니다",
-        "center": true,
-        "example": "confirm-danger"
-      },
-      {
-        "type": "demo",
-        "title": "모바일",
-        "example": "confirm-mobile"
+        "title": "위험한 동작",
+        "example": "confirm-danger",
+        "variants": [
+          {
+            "label": "데스크톱",
+            "example": "confirm-danger"
+          },
+          {
+            "label": "모바일",
+            "example": "confirm-mobile"
+          }
+        ]
       },
       {
         "type": "guidelines",
@@ -936,15 +943,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "모바일",
-        "caption": "손잡이를 아래로 끌어 닫을 수 있습니다",
-        "center": true,
-        "example": "sheet-list"
-      },
-      {
-        "type": "demo",
-        "title": "데스크톱",
-        "example": "sheet-desktop"
+        "title": "목록 시트와 액션 시트",
+        "example": "sheet-desktop",
+        "variants": [
+          {
+            "label": "데스크톱",
+            "example": "sheet-desktop"
+          },
+          {
+            "label": "모바일",
+            "example": "sheet-list"
+          }
+        ]
       },
       {
         "type": "usage",
@@ -975,14 +985,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "데스크톱",
-        "center": true,
-        "example": "toast-status"
-      },
-      {
-        "type": "demo",
-        "title": "모바일",
-        "example": "toast-place-mobile"
+        "title": "상태와 실행 취소",
+        "example": "toast-status",
+        "variants": [
+          {
+            "label": "데스크톱",
+            "example": "toast-status"
+          },
+          {
+            "label": "모바일",
+            "example": "toast-place-mobile"
+          }
+        ]
       },
       {
         "type": "anatomy",
@@ -2076,28 +2090,14 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "sdui-mobile",
+    "id": "sdui-builder",
     "group": "SDUI",
-    "title": "모바일 앱 빌더",
+    "title": "앱 빌더",
     "wide": true,
-    "lede": "휴대폰 앱 화면을 위젯으로 조립합니다. 왼쪽 휴대폰이 사용자가 보는 화면이고, 아래 탭 바는 서버가 보낸 메뉴로 그립니다. 결과는 JSON으로 복사해 서버 응답의 출발점으로 씁니다.",
+    "lede": "앱 화면을 위젯으로 조립합니다. 데스크톱은 브라우저 창과 사이드바, 모바일은 휴대폰과 아래 탭 바로 보여 주고, 메뉴는 서버가 보낸 값으로 그립니다. 보드에서 끌고 크기를 바꿔 배치를 정하고, 결과는 JSON으로 복사해 서버 응답의 출발점으로 씁니다.",
     "sections": [
       {
-        "type": "sdui",
-        "device": "mobile"
-      }
-    ]
-  },
-  {
-    "id": "sdui-desktop",
-    "group": "SDUI",
-    "title": "데스크톱 앱 빌더",
-    "wide": true,
-    "lede": "데스크톱 앱 화면을 위젯으로 조립합니다. 위의 브라우저 창이 사용자가 보는 화면이고, 왼쪽 사이드바는 서버가 보낸 메뉴로 그립니다. 아래 보드에서 끌고 크기를 바꿔 12열 배치를 정합니다.",
-    "sections": [
-      {
-        "type": "sdui",
-        "device": "desktop"
+        "type": "sdui"
       }
     ]
   },

@@ -816,14 +816,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Desktop",
-        "center": true,
-        "example": "modal-sizes"
-      },
-      {
-        "type": "demo",
-        "title": "Mobile",
-        "example": "modal-mobile"
+        "title": "Sizes",
+        "example": "modal-sizes",
+        "variants": [
+          {
+            "label": "Desktop",
+            "example": "modal-sizes"
+          },
+          {
+            "label": "Mobile",
+            "example": "modal-mobile"
+          }
+        ]
       },
       {
         "type": "anatomy",
@@ -885,15 +889,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Desktop",
-        "caption": "When no cancel label is passed, the component fills it in the page language",
-        "center": true,
-        "example": "confirm-danger"
-      },
-      {
-        "type": "demo",
-        "title": "Mobile",
-        "example": "confirm-mobile"
+        "title": "Destructive action",
+        "example": "confirm-danger",
+        "variants": [
+          {
+            "label": "Desktop",
+            "example": "confirm-danger"
+          },
+          {
+            "label": "Mobile",
+            "example": "confirm-mobile"
+          }
+        ]
       },
       {
         "type": "guidelines",
@@ -918,15 +925,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Mobile",
-        "caption": "Drag the handle down to close the sheet",
-        "center": true,
-        "example": "sheet-list"
-      },
-      {
-        "type": "demo",
-        "title": "Desktop",
-        "example": "sheet-desktop"
+        "title": "List and action sheets",
+        "example": "sheet-desktop",
+        "variants": [
+          {
+            "label": "Desktop",
+            "example": "sheet-desktop"
+          },
+          {
+            "label": "Mobile",
+            "example": "sheet-list"
+          }
+        ]
       },
       {
         "type": "usage",
@@ -957,14 +967,18 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Desktop",
-        "center": true,
-        "example": "toast-status"
-      },
-      {
-        "type": "demo",
-        "title": "Mobile",
-        "example": "toast-place-mobile"
+        "title": "States and undo",
+        "example": "toast-status",
+        "variants": [
+          {
+            "label": "Desktop",
+            "example": "toast-status"
+          },
+          {
+            "label": "Mobile",
+            "example": "toast-place-mobile"
+          }
+        ]
       },
       {
         "type": "anatomy",
@@ -2058,28 +2072,14 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "sdui-mobile",
+    "id": "sdui-builder",
     "group": "SDUI",
-    "title": "Mobile app builder",
+    "title": "App builder",
     "wide": true,
-    "lede": "Compose a phone app screen from widgets. The phone on the left is what users see, and its bottom tab bar comes from the menu the server sends. Copy the result as JSON to start a server response.",
+    "lede": "Compose an app screen from widgets. Desktop shows a browser window with a sidebar and mobile shows a phone with a bottom tab bar, both drawing the menu the server sends. Drag and resize on the board to set the layout, then copy the result as JSON to start a server response.",
     "sections": [
       {
-        "type": "sdui",
-        "device": "mobile"
-      }
-    ]
-  },
-  {
-    "id": "sdui-desktop",
-    "group": "SDUI",
-    "title": "Desktop app builder",
-    "wide": true,
-    "lede": "Compose a desktop app screen from widgets. The browser window on top is what users see, and its sidebar comes from the menu the server sends. Drag and resize on the board below to set the 12-column layout.",
-    "sections": [
-      {
-        "type": "sdui",
-        "device": "desktop"
+        "type": "sdui"
       }
     ]
   },

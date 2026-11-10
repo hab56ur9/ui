@@ -22,6 +22,9 @@ const COPY = {
   ko: {
     titles: { usage: "언제 쓰나", anatomy: "구성", demo: "예시", guidelines: "권장과 지양", tokens: "쓰는 토큰", code: "사용법", api: "API", a11y: "접근성" } as Record<string, string>,
     tabs: ["문서", "컴포넌트", "블록", "SDUI", "템플릿", "테마"],
+    device: "화면 크기",
+    desktop: "데스크톱",
+    mobile: "모바일",
     groups: {} as Record<string, string>,
     copied: (label: string) => `${label} 복사했습니다`,
     copyFailed: "복사하지 못했습니다",
@@ -51,7 +54,28 @@ const COPY = {
   en: {
     titles: { usage: "When to use", anatomy: "Anatomy", demo: "Examples", guidelines: "Do and don't", tokens: "Tokens", code: "Usage", api: "API", a11y: "Accessibility" } as Record<string, string>,
     tabs: ["Docs", "Components", "Blocks", "SDUI", "Templates", "Theme"],
-    groups: { 시작하기: "Get started", 기반: "Foundations", 컴포넌트: "Components", 입력: "Inputs", 탐색: "Navigation", 피드백: "Feedback", 데이터: "Data", 콘텐츠: "Content", 렌더러: "Renderers", 틀: "Frames", 차트: "Charts", 블록: "Blocks", 슬라이드: "Slides", "기술 문서": "Tech docs", 이력서: "Resume", 포트폴리오: "Portfolio", 테마: "Theme" } as Record<string, string>,
+    device: "Screen size",
+    desktop: "Desktop",
+    mobile: "Mobile",
+    groups: {
+      시작하기: "Get started",
+      기반: "Foundations",
+      컴포넌트: "Components",
+      입력: "Inputs",
+      탐색: "Navigation",
+      피드백: "Feedback",
+      데이터: "Data",
+      콘텐츠: "Content",
+      렌더러: "Renderers",
+      틀: "Frames",
+      차트: "Charts",
+      블록: "Blocks",
+      슬라이드: "Slides",
+      "기술 문서": "Tech docs",
+      이력서: "Resume",
+      포트폴리오: "Portfolio",
+      테마: "Theme",
+    } as Record<string, string>,
     copied: (label: string) => `Copied ${label}`,
     copyFailed: "Could not copy",
     theCode: "the code",
@@ -86,7 +110,9 @@ function useDocs() {
   return { lang: key, c: COPY[key], ...CONTENT[key] };
 }
 
-const TABS = [["시작하기", "기반"], ["입력", "탐색", "피드백", "데이터", "콘텐츠", "렌더러", "틀"], ["블록"], ["SDUI"], ["슬라이드", "기술 문서", "이력서", "포트폴리오"], ["테마"]].map((groups, index) => ({ index, groups }));
+const TABS = [["시작하기", "기반"], ["입력", "탐색", "피드백", "데이터", "콘텐츠", "렌더러", "틀"], ["블록"], ["SDUI"], ["슬라이드", "기술 문서", "이력서", "포트폴리오"], ["테마"]].map(
+  (groups, index) => ({ index, groups }),
+);
 const fullWidth = (page: Page) => page.group === "블록" || page.group === "SDUI";
 const tabOf = (page: Page) => TABS.find((tab) => tab.groups.includes(page.group)) ?? TABS[0];
 const groupsInOrder = [...new Set(pages.map((p) => p.group))];
@@ -202,12 +228,32 @@ function Tabs<K extends string>({ value, onChange, options }: { value: K; onChan
   );
 }
 
-function Demo({ name, caption, center, medium }: { name: string; caption?: string; center?: boolean; medium?: string }) {
+function SduiSwitch() {
+  const { c } = useDocs();
+  const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
+  return (
+    <div className="docs-sdui-switch">
+      <Segmented
+        label={c.device}
+        value={device}
+        onChange={setDevice}
+        options={[
+          { value: "desktop", label: c.desktop },
+          { value: "mobile", label: c.mobile },
+        ]}
+      />
+      <SduiPlayground key={device} device={device} />
+    </div>
+  );
+}
+
+function Demo({ name, variants, caption, center, medium }: { name: string; variants?: { label: string; example: string }[]; caption?: string; center?: boolean; medium?: string }) {
   const copy = useCopy();
   const { c } = useDocs();
   const { locale } = useI18n();
   const [tab, setTab] = useState<"preview" | "code">("preview");
-  const { Demo: Preview, source } = example(name);
+  const [variant, setVariant] = useState(variants?.[0]?.example ?? name);
+  const { Demo: Preview, source } = example(variant);
   return (
     <>
       {caption && (
@@ -226,13 +272,14 @@ function Demo({ name, caption, center, medium }: { name: string; caption?: strin
             ]}
           />
           <span className="toolbar-spacer" />
+          {variants && <Segmented label={c.device} value={variant} onChange={setVariant} options={variants.map((item) => ({ value: item.example, label: item.label }))} />}
           <Button className="docs-copy" onClick={() => copy(source, c.theCode)}>
             {c.copy}
           </Button>
         </div>
         <div className={`docs-example-preview${center ? " is-center" : ""}`} data-medium={medium ?? "app"} lang={locale} hidden={tab !== "preview"}>
           <div className="docs-example-stage">
-            <Boundary>
+            <Boundary key={variant}>
               <Preview />
             </Boundary>
           </div>
@@ -313,7 +360,15 @@ function Block({ id }: { id: string }) {
       </div>
       <div className="docs-block-preview" hidden={tab !== "preview"} style={{ "--frame-w": width } as CSSProperties}>
         <div className={`docs-block-frame${json.kind ? ` is-${json.kind}` : ""}`} data-medium="app" lang={lang}>
-          <Boundary>{json.kind === "mobile" ? <Phone><View key={run} /></Phone> : <View key={run} />}</Boundary>
+          <Boundary>
+            {json.kind === "mobile" ? (
+              <Phone>
+                <View key={run} />
+              </Phone>
+            ) : (
+              <View key={run} />
+            )}
+          </Boundary>
         </div>
       </div>
       {tab === "code" && current && (
@@ -521,7 +576,7 @@ function SectionBody({ section }: { section: Section }) {
         </ol>
       );
     case "demo":
-      return <Demo name={section.example} caption={section.caption} center={section.center} medium={section.medium} />;
+      return <Demo name={section.example} variants={section.variants} caption={section.caption} center={section.center} medium={section.medium} />;
     case "gallery":
       return (
         <div className="docs-gallery">
@@ -557,7 +612,7 @@ function SectionBody({ section }: { section: Section }) {
     case "review":
       return <TokenReview lang={lang} />;
     case "sdui":
-      return <SduiPlayground device={section.device} />;
+      return section.device ? <SduiPlayground device={section.device} /> : <SduiSwitch />;
   }
 }
 

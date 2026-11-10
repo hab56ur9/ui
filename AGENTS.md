@@ -88,7 +88,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - The docs are one page; new examples and blocks become sections or tabs, never HTML entry points.
 - Components group into inputs, navigation, feedback, data, content, renderers and frames; Templates holds templates and slide layouts.
 - A component page needs an example file in `docs/examples/`, an entry in `docs/pages.ts` and `docs/pages.en.ts`, and an API table in `docs/api.ts` and `docs/api.en.ts`.
-- Examples show without clicks, one per row. Overlays and screen-anchored parts render `inline` in `docs/Mockup.tsx`: a text-free app in a browser or phone (`device`, `place`).
+- Examples show without clicks, one per row. Overlays and screen-anchored parts render `inline` in `docs/Mockup.tsx`: a text-free app in a browser or phone (`device`, `place`). A demo with both screens uses `variants` (desktop, mobile) as one demo with a device switch.
 - The Theme tab (`docs/TokenReview.tsx`) lists contrast failures, low-contrast series slots, misordered type scales and unused primitives.
 
 ## Release

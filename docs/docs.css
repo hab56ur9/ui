@@ -1737,3 +1737,18 @@
   flex: 1 1 100%;
   justify-content: center;
 }
+
+.docs-example-bar .segmented {
+  margin-right: var(--space-2);
+}
+
+.docs-sdui-switch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.docs-sdui-switch > .sdui-playground {
+  align-self: stretch;
+}
