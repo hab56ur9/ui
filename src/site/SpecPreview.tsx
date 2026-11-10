@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { buildHtml } from "../../bin/spec.mjs";
 import fitnote from "../blocks/fitnote/spec.json";
-import { CodeBlock, Tabs } from "ui";
+import { CodeBlock, Tabs, useI18n } from "ui";
 
 const TABS = [
   { id: "preview", label: "Preview" },
@@ -10,8 +10,9 @@ const TABS = [
 ];
 
 export function SpecPreview() {
+  const { lang } = useI18n();
   const [tab, setTab] = useState("preview");
-  const html = useMemo(() => buildHtml(fitnote, { module: new URL("dist/ui.js", document.baseURI).href }), []);
+  const html = useMemo(() => buildHtml(fitnote, { module: new URL("dist/ui.js", document.baseURI).href, lang: lang === "ko" ? "ko" : "en" }), [lang]);
   return (
     <div className="docs-spec">
       <Tabs label="App spec" value={tab} onChange={setTab} items={TABS} />
