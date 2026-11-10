@@ -452,3 +452,20 @@
 .demo-row {
   justify-content: center;
 }
+
+.board.is-flow {
+  display: block;
+}
+
+.board.is-flow > .widget {
+  display: block;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.board.is-flow > .widget > .widget-body {
+  margin: 0;
+}

@@ -19,9 +19,10 @@ export function Page({ title, lede, actions, children }: PageProps) {
   );
 }
 
-export type WidgetGridProps = { children: ReactNode };
+export type WidgetGridProps = { flow?: boolean; children: ReactNode };
 
-export function WidgetGrid({ children }: WidgetGridProps) {
+export function WidgetGrid({ flow, children }: WidgetGridProps) {
+  if (flow) return <div className="board is-flow">{children}</div>;
   return (
     <div className="board-frame">
       <div className="board">{children}</div>

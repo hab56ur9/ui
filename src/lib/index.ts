@@ -35,4 +35,4 @@ export { Heatmap, type HeatmapProps } from "./charts/Heatmap";
 export { Sparkline, type SparklineProps } from "./charts/Sparkline";
 export { Modal, Sheet, type DialogAction, type DialogProps } from "./overlay/Dialog";
 export { Toast, UIProvider, useConfirm, useToast, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";
-export { Anatomy, Article, ArticleSection, Brand, CardGrid, CopyCode, ErrorBoundary, Example, Paragraphs, PropsTable, RichText, Row, TextList, TokenTable, useCopy, type ArticleProps, type ArticleSectionProps, type ExampleFile, type ExampleProps, type ExampleVariant, type PropsTableProps, type TokenRow } from "./article";
+export { Anatomy, Article, ArticleSection, Brand, CardGrid, CopyCode, ErrorBoundary, Example, Guidelines, Paragraphs, PropsTable, RichText, Row, TextList, TokenTable, useCopy, type ArticleProps, type ArticleSectionProps, type ExampleFile, type ExampleProps, type ExampleVariant, type PropsTableProps, type TokenRow } from "./article";

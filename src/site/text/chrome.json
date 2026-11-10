@@ -1,0 +1,77 @@
+{
+  "ko": {
+    "titles": {
+      "usage": "언제 쓰나",
+      "anatomy": "구성",
+      "demo": "예시",
+      "guidelines": "권장과 지양",
+      "tokens": "쓰는 토큰",
+      "code": "사용법",
+      "api": "API",
+      "a11y": "접근성"
+    },
+    "tabs": [
+      "문서",
+      "컴포넌트",
+      "블록",
+      "앱 스펙",
+      "템플릿",
+      "테마"
+    ],
+    "groups": {},
+    "toc": "이 페이지에서",
+    "pager": "이전과 다음 페이지",
+    "find": "페이지 찾기",
+    "sections": "섹션",
+    "language": "언어",
+    "when": "이럴 때 씁니다",
+    "avoid": "이럴 땐 다른 것을 씁니다"
+  },
+  "en": {
+    "titles": {
+      "usage": "When to use",
+      "anatomy": "Anatomy",
+      "demo": "Examples",
+      "guidelines": "Do and don't",
+      "tokens": "Tokens",
+      "code": "Usage",
+      "api": "API",
+      "a11y": "Accessibility"
+    },
+    "tabs": [
+      "Docs",
+      "Components",
+      "Blocks",
+      "App spec",
+      "Templates",
+      "Theme"
+    ],
+    "groups": {
+      "시작하기": "Get started",
+      "기반": "Foundations",
+      "컴포넌트": "Components",
+      "입력": "Inputs",
+      "탐색": "Navigation",
+      "피드백": "Feedback",
+      "데이터": "Data",
+      "콘텐츠": "Content",
+      "렌더러": "Renderers",
+      "앱 스펙": "App spec",
+      "틀": "Frames",
+      "차트": "Charts",
+      "블록": "Blocks",
+      "슬라이드": "Slides",
+      "기술 문서": "Tech docs",
+      "이력서": "Resume",
+      "포트폴리오": "Portfolio",
+      "테마": "Theme"
+    },
+    "toc": "On this page",
+    "pager": "Previous and next page",
+    "find": "Find a page",
+    "sections": "Sections",
+    "language": "Language",
+    "when": "Use it when",
+    "avoid": "Use something else when"
+  }
+}

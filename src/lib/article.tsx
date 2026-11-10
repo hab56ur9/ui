@@ -1,4 +1,5 @@
 import { Component, useState, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
+import { Callout } from "./Callout";
 import { CodeBlock, type CodeLang } from "./Code";
 import { Button, Segmented } from "./controls";
 import { DataTable } from "./DataTable";
@@ -264,6 +265,25 @@ export function Example({ caption, layout = "padded", medium, lang, files = [], 
           </div>
         )}
       </div>
+    </>
+  );
+}
+
+export function Guidelines({ items }: { items: [string, string][] }) {
+  return (
+    <>
+      {items.map(([good, bad]) => (
+        <div style={{ marginBottom: "var(--space-4)" }} key={good}>
+          <CardGrid>
+            <Callout tone="do" accent="top">
+              <RichText text={good} />
+            </Callout>
+            <Callout tone="dont" accent="top">
+              <RichText text={bad} />
+            </Callout>
+          </CardGrid>
+        </div>
+      ))}
     </>
   );
 }

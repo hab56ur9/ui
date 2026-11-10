@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import enText from "./text/en.json";
 import koText from "./text/ko.json";
+import chromeText from "./text/chrome.json";
 import {
   Anatomy,
   AppShell,
@@ -12,6 +13,7 @@ import {
   CopyCode,
   ErrorBoundary,
   Example,
+  Guidelines,
   Paragraphs,
   PropsTable,
   RichText,
@@ -52,14 +54,15 @@ const blockViews = import.meta.glob<{ default: ComponentType }>(["../blocks/*/Da
 const example = (name: string) => ({ Demo: modules[`./examples/${name}.tsx`].default, source: sources[`./examples/${name}.tsx`] });
 const textOf = (name: string, lang: Lang) => (lang === "en" ? enText : koText)[name as keyof typeof enText];
 
+type Chrome = { titles: Record<string, string>; tabs: string[]; groups: Record<string, string>; toc: string; pager: string; find: string; sections: string; language: string; when: string; avoid: string };
+const chrome = chromeText as Record<"ko" | "en", Chrome>;
+
 const COPY = {
   ko: {
-    titles: { usage: "언제 쓰나", anatomy: "구성", demo: "예시", guidelines: "권장과 지양", tokens: "쓰는 토큰", code: "사용법", api: "API", a11y: "접근성" } as Record<string, string>,
-    tabs: ["문서", "컴포넌트", "블록", "앱 스펙", "템플릿", "테마"],
+    ...chrome.ko,
     device: "화면 크기",
     desktop: "데스크톱",
     mobile: "모바일",
-    groups: {} as Record<string, string>,
     copied: (label: string) => `${label} 복사했습니다`,
     copyFailed: "복사하지 못했습니다",
     theCode: "코드를",
@@ -72,45 +75,17 @@ const COPY = {
     rerun: "다시 그리기",
     tokenHead: ["토큰", "값", "쓰임"],
     apiHead: ["이름", "타입", "기본값", "설명"],
-    when: "이럴 때 씁니다",
-    avoid: "이럴 땐 다른 것을 씁니다",
     do: "권장",
     dont: "지양",
-    pager: "이전과 다음 페이지",
     prev: "이전",
     next: "다음",
-    toc: "이 페이지에서",
     docs: "문서",
-    find: "페이지 찾기",
-    sections: "섹션",
-    language: "언어",
   },
   en: {
-    titles: { usage: "When to use", anatomy: "Anatomy", demo: "Examples", guidelines: "Do and don't", tokens: "Tokens", code: "Usage", api: "API", a11y: "Accessibility" } as Record<string, string>,
-    tabs: ["Docs", "Components", "Blocks", "App spec", "Templates", "Theme"],
+    ...chrome.en,
     device: "Screen size",
     desktop: "Desktop",
     mobile: "Mobile",
-    groups: {
-      시작하기: "Get started",
-      기반: "Foundations",
-      컴포넌트: "Components",
-      입력: "Inputs",
-      탐색: "Navigation",
-      피드백: "Feedback",
-      데이터: "Data",
-      콘텐츠: "Content",
-      렌더러: "Renderers",
-      "앱 스펙": "App spec",
-      틀: "Frames",
-      차트: "Charts",
-      블록: "Blocks",
-      슬라이드: "Slides",
-      "기술 문서": "Tech docs",
-      이력서: "Resume",
-      포트폴리오: "Portfolio",
-      테마: "Theme",
-    } as Record<string, string>,
     copied: (label: string) => `Copied ${label}`,
     copyFailed: "Could not copy",
     theCode: "the code",
@@ -123,18 +98,11 @@ const COPY = {
     rerun: "Redraw",
     tokenHead: ["Token", "Value", "Use"],
     apiHead: ["Name", "Type", "Default", "Description"],
-    when: "Use it when",
-    avoid: "Use something else when",
     do: "Do",
     dont: "Don't",
-    pager: "Previous and next page",
     prev: "Previous",
     next: "Next",
-    toc: "On this page",
     docs: "Docs",
-    find: "Find a page",
-    sections: "Sections",
-    language: "Language",
   },
 };
 const CONTENT = { ko: { pages, api: apiKo }, en: { pages: pagesEn, api: apiEn } };
@@ -467,22 +435,7 @@ function SectionBody({ section }: { section: Section }) {
     case "templates":
       return <Templates category={section.category} />;
     case "guidelines":
-      return (
-        <>
-          {section.items.map(([good, bad]) => (
-            <div style={{ marginBottom: "var(--space-4)" }} key={good}>
-              <CardGrid>
-                <Callout tone="do" accent="top">
-                  <RichText text={good} />
-                </Callout>
-                <Callout tone="dont" accent="top">
-                  <RichText text={bad} />
-                </Callout>
-              </CardGrid>
-            </div>
-          ))}
-        </>
-      );
+      return <Guidelines items={section.items as [string, string][]} />;
     case "tokens":
       return <Tokens paths={section.paths} notes={section.notes} />;
     case "code":
