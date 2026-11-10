@@ -1,0 +1,12 @@
+{
+  "title": "모바일 대시보드 (JSON)",
+  "description": "블록 탭의 \"모바일 대시보드\"와 같은 화면을 JSON 하나로 그립니다. `<JsonUI>` 아래에 놓인 JSON이 같은 컴포넌트를 같은 props로 부르므로, 결과 HTML이 블록 버전과 같습니다. 데이터와 숫자 형식은 앱이 `data`와 `formats`로 넘깁니다.",
+  "category": "SDUI",
+  "kind": "mobile",
+  "uses": ["JSON UI 루트", "앱 틀", "탭 바", "페이지", "위젯 격자", "위젯", "숫자 카드", "선 차트", "표"],
+  "en": {
+    "title": "Mobile dashboard (JSON)",
+    "description": "The Blocks tab's \"Mobile dashboard\" drawn from one JSON document. The JSON under `<JsonUI>` calls the same components with the same props, so the HTML matches the block version. The app passes the data and number formats through `data` and `formats`.",
+    "uses": ["JSON UI root", "App shell", "Tab bar", "Page", "Widget grid", "Widget", "Stat card", "Line chart", "Table"]
+  }
+}

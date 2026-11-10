@@ -1,0 +1,257 @@
+{
+  "type": "AppShell",
+  "props": {
+    "mobileNav": "tabs",
+    "tabBar": {
+      "variant": "floating",
+      "labels": "active"
+    },
+    "brand": [
+      {
+        "type": "Icon",
+        "props": {
+          "name": "chart-line"
+        }
+      },
+      "Service metrics"
+    ],
+    "nav": [
+      {
+        "items": [
+          {
+            "id": "home",
+            "label": "Home",
+            "icon": "home",
+            "current": true,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "home"
+                }
+              }
+            }
+          },
+          {
+            "id": "charts",
+            "label": "Charts",
+            "icon": "chart-line",
+            "current": false,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "charts"
+                }
+              }
+            }
+          },
+          {
+            "id": "alerts",
+            "label": "Alerts",
+            "icon": "bell",
+            "current": false,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "alerts"
+                }
+              }
+            }
+          },
+          {
+            "id": "settings",
+            "label": "Settings",
+            "icon": "sliders",
+            "current": false,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "settings"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "title": "Home"
+  },
+  "children": {
+    "type": "Page",
+    "props": {
+      "title": "Today's metrics",
+      "lede": "Last 30 days · vs the 30 before"
+    },
+    "children": {
+      "type": "WidgetGrid",
+      "children": [
+        {
+          "type": "Widget",
+          "props": {
+            "id": "users",
+            "title": "Active users",
+            "subtitle": "Daily average",
+            "w": 12,
+            "h": 2
+          },
+          "children": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "users.average",
+                "$format": "compact"
+              },
+              "delta": {
+                "change": {
+                  "$data": "users.change"
+                },
+                "label": "vs previous"
+              },
+              "trend": {
+                "$data": "users.trend"
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "revenue",
+            "title": "Revenue",
+            "w": 6,
+            "h": 2
+          },
+          "children": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "revenue.total",
+                "$format": "won"
+              },
+              "delta": {
+                "change": {
+                  "$data": "revenue.change"
+                },
+                "label": "vs previous"
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "latency",
+            "title": "p95 latency",
+            "w": 6,
+            "h": 2
+          },
+          "children": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "latency.p95",
+                "$format": "ms"
+              },
+              "delta": {
+                "change": {
+                  "$data": "latency.change"
+                },
+                "goodWhenUp": false,
+                "label": "vs previous"
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "daily",
+            "title": "Daily active users",
+            "w": 12,
+            "h": 4
+          },
+          "children": {
+            "type": "LineChart",
+            "props": {
+              "series": [
+                {
+                  "name": "Active users",
+                  "color": 1,
+                  "points": {
+                    "$data": "users.daily"
+                  }
+                }
+              ],
+              "format": {
+                "axis": {
+                  "$format": "compact"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "platforms",
+            "title": "Platforms",
+            "w": 12,
+            "h": 3
+          },
+          "children": {
+            "type": "DataTable",
+            "props": {
+              "columns": [
+                {
+                  "label": "Platform"
+                },
+                {
+                  "label": "Daily avg.",
+                  "numeric": true
+                },
+                {
+                  "label": "Change",
+                  "numeric": true
+                }
+              ],
+              "rows": {
+                "$each": {
+                  "$data": "platforms"
+                },
+                "$as": [
+                  {
+                    "text": {
+                      "$field": "id",
+                      "$labels": {
+                        "web": "Web",
+                        "ios": "iOS",
+                        "android": "Android"
+                      }
+                    },
+                    "color": {
+                      "$field": "slot"
+                    }
+                  },
+                  {
+                    "$field": "average",
+                    "$format": "compact"
+                  },
+                  {
+                    "delta": {
+                      "change": {
+                        "$field": "change"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

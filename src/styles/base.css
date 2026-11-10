@@ -403,6 +403,14 @@ p {
   opacity: 1;
 }
 
+.json-ui {
+  display: contents;
+}
+
+.json-ui-missing {
+  color: var(--color-fg-muted);
+}
+
 .stack {
   display: flex;
   flex-direction: column;

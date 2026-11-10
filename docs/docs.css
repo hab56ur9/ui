@@ -448,6 +448,14 @@
   padding: var(--space-6);
 }
 
+.docs-block-frame.is-mobile {
+  display: grid;
+  justify-items: center;
+  height: auto;
+  padding: var(--space-6);
+  overflow: visible;
+}
+
 .docs-block-frame.is-doc {
   padding: var(--space-6);
   background: var(--color-bg-page);

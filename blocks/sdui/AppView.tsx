@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { AppShell, Button, Icon, Modal, Sheet, useI18n, useToast, Widget } from "ui";
+import { AppShell, Button, Icon, Modal, Page, Sheet, useI18n, useToast, Widget, WidgetGrid } from "ui";
 import { formatsFor, renderNode, type Action, type App } from "./render";
 
 const TEXT = {
@@ -62,26 +62,16 @@ export function AppView({ app, values, mobileNav = "tabs", screen: controlled, o
           </Button>
         ))}
       >
-        <main className="page">
-          {screen.title && (
-            <header className="page-head">
-              <div>
-                <h1 className="page-title">{screen.title}</h1>
-                {screen.lede && <p className="page-lede">{screen.lede}</p>}
-              </div>
-            </header>
-          )}
-          <div className="board-frame">
-            <div className="board">
-              {screen.widgets.map(({ id, title, subtitle, w, h, frame, content, action }) => (
-                <Widget key={id} id={id} title={title ?? ""} subtitle={subtitle} w={w} h={h} frame={frame}>
-                  {renderNode(content, ctx)}
-                  {action && <button type="button" style={PRESS} aria-label={title ?? id} onClick={() => run(action)} />}
-                </Widget>
-              ))}
-            </div>
-          </div>
-        </main>
+        <Page title={screen.title} lede={screen.lede}>
+          <WidgetGrid>
+            {screen.widgets.map(({ id, title, subtitle, w, h, frame, content, action }) => (
+              <Widget key={id} id={id} title={title ?? ""} subtitle={subtitle} w={w} h={h} frame={frame}>
+                {renderNode(content, ctx)}
+                {action && <button type="button" style={PRESS} aria-label={title ?? id} onClick={() => run(action)} />}
+              </Widget>
+            ))}
+          </WidgetGrid>
+        </Page>
       </AppShell>
       {open && (
         <div style={{ ...LAYER, alignItems: open.kind === "sheet" ? "flex-end" : "center", padding: open.kind === "sheet" ? "var(--space-4) 0 0" : LAYER.padding }} onClick={(e) => e.target === e.currentTarget && setOverlay(null)}>

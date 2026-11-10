@@ -473,4 +473,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  jsonui: [
+    {
+      type: "api",
+      title: "<JsonUI>",
+      rows: [
+        ["node", "JsonUINode | JsonUINode[]", "", "The JSON template to draw."],
+        ["data", "Record<string, unknown>", "{}", "Values `$data` reads."],
+        ["formats", "Record<string, (value: number) => string>", "{}", "Format functions `$format` picks."],
+        ["onAction", "({ name, params }) => void", "", "Called when a `$action` slot fires."],
+      ],
+    },
+  ],
 };

@@ -1,0 +1,257 @@
+{
+  "type": "AppShell",
+  "props": {
+    "mobileNav": "tabs",
+    "tabBar": {
+      "variant": "floating",
+      "labels": "active"
+    },
+    "brand": [
+      {
+        "type": "Icon",
+        "props": {
+          "name": "chart-line"
+        }
+      },
+      "서비스 지표"
+    ],
+    "nav": [
+      {
+        "items": [
+          {
+            "id": "home",
+            "label": "홈",
+            "icon": "home",
+            "current": true,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "home"
+                }
+              }
+            }
+          },
+          {
+            "id": "charts",
+            "label": "차트",
+            "icon": "chart-line",
+            "current": false,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "charts"
+                }
+              }
+            }
+          },
+          {
+            "id": "alerts",
+            "label": "알림",
+            "icon": "bell",
+            "current": false,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "alerts"
+                }
+              }
+            }
+          },
+          {
+            "id": "settings",
+            "label": "설정",
+            "icon": "sliders",
+            "current": false,
+            "onSelect": {
+              "$action": {
+                "name": "navigate",
+                "params": {
+                  "screen": "settings"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "title": "홈"
+  },
+  "children": {
+    "type": "Page",
+    "props": {
+      "title": "오늘의 지표",
+      "lede": "최근 30일 · 이전 30일 대비"
+    },
+    "children": {
+      "type": "WidgetGrid",
+      "children": [
+        {
+          "type": "Widget",
+          "props": {
+            "id": "users",
+            "title": "활성 사용자",
+            "subtitle": "일 평균",
+            "w": 12,
+            "h": 2
+          },
+          "children": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "users.average",
+                "$format": "compact"
+              },
+              "delta": {
+                "change": {
+                  "$data": "users.change"
+                },
+                "label": "이전 대비"
+              },
+              "trend": {
+                "$data": "users.trend"
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "revenue",
+            "title": "매출",
+            "w": 6,
+            "h": 2
+          },
+          "children": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "revenue.total",
+                "$format": "won"
+              },
+              "delta": {
+                "change": {
+                  "$data": "revenue.change"
+                },
+                "label": "이전 대비"
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "latency",
+            "title": "p95 응답",
+            "w": 6,
+            "h": 2
+          },
+          "children": {
+            "type": "Stat",
+            "props": {
+              "value": {
+                "$data": "latency.p95",
+                "$format": "ms"
+              },
+              "delta": {
+                "change": {
+                  "$data": "latency.change"
+                },
+                "goodWhenUp": false,
+                "label": "이전 대비"
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "daily",
+            "title": "일별 활성 사용자",
+            "w": 12,
+            "h": 4
+          },
+          "children": {
+            "type": "LineChart",
+            "props": {
+              "series": [
+                {
+                  "name": "활성 사용자",
+                  "color": 1,
+                  "points": {
+                    "$data": "users.daily"
+                  }
+                }
+              ],
+              "format": {
+                "axis": {
+                  "$format": "compact"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "Widget",
+          "props": {
+            "id": "platforms",
+            "title": "플랫폼",
+            "w": 12,
+            "h": 3
+          },
+          "children": {
+            "type": "DataTable",
+            "props": {
+              "columns": [
+                {
+                  "label": "플랫폼"
+                },
+                {
+                  "label": "일 평균",
+                  "numeric": true
+                },
+                {
+                  "label": "변화",
+                  "numeric": true
+                }
+              ],
+              "rows": {
+                "$each": {
+                  "$data": "platforms"
+                },
+                "$as": [
+                  {
+                    "text": {
+                      "$field": "id",
+                      "$labels": {
+                        "web": "웹",
+                        "ios": "iOS",
+                        "android": "Android"
+                      }
+                    },
+                    "color": {
+                      "$field": "slot"
+                    }
+                  },
+                  {
+                    "$field": "average",
+                    "$format": "compact"
+                  },
+                  {
+                    "delta": {
+                      "change": {
+                        "$field": "change"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

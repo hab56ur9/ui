@@ -5,13 +5,14 @@ import { api as apiEn } from "./api.en";
 import { homepage, MODE_LABEL, tokensFor, version } from "./catalog";
 import { pages, type Page, type Section } from "./pages";
 import { pages as pagesEn } from "./pages.en";
+import { Phone } from "./Phone";
 import { SduiPlayground } from "./SduiPlayground";
 import { reviewOutline, TokenReview } from "./TokenReview";
 
 const modules = import.meta.glob<{ default: () => ReactNode }>("./examples/*.tsx", { eager: true });
 const sources = import.meta.glob<string>("./examples/*.tsx", { eager: true, query: "?raw", import: "default" });
 type BlockText = { title: string; description: string; uses: string[] };
-const blockMeta = import.meta.glob<BlockText & { kind?: "deck" | "doc"; category?: string; en: BlockText }>("../blocks/*/block.json", { eager: true, import: "default" });
+const blockMeta = import.meta.glob<BlockText & { kind?: "deck" | "doc" | "mobile"; category?: string; en: BlockText }>("../blocks/*/block.json", { eager: true, import: "default" });
 const blockFiles = import.meta.glob<string>(["../blocks/*/*.tsx", "../blocks/*/*.ts", "../blocks/*/*.json", "!../blocks/*/block.json"], { eager: true, query: "?raw", import: "default" });
 const blockViews = import.meta.glob<{ default: ComponentType }>(["../blocks/*/Dashboard.tsx", "../blocks/*/Deck.tsx", "../blocks/*/Doc.tsx", "../blocks/*/Screen.tsx"], { eager: true });
 
@@ -312,9 +313,7 @@ function Block({ id }: { id: string }) {
       </div>
       <div className="docs-block-preview" hidden={tab !== "preview"} style={{ "--frame-w": width } as CSSProperties}>
         <div className={`docs-block-frame${json.kind ? ` is-${json.kind}` : ""}`} data-medium="app" lang={lang}>
-          <Boundary>
-            <View key={run} />
-          </Boundary>
+          <Boundary>{json.kind === "mobile" ? <Phone><View key={run} /></Phone> : <View key={run} />}</Boundary>
         </div>
       </div>
       {tab === "code" && current && (
@@ -337,7 +336,7 @@ function Block({ id }: { id: string }) {
   );
 }
 
-const THUMB = { deck: [1280, 720], doc: [880, 1100] } as const;
+const THUMB = { deck: [1280, 720], doc: [880, 1100], mobile: [440, 880] } as const;
 
 function Thumb({ id }: { id: string }) {
   const { lang } = useDocs();

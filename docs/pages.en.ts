@@ -1305,6 +1305,85 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "jsonui",
+    "group": "컴포넌트",
+    "title": "JSON UI",
+    "lede": "JSON UI is the engine that takes a JSON template and draws components under it. Write the screen as JSON, place one `<JsonUI>`, and pass data, number formats and an action handler. The components below don't know they came from JSON and behave as usual. For SDUI, an app only adds an adapter that turns its server response into this format.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "jsonui-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Template and data",
+        "example": "jsonui-template"
+      },
+      {
+        "type": "text",
+        "title": "Node format",
+        "body": [
+          "A node is an exported component name (`type`), its props and children. An array stacks vertically. Inside props, five markers connect values to the app's data, formats and actions."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "{\n  \"type\": \"Widget\",\n  \"props\": { \"title\": \"Visitors\", \"w\": 6, \"h\": 3 },\n  \"children\": {\n    \"type\": \"Stat\",\n    \"props\": { \"value\": { \"$data\": \"visits\", \"$format\": \"count\" } }\n  }\n}",
+        "lang": "plain"
+      },
+      {
+        "type": "api",
+        "title": "Markers",
+        "rows": [
+          [
+            "$data",
+            "{ \"$data\": key }",
+            "",
+            "Reads a value from `data`; combine with `$format` or `$labels`."
+          ],
+          [
+            "$format",
+            "{ \"$format\": name }",
+            "",
+            "A named function from `formats`; with a value it becomes formatted text."
+          ],
+          [
+            "$each · $as",
+            "{ \"$each\": list, \"$as\": template }",
+            "",
+            "Stamps the template for each item; inside it `$field` reads the item."
+          ],
+          [
+            "$field",
+            "{ \"$field\": key }",
+            "",
+            "The current item's value inside `$each`."
+          ],
+          [
+            "$action",
+            "{ \"$action\": { name, params? } }",
+            "",
+            "In a callback slot it becomes a function that calls `onAction`; a primitive argument arrives as `params.value`."
+          ]
+        ]
+      },
+      {
+        "type": "text",
+        "title": "When it renders",
+        "body": [
+          "By default it renders at request time: the app receives JSON and interprets it in the browser. A web page whose first paint matters can pre-render HTML on the server with the same engine at publish time and hydrate in the browser. JSON stays the source, and both produce the same result."
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "JSON UI adds or removes no accessibility attributes; each drawn component keeps its own."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image",
     "group": "컴포넌트",
     "title": "Image",
@@ -1367,7 +1446,7 @@ export const pages: Page[] = [
   {
     "id": "blocks",
     "group": "블록",
-    "title": "Dashboard",
+    "title": "Desktop dashboard",
     "wide": true,
     "lede": "Finished screens assembled only from components. Drag the widgets in the preview, change the screen width, and copy the full files from the code tab as the starting point of a new dashboard.",
     "sections": [
@@ -1375,6 +1454,32 @@ export const pages: Page[] = [
         "type": "block",
         "id": "dashboard-01",
         "title": "dashboard-01"
+      }
+    ]
+  },
+  {
+    "id": "blocks-mobile",
+    "group": "블록",
+    "title": "Mobile dashboard",
+    "wide": true,
+    "lede": "A phone screen composed directly from components in code (TSX). The SDUI tab's \"Mobile dashboard\" draws the same screen from a JSON template, with the same HTML.",
+    "sections": [
+      {
+        "type": "block",
+        "id": "dashboard-mobile"
+      }
+    ]
+  },
+  {
+    "id": "sdui-dashboard",
+    "group": "SDUI",
+    "title": "Mobile dashboard",
+    "wide": true,
+    "lede": "The Blocks tab's \"Mobile dashboard\" drawn from one JSON template. The app passes the template and data to `<JsonUI>`, and the components receive the same props as in code.",
+    "sections": [
+      {
+        "type": "block",
+        "id": "sdui-dashboard"
       }
     ]
   },

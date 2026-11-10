@@ -14,6 +14,8 @@ export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from ".
 export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";
 export { Avatar, List, PhotoGrid, Post, ProfileHeader, Stories, type AvatarProps, type GridPhoto, type ListItem, type ListProps, type PhotoGridProps, type PostProps, type ProfileHeaderProps, type ProfileStat, type StoriesProps, type StoryItem } from "./Social";
+export { Page, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout";
+export { JsonUI, isJsonUINode, type JsonUIAction, type JsonUIContent, type JsonUIFormat, type JsonUINode, type JsonUIProps } from "./JsonUI";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
 export { DisplaySwitch, ThemePicker, useDisplay, type ThemePickerProps, type ThemePickerValue, type Display, type DisplayOptions, type DisplaySwitchProps, type DisplayValue, type Medium, type Theme } from "./display";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";

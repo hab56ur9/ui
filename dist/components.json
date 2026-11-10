@@ -1368,6 +1368,69 @@
       ]
     },
     {
+      "name": "Page",
+      "props": [
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "lede",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "WidgetGrid",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "JsonUI",
+      "props": [
+        {
+          "name": "node",
+          "optional": false,
+          "kind": "object",
+          "type": "JsonUIContent"
+        },
+        {
+          "name": "data",
+          "optional": true,
+          "kind": "object",
+          "type": "Record<string, unknown>"
+        },
+        {
+          "name": "formats",
+          "optional": true,
+          "kind": "object",
+          "type": "Record<string, JsonUIFormat>"
+        },
+        {
+          "name": "onAction",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
       "name": "TabBar",
       "props": [
         {

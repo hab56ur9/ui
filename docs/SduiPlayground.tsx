@@ -9,6 +9,7 @@ import { data as socialData, dataEn as socialDataEn } from "../blocks/sdui/socia
 import socialEn from "../blocks/sdui/social/en.json";
 import socialKo from "../blocks/sdui/social/ko.json";
 import schema from "../dist/components.json";
+import { Phone } from "./Phone";
 
 type Lang = "ko" | "en";
 type Draft = ScreenWidget & { hidden?: boolean };
@@ -23,7 +24,7 @@ const SAMPLES: Record<Device, Record<Lang, Sample>> = {
 };
 const draftsOf = (app: App) => Object.fromEntries(Object.entries(app.screens).map(([id, screen]) => [id, screen.widgets as Draft[]]));
 const SCHEMA = new Map((schema.components as { name: string; props: Prop[] }[]).map(({ name, props }) => [name, props]));
-const COMPONENTS = [...SCHEMA.keys()].sort();
+const COMPONENTS = [...SCHEMA.keys()].filter((name) => name !== "JsonUI").sort();
 
 const COPY = {
   ko: {
@@ -473,15 +474,7 @@ export function SduiPlayground({ device = "mobile" }: { device?: Device }) {
           <strong>{c.preview}</strong>
         </div>
         {mobile ? (
-          <div className="phone">
-            <div className="phone-status" aria-hidden="true">
-              <span>9:41</span>
-              <span className="phone-island" />
-              <span className="phone-signal" />
-            </div>
-            <div className="phone-screen">{preview}</div>
-            <div className="phone-home" aria-hidden="true" />
-          </div>
+          <Phone>{preview}</Phone>
         ) : (
           <div className="browser">
             <div className="browser-bar" aria-hidden="true">

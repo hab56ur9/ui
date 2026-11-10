@@ -74,12 +74,12 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 ## SDUI
 
-- SDUI itself belongs to the platform; `blocks/sdui` is an example and a template. Infinite scroll stays out of scope until a real SDUI screen needs it.
-- `render.tsx` keeps no per-component code. A node is `{ "type": "<ExportedName>", "props": {...}, "children": ... }`, looked up in the `ui` exports.
-- Props resolve through `$data` (app data), `$format` (named formatter), `$each` with `$as` and `$field` (rows from a list), and `$action` (a callback reporting a named action; a primitive argument arrives as `params.value`).
-- `AppView.tsx` draws the app JSON: menu, screens, overlays and widget tap actions. `open`, `navigate` and `close` run in the client; any other action name is an event for the app. `"density": "compact"` sets `data-density`.
-- Sample apps: `social/` for the mobile builder and `fitness/` for the desktop builder, each with `data.ts`, `ko.json` and `en.json`.
-- The builder (`docs/SduiPlayground.tsx`) reads `dist/components.json`, so a newly exported component appears in the palette and inspector without builder code.
+- SDUI itself belongs to the platform. The design system ships one engine, `JsonUI` (`src/JsonUI.tsx`): a root that draws a JSON template with exported components. Components never know they came from JSON; an app adds an adapter from its server format to this one.
+- A node is `{ "type": "<ExportedName>", "props", "children" }`; props resolve `$data`, `$format`, `$each`/`$as`/`$field` and `$action` (a primitive argument arrives as `params.value`). Components are looked up at render time because of the circular import.
+- JSON is the source; it renders at request time in the browser and can be pre-rendered on the server with the same engine.
+- `Page` and `WidgetGrid` make the page frame and static grid expressible as nodes.
+- `blocks/dashboard-mobile` (TSX) and `blocks/sdui-dashboard` (JSON) draw the same screen; their HTML must match.
+- `blocks/sdui` holds the sample app protocol (`AppView`: menu, screens, overlays, `navBar`, `density`) and the social and fitness apps; the builder reads `dist/components.json`.
 
 ## Docs
 

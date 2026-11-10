@@ -1,0 +1,12 @@
+{
+  "title": "모바일 대시보드",
+  "description": "서비스 지표를 휴대폰 화면 하나에 담은 대시보드입니다. 컴포넌트를 코드(TSX)로 직접 조합했습니다. SDUI 탭의 \"모바일 대시보드\"는 같은 화면을 JSON으로 그린 것이고, 두 화면의 결과 HTML은 같습니다.",
+  "category": "블록",
+  "kind": "mobile",
+  "uses": ["앱 틀", "탭 바", "페이지", "위젯 격자", "위젯", "숫자 카드", "선 차트", "표"],
+  "en": {
+    "title": "Mobile dashboard",
+    "description": "Service metrics on one phone screen, composed directly from components in code (TSX). The SDUI tab's \"Mobile dashboard\" draws the same screen from JSON, and the two produce the same HTML.",
+    "uses": ["App shell", "Tab bar", "Page", "Widget grid", "Widget", "Stat card", "Line chart", "Table"]
+  }
+}
