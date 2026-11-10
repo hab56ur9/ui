@@ -32,7 +32,7 @@ The loop repeats steps 2 to 4 until the person approves the UI.
 | 4. Revise | Person, agent | The feedback | A revised spec, which goes back to step 2 |
 | 5. Approve | Person | The rendered code | Approval of the UI |
 | 6. Connect | Agent | The approved code | API calls and use cases connected to the code through its data slots and actions |
-| 7. Build | Builder | The connected code | The final app build |
+| 7. Build | Agent | The connected code | The final app, built with the app's own build tool |
 
 ## The spec
 
