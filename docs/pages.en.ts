@@ -1479,7 +1479,7 @@ export const pages: Page[] = [
     "id": "callout",
     "group": "콘텐츠",
     "title": "Callout",
-    "lede": "A callout lifts one must-read passage out of the flow. It comes in note, tip and warning, each with an icon. Markdown `> [!NOTE]` blocks, tech docs and slides share this callout. Do and don't (`do`, `dont`) are callouts too, with a check or cross and a Do or Don't title added for you.",
+    "lede": "A callout lifts one must-read passage out of the flow. It comes in note, tip and warning, each with an icon. Markdown `> [!NOTE]` blocks, tech docs and slides share this callout. Do and don't (`do`, `dont`) are callouts too, with a check or cross and a Do or Don't title added for you. The color rule sits on the left (`left`, default) or on top (`top`).",
     "sections": [
       {
         "type": "demo",

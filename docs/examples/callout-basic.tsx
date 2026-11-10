@@ -13,8 +13,12 @@ export default function Example() {
         {text.turningPromoAlerts}
       </Callout>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-3)" }}>
-        <Callout tone="do">{text.doText}</Callout>
-        <Callout tone="dont">{text.dontText}</Callout>
+        <Callout tone="do" accent="top">
+          {text.doText}
+        </Callout>
+        <Callout tone="dont" accent="top">
+          {text.dontText}
+        </Callout>
       </div>
     </div>
   );

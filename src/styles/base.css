@@ -1452,6 +1452,40 @@ a.shell-link {
   --callout: var(--color-status-critical);
 }
 
+.callout.is-do {
+  --callout-text: var(--color-delta-good);
+}
+
+.callout.is-dont {
+  --callout-text: var(--color-delta-bad);
+}
+
+.callout.is-top {
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border-default);
+  border-top: 3px solid var(--callout);
+  background: var(--color-bg-surface);
+}
+
+.callout-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--callout-text, var(--color-fg-default));
+}
+
+.callout-head > .icon {
+  color: var(--callout);
+}
+
+.callout.is-top .callout-title {
+  margin: 0;
+  color: inherit;
+  font-size: var(--font-size-label);
+}
+
 .callout > .icon {
   color: var(--callout);
 }

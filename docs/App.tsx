@@ -643,10 +643,10 @@ function SectionBody({ section }: { section: Section }) {
         <>
           {section.items.map(([good, bad]) => (
             <div className="docs-cards" style={{ marginBottom: "var(--space-4)" }} key={good}>
-              <Callout tone="do">
+              <Callout tone="do" accent="top">
                 <Rich text={good} />
               </Callout>
-              <Callout tone="dont">
+              <Callout tone="dont" accent="top">
                 <Rich text={bad} />
               </Callout>
             </div>

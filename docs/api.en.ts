@@ -518,6 +518,7 @@ export const api: Record<string, Section[]> = {
       title: "<Callout>",
       rows: [
         ["tone", "\"info\" | \"good\" | \"warning\" | \"do\" | \"dont\"", "\"info\"", "Note, tip, warning, do or don't; do and don't get a Do or Don't title when none is given."],
+        ["accent", "\"left\" | \"top\"", "\"left\"", "Where the color rule sits: `left` for notes in the flow, `top` for cards set side by side, such as do and don't."],
         ["title", "string", "", "A bold title."],
         ["children", "ReactNode", "", "The body."],
       ],

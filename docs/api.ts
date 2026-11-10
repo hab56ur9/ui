@@ -518,6 +518,7 @@ export const api: Record<string, Section[]> = {
       title: "<Callout>",
       rows: [
         ["tone", "\"info\" | \"good\" | \"warning\" | \"do\" | \"dont\"", "\"info\"", "알림, 팁, 주의, 권장, 지양입니다. 권장·지양은 제목을 생략하면 「권장」·「지양」이 붙습니다."],
+        ["accent", "\"left\" | \"top\"", "\"left\"", "색 선 자리입니다. `left`는 본문 속 알림, `top`은 나란히 놓는 카드(권장·지양 등)에 씁니다."],
         ["title", "string", "", "굵은 제목입니다."],
         ["children", "ReactNode", "", "본문입니다."],
       ],

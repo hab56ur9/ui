@@ -1115,6 +1115,15 @@
           ]
         },
         {
+          "name": "accent",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "left",
+            "top"
+          ]
+        },
+        {
           "name": "title",
           "optional": true,
           "kind": "string"
