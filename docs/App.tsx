@@ -1,4 +1,4 @@
-import { Component, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
+import { Component, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import enText from "./text/en.json";
 import koText from "./text/ko.json";
 import {
@@ -257,7 +257,19 @@ function SduiSwitch() {
   );
 }
 
-function Demo({ name, variants, caption, center, medium }: { name: string; variants?: { label: string; example: string }[]; caption?: string; center?: boolean; medium?: string }) {
+function Demo({
+  name,
+  variants,
+  caption,
+  layout = "padded",
+  medium,
+}: {
+  name: string;
+  variants?: { label: string; example: string }[];
+  caption?: string;
+  layout?: "centered" | "padded" | "fullscreen";
+  medium?: string;
+}) {
   const copy = useCopy();
   const { c, lang } = useDocs();
   const { locale } = useI18n();
@@ -291,7 +303,7 @@ function Demo({ name, variants, caption, center, medium }: { name: string; varia
             {c.copy}
           </Button>
         </div>
-        <div className={`docs-example-preview${center ? " is-center" : ""}`} data-medium={medium ?? "app"} lang={locale} hidden={tab !== "preview"}>
+        <div className={`docs-example-preview is-${layout}`} data-medium={medium ?? "app"} lang={locale} hidden={tab !== "preview"}>
           <div className="docs-example-stage">
             <Boundary key={variant}>
               <Preview />
@@ -341,6 +353,31 @@ function Block({ id }: { id: string }) {
     .sort((a, b) => Number(b.name === main) - Number(a.name === main) || a.name.localeCompare(b.name));
   const [tab, setTab] = useState("preview");
   const [width, setWidth] = useState("100%");
+  const [dragging, setDragging] = useState(false);
+  const preview = useRef<HTMLDivElement>(null);
+  const frameWidth = () => preview.current?.querySelector(".docs-block-frame")?.getBoundingClientRect().width ?? 0;
+  const resize = (px: number) => {
+    const max = preview.current?.clientWidth ?? px;
+    setWidth(px >= max - 1 ? "100%" : `${Math.round(Math.max(320, px))}px`);
+  };
+  const startResize = (e: ReactPointerEvent<HTMLSpanElement>) => {
+    e.preventDefault();
+    const handle = e.currentTarget;
+    handle.setPointerCapture(e.pointerId);
+    const startX = e.clientX;
+    const start = frameWidth();
+    setDragging(true);
+    const move = (event: PointerEvent) => resize(start + (event.clientX - startX) * 2);
+    const end = () => {
+      setDragging(false);
+      handle.removeEventListener("pointermove", move);
+      handle.removeEventListener("pointerup", end);
+      handle.removeEventListener("pointercancel", end);
+    };
+    handle.addEventListener("pointermove", move);
+    handle.addEventListener("pointerup", end);
+    handle.addEventListener("pointercancel", end);
+  };
   const [run, setRun] = useState(0);
   const [file, setFile] = useState(files[0]?.name);
   const current = files.find((f) => f.name === file) ?? files[0];
@@ -379,7 +416,24 @@ function Block({ id }: { id: string }) {
           {current.name}
         </Button>
       </div>
-      <div className="docs-block-preview" hidden={tab !== "preview"} style={{ "--frame-w": width } as CSSProperties}>
+      <div ref={preview} className={`docs-block-preview${dragging ? " is-dragging" : ""}`} hidden={tab !== "preview"} style={{ "--frame-w": width } as CSSProperties}>
+        {!json.kind && (
+          <span
+            className="docs-block-handle"
+            role="separator"
+            aria-orientation="vertical"
+            aria-label={c.width}
+            aria-valuenow={Math.round(frameWidth())}
+            tabIndex={0}
+            onPointerDown={startResize}
+            onKeyDown={(e) => {
+              const step = e.key === "ArrowLeft" ? -16 : e.key === "ArrowRight" ? 16 : 0;
+              if (!step) return;
+              e.preventDefault();
+              resize(frameWidth() + step * 2);
+            }}
+          />
+        )}
         <div className={`docs-block-frame${json.kind ? ` is-${json.kind}` : ""}`} data-medium="app" lang={lang}>
           <Boundary>
             {json.kind === "mobile" ? (
@@ -568,7 +622,7 @@ function SectionBody({ section }: { section: Section }) {
         </ol>
       );
     case "demo":
-      return <Demo name={section.example} variants={section.variants} caption={section.caption} center={section.center} medium={section.medium} />;
+      return <Demo name={section.example} variants={section.variants} caption={section.caption} layout={section.layout} medium={section.medium} />;
     case "gallery":
       return (
         <div className="docs-gallery">

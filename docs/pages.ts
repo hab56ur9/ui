@@ -4,7 +4,7 @@ export type Section =
   | { type: "cards"; title?: string; items: { title?: string; body?: string; items?: string[] }[] }
   | { type: "usage"; title?: string; when: string[]; avoid: string[] }
   | { type: "anatomy"; title?: string; items: string[][] }
-  | { type: "demo"; title?: string; example: string; variants?: { label: string; example: string }[]; caption?: string; center?: boolean; medium?: string }
+  | { type: "demo"; title?: string; example: string; variants?: { label: string; example: string }[]; caption?: string; layout?: "centered" | "padded" | "fullscreen"; medium?: string }
   | { type: "gallery"; title?: string; items: { title: string; example: string; caption?: string; medium?: string }[] }
   | { type: "block"; title?: string; id: string }
   | { type: "guidelines"; title?: string; items: string[][] }
@@ -554,14 +554,14 @@ export const pages: Page[] = [
         "type": "demo",
         "title": "크기와 색",
         "caption": "크기는 `sm` · `md` · `lg`, 색은 감싼 요소의 글자색입니다",
-        "center": true,
-        "example": "icons-size"
+        "example": "icons-size",
+        "layout": "centered"
       },
       {
         "type": "demo",
         "title": "버튼 안의 아이콘",
-        "center": true,
-        "example": "icons-button"
+        "example": "icons-button",
+        "layout": "centered"
       },
       {
         "type": "anatomy",
@@ -620,8 +620,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "기본",
-        "center": true,
-        "example": "button-basic"
+        "example": "button-basic",
+        "layout": "centered"
       },
       {
         "type": "anatomy",
@@ -679,8 +679,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "기본",
-        "center": true,
-        "example": "segmented-basic"
+        "example": "segmented-basic",
+        "layout": "centered"
       },
       {
         "type": "usage",
@@ -716,7 +716,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "검색, 이름표와 도움말, 꺼짐",
-        "example": "textfield-basic"
+        "example": "textfield-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -735,7 +736,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "기본",
-        "example": "calendar-basic"
+        "example": "calendar-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -760,7 +762,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "버튼과 패널",
-        "example": "themepicker-basic"
+        "example": "themepicker-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -790,7 +793,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "탭이 많을 때",
-        "example": "tabs-scroll"
+        "example": "tabs-scroll",
+        "layout": "centered"
       },
       {
         "type": "guidelines",
@@ -854,7 +858,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "기본",
-        "example": "toc-basic"
+        "example": "toc-basic",
+        "layout": "centered"
       }
     ]
   },
@@ -1407,8 +1412,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "슬롯별 색",
-        "center": true,
-        "example": "sparkline-slots"
+        "example": "sparkline-slots",
+        "layout": "centered"
       },
       {
         "type": "usage",
@@ -1463,7 +1468,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "색과 모양",
-        "example": "badge-basic"
+        "example": "badge-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -1648,12 +1654,14 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "피드",
-        "example": "social-feed"
+        "example": "social-feed",
+        "layout": "centered"
       },
       {
         "type": "demo",
         "title": "프로필과 알림",
-        "example": "social-profile"
+        "example": "social-profile",
+        "layout": "centered"
       },
       {
         "type": "a11y",

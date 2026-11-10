@@ -536,14 +536,14 @@ export const pages: Page[] = [
         "type": "demo",
         "title": "Size and color",
         "caption": "Sizes are `sm` · `md` · `lg`, and the color is the text color of the wrapping element",
-        "center": true,
-        "example": "icons-size"
+        "example": "icons-size",
+        "layout": "centered"
       },
       {
         "type": "demo",
         "title": "Icons in buttons",
-        "center": true,
-        "example": "icons-button"
+        "example": "icons-button",
+        "layout": "centered"
       },
       {
         "type": "anatomy",
@@ -602,8 +602,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Basic",
-        "center": true,
-        "example": "button-basic"
+        "example": "button-basic",
+        "layout": "centered"
       },
       {
         "type": "anatomy",
@@ -661,8 +661,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Basic",
-        "center": true,
-        "example": "segmented-basic"
+        "example": "segmented-basic",
+        "layout": "centered"
       },
       {
         "type": "usage",
@@ -698,7 +698,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Search, label and hint, disabled",
-        "example": "textfield-basic"
+        "example": "textfield-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -717,7 +718,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Basic",
-        "example": "calendar-basic"
+        "example": "calendar-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -742,7 +744,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Button and panel",
-        "example": "themepicker-basic"
+        "example": "themepicker-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -772,7 +775,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Many tabs",
-        "example": "tabs-scroll"
+        "example": "tabs-scroll",
+        "layout": "centered"
       },
       {
         "type": "guidelines",
@@ -836,7 +840,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Basic",
-        "example": "toc-basic"
+        "example": "toc-basic",
+        "layout": "centered"
       }
     ]
   },
@@ -1389,8 +1394,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Color per slot",
-        "center": true,
-        "example": "sparkline-slots"
+        "example": "sparkline-slots",
+        "layout": "centered"
       },
       {
         "type": "usage",
@@ -1445,7 +1450,8 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Tones and variants",
-        "example": "badge-basic"
+        "example": "badge-basic",
+        "layout": "centered"
       },
       {
         "type": "a11y",
@@ -1630,12 +1636,14 @@ export const pages: Page[] = [
       {
         "type": "demo",
         "title": "Feed",
-        "example": "social-feed"
+        "example": "social-feed",
+        "layout": "centered"
       },
       {
         "type": "demo",
         "title": "Profile and activity",
-        "example": "social-profile"
+        "example": "social-profile",
+        "layout": "centered"
       },
       {
         "type": "a11y",
