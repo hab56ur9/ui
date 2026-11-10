@@ -17,7 +17,7 @@ https://hab56ur9.github.io/ui/dist/tokens.json
 
 ## React apps
 
-An interactive page is a React app that installs the package from GitHub. React and react-dom are the only runtime libraries; the package ships its TSX source, so the app's bundler compiles it (Vite needs nothing, Next.js lists ui in transpilePackages). The entry imports the token stylesheet and wraps the tree in UIProvider, which hosts toasts and confirms and sets the component language.
+An interactive page is a React app that installs the package from GitHub. React and react-dom are the only runtime libraries; the package ships its TSX source, so the app's bundler compiles it (Vite needs nothing, Next.js lists ui in transpilePackages). The entry imports the token stylesheet, plus the preset and style sheets when the app lets people switch them, and wraps the tree in UIProvider, which hosts toasts and confirms and sets the component language.
 
 ```bash
 npm install github:hab56ur9/ui react react-dom
@@ -25,6 +25,8 @@ npm install github:hab56ur9/ui react react-dom
 
 ```tsx
 import "ui/tokens.css";
+import "ui/presets.css";
+import "ui/styles.css";
 import { UIProvider } from "ui";
 
 createRoot(root).render(
@@ -46,7 +48,7 @@ A page without a bundler imports the component module in one line. The module ca
 </script>
 ```
 
-A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right; the reviewer opens it to switch between the color presets and the light, dark and system modes, so one page is checked under every preset. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
+A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right; the reviewer opens it to switch between the color presets, the styles and the light, dark and system modes, so one page is checked under every preset and style. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
 
 A page that cannot run scripts links the token stylesheet and the component stylesheet and uses the CSS classes directly: button, segmented, data-table, page, toolbar.
 
@@ -54,11 +56,17 @@ A page that cannot run scripts links the token stylesheet and the component styl
 <html lang="en" data-medium="doc">
 <link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/tokens.css">
 <link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/ui.css">
+<link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/presets.css">
+<link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/styles.css">
 ```
 
 ## Modes
 
-The page sets its medium on the root element: app for dense tools and dashboards, doc for long-form technical pages, and slide for projected decks. The theme follows the system unless the page sets data-theme. The language comes from the lang attribute: ko picks the Hangul font stack and en the Latin one, and a nested element with its own lang switches fonts for that element. Every color, size and space is a var(--*) token. The look follows data-preset for brand colors and data-style for shape, border, shadow and motion (minimal, expressive, brutal).
+The page sets its medium on the root element: app for dense tools and dashboards, doc for long-form technical pages, and slide for projected decks. The theme follows the system unless the page sets data-theme. The language comes from the lang attribute: ko picks the Hangul font stack and en the Latin one, and a nested element with its own lang switches fonts for that element. Every color, size and space is a var(--*) token. The look follows two more attributes. data-preset picks the brand colors (lime, sky, mono). data-style picks the design language: minimal is the default; expressive uses large radii and an overshooting entrance; brutal uses square corners, thick borders and hard offset shadows. A style changes shape, border, focus ring, elevation, floating-surface material and motion, never color, so pick the style that fits the product and leave contrast to the tokens. Parts a language needs beyond those values, such as morphing buttons or refraction, belong to the app; docs/design-language-guide.md in the repository lists what tokens cover and how to add a style.
+
+```html
+<html lang="ko" data-medium="app" data-preset="sky" data-style="expressive">
+```
 
 ## Snapshot outputs
 
@@ -98,6 +106,29 @@ A deck is HTML. Deck holds the slides on a 1920×1080 canvas with the slide medi
 ## Tech docs
 
 A technical document is HTML. Doc holds the header, contents and numbered sections with the doc medium tokens, and prints only itself on A4 portrait. The summary states the conclusion in one sentence, requirements live in a RequirementTable and the design refers to them with Ref, alternatives go in Options, and open questions get their own section. A design doc starts from the design-doc example; a question-driven proposal starts from the rfc example, one Problem and one Solution paragraph per question.
+
+## Reference pages
+
+A guide, reference or how-to page uses the parts the documentation site is built from, so it looks like the site. Article holds the eyebrow, title, lede and a Pager; each topic is an ArticleSection with an id and a title. Inside a section, Paragraphs and TextList take strings where backticks become code, CardGrid lines up Cards, Anatomy numbers the parts of a thing, Guidelines pairs do and don't, Example shows a live preview with a code tab and a copy button, CopyCode shows code to copy, PropsTable lists props as name, type, default and description, and TokenTable lists tokens with their values per mode. AppShell with Toc in its aside gives the site's frame.
+
+```tsx
+<Article eyebrow="Inputs" title="Button" lede="A button runs an action. Make only the most important action primary." pager={<Pager previous={prev} next={next} />}>
+  <ArticleSection id="basic" title="Basic">
+    <Example layout="centered" files={[{ name: "button.tsx", code }]}>
+      <Row>
+        <Button>Cancel</Button>
+        <Button variant="primary">Save</Button>
+      </Row>
+    </Example>
+  </ArticleSection>
+  <ArticleSection id="kinds" title="Kinds">
+    <Anatomy items={[["Secondary `.button`", "Most actions."], ["Primary `.is-primary`", "The one key action."]]} />
+  </ArticleSection>
+  <ArticleSection id="api" title="API">
+    <PropsTable rows={[["variant", "\"primary\" | \"secondary\" | \"danger\"", "\"secondary\"", "Look of the button."]]} />
+  </ArticleSection>
+</Article>
+```
 
 ## Chart rules
 
