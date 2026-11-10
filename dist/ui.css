@@ -4716,10 +4716,23 @@ h3.doc-heading::before {
   max-width: 48em;
 }
 
-.project-text > ul {
+.project-text > ul:not(.resume-tags) {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
   margin: 0;
   padding-left: 1.2em;
+}
+
+.resume[data-density="compact"] .resume-section {
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+}
+
+.resume[data-density="compact"] .resume-section-body {
+  gap: var(--space-3);
+}
+
+.resume[data-density="compact"] .resume-head {
+  padding-bottom: var(--space-4);
 }
