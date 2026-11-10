@@ -2023,6 +2023,19 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "portfolio-templates",
+    "group": "포트폴리오",
+    "title": "포트폴리오 템플릿",
+    "wide": true,
+    "lede": "포트폴리오 템플릿입니다. `Portfolio`, `PortfolioSection`, `Project` 세 부품으로 만들고, 프로젝트마다 이미지·요약·핵심 숫자·기술 태그를 둡니다. 인쇄하면 A4 세로로 나뉘고, 테마를 바꾸면 강조색이 함께 바뀝니다.",
+    "sections": [
+      {
+        "type": "templates",
+        "category": "포트폴리오"
+      }
+    ]
+  },
+  {
     "id": "theme",
     "group": "테마",
     "title": "토큰 검사",

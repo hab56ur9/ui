@@ -5,6 +5,7 @@ export { DAY, color } from "./format";
 export { LangProvider, languages, useI18n } from "./i18n";
 export { Board, Widget, type BoardProps, type LayoutItem, type WidgetProps } from "./Board";
 export { Doc, DocSection, Ref, type DocMeta, type DocProps, type DocSectionProps, type DocStatus } from "./document/Doc";
+export { Portfolio, PortfolioSection, Project, type PortfolioProps, type PortfolioSectionProps, type ProjectMetric, type ProjectProps } from "./document/Portfolio";
 export { Resume, ResumeEntry, ResumeSection, type ResumeContact, type ResumeEntryProps, type ResumeProps, type ResumeSectionProps } from "./document/Resume";
 export { ChangeLog, Figure, Options, RequirementTable, type Change, type Option, type Priority, type Requirement } from "./document/parts";
 export { Deck, Slide, SlideFooter, SlideHeader, type DeckProps, type SlideHeaderProps, type SlideProps, type SlideTone } from "./slides/Deck";

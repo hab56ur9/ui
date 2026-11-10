@@ -1,0 +1,12 @@
+{
+  "title": "기본 포트폴리오",
+  "description": "프로젝트 중심 포트폴리오입니다. 이름·직무·소개 머리말 아래에 주요 프로젝트를 이미지, 요약, 핵심 숫자, 기술 태그로 보여 주고, 그 밖의 작업은 짧게 나열합니다. 인쇄하면 A4 세로로 나뉩니다.",
+  "category": "포트폴리오",
+  "kind": "doc",
+  "uses": ["포트폴리오", "포트폴리오 섹션", "프로젝트", "이미지"],
+  "en": {
+    "title": "Basic portfolio",
+    "description": "A project-led portfolio. Under a header with name, role and intro, featured projects show an image, a summary, key numbers and tech tags, and other work follows in short entries. Printing splits it into A4 portrait pages.",
+    "uses": ["Portfolio", "Portfolio section", "Project", "Image"]
+  }
+}

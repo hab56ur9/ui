@@ -2005,6 +2005,19 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "portfolio-templates",
+    "group": "포트폴리오",
+    "title": "Portfolio templates",
+    "wide": true,
+    "lede": "Portfolio templates built from three parts: `Portfolio`, `PortfolioSection` and `Project`, each project with an image, summary, key numbers and tech tags. Printing splits them into A4 portrait pages, and the accent follows the theme.",
+    "sections": [
+      {
+        "type": "templates",
+        "category": "포트폴리오"
+      }
+    ]
+  },
+  {
     "id": "theme",
     "group": "테마",
     "title": "Token review",

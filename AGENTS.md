@@ -59,18 +59,19 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Component text lives in `src/i18n.tsx` for ko and en.
 - Icons: add or redraw `assets/icons/<name>.svg` on the 24 grid with round-capped `currentColor` strokes; the build bundles them.
 - `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card and an untitled widget drops its header. Plain static widgets size to their content.
-- Overlays: `Modal` and `Sheet` are controlled native dialogs with an `inline` mode for docs. `UIProvider` hosts toasts and confirm dialogs.
+- `Modal` and `Sheet` are controlled native dialogs with an `inline` docs mode; `UIProvider` hosts toasts and confirms.
 - `AppShell` takes `mobileNav="tabs"` to show `TabBar` instead of the drawer below 1024px, and `tabBar` for its `variant` (`bar`, `floating`) and `labels` (`show`, `active`, `hide`). An SDUI app sets the same through `navBar`.
 - `ThemePicker` opens a palette of the color presets and the mode switch, applies `data-preset` and `data-theme` to the root, and reports through `onChange`. `ui.js` loads `presets.css` so review pages can carry `ThemePicker` with `floating`.
 - Each preset's sub color is a gray tinted toward its main hue (`lime-gray`, `sky-gray`); the theme's default sub matches the lime preset.
-- `Image` draws a gradient placeholder from series colors when `src` is missing. Portrait images use 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
+- `Image` draws a gradient placeholder without `src`; portrait is 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
+- `Markdown` renders CommonMark + GFM with the system's parts and never raw HTML; ```` ```ui ```` fences go through `JsonUI`. `MarkdownEditor` edits block by block (`/` menu) and emits markdown.
 
 ## Templates
 
 - The repository manages templates and their parts only; writing rules for documents live in a separate docs plugin, not here.
-- The Templates tab groups Slides, Tech docs and Resume. A template is a block whose `block.json` sets `category` (슬라이드, 기술 문서, 이력서) and `kind` (`deck` or `doc`); a `templates` section shows them as cards with live thumbnails and the picked one below.
+- The Templates tab groups Slides, Tech docs, Resume and Portfolio. A template is a block whose `block.json` sets `category` (슬라이드, 기술 문서, 이력서) and `kind` (`deck` or `doc`); a `templates` section shows them as cards with live thumbnails and the picked one below.
 - Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`, parts in `src/slides/parts.tsx`. PDF is print CSS only.
-- Tech docs: `Doc`, `DocSection`, `Ref`, `RequirementTable`, `Options`, `Figure`, `ChangeLog`, `CodeBlock`. Resume: `Resume`, `ResumeSection`, `ResumeEntry`. Both print to A4 through `src/print.tsx`.
+- Tech docs: `Doc`, `DocSection`, `Ref`, `RequirementTable`, `Options`, `Figure`, `ChangeLog`. Resume: `Resume`, `ResumeSection`, `ResumeEntry`. Portfolio: `Portfolio`, `PortfolioSection`, `Project`. All print to A4 via `src/print.tsx`.
 
 ## SDUI
 

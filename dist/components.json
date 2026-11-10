@@ -192,6 +192,105 @@
       ]
     },
     {
+      "name": "Portfolio",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "role",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "intro",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "contacts",
+          "optional": true,
+          "kind": "list",
+          "type": "ResumeContact[]"
+        },
+        {
+          "name": "printable",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "PortfolioSection",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Project",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "period",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "role",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "image",
+          "optional": true,
+          "kind": "object",
+          "type": "ImageProps"
+        },
+        {
+          "name": "summary",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "metrics",
+          "optional": true,
+          "kind": "list",
+          "type": "ProjectMetric[]"
+        },
+        {
+          "name": "tags",
+          "optional": true,
+          "kind": "list",
+          "type": "string[]"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
       "name": "Resume",
       "props": [
         {

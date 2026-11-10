@@ -3621,6 +3621,115 @@ h3.doc-heading::before {
   align-self: stretch;
 }
 
+.portfolio-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--color-main-default);
+}
+
+.portfolio-role {
+  margin: 0 0 var(--space-2);
+  color: var(--color-main-default);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.portfolio-name {
+  margin: 0;
+  font-size: var(--font-size-display);
+  line-height: var(--line-height-tight);
+}
+
+.portfolio-intro {
+  max-width: 36em;
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-title);
+}
+
+.portfolio-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.portfolio-section:last-child {
+  border-bottom: 0;
+}
+
+.portfolio-section-title {
+  margin: 0;
+  color: var(--color-main-default);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project {
+  display: grid;
+  gap: var(--space-4) var(--space-6);
+}
+
+.project.has-image {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: start;
+}
+
+.project-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.project-title {
+  margin: 0;
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+}
+
+.project-summary {
+  margin: 0;
+}
+
+.project-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: var(--space-2) 0 0;
+}
+
+.project-metrics dd {
+  margin: 0;
+  color: var(--color-fg-default);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.project-metrics dt {
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+}
+
+@container (max-width: 600px) {
+  .project.has-image {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @page doc {
   size: A4;
   margin: 16mm 18mm;
@@ -3639,7 +3748,8 @@ h3.doc-heading::before {
     display: none;
   }
 
-  .resume-entry {
+  .resume-entry,
+  .project {
     break-inside: avoid;
   }
 
