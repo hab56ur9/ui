@@ -1,0 +1,41 @@
+import type { Text } from "./ko";
+
+export const en: Text = {
+  deck: "Redesigning the notification center",
+  kicker: "Product team · November 2026",
+  subtitle: "Gather scattered notifications in one place so fewer get missed",
+  meta: "Proposed by Haneul · Review on November 20",
+  agenda: "Agenda",
+  agendaItems: ["Problem", "Proposal", "Expected impact", "Timeline", "Decisions needed"],
+  problem: "Notifications live in three places today",
+  problemTakeaway: "Four in ten users said they missed an important notification.",
+  problemItems: [{ text: "Notifications pile up in the app header, email and settings separately" }, { text: "Read state doesn't match across them", items: ["Read in email, still new in the app"] }, { text: "No priority, so payment alerts drown in promotions" }],
+  compare: "How one notification reaches a user",
+  before: "Today",
+  beforeBody: "Three places to check. A failed-payment alert is seen 2.4 days later on average.",
+  after: "After",
+  afterBody: "One notification center sorted by priority. Failed payments pin to the top.",
+  impact: "Expected impact",
+  impactTakeaway: "Within three months of launch, failed payments are seen within a day.",
+  metrics: [
+    ["Failed payment seen", "< 1 day", "Now 2.4 days"],
+    ["Notifications muted", "10%", "Now 18%"],
+    ["Notification tickets", "150/mo", "Now 320/mo"],
+  ],
+  timeline: "Timeline",
+  milestones: [
+    { date: "Dec wk 1", title: "Design locked", body: "Screens and data model", done: true },
+    { date: "Dec wk 4", title: "Beta", body: "200 internal users" },
+    { date: "Jan wk 3", title: "Staged rollout", body: "Starting at 20%" },
+    { date: "Feb wk 2", title: "Full launch", body: "Old screen retired" },
+  ],
+  ask: "Decisions needed",
+  askItems: [
+    { title: "Two engineers for ten weeks", body: "One frontend, one backend" },
+    { title: "Promotions off by default", body: "Needs marketing sign-off" },
+    { title: "Retire the old screen", body: "Proposed for February week 2" },
+  ],
+  closing: "Thank you for reviewing",
+  closingItems: ["Leave comments by November 20", "The design doc and mockups are in the shared folder"],
+  contact: "Haneul · Product team",
+};

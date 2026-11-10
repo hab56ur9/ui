@@ -1,0 +1,33 @@
+import type { Text } from "./ko";
+
+export const en: Text = {
+  deck: "Halving response time with one cache",
+  kicker: "Tech talk · November 2026",
+  subtitle: "Adding a request-scoped cache to a read-heavy API",
+  meta: "Backend team · Internal tech seminar",
+  agenda: "Agenda",
+  agendaItems: ["Background", "Approach", "Code", "Results", "Lessons"],
+  why: "Why we started",
+  whyStatement: "We computed the same answer for the same user twelve times a second.",
+  whyDetail: "83% of profile API calls matched a request from the previous second.",
+  approach: "Approach",
+  approachLeft: [{ text: "Request-scoped cache", items: ["One lookup per request"] }, { text: "Short shared cache", items: ["1-second TTL, keyed by user"] }, { text: "Invalidate on the write path" }],
+  approachRight: "Instead of caching for long, we chose to hit often over a short window. The risk of stale data stays under a second.",
+  codeTitle: "The core code",
+  codeTakeaway: "One wrapper around the lookup function.",
+  resultTitle: "Results",
+  resultTakeaway: "p95 response time fell from 240ms to 118ms.",
+  chartName: "p95 response time",
+  weeks: ["10/12", "10/19", "10/26", "11/2", "11/9"],
+  quote: "A cache isn't a tool for speed; it's a tool for not doing the same work twice.",
+  quoteBy: "From the team retro",
+  lessons: "Lessons",
+  lessonsItems: [
+    { title: "Measure first", body: "We didn't know a cache was the answer until we measured duplicates" },
+    { title: "Keep it short", body: "A 1-second TTL still hit 79% of the time" },
+    { title: "Invalidate on writes", body: "Deciding expiry on reads breeds bugs" },
+  ],
+  closing: "Questions",
+  closingItems: ["Slides and code are on the internal wiki"],
+  contact: "Backend team · #backend",
+};
