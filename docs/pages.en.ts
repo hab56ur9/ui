@@ -1387,7 +1387,7 @@ export const pages: Page[] = [
     "id": "markdown",
     "group": "컴포넌트",
     "title": "Markdown",
-    "lede": "Markdown draws markdown text with our components: tables become the table component, code becomes a code block, and callouts like `> [!NOTE]` become callouts. A JSON node in a ` ```ui ` code block is drawn by JSON UI. It parses the common syntax without an outside library and never renders raw HTML.",
+    "lede": "Markdown draws standard markdown (CommonMark plus GitHub extensions) with our components. A table in standard syntax becomes the table component, code becomes a code block, and a `> [!NOTE]` callout becomes a callout. A JSON node in a ` ```ui ` code block is drawn by JSON UI. It parses without an outside library, and for safety it shows raw HTML as text instead of rendering it.",
     "sections": [
       {
         "type": "demo",
@@ -1405,7 +1405,7 @@ export const pages: Page[] = [
         "rows": [
           [
             "Headings",
-            "# … ######",
+            "# … ###### · 제목 + ===/---",
             "",
             "Get an `id` you can link to."
           ],
@@ -1416,20 +1416,26 @@ export const pages: Page[] = [
             ""
           ],
           [
-            "Links and images",
-            "[글](url) ![설명](url)",
+            "Links",
+            "[글](url \"제목\") · [글][참조] · <url> · 맨 URL",
             "",
-            "Only http(s), mailto and relative URLs."
+            "Only http(s), mailto, tel and relative URLs; others are blocked."
+          ],
+          [
+            "Images",
+            "![설명](url \"제목\")",
+            "",
+            "On its own line it becomes a captioned figure."
           ],
           [
             "Lists",
-            "- 항목 · 1. 항목 · - [ ] 할 일",
+            "- 항목 · 1. 항목 · 1) 항목 · - [ ] 할 일",
             "",
             "Nest by indenting."
           ],
           [
             "Quotes and callouts",
-            "> 글 · > [!NOTE|TIP|WARNING] 제목",
+            "> 글 · >> 중첩 · > [!NOTE|TIP|WARNING] 제목",
             "",
             ""
           ],
@@ -1441,9 +1447,21 @@ export const pages: Page[] = [
           ],
           [
             "Code",
-            "```ts … ```",
+            "```ts … ``` · 4칸 들여쓰기",
             "",
             "tsx, html, json and sql are highlighted; others are plain."
+          ],
+          [
+            "Footnotes",
+            "글[^1] + [^1]: 내용",
+            "",
+            "Collected at the end in order."
+          ],
+          [
+            "Other",
+            "--- · 줄 끝 공백 두 칸 · &amp; · \\*",
+            "",
+            "Rules, hard breaks, HTML entities, escapes"
           ],
           [
             "UI blocks",
@@ -1452,10 +1470,10 @@ export const pages: Page[] = [
             "`data`, `formats` and `onAction` come from the Markdown props."
           ],
           [
-            "Rule",
-            "---",
+            "Not rendered",
+            "<div>…</div>",
             "",
-            ""
+            "Raw HTML shows as text for safety."
           ]
         ]
       },

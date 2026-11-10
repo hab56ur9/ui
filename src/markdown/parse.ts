@@ -2,12 +2,14 @@ export type Inline =
   | { kind: "text"; text: string }
   | { kind: "strong" | "em" | "del"; children: Inline[] }
   | { kind: "code"; text: string }
-  | { kind: "link"; href: string; children: Inline[] }
-  | { kind: "image"; src: string; alt: string }
+  | { kind: "link"; href: string; title?: string; children: Inline[] }
+  | { kind: "image"; src: string; alt: string; title?: string }
+  | { kind: "footnote"; id: string; number: number }
   | { kind: "break" };
 
 export type ListItem = { checked?: boolean; children: Block[] };
 export type Tone = "info" | "good" | "warning";
+export type Align = "left" | "right" | "center" | undefined;
 
 export type Block =
   | { kind: "heading"; level: number; children: Inline[]; text: string }
@@ -16,29 +18,41 @@ export type Block =
   | { kind: "quote"; children: Block[] }
   | { kind: "callout"; tone: Tone; title?: string; children: Block[] }
   | { kind: "code"; lang: string; code: string }
-  | { kind: "table"; head: Inline[][]; align: ("left" | "right" | "center" | undefined)[]; rows: Inline[][][] }
-  | { kind: "image"; src: string; alt: string }
+  | { kind: "table"; head: Inline[][]; align: Align[]; rows: Inline[][][] }
+  | { kind: "image"; src: string; alt: string; title?: string }
   | { kind: "rule" };
+
+export type Footnote = { id: string; number: number; children: Block[] };
+export type MarkdownDocument = { blocks: Block[]; footnotes: Footnote[] };
+
+type Refs = { links: Map<string, { href: string; title?: string }>; notes: Map<string, string>; order: string[] };
 
 const CALLOUTS: Record<string, Tone> = { NOTE: "info", INFO: "info", TIP: "good", GOOD: "good", SUCCESS: "good", WARNING: "warning", CAUTION: "warning", IMPORTANT: "warning" };
 
 const FENCE = /^ {0,3}(`{3,}|~{3,})\s*([\w-]*)/;
-const HEADING = /^ {0,3}(#{1,6})\s+(.*?)\s*#*\s*$/;
+const HEADING = /^ {0,3}(#{1,6})(?:\s+(.*?))?\s*#*\s*$/;
+const SETEXT = /^ {0,3}(=+|-+)\s*$/;
 const RULE = /^ {0,3}([-*_])(\s*\1){2,}\s*$/;
 const QUOTE = /^ {0,3}>\s?/;
 const BULLET = /^(\s*)([-*+])\s+(.*)$/;
 const NUMBERED = /^(\s*)(\d{1,9})[.)]\s+(.*)$/;
 const TASK = /^\[([ xX])\]\s+/;
-const DIVIDER = /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/;
-const IMAGE_ONLY = /^\s*!\[([^\]]*)\]\(([^)\s]+)\)\s*$/;
+const DIVIDER = /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/;
+const INDENTED = /^ {4}/;
+const IMAGE_ONLY = /^\s*!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)\s*$/;
+const LINK_DEF = /^ {0,3}\[([^\]^][^\]]*)\]:\s*<?([^\s>]+)>?(?:\s+["'(](.*)["')])?\s*$/;
+const NOTE_DEF = /^ {0,3}\[\^([^\]]+)\]:\s?(.*)$/;
+
+const ENTITIES: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", copy: "©", reg: "®", trade: "™", hellip: "…", mdash: "—", ndash: "–", laquo: "«", raquo: "»", middot: "·", times: "×" };
 
 const blank = (line: string) => line.trim() === "";
 const indentOf = (line: string) => line.match(/^\s*/)?.[0].length ?? 0;
+const label = (text: string) => text.trim().toLowerCase().replace(/\s+/g, " ");
 const cells = (line: string) =>
   line
     .trim()
     .replace(/^\|/, "")
-    .replace(/\|$/, "")
+    .replace(/(?<!\\)\|$/, "")
     .split(/(?<!\\)\|/)
     .map((cell) => cell.trim().replace(/\\\|/g, "|"));
 
@@ -48,68 +62,99 @@ const startsBlock = (line: string, next = "") =>
 const SAFE_URL = /^(https?:|mailto:|tel:|\/|\.|#)/i;
 const safe = (url: string) => (SAFE_URL.test(url) ? url : "#");
 
-export function parseInline(source: string): Inline[] {
+const decode = (text: string) =>
+  text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, name: string) => {
+    if (name[0] !== "#") return ENTITIES[name.toLowerCase()] ?? match;
+    const code = name[1].toLowerCase() === "x" ? parseInt(name.slice(2), 16) : Number(name.slice(1));
+    return code > 0 && code < 0x110000 ? String.fromCodePoint(code) : match;
+  });
+
+const BARE_URL = /^(?:https?:\/\/|www\.)[^\s<]*[^\s<.,:;"')\]!?]/i;
+
+function parseInline(source: string, refs: Refs): Inline[] {
   const out: Inline[] = [];
   let text = "";
   const flush = () => {
-    if (text) out.push({ kind: "text", text });
+    if (text) out.push({ kind: "text", text: decode(text) });
     text = "";
+  };
+  const push = (node: Inline, length: number) => {
+    flush();
+    out.push(node);
+    i += length;
   };
   let i = 0;
   while (i < source.length) {
     const rest = source.slice(i);
-    const escaped = rest.match(/^\\([\\`*_~[\]()#!|>-])/);
+    const escaped = rest.match(/^\\([\\`*_~[\]()#!|>{}+.-])/);
     if (escaped) {
       text += escaped[1];
       i += 2;
       continue;
     }
     if (rest.startsWith("  \n") || rest.startsWith("\\\n")) {
-      flush();
-      out.push({ kind: "break" });
-      i += rest.startsWith("  \n") ? 3 : 2;
+      push({ kind: "break" }, rest.startsWith("  \n") ? 3 : 2);
       continue;
     }
     const code = rest.match(/^(`+)([\s\S]*?[^`])\1(?!`)/);
     if (code) {
-      flush();
-      out.push({ kind: "code", text: code[2].trim() });
-      i += code[0].length;
+      push({ kind: "code", text: code[2].replace(/^ (.*) $/, "$1") }, code[0].length);
       continue;
     }
-    const image = rest.match(/^!\[([^\]]*)\]\(([^)\s]+)\)/);
+    const auto = rest.match(/^<((?:https?|mailto):[^\s>]+|[^\s@>]+@[^\s@>]+\.[^\s@>]+)>/i);
+    if (auto) {
+      const href = auto[1].includes(":") ? auto[1] : `mailto:${auto[1]}`;
+      push({ kind: "link", href: safe(href), children: [{ kind: "text", text: auto[1] }] }, auto[0].length);
+      continue;
+    }
+    const note = rest.match(/^\[\^([^\]]+)\]/);
+    if (note && refs.notes.has(note[1])) {
+      if (!refs.order.includes(note[1])) refs.order.push(note[1]);
+      push({ kind: "footnote", id: note[1], number: refs.order.indexOf(note[1]) + 1 }, note[0].length);
+      continue;
+    }
+    const image = rest.match(/^!\[([^\]]*)\]\(<?([^)\s>]+)>?(?:\s+"([^"]*)")?\)/);
     if (image) {
-      flush();
-      out.push({ kind: "image", alt: image[1], src: safe(image[2]) });
-      i += image[0].length;
+      push({ kind: "image", alt: image[1], src: safe(image[2]), title: image[3] }, image[0].length);
       continue;
     }
-    const link = rest.match(/^\[([^\]]+)\]\(([^)\s]+)\)/);
+    const link = rest.match(/^\[((?:[^\][]|\[[^\]]*\])+)\]\(<?([^)\s>]*)>?(?:\s+"([^"]*)")?\)/);
     if (link) {
-      flush();
-      out.push({ kind: "link", href: safe(link[2]), children: parseInline(link[1]) });
-      i += link[0].length;
+      push({ kind: "link", href: safe(link[2]), title: link[3], children: parseInline(link[1], refs) }, link[0].length);
+      continue;
+    }
+    const reference = rest.match(/^\[((?:[^\][]|\[[^\]]*\])+)\](?:\[([^\]]*)\])?/);
+    const target = reference && refs.links.get(label(reference[2] || reference[1]));
+    if (reference && target) {
+      push({ kind: "link", href: safe(target.href), title: target.title, children: parseInline(reference[1], refs) }, reference[0].length);
+      continue;
+    }
+    const bare = /[\s(*_~]/.test(source[i - 1] ?? " ") ? rest.match(BARE_URL) : null;
+    if (bare) {
+      const href = bare[0].toLowerCase().startsWith("www.") ? `http://${bare[0]}` : bare[0];
+      push({ kind: "link", href: safe(href), children: [{ kind: "text", text: bare[0] }] }, bare[0].length);
       continue;
     }
     const strong = rest.match(/^(\*\*|__)(?=\S)([\s\S]*?\S)\1/);
     if (strong) {
-      flush();
-      out.push({ kind: "strong", children: parseInline(strong[2]) });
-      i += strong[0].length;
+      let inner = strong[2];
+      let length = strong[0].length;
+      const odd = (inner.match(new RegExp(`(?<!\\${strong[1][0]})\\${strong[1][0]}(?!\\${strong[1][0]})`, "g")) ?? []).length % 2 === 1;
+      if (odd && source[i + length] === strong[1][0]) {
+        inner += strong[1][0];
+        length += 1;
+      }
+      push({ kind: "strong", children: parseInline(inner, refs) }, length);
       continue;
     }
     const del = rest.match(/^~~(?=\S)([\s\S]*?\S)~~/);
     if (del) {
-      flush();
-      out.push({ kind: "del", children: parseInline(del[1]) });
-      i += del[0].length;
+      push({ kind: "del", children: parseInline(del[1], refs) }, del[0].length);
       continue;
     }
     const em = rest.match(/^([*_])(?=\S)([\s\S]*?\S)\1(?![*_])/);
     if (em && !(em[1] === "_" && /\w/.test(source[i - 1] ?? ""))) {
-      flush();
-      out.push({ kind: "em", children: parseInline(em[2]) });
-      i += em[0].length;
+      push({ kind: "em", children: parseInline(em[2], refs) }, em[0].length);
       continue;
     }
     text += source[i];
@@ -119,15 +164,14 @@ export function parseInline(source: string): Inline[] {
   return out;
 }
 
-function parseList(lines: string[], start: number): [Block, number] {
+function parseList(lines: string[], start: number, refs: Refs): [Block, number] {
   const first = lines[start].match(BULLET) ?? lines[start].match(NUMBERED);
   const ordered = !BULLET.test(lines[start]);
   const base = first?.[1].length ?? 0;
   const items: ListItem[] = [];
   let i = start;
   while (i < lines.length) {
-    const line = lines[i];
-    const match = ordered ? line.match(NUMBERED) : line.match(BULLET);
+    const match = ordered ? lines[i].match(NUMBERED) : lines[i].match(BULLET);
     if (!match || match[1].length !== base) break;
     const body = [match[3]];
     i += 1;
@@ -152,14 +196,14 @@ function parseList(lines: string[], start: number): [Block, number] {
     }
     const task = body[0].match(TASK);
     if (task) body[0] = body[0].slice(task[0].length);
-    items.push({ checked: task ? task[1].toLowerCase() === "x" : undefined, children: parseBlocks(body.join("\n")) });
+    items.push({ checked: task ? task[1].toLowerCase() === "x" : undefined, children: parseBlocks(body.join("\n"), refs) });
     if (i < lines.length && blank(lines[i]) && i + 1 < lines.length && (ordered ? NUMBERED : BULLET).test(lines[i + 1]) && indentOf(lines[i + 1]) === base) i += 1;
   }
   return [{ kind: "list", ordered, start: ordered ? Number(first?.[2] ?? 1) : 1, items }, i];
 }
 
-export function parseBlocks(source: string): Block[] {
-  const lines = source.replace(/\r\n?/g, "\n").replace(/\t/g, "  ").split("\n");
+function parseBlocks(source: string, refs: Refs): Block[] {
+  const lines = source.split("\n");
   const blocks: Block[] = [];
   let i = 0;
   while (i < lines.length) {
@@ -178,9 +222,16 @@ export function parseBlocks(source: string): Block[] {
       blocks.push({ kind: "code", lang: fence[2].toLowerCase(), code: body.join("\n") });
       continue;
     }
+    if (INDENTED.test(line)) {
+      const body: string[] = [];
+      while (i < lines.length && (INDENTED.test(lines[i]) || (blank(lines[i]) && INDENTED.test(lines[i + 1] ?? "")))) body.push(lines[i++].slice(4));
+      blocks.push({ kind: "code", lang: "", code: body.join("\n") });
+      continue;
+    }
     const heading = line.match(HEADING);
     if (heading) {
-      blocks.push({ kind: "heading", level: heading[1].length, children: parseInline(heading[2]), text: heading[2] });
+      const content = heading[2] ?? "";
+      blocks.push({ kind: "heading", level: heading[1].length, children: parseInline(content, refs), text: content });
       i += 1;
       continue;
     }
@@ -194,36 +245,88 @@ export function parseBlocks(source: string): Block[] {
       while (i < lines.length && !blank(lines[i]) && (QUOTE.test(lines[i]) || !startsBlock(lines[i]))) body.push(lines[i++].replace(QUOTE, ""));
       const callout = body[0]?.match(/^\[!(\w+)\]\s*(.*)$/);
       if (callout && CALLOUTS[callout[1].toUpperCase()]) {
-        blocks.push({ kind: "callout", tone: CALLOUTS[callout[1].toUpperCase()], title: callout[2] || undefined, children: parseBlocks(body.slice(1).join("\n")) });
+        blocks.push({ kind: "callout", tone: CALLOUTS[callout[1].toUpperCase()], title: callout[2] || undefined, children: parseBlocks(body.slice(1).join("\n"), refs) });
         continue;
       }
-      blocks.push({ kind: "quote", children: parseBlocks(body.join("\n")) });
+      blocks.push({ kind: "quote", children: parseBlocks(body.join("\n"), refs) });
       continue;
     }
     if (BULLET.test(line) || NUMBERED.test(line)) {
-      const [list, next] = parseList(lines, i);
+      const [list, next] = parseList(lines, i, refs);
       blocks.push(list);
       i = next;
       continue;
     }
     if (line.includes("|") && DIVIDER.test(lines[i + 1] ?? "")) {
       const head = cells(line);
-      const align = cells(lines[i + 1]).map((cell) => (cell.startsWith(":") && cell.endsWith(":") ? "center" : cell.endsWith(":") ? "right" : cell.startsWith(":") ? "left" : undefined));
+      const align = cells(lines[i + 1]).map((cell): Align => (cell.startsWith(":") && cell.endsWith(":") ? "center" : cell.endsWith(":") ? "right" : cell.startsWith(":") ? "left" : undefined));
       const rows: Inline[][][] = [];
       i += 2;
-      while (i < lines.length && !blank(lines[i]) && lines[i].includes("|")) rows.push(cells(lines[i++]).map(parseInline));
-      blocks.push({ kind: "table", head: head.map(parseInline), align, rows });
+      while (i < lines.length && !blank(lines[i]) && lines[i].includes("|")) rows.push(cells(lines[i++]).map((cell) => parseInline(cell, refs)));
+      blocks.push({ kind: "table", head: head.map((cell) => parseInline(cell, refs)), align, rows });
       continue;
     }
     const image = line.match(IMAGE_ONLY);
     if (image) {
-      blocks.push({ kind: "image", alt: image[1], src: safe(image[2]) });
+      blocks.push({ kind: "image", alt: image[1], src: safe(image[2]), title: image[3] });
       i += 1;
       continue;
     }
     const body = [lines[i++]];
-    while (i < lines.length && !blank(lines[i]) && !startsBlock(lines[i], lines[i + 1])) body.push(lines[i++]);
-    blocks.push({ kind: "paragraph", children: parseInline(body.join("\n")) });
+    while (i < lines.length && !blank(lines[i]) && !SETEXT.test(lines[i]) && !startsBlock(lines[i], lines[i + 1])) body.push(lines[i++]);
+    const setext = i < lines.length ? lines[i].match(SETEXT) : null;
+    if (setext) {
+      const content = body.join("\n").trim();
+      blocks.push({ kind: "heading", level: setext[1][0] === "=" ? 1 : 2, children: parseInline(content, refs), text: content });
+      i += 1;
+      continue;
+    }
+    blocks.push({ kind: "paragraph", children: parseInline(body.join("\n"), refs) });
   }
   return blocks;
+}
+
+function collect(lines: string[]) {
+  const refs: Refs = { links: new Map(), notes: new Map(), order: [] };
+  const kept: string[] = [];
+  let fence: RegExp | null = null;
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i];
+    if (fence) {
+      if (fence.test(line)) fence = null;
+      kept.push(line);
+      continue;
+    }
+    const open = line.match(FENCE);
+    if (open) {
+      fence = new RegExp(`^ {0,3}${open[1][0]}{${open[1].length},}\\s*$`);
+      kept.push(line);
+      continue;
+    }
+    const definition = line.match(LINK_DEF);
+    if (definition) {
+      refs.links.set(label(definition[1]), { href: definition[2], title: definition[3] });
+      continue;
+    }
+    const note = line.match(NOTE_DEF);
+    if (note) {
+      const body = [note[2]];
+      while (i + 1 < lines.length && (/^ {2,}\S/.test(lines[i + 1]) || (blank(lines[i + 1]) && /^ {2,}\S/.test(lines[i + 2] ?? "")))) body.push(lines[++i].replace(/^ {2,4}/, ""));
+      refs.notes.set(note[1], body.join("\n"));
+      continue;
+    }
+    kept.push(line);
+  }
+  return { refs, source: kept.join("\n") };
+}
+
+export function parseMarkdown(markdown: string): MarkdownDocument {
+  const { refs, source } = collect(markdown.replace(/\r\n?/g, "\n").replace(/\t/g, "    ").split("\n"));
+  const blocks = parseBlocks(source, refs);
+  const footnotes: Footnote[] = [];
+  for (let n = 0; n < refs.order.length; n += 1) {
+    const id = refs.order[n];
+    footnotes.push({ id, number: n + 1, children: parseBlocks(refs.notes.get(id) ?? "", refs) });
+  }
+  return { blocks, footnotes };
 }

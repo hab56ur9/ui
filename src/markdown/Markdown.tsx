@@ -3,7 +3,7 @@ import { CodeBlock, type CodeLang } from "../Code";
 import { DataTable } from "../DataTable";
 import { JsonUI, type JsonUIAction, type JsonUIFormat, type JsonUINode } from "../JsonUI";
 import { Callout } from "../slides/parts";
-import { parseBlocks, type Block, type Inline } from "./parse";
+import { parseMarkdown, type Block, type Inline } from "./parse";
 
 export type MarkdownProps = { children: string; data?: Record<string, unknown>; formats?: Record<string, JsonUIFormat>; onAction?: (action: JsonUIAction) => void };
 
@@ -39,13 +39,21 @@ function inline(nodes: Inline[]): ReactNode {
       case "link": {
         const external = /^https?:/i.test(node.href);
         return (
-          <a key={i} href={node.href} target={external ? "_blank" : undefined} rel={external ? "noreferrer noopener" : undefined}>
+          <a key={i} href={node.href} title={node.title} target={external ? "_blank" : undefined} rel={external ? "noreferrer noopener" : undefined}>
             {inline(node.children)}
           </a>
         );
       }
       case "image":
-        return <img key={i} src={node.src} alt={node.alt} loading="lazy" />;
+        return <img key={i} src={node.src} alt={node.alt} title={node.title} loading="lazy" />;
+      case "footnote":
+        return (
+          <sup key={i} className="markdown-footnote-ref">
+            <a href={`#fn-${node.id}`} id={`fnref-${node.id}`}>
+              {node.number}
+            </a>
+          </sup>
+        );
       case "break":
         return <br key={i} />;
     }
@@ -114,8 +122,8 @@ function block(node: Block, ctx: Context, key: number): ReactNode {
     case "image":
       return (
         <figure key={key} className="markdown-image">
-          <img src={node.src} alt={node.alt} loading="lazy" />
-          {node.alt && <figcaption>{node.alt}</figcaption>}
+          <img src={node.src} alt={node.alt} title={node.title} loading="lazy" />
+          {(node.title || node.alt) && <figcaption>{node.title || node.alt}</figcaption>}
         </figure>
       );
     case "rule":
@@ -128,5 +136,25 @@ function blocks(nodes: Block[], ctx: Context): ReactNode {
 }
 
 export function Markdown({ children, ...rest }: MarkdownProps) {
-  return <div className="markdown">{blocks(parseBlocks(children), { ...rest, seen: new Map() })}</div>;
+  const { blocks: content, footnotes } = parseMarkdown(children);
+  const ctx = { ...rest, seen: new Map<string, number>() };
+  return (
+    <div className="markdown">
+      {blocks(content, ctx)}
+      {footnotes.length > 0 && (
+        <section className="markdown-footnotes">
+          <ol>
+            {footnotes.map((note) => (
+              <li key={note.id} id={`fn-${note.id}`}>
+                {blocks(note.children, ctx)}
+                <a href={`#fnref-${note.id}`} className="markdown-footnote-back" aria-label="back">
+                  ↩
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+    </div>
+  );
 }
