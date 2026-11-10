@@ -5,7 +5,7 @@ updated: 2026-11-11
 
 # Recent Design Languages
 
-This document is a reference on the platform design languages and web and product styles that drew attention as of 2026-11-11. Many sources are design agency blogs, so specific figures need checking against Apple's and Google's official documentation.
+This document is a reference on the platform design languages and web and product styles that drew attention as of 2026-11-11.
 
 ## Direction
 
@@ -13,7 +13,6 @@ Since 2025, design has been moving from flat design back toward texture, depth, 
 
 - Apple's Liquid Glass leads with realistic material.
 - Google's Material 3 Expressive draws emotion and attention through color, shape and motion.
-- In a CHI 2026 paper, Google reported that Material 3 Expressive let users fixate on the correct element 33% faster and finish tasks 20% faster than the previous Material 3 guidelines.
 
 ## Platform design languages
 
@@ -52,14 +51,3 @@ Since 2025, design has been moving from flat design back toward texture, depth, 
 | Material 3 Expressive | Its principle of drawing the eye to what matters is worth considering for document and slide templates |
 | Liquid Glass | Text contrast shifts with the background, which conflicts with the 4.5:1 text standard |
 
-## Sources
-
-- [Liquid Glass vs Material 3 Expressive — OrangeLoops](https://orangeloops.com/2025/12/liquid-glass-vs-material-3-expressive-next‑gen-ui-design-compared)
-- [Recap: Material 3 Expressive — 9to5Google](https://9to5google.com/2025/12/27/recap-material-3-expressive/)
-- [Google unveils the most massive Android redesign ever — Android Central](https://www.androidcentral.com/apps-software/google-unveils-the-most-massive-android-redesign-ever)
-- [Why did the quiet interface become flashy? — Design Compass](https://designcompass.org/en/2026/09/01/why-quiet-interfaces-got-flashier/)
-- [From flat to feel — Automattic Design](https://automattic.design/2025/07/01/from-flat-to-feel/)
-- [18 UI design trends for 2026 — daisyUI](https://trends.daisyui.com/ui-design-trends-2026/)
-- [8 UI Design Trends in 2026 — Wavespace](https://www.wavespace.agency/blog/ui-design-trends)
-- [UI/UX Design Trends to Watch in 2026 — Apiko](https://apiko.com/blog/ux-design-trends/)
-- [Designing for the Next Wave: WWDC and Google I/O 2025 — Commencis](https://www.commencis.com/?p=111647)
