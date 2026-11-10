@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0-alpha.6](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.5...v0.3.0-alpha.6) (2026-11-10)
+
+
+### Features
+
+* add a canvas editor for reviewing built specs ([39347ac](https://github.com/hab56ur9/ui/commit/39347ac654f794fb54941c9cca54e3ddcbe925b3))
+* build the docs site from a spec that matches it pixel for pixel ([bab0ae5](https://github.com/hab56ur9/ui/commit/bab0ae5ffd36de72554dfeab3ecc17e792d53f14))
+
 ## [0.3.0-alpha.5](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.4...v0.3.0-alpha.5) (2026-11-10)
 
 
