@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0-alpha.3](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.2...v0.3.0-alpha.3) (2026-11-10)
+
+
+### Features
+
+* Markdown component that draws markdown with the system's parts ([88a7b58](https://github.com/hab56ur9/ui/commit/88a7b58467eff7d12fcc919ad814edcaacaa0340))
+* merge the markdown viewer and editor into one Markdown component ([b2a8854](https://github.com/hab56ur9/ui/commit/b2a885428afca4057cd6870123df2ad78461e8a9))
+* Notion-style block editor for markdown ([5a4495f](https://github.com/hab56ur9/ui/commit/5a4495f3390195b170f0352364802c713acf7b3d))
+* Notion-style markdown editor with live blocks, slash menu and drag ([ce12337](https://github.com/hab56ur9/ui/commit/ce12337e478b9980905d918c9c73be257e7dd6db))
+* portfolio template ([4ef6844](https://github.com/hab56ur9/ui/commit/4ef6844c688c9b718baec0db7e98b03b32f34b03))
+* standard markdown compatibility for the Markdown component ([0d28216](https://github.com/hab56ur9/ui/commit/0d28216a9b4e9ea847cfc2c980a1d0bfd8ff5028))
+
 ## [0.3.0-alpha.2](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.1...v0.3.0-alpha.2) (2026-11-10)
 
 
