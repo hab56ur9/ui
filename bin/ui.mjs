@@ -28,7 +28,7 @@ const HELP = `ui ${pkg.version}
 
 Usage
   ui serve [dir] [--port 4321] [--host] [--no-reload]
-  ui new <file.html> [--lang ko|en] [--medium app|doc|slide] [--cdn]
+  ui new <file.html> [--lang en|ko] [--medium app|doc|slide] [--cdn]
   ui help
 
 serve   Serves [dir] (default: current folder) at / and this design system at /ui/.
@@ -174,7 +174,7 @@ function create(args) {
   if (!name) throw new Error("ui new <file.html>");
   const path = resolve(name.endsWith(".html") ? name : `${name}.html`);
   if (existsSync(path)) throw new Error(`already exists: ${path}`);
-  const lang = args.lang === "en" ? "en" : "ko";
+  const lang = args.lang === "ko" ? "ko" : "en";
   const medium = ["app", "doc", "slide"].includes(args.medium) ? args.medium : "app";
   const from = args.cdn ? new URL("dist/ui.js", pkg.homepage).href : "/ui/dist/ui.js";
   const t = lang === "ko" ? { title: "새 페이지", lede: "디자인 시스템 컴포넌트로 만든 페이지입니다.", visitors: "방문자", start: "시작하기" } : { title: "New page", lede: "A page built from the design system components.", visitors: "Visitors", start: "Get started" };

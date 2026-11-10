@@ -631,7 +631,7 @@ export function App() {
     store("preset", preset);
   }, [preset]);
   const display = useDisplay({ theme: stored("theme"), mediumSwitch: false, onChange: ({ theme }) => store("theme", theme) });
-  const [lang, setLang] = useState<Lang>(() => (stored("lang") as Lang) ?? "ko");
+  const [lang, setLang] = useState<Lang>(() => (stored("lang") as Lang) ?? "en");
   const content = CONTENT[lang];
   const c = COPY[lang];
   const page = content.pages.find((p) => p.id === id) ?? content.pages[0];
@@ -676,8 +676,8 @@ export function App() {
           value={lang}
           onChange={setLang}
           options={[
-            { value: "ko", label: "한국어", lang: "ko" },
             { value: "en", label: "English", lang: "en" },
+            { value: "ko", label: "한국어", lang: "ko" },
           ]}
         />
         <span className="toolbar-label">{c.preset}</span>

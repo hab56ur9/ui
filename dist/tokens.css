@@ -743,7 +743,7 @@
 }
 
 :root {
-  --tokens-version: "0.3.0-alpha.0";
+  --tokens-version: "0.3.0-alpha.1";
   --color-neutral-0: #ffffff;
   --color-neutral-25: #fcfcfb;
   --color-neutral-50: #f9f9f7;
@@ -908,10 +908,10 @@
 }
 
 :root,
-:lang(ko) {
-  --font-family-sans: var(--font-stack-hangul);
+:lang(en) {
+  --font-family-sans: var(--font-stack-latin);
   --letter-spacing-body: 0;
-  --letter-spacing-heading: -0.01;
+  --letter-spacing-heading: -0.02;
 }
 
 :root,
@@ -1172,8 +1172,8 @@
   --chart-size-sparkline: 48px;
 }
 
-:lang(en) {
-  --font-family-sans: var(--font-stack-latin);
+:lang(ko) {
+  --font-family-sans: var(--font-stack-hangul);
   --letter-spacing-body: 0;
-  --letter-spacing-heading: -0.02;
+  --letter-spacing-heading: -0.01;
 }

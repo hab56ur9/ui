@@ -28,7 +28,7 @@ import "ui/tokens.css";
 import { UIProvider } from "ui";
 
 createRoot(root).render(
-  <UIProvider lang="ko">
+  <UIProvider lang="en">
     <App />
   </UIProvider>,
 );

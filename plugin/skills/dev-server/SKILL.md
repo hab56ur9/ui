@@ -13,7 +13,7 @@ The ui CLI serves a folder of HTML pages together with the design system, and re
 - `ui serve [dir]` serves the folder at `/` and the design system at `/ui/`. The default folder is the current one and the default port is 4321; a busy port moves to the next one.
 - `ui serve [dir] --host` also listens on the local network and prints the network address, so a phone on the same Wi-Fi opens the page.
 - `ui serve [dir] --no-reload` turns live reload off.
-- `ui new <file.html>` writes a starter page. `--lang en`, `--medium doc|slide` and `--cdn` change the language, the medium and the import source.
+- `ui new <file.html>` writes a starter page. `--lang ko`, `--medium doc|slide` and `--cdn` change the language, the medium and the import source.
 - `ui help` prints the usage.
 
 ## Running it

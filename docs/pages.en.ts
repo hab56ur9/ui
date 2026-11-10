@@ -78,7 +78,7 @@ export const pages: Page[] = [
       },
       {
         "type": "code",
-        "code": "<html lang=\"ko\" data-medium=\"doc\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">"
+        "code": "<html lang=\"en\" data-medium=\"doc\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">"
       },
       {
         "type": "text",

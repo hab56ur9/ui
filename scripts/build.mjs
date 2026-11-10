@@ -12,7 +12,7 @@ const modeFiles = (axis) =>
       .map((file) => [basename(file, ".json"), `${axis}/${file}`]),
   );
 
-const DEFAULT = { medium: "app", lang: "ko" };
+const DEFAULT = { medium: "app", lang: "en" };
 const layers = {
   global: ["primitive/color.json", "primitive/base.json"],
   theme: { light: "theme/light.json", dark: "theme/dark.json" },

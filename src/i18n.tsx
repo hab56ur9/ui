@@ -167,7 +167,7 @@ const MESSAGES = {
 
 export type MessageKey = keyof (typeof MESSAGES)["ko"];
 type Lang = keyof typeof MESSAGES;
-const FALLBACK: Lang = "ko";
+const FALLBACK: Lang = "en";
 
 const LangContext = createContext<string | null>(null);
 
