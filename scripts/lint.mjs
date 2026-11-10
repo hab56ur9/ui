@@ -17,7 +17,7 @@ const RULES = [
     name: "local machine path — the repository is public; link the published site or a relative path",
     pattern: /file:\/\/\/|\/Users\/|~\/Developer/,
     extensions: new Set([".css", ".ts", ".tsx", ".html", ".md", ".json", ".mjs", ".yml"]),
-    scanned: requested.length ? requested : inRoot("src", "docs", "plugin", "scripts", "bin", "tokens", ".github", "README.md", "AGENTS.md", "index.html", "package.json", "release-please-config.json"),
+    scanned: requested.length ? requested : inRoot("src", "docs", "skills", "plugin", "scripts", "bin", "tokens", ".github", "README.md", "AGENTS.md", "index.html", "package.json", "release-please-config.json"),
   },
 ];
 

@@ -14,6 +14,10 @@ ui is a personal design system for apps, technical documents and slide decks.
 - A single-page documentation site shows every token, component and template with live examples on GitHub Pages.
 - A CLI serves local pages with the design system, and a plugin brings the system to Claude Code and Codex.
 
+## Development
+
+Before developing in this repository, read `docs/bootstrap.md` and set up whatever it lists as missing. The development procedure is the `ui-dev` skill in `skills/`.
+
 ## Working notes
 
 Agents keep what they learn in `context/`, a local folder that git ignores.
