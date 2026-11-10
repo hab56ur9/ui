@@ -1298,7 +1298,8 @@ export const pages: Page[] = [
       {
         "type": "a11y",
         "items": [
-          "The panel is a `dialog` and the presets a `radiogroup`; Escape or a click outside closes it."
+          "The panel is a `dialog` and the presets a `radiogroup`; Escape or a click outside closes it.",
+          "Several pickers on one page follow the document root together, so they never disagree."
         ]
       }
     ]

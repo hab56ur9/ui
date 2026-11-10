@@ -468,6 +468,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["preset · theme", "string · \"system\" | \"light\" | \"dark\"", "first preset · \"system\"", "Starting values; the app stores them and passes them back in."],
         ["onChange", "({ preset, theme }) => void", "", "Called on every choice."],
+        ["inline", "boolean", "false", "Shows the panel without the button, for docs and review screens."],
         ["floating", "boolean", "false", "Pins it to the bottom right, for review pages."],
       ],
     },

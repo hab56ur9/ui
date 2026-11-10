@@ -1569,6 +1569,8 @@ button.mini-card {
 
 .theme-picker {
   position: relative;
+  display: inline-flex;
+  align-self: flex-start;
 }
 
 .theme-picker.is-floating {
@@ -1583,8 +1585,8 @@ button.mini-card {
 }
 
 .theme-picker-dot {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-main-fill) 50%, var(--color-sub-fill) 50%);
   box-shadow: 0 0 0 1px var(--color-border-default);
@@ -1604,6 +1606,11 @@ button.mini-card {
   border-radius: var(--radius-card);
   background: var(--color-bg-raised);
   box-shadow: var(--elevation-overlay);
+}
+
+.theme-picker.is-inline .theme-picker-panel {
+  position: static;
+  box-shadow: var(--elevation-card);
 }
 
 .theme-picker.is-floating .theme-picker-panel {

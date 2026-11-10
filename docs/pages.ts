@@ -1315,7 +1315,8 @@ export const pages: Page[] = [
       {
         "type": "a11y",
         "items": [
-          "패널은 `role=\"dialog\"`, 프리셋 목록은 `radiogroup`이고 Escape나 바깥 클릭으로 닫힙니다."
+          "패널은 `role=\"dialog\"`, 프리셋 목록은 `radiogroup`이고 Escape나 바깥 클릭으로 닫힙니다.",
+          "한 페이지에 여러 개를 두어도 문서 루트의 값을 함께 따르므로 서로 어긋나지 않습니다."
         ]
       }
     ]

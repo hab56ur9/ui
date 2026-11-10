@@ -1353,6 +1353,11 @@
           "name": "floating",
           "optional": true,
           "kind": "boolean"
+        },
+        {
+          "name": "inline",
+          "optional": true,
+          "kind": "boolean"
         }
       ]
     },
