@@ -25,6 +25,7 @@ const TYPES = {
 };
 const CLIENT = `<script type="module">new EventSource("${RELOAD}").onmessage = () => location.reload();</script>`;
 const REVIEW = "/__ui/review";
+const EDITOR = `<!doctype html><html lang="en" data-medium="app"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ui editor</title></head><body><div id="editor"></div><script type="module" src="/__ui/editor.js"></script></body></html>`;
 const REVIEW_CLIENT = `<script type="module" src="${REVIEW}.js"></script>`;
 const isGenerated = (html) => html.includes('<meta name="generator" content="ui spec build">');
 const REVIEW_BLOCK = /<script type="application\/json" id="ui-review">[\s\S]*?<\/script>\n?/;
@@ -45,6 +46,7 @@ new     Writes a starter page that imports the design system in one line.
         --cdn imports the released module from ${pkg.homepage} instead of /ui/.
 spec    check validates an app spec against the components and its own data,
         formats, actions, screens and overlays. The schema is dist/spec.schema.json.
+        Built pages open in the editor at /__ui/edit?file=/<page>.html under ui serve.
         build checks the spec, then writes one editable HTML file: a function per
         screen and overlay, example data inline, widgets marked with data-id.
         --lang sets the page language, number and date formats (default en).`;
@@ -149,6 +151,8 @@ function serve(args) {
       return;
     }
     if (path === `${REVIEW}.js`) return send(res, 200, readFileSync(join(pkgRoot, "bin/review.js")), TYPES[".js"]);
+    if (path === "/__ui/editor.js") return send(res, 200, readFileSync(join(pkgRoot, "bin/editor.js")), TYPES[".js"]);
+    if (path === "/__ui/edit") return send(res, 200, EDITOR, TYPES[".html"]);
     if (path === REVIEW && req.method === "POST") return saveReview(req, res, root, send);
     if (path.startsWith("/ui/")) {
       const rest = path.slice(4);

@@ -2,6 +2,7 @@ const STORE = "ui-review";
 const source = document.getElementById(STORE);
 const review = source ? JSON.parse(source.textContent) : { version: 1, screens: {} };
 review.overlays ??= {};
+const embedded = window.parent !== window;
 let on = false;
 let dragged = null;
 let applying = false;
@@ -237,7 +238,7 @@ function apply() {
       const id = widget.dataset.id;
       const saved = state.widgets?.[id] ?? {};
       widget.draggable = on;
-      tools(widget, screen);
+      if (!embedded) tools(widget, screen);
       if (saved.w) widget.style.setProperty("--w", saved.w);
       if (saved.h) widget.style.setProperty("--h", saved.h);
       widget.style.order = String(order.indexOf(id));
@@ -283,9 +284,13 @@ function status() {
 async function save() {
   const body = JSON.stringify(snapshot(), null, 2);
   const response = await fetch(`/__ui/review?file=${encodeURIComponent(location.pathname)}`, { method: "POST", headers: { "content-type": "application/json" }, body });
-  if (!response.ok) return (label.textContent = `Save failed (${response.status})`);
+  if (!response.ok) {
+    label.textContent = `Save failed (${response.status})`;
+    return false;
+  }
   savedState = JSON.stringify(JSON.parse(body));
   status();
+  return true;
 }
 
 function mount() {
@@ -307,9 +312,138 @@ function mount() {
     apply();
   });
   bar.append(label, toggle, make("+ Widget", addWidget), make("Save", save));
-  document.body.append(bar);
-  new MutationObserver(() => queueMicrotask(apply)).observe(document.body, { childList: true, subtree: true });
+  if (!embedded) document.body.append(bar);
+  new MutationObserver(() => {
+    queueMicrotask(apply);
+    queueMicrotask(notify);
+  }).observe(document.body, { childList: true, subtree: true });
+  addEventListener("scroll", notify, true);
+  addEventListener("resize", notify);
   apply();
 }
+
+const listeners = new Set();
+let pending = false;
+function notify() {
+  if (pending) return;
+  pending = true;
+  requestAnimationFrame(() => {
+    pending = false;
+    for (const listener of listeners) listener();
+  });
+}
+
+function editTextAt(x, y) {
+  const root = screenOf();
+  const target = document.elementFromPoint(x, y);
+  const widget = target?.closest(".widget[data-id]");
+  const leaf = widget && leafTexts(widget).find((el) => el === target || el.contains(target));
+  if (!leaf) return false;
+  const screen = root.dataset.screen;
+  const id = widget.dataset.id;
+  const from = leaf.dataset.reviewFrom ?? leaf.textContent;
+  leaf.contentEditable = "true";
+  leaf.focus();
+  getSelection()?.selectAllChildren(leaf);
+  leaf.addEventListener(
+    "blur",
+    () => {
+      leaf.contentEditable = "false";
+      const state = widgetEntry(screen, id);
+      state.text = (state.text ?? []).filter((change) => change.from !== from);
+      if (leaf.textContent !== from) state.text.push({ from, to: leaf.textContent });
+      leaf.dataset.reviewFrom = from;
+      apply();
+      notify();
+    },
+    { once: true },
+  );
+  return true;
+}
+
+window.uiReview = {
+  snapshot,
+  save,
+  subscribe(listener) {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  },
+  screen: () => screenOf()?.dataset.screen ?? null,
+  screens() {
+    const links = [...document.querySelectorAll('.shell-nav a[href^="#/"], nav a[href^="#/"]')].filter((a) => !a.closest(".pager"));
+    const seen = new Map();
+    for (const a of links) {
+      const id = a.getAttribute("href").slice(2);
+      if (!seen.has(id)) seen.set(id, a.textContent.trim());
+    }
+    return [...seen].map(([id, label]) => ({ id, label }));
+  },
+  go: (id) => (location.hash = `#/${id}`),
+  widgets() {
+    const root = screenOf();
+    if (!root) return [];
+    const grid = board(root);
+    const flow = grid?.classList.contains("is-flow") ?? false;
+    const style = grid && getComputedStyle(grid);
+    const column = grid ? (grid.clientWidth - parseFloat(style.columnGap || "0") * 11) / 12 : 0;
+    const row = grid ? parseFloat(style.getPropertyValue("--widget-row")) || parseFloat(style.gridAutoRows) || 0 : 0;
+    const screen = root.dataset.screen;
+    return widgetsOf(root).sort((a, b) => Number(a.style.order || 0) - Number(b.style.order || 0)).map((el) => {
+      const rect = el.getBoundingClientRect();
+      const saved = review.screens[screen]?.widgets?.[el.dataset.id] ?? {};
+      const title = el.querySelector(".widget-title")?.textContent || el.querySelector("h2, h3")?.textContent || el.dataset.id;
+      return {
+        id: el.dataset.id,
+        title,
+        rect: { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
+        w: Number(getComputedStyle(el).getPropertyValue("--w")) || 0,
+        h: Number(getComputedStyle(el).getPropertyValue("--h")) || 0,
+        flow,
+        column,
+        row,
+        gap: parseFloat(style?.columnGap || "0"),
+        removed: Boolean(saved.removed),
+        note: saved.note ?? "",
+        text: saved.text ?? [],
+        added: (review.screens[screen]?.added ?? []).some((item) => item.id === el.dataset.id),
+      };
+    });
+  },
+  patch(id, patch) {
+    const screen = screenOf()?.dataset.screen;
+    if (!screen) return;
+    Object.assign(widgetEntry(screen, id), patch);
+    apply();
+    notify();
+  },
+  moveBefore(id, before) {
+    const screen = screenOf()?.dataset.screen;
+    if (!screen) return;
+    const order = currentOrder(screen).filter((key) => key !== id);
+    const at = before === null ? order.length : order.indexOf(before);
+    order.splice(at < 0 ? order.length : at, 0, id);
+    entry(screen).order = order;
+    apply();
+    notify();
+  },
+  addWidget() {
+    addWidget();
+    notify();
+  },
+  editTextAt,
+  reveal(id) {
+    screenOf()?.querySelector(`.widget[data-id="${id}"]`)?.scrollIntoView({ block: "center" });
+  },
+  scrollAt(x, y, dx, dy) {
+    let el = document.elementFromPoint(x, y);
+    while (el && el !== document.documentElement) {
+      const style = getComputedStyle(el);
+      if (/(auto|scroll)/.test(style.overflowY) && el.scrollHeight > el.clientHeight) break;
+      el = el.parentElement;
+    }
+    (el && el !== document.documentElement ? el : document.scrollingElement).scrollBy(dx, dy);
+  },
+  dirty: () => JSON.stringify(snapshot()) !== savedState,
+};
 
 mount();

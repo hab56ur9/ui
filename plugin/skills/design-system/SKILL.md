@@ -88,7 +88,7 @@ An app request starts as a JSON app spec, not as code, so a person can review th
 
 - Write the spec, then check it; fix every reported problem before building.
 - Build it into one HTML file and hand the person the page under ui serve.
-- The person reviews in the page: widgets move, resize, hide and take notes, text edits in place, overlays take notes, and Save writes a ui-review block into the same file.
+- The person reviews in the editor at /__ui/edit?file=/app.html under ui serve: the page renders on a canvas, widgets drag to reorder, corners resize, text edits on double-click, notes go in the side panel, and Save writes a ui-review block into the same file.
 - Read the saved block together with the spec: order, sizes, removals and added widgets are layout changes, text entries are wording changes, and notes say why. Rewrite the spec to match, build again, and repeat until the person approves.
 - After approval, write the app code from the approved spec and connect real data and actions through the data slot and action names.
 
