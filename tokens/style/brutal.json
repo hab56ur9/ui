@@ -1,0 +1,30 @@
+{
+  "$description": "Style brutal: square corners, thick borders and hard offset shadows, after neo-brutalism.",
+  "label": { "ko": "브루탈", "en": "Brutal" },
+  "tokens": {
+    "radius": {
+      "$type": "dimension",
+      "control": { "$value": { "value": 0, "unit": "px" } },
+      "card": { "$value": { "value": 0, "unit": "px" } },
+      "mark": { "$value": { "value": 0, "unit": "px" } },
+      "sheet": { "$value": { "value": 0, "unit": "px" } },
+      "pill": { "$value": { "value": 0, "unit": "px" } }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "default": { "$value": { "value": 2, "unit": "px" } },
+      "strong": { "$value": { "value": 3, "unit": "px" } },
+      "accent": { "$value": { "value": 4, "unit": "px" } }
+    },
+    "focus-ring": {
+      "$type": "dimension",
+      "width": { "$value": { "value": 3, "unit": "px" } }
+    },
+    "elevation": {
+      "$type": "shadow",
+      "card": { "$value": { "color": "{color.fg.default}", "offsetX": { "value": 3, "unit": "px" }, "offsetY": { "value": 3, "unit": "px" }, "blur": { "value": 0, "unit": "px" }, "spread": { "value": 0, "unit": "px" } } },
+      "lifted": { "$value": { "color": "{color.fg.default}", "offsetX": { "value": 6, "unit": "px" }, "offsetY": { "value": 6, "unit": "px" }, "blur": { "value": 0, "unit": "px" }, "spread": { "value": 0, "unit": "px" } } },
+      "overlay": { "$value": { "color": "{color.fg.default}", "offsetX": { "value": 8, "unit": "px" }, "offsetY": { "value": 8, "unit": "px" }, "blur": { "value": 0, "unit": "px" }, "spread": { "value": 0, "unit": "px" } } }
+    }
+  }
+}

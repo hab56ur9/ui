@@ -757,9 +757,11 @@ function Shell({ page, lang, setLang }: { page: Page; lang: Lang; setLang: (lang
             <ThemePicker
               preset={stored("preset")}
               theme={stored("theme")}
-              onChange={({ preset, theme }) => {
+              style={stored("style")}
+              onChange={({ preset, theme, style }) => {
                 store("preset", preset);
                 store("theme", theme);
+                store("style", style);
               }}
             />
           </>

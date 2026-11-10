@@ -442,8 +442,8 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<ThemePicker>",
       rows: [
-        ["preset · theme", "string · \"system\" | \"light\" | \"dark\"", "첫 프리셋 · \"system\"", "처음 값입니다. 저장은 앱이 맡고 여기로 넘깁니다."],
-        ["onChange", "({ preset, theme }) => void", "", "고를 때마다 불립니다."],
+        ["preset · theme · style", "string · \"system\" | \"light\" | \"dark\" · string", "첫 프리셋 · \"system\" · \"minimal\"", "처음 값입니다. 저장은 앱이 맡고 여기로 넘깁니다."],
+        ["onChange", "({ preset, theme, style }) => void", "", "고를 때마다 불립니다."],
         ["inline", "boolean", "false", "버튼 없이 패널을 바로 펼칩니다. 문서와 검토 화면에 씁니다."],
         ["floating", "boolean", "false", "화면 오른쪽 아래에 고정합니다. 검토용 페이지에 씁니다."],
       ],

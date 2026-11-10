@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import presets from "../../dist/presets.json";
+import styles from "../../dist/styles.json";
 import { Segmented } from "./controls";
 import { useI18n } from "./i18n";
 
@@ -62,40 +63,44 @@ export function DisplaySwitch({ display }: DisplaySwitchProps) {
 type Preset = { name: string; label: Record<string, string> };
 const PRESETS = presets as Preset[];
 const NAMES = PRESETS.map((preset) => preset.name);
+const STYLES = (styles as Preset[]).map((style) => style.name);
+const STYLE_LABELS = styles as Preset[];
 const SWATCHES = ["main-default", "main-fill", "main-subtle", "sub-default", "sub-fill", "sub-subtle"];
 
-export type ThemePickerValue = { preset: string; theme: Theme };
-export type ThemePickerProps = { preset?: string | null; theme?: string | null; onChange?: (value: ThemePickerValue) => void; floating?: boolean; inline?: boolean };
+export type ThemePickerValue = { preset: string; theme: Theme; style: string };
+export type ThemePickerProps = { preset?: string | null; theme?: string | null; style?: string | null; onChange?: (value: ThemePickerValue) => void; floating?: boolean; inline?: boolean };
 
-const applyToRoot = ({ preset, theme }: ThemePickerValue) => {
+const applyToRoot = ({ preset, theme, style }: ThemePickerValue) => {
   const root = document.documentElement;
   root.dataset.preset = preset;
+  if (style === STYLES[0]) delete root.dataset.style;
+  if (style !== STYLES[0]) root.dataset.style = style;
   if (theme === THEMES[0]) delete root.dataset.theme;
   if (theme !== THEMES[0]) root.dataset.theme = theme;
 };
 
-const fromRoot = (): Partial<Record<"preset" | "theme", string>> => (typeof document === "undefined" ? {} : document.documentElement.dataset);
+const fromRoot = (): Partial<Record<"preset" | "theme" | "style", string>> => (typeof document === "undefined" ? {} : document.documentElement.dataset);
 
-export function ThemePicker({ preset: initialPreset, theme: initialTheme, onChange, floating, inline }: ThemePickerProps) {
+export function ThemePicker({ preset: initialPreset, theme: initialTheme, style: initialStyle, onChange, floating, inline }: ThemePickerProps) {
   const { lang, text } = useI18n();
-  const [value, setValue] = useState<ThemePickerValue>(() => ({ preset: pick(initialPreset ?? fromRoot().preset, NAMES), theme: pick(initialTheme ?? fromRoot().theme, THEMES) }));
+  const [value, setValue] = useState<ThemePickerValue>(() => ({ preset: pick(initialPreset ?? fromRoot().preset, NAMES), theme: pick(initialTheme ?? fromRoot().theme, THEMES), style: pick(initialStyle ?? fromRoot().style, STYLES) }));
   const [open, setOpen] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    if (initialPreset != null || initialTheme != null) applyToRoot(value);
+    if (initialPreset != null || initialTheme != null || initialStyle != null) applyToRoot(value);
   }, []);
 
   useEffect(() => {
     const sync = () => {
       const root = fromRoot();
       setValue((current) => {
-        const next = { preset: pick(root.preset, NAMES), theme: pick(root.theme, THEMES) };
-        return next.preset === current.preset && next.theme === current.theme ? current : next;
+        const next = { preset: pick(root.preset, NAMES), theme: pick(root.theme, THEMES), style: pick(root.style, STYLES) };
+        return next.preset === current.preset && next.theme === current.theme && next.style === current.style ? current : next;
       });
     };
     sync();
     const observer = new MutationObserver(sync);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-preset", "data-theme"] });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-preset", "data-theme", "data-style"] });
     return () => observer.disconnect();
   }, []);
 
@@ -135,6 +140,8 @@ export function ThemePicker({ preset: initialPreset, theme: initialTheme, onChan
       </div>
       <span className="theme-picker-title">{text("mode")}</span>
       <Segmented label={text("mode")} value={value.theme} onChange={(theme) => update({ theme: pick(theme, THEMES) })} options={THEMES.map((theme) => ({ value: theme, label: text(`theme.${theme}`) }))} />
+      <span className="theme-picker-title">{text("style")}</span>
+      <Segmented label={text("style")} value={value.style} onChange={(style) => update({ style: pick(style, STYLES) })} options={STYLE_LABELS.map((style) => ({ value: style.name, label: style.label[lang] ?? style.label.en }))} />
     </div>
   );
 

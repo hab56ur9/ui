@@ -1,0 +1,5 @@
+{
+  "$description": "Style minimal: the default look. Thin borders, small radii, soft shadows. It overrides nothing; copy another style file to make a new one.",
+  "label": { "ko": "미니멀", "en": "Minimal" },
+  "tokens": {}
+}

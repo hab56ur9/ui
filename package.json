@@ -11,6 +11,8 @@
     "./tokens.json": "./dist/tokens.json",
     "./presets.css": "./dist/presets.css",
     "./presets/*": "./dist/presets/*",
+    "./styles.css": "./dist/styles.css",
+    "./styles/*": "./dist/styles/*",
     "./components.json": "./dist/components.json"
   },
   "files": [

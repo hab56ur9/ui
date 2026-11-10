@@ -1971,6 +1971,11 @@
           "kind": "string"
         },
         {
+          "name": "style",
+          "optional": true,
+          "kind": "string"
+        },
+        {
           "name": "onChange",
           "optional": true,
           "kind": "action"

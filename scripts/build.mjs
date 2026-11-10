@@ -233,6 +233,23 @@ const presets = readdirSync(join(root, "tokens/preset"))
   });
 writeFileSync(join(root, "dist/presets.css"), `${presets.map((p) => p.css).join("\n\n")}\n`);
 writeFileSync(join(root, "dist/presets.json"), `${JSON.stringify(presets.map(({ name, label }) => ({ name, label })))}\n`);
+const globalPaths = new Map(global.map((t) => [t.path, t.type]));
+mkdirSync(join(root, "dist/styles"), { recursive: true });
+const looks = readdirSync(join(root, "tokens/style"))
+  .filter((file) => file.endsWith(".json"))
+  .sort((a, b) => (a === "minimal.json" ? -1 : b === "minimal.json" ? 1 : a.localeCompare(b)))
+  .map((file) => {
+    const name = basename(file, ".json");
+    const doc = load(`style/${file}`);
+    const tokens = flatten(doc.tokens);
+    const stray = tokens.filter((t) => globalPaths.get(t.path) !== t.type).map((t) => t.path);
+    if (stray.length) throw new Error(`style ${name} sets tokens the global layer doesn't define with that type: ${stray.join(", ")}`);
+    const css = [`/* ${name}: ${doc.label.en} */`, ...(tokens.length ? [block(`[data-style="${name}"]`, tokens)] : [])].join("\n\n");
+    writeFileSync(join(root, "dist/styles", `${name}.css`), `${css}\n`);
+    return { name, label: doc.label, css };
+  });
+writeFileSync(join(root, "dist/styles.css"), `${looks.map((s) => s.css).join("\n\n")}\n`);
+writeFileSync(join(root, "dist/styles.json"), `${JSON.stringify(looks.map(({ name, label }) => ({ name, label })))}\n`);
 const STYLES = ["base", "charts", "overlay", "slides", "document"];
 writeFileSync(join(root, "dist/ui.css"), STYLES.map((name) => readFileSync(join(root, "src/lib/styles", `${name}.css`), "utf8")).join("\n"));
 writeFileSync(join(root, "dist/tokens.json"), `${JSON.stringify({ version, ...snapshot }, null, 2)}\n`);

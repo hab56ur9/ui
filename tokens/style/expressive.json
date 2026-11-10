@@ -1,0 +1,24 @@
+{
+  "$description": "Style expressive: large rounded shapes and an overshooting entrance, after the expressive platform languages.",
+  "label": { "ko": "익스프레시브", "en": "Expressive" },
+  "tokens": {
+    "radius": {
+      "$type": "dimension",
+      "control": { "$value": { "value": 12, "unit": "px" } },
+      "card": { "$value": { "value": 20, "unit": "px" } },
+      "mark": { "$value": { "value": 6, "unit": "px" } },
+      "sheet": { "$value": { "value": 28, "unit": "px" } }
+    },
+    "motion": {
+      "duration": {
+        "$type": "duration",
+        "base": { "$value": { "value": 240, "unit": "ms" } },
+        "slow": { "$value": { "value": 360, "unit": "ms" } }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "enter": { "$value": [0.34, 1.56, 0.64, 1] }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+/* minimal: Minimal */
+
+/* brutal: Brutal */
+
+[data-style="brutal"] {
+  --radius-control: 0px;
+  --radius-card: 0px;
+  --radius-mark: 0px;
+  --radius-sheet: 0px;
+  --radius-pill: 0px;
+  --border-width-default: 2px;
+  --border-width-strong: 3px;
+  --border-width-accent: 4px;
+  --focus-ring-width: 3px;
+  --elevation-card: 3px 3px 0px 0px var(--color-fg-default);
+  --elevation-lifted: 6px 6px 0px 0px var(--color-fg-default);
+  --elevation-overlay: 8px 8px 0px 0px var(--color-fg-default);
+}
+
+/* expressive: Expressive */
+
+[data-style="expressive"] {
+  --radius-control: 12px;
+  --radius-card: 20px;
+  --radius-mark: 6px;
+  --radius-sheet: 28px;
+  --motion-duration-base: 240ms;
+  --motion-duration-slow: 360ms;
+  --motion-easing-enter: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
