@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { Badge } from "../Badge";
-import { Card } from "../Card";
-import { DataTable } from "../DataTable";
-import { useI18n } from "../i18n";
+import { Badge } from "./Badge";
+import { Card } from "./Card";
+import { DataTable } from "./DataTable";
+import { useI18n } from "./i18n";
 
 export type Priority = "must" | "should" | "could";
 export type Requirement = { text: ReactNode; priority: Priority; status?: "open" | "done" | "dropped"; note?: ReactNode };
@@ -14,16 +14,16 @@ export function RequirementTable({ items, prefix = "R" }: { items: Requirement[]
       fit
       columns={[{ label: text("doc.id") }, { label: text("doc.requirement"), wrap: true }, { label: text("doc.priority") }, { label: text("doc.state") }]}
       rows={items.map((item, i) => [
-        { text: `${prefix}${i + 1}`, className: "doc-id" },
+        { text: `${prefix}${i + 1}`, className: "record-id" },
         {
           content: (
             <>
               {item.text}
-              {item.note && <div className="doc-note">{item.note}</div>}
+              {item.note && <div className="record-note">{item.note}</div>}
             </>
           ),
         },
-        { text: text(`doc.${item.priority}`), className: `doc-priority is-${item.priority}` },
+        { text: text(`doc.${item.priority}`), className: `priority is-${item.priority}` },
         text(`doc.${item.status ?? "open"}`),
       ])}
     />
@@ -35,7 +35,7 @@ export type Option = { name: string; summary?: ReactNode; pros: string[]; cons: 
 export function Options({ items }: { items: Option[] }) {
   const { text } = useI18n();
   return (
-    <div className="doc-options" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+    <div className="options" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
       {items.map((item) => (
         <Card
           key={item.name}
@@ -50,13 +50,13 @@ export function Options({ items }: { items: Option[] }) {
           description={item.summary}
           selected={item.chosen}
         >
-          <div className="doc-option-label">{text("doc.pros")}</div>
+          <div className="options-label">{text("doc.pros")}</div>
           <ul>
             {item.pros.map((pro) => (
               <li key={pro}>{pro}</li>
             ))}
           </ul>
-          <div className="doc-option-label">{text("doc.cons")}</div>
+          <div className="options-label">{text("doc.cons")}</div>
           <ul>
             {item.cons.map((con) => (
               <li key={con}>{con}</li>
@@ -68,21 +68,9 @@ export function Options({ items }: { items: Option[] }) {
   );
 }
 
-export function Figure({ caption, kind = "figure", height, children }: { caption: ReactNode; kind?: "figure" | "table"; height?: number; children: ReactNode }) {
-  return (
-    <figure className={`doc-figure is-${kind}`}>
-      {kind === "table" && <figcaption>{caption}</figcaption>}
-      <div className="doc-figure-body" style={height ? { height } : undefined}>
-        {children}
-      </div>
-      {kind === "figure" && <figcaption>{caption}</figcaption>}
-    </figure>
-  );
-}
-
 export type Change = { version: string; date: string; author: string; note: ReactNode };
 
 export function ChangeLog({ items }: { items: Change[] }) {
   const { text } = useI18n();
-  return <DataTable fit columns={[{ label: text("doc.version") }, { label: text("doc.date") }, { label: text("doc.author") }, { label: text("doc.change"), wrap: true }]} rows={items.map((item) => [{ text: item.version, className: "doc-id" }, item.date, item.author, { content: item.note }])} />;
+  return <DataTable fit columns={[{ label: text("doc.version") }, { label: text("doc.date") }, { label: text("doc.author") }, { label: text("doc.change"), wrap: true }]} rows={items.map((item) => [{ text: item.version, className: "record-id" }, item.date, item.author, { content: item.note }])} />;
 }

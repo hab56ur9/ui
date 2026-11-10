@@ -784,6 +784,110 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "takeaway",
+    "group": "컴포넌트",
+    "title": "Takeaway",
+    "lede": "A takeaway states the conclusion of a section in one sentence right below its title, set apart by an accent rule and larger type.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "takeaway-basic"
+      }
+    ]
+  },
+  {
+    "id": "bullets",
+    "group": "컴포넌트",
+    "title": "Bullets",
+    "lede": "Bullets list key points up to two levels; sub-items sit indented, smaller and lighter. Around five lines reads best.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Two levels",
+        "example": "bullets-basic"
+      }
+    ]
+  },
+  {
+    "id": "steps",
+    "group": "컴포넌트",
+    "title": "Steps",
+    "lede": "Steps connect an ordered process with numbers and arrows: side by side on wide screens, stacked on narrow ones. Three to five steps read best.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Three steps",
+        "example": "steps-basic"
+      }
+    ]
+  },
+  {
+    "id": "figure",
+    "group": "컴포넌트",
+    "title": "Figure",
+    "lede": "A figure captions a chart or table: below for figures, above for tables. Inside the tech doc frame, numbers like \"Figure N.\" and \"Table N.\" are added automatically.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Figure and table",
+        "example": "figure-basic"
+      }
+    ]
+  },
+  {
+    "id": "code",
+    "group": "컴포넌트",
+    "title": "Code block",
+    "lede": "A code block shows code with syntax colors and a copy button; without a language it guesses from the content.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "code-basic"
+      }
+    ]
+  },
+  {
+    "id": "requirement-table",
+    "group": "컴포넌트",
+    "title": "Requirement table",
+    "lede": "A requirement table numbers each requirement (R1, R2…) with its priority and status, so other text can point to it by number.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "requirements-basic"
+      }
+    ]
+  },
+  {
+    "id": "options",
+    "group": "컴포넌트",
+    "title": "Options",
+    "lede": "Options set each candidate's summary, pros and cons side by side in cards and highlight the chosen one.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Two options",
+        "example": "options-basic"
+      }
+    ]
+  },
+  {
+    "id": "changelog",
+    "group": "컴포넌트",
+    "title": "Change log",
+    "lede": "A change log records versions, dates, authors and changes in a table.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "changelog-basic"
+      }
+    ]
+  },
+  {
     "id": "stat",
     "group": "컴포넌트",
     "title": "Stat card",
@@ -1957,33 +2061,6 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "slide-parts",
-    "group": "슬라이드",
-    "title": "Content parts",
-    "wide": true,
-    "lede": "Content parts are small pieces that go inside any slide: a takeaway, a list, steps and a callout.",
-    "sections": [
-      {
-        "type": "gallery",
-        "title": "Parts",
-        "items": [
-          {
-            "title": "Takeaway and list",
-            "example": "slide-takeaway"
-          },
-          {
-            "title": "Steps",
-            "example": "slide-steps"
-          },
-          {
-            "title": "Callout",
-            "example": "slide-callout"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "doc-templates",
     "group": "기술 문서",
     "title": "Tech doc templates",
@@ -2071,45 +2148,6 @@ export const pages: Page[] = [
         "items": [
           "Contents and references are links, so the keyboard can follow them.",
           "Section titles are h2 and h3, so screen readers can move by heading."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "doc-parts",
-    "group": "기술 문서",
-    "title": "Doc parts",
-    "lede": "Doc parts are the pieces technical documents use most: requirements, options, code blocks, figures and tables, and the change log.",
-    "sections": [
-      {
-        "type": "gallery",
-        "title": "Parts",
-        "items": [
-          {
-            "title": "Requirements",
-            "example": "doc-requirements",
-            "medium": "doc"
-          },
-          {
-            "title": "Options",
-            "example": "doc-options",
-            "medium": "doc"
-          },
-          {
-            "title": "Code block",
-            "example": "doc-code",
-            "medium": "doc"
-          },
-          {
-            "title": "Figures and tables",
-            "example": "doc-figure",
-            "medium": "doc"
-          },
-          {
-            "title": "Change log",
-            "example": "doc-changelog",
-            "medium": "doc"
-          }
         ]
       }
     ]

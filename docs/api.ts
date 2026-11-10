@@ -292,18 +292,6 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
-  "slide-parts": [
-    {
-      type: "api",
-      title: "부품",
-      rows: [
-        ["<Takeaway>", "children", "", "제목 아래 결론 한 줄입니다."],
-        ["<Bullets>", "items: (string | { text, items? })[]", "", "두 단계까지의 목록입니다. 한 장에 다섯 줄 안팎을 권합니다."],
-        ["<Steps>", "items: { title, body? }[]", "", "번호와 화살표로 잇는 과정입니다. 3~5단계를 권합니다."],
-        ["<Callout>", 'tone? · title? · children', '"info"', '`tone`은 `"info"`, `"warning"`, `"good"`입니다.'],
-      ],
-    },
-  ],
   "doc-frame": [
     {
       type: "api",
@@ -321,19 +309,6 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["<DocSection title id?>", "string", "", "장입니다. 안에 겹치면 하위 장이 되고, 번호는 두 단계까지 붙습니다."],
         ["<Ref to>", "string", "", "같은 문서의 요구사항 번호(`R2`)로 이어지는 링크입니다."],
-      ],
-    },
-  ],
-  "doc-parts": [
-    {
-      type: "api",
-      title: "부품",
-      rows: [
-        ["<RequirementTable>", "items · prefix?", '"R"', "`items`는 `{ text, priority, status?, note? }[]`입니다. 번호는 순서대로 R1, R2…가 붙습니다."],
-        ["<Options>", "items", "", "`items`는 `{ name, summary?, pros, cons, chosen? }[]`입니다. 고른 안에 강조색 테두리가 붙습니다."],
-        ["<CodeBlock>", "code · lang? · title?", "", '`lang`은 `"tsx"`, `"html"`, `"json"`, `"sql"`, `"plain"`입니다. 생략하면 짐작합니다.'],
-        ["<Figure>", "caption · kind? · height?", '"figure"', "`kind`가 `table`이면 캡션이 위로 가고 \"표 N.\"이 붙습니다. 차트를 넣을 때는 `height`를 줍니다."],
-        ["<ChangeLog>", "items", "", "`items`는 `{ version, date, author, note }[]`입니다."],
       ],
     },
   ],
@@ -542,6 +517,83 @@ export const api: Record<string, Section[]> = {
         ["tone", "\"info\" | \"good\" | \"warning\"", "\"info\"", "알림, 팁, 주의입니다."],
         ["title", "string", "", "굵은 제목입니다."],
         ["children", "ReactNode", "", "본문입니다."],
+      ],
+    },
+  ],
+  "takeaway": [
+    {
+      type: "api",
+      title: "<Takeaway>",
+      rows: [
+        ["children", "ReactNode", "", "결론 한 문장입니다."],
+      ],
+    },
+  ],
+  "bullets": [
+    {
+      type: "api",
+      title: "<Bullets>",
+      rows: [
+        ["items", "(string | { text, items? })[]", "", "두 단계까지의 목록입니다. 다섯 줄 안팎을 권합니다."],
+      ],
+    },
+  ],
+  "steps": [
+    {
+      type: "api",
+      title: "<Steps>",
+      rows: [
+        ["items", "{ title, body? }[]", "", "번호와 화살표로 잇는 과정입니다. 3~5단계를 권합니다."],
+      ],
+    },
+  ],
+  "figure": [
+    {
+      type: "api",
+      title: "<Figure>",
+      rows: [
+        ["caption", "ReactNode", "", "캡션입니다."],
+        ["kind", "\"figure\" | \"table\"", "\"figure\"", "`table`이면 캡션이 위로 갑니다."],
+        ["height", "number", "", "차트를 넣을 때 높이입니다."],
+      ],
+    },
+  ],
+  "code": [
+    {
+      type: "api",
+      title: "<CodeBlock>",
+      rows: [
+        ["code", "string", "", "보여 줄 코드입니다."],
+        ["lang", "\"tsx\" | \"html\" | \"json\" | \"sql\" | \"plain\"", "짐작", "문법 색을 고릅니다."],
+        ["title", "string", "", "파일 이름 같은 머리말입니다."],
+      ],
+    },
+  ],
+  "requirement-table": [
+    {
+      type: "api",
+      title: "<RequirementTable>",
+      rows: [
+        ["items", "{ text, priority, status?, note? }[]", "", "`priority`는 `must`·`should`·`could`, `status`는 `open`·`done`·`dropped`입니다."],
+        ["prefix", "string", "\"R\"", "번호 앞 글자입니다. R1, R2…가 붙습니다."],
+      ],
+    },
+  ],
+  "options": [
+    {
+      type: "api",
+      title: "<Options>",
+      rows: [
+        ["items", "{ name, summary?, pros, cons, chosen? }[]", "", "고른 안(`chosen`)은 강조 테두리와 배지가 붙습니다."],
+      ],
+    },
+  ],
+  "changelog": [
+    {
+      type: "api",
+      title: "<ChangeLog>",
+      rows: [
+        ["items", "{ version, date, author, note }[]", "", "버전마다 한 줄입니다."],
       ],
     },
   ],

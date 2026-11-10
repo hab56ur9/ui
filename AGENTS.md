@@ -68,11 +68,11 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 ## Templates
 
-- The repository manages templates and their parts only; writing rules live in a separate docs plugin.
-- Template parts only compose exported components. A new look (table, card, badge, callout) becomes a component in `src/` first; template CSS keeps layout only.
+- The repository manages templates only; writing rules live in a separate docs plugin.
+- Components never assume the document they serve. Every part (table, card, badge, callout, steps, figure) is a component in `src/`; a template only composes them, and its CSS keeps layout.
 - The Templates tab groups Slides, Tech docs, Resume and Portfolio. A template is a block whose `block.json` sets `category` and `kind` (`deck` or `doc`); a `templates` section shows live thumbnail cards and the picked one.
-- Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`, parts in `src/slides/parts.tsx`. PDF is print CSS only.
-- Tech docs: `Doc`, `DocSection`, `Ref`, `RequirementTable`, `Options`, `Figure`, `ChangeLog`. Resume: `Resume`, `ResumeSection`, `ResumeEntry`. Portfolio: `Portfolio`, `PortfolioSection`, `Project`. All print to A4 via `src/print.tsx`.
+- Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`. PDF is print CSS only.
+- Tech docs: `Doc`, `DocSection`, `Ref`; content parts live in `src/content.tsx` and `src/records.tsx`. Resume: `Resume`, `ResumeSection`, `ResumeEntry`. Portfolio: `Portfolio`, `PortfolioSection`, `Project`. All print to A4 via `src/print.tsx`.
 
 ## SDUI
 

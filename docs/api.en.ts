@@ -292,18 +292,6 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
-  "slide-parts": [
-    {
-      type: "api",
-      title: "Parts",
-      rows: [
-        ["<Takeaway>", "children", "", "One concluding line under the title."],
-        ["<Bullets>", "items: (string | { text, items? })[]", "", "A list up to two levels deep. About five lines per slide works best."],
-        ["<Steps>", "items: { title, body? }[]", "", "A process joined by numbers and arrows. Three to five steps work best."],
-        ["<Callout>", "tone? · title? · children", '"info"', '`tone` is `"info"`, `"warning"` or `"good"`.'],
-      ],
-    },
-  ],
   "doc-frame": [
     {
       type: "api",
@@ -321,19 +309,6 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["<DocSection title id?>", "string", "", "A section. Nested sections become subsections, numbered two levels deep."],
         ["<Ref to>", "string", "", "A link to a requirement ID (`R2`) in the same document."],
-      ],
-    },
-  ],
-  "doc-parts": [
-    {
-      type: "api",
-      title: "Parts",
-      rows: [
-        ["<RequirementTable>", "items · prefix?", '"R"', "`items` is `{ text, priority, status?, note? }[]`. IDs run R1, R2… in order."],
-        ["<Options>", "items", "", "`items` is `{ name, summary?, pros, cons, chosen? }[]`. The chosen option gets an accent border."],
-        ["<CodeBlock>", "code · lang? · title?", "", '`lang` is `"tsx"`, `"html"`, `"json"`, `"sql"` or `"plain"`; left out, it is guessed.'],
-        ["<Figure>", "caption · kind? · height?", '"figure"', "With `kind` set to `table`, the caption moves above and reads \"Table N.\". Give `height` when it holds a chart."],
-        ["<ChangeLog>", "items", "", "`items` is `{ version, date, author, note }[]`."],
       ],
     },
   ],
@@ -542,6 +517,83 @@ export const api: Record<string, Section[]> = {
         ["tone", "\"info\" | \"good\" | \"warning\"", "\"info\"", "Note, tip or warning."],
         ["title", "string", "", "A bold title."],
         ["children", "ReactNode", "", "The body."],
+      ],
+    },
+  ],
+  "takeaway": [
+    {
+      type: "api",
+      title: "<Takeaway>",
+      rows: [
+        ["children", "ReactNode", "", "The one-sentence conclusion."],
+      ],
+    },
+  ],
+  "bullets": [
+    {
+      type: "api",
+      title: "<Bullets>",
+      rows: [
+        ["items", "(string | { text, items? })[]", "", "A list up to two levels deep. About five lines reads best."],
+      ],
+    },
+  ],
+  "steps": [
+    {
+      type: "api",
+      title: "<Steps>",
+      rows: [
+        ["items", "{ title, body? }[]", "", "A process joined by numbers and arrows. Three to five steps read best."],
+      ],
+    },
+  ],
+  "figure": [
+    {
+      type: "api",
+      title: "<Figure>",
+      rows: [
+        ["caption", "ReactNode", "", "The caption."],
+        ["kind", "\"figure\" | \"table\"", "\"figure\"", "With `table` the caption moves above."],
+        ["height", "number", "", "The height when it holds a chart."],
+      ],
+    },
+  ],
+  "code": [
+    {
+      type: "api",
+      title: "<CodeBlock>",
+      rows: [
+        ["code", "string", "", "The code to show."],
+        ["lang", "\"tsx\" | \"html\" | \"json\" | \"sql\" | \"plain\"", "guessed", "Picks the syntax colors."],
+        ["title", "string", "", "A header such as a file name."],
+      ],
+    },
+  ],
+  "requirement-table": [
+    {
+      type: "api",
+      title: "<RequirementTable>",
+      rows: [
+        ["items", "{ text, priority, status?, note? }[]", "", "`priority` is `must`, `should` or `could`; `status` is `open`, `done` or `dropped`."],
+        ["prefix", "string", "\"R\"", "The ID prefix; IDs run R1, R2…"],
+      ],
+    },
+  ],
+  "options": [
+    {
+      type: "api",
+      title: "<Options>",
+      rows: [
+        ["items", "{ name, summary?, pros, cons, chosen? }[]", "", "The `chosen` option gets an accent border and a badge."],
+      ],
+    },
+  ],
+  "changelog": [
+    {
+      type: "api",
+      title: "<ChangeLog>",
+      rows: [
+        ["items", "{ version, date, author, note }[]", "", "One row per version."],
       ],
     },
   ],

@@ -802,6 +802,110 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "takeaway",
+    "group": "컴포넌트",
+    "title": "결론 한 줄",
+    "lede": "결론 한 줄은 제목 바로 아래에서 이 덩어리의 결론을 한 문장으로 말합니다. 왼쪽 강조선과 큰 글자로 본문과 구분합니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "takeaway-basic"
+      }
+    ]
+  },
+  {
+    "id": "bullets",
+    "group": "컴포넌트",
+    "title": "글머리 목록",
+    "lede": "글머리 목록은 두 단계까지의 요점을 나열합니다. 하위 항목은 작고 옅게 들여 씁니다. 다섯 줄 안팎을 권합니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "두 단계 목록",
+        "example": "bullets-basic"
+      }
+    ]
+  },
+  {
+    "id": "steps",
+    "group": "컴포넌트",
+    "title": "단계",
+    "lede": "단계는 순서가 있는 과정을 번호와 화살표로 잇습니다. 넓은 화면에서는 가로로, 좁은 화면에서는 세로로 쌓입니다. 3~5단계를 권합니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "세 단계",
+        "example": "steps-basic"
+      }
+    ]
+  },
+  {
+    "id": "figure",
+    "group": "컴포넌트",
+    "title": "그림과 표 캡션",
+    "lede": "그림은 차트나 표에 캡션을 붙입니다. 그림은 캡션이 아래, 표는 위에 붙습니다. 기술 문서 틀 안에서는 \"그림 N.\", \"표 N.\" 번호가 자동으로 붙습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "그림과 표",
+        "example": "figure-basic"
+      }
+    ]
+  },
+  {
+    "id": "code",
+    "group": "컴포넌트",
+    "title": "코드 블록",
+    "lede": "코드 블록은 코드를 문법 색과 복사 버튼과 함께 보여 줍니다. 언어를 생략하면 내용으로 짐작합니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "code-basic"
+      }
+    ]
+  },
+  {
+    "id": "requirement-table",
+    "group": "컴포넌트",
+    "title": "요구사항 표",
+    "lede": "요구사항 표는 요구사항마다 번호(R1, R2…), 우선순위, 상태를 붙입니다. 같은 화면의 다른 글이 번호로 요구사항을 가리킬 수 있습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "requirements-basic"
+      }
+    ]
+  },
+  {
+    "id": "options",
+    "group": "컴포넌트",
+    "title": "선택지 비교",
+    "lede": "선택지 비교는 후보마다 요약, 장점, 단점을 카드로 나란히 놓고, 고른 안을 강조합니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "두 안 비교",
+        "example": "options-basic"
+      }
+    ]
+  },
+  {
+    "id": "changelog",
+    "group": "컴포넌트",
+    "title": "변경 이력",
+    "lede": "변경 이력은 버전, 날짜, 작성자, 변경 내용을 표로 남깁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "changelog-basic"
+      }
+    ]
+  },
+  {
     "id": "stat",
     "group": "컴포넌트",
     "title": "숫자 카드",
@@ -1975,33 +2079,6 @@ export const pages: Page[] = [
     ]
   },
   {
-    "id": "slide-parts",
-    "group": "슬라이드",
-    "title": "내용 부품",
-    "wide": true,
-    "lede": "내용 부품은 어떤 슬라이드 안에도 넣는 작은 조각입니다. 결론 문장, 목록, 단계, 강조 상자가 있습니다.",
-    "sections": [
-      {
-        "type": "gallery",
-        "title": "부품",
-        "items": [
-          {
-            "title": "결론 문장과 목록",
-            "example": "slide-takeaway"
-          },
-          {
-            "title": "단계",
-            "example": "slide-steps"
-          },
-          {
-            "title": "강조 상자",
-            "example": "slide-callout"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "doc-templates",
     "group": "기술 문서",
     "title": "기술 문서 템플릿",
@@ -2089,45 +2166,6 @@ export const pages: Page[] = [
         "items": [
           "목차와 참조는 링크라서 키보드로 따라갈 수 있습니다.",
           "장 제목은 h2와 h3라서 스크린리더의 제목 탐색으로 오갈 수 있습니다."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "doc-parts",
-    "group": "기술 문서",
-    "title": "문서 부품",
-    "lede": "문서 부품은 기술 문서에 자주 들어가는 덩어리입니다. 요구사항 표, 선택지 비교, 코드 블록, 그림과 표, 변경 이력이 있습니다.",
-    "sections": [
-      {
-        "type": "gallery",
-        "title": "부품",
-        "items": [
-          {
-            "title": "요구사항 표",
-            "example": "doc-requirements",
-            "medium": "doc"
-          },
-          {
-            "title": "선택지 비교",
-            "example": "doc-options",
-            "medium": "doc"
-          },
-          {
-            "title": "코드 블록",
-            "example": "doc-code",
-            "medium": "doc"
-          },
-          {
-            "title": "그림과 표",
-            "example": "doc-figure",
-            "medium": "doc"
-          },
-          {
-            "title": "변경 이력",
-            "example": "doc-changelog",
-            "medium": "doc"
-          }
         ]
       }
     ]

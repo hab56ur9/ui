@@ -394,35 +394,6 @@
       ]
     },
     {
-      "name": "Figure",
-      "props": [
-        {
-          "name": "caption",
-          "optional": false,
-          "kind": "node"
-        },
-        {
-          "name": "kind",
-          "optional": true,
-          "kind": "enum",
-          "values": [
-            "figure",
-            "table"
-          ]
-        },
-        {
-          "name": "height",
-          "optional": true,
-          "kind": "number"
-        },
-        {
-          "name": "children",
-          "optional": false,
-          "kind": "node"
-        }
-      ]
-    },
-    {
       "name": "Options",
       "props": [
         {
@@ -999,6 +970,35 @@
           "optional": false,
           "kind": "list",
           "type": "BulletItem[]"
+        }
+      ]
+    },
+    {
+      "name": "Figure",
+      "props": [
+        {
+          "name": "caption",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "kind",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "figure",
+            "table"
+          ]
+        },
+        {
+          "name": "height",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node"
         }
       ]
     },

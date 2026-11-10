@@ -3,7 +3,7 @@ import { Stat, type DeltaProps } from "../controls";
 import { DataTable, type DataTableProps } from "../DataTable";
 import { Icon } from "../Icon";
 import { Slide, SlideHeader, type SlideTone } from "./Deck";
-import { Bullets, Takeaway } from "./parts";
+import { Bullets, Takeaway } from "../content";
 
 type Common = { notes?: string; source?: ReactNode };
 
