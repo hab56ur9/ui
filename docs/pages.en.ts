@@ -1186,12 +1186,6 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Status and undo",
-        "center": true,
-        "example": "toast-status"
-      },
-      {
-        "type": "demo",
         "title": "Where it appears on desktop",
         "example": "toast-place"
       },
@@ -1199,6 +1193,12 @@ export const pages: Page[] = [
         "type": "demo",
         "title": "Where it appears on mobile",
         "example": "toast-place-mobile"
+      },
+      {
+        "type": "demo",
+        "title": "Status and undo",
+        "center": true,
+        "example": "toast-status"
       },
       {
         "type": "anatomy",
