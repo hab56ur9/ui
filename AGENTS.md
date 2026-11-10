@@ -37,7 +37,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 ## Presets
 
 - A preset redefines `color.main.*`, `color.sub.*`, `color.chart.emphasis` and the `sequential-main` ramp. Components use only these roles for brand color, so a preset restyles everything.
-- The build writes `dist/presets/<name>.css` and `dist/presets.css`; a page links one and sets `data-preset` on the root. The build checks that every preset path exists in the theme.
+- The build writes `dist/presets/<name>.css` and `dist/presets.css` and checks every preset path exists in the theme.
 - Each preset keeps 3:1 for the main color on every surface and 4.5:1 for text on its fills, in both themes.
 
 ## Build
