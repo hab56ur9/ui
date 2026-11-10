@@ -63,7 +63,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - `ThemePicker` opens a palette of the color presets and the mode switch, applies `data-preset` and `data-theme` to the root, and reports through `onChange`. `ui.js` loads `presets.css` so review pages can carry `ThemePicker` with `floating`.
 - Each preset's sub color is a gray tinted toward its main hue (`lime-gray`, `sky-gray`); the theme's default sub matches the lime preset.
 - `Image` draws a gradient placeholder without `src`; portrait is 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
-- `Markdown` is one Notion-style block editor for CommonMark + GFM (shortcuts, `/` menu, drag, `onChange` markdown); `readOnly` shows the same blocks without editing. Raw HTML never renders; `ui` fences go through `JsonUI`.
+- `Markdown` is one Notion-style block editor for CommonMark + GFM (shortcuts, `/` menu, drag, `onChange` markdown); `readOnly` shows the same blocks without editing. No raw HTML; `ui` fences use `JsonUI`.
 
 ## Templates
 
