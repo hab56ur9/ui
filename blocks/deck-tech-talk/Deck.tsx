@@ -26,8 +26,8 @@ export default function TechTalk() {
       <SplitSlide title={t.approach} ratio="3:2" left={<Bullets items={t.approachLeft} />} right={<p>{t.approachRight}</p>} />
       <Slide>
         <SlideHeader title={t.codeTitle} />
-        <CodeBlock code={CODE} lang="tsx" title="cached.ts" />
         <Takeaway>{t.codeTakeaway}</Takeaway>
+        <CodeBlock code={CODE} lang="tsx" title="cached.ts" />
       </Slide>
       <ChartSlide title={t.resultTitle} takeaway={t.resultTakeaway}>
         <BarChart name={t.chartName} title={t.chartName} points={P95.map((v, i) => ({ t: start + i * 7 * 86400000, v }))} format={{ axis: (v) => `${v}ms`, value: (v) => `${v}ms` }} />

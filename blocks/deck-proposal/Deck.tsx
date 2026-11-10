@@ -10,8 +10,8 @@ export default function Proposal() {
       <AgendaSlide title={t.agenda} items={t.agendaItems} current={0} />
       <Slide>
         <SlideHeader title={t.problem} />
-        <Bullets items={t.problemItems} />
         <Takeaway>{t.problemTakeaway}</Takeaway>
+        <Bullets items={t.problemItems} />
       </Slide>
       <CompareSlide title={t.compare} before={{ label: t.before, body: t.beforeBody }} after={{ label: t.after, body: t.afterBody }} />
       <MetricSlide title={t.impact} takeaway={t.impactTakeaway} metrics={t.metrics.map(([label, value, note]) => ({ label, value, note }))} />

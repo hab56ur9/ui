@@ -28,11 +28,9 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 - Pages consume the semantic layer only; the primitive layer exists so the semantic layer has something to point at.
 - Theme (`data-theme`), medium (`data-medium`) and language (`lang`) are independent mode axes. A token added to one file of an axis appears in every file of that axis, or the build fails.
-- A new language is one stack in `font.stack` plus one file in `tokens/lang`.
-- Primitive color steps follow OKLab lightness: step ≈ (1 − L) × 1000.
+- A new language is one stack in `font.stack` plus one file in `tokens/lang`. Korean is set like English: Inter for Latin and digits, Pretendard Hangul at 96% `size-adjust`.
 - Text never wears a series color. Status colors always pair with an icon and a label.
-- The series palette passes the dataviz validator in both modes: adjacent CVD ΔE ≥ 8 and normal-vision ΔE ≥ 15. Slots 2 to 5 sit below 3:1 on the light surface, so charts ship direct labels or a table view. Re-run the validator on any categorical change.
-- The light theme keeps large areas off-white (page ~83%, cards ~91% of white).
+- The series palette passes the dataviz validator in both modes (adjacent CVD ΔE ≥ 8, normal-vision ΔE ≥ 15); slots 2–5 sit below 3:1 on light, so charts ship direct labels or a table. Re-run it on any categorical change.
 - `layout.compact.*` holds tighter inset, gap, section and stack values; an element with `data-density="compact"` swaps them in.
 - Files follow DTCG Format Module 2025.10; colors are hex.
 
@@ -71,12 +69,12 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - The repository manages templates only; writing rules live in a separate docs plugin.
 - Components never assume the document they serve. Every part (table, card, badge, callout, steps, figure) is a component in `src/`; a template only composes them, and its CSS keeps layout.
 - A template is a block whose `block.json` sets `category` and `kind` (`deck` or `doc`); a `templates` section shows live thumbnail cards and the picked one.
-- Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`. PDF is print CSS only.
+- Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`. Slide grid: title at the top, `Takeaway` below it, content top-aligned; hero slides start their main line at one height under a fixed kicker slot. PDF is print CSS only.
 - Frames `Doc`, `Resume` and `Portfolio` print to A4 via `src/print.tsx`; content parts live in `src/content.tsx` and `src/records.tsx`.
 
 ## SDUI
 
-- SDUI itself belongs to the platform. The design system ships one engine, `JsonUI` (`src/JsonUI.tsx`): a root that draws a JSON template with exported components. Components never know they came from JSON; an app adds an adapter from its server format to this one.
+- SDUI belongs to the platform; the design system ships one engine, `JsonUI` (`src/JsonUI.tsx`): a root that draws a JSON template with exported components. Components never know they came from JSON; an app adds an adapter from its server format to this one.
 - A node is `{ "type": "<ExportedName>", "props", "children" }`; props resolve `$data`, `$format`, `$each`/`$as`/`$field` and `$action` (a primitive argument arrives as `params.value`). Components are looked up at render time because of the circular import.
 - JSON is the source; it renders at request time in the browser and can be pre-rendered on the server with the same engine.
 - `Page` and `WidgetGrid` make the page frame and static grid expressible as nodes.
@@ -95,7 +93,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 - Commit messages follow Conventional Commits; release-please derives versions (alpha prereleases from 0.3.0) and the changelog, and moves the version in both plugin manifests.
 - A push to master updates the release pull request only. Merging it tags the release and runs the deploy job.
-- The deploy job builds, attaches `ui.js`, `ui.css`, `tokens.css`, `presets.css` and `components.json` to the GitHub release, collects the latest 100 releases into `site/v/<tag>/`, and deploys Pages.
+- The deploy job attaches `ui.js`, the CSS files and `components.json` to the release, collects the latest 100 releases into `site/v/<tag>/`, and deploys Pages.
 - Addresses: site `https://hab56ur9.github.io/ui/`, latest module `dist/ui.js`, pinned module `v/<tag>/ui.js`.
 - Versioned folders share the site's fonts; renamed or removed font files keep their old paths until those versions leave the latest 100.
 - The site address lives in `package.json` as `homepage`.

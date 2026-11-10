@@ -12,7 +12,7 @@ export type TitleSlideProps = Common & { kicker?: ReactNode; title: ReactNode; s
 export function TitleSlide({ kicker, title, subtitle, meta, tone = "plain" }: TitleSlideProps) {
   return (
     <Slide tone={tone} footer={false} className="title-slide">
-      {kicker && <div className="slide-kicker">{kicker}</div>}
+      <div className="slide-hero-kicker">{kicker && <div className="slide-kicker">{kicker}</div>}</div>
       <h1 className="title-slide-title">{title}</h1>
       {subtitle && <p className="title-slide-subtitle">{subtitle}</p>}
       {meta && <div className="title-slide-meta">{meta}</div>}
@@ -43,7 +43,7 @@ export type SectionSlideProps = Common & { number?: number; title: ReactNode; su
 export function SectionSlide({ number, title, subtitle, tone = "dark" }: SectionSlideProps) {
   return (
     <Slide tone={tone} className="section-slide">
-      {number !== undefined && <div className="section-slide-number">{String(number).padStart(2, "0")}</div>}
+      <div className="slide-hero-kicker">{number !== undefined && <div className="section-slide-number">{String(number).padStart(2, "0")}</div>}</div>
       <h2 className="section-slide-title">{title}</h2>
       {subtitle && <p className="slide-subtitle">{subtitle}</p>}
     </Slide>
@@ -55,7 +55,7 @@ export type StatementSlideProps = Common & { kicker?: ReactNode; statement: Reac
 export function StatementSlide({ kicker, statement, detail, tone = "plain", source }: StatementSlideProps) {
   return (
     <Slide tone={tone} source={source} className="statement-slide">
-      {kicker && <div className="slide-kicker">{kicker}</div>}
+      <div className="slide-hero-kicker">{kicker && <div className="slide-kicker">{kicker}</div>}</div>
       <p className="statement">{statement}</p>
       {detail && <p className="slide-subtitle">{detail}</p>}
     </Slide>
@@ -178,6 +178,7 @@ export type QuoteSlideProps = Common & { quote: ReactNode; by?: ReactNode; role?
 export function QuoteSlide({ quote, by, role, tone = "plain", source }: QuoteSlideProps) {
   return (
     <Slide tone={tone} source={source} className="quote-slide">
+      <div className="slide-hero-kicker" />
       <blockquote className="quote">
         <p>{quote}</p>
         {by && (
@@ -196,6 +197,7 @@ export type ClosingSlideProps = Common & { title: ReactNode; items?: string[]; c
 export function ClosingSlide({ title, items, contact, tone = "dark" }: ClosingSlideProps) {
   return (
     <Slide tone={tone} footer={false} className="closing-slide">
+      <div className="slide-hero-kicker" />
       <h2 className="closing-title">{title}</h2>
       {items && <Bullets items={items} />}
       {contact && <div className="closing-contact">{contact}</div>}

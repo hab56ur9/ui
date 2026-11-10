@@ -1,5 +1,5 @@
 {
-  "$description": "English. Latin stack; Hangul inside English text falls back to the system Korean font.",
+  "$description": "English. Inter draws Latin; Hangul inside English text uses Pretendard at the same matched size.",
   "font": {
     "family": {
       "$type": "fontFamily",

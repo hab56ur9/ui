@@ -92,11 +92,16 @@ export function XAxis({ ticks, x, from, to, bottom, size, format }: { ticks: num
   return (
     <g className="chart-axis">
       <line x1={x(from)} x2={x(to)} y1={bottom} y2={bottom} />
-      {ticks.map((tick) => (
-        <text key={tick} x={x(tick)} y={bottom + size * 1.4} textAnchor="middle">
-          {format(tick)}
-        </text>
-      ))}
+      {ticks.map((tick) => {
+        const label = format(tick);
+        const half = label.length * size * 0.3;
+        const anchor = x(tick) - half < x(from) ? "start" : x(tick) + half > x(to) ? "end" : "middle";
+        return (
+          <text key={tick} x={x(tick)} y={bottom + size * 1.4} textAnchor={anchor}>
+            {label}
+          </text>
+        );
+      })}
     </g>
   );
 }

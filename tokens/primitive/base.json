@@ -26,8 +26,8 @@
     "stack": {
       "$type": "fontFamily",
       "$description": "Font stacks per writing system. A lang file picks one as font.family.sans; adding a language adds a stack here and a file in tokens/lang.",
-      "hangul": { "$value": ["Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "system-ui", "sans-serif"] },
-      "latin": { "$value": ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif"] }
+      "hangul": { "$value": ["Inter", "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "system-ui", "sans-serif"] },
+      "latin": { "$value": ["Inter", "Pretendard Variable", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif"] }
     },
     "family": {
       "$type": "fontFamily",

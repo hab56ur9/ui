@@ -1,5 +1,5 @@
 {
-  "$description": "Korean. Hangul stack first; Pretendard carries Latin glyphs drawn to match.",
+  "$description": "Korean. Set like English: Inter draws Latin letters and numbers, and Pretendard draws Hangul at 96% so it sits evenly with Latin.",
   "font": {
     "family": {
       "$type": "fontFamily",
@@ -10,6 +10,6 @@
     "$type": "number",
     "$description": "Tracking in em, applied as calc(value * 1em).",
     "body": { "$value": 0 },
-    "heading": { "$value": -0.01 }
+    "heading": { "$value": -0.02 }
   }
 }
