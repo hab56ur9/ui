@@ -1840,8 +1840,13 @@ export const pages: Page[] = [
     "id": "slides",
     "group": "틀",
     "title": "Slide frame",
-    "lede": "A deck is the frame for slides built in HTML. It draws on a 1920×1080 canvas and scales it to fit, so the layout stays the same on any screen, and it applies the slide medium tokens inside.",
+    "lede": "The slide frame is the outer shell of a deck. It draws on a 1920×1080 canvas and scales to fit, so the layout stays the same on any screen, and applies the slide medium tokens inside. It pages by swiping on phones and tablets, by arrow keys, or by the buttons below, and handles presenting, speaker notes and printing. Per-slide arrangements come from the layouts in the Templates tab.",
     "sections": [
+      {
+        "type": "demo",
+        "title": "Try paging",
+        "example": "deck-basic"
+      },
       {
         "type": "usage",
         "when": [
@@ -1900,6 +1905,7 @@ export const pages: Page[] = [
         "type": "a11y",
         "items": [
           "Focus the deck and use the arrow keys, Space, PageUp and PageDown, Home and End.",
+          "On touch screens, swipe sideways to page. A vertical swipe still scrolls the page, and the first and last slides resist and spring back.",
           "F turns the presenter view on and off.",
           "Screen readers read the new slide when it changes."
         ]

@@ -1,4 +1,4 @@
-import { Children, createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
+import { Children, createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { useSize } from "../hooks";
 import { Icon } from "../Icon";
 import { useI18n } from "../i18n";
@@ -14,6 +14,9 @@ export type DeckProps = { title?: string; start?: number; controls?: boolean; ch
 
 const NEXT = ["ArrowRight", "ArrowDown", "PageDown", " "];
 const PREVIOUS = ["ArrowLeft", "ArrowUp", "PageUp"];
+const SLOP = 8;
+
+type Swipe = { id: number; x: number; y: number; time: number; locked: boolean };
 
 function Pages({ slides, title, current }: { slides: ReactNode[]; title?: string; current?: number }) {
   return slides.map((slide, index) => (
@@ -39,6 +42,54 @@ export function Deck({ title, start = 0, controls = true, children }: DeckProps)
   const clamp = (next: number) => Math.max(0, Math.min(last, next));
   const go = (next: number) => setIndex(clamp(next));
   const step = (delta: number) => setIndex((current) => clamp(current + delta));
+  const swipe = useRef<Swipe | null>(null);
+  const [drag, setDrag] = useState(0);
+  const [settling, setSettling] = useState(false);
+
+  const onPointerDown = (e: PointerEvent) => {
+    if (e.pointerType === "mouse") return;
+    swipe.current = { id: e.pointerId, x: e.clientX, y: e.clientY, time: e.timeStamp, locked: false };
+  };
+  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    const s = swipe.current;
+    if (!s || s.id !== e.pointerId) return;
+    const dx = e.clientX - s.x;
+    const dy = e.clientY - s.y;
+    if (!s.locked && Math.abs(dy) > SLOP && Math.abs(dy) > Math.abs(dx)) {
+      swipe.current = null;
+      return;
+    }
+    if (!s.locked && Math.abs(dx) > SLOP) {
+      s.locked = true;
+      setSettling(false);
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    if (!s.locked) return;
+    const edge = (dx > 0 && index === 0) || (dx < 0 && index === last);
+    setDrag(edge ? dx / 3 : dx);
+  };
+  const onPointerUp = (e: PointerEvent) => {
+    const s = swipe.current;
+    swipe.current = null;
+    if (!s?.locked) return;
+    const dx = e.clientX - s.x;
+    const fast = Math.abs(dx) / Math.max(1, e.timeStamp - s.time) > 0.5 && Math.abs(dx) > SLOP * 4;
+    const delta = dx < 0 ? 1 : -1;
+    const moves = (Math.abs(dx) > size.width * 0.2 || fast) && clamp(index + delta) !== index;
+    if (moves) {
+      setIndex(index + delta);
+      setDrag(delta * size.width * 0.3);
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          setSettling(true);
+          setDrag(0);
+        }),
+      );
+      return;
+    }
+    setSettling(true);
+    setDrag(0);
+  };
 
   useEffect(() => {
     const onChange = () => setFull(document.fullscreenElement === root.current);
@@ -63,8 +114,8 @@ export function Deck({ title, start = 0, controls = true, children }: DeckProps)
 
   return (
     <div ref={root} className={`deck${full ? " is-full" : ""}`} tabIndex={0} role="region" aria-roledescription="slides" aria-label={title} onKeyDown={onKey}>
-      <div ref={stage} className="deck-stage">
-        <div className="deck-viewport" data-medium="slide" style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})` } as CSSProperties} aria-live="polite">
+      <div ref={stage} className="deck-stage" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
+        <div className={`deck-viewport${settling ? " is-settling" : ""}`} data-medium="slide" style={{ transform: `translate(${offset.x + drag}px, ${offset.y}px) scale(${scale})` } as CSSProperties} aria-live="polite" onTransitionEnd={() => setSettling(false)}>
           <Pages slides={slides} title={title} current={index} />
         </div>
       </div>

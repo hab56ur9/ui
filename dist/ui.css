@@ -2704,6 +2704,7 @@ button.mini-card {
   border-radius: var(--radius-card);
   background: var(--color-bg-page);
   box-shadow: 0 0 0 1px var(--color-border-default);
+  touch-action: pan-y pinch-zoom;
 }
 
 .deck-viewport {
@@ -2713,6 +2714,10 @@ button.mini-card {
   width: 1920px;
   height: 1080px;
   transform-origin: 0 0;
+}
+
+.deck-viewport.is-settling {
+  transition: transform var(--motion-duration-base) var(--motion-easing-standard);
 }
 
 .deck-page {
