@@ -14,8 +14,8 @@ assets/icons/*.svg             icon sources on the 24 grid
 assets/fonts/                  Pretendard (92 subsets) and Inter, OFL
 src/                           components, exported from src/index.ts
 src/styles/*.css               component styles, concatenated into dist/ui.css
-blocks/<id>/                   compositions the docs render inline
-blocks/sdui/                   SDUI renderer, app view, sample apps
+src/blocks/<id>/               compositions the docs render inline
+src/blocks/sdui/               SDUI renderer, app view, sample apps
 src/docs/                      the docs site (entry main.tsx)
 docs/                          Markdown documents
 scripts/build.mjs              token build
@@ -79,8 +79,8 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - A node is `{ "type": "<ExportedName>", "props", "children" }`; props resolve `$data`, `$format`, `$each`/`$as`/`$field` and `$action` (a primitive argument arrives as `params.value`). Components are looked up at render time because of the circular import.
 - JSON is the source; it renders at request time in the browser and can be pre-rendered on the server with the same engine.
 - `Page` and `WidgetGrid` make the page frame and static grid expressible as nodes.
-- `blocks/dashboard-mobile` (TSX) and `blocks/sdui-dashboard` (JSON) draw the same screen; their HTML must match.
-- `blocks/sdui` holds the sample app protocol (`AppView`) and two sample apps; the builder reads `dist/components.json`.
+- Blocks `dashboard-mobile` (TSX) and `sdui-dashboard` (JSON) draw the same screen; their HTML must match.
+- `src/blocks/sdui` holds the sample app protocol (`AppView`) and two sample apps; the builder reads `dist/components.json`.
 
 ## Docs
 

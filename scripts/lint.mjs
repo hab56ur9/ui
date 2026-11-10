@@ -11,13 +11,13 @@ const RULES = [
     name: "raw color literal — use a var(--color-*) token",
     pattern: /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/,
     extensions: new Set([".css", ".ts", ".tsx", ".html"]),
-    scanned: requested.length ? requested : inRoot("src", "blocks"),
+    scanned: requested.length ? requested : inRoot("src"),
   },
   {
     name: "local machine path — the repository is public; link the published site or a relative path",
     pattern: /file:\/\/\/|\/Users\/|~\/Developer/,
     extensions: new Set([".css", ".ts", ".tsx", ".html", ".md", ".json", ".mjs", ".yml"]),
-    scanned: requested.length ? requested : inRoot("src", "blocks", "docs", "plugin", "scripts", "bin", "tokens", ".github", "README.md", "AGENTS.md", "index.html", "package.json", "release-please-config.json"),
+    scanned: requested.length ? requested : inRoot("src", "docs", "plugin", "scripts", "bin", "tokens", ".github", "README.md", "AGENTS.md", "index.html", "package.json", "release-please-config.json"),
   },
 ];
 

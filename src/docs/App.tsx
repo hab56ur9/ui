@@ -33,9 +33,9 @@ import { reviewOutline, TokenReview } from "./TokenReview";
 const modules = import.meta.glob<{ default: () => ReactNode }>("./examples/*.tsx", { eager: true });
 const sources = import.meta.glob<string>("./examples/*.tsx", { eager: true, query: "?raw", import: "default" });
 type BlockText = { title: string; description: string; uses: string[] };
-const blockMeta = import.meta.glob<BlockText & { kind?: "deck" | "doc" | "mobile"; category?: string; en: BlockText }>("../../blocks/*/block.json", { eager: true, import: "default" });
-const blockFiles = import.meta.glob<string>(["../../blocks/*/*.tsx", "../../blocks/*/*.ts", "../../blocks/*/*.json", "!../../blocks/*/block.json"], { eager: true, query: "?raw", import: "default" });
-const blockViews = import.meta.glob<{ default: ComponentType }>(["../../blocks/*/Dashboard.tsx", "../../blocks/*/Deck.tsx", "../../blocks/*/Doc.tsx", "../../blocks/*/Screen.tsx"], { eager: true });
+const blockMeta = import.meta.glob<BlockText & { kind?: "deck" | "doc" | "mobile"; category?: string; en: BlockText }>("../blocks/*/block.json", { eager: true, import: "default" });
+const blockFiles = import.meta.glob<string>(["../blocks/*/*.tsx", "../blocks/*/*.ts", "../blocks/*/*.json", "!../blocks/*/block.json"], { eager: true, query: "?raw", import: "default" });
+const blockViews = import.meta.glob<{ default: ComponentType }>(["../blocks/*/Dashboard.tsx", "../blocks/*/Deck.tsx", "../blocks/*/Doc.tsx", "../blocks/*/Screen.tsx"], { eager: true });
 
 const example = (name: string) => ({ Demo: modules[`./examples/${name}.tsx`].default, source: sources[`./examples/${name}.tsx`] });
 const textOf = (name: string, lang: Lang) => (lang === "en" ? enText : koText)[name as keyof typeof enText];
@@ -342,13 +342,13 @@ const VIEWPORTS = [
 
 function Block({ id }: { id: string }) {
   const copy = useCopy();
-  const [entry, { default: View }] = Object.entries(blockViews).find(([path]) => path.startsWith(`../../blocks/${id}/`)) as [string, { default: ComponentType }];
+  const [entry, { default: View }] = Object.entries(blockViews).find(([path]) => path.startsWith(`../blocks/${id}/`)) as [string, { default: ComponentType }];
   const main = entry.split("/").at(-1);
   const { lang, c } = useDocs();
-  const json = blockMeta[`../../blocks/${id}/block.json`];
+  const json = blockMeta[`../blocks/${id}/block.json`];
   const meta = lang === "en" ? json.en : json;
   const files = Object.entries(blockFiles)
-    .filter(([path]) => path.startsWith(`../../blocks/${id}/`))
+    .filter(([path]) => path.startsWith(`../blocks/${id}/`))
     .map(([path, content]) => ({ name: path.split("/").at(-1) as string, content }))
     .sort((a, b) => Number(b.name === main) - Number(a.name === main) || a.name.localeCompare(b.name));
   const [tab, setTab] = useState("preview");
@@ -466,9 +466,9 @@ function Thumb({ id }: { id: string }) {
   const { lang } = useDocs();
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
-  const kind = blockMeta[`../../blocks/${id}/block.json`].kind ?? "deck";
+  const kind = blockMeta[`../blocks/${id}/block.json`].kind ?? "deck";
   const [width, height] = THUMB[kind];
-  const View = Object.entries(blockViews).find(([path]) => path.startsWith(`../../blocks/${id}/`))?.[1].default;
+  const View = Object.entries(blockViews).find(([path]) => path.startsWith(`../blocks/${id}/`))?.[1].default;
   useLayoutEffect(() => {
     const el = box.current;
     if (!el) return;
@@ -493,14 +493,14 @@ function Templates({ category }: { category: string }) {
   const { lang } = useDocs();
   const ids = Object.entries(blockMeta)
     .filter(([, json]) => json.category === category)
-    .map(([path]) => path.split("/")[3])
+    .map(([path]) => path.split("/")[2])
     .sort();
   const [selected, setSelected] = useState(ids[0]);
   return (
     <>
       <div className="docs-templates">
         {ids.map((id) => {
-          const json = blockMeta[`../../blocks/${id}/block.json`];
+          const json = blockMeta[`../blocks/${id}/block.json`];
           const meta = lang === "en" ? json.en : json;
           return (
             <UICard key={id} selected={id === selected} onClick={() => setSelected(id)}>
