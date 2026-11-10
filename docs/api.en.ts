@@ -461,4 +461,15 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  themepicker: [
+    {
+      type: "api",
+      title: "<ThemePicker>",
+      rows: [
+        ["preset · theme", "string · \"system\" | \"light\" | \"dark\"", "first preset · \"system\"", "Starting values; the app stores them and passes them back in."],
+        ["onChange", "({ preset, theme }) => void", "", "Called on every choice."],
+        ["floating", "boolean", "false", "Pins it to the bottom right, for review pages."],
+      ],
+    },
+  ],
 };

@@ -1285,6 +1285,25 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "themepicker",
+    "group": "컴포넌트",
+    "title": "Theme picker",
+    "lede": "A theme picker switches the color preset and the mode (system, light, dark) from one Theme button. Opening it shows each preset's main and sub colors as a palette. The choice applies at once to `data-preset` and `data-theme` on the document root and leaves through `onChange`. Placed with `floating` on a page an AI made, it lets a reviewer check that page under every preset.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "themepicker-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The panel is a `dialog` and the presets a `radiogroup`; Escape or a click outside closes it."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image",
     "group": "컴포넌트",
     "title": "Image",

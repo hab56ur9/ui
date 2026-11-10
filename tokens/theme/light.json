@@ -28,11 +28,11 @@
       "on": { "$value": "{color.neutral.1000}" }
     },
     "sub": {
-      "$description": "Sub color of the preset: neutral by default. Secondary buttons fill with it, and tags and chips sit on its subtle step.",
-      "default": { "$value": "{color.neutral.700}" },
-      "subtle": { "$value": "{color.neutral.150}" },
-      "fill": { "$value": "{color.neutral.200}" },
-      "on": { "$value": "{color.neutral.900}" }
+      "$description": "Sub color of the preset: a gray tinted toward the main color, lime-gray by default. Secondary buttons fill with it, and tags and chips sit on its subtle step.",
+      "default": { "$value": "{color.lime-gray.700}" },
+      "subtle": { "$value": "{color.lime-gray.150}" },
+      "fill": { "$value": "{color.lime-gray.200}" },
+      "on": { "$value": "{color.lime-gray.900}" }
     },
     "danger": {
       "$description": "Destructive actions. Text on the fill uses danger.on.",

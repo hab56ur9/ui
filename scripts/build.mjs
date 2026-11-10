@@ -224,8 +224,8 @@ const presets = readdirSync(join(root, "tokens/preset"))
     const css = [
       `/* ${name}: ${doc.label.en} */`,
       block(selector, light),
-      `@media (prefers-color-scheme: dark) {\n${block(`${selector}:not([data-theme="light"])`, dark).replace(/^/gm, "  ")}\n}`,
-      block(`${selector}[data-theme="dark"],\n${selector} [data-theme="dark"]`, dark),
+      `@media (prefers-color-scheme: dark) {\n${block(`${selector}:not([data-theme="light"]),\n:root:not([data-theme="light"]) ${selector}`, dark).replace(/^/gm, "  ")}\n}`,
+      block(`${selector}[data-theme="dark"],\n${selector} [data-theme="dark"],\n[data-theme="dark"] ${selector}`, dark),
     ].join("\n\n");
     writeFileSync(join(root, "dist/presets", `${name}.css`), `${css}\n`);
     return { name, label: doc.label, css };

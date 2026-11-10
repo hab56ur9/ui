@@ -1332,6 +1332,31 @@
       ]
     },
     {
+      "name": "ThemePicker",
+      "props": [
+        {
+          "name": "preset",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "theme",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "floating",
+          "optional": true,
+          "kind": "boolean"
+        }
+      ]
+    },
+    {
       "name": "DataTable",
       "props": [
         {

@@ -1,8 +1,8 @@
 {
   "$description": "Preset sky: main and sub colors for light and dark. Copy this file to make a new preset; only these roles change.",
   "label": {
-    "ko": "하늘 + 무채색",
-    "en": "Sky + neutral"
+    "ko": "하늘 + 하늘빛 회색",
+    "en": "Sky + blue-gray"
   },
   "light": {
     "color": {
@@ -22,16 +22,16 @@
       },
       "sub": {
         "default": {
-          "$value": "{color.neutral.700}"
+          "$value": "{color.sky-gray.700}"
         },
         "subtle": {
-          "$value": "{color.neutral.150}"
+          "$value": "{color.sky-gray.150}"
         },
         "fill": {
-          "$value": "{color.neutral.200}"
+          "$value": "{color.sky-gray.200}"
         },
         "on": {
-          "$value": "{color.neutral.900}"
+          "$value": "{color.sky-gray.900}"
         }
       },
       "chart": {
@@ -82,16 +82,16 @@
       },
       "sub": {
         "default": {
-          "$value": "{color.neutral.300}"
+          "$value": "{color.sky-gray.300}"
         },
         "subtle": {
-          "$value": "{color.neutral.825}"
+          "$value": "{color.sky-gray.825}"
         },
         "fill": {
-          "$value": "{color.neutral.800}"
+          "$value": "{color.sky-gray.800}"
         },
         "on": {
-          "$value": "{color.neutral.100}"
+          "$value": "{color.sky-gray.100}"
         }
       },
       "chart": {

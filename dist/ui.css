@@ -1567,6 +1567,98 @@ button.mini-card {
   background: var(--color-main-default);
 }
 
+.theme-picker {
+  position: relative;
+}
+
+.theme-picker.is-floating {
+  position: fixed;
+  right: var(--layout-inset);
+  bottom: var(--layout-inset);
+  z-index: var(--layer-menu);
+}
+
+.theme-picker.is-floating > .button {
+  box-shadow: var(--elevation-lifted);
+}
+
+.theme-picker-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-main-fill) 50%, var(--color-sub-fill) 50%);
+  box-shadow: 0 0 0 1px var(--color-border-default);
+}
+
+.theme-picker-panel {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: var(--layer-menu);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 280px;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-raised);
+  box-shadow: var(--elevation-overlay);
+}
+
+.theme-picker.is-floating .theme-picker-panel {
+  top: auto;
+  bottom: calc(100% + var(--space-2));
+}
+
+.theme-picker-title {
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+}
+
+.theme-picker-presets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.theme-preset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-bg-surface);
+  color: var(--color-fg-default);
+  font: inherit;
+  font-size: var(--font-size-label);
+  text-align: left;
+  cursor: pointer;
+}
+
+.theme-preset:hover {
+  border-color: var(--color-border-strong);
+}
+
+.theme-preset[aria-checked="true"] {
+  border-color: var(--color-main-default);
+  box-shadow: 0 0 0 1px var(--color-main-default);
+}
+
+.theme-preset-palette {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  height: var(--space-6);
+  overflow: hidden;
+  border-radius: calc(var(--radius-control) - 2px);
+}
+
+.theme-preset-palette span {
+  background: var(--swatch);
+}
+
 .chart {
   position: absolute;
   inset: 0;

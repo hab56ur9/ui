@@ -26,10 +26,10 @@
       "on": { "$value": "{color.neutral.1000}" }
     },
     "sub": {
-      "default": { "$value": "{color.neutral.300}" },
-      "subtle": { "$value": "{color.neutral.825}" },
-      "fill": { "$value": "{color.neutral.800}" },
-      "on": { "$value": "{color.neutral.100}" }
+      "default": { "$value": "{color.lime-gray.300}" },
+      "subtle": { "$value": "{color.lime-gray.825}" },
+      "fill": { "$value": "{color.lime-gray.800}" },
+      "on": { "$value": "{color.lime-gray.100}" }
     },
     "danger": {
       "default": { "$value": "{color.red.300}" },

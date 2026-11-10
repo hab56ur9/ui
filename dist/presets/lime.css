@@ -1,14 +1,14 @@
-/* lime: Light green + neutral */
+/* lime: Light green + green-gray */
 
 [data-preset="lime"] {
   --color-main-default: var(--color-lime-450);
   --color-main-subtle: var(--color-lime-50);
   --color-main-fill: var(--color-lime-200);
   --color-main-on: var(--color-neutral-1000);
-  --color-sub-default: var(--color-neutral-700);
-  --color-sub-subtle: var(--color-neutral-150);
-  --color-sub-fill: var(--color-neutral-200);
-  --color-sub-on: var(--color-neutral-900);
+  --color-sub-default: var(--color-lime-gray-700);
+  --color-sub-subtle: var(--color-lime-gray-150);
+  --color-sub-fill: var(--color-lime-gray-200);
+  --color-sub-on: var(--color-lime-gray-900);
   --color-chart-emphasis: var(--color-lime-450);
   --color-sequential-main-1: var(--color-lime-50);
   --color-sequential-main-2: var(--color-lime-100);
@@ -20,15 +20,16 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-preset="lime"]:not([data-theme="light"]) {
+  [data-preset="lime"]:not([data-theme="light"]),
+  :root:not([data-theme="light"]) [data-preset="lime"] {
     --color-main-default: var(--color-lime-200);
     --color-main-subtle: var(--color-lime-700);
     --color-main-fill: var(--color-lime-200);
     --color-main-on: var(--color-neutral-1000);
-    --color-sub-default: var(--color-neutral-300);
-    --color-sub-subtle: var(--color-neutral-825);
-    --color-sub-fill: var(--color-neutral-800);
-    --color-sub-on: var(--color-neutral-100);
+    --color-sub-default: var(--color-lime-gray-300);
+    --color-sub-subtle: var(--color-lime-gray-825);
+    --color-sub-fill: var(--color-lime-gray-800);
+    --color-sub-on: var(--color-lime-gray-100);
     --color-chart-emphasis: var(--color-lime-200);
     --color-sequential-main-1: var(--color-lime-700);
     --color-sequential-main-2: var(--color-lime-600);
@@ -41,15 +42,16 @@
 }
 
 [data-preset="lime"][data-theme="dark"],
-[data-preset="lime"] [data-theme="dark"] {
+[data-preset="lime"] [data-theme="dark"],
+[data-theme="dark"] [data-preset="lime"] {
   --color-main-default: var(--color-lime-200);
   --color-main-subtle: var(--color-lime-700);
   --color-main-fill: var(--color-lime-200);
   --color-main-on: var(--color-neutral-1000);
-  --color-sub-default: var(--color-neutral-300);
-  --color-sub-subtle: var(--color-neutral-825);
-  --color-sub-fill: var(--color-neutral-800);
-  --color-sub-on: var(--color-neutral-100);
+  --color-sub-default: var(--color-lime-gray-300);
+  --color-sub-subtle: var(--color-lime-gray-825);
+  --color-sub-fill: var(--color-lime-gray-800);
+  --color-sub-on: var(--color-lime-gray-100);
   --color-chart-emphasis: var(--color-lime-200);
   --color-sequential-main-1: var(--color-lime-700);
   --color-sequential-main-2: var(--color-lime-600);

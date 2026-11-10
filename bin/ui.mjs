@@ -190,8 +190,9 @@ function create(args) {
 </head>
 <body>
   <div id="app"></div>
+  <div id="theme"></div>
   <script type="module">
-    import { render, h, Button, Stat } from "${from}";
+    import { render, h, Button, Stat, ThemePicker } from "${from}";
 
     render(
       "#app",
@@ -202,6 +203,7 @@ function create(args) {
         h(Button, { variant: "primary" }, "${t.start}"),
       ),
     );
+    render("#theme", h(ThemePicker, { floating: true }));
   </script>
 </body>
 </html>

@@ -1,14 +1,14 @@
-/* lime: Light green + neutral */
+/* lime: Light green + green-gray */
 
 [data-preset="lime"] {
   --color-main-default: var(--color-lime-450);
   --color-main-subtle: var(--color-lime-50);
   --color-main-fill: var(--color-lime-200);
   --color-main-on: var(--color-neutral-1000);
-  --color-sub-default: var(--color-neutral-700);
-  --color-sub-subtle: var(--color-neutral-150);
-  --color-sub-fill: var(--color-neutral-200);
-  --color-sub-on: var(--color-neutral-900);
+  --color-sub-default: var(--color-lime-gray-700);
+  --color-sub-subtle: var(--color-lime-gray-150);
+  --color-sub-fill: var(--color-lime-gray-200);
+  --color-sub-on: var(--color-lime-gray-900);
   --color-chart-emphasis: var(--color-lime-450);
   --color-sequential-main-1: var(--color-lime-50);
   --color-sequential-main-2: var(--color-lime-100);
@@ -20,15 +20,16 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-preset="lime"]:not([data-theme="light"]) {
+  [data-preset="lime"]:not([data-theme="light"]),
+  :root:not([data-theme="light"]) [data-preset="lime"] {
     --color-main-default: var(--color-lime-200);
     --color-main-subtle: var(--color-lime-700);
     --color-main-fill: var(--color-lime-200);
     --color-main-on: var(--color-neutral-1000);
-    --color-sub-default: var(--color-neutral-300);
-    --color-sub-subtle: var(--color-neutral-825);
-    --color-sub-fill: var(--color-neutral-800);
-    --color-sub-on: var(--color-neutral-100);
+    --color-sub-default: var(--color-lime-gray-300);
+    --color-sub-subtle: var(--color-lime-gray-825);
+    --color-sub-fill: var(--color-lime-gray-800);
+    --color-sub-on: var(--color-lime-gray-100);
     --color-chart-emphasis: var(--color-lime-200);
     --color-sequential-main-1: var(--color-lime-700);
     --color-sequential-main-2: var(--color-lime-600);
@@ -41,15 +42,16 @@
 }
 
 [data-preset="lime"][data-theme="dark"],
-[data-preset="lime"] [data-theme="dark"] {
+[data-preset="lime"] [data-theme="dark"],
+[data-theme="dark"] [data-preset="lime"] {
   --color-main-default: var(--color-lime-200);
   --color-main-subtle: var(--color-lime-700);
   --color-main-fill: var(--color-lime-200);
   --color-main-on: var(--color-neutral-1000);
-  --color-sub-default: var(--color-neutral-300);
-  --color-sub-subtle: var(--color-neutral-825);
-  --color-sub-fill: var(--color-neutral-800);
-  --color-sub-on: var(--color-neutral-100);
+  --color-sub-default: var(--color-lime-gray-300);
+  --color-sub-subtle: var(--color-lime-gray-825);
+  --color-sub-fill: var(--color-lime-gray-800);
+  --color-sub-on: var(--color-lime-gray-100);
   --color-chart-emphasis: var(--color-lime-200);
   --color-sequential-main-1: var(--color-lime-700);
   --color-sequential-main-2: var(--color-lime-600);
@@ -82,7 +84,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-preset="mono"]:not([data-theme="light"]) {
+  [data-preset="mono"]:not([data-theme="light"]),
+  :root:not([data-theme="light"]) [data-preset="mono"] {
     --color-main-default: var(--color-neutral-100);
     --color-main-subtle: var(--color-neutral-825);
     --color-main-fill: var(--color-neutral-100);
@@ -103,7 +106,8 @@
 }
 
 [data-preset="mono"][data-theme="dark"],
-[data-preset="mono"] [data-theme="dark"] {
+[data-preset="mono"] [data-theme="dark"],
+[data-theme="dark"] [data-preset="mono"] {
   --color-main-default: var(--color-neutral-100);
   --color-main-subtle: var(--color-neutral-825);
   --color-main-fill: var(--color-neutral-100);
@@ -122,17 +126,17 @@
   --color-sequential-main-7: var(--color-neutral-100);
 }
 
-/* sky: Sky + neutral */
+/* sky: Sky + blue-gray */
 
 [data-preset="sky"] {
   --color-main-default: var(--color-sky-700);
   --color-main-subtle: var(--color-sky-100);
   --color-main-fill: var(--color-sky-300);
   --color-main-on: var(--color-neutral-1000);
-  --color-sub-default: var(--color-neutral-700);
-  --color-sub-subtle: var(--color-neutral-150);
-  --color-sub-fill: var(--color-neutral-200);
-  --color-sub-on: var(--color-neutral-900);
+  --color-sub-default: var(--color-sky-gray-700);
+  --color-sub-subtle: var(--color-sky-gray-150);
+  --color-sub-fill: var(--color-sky-gray-200);
+  --color-sub-on: var(--color-sky-gray-900);
   --color-chart-emphasis: var(--color-sky-600);
   --color-sequential-main-1: var(--color-sky-50);
   --color-sequential-main-2: var(--color-sky-100);
@@ -144,15 +148,16 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-preset="sky"]:not([data-theme="light"]) {
+  [data-preset="sky"]:not([data-theme="light"]),
+  :root:not([data-theme="light"]) [data-preset="sky"] {
     --color-main-default: var(--color-sky-300);
     --color-main-subtle: var(--color-sky-900);
     --color-main-fill: var(--color-sky-300);
     --color-main-on: var(--color-neutral-1000);
-    --color-sub-default: var(--color-neutral-300);
-    --color-sub-subtle: var(--color-neutral-825);
-    --color-sub-fill: var(--color-neutral-800);
-    --color-sub-on: var(--color-neutral-100);
+    --color-sub-default: var(--color-sky-gray-300);
+    --color-sub-subtle: var(--color-sky-gray-825);
+    --color-sub-fill: var(--color-sky-gray-800);
+    --color-sub-on: var(--color-sky-gray-100);
     --color-chart-emphasis: var(--color-sky-300);
     --color-sequential-main-1: var(--color-sky-900);
     --color-sequential-main-2: var(--color-sky-800);
@@ -165,15 +170,16 @@
 }
 
 [data-preset="sky"][data-theme="dark"],
-[data-preset="sky"] [data-theme="dark"] {
+[data-preset="sky"] [data-theme="dark"],
+[data-theme="dark"] [data-preset="sky"] {
   --color-main-default: var(--color-sky-300);
   --color-main-subtle: var(--color-sky-900);
   --color-main-fill: var(--color-sky-300);
   --color-main-on: var(--color-neutral-1000);
-  --color-sub-default: var(--color-neutral-300);
-  --color-sub-subtle: var(--color-neutral-825);
-  --color-sub-fill: var(--color-neutral-800);
-  --color-sub-on: var(--color-neutral-100);
+  --color-sub-default: var(--color-sky-gray-300);
+  --color-sub-subtle: var(--color-sky-gray-825);
+  --color-sub-fill: var(--color-sky-gray-800);
+  --color-sub-on: var(--color-sky-gray-100);
   --color-chart-emphasis: var(--color-sky-300);
   --color-sequential-main-1: var(--color-sky-900);
   --color-sequential-main-2: var(--color-sky-800);

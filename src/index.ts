@@ -14,7 +14,7 @@ export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";
 export { Avatar, List, PhotoGrid, Post, ProfileHeader, Stories, type AvatarProps, type GridPhoto, type ListItem, type ListProps, type PhotoGridProps, type PostProps, type ProfileHeaderProps, type ProfileStat, type StoriesProps, type StoryItem } from "./Social";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
-export { DisplaySwitch, useDisplay, type Display, type DisplayOptions, type DisplaySwitchProps, type DisplayValue, type Medium, type Theme } from "./display";
+export { DisplaySwitch, ThemePicker, useDisplay, type ThemePickerProps, type ThemePickerValue, type Display, type DisplayOptions, type DisplaySwitchProps, type DisplayValue, type Medium, type Theme } from "./display";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";
 export { Button, Delta, Segmented, Stat, type ButtonProps, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";
 export { CodeBlock, Highlight, type CodeBlockProps, type CodeLang } from "./Code";

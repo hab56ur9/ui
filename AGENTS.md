@@ -32,9 +32,9 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Names follow property-then-role. Primitive color steps follow OKLab lightness: step ≈ (1 − L) × 1000, rounded to 50.
 - Text never wears a series color. Status colors always pair with an icon and a label.
 - The series palette passes the dataviz validator in both modes: adjacent CVD ΔE ≥ 8 and normal-vision ΔE ≥ 15. Slots 2 to 5 sit below 3:1 on the light surface, so charts ship direct labels or a table view. Re-run the validator on any categorical change.
-- The light theme keeps large areas off-white to avoid glare: page about 83% and cards about 91% of white luminance.
+- The light theme keeps large areas off-white (page about 83%, cards about 91% of white luminance).
 - `layout.compact.*` holds tighter inset, gap, section and stack values; an element with `data-density="compact"` swaps them in.
-- Files follow DTCG Format Module 2025.10, except that colors use hex strings so they stay editable by hand.
+- Files follow DTCG Format Module 2025.10; colors stay hex strings.
 
 ## Presets
 
@@ -61,6 +61,8 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card and an untitled widget drops its header. Plain static widgets size to their content.
 - Overlays: `Modal` and `Sheet` are controlled native dialogs with an `inline` mode for docs. `UIProvider` hosts toasts and confirm dialogs.
 - `AppShell` takes `mobileNav="tabs"` to show `TabBar` instead of the drawer below 1024px, and `tabBar` for its `variant` (`bar`, `floating`) and `labels` (`show`, `active`, `hide`). An SDUI app sets the same through `navBar`.
+- `ThemePicker` opens a palette of the color presets and the mode switch, applies `data-preset` and `data-theme` to the root, and reports through `onChange`. `ui.js` loads `presets.css` so review pages can carry `ThemePicker` with `floating`.
+- Each preset's sub color is a gray tinted toward its main hue (`lime-gray`, `sky-gray`); the theme's default sub matches the lime preset.
 - `Image` draws a gradient placeholder from series colors when `src` is missing. Portrait images use 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
 
 ## Templates

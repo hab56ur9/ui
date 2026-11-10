@@ -20,7 +20,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-preset="mono"]:not([data-theme="light"]) {
+  [data-preset="mono"]:not([data-theme="light"]),
+  :root:not([data-theme="light"]) [data-preset="mono"] {
     --color-main-default: var(--color-neutral-100);
     --color-main-subtle: var(--color-neutral-825);
     --color-main-fill: var(--color-neutral-100);
@@ -41,7 +42,8 @@
 }
 
 [data-preset="mono"][data-theme="dark"],
-[data-preset="mono"] [data-theme="dark"] {
+[data-preset="mono"] [data-theme="dark"],
+[data-theme="dark"] [data-preset="mono"] {
   --color-main-default: var(--color-neutral-100);
   --color-main-subtle: var(--color-neutral-825);
   --color-main-fill: var(--color-neutral-100);

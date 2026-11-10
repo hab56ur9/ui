@@ -36,10 +36,22 @@ createRoot(root).render(
 
 ## HTML pages
 
-A page without React, such as a technical document or a deck, links the token stylesheet and the component stylesheet and uses the CSS classes directly: button, segmented, data-table, page, toolbar. Charts and overlays need React.
+A page without a bundler imports the component module in one line. The module carries React, loads the stylesheets and the color presets itself, and exports every component with render and h.
 
 ```html
-<html lang="ko" data-medium="doc">
+<div id="app"></div>
+<script type="module">
+  import { render, h, Button, ThemePicker } from "https://hab56ur9.github.io/ui/dist/ui.js";
+  render("#app", [h(Button, { variant: "primary" }, "Save"), h(ThemePicker, { floating: true })]);
+</script>
+```
+
+A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right; the reviewer opens it to switch between the color presets and the light, dark and system modes, so one page is checked under every preset. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
+
+A page that cannot run scripts links the token stylesheet and the component stylesheet and uses the CSS classes directly: button, segmented, data-table, page, toolbar.
+
+```html
+<html lang="en" data-medium="doc">
 <link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/tokens.css">
 <link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/ui.css">
 ```

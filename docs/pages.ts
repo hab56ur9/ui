@@ -1302,6 +1302,25 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "themepicker",
+    "group": "컴포넌트",
+    "title": "테마 선택",
+    "lede": "테마 선택은 Theme 버튼 하나로 컬러 프리셋과 모드(시스템·라이트·다크)를 바꿉니다. 버튼을 누르면 프리셋마다 메인·서브 컬러가 팔레트로 뜹니다. 고른 값은 문서 루트의 `data-preset`, `data-theme`에 바로 적용되고 `onChange`로 알립니다. AI로 만든 페이지에 `floating`으로 넣어 두면, 한 페이지를 모든 프리셋에서 검토할 수 있습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "themepicker-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "패널은 `role=\"dialog\"`, 프리셋 목록은 `radiogroup`이고 Escape나 바깥 클릭으로 닫힙니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image",
     "group": "컴포넌트",
     "title": "이미지",

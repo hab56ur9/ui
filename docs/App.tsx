@@ -1,5 +1,5 @@
-import { Component, Fragment, useEffect, useLayoutEffect, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
-import { Button, DisplaySwitch, Highlight, Icon, Segmented, UIProvider, useDisplay, useI18n, useToast } from "ui";
+import { Component, Fragment, useEffect, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
+import { Button, Highlight, Icon, Segmented, ThemePicker, UIProvider, useI18n, useToast } from "ui";
 import { api as apiKo } from "./api";
 import { api as apiEn } from "./api.en";
 import { homepage, MODE_LABEL, tokensFor, version } from "./catalog";
@@ -46,12 +46,6 @@ const COPY = {
     find: "페이지 찾기",
     sections: "섹션",
     language: "언어",
-    preset: "컬러",
-    presets: [
-      ["lime", "연두"],
-      ["sky", "하늘"],
-      ["mono", "무채색"],
-    ],
   },
   en: {
     titles: { usage: "When to use", anatomy: "Anatomy", demo: "Examples", guidelines: "Do and don't", tokens: "Tokens", code: "Usage", api: "API", a11y: "Accessibility" } as Record<string, string>,
@@ -81,12 +75,6 @@ const COPY = {
     find: "Find a page",
     sections: "Sections",
     language: "Language",
-    preset: "Color",
-    presets: [
-      ["lime", "Lime"],
-      ["sky", "Sky"],
-      ["mono", "Neutral"],
-    ],
   },
 };
 const CONTENT = { ko: { pages, api: apiKo }, en: { pages: pagesEn, api: apiEn } };
@@ -625,12 +613,6 @@ const currentId = () => location.hash.replace(/^#\//, "") || pages[0].id;
 
 export function App() {
   const [id, setId] = useState(currentId);
-  const [preset, setPreset] = useState(() => stored("preset") ?? "lime");
-  useLayoutEffect(() => {
-    document.documentElement.dataset.preset = preset;
-    store("preset", preset);
-  }, [preset]);
-  const display = useDisplay({ theme: stored("theme"), mediumSwitch: false, onChange: ({ theme }) => store("theme", theme) });
   const [lang, setLang] = useState<Lang>(() => (stored("lang") as Lang) ?? "en");
   const content = CONTENT[lang];
   const c = COPY[lang];
@@ -680,9 +662,14 @@ export function App() {
             { value: "ko", label: "한국어", lang: "ko" },
           ]}
         />
-        <span className="toolbar-label">{c.preset}</span>
-        <Segmented label={c.preset} value={preset} onChange={setPreset} options={c.presets.map(([value, label]) => ({ value, label }))} />
-        <DisplaySwitch display={display} />
+        <ThemePicker
+          preset={stored("preset")}
+          theme={stored("theme")}
+          onChange={({ preset, theme }) => {
+            store("preset", preset);
+            store("theme", theme);
+          }}
+        />
       </header>
       <div className={`docs-layout${fullWidth(page) ? " is-full" : ""}`}>
         {!fullWidth(page) && <Nav page={page} />}
