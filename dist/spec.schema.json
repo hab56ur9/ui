@@ -1,0 +1,2159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ui app spec",
+  "type": "object",
+  "required": [
+    "spec",
+    "app",
+    "start",
+    "screens"
+  ],
+  "properties": {
+    "spec": {
+      "const": 1
+    },
+    "app": {
+      "type": "object",
+      "required": [
+        "description",
+        "name"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "density": {
+          "enum": [
+            "comfortable",
+            "compact"
+          ]
+        }
+      }
+    },
+    "start": {
+      "type": "string"
+    },
+    "nav": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "screen",
+          "label"
+        ],
+        "properties": {
+          "screen": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description",
+          "example"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "example": {}
+        }
+      }
+    },
+    "formats": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "style": {
+            "enum": [
+              "number",
+              "compact",
+              "percent",
+              "date"
+            ]
+          },
+          "digits": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "unit": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "actions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "params": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "screens": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description",
+          "widgets"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "lede": {
+            "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/button"
+            }
+          },
+          "widgets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/widget"
+            }
+          }
+        }
+      }
+    },
+    "overlays": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description",
+          "kind",
+          "title",
+          "actions"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "modal",
+              "sheet"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "lede": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/button"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "action": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object"
+        },
+        "close": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "button": {
+      "type": "object",
+      "required": [
+        "label",
+        "action"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "variant": {
+          "enum": [
+            "primary",
+            "secondary",
+            "danger"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "action": {
+          "$ref": "#/$defs/action"
+        }
+      },
+      "additionalProperties": false
+    },
+    "node": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "Doc",
+            "DocSection",
+            "Ref",
+            "Portfolio",
+            "PortfolioSection",
+            "Project",
+            "Resume",
+            "ResumeEntry",
+            "ResumeSection",
+            "ChangeLog",
+            "Cons",
+            "Option",
+            "Options",
+            "Pros",
+            "RequirementTable",
+            "Deck",
+            "Slide",
+            "SlideFooter",
+            "SlideHeader",
+            "AgendaSlide",
+            "ChartSlide",
+            "ClosingSlide",
+            "CompareSlide",
+            "MetricSlide",
+            "QuoteSlide",
+            "SectionSlide",
+            "SplitSlide",
+            "StatementSlide",
+            "TableSlide",
+            "TimelineSlide",
+            "TitleSlide",
+            "Bullets",
+            "Figure",
+            "Steps",
+            "Takeaway",
+            "Badge",
+            "Callout",
+            "Card",
+            "Pager",
+            "Toc",
+            "TextField",
+            "Calendar",
+            "Carousel",
+            "Image",
+            "ImageCard",
+            "MiniCard",
+            "Avatar",
+            "List",
+            "PhotoGrid",
+            "Post",
+            "ProfileHeader",
+            "Stories",
+            "Markdown",
+            "TabBar",
+            "Tabs",
+            "DisplaySwitch",
+            "DataTable",
+            "Button",
+            "Delta",
+            "Segmented",
+            "Stat",
+            "CodeBlock",
+            "Highlight",
+            "Icon",
+            "LineChart",
+            "BarChart",
+            "Heatmap",
+            "Sparkline"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object"
+        },
+        "children": {}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Doc"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "summary": {},
+                  "meta": {},
+                  "toc": {},
+                  "printable": {}
+                },
+                "required": [
+                  "title",
+                  "meta"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DocSection"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "id": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Ref"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "to": {}
+                },
+                "required": [
+                  "to"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Portfolio"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "role": {},
+                  "intro": {},
+                  "contacts": {},
+                  "density": {},
+                  "printable": {}
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "PortfolioSection"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Project"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "period": {},
+                  "role": {},
+                  "image": {},
+                  "summary": {},
+                  "metrics": {},
+                  "tags": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Resume"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "role": {},
+                  "contacts": {},
+                  "summary": {},
+                  "density": {},
+                  "printable": {}
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ResumeEntry"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "org": {},
+                  "period": {},
+                  "place": {},
+                  "items": {},
+                  "tags": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ResumeSection"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ChangeLog"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Cons"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Option"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "chosen": {}
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Options"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Pros"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "RequirementTable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "prefix": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Deck"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "start": {},
+                  "controls": {},
+                  "grid": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Slide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "tone": {},
+                  "source": {},
+                  "footer": {},
+                  "notes": {},
+                  "className": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "SlideFooter"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "source": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "SlideHeader"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "kicker": {},
+                  "title": {},
+                  "subtitle": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "AgendaSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "items": {},
+                  "current": {}
+                },
+                "required": [
+                  "title",
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ChartSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "takeaway": {},
+                  "aside": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ClosingSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "items": {},
+                  "contact": {},
+                  "tone": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CompareSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "takeaway": {},
+                  "before": {},
+                  "after": {}
+                },
+                "required": [
+                  "title",
+                  "before",
+                  "after"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "MetricSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "takeaway": {},
+                  "metrics": {}
+                },
+                "required": [
+                  "title",
+                  "metrics"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "QuoteSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "quote": {},
+                  "by": {},
+                  "role": {},
+                  "tone": {}
+                },
+                "required": [
+                  "quote"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "SectionSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "number": {},
+                  "title": {},
+                  "subtitle": {},
+                  "tone": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "SplitSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "takeaway": {},
+                  "left": {},
+                  "right": {},
+                  "ratio": {}
+                },
+                "required": [
+                  "title",
+                  "left",
+                  "right"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "StatementSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "kicker": {},
+                  "statement": {},
+                  "detail": {},
+                  "tone": {}
+                },
+                "required": [
+                  "statement"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "TableSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "takeaway": {},
+                  "table": {}
+                },
+                "required": [
+                  "title",
+                  "table"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "TimelineSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "title": {},
+                  "takeaway": {},
+                  "items": {}
+                },
+                "required": [
+                  "title",
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "TitleSlide"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "notes": {},
+                  "source": {},
+                  "kicker": {},
+                  "title": {},
+                  "subtitle": {},
+                  "meta": {},
+                  "tone": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Bullets"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Figure"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "caption": {},
+                  "kind": {},
+                  "height": {}
+                },
+                "required": [
+                  "caption"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Steps"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Takeaway"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Badge"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "tone": {},
+                  "variant": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Callout"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "tone": {},
+                  "accent": {},
+                  "title": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Card"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "aside": {},
+                  "description": {},
+                  "selected": {},
+                  "onClick": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Pager"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "previous": {},
+                  "next": {},
+                  "label": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Toc"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "title": {},
+                  "current": {},
+                  "offset": {},
+                  "onSelect": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "TextField"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "hideLabel": {},
+                  "value": {},
+                  "defaultValue": {},
+                  "onChange": {},
+                  "placeholder": {},
+                  "type": {},
+                  "icon": {},
+                  "hint": {},
+                  "disabled": {}
+                },
+                "required": [
+                  "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Calendar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "value": {},
+                  "onChange": {},
+                  "marks": {},
+                  "month": {},
+                  "today": {},
+                  "label": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Carousel"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "size": {},
+                  "peek": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Image"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "alt": {},
+                  "src": {},
+                  "seed": {},
+                  "ratio": {},
+                  "fit": {},
+                  "rounded": {}
+                },
+                "required": [
+                  "alt"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ImageCard"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "image": {},
+                  "title": {},
+                  "description": {},
+                  "meta": {},
+                  "badge": {},
+                  "onSelect": {}
+                },
+                "required": [
+                  "image",
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "MiniCard"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "image": {},
+                  "title": {},
+                  "meta": {},
+                  "onSelect": {}
+                },
+                "required": [
+                  "image",
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Avatar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "src": {},
+                  "size": {},
+                  "ring": {}
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "List"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "onSelect": {},
+                  "label": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "PhotoGrid"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "onSelect": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Post"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "author": {},
+                  "avatar": {},
+                  "place": {},
+                  "photo": {},
+                  "likes": {},
+                  "liked": {},
+                  "caption": {},
+                  "comments": {},
+                  "time": {},
+                  "onLike": {},
+                  "onComment": {},
+                  "onShare": {},
+                  "onSave": {}
+                },
+                "required": [
+                  "author",
+                  "photo",
+                  "likes"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ProfileHeader"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "handle": {},
+                  "avatar": {},
+                  "bio": {},
+                  "stats": {}
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Stories"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "onSelect": {},
+                  "label": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Markdown"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "defaultValue": {},
+                  "readOnly": {},
+                  "onChange": {},
+                  "data": {},
+                  "formats": {},
+                  "onAction": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "TabBar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "variant": {},
+                  "labels": {},
+                  "items": {},
+                  "value": {},
+                  "onChange": {},
+                  "label": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Tabs"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "value": {},
+                  "defaultValue": {},
+                  "onChange": {},
+                  "variant": {},
+                  "fill": {},
+                  "orientation": {},
+                  "label": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DisplaySwitch"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "display": {}
+                },
+                "required": [
+                  "display"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DataTable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "columns": {},
+                  "rows": {},
+                  "fit": {}
+                },
+                "required": [
+                  "columns",
+                  "rows"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Button"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "disabled": {},
+                  "onClick": {},
+                  "variant": {},
+                  "icon": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Delta"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "change": {},
+                  "goodWhenUp": {}
+                },
+                "required": [
+                  "change"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Segmented"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "options": {},
+                  "value": {},
+                  "defaultValue": {},
+                  "label": {},
+                  "onChange": {}
+                },
+                "required": [
+                  "options",
+                  "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Stat"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "value": {},
+                  "delta": {},
+                  "note": {},
+                  "trend": {},
+                  "color": {},
+                  "size": {}
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CodeBlock"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "code": {},
+                  "lang": {},
+                  "title": {},
+                  "actions": {}
+                },
+                "required": [
+                  "code"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Highlight"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "code": {},
+                  "lang": {},
+                  "numbers": {}
+                },
+                "required": [
+                  "code"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Icon"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "size": {},
+                  "label": {}
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "LineChart"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "series": {},
+                  "format": {},
+                  "band": {},
+                  "threshold": {},
+                  "baseline": {},
+                  "annotations": {},
+                  "endLabels": {},
+                  "title": {}
+                },
+                "required": [
+                  "series"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "BarChart"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "points": {},
+                  "name": {},
+                  "color": {},
+                  "colorOf": {},
+                  "format": {},
+                  "title": {}
+                },
+                "required": [
+                  "points"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Heatmap"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "rows": {},
+                  "columns": {},
+                  "values": {},
+                  "format": {},
+                  "labelEvery": {},
+                  "ramp": {},
+                  "zeroIsEmpty": {},
+                  "title": {}
+                },
+                "required": [
+                  "rows",
+                  "columns",
+                  "values",
+                  "format"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Sparkline"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "points": {},
+                  "color": {}
+                },
+                "required": [
+                  "points"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "widget": {
+      "type": "object",
+      "required": [
+        "id",
+        "w",
+        "h",
+        "description",
+        "content"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "w": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "h": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "frame": {
+          "enum": [
+            "card",
+            "plain"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "$ref": "#/$defs/action"
+        },
+        "content": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/node"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/node"
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -13,7 +13,8 @@
     "./presets/*": "./dist/presets/*",
     "./styles.css": "./dist/styles.css",
     "./styles/*": "./dist/styles/*",
-    "./components.json": "./dist/components.json"
+    "./components.json": "./dist/components.json",
+    "./spec.schema.json": "./dist/spec.schema.json"
   },
   "files": [
     "src/lib",

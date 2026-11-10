@@ -1,6 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { API, SignatureKind, SymbolFlags, TypeFlags } from "typescript/unstable/sync";
+import { specSchema } from "../bin/spec.mjs";
 
 const root = join(import.meta.dirname, "..");
 const config = join(root, "tsconfig.json");
@@ -48,4 +49,5 @@ const components = exports
 api.close();
 
 writeFileSync(join(root, "dist/components.json"), `${JSON.stringify({ components }, null, 2)}\n`);
+writeFileSync(join(root, "dist/spec.schema.json"), `${JSON.stringify(specSchema(components), null, 2)}\n`);
 console.log(`components: ${components.length} schemas`);

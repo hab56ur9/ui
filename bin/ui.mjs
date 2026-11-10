@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync, watch, writeFileSync, readdirSync, 
 import { createServer } from "node:http";
 import { networkInterfaces } from "node:os";
 import { dirname, extname, join, relative, resolve, sep } from "node:path";
+import { checkSpec } from "./spec.mjs";
 
 const pkgRoot = resolve(import.meta.dirname, "..");
 const pkg = JSON.parse(readFileSync(join(pkgRoot, "package.json"), "utf8"));
@@ -29,13 +30,16 @@ const HELP = `ui ${pkg.version}
 Usage
   ui serve [dir] [--port 4321] [--host] [--no-reload]
   ui new <file.html> [--lang en|ko] [--medium app|doc|slide] [--cdn]
+  ui spec check <spec.json>
   ui help
 
 serve   Serves [dir] (default: current folder) at / and this design system at /ui/.
         Pages import "/ui/dist/ui.js". HTML reloads when a file in [dir] changes.
         --host also listens on the local network so a phone can open the page.
 new     Writes a starter page that imports the design system in one line.
-        --cdn imports the released module from ${pkg.homepage} instead of /ui/.`;
+        --cdn imports the released module from ${pkg.homepage} instead of /ui/.
+spec    check validates an app spec against the components and its own data,
+        formats, actions, screens and overlays. The schema is dist/spec.schema.json.`;
 
 function parse(argv) {
   const args = { _: [] };
@@ -213,11 +217,21 @@ function create(args) {
   if (!args.cdn) console.log(`open it with: ui serve ${relative(process.cwd(), dirname(path)) || "."}`);
 }
 
+function checkFile(file) {
+  if (!file) throw new Error("ui spec check <spec.json>");
+  const { components } = JSON.parse(readFileSync(join(pkgRoot, "dist/components.json"), "utf8"));
+  const errors = checkSpec(JSON.parse(readFileSync(resolve(file), "utf8")), components);
+  for (const error of errors) console.log(`  ✗ ${error}`);
+  console.log(errors.length ? `${file}: ${errors.length} problems` : `${file}: valid`);
+  if (errors.length) process.exitCode = 1;
+}
+
 const args = parse(process.argv.slice(2));
 const command = args._[0] ?? "help";
 try {
   if (command === "serve") serve(args);
   else if (command === "new") create(args);
+  else if (command === "spec" && args._[1] === "check") checkFile(args._[2]);
   else console.log(HELP);
 } catch (error) {
   console.error(`ui: ${error.message}`);

@@ -10,7 +10,7 @@ ui is a personal design system for apps, technical documents and slide decks.
 - Theme, medium (app, document, slide) and language are independent token axes, and presets restyle the brand colors.
 - React components cover inputs, navigation, feedback, data, content and frames. They take props only and leave storage to the app.
 - Templates compose the components into slide decks, documents, resumes, portfolios and dashboards.
-- `JsonUI` draws a JSON template with the components, as the engine for server-driven screens.
+- An app spec in JSON describes screens, data, actions and the intent of each part with the components. Agents turn it into editable HTML for people to review; `docs/review-loop.md` explains the loop.
 - A single-page documentation site shows every token, component and template with live examples on GitHub Pages.
 - A CLI serves local pages with the design system, and a plugin brings the system to Claude Code and Codex.
 
