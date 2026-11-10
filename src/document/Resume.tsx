@@ -5,14 +5,14 @@ import { useI18n } from "../i18n";
 import { PrintCopy } from "../print";
 
 export type ResumeContact = { label: string; href?: string };
-export type ResumeProps = { name: string; role?: string; contacts?: ResumeContact[]; summary?: ReactNode; printable?: boolean; children: ReactNode };
+export type ResumeProps = { name: string; role?: string; contacts?: ResumeContact[]; summary?: ReactNode; density?: "comfortable" | "compact"; printable?: boolean; children: ReactNode };
 
-export function Resume({ name, role, contacts = [], summary, printable = true, children }: ResumeProps) {
+export function Resume({ name, role, contacts = [], summary, density = "comfortable", printable = true, children }: ResumeProps) {
   const { text } = useI18n();
   const [printing, setPrinting] = useState(false);
   const stopPrinting = useCallback(() => setPrinting(false), []);
   return (
-    <article className="doc resume" data-medium="doc">
+    <article className="doc resume" data-medium="doc" data-density={density}>
       <header className="resume-head">
         <div className="resume-name">
           <h1 className="doc-title">{name}</h1>
@@ -35,7 +35,7 @@ export function Resume({ name, role, contacts = [], summary, printable = true, c
       <div className="resume-body">{children}</div>
       {printing && (
         <PrintCopy kind="doc" medium="doc" onDone={stopPrinting}>
-          <Resume name={name} role={role} contacts={contacts} summary={summary} printable={false}>
+          <Resume name={name} role={role} contacts={contacts} summary={summary} density={density} printable={false}>
             {children}
           </Resume>
         </PrintCopy>

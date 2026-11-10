@@ -216,6 +216,15 @@
           "type": "ResumeContact[]"
         },
         {
+          "name": "density",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "comfortable",
+            "compact"
+          ]
+        },
+        {
           "name": "printable",
           "optional": true,
           "kind": "boolean"
@@ -313,6 +322,15 @@
           "name": "summary",
           "optional": true,
           "kind": "node"
+        },
+        {
+          "name": "density",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "comfortable",
+            "compact"
+          ]
         },
         {
           "name": "printable",

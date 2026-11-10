@@ -5,7 +5,7 @@ export default function ResumePm() {
   const { lang } = useI18n();
   const t = TEXT[lang === "en" ? "en" : "ko"];
   return (
-    <Resume name={t.name} role={t.role} contacts={t.contacts} summary={t.summary}>
+    <Resume name={t.name} role={t.role} contacts={t.contacts} summary={t.summary} density="compact">
       <ResumeSection title={t.experience}>
         {t.jobs.map((job) => (
           <ResumeEntry key={job.period} {...job} />

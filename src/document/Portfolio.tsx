@@ -7,14 +7,14 @@ import { useI18n } from "../i18n";
 import { PrintCopy } from "../print";
 import type { ResumeContact } from "./Resume";
 
-export type PortfolioProps = { name: string; role?: string; intro?: ReactNode; contacts?: ResumeContact[]; printable?: boolean; children: ReactNode };
+export type PortfolioProps = { name: string; role?: string; intro?: ReactNode; contacts?: ResumeContact[]; density?: "comfortable" | "compact"; printable?: boolean; children: ReactNode };
 
-export function Portfolio({ name, role, intro, contacts = [], printable = true, children }: PortfolioProps) {
+export function Portfolio({ name, role, intro, contacts = [], density = "comfortable", printable = true, children }: PortfolioProps) {
   const { text } = useI18n();
   const [printing, setPrinting] = useState(false);
   const stopPrinting = useCallback(() => setPrinting(false), []);
   return (
-    <article className="doc portfolio" data-medium="doc">
+    <article className="doc portfolio" data-medium="doc" data-density={density}>
       <header className="portfolio-hero">
         <div>
           {role && <p className="portfolio-role">{role}</p>}
@@ -37,7 +37,7 @@ export function Portfolio({ name, role, intro, contacts = [], printable = true, 
       <div className="portfolio-body">{children}</div>
       {printing && (
         <PrintCopy kind="doc" medium="doc" onDone={stopPrinting}>
-          <Portfolio name={name} role={role} intro={intro} contacts={contacts} printable={false}>
+          <Portfolio name={name} role={role} intro={intro} contacts={contacts} density={density} printable={false}>
             {children}
           </Portfolio>
         </PrintCopy>

@@ -15,6 +15,7 @@ export const en: Text = {
       period: "2024",
       role: "PM · 4 engineers, 1 designer",
       summary: "The funnel showed 31% leaving at card entry. Twelve interviews confirmed people felt asked for the same details twice, so I merged five steps into three, proved it in an A/B test and rolled it out.",
+      points: ["Found the drop at card entry in the funnel data first", "Nine of twelve interviews complained about being asked for the same details twice", "Ran the three-step flow 50:50 for two weeks before rolling it out"],
       metrics: [
         { label: "Checkout completion", value: "61 → 74%" },
         { label: "Checkout time", value: "−42%" },
@@ -29,6 +30,7 @@ export const en: Text = {
       period: "2021",
       role: "PM · from idea to launch",
       summary: "Many people left within a week of signing up. I built a daily check-in with a small reward and tested three reward prices to pick the one with the most effect for the same budget.",
+      points: ["Split users who left within seven days of sign-up into cohorts", "Tested three reward prices to pick the one with the most effect per budget", "Set a rule to send just one reminder the day after a streak breaks"],
       metrics: [
         { label: "7-day return", value: "18 → 27%" },
         { label: "Participants", value: "1.4×" },
@@ -42,6 +44,7 @@ export const en: Text = {
       period: "2023",
       role: "PM · with the finance team",
       summary: "The top ticket was 'when do I get paid?'. Sorting 1,200 tickets showed three causes of delay, and a staged roadmap over two quarters cut settlement from a day to ten minutes.",
+      points: ["Sorted 1,200 settlement tickets by cause by hand", "Ranked the three causes of delay with the finance team", "Ran a staged roadmap that removed one cause at a time over two quarters"],
       metrics: [
         { label: "Settlement delay", value: "1 day → 10 min" },
         { label: "Monthly tickets", value: "1,200 → 300" },

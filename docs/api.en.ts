@@ -625,6 +625,7 @@ export const api: Record<string, Section[]> = {
         ["name · role", "string", "", "Name and role."],
         ["contacts", "{ label, href? }[]", "[]", "Contacts; with `href` they become links."],
         ["summary", "ReactNode", "", "A one- or two-sentence intro."],
+        ["density", "\"comfortable\" | \"compact\"", "\"comfortable\"", "`compact` sets 14px body, 1.5 line height and tighter spacing to fit more text per page; a portfolio also narrows its image column."],
         ["printable", "boolean", "true", "Shows the print button."],
       ],
     },
@@ -644,6 +645,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["name · role · intro", "string · string · ReactNode", "", "Name, role and intro."],
         ["contacts", "{ label, href? }[]", "[]", "Contacts."],
+        ["density", "\"comfortable\" | \"compact\"", "\"comfortable\"", "`compact` sets 14px body, 1.5 line height and tighter spacing to fit more text per page; a portfolio also narrows its image column."],
         ["printable", "boolean", "true", "Shows the print button."],
       ],
     },

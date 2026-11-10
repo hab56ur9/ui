@@ -4696,3 +4696,30 @@ h3.doc-heading::before {
 .doc [id] {
   scroll-margin-top: var(--space-16);
 }
+
+.doc[data-density="compact"] {
+  --font-size-caption: 12px;
+  --font-size-label: 13px;
+  --font-size-body: 14px;
+  --font-size-title: 16px;
+  --font-size-heading: 28px;
+  --font-size-stat: 22px;
+  --font-size-display: 40px;
+  --line-height-body: 1.5;
+}
+
+.portfolio[data-density="compact"] .project.has-image {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+}
+
+.portfolio[data-density="compact"] .portfolio-intro {
+  max-width: 48em;
+}
+
+.project-text > ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding-left: 1.2em;
+}

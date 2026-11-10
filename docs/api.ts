@@ -625,6 +625,7 @@ export const api: Record<string, Section[]> = {
         ["name · role", "string", "", "이름과 직무입니다."],
         ["contacts", "{ label, href? }[]", "[]", "연락처입니다. `href`가 있으면 링크가 됩니다."],
         ["summary", "ReactNode", "", "한두 문장 소개입니다."],
+        ["density", "\"comfortable\" | \"compact\"", "\"comfortable\"", "`compact`는 본문 14px, 줄 간격 1.5, 좁은 간격으로 한 쪽에 글을 더 넣습니다. 포트폴리오는 이미지 칸도 좁아집니다."],
         ["printable", "boolean", "true", "인쇄 버튼을 보여 줍니다."],
       ],
     },
@@ -644,6 +645,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["name · role · intro", "string · string · ReactNode", "", "이름, 직무, 소개입니다."],
         ["contacts", "{ label, href? }[]", "[]", "연락처입니다."],
+        ["density", "\"comfortable\" | \"compact\"", "\"comfortable\"", "`compact`는 본문 14px, 줄 간격 1.5, 좁은 간격으로 한 쪽에 글을 더 넣습니다. 포트폴리오는 이미지 칸도 좁아집니다."],
         ["printable", "boolean", "true", "인쇄 버튼을 보여 줍니다."],
       ],
     },
