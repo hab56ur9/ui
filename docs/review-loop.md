@@ -16,18 +16,23 @@ Feedback given in words often reaches the agent with a different meaning. The ag
 The design system is a common language that both the agent and the person read and edit. Feedback moves as edits to a shared artifact instead of as sentences.
 
 - The agent describes the app as a JSON spec built only from design system components.
-- A builder turns the spec into one static UI file.
-- The person reviews that file and corrects it by editing the UI directly.
+- A builder turns the spec into editable React code.
+- The person reviews the rendered code and corrects it by editing the UI directly.
 - The agent receives the corrected spec, not a description of the correction.
 
 ## Flow
 
+The loop repeats steps 2 to 4 until the person approves the UI.
+
 | Step | Actor | Input | Output |
 | --- | --- | --- | --- |
 | 1. Spec | Agent | The request and its context | A JSON spec: screens, components, data slots, actions, and a description on each part |
-| 2. Build | Builder | The JSON spec | A React app codebase, and one static HTML file of it at mockup level with example data and no API |
-| 3. Review | Person | The HTML file | A corrected spec, made by taking the UI apart and putting it back together in an editor |
-| 4. Logic | Agent | The corrected spec | API calls and use cases connected to the generated React code through its data slots and actions |
+| 2. Generate | Builder | The JSON spec | Editable React code at mockup level, with example data and no API |
+| 3. Review | Person | The rendered code | Feedback as edits made in an editor |
+| 4. Revise | Person, agent | The feedback | A revised spec, which goes back to step 2 |
+| 5. Approve | Person | The rendered code | Approval of the UI |
+| 6. Connect | Agent | The approved code | API calls and use cases connected to the code through its data slots and actions |
+| 7. Build | Builder | The connected code | The final app build |
 
 ## The spec
 
@@ -41,19 +46,19 @@ The spec is both the screen source and the behavior specification.
 
 ## The builder
 
-The builder reads a spec and writes a React app codebase.
+The builder reads a spec and writes editable React code. Its job ends there.
 
-- The codebase holds one component per screen, built only from design system components, with routes, overlays and actions wired as the spec says.
-- The same codebase builds into one self-contained static HTML file for review: components, styles and behavior travel together.
-- The structure is fixed at build time. Nothing reads JSON at run time to decide what to draw.
-- The HTML file embeds its spec, so an editor can open the file and recover the spec without the agent.
-- The generated codebase is the starting point of the real app, so the screen a person reviewed is the screen that ships.
+- The code holds one component per screen, built only from design system components, with routes, overlays and actions wired as the spec says.
+- Handlers are functions bound to action names, and data comes through data slot names, so the code reads like ordinary React.
+- The structure is fixed in the code. Nothing reads JSON at run time to decide what to draw.
+- Until approval, the code is regenerated from the spec after every round of feedback, so nobody edits it by hand.
+- After approval, the code becomes the app's source. The screen a person approved is the screen that ships.
 
 ## The editor
 
 The editor lets a person correct the result directly instead of describing the correction.
 
-- It opens a built file, splits it into its widgets and components, and lets the person reassemble them.
+- It renders the generated code, splits it into its widgets and components, and lets the person reassemble them.
 - Widgets are the main unit of editing: a person moves, resizes, removes and adds them on a grid.
 - Everything in the spec is editable: each component's props, screens, navigation, overlays and the action wiring between them.
 - The edit result is a new spec. The difference between the old and new spec is the feedback.
@@ -65,8 +70,8 @@ The generated UI and the app's logic are separate artifacts that meet at a contr
 
 - The contract is the set of data slots and action names in the spec.
 - The agent writes use cases, API calls and data flow against that contract, independent of the generated UI code.
-- UI feedback changes the spec, and logic work changes the logic; neither has to wait for the other.
-- The app is finished when the agent connects real data and actions to the generated UI code that the person reviewed.
+- While the UI is in review, the agent can build use cases and API calls against the contract, so logic work does not wait for UI feedback.
+- After approval, the agent connects that logic to the approved code, and the builder makes the final build.
 
 ## Role of the design system
 
