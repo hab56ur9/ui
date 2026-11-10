@@ -20,9 +20,9 @@ const ko = {
   impact: "기대 효과",
   impactTakeaway: "출시 3개월 안에 결제 실패 확인 시간을 하루 안으로 줄이는 것이 목표입니다.",
   metrics: [
-    ["결제 실패 확인", "2.4일 → 1일 이내"],
-    ["알림 끄기 비율", "18% → 10%"],
-    ["고객 문의(알림 관련)", "월 320건 → 150건"],
+    ["결제 실패 확인", "1일 이내", "지금 2.4일"],
+    ["알림 끄기 비율", "10%", "지금 18%"],
+    ["알림 관련 문의", "월 150건", "지금 월 320건"],
   ],
   timeline: "일정",
   milestones: [
@@ -64,9 +64,9 @@ const en: typeof ko = {
   impact: "Expected impact",
   impactTakeaway: "Within three months of launch, failed payments are seen within a day.",
   metrics: [
-    ["Failed payment seen", "2.4 days → under 1 day"],
-    ["Notifications muted", "18% → 10%"],
-    ["Support tickets (notifications)", "320 → 150 a month"],
+    ["Failed payment seen", "< 1 day", "Now 2.4 days"],
+    ["Notifications muted", "10%", "Now 18%"],
+    ["Notification tickets", "150/mo", "Now 320/mo"],
   ],
   timeline: "Timeline",
   milestones: [

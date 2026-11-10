@@ -14,7 +14,7 @@ export default function Proposal() {
         <Takeaway>{t.problemTakeaway}</Takeaway>
       </Slide>
       <CompareSlide title={t.compare} before={{ label: t.before, body: t.beforeBody }} after={{ label: t.after, body: t.afterBody }} />
-      <MetricSlide title={t.impact} takeaway={t.impactTakeaway} metrics={t.metrics.map(([label, value]) => ({ label, value }))} />
+      <MetricSlide title={t.impact} takeaway={t.impactTakeaway} metrics={t.metrics.map(([label, value, note]) => ({ label, value, note }))} />
       <TimelineSlide title={t.timeline} items={t.milestones} />
       <Slide>
         <SlideHeader title={t.ask} />
