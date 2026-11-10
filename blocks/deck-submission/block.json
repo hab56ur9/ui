@@ -1,0 +1,12 @@
+{
+  "title": "프로젝트 제출",
+  "description": "끝난 프로젝트의 결과를 제출하는 10장짜리 발표 자료입니다. 표지, 순서, 배경과 목표, 구조, 구현 단계, 결과 숫자, 결과 차트, 역할 분담, 한계와 다음 계획, 링크 순서입니다.",
+  "category": "슬라이드",
+  "kind": "deck",
+  "uses": ["슬라이드 묶음", "표지", "목차", "결론 한 줄", "글머리 목록", "두 단", "이미지", "단계", "큰 숫자", "차트 슬라이드", "선 차트", "표 슬라이드", "마무리"],
+  "en": {
+    "title": "Project submission",
+    "description": "A ten-slide deck that submits the results of a finished project: cover, agenda, background and goals, architecture, build steps, result numbers, result chart, roles, limits and next steps, and links.",
+    "uses": ["Deck", "Title slide", "Agenda", "Takeaway", "Bullets", "Split", "Image", "Steps", "Big numbers", "Chart slide", "Line chart", "Table slide", "Closing"]
+  }
+}
