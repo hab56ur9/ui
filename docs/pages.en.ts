@@ -1487,6 +1487,69 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "markdown-editor",
+    "group": "컴포넌트",
+    "title": "Markdown editor",
+    "wide": true,
+    "lede": "The markdown editor writes and edits block by block, like Notion. The document is parsed into blocks, each drawn with our components, and clicking a block turns only that block into its markdown source. Typing `/` in an empty block opens the block menu. The result leaves through `onChange` as a standard markdown string, and the app does the storing.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Input page",
+        "example": "markdown-editor"
+      },
+      {
+        "type": "api",
+        "title": "Keys",
+        "rows": [
+          [
+            "Enter",
+            "",
+            "",
+            "New block at the end of a paragraph or heading, next item in a list, leaves the list on an empty item"
+          ],
+          [
+            "Shift + Enter",
+            "",
+            "",
+            "Line break inside the block"
+          ],
+          [
+            "/",
+            "",
+            "",
+            "Opens the block menu in an empty block; keep typing to filter, pick with ↑ ↓ Enter"
+          ],
+          [
+            "↑ · ↓",
+            "",
+            "",
+            "At the start or end of a block, moves to the previous or next block"
+          ],
+          [
+            "Backspace",
+            "",
+            "",
+            "Deletes an empty block and moves to the previous one"
+          ],
+          [
+            "Esc",
+            "",
+            "",
+            "Stops editing"
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The block being edited is a plain text area, usable with screen readers and keyboards.",
+          "The block menu is a `listbox` that marks the current item with `aria-selected`."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image",
     "group": "컴포넌트",
     "title": "Image",

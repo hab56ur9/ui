@@ -23,7 +23,8 @@ export type Block =
   | { kind: "rule" };
 
 export type Footnote = { id: string; number: number; children: Block[] };
-export type MarkdownDocument = { blocks: Block[]; footnotes: Footnote[] };
+export type Segment = { start: number; end: number; block?: Block };
+export type MarkdownDocument = { blocks: Block[]; footnotes: Footnote[]; segments: Segment[]; lines: string[] };
 
 type Refs = { links: Map<string, { href: string; title?: string }>; notes: Map<string, string>; order: string[] };
 
@@ -202,15 +203,15 @@ function parseList(lines: string[], start: number, refs: Refs): [Block, number] 
   return [{ kind: "list", ordered, start: ordered ? Number(first?.[2] ?? 1) : 1, items }, i];
 }
 
-function parseBlocks(source: string, refs: Refs): Block[] {
+function parseBlocks(source: string, refs: Refs, ranges?: Segment[]): Block[] {
   const lines = source.split("\n");
   const blocks: Block[] = [];
   let i = 0;
-  while (i < lines.length) {
+  const step = () => {
     const line = lines[i];
     if (blank(line)) {
       i += 1;
-      continue;
+      return;
     }
     const fence = line.match(FENCE);
     if (fence) {
@@ -220,25 +221,25 @@ function parseBlocks(source: string, refs: Refs): Block[] {
       while (i < lines.length && !close.test(lines[i])) body.push(lines[i++]);
       i += 1;
       blocks.push({ kind: "code", lang: fence[2].toLowerCase(), code: body.join("\n") });
-      continue;
+      return;
     }
     if (INDENTED.test(line)) {
       const body: string[] = [];
       while (i < lines.length && (INDENTED.test(lines[i]) || (blank(lines[i]) && INDENTED.test(lines[i + 1] ?? "")))) body.push(lines[i++].slice(4));
       blocks.push({ kind: "code", lang: "", code: body.join("\n") });
-      continue;
+      return;
     }
     const heading = line.match(HEADING);
     if (heading) {
       const content = heading[2] ?? "";
       blocks.push({ kind: "heading", level: heading[1].length, children: parseInline(content, refs), text: content });
       i += 1;
-      continue;
+      return;
     }
     if (RULE.test(line)) {
       blocks.push({ kind: "rule" });
       i += 1;
-      continue;
+      return;
     }
     if (QUOTE.test(line)) {
       const body: string[] = [];
@@ -246,16 +247,16 @@ function parseBlocks(source: string, refs: Refs): Block[] {
       const callout = body[0]?.match(/^\[!(\w+)\]\s*(.*)$/);
       if (callout && CALLOUTS[callout[1].toUpperCase()]) {
         blocks.push({ kind: "callout", tone: CALLOUTS[callout[1].toUpperCase()], title: callout[2] || undefined, children: parseBlocks(body.slice(1).join("\n"), refs) });
-        continue;
+        return;
       }
       blocks.push({ kind: "quote", children: parseBlocks(body.join("\n"), refs) });
-      continue;
+      return;
     }
     if (BULLET.test(line) || NUMBERED.test(line)) {
       const [list, next] = parseList(lines, i, refs);
       blocks.push(list);
       i = next;
-      continue;
+      return;
     }
     if (line.includes("|") && DIVIDER.test(lines[i + 1] ?? "")) {
       const head = cells(line);
@@ -264,13 +265,13 @@ function parseBlocks(source: string, refs: Refs): Block[] {
       i += 2;
       while (i < lines.length && !blank(lines[i]) && lines[i].includes("|")) rows.push(cells(lines[i++]).map((cell) => parseInline(cell, refs)));
       blocks.push({ kind: "table", head: head.map((cell) => parseInline(cell, refs)), align, rows });
-      continue;
+      return;
     }
     const image = line.match(IMAGE_ONLY);
     if (image) {
       blocks.push({ kind: "image", alt: image[1], src: safe(image[2]), title: image[3] });
       i += 1;
-      continue;
+      return;
     }
     const body = [lines[i++]];
     while (i < lines.length && !blank(lines[i]) && !SETEXT.test(lines[i]) && !startsBlock(lines[i], lines[i + 1])) body.push(lines[i++]);
@@ -279,9 +280,15 @@ function parseBlocks(source: string, refs: Refs): Block[] {
       const content = body.join("\n").trim();
       blocks.push({ kind: "heading", level: setext[1][0] === "=" ? 1 : 2, children: parseInline(content, refs), text: content });
       i += 1;
-      continue;
+      return;
     }
     blocks.push({ kind: "paragraph", children: parseInline(body.join("\n"), refs) });
+  };
+  while (i < lines.length) {
+    const begin = i;
+    const count = blocks.length;
+    step();
+    if (ranges && blocks.length > count) ranges.push({ start: begin, end: i, block: blocks[blocks.length - 1] });
   }
   return blocks;
 }
@@ -289,6 +296,7 @@ function parseBlocks(source: string, refs: Refs): Block[] {
 function collect(lines: string[]) {
   const refs: Refs = { links: new Map(), notes: new Map(), order: [] };
   const kept: string[] = [];
+  const definitions: Segment[] = [];
   let fence: RegExp | null = null;
   for (let i = 0; i < lines.length; i += 1) {
     const line = lines[i];
@@ -306,27 +314,34 @@ function collect(lines: string[]) {
     const definition = line.match(LINK_DEF);
     if (definition) {
       refs.links.set(label(definition[1]), { href: definition[2], title: definition[3] });
+      definitions.push({ start: i, end: i + 1 });
+      kept.push("");
       continue;
     }
     const note = line.match(NOTE_DEF);
     if (note) {
+      const start = i;
       const body = [note[2]];
       while (i + 1 < lines.length && (/^ {2,}\S/.test(lines[i + 1]) || (blank(lines[i + 1]) && /^ {2,}\S/.test(lines[i + 2] ?? "")))) body.push(lines[++i].replace(/^ {2,4}/, ""));
       refs.notes.set(note[1], body.join("\n"));
+      definitions.push({ start, end: i + 1 });
+      for (let k = start; k <= i; k += 1) kept.push("");
       continue;
     }
     kept.push(line);
   }
-  return { refs, source: kept.join("\n") };
+  return { refs, definitions, source: kept.join("\n") };
 }
 
 export function parseMarkdown(markdown: string): MarkdownDocument {
-  const { refs, source } = collect(markdown.replace(/\r\n?/g, "\n").replace(/\t/g, "    ").split("\n"));
-  const blocks = parseBlocks(source, refs);
+  const lines = markdown.replace(/\r\n?/g, "\n").replace(/\t/g, "    ").split("\n");
+  const { refs, definitions, source } = collect(lines);
+  const ranges: Segment[] = [];
+  const blocks = parseBlocks(source, refs, ranges);
   const footnotes: Footnote[] = [];
   for (let n = 0; n < refs.order.length; n += 1) {
     const id = refs.order[n];
     footnotes.push({ id, number: n + 1, children: parseBlocks(refs.notes.get(id) ?? "", refs) });
   }
-  return { blocks, footnotes };
+  return { blocks, footnotes, lines, segments: [...ranges, ...definitions].sort((x, y) => x.start - y.start) };
 }

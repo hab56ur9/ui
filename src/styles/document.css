@@ -608,8 +608,136 @@ h3.doc-heading::before {
   text-decoration: none;
 }
 
+.md-editor {
+  gap: var(--space-2);
+}
+
+.md-block {
+  position: relative;
+  min-height: 1.6em;
+  margin: 0 calc(-1 * var(--space-2));
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-control);
+  cursor: text;
+}
+
+.md-block:hover {
+  background: var(--color-sub-subtle);
+}
+
+.md-block > :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure) {
+  margin: 0;
+}
+
+.md-block.is-editing {
+  background: var(--color-bg-subtle);
+  box-shadow: inset 0 0 0 1px var(--color-main-default);
+}
+
+.md-add {
+  position: absolute;
+  top: var(--space-1);
+  left: calc(-1 * var(--space-6));
+  display: inline-grid;
+  place-items: center;
+  width: var(--space-5);
+  height: var(--space-5);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--color-fg-muted);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.md-block:hover .md-add,
+.md-add:focus-visible {
+  opacity: 1;
+}
+
+.md-input {
+  display: block;
+  width: 100%;
+  min-height: 1.6em;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-fg-default);
+  font: inherit;
+  font-family: var(--font-family-mono);
+  font-size: 0.92em;
+  line-height: var(--line-height-body);
+  resize: none;
+}
+
+.md-definition {
+  color: var(--color-fg-muted);
+}
+
+.md-menu {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  z-index: var(--layer-menu);
+  width: 240px;
+  max-height: 320px;
+  margin: 0;
+  padding: var(--space-1);
+  overflow-y: auto;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-raised);
+  box-shadow: var(--elevation-overlay);
+  list-style: none;
+}
+
+.md-menu button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--color-fg-default);
+  font: inherit;
+  font-size: var(--font-size-label);
+  text-align: left;
+  cursor: pointer;
+}
+
+.md-menu [aria-selected="true"] button,
+.md-menu button:hover {
+  background: var(--color-sub-subtle);
+}
+
+.md-append {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--color-fg-muted);
+  font: inherit;
+  font-size: var(--font-size-label);
+  cursor: pointer;
+}
+
+.md-append:hover {
+  background: var(--color-sub-subtle);
+  color: var(--color-fg-default);
+}
+
 .markdown-table .data-table-wrap {
   position: static;
+  scrollbar-width: thin;
 }
 
 .markdown-ui {

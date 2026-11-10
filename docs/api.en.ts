@@ -495,4 +495,15 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "markdown-editor": [
+    {
+      type: "api",
+      title: "<MarkdownEditor>",
+      rows: [
+        ["defaultValue", "string", "\"\"", "The starting markdown; the app passes any saved value."],
+        ["onChange", "(markdown: string) => void", "", "Called with the whole tidied markdown on every edit."],
+        ["data · formats · onAction", "same as JSON UI", "", "Used by ` ```ui ` blocks."],
+      ],
+    },
+  ],
 };

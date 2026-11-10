@@ -495,4 +495,15 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "markdown-editor": [
+    {
+      type: "api",
+      title: "<MarkdownEditor>",
+      rows: [
+        ["defaultValue", "string", "\"\"", "처음 마크다운입니다. 저장된 값은 앱이 넘깁니다."],
+        ["onChange", "(markdown: string) => void", "", "고칠 때마다 정리된 마크다운 전체를 넘깁니다."],
+        ["data · formats · onAction", "JSON UI와 같음", "", "` ```ui ` 블록이 씁니다."],
+      ],
+    },
+  ],
 };
