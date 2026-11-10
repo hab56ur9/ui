@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.3.0-alpha.5](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.4...v0.3.0-alpha.5) (2026-11-10)
+
+
+### Features
+
+* add a compact density to Portfolio and Resume ([b5d125e](https://github.com/hab56ur9/ui/commit/b5d125eb82dad64a30aa90f7b2e4a61be154de2d))
+* add a Korean FitNote spec and show the one that matches the site ([5a0b5c8](https://github.com/hab56ur9/ui/commit/5a0b5c8526a2587b2f3c0df1ee4428fc194ab43a))
+* add a style axis with minimal, expressive and brutal looks ([dd4e524](https://github.com/hab56ur9/ui/commit/dd4e5242c8c732e38c29f14a43b38271794e09be))
+* add the app spec format with a checker and a JSON Schema ([4adc231](https://github.com/hab56ur9/ui/commit/4adc23190ba0f4347b628ebf47f6b3a82e9387e2))
+* build an app spec into one editable HTML file ([8ed265a](https://github.com/hab56ur9/ui/commit/8ed265ae1ce1c48e264606670fe690505c3e3514))
+* build the app spec preview in the site language ([ba34698](https://github.com/hab56ur9/ui/commit/ba34698f65c7d7aa22f081a85e8b0d6626662242))
+* draw Mermaid charts in Markdown and add category axes ([a42876c](https://github.com/hab56ur9/ui/commit/a42876c6a21a44b1571ce61ca3d21466be8fc057))
+* review built specs in ui serve and save edits into the page ([1823812](https://github.com/hab56ur9/ui/commit/18238120f534da6c38b40827801c0a1edfb690a3))
+* review overlays with notes and text edits ([6223e8b](https://github.com/hab56ur9/ui/commit/6223e8b9e7426235201682a27de6bef53bb009f0))
+* tokenize border width, focus ring, floating material and heading font ([b9e5c63](https://github.com/hab56ur9/ui/commit/b9e5c6396f878cb509e665613b39c698ac934e85))
+
+
+### Bug Fixes
+
+* keep project tags in a row and fit the compact resume on one page ([e1dc7cd](https://github.com/hab56ur9/ui/commit/e1dc7cd2236ab62b2a44cb9922995760e98954f6))
+
 ## [0.3.0-alpha.4](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.3...v0.3.0-alpha.4) (2026-11-10)
 
 
