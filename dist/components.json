@@ -394,13 +394,52 @@
       ]
     },
     {
+      "name": "Cons",
+      "props": [
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Option",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "chosen",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
       "name": "Options",
       "props": [
         {
-          "name": "items",
-          "optional": false,
-          "kind": "list",
-          "type": "Option[]"
+          "name": "children",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Pros",
+      "props": [
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node"
         }
       ]
     },
@@ -1109,9 +1148,131 @@
           "kind": "boolean"
         },
         {
+          "name": "onClick",
+          "optional": true,
+          "kind": "action"
+        },
+        {
           "name": "children",
           "optional": true,
           "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Pager",
+      "props": [
+        {
+          "name": "previous",
+          "optional": true,
+          "kind": "object",
+          "type": "PagerLink"
+        },
+        {
+          "name": "next",
+          "optional": true,
+          "kind": "object",
+          "type": "PagerLink"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string"
+        }
+      ]
+    },
+    {
+      "name": "Toc",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "TocItem[]"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "current",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "offset",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "name": "TextField",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string"
+        },
+        {
+          "name": "hideLabel",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "defaultValue",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "placeholder",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "type",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "email",
+            "number",
+            "password",
+            "search",
+            "tel",
+            "text",
+            "url"
+          ]
+        },
+        {
+          "name": "icon",
+          "optional": true,
+          "kind": "string"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "disabled",
+          "optional": true,
+          "kind": "boolean"
         }
       ]
     },

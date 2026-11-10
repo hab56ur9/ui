@@ -1,4 +1,4 @@
-import { ChangeLog, CodeBlock, DataTable, Doc, DocSection, Figure, LineChart, Options, Ref, RequirementTable } from "ui";
+import { ChangeLog, CodeBlock, DataTable, Doc, DocSection, Figure, LineChart, Cons, Option, Options, Pros, Ref, RequirementTable } from "ui";
 import { resets } from "./trend";
 
 const LAYOUT = `[
@@ -85,17 +85,44 @@ export function DesignDocKo() {
         </DocSection>
       </DocSection>
       <DocSection title="대안">
-        <Options
-          items={[
-            { name: "localStorage", summary: "브라우저에 저장합니다.", pros: ["서버 작업이 없습니다", "바로 읽고 씁니다"], cons: ["기기마다 따로 저장됩니다"], chosen: true },
-            { name: "서버 저장", summary: "사용자 설정 API에 저장합니다.", pros: ["기기 사이에 이어집니다"], cons: ["API와 인증이 필요합니다", "비목표를 넘어섭니다"] },
-            { name: "주소 파라미터", summary: "배치를 URL에 넣습니다.", pros: ["링크로 공유됩니다"], cons: ["주소가 길어집니다", "새로 열면 사라집니다"] },
-          ]}
-        />
+        <Options>
+          <Option name="localStorage" chosen>
+            <p>브라우저에 저장합니다.</p>
+            <Pros>
+              <li>서버 작업이 없습니다</li>
+              <li>바로 읽고 씁니다</li>
+            </Pros>
+            <Cons>
+              <li>기기마다 따로 저장됩니다</li>
+            </Cons>
+          </Option>
+          <Option name="서버 저장">
+            <p>사용자 설정 API에 저장합니다.</p>
+            <Pros>
+              <li>기기 사이에 이어집니다</li>
+            </Pros>
+            <Cons>
+              <li>API와 인증이 필요합니다</li>
+              <li>비목표를 넘어섭니다</li>
+            </Cons>
+          </Option>
+          <Option name="주소 파라미터">
+            <p>배치를 URL에 넣습니다.</p>
+            <Pros>
+              <li>링크로 공유됩니다</li>
+            </Pros>
+            <Cons>
+              <li>주소가 길어집니다</li>
+              <li>새로 열면 사라집니다</li>
+            </Cons>
+          </Option>
+        </Options>
       </DocSection>
       <DocSection title="배포">
         <ol>
-          <li>저장 키를 <code>v2</code>로 올리고 이전 키는 읽지 않습니다.</li>
+          <li>
+            저장 키를 <code>v2</code>로 올리고 이전 키는 읽지 않습니다.
+          </li>
           <li>문서 사이트에서 먼저 열고, 일주일 뒤 대시보드에 적용합니다.</li>
         </ol>
       </DocSection>

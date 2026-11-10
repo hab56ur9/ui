@@ -7,13 +7,15 @@ export { Board, Widget, type BoardProps, type LayoutItem, type WidgetProps } fro
 export { Doc, DocSection, Ref, type DocMeta, type DocProps, type DocSectionProps, type DocStatus } from "./document/Doc";
 export { Portfolio, PortfolioSection, Project, type PortfolioProps, type PortfolioSectionProps, type ProjectMetric, type ProjectProps } from "./document/Portfolio";
 export { Resume, ResumeEntry, ResumeSection, type ResumeContact, type ResumeEntryProps, type ResumeProps, type ResumeSectionProps } from "./document/Resume";
-export { ChangeLog, Options, RequirementTable, type Change, type Option, type Priority, type Requirement } from "./records";
+export { ChangeLog, Cons, Option, Options, Pros, RequirementTable, type Change, type OptionProps, type Priority, type Requirement } from "./records";
 export { Deck, Slide, SlideFooter, SlideHeader, type DeckProps, type SlideHeaderProps, type SlideProps, type SlideTone } from "./slides/Deck";
 export { AgendaSlide, ChartSlide, ClosingSlide, CompareSlide, MetricSlide, QuoteSlide, SectionSlide, SplitSlide, StatementSlide, TableSlide, TimelineSlide, TitleSlide, type AgendaSlideProps, type ChartSlideProps, type ClosingSlideProps, type ComparePane, type CompareSlideProps, type Metric, type MetricSlideProps, type Milestone, type QuoteSlideProps, type SectionSlideProps, type SplitSlideProps, type StatementSlideProps, type TableSlideProps, type TimelineSlideProps, type TitleSlideProps } from "./slides/layouts";
 export { Bullets, Figure, Steps, Takeaway, type BulletItem, type Step } from "./content";
 export { Badge, type BadgeProps, type BadgeTone } from "./Badge";
 export { Callout, type CalloutProps } from "./Callout";
 export { Card, type CardProps } from "./Card";
+export { Pager, Toc, type PagerLink, type PagerProps, type TocItem, type TocProps } from "./navigation";
+export { TextField, type TextFieldProps } from "./TextField";
 export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from "./AppShell";
 export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";

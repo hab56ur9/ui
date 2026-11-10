@@ -1003,9 +1003,6 @@ h3.doc-heading::before {
   margin: var(--space-2) 0 0;
 }
 
-.project-metrics .stat {
-  height: auto;
-}
 
 @container (max-width: 600px) {
   .project.has-image {

@@ -1,4 +1,4 @@
-import { ChangeLog, CodeBlock, DataTable, Doc, DocSection, Figure, LineChart, Options, Ref, RequirementTable } from "ui";
+import { ChangeLog, CodeBlock, DataTable, Doc, DocSection, Figure, LineChart, Cons, Option, Options, Pros, Ref, RequirementTable } from "ui";
 import { resets } from "./trend";
 
 const LAYOUT = `[
@@ -55,7 +55,8 @@ export function DesignDocEn() {
       <DocSection title="Design">
         <DocSection title="Format">
           <p>
-            A layout is an array with each widget's <code>id</code>, width <code>w</code>, height <code>h</code> and hidden flag. The array order is the screen order, so a single write meets <Ref to="R1" />.
+            A layout is an array with each widget's <code>id</code>, width <code>w</code>, height <code>h</code> and hidden flag. The array order is the screen order, so a single write meets{" "}
+            <Ref to="R1" />.
           </p>
           <CodeBlock title="localStorage · ts.layout.v2" lang="json" code={LAYOUT} />
           <Figure kind="table" caption="Saved size by widget count">
@@ -85,17 +86,44 @@ export function DesignDocEn() {
         </DocSection>
       </DocSection>
       <DocSection title="Alternatives">
-        <Options
-          items={[
-            { name: "localStorage", summary: "Save in the browser.", pros: ["No server work", "Instant reads and writes"], cons: ["Saved per device"], chosen: true },
-            { name: "Server", summary: "Save through a user-settings API.", pros: ["Follows the user across devices"], cons: ["Needs an API and auth", "Goes beyond the goals"] },
-            { name: "URL parameter", summary: "Put the layout in the URL.", pros: ["Shareable as a link"], cons: ["Long URLs", "Lost on a fresh visit"] },
-          ]}
-        />
+        <Options>
+          <Option name="localStorage" chosen>
+            <p>Save in the browser.</p>
+            <Pros>
+              <li>No server work</li>
+              <li>Instant reads and writes</li>
+            </Pros>
+            <Cons>
+              <li>Saved per device</li>
+            </Cons>
+          </Option>
+          <Option name="Server">
+            <p>Save through a user-settings API.</p>
+            <Pros>
+              <li>Follows the user across devices</li>
+            </Pros>
+            <Cons>
+              <li>Needs an API and auth</li>
+              <li>Goes beyond the goals</li>
+            </Cons>
+          </Option>
+          <Option name="URL parameter">
+            <p>Put the layout in the URL.</p>
+            <Pros>
+              <li>Shareable as a link</li>
+            </Pros>
+            <Cons>
+              <li>Long URLs</li>
+              <li>Lost on a fresh visit</li>
+            </Cons>
+          </Option>
+        </Options>
       </DocSection>
       <DocSection title="Rollout">
         <ol>
-          <li>Bump the key to <code>v2</code> and stop reading the old one.</li>
+          <li>
+            Bump the key to <code>v2</code> and stop reading the old one.
+          </li>
           <li>Turn it on in the docs site first, then on the dashboard a week later.</li>
         </ol>
       </DocSection>

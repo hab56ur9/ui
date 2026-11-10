@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Children, isValidElement, type ReactNode } from "react";
 import { Badge } from "./Badge";
 import { Card } from "./Card";
 import { DataTable } from "./DataTable";
@@ -30,40 +30,50 @@ export function RequirementTable({ items, prefix = "R" }: { items: Requirement[]
   );
 }
 
-export type Option = { name: string; summary?: ReactNode; pros: string[]; cons: string[]; chosen?: boolean };
+export type OptionProps = { name: ReactNode; chosen?: boolean; children?: ReactNode };
 
-export function Options({ items }: { items: Option[] }) {
+export function Option({ name, chosen = false, children }: OptionProps) {
   const { text } = useI18n();
   return (
-    <div className="options" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
-      {items.map((item) => (
-        <Card
-          key={item.name}
-          title={item.name}
-          aside={
-            item.chosen && (
-              <Badge tone="main" variant="solid">
-                {text("doc.chosen")}
-              </Badge>
-            )
-          }
-          description={item.summary}
-          selected={item.chosen}
-        >
-          <div className="options-label">{text("doc.pros")}</div>
-          <ul>
-            {item.pros.map((pro) => (
-              <li key={pro}>{pro}</li>
-            ))}
-          </ul>
-          <div className="options-label">{text("doc.cons")}</div>
-          <ul>
-            {item.cons.map((con) => (
-              <li key={con}>{con}</li>
-            ))}
-          </ul>
-        </Card>
-      ))}
+    <Card
+      title={name}
+      aside={
+        chosen && (
+          <Badge tone="main" variant="solid">
+            {text("doc.chosen")}
+          </Badge>
+        )
+      }
+      selected={chosen}
+    >
+      {children}
+    </Card>
+  );
+}
+
+function Points({ label, children }: { label: string; children?: ReactNode }) {
+  return (
+    <div className="option-points">
+      <div className="options-label">{label}</div>
+      <ul>{Children.map(children, (child) => (child === null || child === undefined || child === false ? null : isValidElement(child) && child.type === "li" ? child : <li>{child}</li>))}</ul>
+    </div>
+  );
+}
+
+export function Pros({ children }: { children?: ReactNode }) {
+  const { text } = useI18n();
+  return <Points label={text("doc.pros")}>{children}</Points>;
+}
+
+export function Cons({ children }: { children?: ReactNode }) {
+  const { text } = useI18n();
+  return <Points label={text("doc.cons")}>{children}</Points>;
+}
+
+export function Options({ children }: { children?: ReactNode }) {
+  return (
+    <div className="options" style={{ gridTemplateColumns: `repeat(${Children.count(children)}, minmax(0, 1fr))` }}>
+      {children}
     </div>
   );
 }
@@ -72,5 +82,11 @@ export type Change = { version: string; date: string; author: string; note: Reac
 
 export function ChangeLog({ items }: { items: Change[] }) {
   const { text } = useI18n();
-  return <DataTable fit columns={[{ label: text("doc.version") }, { label: text("doc.date") }, { label: text("doc.author") }, { label: text("doc.change"), wrap: true }]} rows={items.map((item) => [{ text: item.version, className: "record-id" }, item.date, item.author, { content: item.note }])} />;
+  return (
+    <DataTable
+      fit
+      columns={[{ label: text("doc.version") }, { label: text("doc.date") }, { label: text("doc.author") }, { label: text("doc.change"), wrap: true }]}
+      rows={items.map((item) => [{ text: item.version, className: "record-id" }, item.date, item.author, { content: item.note }])}
+    />
+  );
 }

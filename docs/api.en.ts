@@ -586,7 +586,23 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<Options>",
       rows: [
-        ["items", "{ name, summary?, pros, cons, chosen? }[]", "", "The `chosen` option gets an accent border and a badge."],
+        ["children", "<Option>…", "", "The option cards; columns follow their count."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Option>",
+      rows: [
+        ["name", "ReactNode", "", "The option name."],
+        ["chosen", "boolean", "false", "The chosen option, with an accent border and a Chosen badge."],
+        ["children", "ReactNode", "", "Everything inside as tags: a summary, `<Pros>` and `<Cons>`, stats, code."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Pros> · <Cons>",
+      rows: [
+        ["children", "ReactNode", "", "Pros and cons; each child is one line, and it can be a component such as a badge."],
       ],
     },
   ],
