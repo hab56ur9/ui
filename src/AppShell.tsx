@@ -18,7 +18,9 @@ function ShellNav({ nav, onPick }: { nav: ShellGroup[]; onPick?: () => void }) {
             const body = (
               <>
                 {item.icon && <Icon name={item.icon} size="sm" />}
-                {item.label}
+                <span className="shell-label" title={item.label}>
+                  {item.label}
+                </span>
               </>
             );
             const className = `shell-link${item.sub ? " is-sub" : ""}`;

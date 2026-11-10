@@ -23,8 +23,7 @@ export type LayoutItem = { id: string; w: number; h: number; hidden: boolean };
 
 const defaults = (widgets: WidgetSpec[]): LayoutItem[] => widgets.map(({ id, w, h }) => ({ id, w, h, hidden: false }));
 
-const fits = (saved: unknown, widgets: WidgetSpec[]): saved is LayoutItem[] =>
-  Array.isArray(saved) && saved.length === widgets.length && saved.every((item) => widgets.some((w) => w.id === item?.id));
+const fits = (saved: unknown, widgets: WidgetSpec[]): saved is LayoutItem[] => Array.isArray(saved) && saved.length === widgets.length && saved.every((item) => widgets.some((w) => w.id === item?.id));
 
 type Events = { initial?: LayoutItem[]; onChange?: (layout: LayoutItem[]) => void; onCommit?: (layout: LayoutItem[]) => void; delay: number };
 
@@ -115,7 +114,9 @@ export function Widget({ title, subtitle, w, h, frame = "card", children }: Widg
       {title && (
         <header className="widget-head">
           <div className="widget-titles">
-            <h2 className="widget-title">{title}</h2>
+            <h2 className="widget-title" title={typeof title === "string" ? title : undefined}>
+              {title}
+            </h2>
             {subtitle && <span className="widget-subtitle">{subtitle}</span>}
           </div>
         </header>

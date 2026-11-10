@@ -38,7 +38,7 @@ export function Toc({ items, title, current, offset = 96, onSelect }: TocProps) 
     <nav className="toc" aria-label={name}>
       <div className="toc-title">{name}</div>
       {items.map((item) => (
-        <a key={item.id} href={`#${item.id}`} className="toc-link" aria-current={item.id === selected ? "location" : undefined} onClick={(e) => pick(e, item.id)}>
+        <a key={item.id} href={`#${item.id}`} className="toc-link" title={typeof item.label === "string" ? item.label : undefined} aria-current={item.id === selected ? "location" : undefined} onClick={(e) => pick(e, item.id)}>
           {item.label}
         </a>
       ))}
@@ -53,7 +53,7 @@ function PagerItem({ link, caption, next }: { link: PagerLink; caption: string; 
   const body = (
     <>
       <small>{caption}</small>
-      <span>{link.label}</span>
+      <span title={typeof link.label === "string" ? link.label : undefined}>{link.label}</span>
     </>
   );
   const className = `pager-link${next ? " is-next" : ""}`;

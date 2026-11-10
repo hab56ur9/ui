@@ -27,11 +27,11 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 ## Tokens
 
 - Pages consume the semantic layer only; the primitive layer exists so the semantic layer has something to point at.
-- Theme (`data-theme`), medium (`data-medium`) and language (`lang`) are independent mode axes. A token added to one file of an axis appears in every file of that axis, or the build fails.
+- Theme (`data-theme`), medium (`data-medium`) and language (`lang`) are independent axes; a token in one file of an axis must exist in all of them.
 - A new language is one stack in `font.stack` plus one file in `tokens/lang`. Korean is set like English: Inter for Latin and digits, Pretendard Hangul at 96% `size-adjust`.
 - Text never wears a series color. Status colors always pair with an icon and a label.
 - The series palette passes the dataviz validator in both modes (adjacent CVD ΔE ≥ 8, normal-vision ΔE ≥ 15); slots 2–5 sit below 3:1 on light, so charts ship direct labels or a table. Re-run it on any categorical change.
-- `layout.compact.*` holds tighter inset, gap, section and stack values; an element with `data-density="compact"` swaps them in.
+- `data-density="compact"` swaps in the `layout.compact.*` spacing.
 - Files follow DTCG Format Module 2025.10; colors are hex.
 
 ## Presets
@@ -53,6 +53,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Runtime libraries are react and react-dom only, as peer dependencies; build tools stay in devDependencies. The package ships TSX source and the app's bundler compiles it.
 - Components take props only and do not know storage: initial values arrive as props and changes leave as events. Persisting is the app's job.
 - Time series are `{ t, v }`; colors are a series slot or token name; formats group under `format`. Component text lives in `src/i18n.tsx`.
+- Single-line slots (button, tab, badge, menu item, widget, stat and card titles) truncate with an ellipsis and carry the full text as `title`; body text wraps.
 - Style colors with `var(--color-*)` only; the lint rejects raw color literals and local machine paths.
 - Icons: add or redraw `assets/icons/<name>.svg` on the 24 grid with round-capped `currentColor` strokes; the build bundles them.
 - `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card, an untitled widget drops its header.

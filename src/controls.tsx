@@ -8,9 +8,9 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 
 export function Button({ variant = "secondary", icon, className, children, type = "button", ...rest }: ButtonProps) {
   const classes = ["button", variant === "secondary" ? "" : `is-${variant}`, className ?? ""].filter(Boolean).join(" ");
   return (
-    <button type={type} className={classes} {...rest}>
+    <button type={type} className={classes} title={typeof children === "string" ? children : undefined} {...rest}>
       {icon && <Icon name={icon} size="sm" />}
-      {children}
+      {children !== undefined && children !== null && <span className="button-label">{children}</span>}
     </button>
   );
 }
@@ -40,7 +40,11 @@ export function Delta({ change, goodWhenUp = true }: DeltaProps) {
 export function Stat({ label, value, delta, note, trend, color = 1, size = "md" }: StatProps) {
   return (
     <div className={`stat is-${size}`}>
-      {label && <div className="stat-label">{label}</div>}
+      {label && (
+        <div className="stat-label" title={typeof label === "string" ? label : undefined}>
+          {label}
+        </div>
+      )}
       <div className="stat-value">{value}</div>
       {delta && (
         <div className="stat-delta">
@@ -79,7 +83,7 @@ export function Segmented<V extends string>({ options, value, defaultValue, labe
           type="button"
           lang={option.lang}
           aria-label={option.title}
-          title={option.title}
+          title={option.title ?? (typeof option.label === "string" ? option.label : undefined)}
           aria-pressed={option.value === selected}
           onClick={() => {
             if (option.value === selected) return;

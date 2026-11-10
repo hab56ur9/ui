@@ -22,7 +22,9 @@ export function TabBar({ items, value, onChange, label, variant = "bar", labels 
               </span>
             )}
           </span>
-          <span className="tab-bar-label">{item.label}</span>
+          <span className="tab-bar-label" title={item.label}>
+            {item.label}
+          </span>
         </button>
       ))}
     </nav>

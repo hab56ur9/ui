@@ -9,7 +9,13 @@ export function Avatar({ name, src, size = "md", ring }: AvatarProps) {
   const initials = name.trim().slice(0, 1).toUpperCase();
   return (
     <span className={`avatar is-${size}${ring ? ` has-ring is-${ring}` : ""}`}>
-      {src ? <img src={src} alt={name} /> : <span role="img" aria-label={name}>{initials}</span>}
+      {src ? (
+        <img src={src} alt={name} />
+      ) : (
+        <span role="img" aria-label={name}>
+          {initials}
+        </span>
+      )}
     </span>
   );
 }
@@ -158,8 +164,8 @@ export function List({ items, onSelect, label }: ListProps) {
           <button type="button" className="list-item" onClick={() => onSelect?.(id)}>
             {avatar && <Avatar name={avatar} size="sm" />}
             <span className="list-text">
-              <strong>{title}</strong>
-              {description && <span>{description}</span>}
+              <strong title={title}>{title}</strong>
+              {description && <span title={description}>{description}</span>}
             </span>
             {meta && <span className="list-meta">{meta}</span>}
           </button>

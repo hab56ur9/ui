@@ -57,7 +57,9 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
           return (
             <button key={item.id} type="button" role="tab" id={tabId(item.id)} className="tabs-tab" aria-selected={active} aria-controls={active && panels ? `${base}-panel` : undefined} tabIndex={active ? 0 : -1} disabled={item.disabled} onClick={() => select(item.id)}>
               {item.icon && <Icon name={item.icon} />}
-              <span>{item.label}</span>
+              <span className="tabs-label" title={item.label}>
+                {item.label}
+              </span>
               {item.badge !== undefined && (
                 <Badge tone={active ? "main" : "neutral"} variant={active ? "solid" : "soft"}>
                   {item.badge}
