@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { CodeBlock, MarkdownEditor } from "ui";
+import { MarkdownEditor } from "ui";
 import { useT } from "../demo";
 
 const KO = `# 주간 회고
 
-이번 주에 **잘 된 것**과 아쉬운 것을 블록 단위로 적습니다. 블록을 누르면 마크다운 원문이 보이고, 빈 블록에서 \`/\`를 치면 블록 종류를 고를 수 있습니다.
+이번 주에 **잘 된 것**과 아쉬운 것을 블록 단위로 적습니다. \`- \`를 치면 바로 목록이 되고, \`/\`를 치면 블록과 UI를 고를 수 있습니다. 왼쪽 손잡이로 블록을 끌어 옮깁니다.
 
 ## 잘 된 것
 
@@ -26,7 +25,7 @@ const KO = `# 주간 회고
 
 const EN = `# Weekly retro
 
-Write what **went well** and what didn't, block by block. Click a block to see its markdown, and type \`/\` in an empty block to pick a block type.
+Write what **went well** and what didn't, block by block. Type \`- \` and it becomes a list right away, type \`/\` to pick blocks and UI, and drag a block by its handle.
 
 ## Went well
 
@@ -49,13 +48,5 @@ Write what **went well** and what didn't, block by block. Click a block to see i
 export default function Example() {
   const t = useT();
   const initial = t({ ko: KO, en: EN });
-  const [markdown, setMarkdown] = useState(initial);
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "var(--space-8)", alignItems: "start" }}>
-      <div style={{ paddingLeft: "var(--space-6)" }}>
-        <MarkdownEditor key={initial} defaultValue={initial} onChange={setMarkdown} />
-      </div>
-      <CodeBlock code={markdown} lang="plain" title="markdown" />
-    </div>
-  );
+  return <MarkdownEditor key={initial} defaultValue={initial} />;
 }

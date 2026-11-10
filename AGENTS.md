@@ -54,9 +54,8 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 
 - Runtime libraries are react and react-dom only, as peer dependencies; build tools stay in devDependencies. The package ships TSX source and the app's bundler compiles it.
 - Components take props only and do not know storage: initial values arrive as props and changes leave as events. Persisting is the app's job.
-- Time series are `{ t, v }`. A color is a series slot number or a token name. Formats group under `format: { axis, value, date }`. Charts measure their parent and redraw on resize.
+- Time series are `{ t, v }`; colors are a series slot or token name; formats group under `format`. Component text lives in `src/i18n.tsx`.
 - Style colors with `var(--color-*)` only; the lint rejects raw color literals and local machine paths.
-- Component text lives in `src/i18n.tsx` for ko and en.
 - Icons: add or redraw `assets/icons/<name>.svg` on the 24 grid with round-capped `currentColor` strokes; the build bundles them.
 - `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card and an untitled widget drops its header. Plain static widgets size to their content.
 - `Modal` and `Sheet` are controlled native dialogs with an `inline` docs mode; `UIProvider` hosts toasts and confirms.
@@ -64,7 +63,7 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - `ThemePicker` opens a palette of the color presets and the mode switch, applies `data-preset` and `data-theme` to the root, and reports through `onChange`. `ui.js` loads `presets.css` so review pages can carry `ThemePicker` with `floating`.
 - Each preset's sub color is a gray tinted toward its main hue (`lime-gray`, `sky-gray`); the theme's default sub matches the lime preset.
 - `Image` draws a gradient placeholder without `src`; portrait is 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
-- `Markdown` renders CommonMark + GFM with the system's parts and never raw HTML; ```` ```ui ```` fences go through `JsonUI`. `MarkdownEditor` edits block by block (`/` menu) and emits markdown.
+- `Markdown` renders CommonMark + GFM with the system's parts, never raw HTML; `ui` fences go through `JsonUI`. `MarkdownEditor` is a Notion-style block editor (shortcuts, `/` menu, drag) that emits markdown.
 
 ## Templates
 

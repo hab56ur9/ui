@@ -1491,11 +1491,11 @@ export const pages: Page[] = [
     "group": "컴포넌트",
     "title": "Markdown editor",
     "wide": true,
-    "lede": "The markdown editor writes and edits block by block, like Notion. The document is parsed into blocks, each drawn with our components, and clicking a block turns only that block into its markdown source. Typing `/` in an empty block opens the block menu. The result leaves through `onChange` as a standard markdown string, and the app does the storing.",
+    "lede": "The markdown editor edits blocks in place, like Notion. Typing `- `, `1. `, `[] `, `# `, `> `, three backticks or `---` turns the block into a list, to-do, heading, quote, code or divider on the spot, and `/` inserts blocks and UI components. Drag a block by its handle to move it. The result leaves through `onChange` as standard markdown, and the app does the storing.",
     "sections": [
       {
         "type": "demo",
-        "title": "Input page",
+        "title": "Editor",
         "example": "markdown-editor"
       },
       {
@@ -1503,10 +1503,22 @@ export const pages: Page[] = [
         "title": "Keys",
         "rows": [
           [
+            "- · 1. · [] · # · > · ``` · ---",
+            "",
+            "",
+            "At the start of a paragraph, turns the block on the spot"
+          ],
+          [
+            "/",
+            "",
+            "",
+            "Opens the block and UI menu; type to filter, pick with ↑ ↓ Enter"
+          ],
+          [
             "Enter",
             "",
             "",
-            "New block at the end of a paragraph or heading, next item in a list, leaves the list on an empty item"
+            "New block; next item in a list, leaves the list on an empty item"
           ],
           [
             "Shift + Enter",
@@ -1515,22 +1527,28 @@ export const pages: Page[] = [
             "Line break inside the block"
           ],
           [
-            "/",
+            "Tab · Shift + Tab",
             "",
             "",
-            "Opens the block menu in an empty block; keep typing to filter, pick with ↑ ↓ Enter"
-          ],
-          [
-            "↑ · ↓",
-            "",
-            "",
-            "At the start or end of a block, moves to the previous or next block"
+            "Indents or outdents a list item"
           ],
           [
             "Backspace",
             "",
             "",
-            "Deletes an empty block and moves to the previous one"
+            "At the start, turns the block back into a paragraph, or merges a paragraph into the previous block"
+          ],
+          [
+            "↑ · ↓",
+            "",
+            "",
+            "From the first or last line, moves to the previous or next block"
+          ],
+          [
+            "Alt + Shift + ↑ · ↓",
+            "",
+            "",
+            "Moves the block up or down, like dragging the handle"
           ],
           [
             "Esc",
@@ -1543,7 +1561,7 @@ export const pages: Page[] = [
       {
         "type": "a11y",
         "items": [
-          "The block being edited is a plain text area, usable with screen readers and keyboards.",
+          "Every block is a plain text field usable with screen readers and keyboards, and Alt+Shift+↑ ↓ moves blocks without dragging.",
           "The block menu is a `listbox` that marks the current item with `aria-selected`."
         ]
       }

@@ -345,3 +345,5 @@ export function parseMarkdown(markdown: string): MarkdownDocument {
   }
   return { blocks, footnotes, lines, segments: [...ranges, ...definitions].sort((x, y) => x.start - y.start) };
 }
+
+export const inlineOf = (text: string) => parseInline(text, { links: new Map(), notes: new Map(), order: [] });

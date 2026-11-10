@@ -3,7 +3,7 @@ import { CodeBlock, type CodeLang } from "../Code";
 import { DataTable } from "../DataTable";
 import { JsonUI, type JsonUIAction, type JsonUIFormat, type JsonUINode } from "../JsonUI";
 import { Callout } from "../slides/parts";
-import { parseMarkdown, type Block, type Footnote, type Inline } from "./parse";
+import { inlineOf, parseMarkdown, type Block, type Footnote, type Inline } from "./parse";
 
 export type MarkdownProps = { children: string; data?: Record<string, unknown>; formats?: Record<string, JsonUIFormat>; onAction?: (action: JsonUIAction) => void };
 
@@ -59,6 +59,8 @@ function inline(nodes: Inline[]): ReactNode {
     }
   });
 }
+
+export const renderInline = (text: string) => inline(inlineOf(text));
 
 export type Context = Omit<MarkdownProps, "children"> & { seen: Map<string, number> };
 
