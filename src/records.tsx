@@ -14,7 +14,7 @@ export function RequirementTable({ items, prefix = "R" }: { items: Requirement[]
       fit
       columns={[{ label: text("doc.id") }, { label: text("doc.requirement"), wrap: true }, { label: text("doc.priority") }, { label: text("doc.state") }]}
       rows={items.map((item, i) => [
-        { text: `${prefix}${i + 1}`, className: "record-id" },
+        { content: <span data-ref={`${prefix}${i + 1}`}>{`${prefix}${i + 1}`}</span>, className: "record-id" },
         {
           content: (
             <>

@@ -16,7 +16,8 @@ const DepthContext = createContext(0);
 
 const jump = (e: MouseEvent, selector: string) => {
   e.preventDefault();
-  const target = (e.currentTarget as Element).closest(".doc")?.querySelector<HTMLElement>(selector);
+  const found = (e.currentTarget as Element).closest(".doc")?.querySelector<HTMLElement>(selector);
+  const target = found?.closest<HTMLElement>("tr") ?? found;
   if (!target) return;
   target.scrollIntoView({ behavior: "smooth", block: "start" });
   target.classList.remove("is-flash");
