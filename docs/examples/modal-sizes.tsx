@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Modal } from "ui";
-import { Row, Stage, useT } from "../demo";
+import { Row, useT } from "../demo";
+import { Mockup } from "../Mockup";
 
 const SIZES = ["sm", "md", "lg"] as const;
 
@@ -18,9 +19,9 @@ export default function Example() {
   };
   return (
     <>
-      <Stage kind="modal">
+      <Mockup place="center">
         <Modal inline open size="sm" onClose={() => undefined} {...props} />
-      </Stage>
+      </Mockup>
       <Row>
         {SIZES.map((option) => (
           <Button key={option} onClick={() => setSize(option)}>

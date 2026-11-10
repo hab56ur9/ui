@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Browser } from "./Browser";
 import { Phone } from "./Phone";
 
-type Place = "corner" | "center" | "bottom";
+type Place = "corner" | "center" | "bottom" | "dock";
 
 const line = (className = "") => <span className={`mock-line ${className}`} />;
 
@@ -82,7 +82,7 @@ function DesktopApp() {
   );
 }
 
-function MobileApp() {
+function MobileApp({ tabs }: { tabs: boolean }) {
   return (
     <div className="mock-app is-mobile">
       <div className="mock-body">
@@ -113,13 +113,15 @@ function MobileApp() {
           ))}
         </span>
       </div>
-      <div className="mock-tabs">
-        {[0, 1, 2, 3].map((i) => (
-          <span key={i} className={`mock-tab${i === 0 ? " is-current" : ""}`}>
-            <span className="mock-dot is-icon" />
-          </span>
-        ))}
-      </div>
+      {tabs && (
+        <div className="mock-tabs">
+          {[0, 1, 2, 3].map((i) => (
+            <span key={i} className={`mock-tab${i === 0 ? " is-current" : ""}`}>
+              <span className="mock-dot is-icon" />
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -128,7 +130,7 @@ export function Mockup({ device = "desktop", place = "corner", address = "app.ex
   const screen = (
     <div className={`mock is-${device}`}>
       <div className="mock-screen" aria-hidden="true" inert>
-        {device === "mobile" ? <MobileApp /> : <DesktopApp />}
+        {device === "mobile" ? <MobileApp tabs={place !== "dock"} /> : <DesktopApp />}
       </div>
       <div className={`mock-overlay is-${place}`}>{children}</div>
     </div>

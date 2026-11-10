@@ -60,10 +60,6 @@ export function Panel({ height, children }: { height?: number; children: ReactNo
   );
 }
 
-export function Stage({ kind, children }: { kind: "modal" | "sheet" | "toast"; children: ReactNode }) {
-  return <div className={`docs-stage is-${kind}`}>{children}</div>;
-}
-
 export function Row({ children }: { children: ReactNode }) {
   return <div className="docs-demo-row">{children}</div>;
 }

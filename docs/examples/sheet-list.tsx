@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Sheet, useToast } from "ui";
-import { Row, Stage, useT } from "../demo";
+import { Row, useT } from "../demo";
+import { Mockup } from "../Mockup";
 
 export default function Example() {
   const t = useT();
@@ -23,11 +24,11 @@ export default function Example() {
   const listTitle = t({ ko: "기간 선택", en: "Choose a range" });
   return (
     <>
-      <Stage kind="sheet">
+      <Mockup device="mobile" place="bottom">
         <Sheet inline open title={listTitle} onClose={() => undefined}>
           {list}
         </Sheet>
-      </Stage>
+      </Mockup>
       <Row>
         <Button onClick={() => setOpen("list")}>{t({ ko: "목록 시트 열기", en: "Open list sheet" })}</Button>
         <Button onClick={() => setOpen("action")}>{t({ ko: "액션 시트 열기", en: "Open action sheet" })}</Button>

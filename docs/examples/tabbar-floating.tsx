@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { TabBar } from "ui";
-import { useT } from "../demo";
+import { Segmented, TabBar } from "ui";
+import { Row, useT } from "../demo";
+import { Mockup } from "../Mockup";
+
+const LABELS = ["show", "active", "hide"] as const;
 
 export default function Example() {
   const t = useT();
   const [tab, setTab] = useState("home");
+  const [labels, setLabels] = useState<(typeof LABELS)[number]>("active");
   const items = [
     { id: "home", label: t({ ko: "홈", en: "Home" }), icon: "home" },
     { id: "explore", label: t({ ko: "탐색", en: "Explore" }), icon: "compass" },
@@ -12,10 +16,13 @@ export default function Example() {
     { id: "profile", label: t({ ko: "프로필", en: "Profile" }), icon: "user" },
   ];
   return (
-    <div style={{ display: "grid", gap: "var(--space-6)", maxWidth: 390, margin: "0 auto" }}>
-      <TabBar variant="floating" value={tab} onChange={setTab} items={items} />
-      <TabBar variant="floating" labels="active" value={tab} onChange={setTab} items={items} />
-      <TabBar variant="floating" labels="hide" value={tab} onChange={setTab} items={items} />
-    </div>
+    <>
+      <Mockup device="mobile" place="dock">
+        <TabBar variant="floating" labels={labels} value={tab} onChange={setTab} items={items} />
+      </Mockup>
+      <Row>
+        <Segmented label={t({ ko: "이름 표시", en: "Labels" })} value={labels} onChange={setLabels} options={LABELS.map((value) => ({ value, label: value }))} />
+      </Row>
+    </>
   );
 }

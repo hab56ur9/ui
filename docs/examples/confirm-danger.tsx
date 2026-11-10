@@ -1,5 +1,6 @@
 import { Button, Modal, useConfirm, useToast } from "ui";
-import { Row, Stage, useT } from "../demo";
+import { Row, useT } from "../demo";
+import { Mockup } from "../Mockup";
 
 export default function Example() {
   const t = useT();
@@ -17,9 +18,9 @@ export default function Example() {
   };
   return (
     <>
-      <Stage kind="modal">
+      <Mockup place="center">
         <Modal inline open size="sm" dismissible={false} onClose={() => undefined} {...question} actions={[{ label: cancel }, { label: remove, variant: "danger" }]} />
-      </Stage>
+      </Mockup>
       <Row>
         <Button variant="danger" onClick={open}>
           {t({ ko: "위젯 삭제", en: "Delete widget" })}

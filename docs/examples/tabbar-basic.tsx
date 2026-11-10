@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { TabBar } from "ui";
 import { useT } from "../demo";
+import { Mockup } from "../Mockup";
 
 export default function Example() {
   const t = useT();
   const [tab, setTab] = useState("today");
   return (
-    <div style={{ maxWidth: 390, margin: "0 auto", border: "1px solid var(--color-border-default)", borderRadius: "var(--radius-card)", overflow: "hidden" }}>
-      <div style={{ height: 120, display: "grid", placeItems: "center", color: "var(--color-fg-muted)" }}>{tab}</div>
+    <Mockup device="mobile" place="dock">
       <TabBar
         value={tab}
         onChange={setTab}
@@ -18,6 +18,6 @@ export default function Example() {
           { id: "profile", label: t({ ko: "내 정보", en: "Profile" }), icon: "user" },
         ]}
       />
-    </div>
+    </Mockup>
   );
 }

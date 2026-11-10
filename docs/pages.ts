@@ -1078,9 +1078,14 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "크기",
+        "title": "데스크톱",
         "center": true,
         "example": "modal-sizes"
+      },
+      {
+        "type": "demo",
+        "title": "모바일",
+        "example": "modal-mobile"
       },
       {
         "type": "anatomy",
@@ -1142,10 +1147,15 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "위험한 동작",
+        "title": "데스크톱",
         "caption": "취소 버튼 문구는 넘기지 않아도 컴포넌트가 페이지 언어로 채웁니다",
         "center": true,
         "example": "confirm-danger"
+      },
+      {
+        "type": "demo",
+        "title": "모바일",
+        "example": "confirm-mobile"
       },
       {
         "type": "guidelines",
@@ -1170,10 +1180,15 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "목록 시트와 액션 시트",
+        "title": "모바일",
         "caption": "손잡이를 아래로 끌어 닫을 수 있습니다",
         "center": true,
         "example": "sheet-list"
+      },
+      {
+        "type": "demo",
+        "title": "데스크톱",
+        "example": "sheet-desktop"
       },
       {
         "type": "usage",
@@ -1315,7 +1330,12 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "기본",
+        "title": "플로팅",
+        "example": "themepicker-floating"
+      },
+      {
+        "type": "demo",
+        "title": "버튼과 패널",
         "example": "themepicker-basic"
       },
       {

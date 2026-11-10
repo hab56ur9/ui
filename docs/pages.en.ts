@@ -1060,9 +1060,14 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Sizes",
+        "title": "Desktop",
         "center": true,
         "example": "modal-sizes"
+      },
+      {
+        "type": "demo",
+        "title": "Mobile",
+        "example": "modal-mobile"
       },
       {
         "type": "anatomy",
@@ -1124,10 +1129,15 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Dangerous action",
+        "title": "Desktop",
         "caption": "When no cancel label is passed, the component fills it in the page language",
         "center": true,
         "example": "confirm-danger"
+      },
+      {
+        "type": "demo",
+        "title": "Mobile",
+        "example": "confirm-mobile"
       },
       {
         "type": "guidelines",
@@ -1152,10 +1162,15 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "List sheet and action sheet",
+        "title": "Mobile",
         "caption": "Drag the handle down to close the sheet",
         "center": true,
         "example": "sheet-list"
+      },
+      {
+        "type": "demo",
+        "title": "Desktop",
+        "example": "sheet-desktop"
       },
       {
         "type": "usage",
@@ -1297,7 +1312,12 @@ export const pages: Page[] = [
     "sections": [
       {
         "type": "demo",
-        "title": "Basic",
+        "title": "Floating",
+        "example": "themepicker-floating"
+      },
+      {
+        "type": "demo",
+        "title": "Button and panel",
         "example": "themepicker-basic"
       },
       {
