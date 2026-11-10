@@ -57,16 +57,15 @@ plugin/                        Claude Code and Codex plugin, one shared skill
 - Icons: add or redraw `assets/icons/<name>.svg` on the 24 grid with round-capped `currentColor` strokes; the build bundles them.
 - `Board` with `Widget` tags is the draggable 12-column board. It takes `initialLayout` and emits `onLayoutChange` and a debounced `onLayoutCommit`. A `Widget` outside a board is a static card; `frame="plain"` drops the card, an untitled widget drops its header.
 - `Modal` and `Sheet` are controlled native dialogs with an `inline` docs mode; `UIProvider` hosts toasts and confirms.
-- `AppShell` takes `mobileNav="tabs"` to show `TabBar` instead of the drawer below 1024px, and `tabBar` for its `variant` (`bar`, `floating`) and `labels` (`show`, `active`, `hide`). An SDUI app sets the same through `navBar`.
+- `AppShell` frames apps and documents: `nav` (link or button items, `sub` groups), `navHeader`, `aside` (hidden below 1280px), `scroll` `frame` or `page`, and `mobileNav="tabs"` with `tabBar` below 1024px. The docs site itself runs on it with `TextField`, `Toc`, `Pager` and `Tabs`.
 - `ThemePicker` opens the preset palette and mode switch, sets `data-preset` and `data-theme` on the root, and reports through `onChange`.
 - Each preset's sub color is a gray tinted toward its main hue (`lime-gray`, `sky-gray`); the theme's default sub matches the lime preset.
-- `Image` draws a gradient placeholder without `src`; portrait is 3:4. `Carousel` takes `size` `full`, `card` or `mini`.
-- `Badge`, `Card` and `Callout` are the shared status label, bordered group and notice; `DataTable` takes `fit` and column `wrap` for documents.
+- `Image` draws a placeholder without `src`; `Carousel` takes `size` `full`, `card` or `mini`.
+- `Badge`, `Card` and `Callout` (also `do`/`dont`) are shared; `DataTable` takes `fit` and column `wrap` for documents.
 - `Markdown` is one Notion-style block editor for CommonMark + GFM (shortcuts, `/` menu, drag, `onChange` markdown); `readOnly` shows the same blocks without editing. No raw HTML; `ui` fences use `JsonUI`.
 
 ## Templates
 
-- The repository manages templates only; writing rules live in a separate docs plugin.
 - Components never assume the document they serve. Every part (table, card, badge, callout, steps, figure) is a component in `src/`; a template only composes them, and its CSS keeps layout.
 - A template is a block whose `block.json` sets `category` and `kind` (`deck` or `doc`); a `templates` section shows live thumbnail cards and the picked one.
 - Slides: `Deck` scales a 1920×1080 canvas with keys, presenter view and notes; layouts in `src/slides/layouts.tsx`. The slide grid (`--slide-*` vars, shown with G) fixes the top, content, hero and footer lines; `npm run check:slides` fails on drift. PDF is print CSS only.

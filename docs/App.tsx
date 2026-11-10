@@ -1,10 +1,29 @@
-import { Component, Fragment, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
+import { Component, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
 import enText from "./text/en.json";
 import koText from "./text/ko.json";
-import { Badge, Button, Card as UICard, CodeBlock, DataTable, Icon, Segmented, Tabs as UITabs, ThemePicker, UIProvider, useI18n, useToast } from "ui";
+import {
+  AppShell,
+  Badge,
+  Button,
+  Callout,
+  Card as UICard,
+  CodeBlock,
+  DataTable,
+  Icon,
+  Pager,
+  Segmented,
+  Tabs as UITabs,
+  TextField,
+  ThemePicker,
+  Toc,
+  UIProvider,
+  useI18n,
+  useToast,
+  type ShellGroup,
+} from "ui";
 import { api as apiKo } from "./api";
 import { api as apiEn } from "./api.en";
-import { homepage, MODE_LABEL, tokensFor, version } from "./catalog";
+import { homepage, MODE_LABELS, tokensFor, version } from "./catalog";
 import { pages, type Page, type Section } from "./pages";
 import { pages as pagesEn } from "./pages.en";
 import { Phone } from "./Phone";
@@ -159,9 +178,9 @@ function useCopy() {
   };
 }
 
-function Card({ title, body, items, kind, label }: { title?: string; body?: string; items?: string[]; kind?: "do" | "dont"; label?: string }) {
+function Card({ title, body, items }: { title?: string; body?: string; items?: string[] }) {
   return (
-    <UICard title={label ? <Badge tone={kind === "dont" ? "critical" : "good"}>{label}</Badge> : title}>
+    <UICard title={title}>
       {body && (
         <p>
           <Rich text={body} />
@@ -425,16 +444,16 @@ function Templates({ category }: { category: string }) {
   const [selected, setSelected] = useState(ids[0]);
   return (
     <>
-      <div className="docs-templates" role="radiogroup">
+      <div className="docs-templates">
         {ids.map((id) => {
           const json = blockMeta[`../blocks/${id}/block.json`];
           const meta = lang === "en" ? json.en : json;
           return (
-            <button key={id} type="button" role="radio" aria-checked={id === selected} className="docs-template" onClick={() => setSelected(id)}>
+            <UICard key={id} selected={id === selected} onClick={() => setSelected(id)}>
               <Thumb id={id} />
               <span className="docs-template-title">{meta.title}</span>
               <span className="docs-template-description">{meta.description}</span>
-            </button>
+            </UICard>
           );
         })}
       </div>
@@ -445,7 +464,7 @@ function Templates({ category }: { category: string }) {
 
 function Tokens({ paths, notes }: { paths: string[]; notes?: Record<string, string> }) {
   const copy = useCopy();
-  const { c } = useDocs();
+  const { c, lang } = useDocs();
   return (
     <DataTable
       fit
@@ -461,7 +480,7 @@ function Tokens({ paths, notes }: { paths: string[]; notes?: Record<string, stri
         {
           content: Object.entries(t.values).map(([mode, value]) => (
             <span className="docs-token-value" key={mode}>
-              {MODE_LABEL[mode] && <em>{MODE_LABEL[mode]}</em>}
+              {MODE_LABELS[lang][mode] && <em>{MODE_LABELS[lang][mode]}</em>}
               {t.type === "color" && <i style={{ "--sw": value } as CSSProperties} />}
               <span>{value}</span>
             </span>
@@ -570,8 +589,12 @@ function SectionBody({ section }: { section: Section }) {
         <>
           {section.items.map(([good, bad]) => (
             <div className="docs-cards" style={{ marginBottom: "var(--space-4)" }} key={good}>
-              <Card kind="do" label={c.do} body={good} />
-              <Card kind="dont" label={c.dont} body={bad} />
+              <Callout tone="do">
+                <Rich text={good} />
+              </Callout>
+              <Callout tone="dont">
+                <Rich text={bad} />
+              </Callout>
             </div>
           ))}
         </>
@@ -590,107 +613,108 @@ function SectionBody({ section }: { section: Section }) {
 }
 
 const titleOf = (section: Section, titles: Record<string, string>) => section.title ?? titles[section.type] ?? "";
-const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+function useOutline(page: Page) {
+  const { lang, c, api } = useDocs();
+  const sections = [...page.sections, ...(api[page.id] ?? [])];
+  return [
+    ...sections.map((s, i) => ({ id: `section-${i}`, label: titleOf(s, c.titles) })).filter((entry) => entry.label),
+    ...(page.sections.some((s) => s.type === "review") ? reviewOutline(lang).map((entry) => ({ id: entry.id, label: entry.title })) : []),
+  ];
+}
 
 function Article({ page }: { page: Page }) {
   const { lang, c, pages, api } = useDocs();
   const sections = [...page.sections, ...(api[page.id] ?? [])];
   const index = pages.findIndex((p) => p.id === page.id);
-  const outline = [
-    ...sections.map((s, i) => ({ id: `section-${i}`, title: titleOf(s, c.titles) })).filter((entry) => entry.title),
-    ...(page.sections.some((s) => s.type === "review") ? reviewOutline(lang) : []),
-  ];
+  const link = (target?: Page) => target && { label: target.title, href: `#/${target.id}` };
   return (
-    <>
-      <main className="docs-main">
-        <article className={`docs-article${page.wide ? " is-wide" : ""}`} data-medium="doc" lang={lang}>
-          <div className="docs-eyebrow">{c.groups[page.group] ?? page.group}</div>
-          {fullWidth(page) && pages.filter((p) => p.group === page.group).length > 1 && (
-            <nav className="docs-subtabs" aria-label={c.groups[page.group] ?? page.group}>
-              {pages
-                .filter((p) => p.group === page.group)
-                .map((p) => (
-                  <a key={p.id} href={`#/${p.id}`} aria-current={p.id === page.id ? "page" : undefined}>
-                    {p.title}
-                  </a>
-                ))}
-            </nav>
-          )}
-          <h1 className="docs-title">{page.title}</h1>
-          <p className="docs-lede">
-            <Rich text={page.lede} />
-          </p>
-          {sections.map((section, i) => (
-            <section className="docs-section" id={`section-${i}`} key={`${page.id}-${i}`}>
-              {titleOf(section, c.titles) && <h2>{titleOf(section, c.titles)}</h2>}
-              <SectionBody section={section} />
-            </section>
-          ))}
-          <nav className="docs-pager" aria-label={c.pager}>
-            {[
-              [pages[index - 1], c.prev, ""],
-              [pages[index + 1], c.next, "is-next"],
-            ]
-              .filter((entry): entry is [Page, string, string] => Boolean(entry[0]))
-              .map(([target, label, className]) => (
-                <a className={className} href={`#/${target.id}`} key={label}>
-                  <small>{label}</small>
-                  <span>{target.title}</span>
-                </a>
-              ))}
-          </nav>
-        </article>
-      </main>
-      {!fullWidth(page) && (
-        <aside className="docs-toc" aria-label={c.toc} lang={lang}>
-          {outline.length > 0 && <div className="docs-toc-title">{c.toc}</div>}
-          {outline.map((entry) => (
-            <a
-              key={entry.id}
-              href={`#/${page.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo(entry.id);
-              }}
-            >
-              {entry.title}
-            </a>
-          ))}
-        </aside>
-      )}
-    </>
+    <main className="docs-main">
+      <article className={`docs-article${page.wide ? " is-wide" : ""}`} data-medium="doc" lang={lang}>
+        <div className="docs-eyebrow">{c.groups[page.group] ?? page.group}</div>
+        <h1 className="docs-title">{page.title}</h1>
+        <p className="docs-lede">
+          <Rich text={page.lede} />
+        </p>
+        {sections.map((section, i) => (
+          <section className="docs-section" id={`section-${i}`} key={`${page.id}-${i}`}>
+            {titleOf(section, c.titles) && <h2>{titleOf(section, c.titles)}</h2>}
+            <SectionBody section={section} />
+          </section>
+        ))}
+        <div className="docs-pager">
+          <Pager label={c.pager} previous={link(pages[index - 1])} next={link(pages[index + 1])} />
+        </div>
+      </article>
+    </main>
   );
 }
 
-function Nav({ page }: { page: Page }) {
-  const [query, setQuery] = useState("");
+function useNav(page: Page, query: string): ShellGroup[] {
+  const { c, pages } = useDocs();
   const needle = query.trim().toLowerCase();
   const active = tabOf(page);
-  const { lang, c, pages } = useDocs();
   const matches = (p: Page) => (needle ? `${p.title} ${p.group} ${p.lede}`.toLowerCase().includes(needle) : active.groups.includes(p.group));
+  return groupsInOrder
+    .filter((group) => pages.some((p) => p.group === group && matches(p)))
+    .map((group) => ({
+      title: c.groups[group] ?? group,
+      items: pages.filter((p) => p.group === group && matches(p)).map((p) => ({ id: p.id, label: p.title, href: `#/${p.id}`, sub: p.sub && (c.groups[p.sub] ?? p.sub), current: p.id === page.id })),
+    }));
+}
+
+function Shell({ page, lang, setLang }: { page: Page; lang: Lang; setLang: (lang: Lang) => void }) {
+  const { c, pages } = useDocs();
+  const [query, setQuery] = useState("");
+  const nav = useNav(page, query);
+  const outline = useOutline(page);
+  const full = fullWidth(page);
   return (
-    <nav className="docs-nav" aria-label={c.docs} lang={lang} data-medium="app">
-      <input className="search" type="search" placeholder={c.find} aria-label={c.find} value={query} onChange={(e) => setQuery(e.target.value)} />
-      <div>
-        {groupsInOrder
-          .filter((group) => pages.some((p) => p.group === group && matches(p)))
-          .map((group) => (
-            <div className="docs-nav-group" key={group}>
-              <div className="docs-nav-title">{c.groups[group] ?? group}</div>
-              {pages
-                .filter((p) => p.group === group && matches(p))
-                .map((p, i, list) => (
-                  <Fragment key={p.id}>
-                    {p.sub && p.sub !== list[i - 1]?.sub && <div className="docs-nav-sub">{c.groups[p.sub] ?? p.sub}</div>}
-                    <a href={`#/${p.id}`} className={p.sub ? "is-sub" : undefined} aria-current={p.id === page.id ? "page" : undefined}>
-                      {p.title}
-                    </a>
-                  </Fragment>
-                ))}
-            </div>
-          ))}
-      </div>
-    </nav>
+    <div className="docs-shell" data-medium="app" lang={lang}>
+      <AppShell
+        scroll="page"
+        brand={
+          <a className="docs-brand" href="#/intro">
+            ui <span>{`v${version}`}</span>
+          </a>
+        }
+        nav={nav}
+        navHeader={<TextField label={c.find} hideLabel type="search" icon="search" placeholder={c.find} value={query} onChange={setQuery} />}
+        title={
+          <UITabs
+            variant="pill"
+            label={c.sections}
+            value={String(tabOf(page).index)}
+            onChange={(id) => (location.hash = `#/${(pages.find((p) => TABS[Number(id)].groups.includes(p.group)) as Page).id}`)}
+            items={TABS.map((tab) => ({ id: String(tab.index), label: c.tabs[tab.index] }))}
+          />
+        }
+        actions={
+          <>
+            <Segmented
+              label={c.language}
+              value={lang}
+              onChange={setLang}
+              options={[
+                { value: "en", label: "English", lang: "en" },
+                { value: "ko", label: "한국어", lang: "ko" },
+              ]}
+            />
+            <ThemePicker
+              preset={stored("preset")}
+              theme={stored("theme")}
+              onChange={({ preset, theme }) => {
+                store("preset", preset);
+                store("theme", theme);
+              }}
+            />
+          </>
+        }
+        aside={full || outline.length === 0 ? undefined : <Toc key={page.id} title={c.toc} items={outline} offset={120} />}
+      >
+        <Article key={`${page.id}-${lang}`} page={page} />
+      </AppShell>
+    </div>
   );
 }
 
@@ -700,7 +724,6 @@ export function App() {
   const [id, setId] = useState(currentId);
   const [lang, setLang] = useState<Lang>(() => (stored("lang") as Lang) ?? "en");
   const content = CONTENT[lang];
-  const c = COPY[lang];
   const page = content.pages.find((p) => p.id === id) ?? content.pages[0];
 
   useEffect(() => {
@@ -723,43 +746,7 @@ export function App() {
 
   return (
     <UIProvider lang={lang}>
-      <header className="docs-top" lang={lang} data-medium="app">
-        <a className="docs-brand" href="#/intro">
-          ui <span>{`v${version}`}</span>
-        </a>
-        <nav className="docs-tabs-top" aria-label={c.sections}>
-          {TABS.map((tab) => {
-            const first = pages.find((p) => tab.groups.includes(p.group)) as Page;
-            return (
-              <a key={tab.index} href={`#/${first.id}`} aria-current={tab === tabOf(page) ? "page" : undefined}>
-                {c.tabs[tab.index]}
-              </a>
-            );
-          })}
-        </nav>
-        <span className="toolbar-spacer" />
-        <Segmented
-          label={c.language}
-          value={lang}
-          onChange={setLang}
-          options={[
-            { value: "en", label: "English", lang: "en" },
-            { value: "ko", label: "한국어", lang: "ko" },
-          ]}
-        />
-        <ThemePicker
-          preset={stored("preset")}
-          theme={stored("theme")}
-          onChange={({ preset, theme }) => {
-            store("preset", preset);
-            store("theme", theme);
-          }}
-        />
-      </header>
-      <div className={`docs-layout${fullWidth(page) ? " is-full" : ""}`}>
-        {!fullWidth(page) && <Nav page={page} />}
-        <Article key={`${page.id}-${lang}`} page={page} />
-      </div>
+      <Shell page={page} lang={lang} setLang={setLang} />
     </UIProvider>
   );
 }

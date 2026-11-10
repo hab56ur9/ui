@@ -1,4 +1,50 @@
 {
+  "appshell-basic": {
+    "brand": "서비스 지표",
+    "menu": "보기",
+    "title": "오늘의 지표",
+    "items": [
+      {
+        "id": "home",
+        "label": "홈",
+        "icon": "home"
+      },
+      {
+        "id": "charts",
+        "label": "차트",
+        "icon": "chart-line"
+      },
+      {
+        "id": "alerts",
+        "label": "알림",
+        "icon": "bell"
+      }
+    ],
+    "outline": [
+      {
+        "id": "today",
+        "label": "오늘"
+      },
+      {
+        "id": "week",
+        "label": "이번 주"
+      },
+      {
+        "id": "notes",
+        "label": "메모"
+      }
+    ],
+    "stats": [
+      [
+        "활성 사용자",
+        "47.1만"
+      ],
+      [
+        "매출",
+        "₩38.1억"
+      ]
+    ]
+  },
   "badge-basic": {
     "neutral": "기본",
     "main": "강조",
@@ -58,7 +104,9 @@
     "tip": "팁",
     "dragWidgetsTo": "위젯을 끌어 순서를 바꿀 수 있습니다.",
     "decisionNeeded": "결정 필요",
-    "turningPromoAlerts": "홍보 알림 기본값 끄기는 마케팅 팀 합의가 필요합니다."
+    "turningPromoAlerts": "홍보 알림 기본값 끄기는 마케팅 팀 합의가 필요합니다.",
+    "doText": "버튼 이름은 「저장」, 「초기화」처럼 결과를 말하는 동사로 씁니다.",
+    "dontText": "「확인」, 「예」처럼 무슨 일이 일어나는지 숨기는 이름을 씁니다."
   },
   "card-basic": {
     "basicPlan": "기본 요금제",
@@ -288,6 +336,10 @@
     "needsAnApi": "API와 인증이 필요합니다",
     "needsASecurity": "보안 검토 필요",
     "n2Weeks": "2주"
+  },
+  "pager-basic": {
+    "previous": "탭",
+    "next": "탭 바"
   },
   "portfolio-frame": {
     "haneulKim": "김하늘",
@@ -564,6 +616,13 @@
   "takeaway-basic": {
     "halfOfSign": "본인 인증 단계에서 가입자 절반이 떠납니다."
   },
+  "textfield-basic": {
+    "search": "페이지 찾기",
+    "name": "프로젝트 이름",
+    "namePlaceholder": "예: 리뷰 자동 분류기",
+    "nameHint": "목록과 슬라이드 표지에 쓰입니다.",
+    "email": "팀 메일"
+  },
   "toast-place-mobile": {
     "saved": "저장했습니다",
     "undo": "되돌리기"
@@ -581,6 +640,26 @@
     "retry": "다시 시도",
     "widgetHidden": "위젯을 숨겼습니다",
     "restored": "되돌렸습니다"
+  },
+  "toc-basic": {
+    "items": [
+      {
+        "id": "demo",
+        "label": "예시"
+      },
+      {
+        "id": "usage",
+        "label": "언제 쓰나"
+      },
+      {
+        "id": "a11y",
+        "label": "접근성"
+      },
+      {
+        "id": "api",
+        "label": "<Toc>"
+      }
+    ]
   },
   "typography-sizes": {
     "quickBrownFox": "다람쥐 헌 쳇바퀴 47.1만"

@@ -507,6 +507,7 @@ export const api: Record<string, Section[]> = {
         ["title · description", "ReactNode", "", "The title and a one-line description."],
         ["aside", "ReactNode", "", "A badge or button beside the title."],
         ["selected", "boolean", "false", "Emphasizes the chosen card."],
+        ["onClick", "() => void", "", "Makes the whole card a button; `selected` is read as its pressed state."],
         ["children", "ReactNode", "", "The card's content."],
       ],
     },
@@ -516,7 +517,7 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<Callout>",
       rows: [
-        ["tone", "\"info\" | \"good\" | \"warning\"", "\"info\"", "Note, tip or warning."],
+        ["tone", "\"info\" | \"good\" | \"warning\" | \"do\" | \"dont\"", "\"info\"", "Note, tip, warning, do or don't; do and don't get a Do or Don't title when none is given."],
         ["title", "string", "", "A bold title."],
         ["children", "ReactNode", "", "The body."],
       ],
@@ -651,6 +652,56 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["<PortfolioSection title>", "string", "", "A group of projects."],
         ["<Project>", "title · period? · role? · image? · summary? · metrics? · tags?", "", "`metrics` is `{ label, value }[]` drawn with `Stat`; `tags` are skill badges."],
+      ],
+    },
+  ],
+  "textfield": [
+    {
+      type: "api",
+      title: "<TextField>",
+      rows: [
+        ["label", "string", "", "The label; always set it."],
+        ["hideLabel", "boolean", "false", "Hides the label on screen only."],
+        ["value · defaultValue · onChange", "string · string · (value) => void", "", "Controlled and uncontrolled values, and the change handler."],
+        ["type", "\"text\" | \"search\" | \"email\" | …", "\"text\"", "The input type."],
+        ["icon · placeholder · hint · disabled", "", "", "A leading icon, placeholder, hint below, and disabled state."],
+      ],
+    },
+  ],
+  "toc": [
+    {
+      type: "api",
+      title: "<Toc>",
+      rows: [
+        ["items", "{ id, label }[]", "", "The sections; `id` is an element id on the page."],
+        ["title", "string", "\"On this page\"", "The list's name."],
+        ["current", "string", "", "The highlighted section; without it, scroll position decides."],
+        ["offset", "number", "96", "How far from the top a section counts as passed, such as the header height."],
+        ["onSelect", "(id) => void", "", "Called on click; without it the page scrolls to the section."],
+      ],
+    },
+  ],
+  "pager": [
+    {
+      type: "api",
+      title: "<Pager>",
+      rows: [
+        ["previous · next", "{ label, href?, onSelect? }", "", "The neighbouring pages; with `href` a link, otherwise a button."],
+        ["label", "string", "\"Pages\"", "The name for screen readers."],
+      ],
+    },
+  ],
+  "appshell": [
+    {
+      type: "api",
+      title: "<AppShell>",
+      rows: [
+        ["brand · title · actions", "ReactNode", "", "The name above the menu, the bar's middle and the bar's right side."],
+        ["nav", "{ title?, items: { id, label, icon?, href?, sub?, current?, onSelect? }[] }[]", "", "The left menu; `href` makes links, and items sharing `sub` indent as one group. Empty means no menu."],
+        ["navHeader", "ReactNode", "", "Something above the menu, such as search."],
+        ["aside", "ReactNode", "", "The right column, such as a table of contents; hidden below 1280px."],
+        ["scroll", "\"frame\" | \"page\"", "\"frame\"", "Scroll inside the frame or with the whole page."],
+        ["mobileNav · tabBar", "\"drawer\" | \"tabs\" · TabBarStyle", "\"drawer\"", "Below 1024px, the menu becomes a drawer or a bottom tab bar."],
       ],
     },
   ],

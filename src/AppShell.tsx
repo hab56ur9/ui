@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
 import { TabBar, type TabBarStyle } from "./TabBar";
 
-export type ShellItem = { id: string; label: string; icon: IconName; current?: boolean; onSelect?: () => void };
+export type ShellItem = { id: string; label: string; icon?: IconName; href?: string; sub?: string; current?: boolean; onSelect?: () => void };
 export type ShellGroup = { title?: string; items: ShellItem[] };
-export type AppShellProps = { brand: ReactNode; nav: ShellGroup[]; title?: ReactNode; actions?: ReactNode; mobileNav?: "drawer" | "tabs"; tabBar?: TabBarStyle; children: ReactNode };
+export type AppShellProps = { brand: ReactNode; nav: ShellGroup[]; navHeader?: ReactNode; title?: ReactNode; actions?: ReactNode; aside?: ReactNode; scroll?: "frame" | "page"; mobileNav?: "drawer" | "tabs"; tabBar?: TabBarStyle; children: ReactNode };
 
 function ShellNav({ nav, onPick }: { nav: ShellGroup[]; onPick?: () => void }) {
   const { text } = useI18n();
@@ -14,28 +14,41 @@ function ShellNav({ nav, onPick }: { nav: ShellGroup[]; onPick?: () => void }) {
       {nav.map((group, g) => (
         <div className="shell-group" key={group.title ?? g}>
           {group.title && <div className="shell-group-title">{group.title}</div>}
-          {group.items.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className="shell-link"
-              aria-current={item.current ? "page" : undefined}
-              onClick={() => {
-                item.onSelect?.();
-                onPick?.();
-              }}
-            >
-              <Icon name={item.icon} size="sm" />
-              {item.label}
-            </button>
-          ))}
+          {group.items.map((item, i) => {
+            const body = (
+              <>
+                {item.icon && <Icon name={item.icon} size="sm" />}
+                {item.label}
+              </>
+            );
+            const className = `shell-link${item.sub ? " is-sub" : ""}`;
+            const pick = () => {
+              item.onSelect?.();
+              onPick?.();
+            };
+            return (
+              <Fragment key={item.id}>
+                {item.sub && item.sub !== group.items[i - 1]?.sub && <div className="shell-sub">{item.sub}</div>}
+                {item.href ? (
+                  <a className={className} href={item.href} aria-current={item.current ? "page" : undefined} onClick={pick}>
+                    {body}
+                  </a>
+                ) : (
+                  <button type="button" className={className} aria-current={item.current ? "page" : undefined} onClick={pick}>
+                    {body}
+                  </button>
+                )}
+              </Fragment>
+            );
+          })}
         </div>
       ))}
     </nav>
   );
 }
 
-export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", tabBar, children }: AppShellProps) {
+export function AppShell({ brand, nav, navHeader, title, actions, aside, scroll = "frame", mobileNav = "drawer", tabBar, children }: AppShellProps) {
+  const side = nav.length > 0 || navHeader !== undefined;
   const { text } = useI18n();
   const [open, setOpen] = useState(false);
   const items = nav.flatMap((group) => group.items);
@@ -74,30 +87,39 @@ export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", tab
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
   return (
-    <div className={`shell-frame${mobileNav === "tabs" ? " has-tabs" : ""}`}>
-      <div className="shell">
-        <aside className="shell-side">
-          <div className="shell-brand">{brand}</div>
-          <ShellNav nav={nav} />
-        </aside>
+    <div className={`shell-frame is-${scroll}${mobileNav === "tabs" ? " has-tabs" : ""}`}>
+      <div className={`shell${side ? "" : " no-side"}`}>
+        {side && (
+          <aside className="shell-side">
+            <div className="shell-brand">{brand}</div>
+            {navHeader}
+            <ShellNav nav={nav} />
+          </aside>
+        )}
         <div className="shell-main">
           <header className="shell-bar">
-            <button ref={menu} type="button" className="shell-menu" aria-label={text("openMenu")} title={text("openMenu")} aria-expanded={open} onClick={() => setOpen(true)}>
-              <Icon name="menu" />
-            </button>
+            {side ? (
+              <button ref={menu} type="button" className="shell-menu" aria-label={text("openMenu")} title={text("openMenu")} aria-expanded={open} onClick={() => setOpen(true)}>
+                <Icon name="menu" />
+              </button>
+            ) : (
+              <div className="shell-brand">{brand}</div>
+            )}
             {title && <div className="shell-title">{title}</div>}
             <span className="toolbar-spacer" />
             {actions}
           </header>
-          <div className="shell-body">{children}</div>
+          {aside ? (
+            <div className="shell-content">
+              <div className="shell-body">{children}</div>
+              <aside className="shell-aside">{aside}</aside>
+            </div>
+          ) : (
+            <div className="shell-body">{children}</div>
+          )}
           {mobileNav === "tabs" && (
             <div ref={tabs} className={`shell-tabs is-${tabBar?.variant ?? "bar"}`}>
-              <TabBar
-                {...tabBar}
-                items={items}
-                value={items.find((item) => item.current)?.id}
-                onChange={(id) => items.find((item) => item.id === id)?.onSelect?.()}
-              />
+              <TabBar {...tabBar} items={items.map((item) => ({ ...item, icon: item.icon ?? "home" }))} value={items.find((item) => item.current)?.id} onChange={(id) => items.find((item) => item.id === id)?.onSelect?.()} />
             </div>
           )}
         </div>
@@ -112,6 +134,7 @@ export function AppShell({ brand, nav, title, actions, mobileNav = "drawer", tab
               <Icon name="close" />
             </button>
           </div>
+          {navHeader}
           <ShellNav nav={nav} onPick={close} />
         </aside>
       </div>

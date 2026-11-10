@@ -507,6 +507,7 @@ export const api: Record<string, Section[]> = {
         ["title · description", "ReactNode", "", "제목과 한 줄 설명입니다."],
         ["aside", "ReactNode", "", "제목 옆에 두는 배지나 버튼입니다."],
         ["selected", "boolean", "false", "고른 카드를 강조합니다."],
+        ["onClick", "() => void", "", "주면 카드 전체가 누를 수 있는 버튼이 되고, `selected`가 눌림 상태로 읽힙니다."],
         ["children", "ReactNode", "", "카드 내용입니다."],
       ],
     },
@@ -516,7 +517,7 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "<Callout>",
       rows: [
-        ["tone", "\"info\" | \"good\" | \"warning\"", "\"info\"", "알림, 팁, 주의입니다."],
+        ["tone", "\"info\" | \"good\" | \"warning\" | \"do\" | \"dont\"", "\"info\"", "알림, 팁, 주의, 권장, 지양입니다. 권장·지양은 제목을 생략하면 「권장」·「지양」이 붙습니다."],
         ["title", "string", "", "굵은 제목입니다."],
         ["children", "ReactNode", "", "본문입니다."],
       ],
@@ -651,6 +652,56 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["<PortfolioSection title>", "string", "", "프로젝트 묶음입니다."],
         ["<Project>", "title · period? · role? · image? · summary? · metrics? · tags?", "", "`metrics`는 `{ label, value }[]`로 `Stat`이 그리고, `tags`는 기술 배지입니다."],
+      ],
+    },
+  ],
+  "textfield": [
+    {
+      type: "api",
+      title: "<TextField>",
+      rows: [
+        ["label", "string", "", "이름표입니다. 꼭 넣습니다."],
+        ["hideLabel", "boolean", "false", "이름표를 화면에서만 숨깁니다."],
+        ["value · defaultValue · onChange", "string · string · (value) => void", "", "제어·비제어 값과, 글이 바뀔 때 받는 함수입니다."],
+        ["type", "\"text\" | \"search\" | \"email\" | …", "\"text\"", "입력 종류입니다."],
+        ["icon · placeholder · hint · disabled", "", "", "앞 아이콘, 자리 표시 글, 아래 도움말, 꺼짐입니다."],
+      ],
+    },
+  ],
+  "toc": [
+    {
+      type: "api",
+      title: "<Toc>",
+      rows: [
+        ["items", "{ id, label }[]", "", "장 목록입니다. `id`는 페이지 안 요소의 id입니다."],
+        ["title", "string", "\"이 페이지에서\"", "목차 이름입니다."],
+        ["current", "string", "", "강조할 장을 직접 정합니다. 없으면 스크롤 위치로 고릅니다."],
+        ["offset", "number", "96", "머리줄 높이처럼, 장이 지나갔다고 볼 위쪽 거리입니다."],
+        ["onSelect", "(id) => void", "", "누를 때 부릅니다. 없으면 그 장으로 스크롤합니다."],
+      ],
+    },
+  ],
+  "pager": [
+    {
+      type: "api",
+      title: "<Pager>",
+      rows: [
+        ["previous · next", "{ label, href?, onSelect? }", "", "앞뒤 페이지입니다. `href`가 있으면 링크, 없으면 버튼입니다."],
+        ["label", "string", "\"페이지\"", "스크린리더에 읽힐 이름입니다."],
+      ],
+    },
+  ],
+  "appshell": [
+    {
+      type: "api",
+      title: "<AppShell>",
+      rows: [
+        ["brand · title · actions", "ReactNode", "", "메뉴 위 이름, 머리줄 가운데, 머리줄 오른쪽입니다."],
+        ["nav", "{ title?, items: { id, label, icon?, href?, sub?, current?, onSelect? }[] }[]", "", "왼쪽 메뉴입니다. `href`가 있으면 링크, `sub`가 같은 항목은 한 묶음으로 들여 씁니다. 비우면 메뉴 없이 그립니다."],
+        ["navHeader", "ReactNode", "", "메뉴 위에 놓는 검색창 같은 것입니다."],
+        ["aside", "ReactNode", "", "오른쪽 보조 칸(목차 등)입니다. 1280px보다 좁으면 숨깁니다."],
+        ["scroll", "\"frame\" | \"page\"", "\"frame\"", "틀 안에서 스크롤할지, 페이지 전체가 스크롤될지입니다."],
+        ["mobileNav · tabBar", "\"drawer\" | \"tabs\" · TabBarStyle", "\"drawer\"", "1024px보다 좁을 때 메뉴를 서랍으로 둘지 아래쪽 탭 바로 둘지입니다."],
       ],
     },
   ],

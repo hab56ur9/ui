@@ -708,6 +708,25 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "textfield",
+    "group": "입력",
+    "title": "입력창",
+    "lede": "입력창은 한 줄 글을 받습니다. 이름표는 항상 붙이고, 검색처럼 아이콘과 자리 표시 글로 뜻이 분명할 때만 이름표를 화면에서 숨깁니다(스크린리더에는 남습니다). 도움말은 입력창 아래에 둡니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "검색, 이름표와 도움말, 꺼짐",
+        "example": "textfield-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "이름표는 `label`로 입력창과 이어지고, 도움말은 `aria-describedby`로 읽힙니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "calendar",
     "group": "입력",
     "title": "캘린더",
@@ -823,6 +842,32 @@ export const pages: Page[] = [
           "아이콘만 두지 않고 항상 이름을 함께 씁니다.",
           "이름을 숨기면 각 버튼이 이름을 `aria-label`로 갖습니다."
         ]
+      }
+    ]
+  },
+  {
+    "id": "toc",
+    "group": "탐색",
+    "title": "목차",
+    "lede": "목차는 긴 페이지의 장 제목을 모아 보여 주고, 누르면 그 장으로 부드럽게 이동합니다. 페이지를 내리면 지금 읽는 장이 강조됩니다. 앱 틀의 오른쪽 칸(`aside`)에 넣어 씁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "toc-basic"
+      }
+    ]
+  },
+  {
+    "id": "pager",
+    "group": "탐색",
+    "title": "이전·다음",
+    "lede": "이전·다음은 순서가 있는 페이지 사이를 오가는 링크 두 개입니다. 문서 끝에 두고, 첫 페이지와 마지막 페이지에서는 한쪽만 씁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "pager-basic"
       }
     ]
   },
@@ -1446,7 +1491,7 @@ export const pages: Page[] = [
     "id": "callout",
     "group": "콘텐츠",
     "title": "콜아웃",
-    "lede": "콜아웃은 본문 흐름에서 꼭 읽어야 할 한 덩어리를 떼어 보여 줍니다. 색은 알림·팁·주의 세 가지이고 아이콘이 함께 붙습니다. 마크다운의 `> [!NOTE]`, 기술 문서, 슬라이드가 같은 콜아웃을 씁니다.",
+    "lede": "콜아웃은 본문 흐름에서 꼭 읽어야 할 한 덩어리를 떼어 보여 줍니다. 색은 알림·팁·주의 세 가지이고 아이콘이 함께 붙습니다. 마크다운의 `> [!NOTE]`, 기술 문서, 슬라이드가 같은 콜아웃을 씁니다. 권장·지양(`do`, `dont`)도 같은 콜아웃으로, ✓·✕ 아이콘과 「권장」·「지양」 제목이 자동으로 붙습니다.",
     "sections": [
       {
         "type": "demo",
@@ -1867,6 +1912,29 @@ export const pages: Page[] = [
       }
     ],
     "wide": true
+  },
+  {
+    "id": "appshell",
+    "group": "틀",
+    "title": "앱 틀",
+    "lede": "앱 틀은 왼쪽 메뉴, 위쪽 머리줄, 본문, 오른쪽 보조 칸을 잡는 화면 전체의 틀입니다. 좁은 화면에서는 메뉴가 서랍이나 아래쪽 탭 바로 바뀝니다. 앱처럼 틀 안에서 스크롤하는 방식(`frame`)과, 문서처럼 페이지 전체가 스크롤되는 방식(`page`)이 있습니다. 이 문서 사이트도 앱 틀 위에 만들어져 있습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "appshell-basic",
+        "variants": [
+          {
+            "label": "데스크톱",
+            "example": "appshell-basic"
+          },
+          {
+            "label": "모바일",
+            "example": "appshell-mobile"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "slides",

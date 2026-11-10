@@ -98,9 +98,9 @@ const MEASURE = `async (deck) => {
 const slides = [];
 for (const lang of ["ko", "en"]) {
   await go("slide-templates", lang);
-  const decks = await evaluate(`[...document.querySelectorAll('.docs-template')].map((b) => b.querySelector('.docs-template-title').textContent)`);
+  const decks = await evaluate(`[...document.querySelectorAll('.docs-templates > .card')].map((b) => b.querySelector('.docs-template-title').textContent)`);
   for (const [d, name] of decks.entries()) {
-    await evaluate(`document.querySelectorAll('.docs-template')[${d}].click()`);
+    await evaluate(`document.querySelectorAll('.docs-templates > .card')[${d}].click()`);
     await sleep(800);
     const total = await evaluate(`Number([...document.querySelectorAll('.deck')].at(-1).querySelector('.deck-count').textContent.split('/')[1])`);
     for (let n = 1; n <= total; n++) {

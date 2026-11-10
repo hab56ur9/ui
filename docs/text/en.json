@@ -1,4 +1,50 @@
 {
+  "appshell-basic": {
+    "brand": "Service metrics",
+    "menu": "Views",
+    "title": "Today's metrics",
+    "items": [
+      {
+        "id": "home",
+        "label": "Home",
+        "icon": "home"
+      },
+      {
+        "id": "charts",
+        "label": "Charts",
+        "icon": "chart-line"
+      },
+      {
+        "id": "alerts",
+        "label": "Alerts",
+        "icon": "bell"
+      }
+    ],
+    "outline": [
+      {
+        "id": "today",
+        "label": "Today"
+      },
+      {
+        "id": "week",
+        "label": "This week"
+      },
+      {
+        "id": "notes",
+        "label": "Notes"
+      }
+    ],
+    "stats": [
+      [
+        "Active users",
+        "471K"
+      ],
+      [
+        "Revenue",
+        "₩3.8B"
+      ]
+    ]
+  },
   "badge-basic": {
     "neutral": "Neutral",
     "main": "Main",
@@ -58,7 +104,9 @@
     "tip": "Tip",
     "dragWidgetsTo": "Drag widgets to reorder them.",
     "decisionNeeded": "Decision needed",
-    "turningPromoAlerts": "Turning promo alerts off by default needs marketing sign-off."
+    "turningPromoAlerts": "Turning promo alerts off by default needs marketing sign-off.",
+    "doText": "Name a button with a verb that states the result, such as \"Save\" or \"Reset\".",
+    "dontText": "Use names that hide what happens, such as \"OK\" or \"Yes\"."
   },
   "card-basic": {
     "basicPlan": "Basic plan",
@@ -288,6 +336,10 @@
     "needsAnApi": "Needs an API and auth",
     "needsASecurity": "Needs a security review",
     "n2Weeks": "2 weeks"
+  },
+  "pager-basic": {
+    "previous": "Tabs",
+    "next": "Tab bar"
   },
   "portfolio-frame": {
     "haneulKim": "Haneul Kim",
@@ -564,6 +616,13 @@
   "takeaway-basic": {
     "halfOfSign": "Half of sign-ups leave at identity verification."
   },
+  "textfield-basic": {
+    "search": "Find a page",
+    "name": "Project name",
+    "namePlaceholder": "e.g. Review auto-sorter",
+    "nameHint": "Used in lists and on the slide cover.",
+    "email": "Team email"
+  },
   "toast-place-mobile": {
     "saved": "Saved",
     "undo": "Undo"
@@ -581,6 +640,26 @@
     "retry": "Retry",
     "widgetHidden": "Widget hidden",
     "restored": "Restored"
+  },
+  "toc-basic": {
+    "items": [
+      {
+        "id": "demo",
+        "label": "Example"
+      },
+      {
+        "id": "usage",
+        "label": "When to use"
+      },
+      {
+        "id": "a11y",
+        "label": "Accessibility"
+      },
+      {
+        "id": "api",
+        "label": "<Toc>"
+      }
+    ]
   },
   "typography-sizes": {
     "quickBrownFox": "Quick brown fox 48.2K"

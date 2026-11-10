@@ -31,4 +31,7 @@ export const tokensFor = (patterns: string[]) =>
     return catalog.filter((t) => (prefix ? t.path.startsWith(`${prefix}.`) : t.path === pattern));
   });
 
-export const MODE_LABEL: Record<string, string> = { light: "라이트", dark: "다크", app: "앱", doc: "문서", slide: "슬라이드", ko: "한국어", en: "English" };
+export const MODE_LABELS: Record<"ko" | "en", Record<string, string>> = {
+  ko: { light: "라이트", dark: "다크", app: "앱", doc: "문서", slide: "슬라이드", ko: "한국어", en: "English" },
+  en: { light: "Light", dark: "Dark", app: "App", doc: "Doc", slide: "Slide", ko: "한국어", en: "English" },
+};

@@ -1107,6 +1107,8 @@
           "optional": true,
           "kind": "enum",
           "values": [
+            "do",
+            "dont",
             "good",
             "info",
             "warning"
@@ -1291,6 +1293,11 @@
           "type": "ShellGroup[]"
         },
         {
+          "name": "navHeader",
+          "optional": true,
+          "kind": "node"
+        },
+        {
           "name": "title",
           "optional": true,
           "kind": "node"
@@ -1299,6 +1306,20 @@
           "name": "actions",
           "optional": true,
           "kind": "node"
+        },
+        {
+          "name": "aside",
+          "optional": true,
+          "kind": "node"
+        },
+        {
+          "name": "scroll",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "frame",
+            "page"
+          ]
         },
         {
           "name": "mobileNav",

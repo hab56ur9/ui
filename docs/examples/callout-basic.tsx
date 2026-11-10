@@ -12,6 +12,10 @@ export default function Example() {
       <Callout tone="warning" title={text.decisionNeeded}>
         {text.turningPromoAlerts}
       </Callout>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "var(--space-3)" }}>
+        <Callout tone="do">{text.doText}</Callout>
+        <Callout tone="dont">{text.dontText}</Callout>
+      </div>
     </div>
   );
 }
