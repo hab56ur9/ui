@@ -1,0 +1,12 @@
+{
+  "title": "PM 이력서",
+  "description": "프로덕트 매니저 이력서입니다. 경력마다 무엇을 결정했고 어떤 지표가 움직였는지를 앞에 두고, 주요 제품, 학력, 일하는 방식과 도구를 이어서 놓습니다. 인쇄하면 A4 세로로 나뉩니다.",
+  "category": "이력서",
+  "kind": "doc",
+  "uses": ["이력서", "이력서 섹션", "이력서 항목", "배지"],
+  "en": {
+    "title": "PM resume",
+    "description": "A product manager resume. Each role leads with the decisions made and the metrics they moved, followed by key products, education, and ways of working and tools. Printing splits it into A4 portrait pages.",
+    "uses": ["Resume", "Resume section", "Resume entry", "Badge"]
+  }
+}

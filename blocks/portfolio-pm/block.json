@@ -1,0 +1,12 @@
+{
+  "title": "PM 포트폴리오",
+  "description": "프로덕트 매니저 포트폴리오입니다. 프로젝트마다 문제, 결정, 결과를 한 문단으로 쓰고, 움직인 지표를 숫자로, 쓴 방법을 배지로 보여 줍니다. 그 밖의 작업은 짧게 나열합니다. 인쇄하면 A4 세로로 나뉩니다.",
+  "category": "포트폴리오",
+  "kind": "doc",
+  "uses": ["포트폴리오", "포트폴리오 섹션", "프로젝트", "숫자 카드", "배지", "이미지"],
+  "en": {
+    "title": "PM portfolio",
+    "description": "A product manager portfolio. Each project tells the problem, the decision and the result in one paragraph, shows the moved metrics as numbers and the methods as badges, and other work follows in short entries. Printing splits it into A4 portrait pages.",
+    "uses": ["Portfolio", "Portfolio section", "Project", "Stat", "Badge", "Image"]
+  }
+}
