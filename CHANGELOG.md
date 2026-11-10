@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.3.0-alpha.4](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.3...v0.3.0-alpha.4) (2026-11-10)
+
+
+### Features
+
+* add a project submission slide template ([38ff04a](https://github.com/hab56ur9/ui/commit/38ff04a14728f151af2fa75769c1aa603875ecbc))
+* add a slide grid and check every slide against it ([ad1789b](https://github.com/hab56ur9/ui/commit/ad1789bef84c4ee6e2171814b40c01df5cb7e71f))
+* add PM resume and PM portfolio templates ([73c9603](https://github.com/hab56ur9/ui/commit/73c960371f15eebebd69525e775dcaa65ad5f41a))
+* add Tabs for switching views inside one screen ([2a12351](https://github.com/hab56ur9/ui/commit/2a12351525e2da2958fad4f3c71947853924363d))
+* compose Options from tags, and add TextField, Toc and Pager ([9279ae7](https://github.com/hab56ur9/ui/commit/9279ae753f658ed532d75a587bd9bfaca4b93c0a))
+* let Callout put its color rule on top ([371c2c4](https://github.com/hab56ur9/ui/commit/371c2c49cba834d13cbba0e19743a7cb62824b7f))
+* page the slide deck by swiping on touch screens ([c28919b](https://github.com/hab56ur9/ui/commit/c28919bbd23fbafac7b28e1579d8225e227bd925))
+* set Korean like English and fix one slide grid ([024d234](https://github.com/hab56ur9/ui/commit/024d2346d64c189992460a82b523c3da27d551cb))
+* toasts clear the mobile tab bar, and docs show where they appear ([6130450](https://github.com/hab56ur9/ui/commit/61304504454284e66b366f6a658463839f386221))
+* truncate single-line labels with an ellipsis and a tooltip ([14e143f](https://github.com/hab56ur9/ui/commit/14e143f72fc58b99c3f92cc277b0581563b89ed9))
+
+
+### Bug Fixes
+
+* let Ref jump to requirement rows again ([14a1839](https://github.com/hab56ur9/ui/commit/14a1839377bcbf66970ea80f93c823186ce6af20))
+
 ## [0.3.0-alpha.3](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.2...v0.3.0-alpha.3) (2026-11-10)
 
 
