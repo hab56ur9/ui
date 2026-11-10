@@ -37,6 +37,82 @@
     "start": {
       "type": "string"
     },
+    "frame": {
+      "type": "object",
+      "properties": {
+        "brand": {
+          "type": "object",
+          "required": [
+            "type"
+          ]
+        },
+        "mobileNav": {
+          "enum": [
+            "drawer",
+            "tabs"
+          ]
+        },
+        "scroll": {
+          "enum": [
+            "frame",
+            "page"
+          ]
+        },
+        "search": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "placeholder": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "groups"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "sectionsLabel": {
+          "type": "string"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "toc": {
+          "type": "string"
+        },
+        "pager": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "nav": {
       "type": "array",
       "items": {
@@ -53,6 +129,12 @@
             "type": "string"
           },
           "icon": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "sub": {
             "type": "string"
           }
         },
@@ -136,6 +218,21 @@
           "description": {
             "type": "string",
             "minLength": 1
+          },
+          "layout": {
+            "enum": [
+              "grid",
+              "article"
+            ]
+          },
+          "toc": {
+            "type": "boolean"
+          },
+          "eyebrow": {
+            "type": "string"
+          },
+          "wide": {
+            "type": "boolean"
           },
           "title": {
             "type": "string"
@@ -321,12 +418,12 @@
             "Heatmap",
             "Sparkline",
             "Anatomy",
-            "Article",
             "ArticleSection",
             "Brand",
             "CardGrid",
             "CopyCode",
             "Example",
+            "Guidelines",
             "Paragraphs",
             "PropsTable",
             "RichText",
@@ -2138,33 +2235,6 @@
           "if": {
             "properties": {
               "type": {
-                "const": "Article"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "props": {
-                "type": "object",
-                "properties": {
-                  "eyebrow": {},
-                  "title": {},
-                  "lede": {},
-                  "wide": {},
-                  "pager": {}
-                },
-                "required": [
-                  "title"
-                ],
-                "additionalProperties": false
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "type": {
                 "const": "ArticleSection"
               }
             }
@@ -2272,6 +2342,29 @@
                   "variants": {}
                 },
                 "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Guidelines"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {}
+                },
+                "required": [
+                  "items"
+                ],
                 "additionalProperties": false
               }
             }
@@ -2440,8 +2533,15 @@
           "maximum": 12
         },
         "h": {
-          "type": "integer",
-          "minimum": 1
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "const": "auto"
+            }
+          ]
         },
         "frame": {
           "enum": [

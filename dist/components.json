@@ -1771,6 +1771,11 @@
       "name": "WidgetGrid",
       "props": [
         {
+          "name": "flow",
+          "optional": true,
+          "kind": "boolean"
+        },
+        {
           "name": "children",
           "optional": false,
           "kind": "node"
@@ -2676,6 +2681,17 @@
           "name": "children",
           "optional": true,
           "kind": "node"
+        }
+      ]
+    },
+    {
+      "name": "Guidelines",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "[string, string][]"
         }
       ]
     },

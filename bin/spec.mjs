@@ -1,6 +1,6 @@
 export const SPEC_VERSION = 1;
 export const BUILTIN_ACTIONS = { navigate: ["screen"], open: ["overlay"], close: [] };
-const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "Page", "WidgetGrid", "Board", "Widget", "ThemePicker", "Modal", "Sheet", "Toast"]);
+const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "ThemePicker", "Modal", "Sheet", "Toast"]);
 const KINDS = ["modal", "sheet"];
 const VARIANTS = ["primary", "secondary", "danger"];
 
@@ -83,11 +83,27 @@ export function checkSpec(spec, components) {
       seen.add(widget.id);
       if (!described(widget)) fail(`${at}.description`, "is required");
       if (!(Number.isInteger(widget.w) && widget.w >= 1 && widget.w <= 12)) fail(`${at}.w`, "must be 1–12 columns");
-      if (!(Number.isInteger(widget.h) && widget.h >= 1)) fail(`${at}.h`, "must be a whole number of rows");
+      if (!(widget.h === "auto" || (Number.isInteger(widget.h) && widget.h >= 1))) fail(`${at}.h`, "must be a whole number of rows or \"auto\"");
       if (widget.action !== undefined) checkAction(`${at}.action`, widget.action);
       checkValue(`${at}.content`, widget.content);
     }
   }
+  const frame = isObject(spec.frame) ? spec.frame : {};
+  const checkFrameNode = (path, value) => {
+    if (!isObject(value) || typeof value.type !== "string") return checkValue(path, value);
+    const component = byName.get(value.type);
+    if (!component) return fail(path, `uses unknown component ${value.type}`);
+    for (const [key, item] of Object.entries(value.props ?? {})) {
+      if (!component.props.some((prop) => prop.name === key)) fail(`${path}.props.${key}`, `is not a prop of ${value.type}`);
+      checkValue(`${path}.props.${key}`, item);
+    }
+    if (value.children !== undefined) checkValue(`${path}.children`, value.children);
+  };
+  if (frame.brand !== undefined) checkFrameNode("frame.brand", frame.brand);
+  (frame.actions ?? []).forEach((node, i) => checkFrameNode(`frame.actions.${i}`, node));
+  const groups = new Set((spec.nav ?? []).map((item) => item.group).filter(Boolean));
+  (frame.sections ?? []).forEach((section, i) => (section.groups ?? []).forEach((group) => groups.has(group) || fail(`frame.sections.${i}.groups`, `names no nav group (${group})`)));
+  for (const [id, screen] of Object.entries(screens)) if (screen.layout !== undefined && !["grid", "article"].includes(screen.layout)) fail(`screens.${id}.layout`, "must be grid or article");
   for (const [id, overlay] of Object.entries(overlays)) {
     const path = `overlays.${id}`;
     if (!KINDS.includes(overlay.kind)) fail(`${path}.kind`, `must be one of ${KINDS.join(", ")}`);
@@ -140,7 +156,7 @@ export function specSchema(components) {
       title: { type: "string" },
       subtitle: { type: "string" },
       w: { type: "integer", minimum: 1, maximum: 12 },
-      h: { type: "integer", minimum: 1 },
+      h: { oneOf: [{ type: "integer", minimum: 1 }, { const: "auto" }] },
       frame: { enum: ["card", "plain"] },
       description: text,
       action: { $ref: "#/$defs/action" },
@@ -158,13 +174,28 @@ export function specSchema(components) {
       spec: { const: SPEC_VERSION },
       app: entry({ name: { type: "string" }, density: { enum: ["comfortable", "compact"] } }, ["name"]),
       start: { type: "string" },
-      nav: { type: "array", items: { type: "object", required: ["screen", "label"], properties: { screen: { type: "string" }, label: { type: "string" }, icon: { type: "string" } }, additionalProperties: false } },
+      frame: {
+        type: "object",
+        properties: {
+          brand: { type: "object", required: ["type"] },
+          mobileNav: { enum: ["drawer", "tabs"] },
+          scroll: { enum: ["frame", "page"] },
+          search: { type: "object", properties: { label: { type: "string" }, placeholder: { type: "string" } }, additionalProperties: false },
+          sections: { type: "array", items: { type: "object", required: ["label", "groups"], properties: { label: { type: "string" }, groups: { type: "array", items: { type: "string" } } }, additionalProperties: false } },
+          sectionsLabel: { type: "string" },
+          actions: { type: "array", items: { type: "object", required: ["type"] } },
+          toc: { type: "string" },
+          pager: { type: "string" },
+        },
+        additionalProperties: false,
+      },
+      nav: { type: "array", items: { type: "object", required: ["screen", "label"], properties: { screen: { type: "string" }, label: { type: "string" }, icon: { type: "string" }, group: { type: "string" }, sub: { type: "string" } }, additionalProperties: false } },
       data: { type: "object", additionalProperties: entry({ example: {} }, ["example"]) },
       formats: { type: "object", additionalProperties: entry({ style: { enum: ["number", "compact", "percent", "date"] }, digits: { type: "integer", minimum: 0 }, unit: { type: "string" } }) },
       actions: { type: "object", additionalProperties: entry({ params: { type: "object" } }) },
       screens: {
         type: "object",
-        additionalProperties: entry({ title: { type: "string" }, lede: { type: "string" }, actions: { type: "array", items: { $ref: "#/$defs/button" } }, widgets: { type: "array", items: { $ref: "#/$defs/widget" } } }, ["widgets"]),
+        additionalProperties: entry({ layout: { enum: ["grid", "article"] }, toc: { type: "boolean" }, eyebrow: { type: "string" }, wide: { type: "boolean" }, title: { type: "string" }, lede: { type: "string" }, actions: { type: "array", items: { $ref: "#/$defs/button" } }, widgets: { type: "array", items: { $ref: "#/$defs/widget" } } }, ["widgets"]),
       },
       overlays: {
         type: "object",
@@ -176,7 +207,7 @@ export function specSchema(components) {
   };
 }
 
-const FRAME = ["AppShell", "Page", "WidgetGrid", "Widget", "Button", "Icon", "Modal", "Sheet", "useToast", "useState", "render", "h"];
+const FRAME = ["AppShell", "Page", "WidgetGrid", "Widget", "Button", "Icon", "Modal", "Sheet", "Pager", "Fragment", "useToast", "useState", "useEffect", "render", "h"];
 const quote = (value) => JSON.stringify(value);
 const keyOf = (key) => (/^[A-Za-z_$][\w$]*$/.test(key) ? key : quote(key));
 const indent = (text, depth) => text.replace(/\n/g, `\n${"  ".repeat(depth)}`);
@@ -217,6 +248,8 @@ function emitter(used) {
   return { expr, content };
 }
 
+const objectOf = (lines) => (lines.length ? `{\n  ${indent(lines.join(",\n"), 1)},\n}` : "{}");
+
 const PRESS = '{ position: "absolute", inset: 0, zIndex: 1, border: 0, borderRadius: "var(--radius-card)", background: "transparent", cursor: "pointer" }';
 
 export function buildHtml(spec, { module, lang = "en" }) {
@@ -226,10 +259,15 @@ export function buildHtml(spec, { module, lang = "en" }) {
     items.map((button) => `h(Button, { variant: ${quote(button.variant ?? "secondary")}, onClick: () => act(${quote(button.action)}) }, ${quote(button.label)})`);
   const screens = Object.entries(spec.screens).map(([id, screen]) => {
     const widgets = (screen.widgets ?? []).map((widget) => {
-      const head = { id: widget.id, title: widget.title ?? "", ...(widget.subtitle && { subtitle: widget.subtitle }), w: widget.w, h: widget.h, ...(widget.frame && { frame: widget.frame }) };
+      const head = { id: widget.id, title: widget.title ?? "", ...(widget.subtitle && { subtitle: widget.subtitle }), w: widget.w, h: widget.h === "auto" ? 1 : widget.h, ...(widget.frame && { frame: widget.frame }) };
       const press = widget.action ? `,\n  h("button", { type: "button", "data-press": "", "aria-label": ${quote(widget.title ?? widget.id)}, style: ${PRESS}, onClick: () => act(${quote(widget.action)}) })` : "";
       return `h(Widget, { ${Object.entries(head).map(([key, value]) => `${key}: ${quote(value)}`).join(", ")} },\n  ${indent(content(widget.content), 1)}${press},\n)`;
     });
+    if (screen.layout === "article") {
+      for (const name of ["Article", "RichText", "Pager"]) used.add(name);
+      const head = [`title: ${quote(screen.title ?? "")}`, ...(screen.eyebrow ? [`eyebrow: ${quote(screen.eyebrow)}`] : []), ...(screen.lede ? [`lede: h(RichText, { text: ${quote(screen.lede)} })`] : []), ...(screen.wide ? ["wide: true"] : []), `pager: pagerFor(${quote(id)})`];
+      return `function ${screenName(id)}({ act }) {\n  return h(Article, { ${head.join(", ")} },\n    h(WidgetGrid, { flow: true },\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
+    }
     const actions = buttons(screen.actions);
     const page = { ...(screen.title && { title: screen.title }), ...(screen.lede && { lede: screen.lede }) };
     const pageProps = actions.length ? `{ ...${quote(page)}, actions: [${actions.join(", ")}] }` : quote(page);
@@ -243,8 +281,18 @@ export function buildHtml(spec, { module, lang = "en" }) {
   const formats = Object.entries(spec.formats ?? {}).map(([name, f]) => `${keyOf(name)}: ${f.style === "date" ? "date()" : f.style === "percent" ? `percent(${f.digits ?? 1})` : `number(${f.digits ?? 0}, ${quote(f.unit ?? "")}${f.style === "compact" ? ", true" : ""})`}`);
   const dataLines = Object.entries(spec.data ?? {}).map(([key, slot]) => `${quote(key)}: ${JSON.stringify(slot.example)}`);
   const described = Object.entries(spec.actions ?? {}).map(([name, action]) => `${quote(name)}: ${quote(action.description)}`);
+  const nav = (spec.nav ?? []).map((item) => ({ id: item.screen, label: item.label, ...(item.icon && { icon: item.icon }), ...(item.group && { group: item.group }), ...(item.sub && { sub: item.sub }) }));
+  const frame = spec.frame ?? {};
+  const tocOf = (screen) =>
+    (screen.widgets ?? []).flatMap((widget) => [widget.content].flat()).filter((node) => node?.type === "ArticleSection" && node.props?.id && node.props?.title).map((node) => ({ id: node.props.id, label: node.props.title }));
+  const tocs = Object.fromEntries(Object.entries(spec.screens).filter(([, screen]) => screen.layout === "article" && screen.toc !== false).map(([id, screen]) => [id, tocOf(screen)]));
+  const frameNode = (node) => expr(node, "row0");
+  if (frame.toc) used.add("Toc");
+  if (frame.search) used.add("TextField");
+  if (frame.sections) used.add("Tabs");
+  const brandCode = frame.brand ? frameNode(frame.brand) : quote(spec.app.name);
+  const actionCodes = (frame.actions ?? []).map(frameNode);
   const names = [...new Set([...FRAME, ...used])].sort();
-  const nav = (spec.nav ?? []).map((item) => ({ id: item.screen, label: item.label, ...(item.icon && { icon: item.icon }) }));
   const script = `import { ${names.join(", ")} } from ${quote(module)};
 
 const locale = ${quote(lang === "ko" ? "ko-KR" : "en-US")};
@@ -259,17 +307,11 @@ const date = () => {
 };
 const label = (labels, v) => labels[String(v)] ?? String(v);
 
-const format = {
-  ${indent(formats.join(",\n"), 1)},
-};
+const format = ${objectOf(formats)};
 
-const data = {
-  ${indent(dataLines.join(",\n"), 1)},
-};
+const data = ${objectOf(dataLines)};
 
-const actionNotes = {
-  ${indent(described.join(",\n"), 1)},
-};
+const actionNotes = ${objectOf(described)};
 
 ${screens.join("\n\n")}
 
@@ -279,12 +321,44 @@ const screens = { ${Object.keys(spec.screens).map((id) => `${keyOf(id)}: ${scree
 const overlays = { ${Object.keys(spec.overlays ?? {}).map((id) => `${keyOf(id)}: ${overlayName(id)}`).join(", ")} };
 const nav = ${quote(nav)};
 
+const tocs = ${quote(tocs)};
+const pagerLabel = ${quote(frame.pager ?? "")};
+const sections = ${quote(frame.sections ?? [])};
+const order = nav.map((item) => item.id);
+const titleOf = (id) => nav.find((item) => item.id === id)?.label ?? id;
+const pagerFor = (id) => {
+  const at = order.indexOf(id);
+  const link = (target) => target && { label: titleOf(target), href: \`#/\${target}\` };
+  return h(Pager, { label: pagerLabel, previous: link(order[at - 1]), next: link(order[at + 1]) });
+};
+const sectionOf = (id) => Math.max(0, sections.findIndex((section) => section.groups.includes(nav.find((item) => item.id === id)?.group)));
+const groupsOf = (items) => items.reduce((groups, item) => {
+  const last = groups.at(-1);
+  if (last && last.key === (item.group ?? "")) last.items.push(item);
+  if (!last || last.key !== (item.group ?? "")) groups.push({ key: item.group ?? "", title: item.group, items: [item] });
+  return groups;
+}, []);
+const fromHash = () => {
+  const id = location.hash.replace(/^#\\//, "");
+  return id in screens ? id : ${quote(spec.start)};
+};
+
 function App() {
   const toast = useToast();
-  const [screen, setScreen] = useState(${quote(spec.start)});
+  const [screen, setScreen] = useState(fromHash);
   const [overlay, setOverlay] = useState(null);
+  const [query, setQuery] = useState("");
+  useEffect(() => {
+    const onHash = () => {
+      setScreen(fromHash());
+      window.scrollTo(0, 0);
+    };
+    addEventListener("hashchange", onHash);
+    return () => removeEventListener("hashchange", onHash);
+  }, []);
+  const go = (id) => (location.hash = \`#/\${id}\`);
   const act = (action, value) => {
-    if (action.name === "navigate") setScreen(action.params.screen);
+    if (action.name === "navigate") go(action.params?.screen ?? value);
     if (action.name === "open") setOverlay(action.params.overlay);
     if (action.name === "close" || action.close) setOverlay(null);
     const detail = ["string", "number", "boolean"].includes(typeof value) ? value : action.params && JSON.stringify(action.params);
@@ -293,12 +367,21 @@ function App() {
   };
   const Screen = screens[screen];
   const Overlay = overlay && overlays[overlay];
-  return h("div", { "data-density": ${quote(spec.app.density ?? "comfortable")} },
+  const section = sectionOf(screen);
+  const needle = query.trim().toLowerCase();
+  const visible = nav.filter((item) => (needle ? item.label.toLowerCase().includes(needle) : !sections.length || sections[section].groups.includes(item.group)));
+  const shellNav = groupsOf(visible).map((group) => ({ ...(group.title && { title: group.title }), items: group.items.map((item) => ({ id: item.id, label: item.label, ...(item.icon && { icon: item.icon }), ...(item.sub && { sub: item.sub }), href: \`#/\${item.id}\`, current: item.id === screen })) }));
+  const toc = tocs[screen] ?? [];
+  return h("div", { "data-density": ${quote(spec.app.density ?? "comfortable")}, "data-medium": "app" },
     h(AppShell, {
-      mobileNav: "tabs",
-      brand: ${quote(spec.app.name)},
-      nav: [{ items: nav.map((item) => ({ ...item, current: item.id === screen, onSelect: () => setScreen(item.id) })) }],
-      title: nav.find((item) => item.id === screen)?.label,
+      ${frame.mobileNav ? `mobileNav: ${quote(frame.mobileNav)},` : frame.brand ? "" : 'mobileNav: "tabs",'}
+      ${frame.scroll ? `scroll: ${quote(frame.scroll)},` : ""}
+      brand: ${brandCode},
+      nav: shellNav,
+      ${frame.search ? `navHeader: h(TextField, { label: ${quote(frame.search.label ?? "")}, hideLabel: true, type: "search", icon: "search", placeholder: ${quote(frame.search.placeholder ?? frame.search.label ?? "")}, value: query, onChange: setQuery }),` : ""}
+      title: ${frame.sections ? `h(Tabs, { variant: "pill", label: ${quote(frame.sectionsLabel ?? "")}, value: String(section), onChange: (index) => go(nav.find((item) => sections[Number(index)].groups.includes(item.group)).id), items: sections.map((item, index) => ({ id: String(index), label: item.label })) })` : "titleOf(screen)"},
+      ${actionCodes.length ? `actions: h(Fragment, null, ${actionCodes.join(", ")}),` : ""}
+      ${frame.toc ? `aside: toc.length ? h(Toc, { key: screen, title: ${quote(frame.toc)}, items: toc, offset: 120 }) : undefined,` : ""}
     }, h("div", { "data-screen": screen, style: { display: "contents" } }, h(Screen, { act }))),
     Overlay && h("div", { "data-overlay": overlay, style: { display: "contents" } }, h(Overlay, { act, close: () => setOverlay(null) })),
   );
@@ -316,7 +399,7 @@ render("#app", h(App), { lang: ${quote(lang)} });`;
 <body>
 <div id="app"></div>
 <script type="module">
-${script}
+${script.replace(/<\/script/gi, "<\\/script").replace(/<!--/g, "<\\!--")}
 </script>
 </body>
 </html>

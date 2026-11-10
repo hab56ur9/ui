@@ -583,20 +583,6 @@
   font-style: normal;
 }
 
-.copy-name {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--color-fg-default);
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-caption);
-  cursor: copy;
-}
-
-.copy-name:hover {
-  color: var(--color-main-default);
-}
-
 @media (max-width: 900px) {
   .theme-pair {
     grid-template-columns: minmax(0, 1fr);
