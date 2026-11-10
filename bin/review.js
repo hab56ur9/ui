@@ -1,9 +1,11 @@
 const STORE = "ui-review";
 const source = document.getElementById(STORE);
 const review = source ? JSON.parse(source.textContent) : { version: 1, screens: {} };
+review.overlays ??= {};
 let on = false;
 let dragged = null;
 let applying = false;
+let savedState = JSON.stringify(source ? JSON.parse(source.textContent) : null);
 
 const STYLE = `
 .ui-review-bar { position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 100; display: flex; gap: var(--space-2); align-items: center; padding: var(--space-2); border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg-raised); box-shadow: var(--elevation-lifted); font: inherit; }
@@ -16,6 +18,8 @@ const STYLE = `
 .ui-review-tools button, .ui-review-bar button { min-width: 28px; height: 28px; padding: 0 var(--space-2); border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-control); background: var(--color-bg-surface); color: var(--color-fg-default); font: inherit; font-size: var(--font-size-caption); cursor: pointer; }
 .ui-review-note { position: absolute; left: var(--space-2); right: var(--space-2); bottom: var(--space-2); z-index: 5; display: none; padding: var(--space-2); border-radius: var(--radius-control); background: var(--color-status-warning-subtle, var(--color-bg-subtle)); color: var(--color-fg-default); font-size: var(--font-size-caption); white-space: pre-wrap; }
 .ui-review-on .ui-review-note.has-note, .ui-review-note.is-editing { display: block; }
+.ui-review-on dialog > .ui-review-tools.is-overlay { position: static; display: flex; padding: 0 var(--space-4) var(--space-3); }
+dialog > .ui-review-note.is-overlay { position: static; margin: 0 var(--space-4) var(--space-4); }
 .ui-review-note textarea { width: 100%; min-height: 64px; font: inherit; }
 .widget.ui-review-removed { display: none; }
 .ui-review-on [data-press] { display: none; }
@@ -67,7 +71,7 @@ function tools(widget, screen) {
   button("W+", "Wider", size("w", 1));
   button("H−", "Shorter", size("h", -1));
   button("H+", "Taller", size("h", 1));
-  button("✎", "Note", () => editNote(widget, screen, id));
+  button("✎", "Note", () => editNote(widget.querySelector(":scope > .ui-review-note"), widgetEntry(screen, id)));
   button("✕", "Remove or restore", () => {
     const state = widgetEntry(screen, id);
     state.removed = state.removed ? undefined : true;
@@ -97,7 +101,11 @@ function tools(widget, screen) {
     dragged = null;
     apply();
   });
-  widget.addEventListener("dblclick", (e) => {
+  textEditing(widget, () => widgetEntry(screen, id));
+}
+
+function textEditing(container, stateOf) {
+  container.addEventListener("dblclick", (e) => {
     if (!on) return;
     const target = e.target.closest("[data-review-text]");
     if (!target || target.isContentEditable) return;
@@ -111,7 +119,7 @@ function tools(widget, screen) {
       () => {
         target.contentEditable = "false";
         const to = target.textContent;
-        const state = widgetEntry(screen, id);
+        const state = stateOf();
         state.text = (state.text ?? []).filter((change) => change.from !== from);
         if (to !== from) state.text.push({ from, to });
         target.dataset.reviewFrom = from;
@@ -120,6 +128,42 @@ function tools(widget, screen) {
       { once: true },
     );
   });
+}
+
+function applyText(container, state) {
+  for (const el of leafTexts(container)) {
+    el.dataset.reviewText = "";
+    const from = el.dataset.reviewFrom ?? el.textContent;
+    const change = (state.text ?? []).find((c) => c.from === from);
+    if (change && el.textContent !== change.to && !el.isContentEditable) {
+      el.dataset.reviewFrom = from;
+      el.textContent = change.to;
+    }
+  }
+}
+
+function applyNote(box, state) {
+  if (!box) return;
+  if (!box.classList.contains("is-editing") && box.textContent !== (state.note ?? "")) box.textContent = state.note ?? "";
+  box.classList.toggle("has-note", Boolean(state.note));
+}
+
+function overlayTools(dialog, id) {
+  if (dialog.querySelector(":scope > .ui-review-tools")) return;
+  const bar = document.createElement("div");
+  bar.className = "ui-review-tools is-overlay";
+  const note = document.createElement("div");
+  note.className = "ui-review-note is-overlay";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = "✎ Note";
+  button.addEventListener("click", (e) => {
+    e.stopPropagation();
+    editNote(note, (review.overlays[id] ??= {}));
+  });
+  bar.append(button);
+  dialog.append(bar, note);
+  textEditing(dialog, () => (review.overlays[id] ??= {}));
 }
 
 function currentOrder(screen) {
@@ -138,9 +182,7 @@ function move(screen, id, step) {
   entry(screen).order = order;
 }
 
-function editNote(widget, screen, id) {
-  const note = widget.querySelector(":scope > .ui-review-note");
-  const state = widgetEntry(screen, id);
+function editNote(note, state) {
   note.classList.add("is-editing");
   note.textContent = "";
   const area = document.createElement("textarea");
@@ -200,23 +242,17 @@ function apply() {
       if (saved.h) widget.style.setProperty("--h", saved.h);
       widget.style.order = String(order.indexOf(id));
       widget.classList.toggle("ui-review-removed", Boolean(saved.removed));
-      for (const el of leafTexts(widget)) {
-        el.dataset.reviewText = "";
-        const from = el.dataset.reviewFrom ?? el.textContent;
-        const change = (saved.text ?? []).find((c) => c.from === from);
-        if (change && el.textContent !== change.to && !el.isContentEditable) {
-          el.dataset.reviewFrom = from;
-          el.textContent = change.to;
-        }
-      }
-      const note = widget.querySelector(":scope > .ui-review-note");
-      if (note && !note.classList.contains("is-editing") && note.textContent !== (saved.note ?? "")) {
-        note.textContent = saved.note ?? "";
-      }
-      if (note) {
-        note.classList.toggle("has-note", Boolean(saved.note));
-      }
+      applyText(widget, saved);
+      applyNote(widget.querySelector(":scope > .ui-review-note"), saved);
     }
+  }
+  const overlay = document.querySelector("[data-overlay]")?.dataset.overlay;
+  const dialog = overlay && document.querySelector("dialog[open]");
+  if (dialog) {
+    overlayTools(dialog, overlay);
+    const state = review.overlays[overlay] ?? {};
+    applyText(dialog, state);
+    applyNote(dialog.querySelector(":scope > .ui-review-note"), state);
   }
   status();
   applying = false;
@@ -231,18 +267,25 @@ function snapshot() {
       })
       .filter(([, state]) => Object.keys(state).length),
   );
-  return { version: 1, screens };
+  const overlays = Object.fromEntries(Object.entries(review.overlays).map(([id, o]) => [id, clean(o)]).filter(([, o]) => Object.keys(o).length));
+  return { version: 1, screens, ...(Object.keys(overlays).length && { overlays }) };
 }
 
 const label = document.createElement("span");
 function status() {
-  const changes = Object.values(snapshot().screens).reduce((n, s) => n + Object.keys(s.widgets ?? {}).length + (s.added?.length ?? 0) + (s.order ? 1 : 0), 0);
-  label.textContent = on ? `Review · ${changes} changes` : `${changes} changes`;
+  const current = snapshot();
+  const changes = Object.values(current.screens).reduce((n, s) => n + Object.keys(s.widgets ?? {}).length + (s.added?.length ?? 0) + (s.order ? 1 : 0), 0) + Object.keys(current.overlays ?? {}).length;
+  const saved = JSON.stringify(current) === savedState;
+  const text = `${on ? "Review · " : ""}${changes} changes${saved ? " · saved" : ""}`;
+  if (label.textContent !== text) label.textContent = text;
 }
 
 async function save() {
-  const response = await fetch(`/__ui/review?file=${encodeURIComponent(location.pathname)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(snapshot(), null, 2) });
-  label.textContent = response.ok ? "Saved" : `Save failed (${response.status})`;
+  const body = JSON.stringify(snapshot(), null, 2);
+  const response = await fetch(`/__ui/review?file=${encodeURIComponent(location.pathname)}`, { method: "POST", headers: { "content-type": "application/json" }, body });
+  if (!response.ok) return (label.textContent = `Save failed (${response.status})`);
+  savedState = JSON.stringify(JSON.parse(body));
+  status();
 }
 
 function mount() {
@@ -265,7 +308,7 @@ function mount() {
   });
   bar.append(label, toggle, make("+ Widget", addWidget), make("Save", save));
   document.body.append(bar);
-  new MutationObserver(() => queueMicrotask(apply)).observe(document.getElementById("app") ?? document.body, { childList: true, subtree: true });
+  new MutationObserver(() => queueMicrotask(apply)).observe(document.body, { childList: true, subtree: true });
   apply();
 }
 
