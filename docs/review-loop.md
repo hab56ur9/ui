@@ -65,12 +65,12 @@ The editor is a means of communication between the person and the agent, not a c
 
 ## Logic stays separate
 
-The generated UI and the app's logic are separate artifacts that meet at a contract.
+The UI and the app's logic are separate artifacts that meet at a contract.
 
 - The contract is the set of data slots and action names in the spec.
-- The agent writes use cases, API calls and data flow against that contract, independent of the generated UI code.
+- The agent writes use cases, API calls and data flow against that contract, independent of the HTML under review.
 - While the UI is in review, the agent can build use cases and API calls against the contract, so logic work does not wait for UI feedback.
-- After approval, the agent connects that logic to the approved code, and the builder makes the final build.
+- After approval, the agent writes the app code from the approved spec, connects that logic to it, and builds the app.
 
 ## Role of the design system
 
