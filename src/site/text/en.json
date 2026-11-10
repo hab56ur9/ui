@@ -260,25 +260,6 @@
     "n21kPosts": "2.1K posts",
     "popular": "Popular"
   },
-  "jsonui-basic": {
-    "visitors": "Visitors",
-    "vsLastWeek": "vs last week",
-    "openReport": "Open report"
-  },
-  "jsonui-template": {
-    "ordersToday": "Orders today",
-    "recentOrders": "Recent orders",
-    "order": "Order",
-    "item": "Item",
-    "amount": "Amount",
-    "status": "Status",
-    "item2": {
-      "paid": "Paid",
-      "shipped": "Shipped",
-      "refunded": "Refunded"
-    },
-    "export": "Export"
-  },
   "line-area": {
     "activeUsers": "Active users"
   },

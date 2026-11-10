@@ -260,25 +260,6 @@
     "n21kPosts": "게시물 2.1천개",
     "popular": "인기"
   },
-  "jsonui-basic": {
-    "visitors": "방문자",
-    "vsLastWeek": "지난주 대비",
-    "openReport": "리포트 열기"
-  },
-  "jsonui-template": {
-    "ordersToday": "오늘 주문",
-    "recentOrders": "최근 주문",
-    "order": "주문",
-    "item": "상품",
-    "amount": "금액",
-    "status": "상태",
-    "item2": {
-      "paid": "결제 완료",
-      "shipped": "배송 중",
-      "refunded": "환불"
-    },
-    "export": "내려받기"
-  },
   "line-area": {
     "activeUsers": "활성 사용자"
   },
