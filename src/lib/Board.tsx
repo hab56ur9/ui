@@ -131,6 +131,8 @@ const specsOf = (children: ReactNode): WidgetSpec[] =>
     .filter((child): child is ReactElement<WidgetProps> => isValidElement(child) && child.type === Widget)
     .map(({ props: { children: body, ...spec } }) => ({ ...spec, render: () => body }));
 
+const isText = (node: ReactNode) => typeof node === "string";
+
 export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit, commitDelay = 1500, toolbar, actions = true, busy }: BoardProps) {
   const { text } = useI18n();
   const specs = specsOf(children);
@@ -139,7 +141,7 @@ export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit,
     <>
       {(toolbar !== undefined || actions) && (
         <div className="toolbar" role="toolbar" aria-label={text("boardTools")}>
-          {toolbar}
+          {isText(toolbar) ? <span className="toolbar-label">{toolbar}</span> : toolbar}
           <span className="toolbar-spacer" />
           {actions && <BoardActions board={board} />}
         </div>

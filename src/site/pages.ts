@@ -35,7 +35,7 @@ export const pages: Page[] = [
           },
           {
             "title": "한 곳에서 정의",
-            "body": "색·크기·간격은 토큰에만 있고, 페이지는 `var(--…)`로 가져다 씁니다."
+            "body": "색·크기·간격은 토큰에만 있습니다. 토큰은 컴포넌트가 읽고, 페이지는 컴포넌트 props만 씁니다."
           },
           {
             "title": "용도에 맞는 크기",
@@ -66,7 +66,7 @@ export const pages: Page[] = [
     "id": "getting-started",
     "group": "시작하기",
     "title": "사용 방법",
-    "lede": "React 앱은 `ui` 패키지의 컴포넌트를 쓰고, React 없는 HTML 문서와 슬라이드는 토큰 CSS와 스타일 CSS만 링크합니다. 두 방식 모두 토큰을 다시 빌드하면 갱신됩니다.",
+    "lede": "모든 페이지는 `ui`의 컴포넌트로 그립니다. React 앱은 패키지를 설치하고, HTML 페이지는 `dist/ui.js`를 불러옵니다. 어느 쪽도 토큰이나 CSS 클래스를 직접 쓰지 않으므로, ui가 바뀌면 그대로 따라옵니다.",
     "sections": [
       {
         "type": "list",
@@ -89,26 +89,15 @@ export const pages: Page[] = [
       },
       {
         "type": "text",
-        "title": "HTML 문서와 슬라이드",
-        "body": [
-          "React 없이 쓰는 페이지는 두 CSS 파일만 링크하고, 버튼·세그먼트·표 같은 클래스를 그대로 씁니다. 차트와 오버레이처럼 동작이 필요한 부분은 React로 만듭니다."
-        ]
-      },
-      {
-        "type": "code",
-        "code": "<html lang=\"ko\" data-medium=\"doc\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">"
-      },
-      {
-        "type": "text",
         "title": "번들러 없는 HTML",
         "body": [
-          "`dist/ui.js` 한 줄이면 됩니다. React가 들어 있고, 두 CSS 파일도 스스로 불러옵니다. 모든 컴포넌트와 함께 `render(대상, 내용)`, `h`(요소 만들기), `useState` 같은 훅을 내보냅니다.",
+          "`dist/ui.js` 한 줄이면 됩니다. React가 들어 있고, CSS도 스스로 불러옵니다. 모든 컴포넌트와 함께 `render(대상, 내용, { theme })`, `h`(요소 만들기), `useState` 같은 훅을 내보냅니다.",
           "사이트의 `dist/ui.js`는 항상 최신 릴리즈입니다. 버전을 고정하려면 사이트의 `v/<태그>/ui.js`를 씁니다. 최근 100개 릴리즈가 남습니다."
         ]
       },
       {
         "type": "code",
-        "code": "<div id=\"app\"></div>\n<script type=\"module\">\n  import { render, h, Button, Calendar } from \"{homepage}dist/ui.js\";\n\n  render(\"#app\", [h(Button, { variant: \"primary\" }, \"저장\"), h(Calendar)]);\n</script>"
+        "code": "<div id=\"app\"></div>\n<script type=\"module\">\n  import { render, h, themes, Button, Calendar } from \"{homepage}dist/ui.js\";\n\n  render(\"#app\", [h(Button, { variant: \"primary\" }, \"저장\"), h(Calendar)], { theme: themes.lime.minimal });\n</script>"
       },
       {
         "type": "text",

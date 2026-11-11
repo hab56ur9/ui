@@ -48,15 +48,7 @@ A page made for review shows the one theme the product ships. The reviewer check
 
 Blocks and examples are written in JSX; their source is at https://github.com/hab56ur9/ui/tree/master/src/blocks. In an HTML page, write `<Widget id="a" w={3} h={2}>{child}</Widget>` as `h(Widget, { id: "a", w: 3, h: 2 }, child)` and a fragment as `h(Fragment, null, …)`. To capture a page in one theme, set `data-theme="light"` or `"dark"` on the html element.
 
-A page that cannot run scripts links the token stylesheet and the component stylesheet and uses the CSS classes directly: button, segmented, data-table, page, page-head, page-title, page-lede, toolbar. A page that runs scripts uses the Page component for its title, lede and actions instead of those classes.
-
-```html
-<html lang="en" data-medium="doc">
-<link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/tokens.css">
-<link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/ui.css">
-<link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/presets.css">
-<link rel="stylesheet" href="https://hab56ur9.github.io/ui/dist/styles.css">
-```
+Every page draws with components, so it never names a CSS class or a token. Layout comes from Page, WidgetGrid, Stack, Row and CardGrid; a list of choices in a Sheet is an ActionList.
 
 ## Modes
 
@@ -85,10 +77,12 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | DataTable | columns* ({ label, numeric?, wrap?, width? }[]), rows* (cells are strings or { text?, content?, color?, swatch?, delta?, render? }), fit |
 | Badge | children*, tone ("neutral", "main", "good", "warning", "critical"), variant ("soft", "solid", "outline") |
 | Callout | children*, tone ("info", "good", "warning", "critical", "do", "dont"), accent ("left", "top"), title |
+| ActionList | items* ({ id, label }[]), onSelect* ((id) => void); full-width choices, usually inside a Sheet |
 | Option (inside Options) | name*, chosen (decided) or recommended (still open), children of Pros and Cons |
 | Segmented | options* ({ value, label }[]), value or defaultValue, label*, onChange |
 | Tabs | items* ({ id, label }[]), value or defaultValue, onChange, variant ("line", "pill") |
 | WidgetGrid | children* (Widgets), flow (stacks plain full-width widgets as document sections; leave it out for a grid) |
+| Stack | children* (stacked vertically with the standard gap; a chart child takes the remaining height) |
 | RequirementTable | items* ({ text, priority: "must", "should" or "could", status?: "open", "done" or "dropped", note? }[]), prefix ("R" by default, "F" or "A" for other tables); the status column appears only when an item has a status |
 | Phone · Browser | Phone: scale, children; Browser: address*, width, height (number or "auto"), children. Both screens use the app medium, so widgets inside size as in an app |
 
@@ -96,13 +90,13 @@ Time series are { t, v } with t as a millisecond timestamp in local time. A colo
 
 ## Product specs
 
-A product requirements document (PRD) is a Doc page whose screens and behavior are specified together, so it starts from the prd example. Screens are drawn with real components inside Phone or Browser frames. Phone takes scale (0.5 fits three phones across a document) and holds a `div.stack` of components, which gets the screen's inner padding; a Badge or a Button that should not stretch goes in a Card's aside or a Row. Browser takes address, width (the desktop width it scales down from, such as 1200) and height (a number, or "auto" to fit the content); an app screen inside it is a Page with a WidgetGrid. In print, browser frames drop their scaling and reflow to the page width, figures and frames do not split across pages, and the floating ThemePicker is hidden. Name each screen (S1, S2, O1) in the figure caption. The behavior spec is a RequirementTable whose items read "condition → result" and name the screen; the text refers to them with Ref, which also reaches tables with another prefix such as F for fraud rules or A for advertiser rules. Leave status out for a requirement that has no state yet. States and tracked events are DataTables: an empty state is an info Callout with the next step, an error is a critical Callout with a retry Button, and a pending state is a Badge or Callout that says what is being checked. Decisions still open go in Options without chosen; mark the preferred one recommended.
+A product requirements document (PRD) is a Doc page whose screens and behavior are specified together, so it starts from the prd example. Screens are drawn with real components inside Phone or Browser frames. Phone takes scale (0.5 fits three phones across a document) and holds a Stack of components, which gets the screen's inner padding; a Badge or a Button that should not stretch goes in a Card's aside or a Row. Browser takes address, width (the desktop width it scales down from, such as 1200) and height (a number, or "auto" to fit the content); an app screen inside it is a Page with a WidgetGrid. In print, browser frames drop their scaling and reflow to the page width, and figures and frames do not split across pages. Name each screen (S1, S2, O1) in the figure caption. The behavior spec is a RequirementTable whose items read "condition → result" and name the screen; the text refers to them with Ref, which also reaches tables with another prefix such as F for fraud rules or A for advertiser rules. Leave status out for a requirement that has no state yet. States and tracked events are DataTables: an empty state is an info Callout with the next step, an error is a critical Callout with a retry Button, and a pending state is a Badge or Callout that says what is being checked. Decisions still open go in Options without chosen; mark the preferred one recommended.
 
 ```tsx
 <Figure caption="User screens: list (S1), detail (S2)">
   <Row>
     <Phone scale={0.5}>
-      <div className="stack">…</div>
+      <Stack>…</Stack>
     </Phone>
   </Row>
 </Figure>

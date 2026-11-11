@@ -23,7 +23,7 @@ export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from ".
 export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";
 export { Avatar, List, PhotoGrid, Post, ProfileHeader, Stories, type AvatarProps, type GridPhoto, type ListItem, type ListProps, type PhotoGridProps, type PostProps, type ProfileHeaderProps, type ProfileStat, type StoriesProps, type StoryItem } from "./Social";
-export { Page, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout";
+export { Page, Stack, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout";
 export { Markdown, type MarkdownProps } from "./markdown/Markdown";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
 export { Tabs, type TabItem, type TabsProps } from "./Tabs";
@@ -35,7 +35,7 @@ export { LineChart, type LineChartProps, type LineSeries } from "./charts/LineCh
 export { BarChart, type BarChartProps } from "./charts/BarChart";
 export { Heatmap, type HeatmapProps } from "./charts/Heatmap";
 export { Sparkline, type SparklineProps } from "./charts/Sparkline";
-export { Modal, Sheet, type DialogAction, type DialogProps } from "./overlay/Dialog";
+export { ActionList, Modal, Sheet, type ActionListItem, type ActionListProps, type DialogAction, type DialogProps } from "./overlay/Dialog";
 export { themes, type Theme } from "./theme";
 export { Toast, UIProvider, useConfirm, useToast, type UIProviderProps, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";
 export { Anatomy, Article, ArticleSection, Brand, CardGrid, CopyCode, ErrorBoundary, Example, Guidelines, Paragraphs, PropsTable, RichText, Row, TextList, TokenTable, useCopy, type ArticleProps, type ArticleSectionProps, type ExampleFile, type ExampleProps, type ExampleVariant, type PropsTableProps, type TokenRow } from "./article";

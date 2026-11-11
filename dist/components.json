@@ -2010,6 +2010,17 @@
       ]
     },
     {
+      "name": "Stack",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
       "name": "WidgetGrid",
       "props": [
         {
@@ -2627,6 +2638,23 @@
           "optional": true,
           "kind": "scalar",
           "type": "Color | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ActionList",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "ActionListItem[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": false,
+          "kind": "action",
+          "type": "(id: string) => void"
         }
       ]
     },

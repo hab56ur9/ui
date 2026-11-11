@@ -16,7 +16,7 @@ export default function Example() {
     toast({ message: text.layoutSavedTo, status: "good", duration: 1800 });
   };
   return (
-    <Board onLayoutChange={() => setChanges((n) => n + 1)} onLayoutCommit={commit} toolbar={<span className="toolbar-label">{fill(text.counts, { changes, commits })}</span>}>
+    <Board onLayoutChange={() => setChanges((n) => n + 1)} onLayoutCommit={commit} toolbar={fill(text.counts, { changes, commits })}>
       <Widget id="users" w={4} h={2} title={text.activeUsers}>
         <Stat value={fmt.count(471000)} />
       </Widget>

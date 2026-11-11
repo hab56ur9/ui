@@ -29,3 +29,7 @@ export function WidgetGrid({ flow, children }: WidgetGridProps) {
     </div>
   );
 }
+
+export function Stack({ children }: { children: ReactNode }) {
+  return <div className="stack">{children}</div>;
+}

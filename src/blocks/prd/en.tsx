@@ -1,4 +1,4 @@
-import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Page, Phone, Pros, Ref, RequirementTable, Row, Steps, TextList, Widget, WidgetGrid } from "ui";
+import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Page, Phone, Pros, Ref, RequirementTable, Row, Stack, Steps, TextList, Widget, WidgetGrid } from "ui";
 
 const OFFERS = [
   { title: "Install a coffee brand app", reward: "300P", tone: "main" as const, badge: "Install" },
@@ -8,7 +8,7 @@ const OFFERS = [
 
 function OfferList() {
   return (
-    <div className="stack">
+    <Stack>
       <Callout tone="info" title="Points you can earn today">
         3 offers · up to 1,850P
       </Callout>
@@ -17,13 +17,13 @@ function OfferList() {
           <Button variant="primary">{`Get ${offer.reward}`}</Button>
         </Card>
       ))}
-    </div>
+    </Stack>
   );
 }
 
 function OfferDetail() {
   return (
-    <div className="stack">
+    <Stack>
       <Card title="Install a coffee brand app" description="Install the app and open it once to earn 300P.">
         <TextList ordered items={["Install the app from the store.", "Open the installed app once.", "Points arrive once it is confirmed."]} />
       </Card>
@@ -31,13 +31,13 @@ function OfferDetail() {
         Reinstalling does not count either.
       </Callout>
       <Button variant="primary">Go install</Button>
-    </div>
+    </Stack>
   );
 }
 
 function Rewarded() {
   return (
-    <div className="stack">
+    <Stack>
       <Callout tone="good" title="300P earned">
         Install a coffee brand app · just now
       </Callout>
@@ -45,7 +45,7 @@ function Rewarded() {
         <Meter label="Monthly earning limit" value={2150} max={5000} format={(v) => `${v.toLocaleString()}P`} />
       </Card>
       <Button>See more offers</Button>
-    </div>
+    </Stack>
   );
 }
 
@@ -138,10 +138,10 @@ export function PrdEn() {
             <Page title="Campaign budgets">
               <WidgetGrid>
                 <Widget id="pacing" title="Budget pacing" w={5} h={4}>
-                  <div className="stack">
+                  <Stack>
                     <Meter label="Coffee brand app install · monthly budget" value={6600000} max={21300000} target={7100000} format={(v) => `₩${(v / 1000000).toFixed(1)}M`} status="warning" note="Spending slower than planned." />
                     <Meter label="Insurance consultation · monthly budget" value={15800000} max={20000000} target={14200000} format={(v) => `₩${(v / 1000000).toFixed(1)}M`} status="good" />
-                  </div>
+                  </Stack>
                 </Widget>
                 <Widget id="results" title="Results by offer" w={7} h={4}>
                   <DataTable

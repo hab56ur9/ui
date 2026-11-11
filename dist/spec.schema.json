@@ -414,6 +414,7 @@
             "Post",
             "ProfileHeader",
             "Stories",
+            "Stack",
             "Markdown",
             "TabBar",
             "Tabs",
@@ -429,6 +430,7 @@
             "BarChart",
             "Heatmap",
             "Sparkline",
+            "ActionList",
             "Anatomy",
             "ArticleSection",
             "Brand",
@@ -1796,6 +1798,25 @@
           "if": {
             "properties": {
               "type": {
+                "const": "Stack"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
                 "const": "Markdown"
               }
             }
@@ -2195,6 +2216,31 @@
                 },
                 "required": [
                   "points"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ActionList"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "onSelect": {}
+                },
+                "required": [
+                  "items",
+                  "onSelect"
                 ],
                 "additionalProperties": false
               }

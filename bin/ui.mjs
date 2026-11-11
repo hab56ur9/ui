@@ -234,15 +234,12 @@ function create(args) {
 <body>
   <div id="app"></div>
   <script type="module">
-    import { render, h, themes, Button, Stat } from "${from}";
+    import { render, h, themes, Button, Page, Stat } from "${from}";
 
     render(
       "#app",
-      h("main", { className: "page" },
-        h("h1", { className: "page-title" }, "${t.title}"),
-        h("p", { className: "page-lede" }, "${t.lede}"),
+      h(Page, { title: "${t.title}", lede: "${t.lede}", actions: h(Button, { variant: "primary" }, "${t.start}") },
         h(Stat, { label: "${t.visitors}", value: "1,204", delta: { change: 0.12 } }),
-        h(Button, { variant: "primary" }, "${t.start}"),
       ),
       { theme: themes.lime.minimal },
     );

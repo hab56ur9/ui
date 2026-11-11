@@ -17,7 +17,7 @@ export const pages: Page[] = [
           },
           {
             "title": "Defined in one place",
-            "body": "Color, size and spacing live only in tokens, and pages read them with `var(--…)`."
+            "body": "Color, size and spacing live only in tokens. Components read them; pages use component props only."
           },
           {
             "title": "Sized for the medium",
@@ -48,7 +48,7 @@ export const pages: Page[] = [
     "id": "getting-started",
     "group": "시작하기",
     "title": "Getting started",
-    "lede": "React apps use the components of the `ui` package, and HTML documents and slides without React link only the token CSS and the style CSS. Both pick up changes when the tokens are rebuilt.",
+    "lede": "Every page draws with the components of `ui`: a React app installs the package, and an HTML page imports `dist/ui.js`. Neither names a token or a CSS class, so both pick up every change when ui updates.",
     "sections": [
       {
         "type": "list",
@@ -71,26 +71,15 @@ export const pages: Page[] = [
       },
       {
         "type": "text",
-        "title": "HTML documents and slides",
-        "body": [
-          "Pages without React link the two CSS files and use classes such as buttons, segments and tables directly. Parts that need behavior, such as charts and overlays, are built with React."
-        ]
-      },
-      {
-        "type": "code",
-        "code": "<html lang=\"en\" data-medium=\"doc\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/ui.css\">"
-      },
-      {
-        "type": "text",
         "title": "HTML without a bundler",
         "body": [
-          "One line of `dist/ui.js` is enough. It carries React and loads the two stylesheets itself. Next to every component it exports `render(target, content)`, `h` for elements, and hooks such as `useState`.",
+          "One line of `dist/ui.js` is enough. It carries React and loads its stylesheets itself. Next to every component it exports `render(target, content, { theme })`, `h` for elements, and hooks such as `useState`.",
           "The `dist/ui.js` on the site is always the latest release. To pin a version, use `v/<tag>/ui.js` on the site; the latest 100 releases stay there."
         ]
       },
       {
         "type": "code",
-        "code": "<div id=\"app\"></div>\n<script type=\"module\">\n  import { render, h, Button, Calendar } from \"{homepage}dist/ui.js\";\n\n  render(\"#app\", [h(Button, { variant: \"primary\" }, \"Save\"), h(Calendar)]);\n</script>"
+        "code": "<div id=\"app\"></div>\n<script type=\"module\">\n  import { render, h, themes, Button, Calendar } from \"{homepage}dist/ui.js\";\n\n  render(\"#app\", [h(Button, { variant: \"primary\" }, \"Save\"), h(Calendar)], { theme: themes.lime.minimal });\n</script>"
       },
       {
         "type": "text",

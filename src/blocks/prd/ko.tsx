@@ -1,4 +1,4 @@
-import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Page, Phone, Pros, Ref, RequirementTable, Row, Steps, TextList, Widget, WidgetGrid } from "ui";
+import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Page, Phone, Pros, Ref, RequirementTable, Row, Stack, Steps, TextList, Widget, WidgetGrid } from "ui";
 
 const OFFERS = [
   { title: "커피 브랜드 앱 설치", reward: "300P", tone: "main" as const, badge: "설치형" },
@@ -8,7 +8,7 @@ const OFFERS = [
 
 function OfferList() {
   return (
-    <div className="stack">
+    <Stack>
       <Callout tone="info" title="오늘 받을 수 있는 포인트">
         3개 광고 · 최대 1,850P
       </Callout>
@@ -17,13 +17,13 @@ function OfferList() {
           <Button variant="primary">{`${offer.reward} 받기`}</Button>
         </Card>
       ))}
-    </div>
+    </Stack>
   );
 }
 
 function OfferDetail() {
   return (
-    <div className="stack">
+    <Stack>
       <Card title="커피 브랜드 앱 설치" description="앱을 설치하고 처음 실행하면 300P를 드려요.">
         <TextList ordered items={["스토어에서 앱을 설치합니다.", "설치한 앱을 한 번 엽니다.", "확인되면 바로 적립됩니다."]} />
       </Card>
@@ -31,13 +31,13 @@ function OfferDetail() {
         다시 설치해도 적립되지 않습니다.
       </Callout>
       <Button variant="primary">설치하러 가기</Button>
-    </div>
+    </Stack>
   );
 }
 
 function Rewarded() {
   return (
-    <div className="stack">
+    <Stack>
       <Callout tone="good" title="300P가 적립됐어요">
         커피 브랜드 앱 설치 · 방금 전
       </Callout>
@@ -45,7 +45,7 @@ function Rewarded() {
         <Meter label="이번 달 적립 한도" value={2150} max={5000} format={(v) => `${v.toLocaleString()}P`} />
       </Card>
       <Button>다른 광고 보기</Button>
-    </div>
+    </Stack>
   );
 }
 
@@ -138,10 +138,10 @@ export function PrdKo() {
             <Page title="캠페인 예산">
               <WidgetGrid>
                 <Widget id="pacing" title="예산 소진" w={5} h={4}>
-                  <div className="stack">
+                  <Stack>
                     <Meter label="커피 브랜드 앱 설치 · 월 예산" value={6600000} max={21300000} target={7100000} format={(v) => `₩${(v / 10000).toLocaleString()}만`} status="warning" note="계획보다 느리게 소진되고 있습니다." />
                     <Meter label="보험 상담 신청 · 월 예산" value={15800000} max={20000000} target={14200000} format={(v) => `₩${(v / 10000).toLocaleString()}만`} status="good" />
-                  </div>
+                  </Stack>
                 </Widget>
                 <Widget id="results" title="광고별 결과" w={7} h={4}>
                   <DataTable

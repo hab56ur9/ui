@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Sheet, useToast } from "ui";
+import { ActionList, Button, Sheet, useToast } from "ui";
 import { Row, useText } from "../demo";
 import { Mockup } from "../Mockup";
 
@@ -12,15 +12,7 @@ export default function Example() {
     setOpen(null);
     toast({ message: range });
   };
-  const list = (
-    <ul className="sheet-list">
-      {ranges.map((range) => (
-        <li key={range}>
-          <Button onClick={() => pick(range)}>{range}</Button>
-        </li>
-      ))}
-    </ul>
-  );
+  const list = <ActionList items={ranges.map((range: string) => ({ id: range, label: range }))} onSelect={pick} />;
   const listTitle = text.chooseARange;
   return (
     <>

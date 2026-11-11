@@ -159,3 +159,18 @@ export function Modal<V = string>(props: DialogProps<V> & { size?: "sm" | "md" |
 export function Sheet<V = string>(props: DialogProps<V>) {
   return <Dialog {...props} kind="sheet" />;
 }
+
+export type ActionListItem = { id: string; label: string };
+export type ActionListProps = { items: ActionListItem[]; onSelect: (id: string) => void };
+
+export function ActionList({ items, onSelect }: ActionListProps) {
+  return (
+    <ul className="sheet-list">
+      {items.map((item) => (
+        <li key={item.id}>
+          <Button onClick={() => onSelect(item.id)}>{item.label}</Button>
+        </li>
+      ))}
+    </ul>
+  );
+}

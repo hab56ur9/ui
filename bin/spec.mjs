@@ -245,7 +245,8 @@ function emitter(used) {
   };
   const content = (value) => {
     if (!Array.isArray(value)) return expr(value, "row0");
-    return `h("div", { className: "stack" },\n  ${indent(value.map((item) => `h("div", null, ${expr(item, "row0")})`).join(",\n"), 1)},\n)`;
+    used.add("Stack");
+    return `h(Stack, null,\n  ${indent(value.map((item) => `h("div", null, ${expr(item, "row0")})`).join(",\n"), 1)},\n)`;
   };
   return { expr, content };
 }

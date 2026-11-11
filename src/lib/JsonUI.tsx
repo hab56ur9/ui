@@ -40,7 +40,7 @@ function resolve(value: unknown, ctx: Context, row?: Row): unknown {
 }
 
 function draw(content: JsonUIContent, ctx: Context, row?: Row): ReactNode {
-  if (Array.isArray(content)) return <div className="stack">{content.map((node, i) => <div key={i}>{draw(node, ctx, row)}</div>)}</div>;
+  if (Array.isArray(content)) return <ui.Stack>{content.map((node, i) => <div key={i}>{draw(node, ctx, row)}</div>)}</ui.Stack>;
   const Component = componentOf(content.type);
   if (typeof Component !== "function") return <p className="json-ui-missing">{content.type}</p>;
   const children = content.children === undefined ? [] : [content.children].flat().map((child) => resolve(child, ctx, row) as ReactNode);
