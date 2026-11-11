@@ -57,6 +57,20 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  meter: [
+    {
+      type: "api",
+      title: "<Meter>",
+      rows: [
+        ["label", "ReactNode", "", "What is being measured."],
+        ["value · max", "number", "max 100", "The amount used and the total."],
+        ["target", "number", "", "Draws a mark at a planned amount."],
+        ["format", "(value: number) => string", "toLocaleString", "Formats the value and the total."],
+        ["status", "\"good\" | \"warning\" | \"critical\"", "", "Colors the bar and adds an icon with a label; leave it out for a neutral meter."],
+        ["note", "ReactNode", "", "A supporting line below the bar."],
+      ],
+    },
+  ],
   stat: [
     {
       type: "api",

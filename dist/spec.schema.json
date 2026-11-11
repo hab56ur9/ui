@@ -429,7 +429,8 @@
             "RichText",
             "Row",
             "TextList",
-            "TokenTable"
+            "TokenTable",
+            "Meter"
           ]
         },
         "description": {
@@ -2500,6 +2501,36 @@
                 },
                 "required": [
                   "rows"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Meter"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "value": {},
+                  "max": {},
+                  "target": {},
+                  "format": {},
+                  "status": {},
+                  "note": {}
+                },
+                "required": [
+                  "label",
+                  "value"
                 ],
                 "additionalProperties": false
               }

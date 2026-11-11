@@ -1153,6 +1153,19 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "meter",
+    "group": "데이터",
+    "title": "진행률",
+    "lede": "진행률은 예산 소진이나 목표 달성처럼 정해진 전체 중 얼마를 썼는지 보여 줍니다. 목표 표시와 상태를 더할 수 있고, 상태는 항상 아이콘과 이름표가 함께 나옵니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "meter-basic"
+      }
+    ]
+  },
+  {
     "id": "board",
     "group": "데이터",
     "title": "위젯 보드",

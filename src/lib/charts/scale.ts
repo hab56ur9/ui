@@ -3,7 +3,8 @@ import type { Point } from "../types";
 
 const GLYPH = 0.62;
 
-export const textWidth = (text: string, size: number) => text.length * size * GLYPH;
+const WIDE = /[\u1100-\u11ff\u3040-\u30ff\u3130-\u318f\u4e00-\u9fff\uac00-\ud7af\uff00-\uffef]/;
+export const textWidth = (text: string, size: number) => [...text].reduce((sum, char) => sum + (WIDE.test(char) ? 1 : GLYPH), 0) * size;
 export const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 export const finite = (values: (number | undefined)[]) => values.filter((v): v is number => Number.isFinite(v));
 
@@ -25,8 +26,9 @@ export function niceTicks(min: number, max: number, count: number) {
   return Array.from({ length: Math.round((end - start) / step) + 1 }, (_, i) => +(start + i * step).toFixed(10));
 }
 
-export function categoryTicks(labels: string[], count: number) {
-  const step = Math.max(1, Math.ceil(labels.length / Math.max(count, 1)));
+export function categoryTicks(labels: string[], spacing: number, size: number) {
+  const widest = Math.max(0, ...labels.map((label) => textWidth(label, size))) + size;
+  const step = Math.max(1, Math.ceil(widest / Math.max(spacing, 1)));
   return { ticks: labels.map((_, i) => i).filter((i) => i % step === 0), format: (t: number) => labels[t] ?? "" };
 }
 

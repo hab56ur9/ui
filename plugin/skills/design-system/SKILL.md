@@ -38,7 +38,7 @@ createRoot(root).render(
 
 ## HTML pages
 
-A page without a bundler imports the component module in one line. The module carries React, loads the stylesheets and the color presets itself, and exports every component with render and h.
+A page without a bundler imports the component module in one line. The module carries React, loads the stylesheets, presets and styles itself, and exports every component together with render, h, Fragment, useState, useEffect, useMemo and useRef. render(target, node, { lang }) already wraps the tree in UIProvider, so toasts and confirms work without adding one; lang sets the component language.
 
 ```html
 <div id="app"></div>
@@ -48,9 +48,9 @@ A page without a bundler imports the component module in one line. The module ca
 </script>
 ```
 
-A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right; the reviewer opens it to switch between the color presets, the styles and the light, dark and system modes, so one page is checked under every preset and style. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
+A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right, so the page ends with about var(--space-16) of empty space to keep the last widget clear; the reviewer opens it to switch between the color presets, the styles and the light, dark and system modes, so one page is checked under every preset and style. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
 
-A page that cannot run scripts links the token stylesheet and the component stylesheet and uses the CSS classes directly: button, segmented, data-table, page, toolbar.
+A page that cannot run scripts links the token stylesheet and the component stylesheet and uses the CSS classes directly: button, segmented, data-table, page, page-head, page-title, page-lede, toolbar. A page that runs scripts uses the Page component for its title, lede and actions instead of those classes.
 
 ```html
 <html lang="en" data-medium="doc">
@@ -67,6 +67,29 @@ The page sets its medium on the root element: app for dense tools and dashboards
 ```html
 <html lang="ko" data-medium="app" data-preset="sky" data-style="expressive">
 ```
+
+## Component reference
+
+Every exported component and its props are listed in https://hab56ur9.github.io/ui/dist/components.json (name, required flag and kind of each prop). Each component also has a docs page at https://hab56ur9.github.io/ui/#/<page> whose last section is an API table with types, defaults and meaning. These are the props a dashboard needs most; a star marks a required prop.
+
+| Component | Props |
+| --- | --- |
+| AppShell | brand*, nav* (groups of { title?, items: { id, label, icon?, href?, onSelect?, current?, sub? }[] }), navHeader, title, actions, aside, scroll ("frame" scrolls inside the shell, "page" scrolls the document; use "page" when the page should print or be captured whole), mobileNav, tabBar |
+| Page | title, lede, actions, children* |
+| Board | initialLayout, onLayoutChange (every move, for live mirrors), onLayoutCommit (once after changes settle; save from this one), commitDelay, toolbar, actions, busy |
+| Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card" or "plain") |
+| Stat | label, value*, delta ({ change: ratio, goodWhenUp?, label }), note, trend (Point[]), color, size |
+| Meter | label*, value*, max (100), target, format, status ("good", "warning", "critical"), note; use it for budget spent, quota and goal progress |
+| LineChart | series* ({ name, points, color?, dashed?, area?, flagBreaches? }[]), format ({ axis, value?, date? }), band, threshold ({ value, label, breach }), baseline, annotations, endLabels, categories |
+| BarChart | points*, name, color, colorOf, format, categories |
+| Heatmap | rows*, columns*, values*, format* ({ value, column?, cell? }), labelEvery, ramp, zeroIsEmpty |
+| Sparkline | points*, color |
+| DataTable | columns* ({ label, numeric?, wrap?, width? }[]), rows* (cells are strings or { text?, content?, color?, swatch?, delta?, render? }), fit |
+| Badge | children*, tone ("neutral", "main", "good", "warning", "critical"), variant ("soft", "solid", "outline") |
+| Segmented | options* ({ value, label }[]), value or defaultValue, label*, onChange |
+| Tabs | items* ({ id, label }[]), value or defaultValue, onChange, variant ("line", "pill") |
+
+Time series are { t, v } with t as a millisecond timestamp in local time. A category axis passes categories (string[]) and uses the index as t. Numbers are formatted by the page with Intl.NumberFormat; compact Korean amounts read better with useGrouping: "always" (₩9,542.5만, not ₩9542.5만).
 
 ## Snapshot outputs
 
@@ -132,12 +155,12 @@ A guide, reference or how-to page uses the parts the documentation site is built
 
 ## Chart rules
 
-- Series take color slots 1 to 8 in fixed order and keep their slot when filters change.
+- Series take color slots 1 to 8 in fixed order and keep their slot when filters change. A single series uses slot 1, and series of equal weight take slots in order.
 - One y-axis per chart; compare different units by indexing to 100.
 - Two or more series get a legend, plus direct end labels while they do not collide.
 - One series that carries the story uses chart.emphasis; its comparison uses chart.de-emphasis.
 - Every chart widget offers a table view; tooltips list every series at the hovered date.
-- Status colors mean state only and always travel with an icon and a label.
+- Status colors mean state only and always travel with a second cue: a Badge's dot plus its label is enough; Meter and alerts add an icon.
 - Text uses fg tokens; series colors belong to marks.
 
 ## Check

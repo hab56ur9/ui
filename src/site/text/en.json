@@ -644,5 +644,13 @@
   },
   "typography-sizes": {
     "quickBrownFox": "Quick brown fox 48.2K"
+  },
+  "meter-basic": {
+    "budget": "Monthly budget spent",
+    "budgetNote": "The line marks the plan for today.",
+    "goal": "Steps today",
+    "goalNote": "Goal reached at 10,000.",
+    "quota": "Storage used",
+    "quotaNote": "Free space or upgrade the plan."
   }
 }

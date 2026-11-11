@@ -1135,6 +1135,19 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "meter",
+    "group": "데이터",
+    "title": "Meter",
+    "lede": "A meter shows how much of a known total is used, such as budget spent or a goal reached. It adds an optional target mark and a status that always comes with an icon and a label.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "meter-basic"
+      }
+    ]
+  },
+  {
     "id": "board",
     "group": "데이터",
     "title": "Widget board",

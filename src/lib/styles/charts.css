@@ -345,3 +345,102 @@
   height: var(--chart-size-sparkline);
   vertical-align: middle;
 }
+
+.meter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.meter-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.meter-label {
+  overflow: hidden;
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-label);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meter-value {
+  color: var(--color-fg-default);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.meter-max {
+  color: var(--color-fg-muted);
+  font-weight: var(--font-weight-regular);
+}
+
+.meter-track {
+  position: relative;
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-subtle);
+}
+
+.meter-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--meter);
+  border-radius: var(--radius-pill);
+  background: var(--color-main-default);
+}
+
+.meter.is-good .meter-fill {
+  background: var(--color-status-good);
+}
+
+.meter.is-warning .meter-fill {
+  background: var(--color-status-warning);
+}
+
+.meter.is-critical .meter-fill {
+  background: var(--color-status-critical);
+}
+
+.meter-target {
+  position: absolute;
+  top: calc(-1 * var(--space-1));
+  bottom: calc(-1 * var(--space-1));
+  left: var(--meter-target);
+  width: var(--border-width-strong);
+  background: var(--color-fg-default);
+}
+
+.meter-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-caption);
+}
+
+.meter-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-fg-default);
+}
+
+.meter.is-good .meter-status .icon {
+  color: var(--color-status-good);
+}
+
+.meter.is-warning .meter-status .icon {
+  color: var(--color-status-warning);
+}
+
+.meter.is-critical .meter-status .icon {
+  color: var(--color-status-critical);
+}

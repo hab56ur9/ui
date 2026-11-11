@@ -44,7 +44,7 @@ function BarPlot({ points, name = "", format, title, width, height, node, ...pro
   const final = points[points.length - 1].t;
   const time = linear([first, final], [x(0), x(points.length - 1)]);
   const count = Math.floor((time(final) - time(first)) / (size * 6));
-  const axis = props.categories ? categoryTicks(props.categories, count) : timeTicks(first, final, count, locale);
+  const axis = props.categories ? categoryTicks(props.categories, band, size) : timeTicks(first, final, count, locale);
   const { index, handlers } = useScrub(
     svg,
     points.map((_, i) => x(i)),

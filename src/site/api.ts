@@ -57,6 +57,20 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  meter: [
+    {
+      type: "api",
+      title: "<Meter>",
+      rows: [
+        ["label", "ReactNode", "", "무엇을 재는지입니다."],
+        ["value · max", "number", "max 100", "사용한 양과 전체입니다."],
+        ["target", "number", "", "계획한 양에 표시를 그립니다."],
+        ["format", "(value: number) => string", "toLocaleString", "값과 전체의 형식입니다."],
+        ["status", "\"good\" | \"warning\" | \"critical\"", "", "막대 색을 바꾸고 아이콘과 이름표를 더합니다. 중립이면 생략합니다."],
+        ["note", "ReactNode", "", "막대 아래 보조 문장입니다."],
+      ],
+    },
+  ],
   stat: [
     {
       type: "api",

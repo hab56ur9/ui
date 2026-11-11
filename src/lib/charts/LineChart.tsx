@@ -62,7 +62,7 @@ function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabel
   const x = linear([t0, t1], [margin.left, width - margin.right]);
   const y = linear([yTicks[0], yTicks[yTicks.length - 1]], [height - margin.bottom, margin.top]);
   const count = Math.floor((x(t1) - x(t0)) / (size * 6));
-  const axis = categories ? categoryTicks(categories, count) : timeTicks(t0, t1, count, locale);
+  const axis = categories ? categoryTicks(categories, x(t0 + 1) - x(t0), size) : timeTicks(t0, t1, count, locale);
   const breaching = (v: number) => threshold !== undefined && v > threshold.value;
   const lookup = drawn.map((s) => new Map(s.points.map(({ t, v }) => [t, v])));
   const positions = times.map(x);

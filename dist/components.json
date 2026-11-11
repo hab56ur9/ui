@@ -2768,6 +2768,51 @@
           "type": "TokenRow[]"
         }
       ]
+    },
+    {
+      "name": "Meter",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "node"
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "kind": "number"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "target",
+          "optional": true,
+          "kind": "number"
+        },
+        {
+          "name": "format",
+          "optional": true,
+          "kind": "action"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "critical",
+            "good",
+            "warning"
+          ]
+        },
+        {
+          "name": "note",
+          "optional": true,
+          "kind": "node"
+        }
+      ]
     }
   ]
 }

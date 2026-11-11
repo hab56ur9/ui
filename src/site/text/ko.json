@@ -644,5 +644,13 @@
   },
   "typography-sizes": {
     "quickBrownFox": "다람쥐 헌 쳇바퀴 47.1만"
+  },
+  "meter-basic": {
+    "budget": "월 예산 소진",
+    "budgetNote": "세로선은 오늘까지의 계획입니다.",
+    "goal": "오늘 걸음 수",
+    "goalNote": "10,000걸음이면 목표 달성입니다.",
+    "quota": "저장 공간 사용",
+    "quotaNote": "공간을 비우거나 요금제를 올리세요."
   }
 }
