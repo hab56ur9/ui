@@ -11,26 +11,22 @@ The token set is the single source of every color, size, space and chart spec. T
 ```text
 https://hab56ur9.github.io/ui/
 https://hab56ur9.github.io/ui/#/blocks
-https://hab56ur9.github.io/ui/dist/tokens.css
 https://hab56ur9.github.io/ui/dist/tokens.json
 ```
 
 ## React apps
 
-An interactive page is a React app that installs the package from GitHub. React and react-dom are the only runtime libraries; the package ships its TSX source, so the app's bundler compiles it (Vite needs nothing, Next.js lists ui in transpilePackages). The entry imports the token stylesheet, plus the preset and style sheets when the app lets people switch them, and wraps the tree in UIProvider, which hosts toasts and confirms and sets the component language.
+An interactive page is a React app that installs the package from GitHub. React and react-dom are the only runtime libraries; the package ships its TSX source, so the app's bundler compiles it (Vite needs nothing, Next.js lists ui in transpilePackages). The entry wraps the tree in UIProvider and passes one theme constant. UIProvider loads every stylesheet, applies the theme, hosts toasts and confirms and sets the component language. The app imports no CSS from ui and never reads tokens; it knows only component props.
 
 ```bash
 npm install github:hab56ur9/ui react react-dom
 ```
 
 ```tsx
-import "ui/tokens.css";
-import "ui/presets.css";
-import "ui/styles.css";
-import { UIProvider } from "ui";
+import { UIProvider, themes } from "ui";
 
 createRoot(root).render(
-  <UIProvider lang="en">
+  <UIProvider theme={themes.sky.minimal} lang="en">
     <App />
   </UIProvider>,
 );
@@ -38,17 +34,17 @@ createRoot(root).render(
 
 ## HTML pages
 
-A page without a bundler imports the component module in one line. The module carries React, loads the stylesheets, presets and styles itself, and exports every component together with render, h, Fragment, useState, useEffect, useMemo, useRef, useI18n (lang, locale and text for the current language), useToast, useConfirm, iconNames and DAY (one day in milliseconds). render(target, node, { lang }) already wraps the tree in UIProvider, so toasts and confirms work without adding one; lang sets the component language.
+A page without a bundler imports the component module in one line. The module carries React, loads the stylesheets, presets and styles itself, and exports every component together with render, h, Fragment, useState, useEffect, useMemo, useRef, useI18n (lang, locale and text for the current language), useToast, useConfirm, iconNames and DAY (one day in milliseconds). render(target, node, { theme, lang }) already wraps the tree in UIProvider, so toasts and confirms work without adding one; theme is required and comes from themes, and lang sets the component language.
 
 ```html
 <div id="app"></div>
 <script type="module">
-  import { render, h, Button, ThemePicker } from "https://hab56ur9.github.io/ui/dist/ui.js";
-  render("#app", [h(Button, { variant: "primary" }, "Save"), h(ThemePicker, { floating: true })]);
+  import { render, h, themes, Button } from "https://hab56ur9.github.io/ui/dist/ui.js";
+  render("#app", h(Button, { variant: "primary" }, "Save"), { theme: themes.sky.minimal });
 </script>
 ```
 
-A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right and reserves space at the end of the page so the last widget stays clear; the reviewer opens it to switch between the color presets, the styles and the light, dark and system modes, so one page is checked under every preset and style. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
+A page made for review shows the one theme the product ships. The reviewer checks dark mode by switching the system setting.
 
 Blocks and examples are written in JSX; their source is at https://github.com/hab56ur9/ui/tree/master/src/blocks. In an HTML page, write `<Widget id="a" w={3} h={2}>{child}</Widget>` as `h(Widget, { id: "a", w: 3, h: 2 }, child)` and a fragment as `h(Fragment, null, …)`. To capture a page in one theme, set `data-theme="light"` or `"dark"` on the html element.
 
@@ -64,11 +60,11 @@ A page that cannot run scripts links the token stylesheet and the component styl
 
 ## Modes
 
-The page sets its medium on the root element: app for dense tools and dashboards, doc for long-form technical pages, and slide for projected decks. The theme follows the system unless the page sets data-theme. The language comes from the lang attribute: ko picks the Hangul font stack and en the Latin one, and a nested element with its own lang switches fonts for that element. Every color, size and space is a var(--*) token. The look follows two more attributes. data-preset picks the brand colors (lime, sky, mono). data-style picks the design language: minimal is the default; expressive uses large radii and an overshooting entrance; brutal uses square corners, thick borders and hard offset shadows. A style changes shape, border, focus ring, elevation, floating-surface material and motion, never color, so pick the style that fits the product and leave contrast to the tokens. Parts a language needs beyond those values, such as morphing buttons or refraction, belong to the app; docs/design-language-guide.md in the repository lists what tokens cover and how to add a style.
+Templates set the medium: Doc, Resume and Portfolio use doc, Deck uses slide, and everything else uses app. Dark mode follows the system setting. The language comes from the lang option or attribute: ko picks the Hangul font stack and en the Latin one.
 
-```html
-<html lang="ko" data-medium="app" data-preset="sky" data-style="expressive">
-```
+The look comes from the theme constant alone, `themes.<preset>.<style>`. The preset picks the brand colors (lime, sky, mono). The style picks the design language: minimal is the default; expressive uses large radii and an overshooting entrance; brutal uses square corners, thick borders and hard offset shadows. A style changes shape, border, focus ring, elevation, floating-surface material and motion, never color. The app picks one constant at its root and cannot change part of it.
+
+When a page needs a part that no component covers, the part is added to ui as a component first, and the page then uses it.
 
 ## Component reference
 
@@ -79,7 +75,7 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | AppShell | brand*, nav* (groups of { title?, items: { id, label, icon?, href?, onSelect?, current?, sub? }[] }), navHeader, title, actions, aside, scroll ("frame" scrolls inside the shell, "page" scrolls the document; use "page" when the page should print or be captured whole), mobileNav, tabBar |
 | Page | title, lede, actions (any number of buttons; they line up at the right), children* |
 | Board | initialLayout, onLayoutChange (every move, for live mirrors), onLayoutCommit (once after changes settle; save from this one), commitDelay, toolbar, actions, busy |
-| Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows of var(--widget-row), 72px in the app medium; the height is fixed, so a DataTable widget with n rows needs h = ceil((n + 1) / 2) + 1, which can leave up to one row of space; charts read well at h 4–5 and a widget fits about two Meters per row of h), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card" or "plain") |
+| Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows of 72px in the app medium; the height is fixed, so a DataTable widget with n rows needs h = ceil((n + 1) / 2) + 1, which can leave up to one row of space; charts read well at h 4–5 and a widget fits about two Meters per row of h), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card" or "plain") |
 | Stat | label, value*, delta ({ change: ratio, goodWhenUp?, neutral?, label }; neutral for values such as spend whose rise is neither good nor bad), note, trend (Point[]), color, size |
 | Meter | label*, value*, max (100), target, format, status ("good" reads On track, "warning" At risk, "critical" Off track; the page decides the rule, for example warning when pacing drifts more than 10% from plan and critical when the projection overspends or underspends the budget beyond the page's tolerance; the status label and icon come with it, so note says something else, such as the projection), note; use it for budget spent, quota and goal progress; consecutive meters space themselves |
 | LineChart | series* ({ name, points, color?, dashed?, area?, flagBreaches? }[]), format ({ axis, value?, date? }), band, threshold ({ value, label, breach, direction?: "above" or "below" }; below for a floor such as a minimum CTR), baseline, annotations, endLabels, categories |

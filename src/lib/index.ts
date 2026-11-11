@@ -1,3 +1,6 @@
+import "../../dist/tokens.css";
+import "../../dist/presets.css";
+import "../../dist/styles.css";
 import "./styles.css";
 
 export type { Color, Format, Point, Swatch } from "./types";
@@ -24,7 +27,6 @@ export { Page, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout
 export { Markdown, type MarkdownProps } from "./markdown/Markdown";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
 export { Tabs, type TabItem, type TabsProps } from "./Tabs";
-export { DisplaySwitch, ThemePicker, useDisplay, type ThemePickerProps, type ThemePickerValue, type Display, type DisplayOptions, type DisplaySwitchProps, type DisplayValue, type Medium, type Theme } from "./display";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";
 export { Button, Delta, Segmented, Stat, type ButtonProps, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";
 export { CodeBlock, Highlight, type CodeBlockProps, type CodeLang } from "./Code";
@@ -34,7 +36,8 @@ export { BarChart, type BarChartProps } from "./charts/BarChart";
 export { Heatmap, type HeatmapProps } from "./charts/Heatmap";
 export { Sparkline, type SparklineProps } from "./charts/Sparkline";
 export { Modal, Sheet, type DialogAction, type DialogProps } from "./overlay/Dialog";
-export { Toast, UIProvider, useConfirm, useToast, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";
+export { themes, type Theme } from "./theme";
+export { Toast, UIProvider, useConfirm, useToast, type UIProviderProps, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";
 export { Anatomy, Article, ArticleSection, Brand, CardGrid, CopyCode, ErrorBoundary, Example, Guidelines, Paragraphs, PropsTable, RichText, Row, TextList, TokenTable, useCopy, type ArticleProps, type ArticleSectionProps, type ExampleFile, type ExampleProps, type ExampleVariant, type PropsTableProps, type TokenRow } from "./article";
 export { Meter, type MeterProps, type MeterStatus } from "./Meter";
 export { Browser, Phone } from "./devices";

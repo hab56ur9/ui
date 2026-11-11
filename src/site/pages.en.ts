@@ -56,9 +56,9 @@ export const pages: Page[] = [
         "ordered": true,
         "items": [
           "Install `ui`, `react` and `react-dom` from the GitHub repository.",
-          "Import `ui/tokens.css` in the app entry point and wrap the root in `UIProvider`.",
-          "Set the medium on `<html>`. Dashboards use `app`, technical documents use `doc`, and presentations use `slide`.",
-          "Use only `var(--…)` tokens for color, size and spacing. The lint catches hard-coded color values."
+          "Wrap the app root in `UIProvider` and pass one theme from `themes` as `theme`. `UIProvider` loads the CSS.",
+          "Templates set the medium. The default is `app`; `Doc` uses `doc` and `Deck` uses `slide`. Dark mode follows the system setting.",
+          "Components decide color, size and spacing. The app uses component props only and never reads tokens."
         ]
       },
       {
@@ -67,7 +67,7 @@ export const pages: Page[] = [
       },
       {
         "type": "code",
-        "code": "import { createRoot } from \"react-dom/client\";\nimport \"ui/tokens.css\";\nimport { UIProvider } from \"ui\";\nimport { App } from \"./App\";\n\ncreateRoot(document.getElementById(\"root\")!).render(\n  <UIProvider>\n    <App />\n  </UIProvider>,\n);"
+        "code": "import { createRoot } from \"react-dom/client\";\nimport { UIProvider, themes } from \"ui\";\nimport { App } from \"./App\";\n\ncreateRoot(document.getElementById(\"root\")!).render(\n  <UIProvider theme={themes.lime.minimal}>\n    <App />\n  </UIProvider>,\n);"
       },
       {
         "type": "text",
@@ -174,7 +174,7 @@ export const pages: Page[] = [
         "type": "text",
         "title": "Presets",
         "body": [
-          "A preset is a pair of main and sub colors. Components use only the `main` and `sub` role tokens, so adding one preset stylesheet and switching `data-preset` changes buttons, links, focus, the current item and emphasized charts together. Compare them with the Color switch at the top right."
+          "A preset is a pair of main and sub colors. Components use only the `main` and `sub` role tokens, so switching the preset of the theme constant passed to `UIProvider` changes buttons, links, focus, the current item and emphasized charts together. Compare them with the Color switch at the top right."
         ]
       },
       {
@@ -183,13 +183,13 @@ export const pages: Page[] = [
           "`lime` Light green + neutral: the default, used when no preset is set.",
           "`sky` Sky + neutral",
           "`mono` Neutral: a calm set where the main color is neutral too.",
-          "For a new preset, copy `tokens/preset/lime.json` and change the colors; the build writes `dist/presets/<name>.css`. Pick steps that pass the contrast checks."
+          "For a new preset, copy `tokens/preset/lime.json` and change the colors; the build writes the preset stylesheet. Then add the same name to `themes` in `src/lib/theme.ts`. Pick steps that pass the contrast checks."
         ]
       },
       {
         "type": "code",
         "lang": "html",
-        "code": "<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/presets/sky.css\">\n<html data-preset=\"sky\">"
+        "code": "<UIProvider theme={themes.sky.minimal}>\n  <App />\n</UIProvider>"
       },
       {
         "type": "anatomy",
@@ -726,32 +726,6 @@ export const pages: Page[] = [
         "items": [
           "The grid is `role=\"grid\"`: arrows move by a day or a week, PageUp and PageDown by a month, Home and End to the start and end of the week.",
           "Each date button reads as the full date, today carries `aria-current=\"date\"`, and the picked day `aria-selected`."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "themepicker",
-    "group": "입력",
-    "title": "Theme picker",
-    "lede": "A theme picker switches the color preset and the mode (system, light, dark) from one Theme button. Opening it shows each preset's main and sub colors as a palette. The choice applies at once to `data-preset` and `data-theme` on the document root and leaves through `onChange`. Placed with `floating` on a page an AI made, it lets a reviewer check that page under every preset.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "Floating",
-        "example": "themepicker-floating"
-      },
-      {
-        "type": "demo",
-        "title": "Button and panel",
-        "example": "themepicker-basic",
-        "layout": "centered"
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "The panel is a `dialog` and the presets a `radiogroup`; Escape or a click outside closes it.",
-          "Several pickers on one page follow the document root together, so they never disagree."
         ]
       }
     ]

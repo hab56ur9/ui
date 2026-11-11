@@ -2185,58 +2185,6 @@
       ]
     },
     {
-      "name": "DisplaySwitch",
-      "props": [
-        {
-          "name": "display",
-          "optional": false,
-          "kind": "object",
-          "type": "{ theme: Theme; medium: Medium; setTheme: (theme: Theme) => void; setMedium: (medium: Medium) => void; switchable: boolean; }"
-        }
-      ]
-    },
-    {
-      "name": "ThemePicker",
-      "props": [
-        {
-          "name": "preset",
-          "optional": true,
-          "kind": "string",
-          "type": "string | null | undefined"
-        },
-        {
-          "name": "theme",
-          "optional": true,
-          "kind": "string",
-          "type": "string | null | undefined"
-        },
-        {
-          "name": "style",
-          "optional": true,
-          "kind": "string",
-          "type": "string | null | undefined"
-        },
-        {
-          "name": "onChange",
-          "optional": true,
-          "kind": "action",
-          "type": "((value: ThemePickerValue) => void) | undefined"
-        },
-        {
-          "name": "floating",
-          "optional": true,
-          "kind": "boolean",
-          "type": "boolean | undefined"
-        },
-        {
-          "name": "inline",
-          "optional": true,
-          "kind": "boolean",
-          "type": "boolean | undefined"
-        }
-      ]
-    },
-    {
       "name": "DataTable",
       "props": [
         {
@@ -2843,6 +2791,12 @@
     {
       "name": "UIProvider",
       "props": [
+        {
+          "name": "theme",
+          "optional": false,
+          "kind": "object",
+          "type": "Theme"
+        },
         {
           "name": "lang",
           "optional": true,

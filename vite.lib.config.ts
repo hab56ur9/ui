@@ -16,7 +16,7 @@ export default defineConfig({
     {
       name: "styles-ship-separately",
       enforce: "pre",
-      resolveId: (id) => (id.endsWith("styles.css") ? "\0styles" : undefined),
+      resolveId: (id) => (id.endsWith(".css") ? "\0styles" : undefined),
       load: (id) => (id === "\0styles" ? "export {}" : undefined),
     },
   ],

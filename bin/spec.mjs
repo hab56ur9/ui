@@ -1,6 +1,6 @@
 export const SPEC_VERSION = 1;
 export const BUILTIN_ACTIONS = { navigate: ["screen"], open: ["overlay"], close: [] };
-const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "ThemePicker", "Modal", "Sheet", "Toast"]);
+const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "Modal", "Sheet", "Toast"]);
 const KINDS = ["modal", "sheet"];
 const VARIANTS = ["primary", "secondary", "danger"];
 
@@ -20,6 +20,7 @@ export function checkSpec(spec, components) {
   if (spec.spec !== SPEC_VERSION) fail("spec", `must be ${SPEC_VERSION}`);
   if (!isObject(spec.app) || typeof spec.app.name !== "string") fail("app.name", "is required");
   if (!described(spec.app)) fail("app.description", "is required");
+  if (spec.app?.theme !== undefined && !THEMES.includes(spec.app.theme)) fail("app.theme", `must be one of ${THEMES.join(", ")}`);
   if (!screens[spec.start]) fail("start", `names no screen (${spec.start})`);
   for (const [key, slot] of Object.entries(data)) {
     if (!described(slot)) fail(`data.${key}.description`, "is required");
@@ -172,7 +173,7 @@ export function specSchema(components) {
     required: ["spec", "app", "start", "screens"],
     properties: {
       spec: { const: SPEC_VERSION },
-      app: entry({ name: { type: "string" }, density: { enum: ["comfortable", "compact"] } }, ["name"]),
+      app: entry({ name: { type: "string" }, theme: { enum: THEMES }, density: { enum: ["comfortable", "compact"] } }, ["name"]),
       start: { type: "string" },
       frame: {
         type: "object",
@@ -207,7 +208,8 @@ export function specSchema(components) {
   };
 }
 
-const FRAME = ["AppShell", "Page", "WidgetGrid", "Widget", "Button", "Icon", "Modal", "Sheet", "Pager", "Fragment", "useToast", "useState", "useEffect", "render", "h"];
+const THEMES = ["lime", "sky", "mono"].flatMap((preset) => ["minimal", "expressive", "brutal"].map((style) => `${preset}.${style}`));
+const FRAME = ["themes", "AppShell", "Page", "WidgetGrid", "Widget", "Button", "Icon", "Modal", "Sheet", "Pager", "Fragment", "useToast", "useState", "useEffect", "render", "h"];
 const quote = (value) => JSON.stringify(value);
 const keyOf = (key) => (/^[A-Za-z_$][\w$]*$/.test(key) ? key : quote(key));
 const indent = (text, depth) => text.replace(/\n/g, `\n${"  ".repeat(depth)}`);
@@ -387,7 +389,7 @@ function App() {
   );
 }
 
-render("#app", h(App), { lang: ${quote(lang)} });`;
+render("#app", h(App), { theme: themes.${spec.app.theme ?? "lime.minimal"}, lang: ${quote(lang)} });`;
   return `<!doctype html>
 <html lang="${lang}" data-medium="app">
 <head>

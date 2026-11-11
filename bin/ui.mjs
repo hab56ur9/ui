@@ -233,9 +233,8 @@ function create(args) {
 </head>
 <body>
   <div id="app"></div>
-  <div id="theme"></div>
   <script type="module">
-    import { render, h, Button, Stat, ThemePicker } from "${from}";
+    import { render, h, themes, Button, Stat } from "${from}";
 
     render(
       "#app",
@@ -245,8 +244,8 @@ function create(args) {
         h(Stat, { label: "${t.visitors}", value: "1,204", delta: { change: 0.12 } }),
         h(Button, { variant: "primary" }, "${t.start}"),
       ),
+      { theme: themes.lime.minimal },
     );
-    render("#theme", h(ThemePicker, { floating: true }));
   </script>
 </body>
 </html>

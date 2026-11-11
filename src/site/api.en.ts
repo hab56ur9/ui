@@ -29,8 +29,9 @@ export const api: Record<string, Section[]> = {
     {
       type: "api",
       title: "UIProvider",
-      description: "Provides the place where toasts and confirm dialogs open, and the language. Place it once at the app root.",
+      description: "Provides the theme, the place where toasts and confirm dialogs open, and the language. Place it once at the app root; it also loads the CSS.",
       rows: [
+        ["theme", "Theme", "required", "One of `themes.<preset>.<style>`, such as `themes.sky.expressive`. The app picks one and cannot spread or change it."],
         ["lang", "string", "<html lang>", "The language of built-in component text (Close, Cancel and so on) and of date and number formats. Languages outside the table fall back to `ko`."],
         ["useToast()", "(props) => ToastHandle", "", "Returns a function that opens a toast."],
         ["useConfirm()", "(props) => Promise<boolean>", "", "Returns a function that opens a confirm dialog and waits for the result."],
@@ -133,16 +134,6 @@ export const api: Record<string, Section[]> = {
         ["minW · minH · maxH", "number", "2 · 2 · 10", "The resize range."],
         ["children", "ReactNode", "", "The body. Charts, stat cards and tables go in as they are."],
         ["table", "() => DataTableProps", "", "When present, a `Table` button appears and shows the same data in a `<DataTable>`."],
-      ],
-    },
-    {
-      type: "api",
-      title: "useDisplay({ theme?, medium?, mediumSwitch?, onChange? }) · <DisplaySwitch>",
-      description: "Two switches that pick the theme and the medium. The chosen values land on `data-theme` and `data-medium` of `<html>`. The app passes the starting values and hears changes through `onChange`; where to remember them is up to the app. With `mediumSwitch: false` the medium stays app and only the theme switch is drawn, as on this docs site.",
-      rows: [
-        ["theme · setTheme", '"system" | "light" | "dark"', '"system"', "`system` follows the operating system setting."],
-        ["medium · setMedium", '"app" | "doc" | "slide"', '"app"', "When the medium changes, `<Board key={display.medium}>` redraws the board."],
-        ["<DisplaySwitch display>", "Display", "", "Takes the return value of `useDisplay()` and draws the two switches."],
       ],
     },
     {
@@ -450,18 +441,6 @@ export const api: Record<string, Section[]> = {
         ["items", "{ id, title, description?, avatar?, meta? }[]", "", ""],
         ["onSelect", "(id) => void", "", ""],
         ["label", "string", "", ""],
-      ],
-    },
-  ],
-  themepicker: [
-    {
-      type: "api",
-      title: "<ThemePicker>",
-      rows: [
-        ["preset · theme · style", "string · \"system\" | \"light\" | \"dark\" · string", "first preset · \"system\" · \"minimal\"", "Starting values; the app stores them and passes them back in."],
-        ["onChange", "({ preset, theme, style }) => void", "", "Called on every choice."],
-        ["inline", "boolean", "false", "Shows the panel without the button, for docs and review screens."],
-        ["floating", "boolean", "false", "Pins it to the bottom right, for review pages."],
       ],
     },
   ],

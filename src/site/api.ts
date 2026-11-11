@@ -29,8 +29,9 @@ export const api: Record<string, Section[]> = {
     {
       type: "api",
       title: "UIProvider",
-      description: "토스트와 확인 창을 띄울 자리와 언어를 제공합니다. 앱 최상위에 한 번 둡니다.",
+      description: "테마, 토스트와 확인 창을 띄울 자리, 언어를 제공합니다. 앱 최상위에 한 번 두고, CSS도 여기서 실립니다.",
       rows: [
+        ["theme", "Theme", "필수", "`themes.<프리셋>.<스타일>` 중 하나입니다. 예: `themes.sky.expressive`. 앱은 고르기만 하고 값을 펼치거나 고칠 수 없습니다."],
         ["lang", "string", "<html lang>", "컴포넌트 고유 문구(닫기, 취소 등)와 날짜·숫자 형식의 언어입니다. 표에 없는 언어면 `ko`입니다."],
         ["useToast()", "(props) => ToastHandle", "", "토스트를 띄우는 함수를 돌려줍니다."],
         ["useConfirm()", "(props) => Promise<boolean>", "", "확인 창을 띄우고 결과를 기다리는 함수를 돌려줍니다."],
@@ -133,16 +134,6 @@ export const api: Record<string, Section[]> = {
         ["minW · minH · maxH", "number", "2 · 2 · 10", "크기 조절 범위입니다."],
         ["children", "ReactNode", "", "본문입니다. 차트, 숫자 카드, 표를 그대로 넣습니다."],
         ["table", "() => DataTableProps", "", "있으면 `표` 버튼이 생기고, 같은 데이터를 `<DataTable>`로 보여 줍니다."],
-      ],
-    },
-    {
-      type: "api",
-      title: "useDisplay({ theme?, medium?, mediumSwitch?, onChange? }) · <DisplaySwitch>",
-      description: "테마와 용도를 고르는 전환 버튼입니다. 고른 값은 `<html>`의 `data-theme`·`data-medium`에 붙습니다. 처음 값은 앱이 넘기고, 바뀐 값은 `onChange`로 알립니다. 어디에 기억할지는 앱이 정합니다. `mediumSwitch: false`면 용도는 앱으로 고정하고 테마 전환만 그립니다. 이 문서 사이트가 그렇게 씁니다.",
-      rows: [
-        ["theme · setTheme", '"system" | "light" | "dark"', '"system"', "`system`이면 운영체제 설정을 따릅니다."],
-        ["medium · setMedium", '"app" | "doc" | "slide"', '"app"', "용도가 바뀌면 `<Board key={display.medium}>`로 보드를 새로 그립니다."],
-        ["<DisplaySwitch display>", "Display", "", "`useDisplay()`의 반환값을 받아 두 전환 버튼을 그립니다."],
       ],
     },
     {
@@ -450,18 +441,6 @@ export const api: Record<string, Section[]> = {
         ["items", "{ id, title, description?, avatar?, meta? }[]", "", ""],
         ["onSelect", "(id) => void", "", ""],
         ["label", "string", "", ""],
-      ],
-    },
-  ],
-  themepicker: [
-    {
-      type: "api",
-      title: "<ThemePicker>",
-      rows: [
-        ["preset · theme · style", "string · \"system\" | \"light\" | \"dark\" · string", "첫 프리셋 · \"system\" · \"minimal\"", "처음 값입니다. 저장은 앱이 맡고 여기로 넘깁니다."],
-        ["onChange", "({ preset, theme, style }) => void", "", "고를 때마다 불립니다."],
-        ["inline", "boolean", "false", "버튼 없이 패널을 바로 펼칩니다. 문서와 검토 화면에 씁니다."],
-        ["floating", "boolean", "false", "화면 오른쪽 아래에 고정합니다. 검토용 페이지에 씁니다."],
       ],
     },
   ],

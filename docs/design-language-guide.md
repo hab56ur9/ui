@@ -5,7 +5,7 @@ updated: 2026-11-11
 
 Design Language Guide
 
-This guide explains how ui supports more than one design language and where its support ends. The system carries every part that a value can express; an app finishes the parts that need structure or behavior.
+This guide explains how ui supports more than one design language and where its support ends. Tokens carry every part that a value can express; components carry the parts that need structure or behavior. Apps see neither tokens nor styles, only component props.
 
 ## Layers and owners
 
@@ -15,21 +15,21 @@ A design language has four layers, and ui owns only the ones that values can exp
 | --- | --- | --- |
 | Principles | What the language values, such as attention or realism | People; written down, never switched |
 | Foundations | Color, type, shape, space, depth, material, motion, icons | ui, through tokens and the style axis |
-| Components and patterns | Which parts exist, how they are built and how they behave | ui for shared parts; the app for parts unique to one language |
+| Components and patterns | Which parts exist, how they are built and how they behave | ui, including parts unique to one language |
 | Voice | The tone of on-screen copy | The app |
 
 ## What the system switches
 
-Four independent axes restyle every component without touching its code.
+Four independent axes restyle every component without touching its code. An app fixes preset and style with one theme constant; the other axes are not the app's to set.
 
 | Axis | Attribute | Changes |
 | --- | --- | --- |
-| Theme | `data-theme` | Light and dark color |
-| Preset | `data-preset` | Brand colors: `color.main.*`, `color.sub.*` and the matching chart roles |
-| Medium | `data-medium` | Type scale, spacing and widget sizes for app, document or slide |
-| Style | `data-style` | Shape, border, focus ring, elevation, material and motion |
+| Theme | `data-theme` | Light and dark color; follows the system setting |
+| Preset | `data-preset` | Brand colors: `color.main.*`, `color.sub.*` and the matching chart roles; set by the theme constant |
+| Medium | `data-medium` | Type scale, spacing and widget sizes for app, document or slide; set by templates |
+| Style | `data-style` | Shape, border, focus ring, elevation, material and motion; set by the theme constant |
 
-`ThemePicker` switches preset, theme and style, and reports every change so the app can store it.
+`UIProvider` takes one constant, `themes.<preset>.<style>`, and sets both attributes on the root element. The constant is opaque, so an app picks a whole theme and cannot override part of it.
 
 ## Style tokens
 
@@ -48,7 +48,7 @@ Material applies to floating surfaces only: menus, the floating tab bar, the the
 
 ## Making a style
 
-A style is one JSON file in `tokens/style/`. The build turns it into a `[data-style="name"]` block and adds it to `ThemePicker`.
+A style is one JSON file in `tokens/style/`. The build turns it into a `[data-style="name"]` block and adds it to the docs site's theme picker. Add the style to every family in `themes` in `src/lib/theme.ts` so apps can pick it.
 
 - Copy an existing style file and keep `label` in Korean and English.
 - Put only overrides under `tokens`, with the same `$type` as the global token; the build stops on a path the global layer does not define.
@@ -66,22 +66,22 @@ A style is one JSON file in `tokens/style/`. The build turns it into a `[data-st
 }
 ```
 
-## What an app finishes
+## What ui adds as components
 
-Tokens change how parts look, not which parts exist or how they move. An app that adopts a language builds these itself.
+Tokens change how parts look, not which parts exist or how they move. When a language needs more, ui adds a component; apps never build styled parts themselves.
 
 | Need | Example | Where it lives |
 | --- | --- | --- |
-| Parts unique to one language | A floating toolbar, a morphing loader | App components built from ui tokens |
-| Behavior and choreography | A tab bar that shrinks on scroll, a button that melts into a menu | App code |
-| Effects beyond values | Refraction, specular highlights | App code with SVG filters or shaders |
+| Parts unique to one language | A floating toolbar, a morphing loader | A ui component built from tokens |
+| Behavior and choreography | A tab bar that shrinks on scroll, a button that melts into a menu | The ui component's code |
+| Effects beyond values | Refraction, specular highlights | The ui component, with SVG filters or shaders |
 | Copy tone | Short and friendly versus formal | App copy |
 
 ## Language notes
 
-Each common language splits differently between the system and the app.
+Each common language splits differently between tokens and components.
 
-| Language | Tokens cover | The app adds |
+| Language | Tokens cover | Components to add in ui |
 | --- | --- | --- |
 | Minimal SaaS | Everything; it is the default style | Nothing |
 | Material 3 Expressive | Large radii and the overshooting entrance (`expressive`), strong color through a preset | Shape-morphing buttons and loaders, floating toolbars |

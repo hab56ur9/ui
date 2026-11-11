@@ -29,12 +29,13 @@ import {
   Segmented,
   Tabs as UITabs,
   TextField,
-  ThemePicker,
   Toc,
   UIProvider,
+  themes,
   useI18n,
   type ShellGroup,
 } from "ui";
+import { ThemePicker } from "./ThemePicker";
 import { api as apiKo } from "./api";
 import { api as apiEn } from "./api.en";
 import { homepage, MODE_LABELS, tokensFor, version } from "./catalog";
@@ -550,11 +551,17 @@ function Shell({ page, lang, setLang }: { page: Page; lang: Lang; setLang: (lang
   );
 }
 
+const storedTheme = () => {
+  const family = themes[stored("preset") as keyof typeof themes] ?? themes.lime;
+  return family[stored("style") as keyof typeof family] ?? family.minimal;
+};
+
 const currentId = () => location.hash.replace(/^#\//, "") || pages[0].id;
 
 export function App() {
   const [id, setId] = useState(currentId);
   const [lang, setLang] = useState<Lang>(() => (stored("lang") as Lang) ?? "en");
+  const [theme] = useState(storedTheme);
   const content = CONTENT[lang];
   const page = content.pages.find((p) => p.id === id) ?? content.pages[0];
 
@@ -577,7 +584,7 @@ export function App() {
   }, [page]);
 
   return (
-    <UIProvider lang={lang}>
+    <UIProvider theme={theme} lang={lang}>
       <Shell page={page} lang={lang} setLang={setLang} />
     </UIProvider>
   );

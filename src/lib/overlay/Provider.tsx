@@ -4,6 +4,7 @@ import { LangProvider, useI18n } from "../i18n";
 import { Icon } from "../Icon";
 import { Modal } from "./Dialog";
 import { motion } from "./motion";
+import { lookOf, type Theme } from "../theme";
 
 export type ToastStatus = "info" | "good" | "warning" | "critical";
 export type ToastProps = { message: string; status?: ToastStatus; action?: { label: string; onClick?: () => void }; duration?: number };
@@ -33,7 +34,15 @@ const STATUS_ICON: Record<ToastStatus, string> = { info: "info", good: "success"
 const MAX_TOASTS = 3;
 type Entry = { id: number; props: ToastProps; leaving: boolean };
 
-export function UIProvider({ lang, children }: { lang?: string; children: ReactNode }) {
+export type UIProviderProps = { theme: Theme; lang?: string; children: ReactNode };
+
+export function UIProvider({ theme, lang, children }: UIProviderProps) {
+  useLayoutEffect(() => {
+    const { preset, style } = lookOf(theme);
+    const root = document.documentElement.dataset;
+    root.preset = preset;
+    root.style = style;
+  }, [theme]);
   return (
     <LangProvider lang={lang}>
       <Hosts>{children}</Hosts>

@@ -6,13 +6,6 @@
   "homepage": "https://hab56ur9.github.io/ui/",
   "exports": {
     ".": "./src/lib/index.ts",
-    "./tokens.css": "./dist/tokens.css",
-    "./ui.css": "./dist/ui.css",
-    "./tokens.json": "./dist/tokens.json",
-    "./presets.css": "./dist/presets.css",
-    "./presets/*": "./dist/presets/*",
-    "./styles.css": "./dist/styles.css",
-    "./styles/*": "./dist/styles/*",
     "./components.json": "./dist/components.json",
     "./spec.schema.json": "./dist/spec.schema.json"
   },

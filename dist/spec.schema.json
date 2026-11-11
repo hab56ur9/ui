@@ -26,6 +26,19 @@
         "name": {
           "type": "string"
         },
+        "theme": {
+          "enum": [
+            "lime.minimal",
+            "lime.expressive",
+            "lime.brutal",
+            "sky.minimal",
+            "sky.expressive",
+            "sky.brutal",
+            "mono.minimal",
+            "mono.expressive",
+            "mono.brutal"
+          ]
+        },
         "density": {
           "enum": [
             "comfortable",
@@ -404,7 +417,6 @@
             "Markdown",
             "TabBar",
             "Tabs",
-            "DisplaySwitch",
             "DataTable",
             "Button",
             "Delta",
@@ -1858,29 +1870,6 @@
                 },
                 "required": [
                   "items"
-                ],
-                "additionalProperties": false
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "type": {
-                "const": "DisplaySwitch"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "props": {
-                "type": "object",
-                "properties": {
-                  "display": {}
-                },
-                "required": [
-                  "display"
                 ],
                 "additionalProperties": false
               }

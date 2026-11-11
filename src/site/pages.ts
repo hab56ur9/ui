@@ -74,9 +74,9 @@ export const pages: Page[] = [
         "ordered": true,
         "items": [
           "GitHub 저장소에서 `ui`와 `react`, `react-dom`을 설치합니다.",
-          "앱 진입점에서 `ui/tokens.css`를 불러오고, 최상위를 `UIProvider`로 감쌉니다.",
-          "`<html>`에 용도를 정합니다. 대시보드는 `app`, 기술 문서는 `doc`, 발표는 `slide`입니다.",
-          "색·크기·간격은 `var(--…)` 토큰만 씁니다. 린트가 색 값을 직접 쓴 곳을 잡아냅니다."
+          "앱 최상위를 `UIProvider`로 감싸고, `themes`에서 테마 하나를 골라 `theme`으로 넘깁니다. CSS는 `UIProvider`가 싣습니다.",
+          "용도는 템플릿이 정합니다. 기본은 `app`이고, `Doc`은 `doc`, `Deck`은 `slide`입니다. 다크 모드는 운영체제 설정을 따릅니다.",
+          "색·크기·간격은 컴포넌트가 정합니다. 앱은 토큰을 직접 쓰지 않고 컴포넌트 props만 씁니다."
         ]
       },
       {
@@ -85,7 +85,7 @@ export const pages: Page[] = [
       },
       {
         "type": "code",
-        "code": "import { createRoot } from \"react-dom/client\";\nimport \"ui/tokens.css\";\nimport { UIProvider } from \"ui\";\nimport { App } from \"./App\";\n\ncreateRoot(document.getElementById(\"root\")!).render(\n  <UIProvider>\n    <App />\n  </UIProvider>,\n);"
+        "code": "import { createRoot } from \"react-dom/client\";\nimport { UIProvider, themes } from \"ui\";\nimport { App } from \"./App\";\n\ncreateRoot(document.getElementById(\"root\")!).render(\n  <UIProvider theme={themes.lime.minimal}>\n    <App />\n  </UIProvider>,\n);"
       },
       {
         "type": "text",
@@ -192,7 +192,7 @@ export const pages: Page[] = [
         "type": "text",
         "title": "프리셋",
         "body": [
-          "프리셋은 메인 컬러와 서브 컬러 한 쌍입니다. 컴포넌트는 `main`·`sub` 역할 토큰만 쓰므로, 프리셋 CSS 하나를 더하고 `data-preset`만 바꾸면 버튼, 링크, 포커스, 현재 위치, 강조 차트가 함께 바뀝니다. 오른쪽 위의 컬러 전환으로 바로 비교해 보세요."
+          "프리셋은 메인 컬러와 서브 컬러 한 쌍입니다. 컴포넌트는 `main`·`sub` 역할 토큰만 쓰므로, `UIProvider`에 넘기는 테마 상수의 프리셋만 바꾸면 버튼, 링크, 포커스, 현재 위치, 강조 차트가 함께 바뀝니다. 오른쪽 위의 컬러 전환으로 바로 비교해 보세요."
         ]
       },
       {
@@ -201,13 +201,13 @@ export const pages: Page[] = [
           "`lime` 연두 + 무채색: 기본값입니다. 프리셋을 지정하지 않으면 이 색입니다.",
           "`sky` 하늘 + 무채색",
           "`mono` 무채색: 메인 컬러도 무채색인 차분한 조합입니다.",
-          "새 프리셋은 `tokens/preset/lime.json`을 복사해 색만 바꾸면 빌드가 `dist/presets/<이름>.css`를 만듭니다. 대비 검사를 통과하는 단계를 고르세요."
+          "새 프리셋은 `tokens/preset/lime.json`을 복사해 색만 바꾸면 빌드가 프리셋 CSS를 만듭니다. 그다음 `src/lib/theme.ts`의 `themes`에 같은 이름을 더합니다. 대비 검사를 통과하는 단계를 고르세요."
         ]
       },
       {
         "type": "code",
         "lang": "html",
-        "code": "<link rel=\"stylesheet\" href=\"{homepage}dist/tokens.css\">\n<link rel=\"stylesheet\" href=\"{homepage}dist/presets/sky.css\">\n<html data-preset=\"sky\">"
+        "code": "<UIProvider theme={themes.sky.minimal}>\n  <App />\n</UIProvider>"
       },
       {
         "type": "anatomy",
@@ -744,32 +744,6 @@ export const pages: Page[] = [
         "items": [
           "격자는 `role=\"grid\"`이고 화살표로 하루·한 주씩, PageUp·PageDown으로 한 달씩, Home·End로 주의 처음과 끝으로 움직입니다.",
           "날짜 버튼은 전체 날짜를 이름으로 읽히고, 오늘은 `aria-current=\"date\"`, 고른 날은 `aria-selected`로 알립니다."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "themepicker",
-    "group": "입력",
-    "title": "테마 선택",
-    "lede": "테마 선택은 Theme 버튼 하나로 컬러 프리셋과 모드(시스템·라이트·다크)를 바꿉니다. 버튼을 누르면 프리셋마다 메인·서브 컬러가 팔레트로 뜹니다. 고른 값은 문서 루트의 `data-preset`, `data-theme`에 바로 적용되고 `onChange`로 알립니다. AI로 만든 페이지에 `floating`으로 넣어 두면, 한 페이지를 모든 프리셋에서 검토할 수 있습니다.",
-    "sections": [
-      {
-        "type": "demo",
-        "title": "플로팅",
-        "example": "themepicker-floating"
-      },
-      {
-        "type": "demo",
-        "title": "버튼과 패널",
-        "example": "themepicker-basic",
-        "layout": "centered"
-      },
-      {
-        "type": "a11y",
-        "items": [
-          "패널은 `role=\"dialog\"`, 프리셋 목록은 `radiogroup`이고 Escape나 바깥 클릭으로 닫힙니다.",
-          "한 페이지에 여러 개를 두어도 문서 루트의 값을 함께 따르므로 서로 어긋나지 않습니다."
         ]
       }
     ]

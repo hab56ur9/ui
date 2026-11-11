@@ -1,4 +1,4 @@
-import { Button, Segmented, h, render, useEffect, useRef, useState } from "/ui/dist/ui.js";
+import { Button, Segmented, h, render, themes, useEffect, useRef, useState } from "/ui/dist/ui.js";
 
 const file = new URLSearchParams(location.search).get("file") ?? "";
 const DEVICES = { desktop: [1440, 900], tablet: [768, 1024], mobile: [390, 844] };
@@ -249,4 +249,4 @@ function Editor() {
 const style = document.createElement("style");
 style.textContent = STYLE;
 document.head.append(style);
-render("#editor", h(Editor));
+render("#editor", h(Editor), { theme: themes.lime.minimal });

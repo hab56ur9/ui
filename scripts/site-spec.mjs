@@ -143,7 +143,6 @@ function specOf(lang) {
             ],
           },
         },
-        { type: "ThemePicker" },
       ],
       toc: c.toc,
       pager: c.pager,
