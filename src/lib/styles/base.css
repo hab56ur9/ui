@@ -84,6 +84,7 @@ p {
   align-items: end;
   justify-content: space-between;
   gap: var(--layout-stack) var(--layout-gap);
+  margin-bottom: var(--layout-section);
 }
 
 .page-title {
