@@ -3042,9 +3042,50 @@ body:has(.theme-picker.is-floating) .shell-content {
   position: relative;
 }
 
+.graph-edge {
+  transition:
+    stroke var(--motion-duration-slow) var(--motion-easing-standard),
+    stroke-width var(--motion-duration-slow) var(--motion-easing-standard);
+}
+
 .graph-edge.is-active {
   stroke: var(--color-main-default);
   stroke-width: 2.5;
+}
+
+.graph.is-dots .graph-edge {
+  stroke-dasharray: 0 9;
+  stroke-linecap: round;
+  stroke-width: 3.5;
+  animation: graph-march calc(var(--motion-duration-slow) * 3) linear infinite;
+}
+
+.graph.is-paused .graph-edge {
+  animation-play-state: paused;
+}
+
+@keyframes graph-march {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+.graph-node > rect {
+  transition:
+    stroke var(--motion-duration-slow) var(--motion-easing-standard),
+    stroke-width var(--motion-duration-slow) var(--motion-easing-standard);
+}
+
+.graph-node.is-hit > rect {
+  stroke: var(--color-main-default);
+  stroke-width: 2.5;
+}
+
+.graph-spark {
+  fill: none;
+  stroke: var(--color-main-default);
+  stroke-width: 2;
+  stroke-linecap: round;
 }
 
 .graph-packet > circle {

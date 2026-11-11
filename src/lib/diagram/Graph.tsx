@@ -9,7 +9,8 @@ import { intensity, motion, stagger } from "../motion";
 export type GraphNode = { id: string; label: string; caption?: string; icon?: IconName; group?: string };
 export type GraphEdge = { from: string; to: string; label?: string; step?: number; dashed?: boolean; packet?: IconName };
 export type GraphGroup = { id: string; label: string };
-export type GraphProps = { nodes: GraphNode[]; edges: GraphEdge[]; groups?: GraphGroup[]; direction?: "right" | "down"; title?: string };
+export type GraphFlow = "packets" | "dots" | "both";
+export type GraphProps = { nodes: GraphNode[]; edges: GraphEdge[]; groups?: GraphGroup[]; direction?: "right" | "down"; flow?: GraphFlow; title?: string };
 
 type Point = { x: number; y: number };
 type Placed = GraphNode & Point & { rank: number; order: number };
@@ -140,39 +141,62 @@ function groupBox(members: Placed[]) {
   return { x: left, y: top, w: right - left, h: bottom - top };
 }
 
-const TRAVEL = 1600;
+const TRAVEL = 1800;
 const REST = 900;
 
+const clamp01 = (t: number) => Math.min(1, Math.max(0, t));
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+const easeOut = (t: number) => 1 - (1 - t) ** 3;
+const within = (t: number, from: number, to: number) => clamp01((t - from) / (to - from));
 
-function stagesOf(edges: GraphEdge[]) {
+function stagesOf(edges: GraphEdge[], flow: GraphFlow) {
+  if (flow === "dots") return [];
   const steps = [...new Set(edges.filter((edge) => edge.packet).map((edge) => edge.step ?? Infinity))].sort((a, b) => a - b);
   return steps.map((step) => edges.flatMap((edge, i) => (edge.packet && (edge.step ?? Infinity) === step ? [i] : [])));
 }
 
-function useFlow(svg: RefObject<SVGSVGElement | null>, stages: number[][], playing: boolean) {
+function packetFrame(t: number) {
+  const grow = easeOut(within(t, 0, 0.16));
+  const sink = within(t, 0.78, 1);
+  return {
+    along: ease(within(t, 0, 0.9)),
+    scale: (0.35 + 0.65 * grow) * (1 - 0.85 * sink * sink),
+    opacity: grow * (1 - sink * sink),
+    spark: within(t, 0, 0.32),
+    hit: t > 0.84,
+  };
+}
+
+function useFlow(svg: RefObject<SVGSVGElement | null>, edges: GraphEdge[], stages: number[][], playing: boolean) {
   const elapsed = useRef(0);
   useEffect(() => {
     const root = svg.current;
     if (!root || stages.length === 0) return;
-    const path = (i: number) => root.querySelector<SVGPathElement>(`[data-edge="${i}"]`);
-    const packet = (i: number) => root.querySelector<SVGGElement>(`[data-packet="${i}"]`);
+    const find = <T extends Element>(selector: string) => root.querySelector<T>(selector);
     const cycle = stages.length * TRAVEL + REST;
     const draw = (time: number) => {
       const at = time % cycle;
       const current = Math.floor(at / TRAVEL);
-      const progress = ease(Math.min(1, (at % TRAVEL) / TRAVEL));
+      const t = (at % TRAVEL) / TRAVEL;
+      const frame = packetFrame(t);
       stages.forEach((stage, s) =>
         stage.forEach((i) => {
-          const line = path(i);
-          const dot = packet(i);
-          if (!line || !dot) return;
+          const line = find<SVGPathElement>(`[data-edge="${i}"]`);
+          const dot = find<SVGGElement>(`[data-packet="${i}"]`);
+          const spark = find<SVGGElement>(`[data-spark="${i}"]`);
+          const target = find<SVGGElement>(`[data-node="${edges[i].to}"]`);
+          if (!line || !dot || !spark) return;
           const active = s === current;
           line.classList.toggle("is-active", active);
-          dot.style.opacity = active ? "1" : "0";
+          target?.classList.toggle("is-hit", active && frame.hit);
+          dot.style.opacity = active ? String(frame.opacity) : "0";
+          spark.style.opacity = active ? String(1 - frame.spark) : "0";
           if (!active) return;
-          const point = line.getPointAtLength(progress * line.getTotalLength());
-          dot.setAttribute("transform", `translate(${point.x} ${point.y})`);
+          const length = line.getTotalLength();
+          const point = line.getPointAtLength(frame.along * length);
+          const origin = line.getPointAtLength(0);
+          dot.setAttribute("transform", `translate(${point.x} ${point.y}) scale(${frame.scale})`);
+          spark.setAttribute("transform", `translate(${origin.x} ${origin.y}) scale(${0.4 + 1.2 * easeOut(frame.spark)})`);
         }),
       );
     };
@@ -185,13 +209,13 @@ function useFlow(svg: RefObject<SVGSVGElement | null>, stages: number[][], playi
       frame = requestAnimationFrame(tick);
     });
     return () => cancelAnimationFrame(frame);
-  }, [svg, stages, playing]);
+  }, [svg, edges, stages, playing]);
 }
 
 const tone = (index: number) => ({ "--graph-tone": `var(--color-series-${(index % 8) + 1})` }) as CSSProperties;
 
 export function Graph(props: GraphProps) {
-  const { nodes, edges, groups = [], title } = props;
+  const { nodes, edges, groups = [], flow = "packets", title } = props;
   const id = useId();
   const svg = useRef<SVGSVGElement>(null);
   const { placed, width, height, across } = layout(props);
@@ -199,9 +223,10 @@ export function Graph(props: GraphProps) {
   const ports = portsOf(placed, edges, across);
   const groupIndex = (key?: string) => groups.findIndex((group) => group.id === key);
   const { text } = useI18n();
-  const [stages] = useState(() => stagesOf(edges));
+  const [stages] = useState(() => stagesOf(edges, flow));
+  const dots = flow !== "packets";
   const [playing, setPlaying] = useState(() => !reducedMotion());
-  useFlow(svg, stages, playing);
+  useFlow(svg, edges, stages, playing);
 
   useLayoutEffect(() => {
     const amount = intensity();
@@ -217,7 +242,7 @@ export function Graph(props: GraphProps) {
   const arrow = `${id}-arrow`;
   return (
     <div className="graph-frame" style={{ maxWidth: width }}>
-      <svg ref={svg} className="graph" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={title}>
+      <svg ref={svg} className={["graph", dots ? "is-dots" : "", playing ? "" : "is-paused"].filter(Boolean).join(" ")} viewBox={`0 0 ${width} ${height}`} role="img" aria-label={title}>
         {title && <title>{title}</title>}
         <defs>
           <marker id={arrow} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
@@ -272,7 +297,7 @@ export function Graph(props: GraphProps) {
           const room = NODE.w - textX - 12;
           return (
             <g key={node.id} transform={`translate(${node.x} ${node.y})`}>
-              <g className="graph-node" style={index < 0 ? undefined : tone(index)} data-enter={node.order}>
+              <g className="graph-node" style={index < 0 ? undefined : tone(index)} data-enter={node.order} data-node={node.id}>
                 <rect width={NODE.w} height={NODE.h} />
                 {node.icon && (
                   <g className="graph-node-icon">
@@ -293,15 +318,21 @@ export function Graph(props: GraphProps) {
         })}
         {edges.map(
           (edge, i) =>
-            edge.packet && (
-              <g key={i} className="graph-packet" data-packet={i} opacity={0}>
-                <circle r={14} />
-                <IconGlyph name={edge.packet} x={-8} y={-8} size={16} />
+            flow !== "dots" && edge.packet && (
+              <g key={i}>
+                <g className="graph-spark" data-spark={i} opacity={0}>
+                  <circle r={10} />
+                  <path d="M0 -17V-12M0 12V17M-17 0H-12M12 0H17" />
+                </g>
+                <g className="graph-packet" data-packet={i} opacity={0}>
+                  <circle r={14} />
+                  <IconGlyph name={edge.packet} x={-8} y={-8} size={16} />
+                </g>
               </g>
             ),
         )}
       </svg>
-      {stages.length > 0 && (
+      {(stages.length > 0 || dots) && (
         <ButtonBase className="graph-play" icon={playing ? "pause" : "play"} aria-label={text(playing ? "pauseFlow" : "playFlow")} title={text(playing ? "pauseFlow" : "playFlow")} onClick={() => setPlaying(!playing)} />
       )}
     </div>

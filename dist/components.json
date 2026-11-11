@@ -2683,6 +2683,17 @@
           "type": "\"down\" | \"right\" | undefined"
         },
         {
+          "name": "flow",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "both",
+            "dots",
+            "packets"
+          ],
+          "type": "GraphFlow | undefined"
+        },
+        {
           "name": "title",
           "optional": true,
           "kind": "string",
