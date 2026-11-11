@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0-alpha.7](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.6...v0.3.0-alpha.7) (2026-11-11)
+
+
+### Features
+
+* add Meter and space category labels by their width ([99bf3f2](https://github.com/hab56ur9/ui/commit/99bf3f2960f20984593ba90d45440c58c776a37c))
+* add Phone and Browser frames, a product PRD template and round two fixes ([efcb2cc](https://github.com/hab56ur9/ui/commit/efcb2cc5d84d5af862ecb8d2ffb6fc2cc8959b72))
+* round three fixes for dashboards and product PRDs ([3f5ad4c](https://github.com/hab56ur9/ui/commit/3f5ad4c33acc8f325767911982a971825a3f6524))
+
+
+### Bug Fixes
+
+* final round fixes for dashboards and product PRDs ([4e2dad9](https://github.com/hab56ur9/ui/commit/4e2dad90774f9257e4f355b8b8de6ac2805f48d4))
+
 ## [0.3.0-alpha.6](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.5...v0.3.0-alpha.6) (2026-11-10)
 
 
