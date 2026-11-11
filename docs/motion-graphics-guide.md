@@ -20,7 +20,7 @@ Motion follows four principles.
 
 ## Anatomy of a packet
 
-A packet is the icon that carries one step along its arrow. Its life has three phases inside one step.
+A packet is the icon that carries one step along its arrow. Its life has four phases inside one step.
 
 | Phase | Share of the step | What happens | Easing |
 | --- | --- | --- | --- |
