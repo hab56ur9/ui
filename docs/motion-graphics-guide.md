@@ -5,7 +5,7 @@ updated: 2026-11-11
 
 Motion Graphics Guide
 
-This guide describes how ui animates diagrams such as architecture flows, and how to make a loop that reads well and exports cleanly. Motion here shows something that really moves, such as a request or a message travelling between parts; it never decorates.
+This guide describes how ui animates diagrams such as architecture flows, and how to make a loop that reads well and exports cleanly. All motion is declared in CSS, so a diagram also works as a static HTML file with no script. Motion here shows something that really moves, such as a request or a message travelling between parts; it never decorates.
 
 ## Principles
 
@@ -44,7 +44,7 @@ A full loop lasts the number of steps times 1.8 s, plus 0.9 s.
 
 ## Presets
 
-`Graph` takes one `flow` preset.
+`Diagram` takes one `flow` preset, and each `Diagram.Arrow` can override it with `motion` (`packet`, `dots` or `still`).
 
 | Preset | Look | Use it when |
 | --- | --- | --- |

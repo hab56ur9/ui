@@ -35,7 +35,7 @@ export { LineChart, type LineChartProps, type LineSeries } from "./charts/LineCh
 export { BarChart, type BarChartProps } from "./charts/BarChart";
 export { Heatmap, type HeatmapProps } from "./charts/Heatmap";
 export { Sparkline, type SparklineProps } from "./charts/Sparkline";
-export { Graph, type GraphEdge, type GraphFlow, type GraphGroup, type GraphNode, type GraphProps } from "./diagram/Graph";
+export { Diagram, type DiagramArrowProps, type DiagramFlow, type DiagramGroupProps, type DiagramMotion, type DiagramNodeProps, type DiagramProps } from "./diagram/Diagram";
 export { ActionList, Modal, Sheet, type ActionListItem, type ActionListProps, type DialogAction, type DialogProps } from "./overlay/Dialog";
 export { themes, type Theme } from "./theme";
 export { Toast, UIProvider, useConfirm, useToast, type UIProviderProps, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";

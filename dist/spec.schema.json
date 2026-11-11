@@ -430,7 +430,6 @@
             "BarChart",
             "Heatmap",
             "Sparkline",
-            "Graph",
             "ActionList",
             "Anatomy",
             "ArticleSection",
@@ -2218,35 +2217,6 @@
                 },
                 "required": [
                   "points"
-                ],
-                "additionalProperties": false
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "type": {
-                "const": "Graph"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "props": {
-                "type": "object",
-                "properties": {
-                  "nodes": {},
-                  "edges": {},
-                  "groups": {},
-                  "direction": {},
-                  "flow": {},
-                  "title": {}
-                },
-                "required": [
-                  "nodes",
-                  "edges"
                 ],
                 "additionalProperties": false
               }

@@ -20,7 +20,3 @@ export function motion(node: Element, frames: Keyframe[], kind: MotionKind, extr
 }
 
 export const fadeBackdrop = (dialog: Element, kind: MotionKind, from: number, to: number) => motion(dialog, [{ opacity: from }, { opacity: to }], kind, { pseudoElement: "::backdrop" });
-
-export const stagger = (index: number) => index * parseFloat(token("--motion-stagger"));
-
-export const intensity = () => parseFloat(token("--motion-intensity")) || 0;

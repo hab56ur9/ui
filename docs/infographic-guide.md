@@ -32,7 +32,7 @@ Animation helps only when the motion is the content.
 
 ## In ui
 
-- `Graph` draws one panel's diagram: groups as tinted regions, nodes with icons, arrows with labels and step numbers.
+- `Diagram` draws one panel's diagram with `Diagram.Group`, `Diagram.Node` and `Diagram.Arrow` tags: groups as tinted regions, nodes that can hold any ui component, arrows with labels and step numbers.
 - Motion follows the theme's style through `motion.stagger` and `motion.intensity`, and stops under reduced motion.
 - Arrows can carry moving icons step by step or marching dots; `docs/motion-graphics-guide.md` describes the motion.
 - Planned: an infographic panel component, logo nodes and video export.

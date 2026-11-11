@@ -2960,146 +2960,197 @@ body:has(.theme-picker.is-floating) .shell-content {
   margin-top: var(--space-4);
 }
 
-.graph {
-  display: block;
-  width: 100%;
-  height: auto;
-  font-family: var(--font-family-sans);
+.diagram {
+  position: relative;
+  margin: 0;
 }
 
-.graph-group-box {
-  fill: color-mix(in srgb, var(--graph-tone) 8%, transparent);
-  stroke: color-mix(in srgb, var(--graph-tone) 50%, transparent);
+.diagram-host {
+  position: relative;
+  width: 100%;
+}
+
+.diagram-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.diagram-lines,
+.diagram-flow {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.diagram-flow {
+  pointer-events: none;
+}
+
+.diagram-group,
+.diagram-arrow,
+.diagram-node {
+  animation: diagram-enter calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-enter) both;
+  animation-delay: calc(var(--order) * var(--motion-stagger));
+}
+
+@keyframes diagram-enter {
+  from {
+    opacity: 0;
+    translate: calc(-12px * var(--motion-intensity)) 0;
+  }
+}
+
+.diagram-group-box {
+  fill: color-mix(in srgb, var(--diagram-tone) 8%, transparent);
+  stroke: color-mix(in srgb, var(--diagram-tone) 50%, transparent);
   stroke-width: var(--border-width-default);
   stroke-dasharray: 6 4;
   rx: var(--radius-card);
 }
 
-.graph-group-label {
+.diagram-group-label {
   fill: var(--color-fg-secondary);
   font-size: 12px;
   font-weight: var(--font-weight-semibold);
 }
 
-.graph-node > rect {
-  fill: var(--color-bg-surface);
-  stroke: var(--color-border-strong);
-  stroke-width: var(--border-width-default);
-  rx: var(--radius-control);
+.diagram-node {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: max-content;
+  min-width: 168px;
+  max-width: 320px;
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width-default) solid var(--color-border-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-bg-surface);
 }
 
-.graph-node-icon {
-  color: var(--graph-tone, var(--color-main-default));
+.diagram-node::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--border-width-default));
+  border-radius: inherit;
+  outline: 2.5px solid transparent;
+  pointer-events: none;
 }
 
-.graph-node-label {
-  fill: var(--color-fg-default);
+.diagram-node-head {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.diagram-node-head > .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--diagram-tone, var(--color-main-default));
+}
+
+.diagram-node-label {
+  color: var(--color-fg-default);
   font-size: 14px;
   font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
 }
 
-.graph-node-caption {
-  fill: var(--color-fg-muted);
+.diagram-node-caption {
+  color: var(--color-fg-muted);
   font-size: 12px;
+  line-height: 1.3;
 }
 
-.graph-edge {
+.diagram-line {
   fill: none;
   stroke: var(--color-fg-muted);
   stroke-width: 1.5;
 }
 
-.graph-edge.is-dashed {
+.diagram-line.is-dashed {
   stroke-dasharray: 5 4;
 }
 
-.graph-arrow {
-  fill: var(--color-fg-muted);
-}
-
-.graph-edge-label > rect {
-  fill: var(--color-bg-page);
-  stroke: var(--color-border-default);
-  rx: 11px;
-}
-
-.graph-edge-label > text {
-  fill: var(--color-fg-secondary);
-  font-size: 12px;
-}
-
-.graph-step > circle {
-  fill: var(--color-main-default);
-}
-
-.graph-step > text {
-  fill: var(--color-main-on);
-  font-size: 12px;
-  font-weight: var(--font-weight-semibold);
-}
-
-.graph-frame {
-  position: relative;
-}
-
-.graph-edge {
-  transition:
-    stroke var(--motion-duration-slow) var(--motion-easing-standard),
-    stroke-width var(--motion-duration-slow) var(--motion-easing-standard);
-}
-
-.graph-edge.is-active {
-  stroke: var(--color-main-default);
-  stroke-width: 2.5;
-}
-
-.graph.is-dots .graph-edge {
+.diagram-line.is-dots {
   stroke-dasharray: 0 9;
   stroke-linecap: round;
   stroke-width: 3.5;
-  animation: graph-march calc(var(--motion-duration-slow) * 3) linear infinite;
+  animation: diagram-march calc(var(--motion-duration-slow) * 3) linear infinite;
 }
 
-.graph.is-paused .graph-edge {
-  animation-play-state: paused;
-}
-
-@keyframes graph-march {
+@keyframes diagram-march {
   to {
     stroke-dashoffset: -18;
   }
 }
 
-.graph-node > rect {
-  transition:
-    stroke var(--motion-duration-slow) var(--motion-easing-standard),
-    stroke-width var(--motion-duration-slow) var(--motion-easing-standard);
+.diagram-arrowhead {
+  fill: var(--color-fg-muted);
 }
 
-.graph-node.is-hit > rect {
-  stroke: var(--color-main-default);
-  stroke-width: 2.5;
+.diagram-label > rect {
+  fill: var(--color-bg-page);
+  stroke: var(--color-border-default);
+  rx: 11px;
 }
 
-.graph-spark {
+.diagram-label > text {
+  fill: var(--color-fg-secondary);
+  font-size: 12px;
+}
+
+.diagram-step > circle,
+.diagram-packet circle {
+  fill: var(--color-main-default);
+}
+
+.diagram-step > text {
+  fill: var(--color-main-on);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.diagram-packet,
+.diagram-spark {
+  offset-rotate: 0deg;
+  offset-distance: 0%;
+}
+
+.diagram-packet {
+  color: var(--color-main-on);
+}
+
+.diagram-packet > g,
+.diagram-spark {
+  opacity: 0;
+}
+
+.diagram-spark {
   fill: none;
   stroke: var(--color-main-default);
   stroke-width: 2;
   stroke-linecap: round;
 }
 
-.graph-packet > circle {
-  fill: var(--color-main-default);
+.diagram.is-paused *,
+.diagram.is-paused *::after {
+  animation-play-state: paused;
 }
 
-.graph-packet {
-  color: var(--color-main-on);
-}
-
-.graph-play {
+.diagram-play {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diagram-play {
+    display: none;
+  }
 }
 
 .overlay {
