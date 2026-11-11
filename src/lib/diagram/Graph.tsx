@@ -150,7 +150,7 @@ const TRAVEL = 1800;
 const REST = 900;
 
 const clamp01 = (t: number) => Math.min(1, Math.max(0, t));
-const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+const easeIn = (t: number) => (1 - Math.cos(Math.PI * 0.75 * t)) / (1 - Math.cos(Math.PI * 0.75));
 const easeOut = (t: number) => 1 - (1 - t) ** 3;
 const within = (t: number, from: number, to: number) => clamp01((t - from) / (to - from));
 
@@ -162,13 +162,13 @@ function stagesOf(edges: GraphEdge[], flow: GraphFlow) {
 
 function packetFrame(t: number) {
   const grow = easeOut(within(t, 0, 0.16));
-  const sink = within(t, 0.78, 1);
+  const sink = within(t, 0.8, 0.92);
   return {
-    along: ease(within(t, 0, 0.9)),
-    scale: (0.35 + 0.65 * grow) * (1 - 0.85 * sink * sink),
-    opacity: grow * (1 - sink * sink),
+    along: easeIn(within(t, 0, 0.92)),
+    scale: (0.35 + 0.65 * grow) * (1 - 0.8 * sink),
+    opacity: grow * (1 - within(t, 0.88, 0.92)),
     spark: within(t, 0, 0.32),
-    hit: t > 0.84,
+    hit: t > 0.9,
   };
 }
 

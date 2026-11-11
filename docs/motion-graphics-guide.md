@@ -25,8 +25,9 @@ A packet is the icon that carries one step along its arrow. Its life has three p
 | Phase | Share of the step | What happens | Easing |
 | --- | --- | --- | --- |
 | Emerge | 0–16% | The packet grows from a third of its size and fades in, while a ring and four short rays burst at the source and fade | Ease-out, so it settles quickly |
-| Travel | 0–90% | The packet follows the arrow's own curve | Ease-in-out, so it leaves and arrives gently |
-| Sink | 78–100% | The packet shrinks to a dot and fades, as if it entered the target; the target's border lights up and then fades | Ease-in, so it disappears into the box |
+| Travel | 0–92% | The packet follows the arrow's own curve and speeds up toward the target | Ease-in, so it leaves gently and enters without slowing down |
+| Sink | 80–92% | The packet shrinks while still moving and vanishes the moment it reaches the target; the target's border lights up and then fades | Linear shrink, fade in the last 4% |
+| Gap | 92–100% | Nothing moves before the next step starts | None |
 
 The arrow of the current step is highlighted for the whole step, and the highlight fades in and out over the slow motion duration.
 
