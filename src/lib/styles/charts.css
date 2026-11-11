@@ -526,3 +526,26 @@
   font-size: 12px;
   font-weight: var(--font-weight-semibold);
 }
+
+.graph-frame {
+  position: relative;
+}
+
+.graph-edge.is-active {
+  stroke: var(--color-main-default);
+  stroke-width: 2.5;
+}
+
+.graph-packet > circle {
+  fill: var(--color-main-default);
+}
+
+.graph-packet {
+  color: var(--color-main-on);
+}
+
+.graph-play {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

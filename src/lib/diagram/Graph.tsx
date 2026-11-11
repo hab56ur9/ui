@@ -1,10 +1,13 @@
-import { useId, useLayoutEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import { fit, textWidth } from "../charts/scale";
+import { ButtonBase } from "../controls";
+import { reducedMotion } from "../hooks";
+import { useI18n } from "../i18n";
 import { IconGlyph, type IconName } from "../Icon";
 import { intensity, motion, stagger } from "../motion";
 
 export type GraphNode = { id: string; label: string; caption?: string; icon?: IconName; group?: string };
-export type GraphEdge = { from: string; to: string; label?: string; step?: number; dashed?: boolean };
+export type GraphEdge = { from: string; to: string; label?: string; step?: number; dashed?: boolean; packet?: IconName };
 export type GraphGroup = { id: string; label: string };
 export type GraphProps = { nodes: GraphNode[]; edges: GraphEdge[]; groups?: GraphGroup[]; direction?: "right" | "down"; title?: string };
 
@@ -137,6 +140,54 @@ function groupBox(members: Placed[]) {
   return { x: left, y: top, w: right - left, h: bottom - top };
 }
 
+const TRAVEL = 1600;
+const REST = 900;
+
+const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
+function stagesOf(edges: GraphEdge[]) {
+  const steps = [...new Set(edges.filter((edge) => edge.packet).map((edge) => edge.step ?? Infinity))].sort((a, b) => a - b);
+  return steps.map((step) => edges.flatMap((edge, i) => (edge.packet && (edge.step ?? Infinity) === step ? [i] : [])));
+}
+
+function useFlow(svg: RefObject<SVGSVGElement | null>, stages: number[][], playing: boolean) {
+  const elapsed = useRef(0);
+  useEffect(() => {
+    const root = svg.current;
+    if (!root || stages.length === 0) return;
+    const path = (i: number) => root.querySelector<SVGPathElement>(`[data-edge="${i}"]`);
+    const packet = (i: number) => root.querySelector<SVGGElement>(`[data-packet="${i}"]`);
+    const cycle = stages.length * TRAVEL + REST;
+    const draw = (time: number) => {
+      const at = time % cycle;
+      const current = Math.floor(at / TRAVEL);
+      const progress = ease(Math.min(1, (at % TRAVEL) / TRAVEL));
+      stages.forEach((stage, s) =>
+        stage.forEach((i) => {
+          const line = path(i);
+          const dot = packet(i);
+          if (!line || !dot) return;
+          const active = s === current;
+          line.classList.toggle("is-active", active);
+          dot.style.opacity = active ? "1" : "0";
+          if (!active) return;
+          const point = line.getPointAtLength(progress * line.getTotalLength());
+          dot.setAttribute("transform", `translate(${point.x} ${point.y})`);
+        }),
+      );
+    };
+    draw(elapsed.current);
+    if (!playing) return;
+    const start = performance.now() - elapsed.current;
+    let frame = requestAnimationFrame(function tick(now) {
+      elapsed.current = now - start;
+      draw(elapsed.current);
+      frame = requestAnimationFrame(tick);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [svg, stages, playing]);
+}
+
 const tone = (index: number) => ({ "--graph-tone": `var(--color-series-${(index % 8) + 1})` }) as CSSProperties;
 
 export function Graph(props: GraphProps) {
@@ -147,6 +198,10 @@ export function Graph(props: GraphProps) {
   const byId = new Map(placed.map((node) => [node.id, node]));
   const ports = portsOf(placed, edges, across);
   const groupIndex = (key?: string) => groups.findIndex((group) => group.id === key);
+  const { text } = useI18n();
+  const [stages] = useState(() => stagesOf(edges));
+  const [playing, setPlaying] = useState(() => !reducedMotion());
+  useFlow(svg, stages, playing);
 
   useLayoutEffect(() => {
     const amount = intensity();
@@ -161,80 +216,94 @@ export function Graph(props: GraphProps) {
 
   const arrow = `${id}-arrow`;
   return (
-    <svg ref={svg} className="graph" viewBox={`0 0 ${width} ${height}`} style={{ maxWidth: width }} role="img" aria-label={title}>
-      {title && <title>{title}</title>}
-      <defs>
-        <marker id={arrow} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-          <path className="graph-arrow" d="M0 0L10 5L0 10z" />
-        </marker>
-      </defs>
-      {groups.map((group, i) => {
-        const members = placed.filter((node) => node.group === group.id);
-        if (members.length === 0) return null;
-        const box = groupBox(members);
-        return (
-          <g key={group.id} className="graph-group" style={tone(i)} data-enter={0}>
-            <rect className="graph-group-box" x={box.x} y={box.y} width={box.w} height={box.h} />
-            <text className="graph-group-label" x={box.x + PAD} y={box.y + HEAD - 6}>
-              {group.label}
-            </text>
-          </g>
-        );
-      })}
-      {edges.map((edge, i) => {
-        const from = byId.get(edge.from);
-        const to = byId.get(edge.to);
-        if (!from || !to) return null;
-        const path = route(from, to, across, ports.get(edge) ?? { out: 0, in: 0 });
-        const labelWidth = edge.label ? textWidth(edge.label, LABEL) + 16 : 0;
-        const stepX = path.label.x - (labelWidth ? labelWidth / 2 + 14 : 0);
-        return (
-          <g key={i} data-enter={placed.length}>
-            <path className={`graph-edge${edge.dashed ? " is-dashed" : ""}`} d={path.d} markerEnd={`url(#${arrow})`} />
-            {edge.label && (
-              <g className="graph-edge-label">
-                <rect x={path.label.x - labelWidth / 2} y={path.label.y - 11} width={labelWidth} height={22} />
-                <text x={path.label.x} y={path.label.y + 4} textAnchor="middle">
-                  {edge.label}
-                </text>
-              </g>
-            )}
-            {edge.step !== undefined && (
-              <g className="graph-step">
-                <circle cx={stepX} cy={path.label.y} r={11} />
-                <text x={stepX} y={path.label.y + 4} textAnchor="middle">
-                  {edge.step}
-                </text>
-              </g>
-            )}
-          </g>
-        );
-      })}
-      {placed.map((node) => {
-        const index = groupIndex(node.group);
-        const textX = node.icon ? 16 + ICON + 12 : 16;
-        const room = NODE.w - textX - 12;
-        return (
-          <g key={node.id} transform={`translate(${node.x} ${node.y})`}>
-            <g className="graph-node" style={index < 0 ? undefined : tone(index)} data-enter={node.order}>
-              <rect width={NODE.w} height={NODE.h} />
-              {node.icon && (
-                <g className="graph-node-icon">
-                  <IconGlyph name={node.icon} x={16} y={(NODE.h - ICON) / 2} size={ICON} />
+    <div className="graph-frame" style={{ maxWidth: width }}>
+      <svg ref={svg} className="graph" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={title}>
+        {title && <title>{title}</title>}
+        <defs>
+          <marker id={arrow} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+            <path className="graph-arrow" d="M0 0L10 5L0 10z" />
+          </marker>
+        </defs>
+        {groups.map((group, i) => {
+          const members = placed.filter((node) => node.group === group.id);
+          if (members.length === 0) return null;
+          const box = groupBox(members);
+          return (
+            <g key={group.id} className="graph-group" style={tone(i)} data-enter={0}>
+              <rect className="graph-group-box" x={box.x} y={box.y} width={box.w} height={box.h} />
+              <text className="graph-group-label" x={box.x + PAD} y={box.y + HEAD - 6}>
+                {group.label}
+              </text>
+            </g>
+          );
+        })}
+        {edges.map((edge, i) => {
+          const from = byId.get(edge.from);
+          const to = byId.get(edge.to);
+          if (!from || !to) return null;
+          const path = route(from, to, across, ports.get(edge) ?? { out: 0, in: 0 });
+          const labelWidth = edge.label ? textWidth(edge.label, LABEL) + 16 : 0;
+          const stepX = path.label.x - (labelWidth ? labelWidth / 2 + 14 : 0);
+          return (
+            <g key={i} data-enter={placed.length}>
+              <path className={`graph-edge${edge.dashed ? " is-dashed" : ""}`} d={path.d} markerEnd={`url(#${arrow})`} data-edge={i} />
+              {edge.label && (
+                <g className="graph-edge-label">
+                  <rect x={path.label.x - labelWidth / 2} y={path.label.y - 11} width={labelWidth} height={22} />
+                  <text x={path.label.x} y={path.label.y + 4} textAnchor="middle">
+                    {edge.label}
+                  </text>
                 </g>
               )}
-              <text className="graph-node-label" x={textX} y={node.caption ? NODE.h / 2 - 3 : NODE.h / 2 + 5}>
-                {fit(node.label, room, 14)}
-              </text>
-              {node.caption && (
-                <text className="graph-node-caption" x={textX} y={NODE.h / 2 + 15}>
-                  {fit(node.caption, room, 12)}
-                </text>
+              {edge.step !== undefined && (
+                <g className="graph-step">
+                  <circle cx={stepX} cy={path.label.y} r={11} />
+                  <text x={stepX} y={path.label.y + 4} textAnchor="middle">
+                    {edge.step}
+                  </text>
+                </g>
               )}
             </g>
-          </g>
-        );
-      })}
-    </svg>
+          );
+        })}
+        {placed.map((node) => {
+          const index = groupIndex(node.group);
+          const textX = node.icon ? 16 + ICON + 12 : 16;
+          const room = NODE.w - textX - 12;
+          return (
+            <g key={node.id} transform={`translate(${node.x} ${node.y})`}>
+              <g className="graph-node" style={index < 0 ? undefined : tone(index)} data-enter={node.order}>
+                <rect width={NODE.w} height={NODE.h} />
+                {node.icon && (
+                  <g className="graph-node-icon">
+                    <IconGlyph name={node.icon} x={16} y={(NODE.h - ICON) / 2} size={ICON} />
+                  </g>
+                )}
+                <text className="graph-node-label" x={textX} y={node.caption ? NODE.h / 2 - 3 : NODE.h / 2 + 5}>
+                  {fit(node.label, room, 14)}
+                </text>
+                {node.caption && (
+                  <text className="graph-node-caption" x={textX} y={NODE.h / 2 + 15}>
+                    {fit(node.caption, room, 12)}
+                  </text>
+                )}
+              </g>
+            </g>
+          );
+        })}
+        {edges.map(
+          (edge, i) =>
+            edge.packet && (
+              <g key={i} className="graph-packet" data-packet={i} opacity={0}>
+                <circle r={14} />
+                <IconGlyph name={edge.packet} x={-8} y={-8} size={16} />
+              </g>
+            ),
+        )}
+      </svg>
+      {stages.length > 0 && (
+        <ButtonBase className="graph-play" icon={playing ? "pause" : "play"} aria-label={text(playing ? "pauseFlow" : "playFlow")} title={text(playing ? "pauseFlow" : "playFlow")} onClick={() => setPlaying(!playing)} />
+      )}
+    </div>
   );
 }
