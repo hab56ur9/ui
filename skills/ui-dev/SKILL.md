@@ -5,11 +5,12 @@ description: Develops the ui design system repository itself — components, tok
 
 # ui development
 
-This skill is the working procedure for changes inside the ui repository. Project facts live in AGENTS.md and working notes in `context/`.
+This skill is the working procedure for changes inside the ui repository. Project facts live in AGENTS.md, working notes in `context/`, and the coding rules with the agent's coding notes in the ui-coding skill.
 
 ## Before a change
 
 - Read `context/` and trust the code over a note that disagrees; fix the note.
+- Load the ui-coding skill and read the notes in `context/coding/` that touch the code.
 - Find the closest existing component, block or script and follow its shape.
 - Agree on the interface first when a change adds a new layer, axis or file format.
 

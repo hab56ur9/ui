@@ -27,10 +27,10 @@ ls -l .claude/skills
 
 ## Working notes
 
-`context/` holds the agent's notes and is ignored by git. Create it when it is missing.
+`context/` holds the agent's notes and is ignored by git, and `context/coding/` holds its coding notes, described in the ui-coding skill. Create them when they are missing.
 
 ```bash
-mkdir -p context
+mkdir -p context/coding
 ```
 
 ## Other agents
