@@ -18,3 +18,13 @@ export function Icon({ name, size = "md", label }: IconProps) {
     </svg>
   );
 }
+
+export function IconGlyph({ name, x, y, size }: { name: IconName; x: number; y: number; size: number }) {
+  const shapes = icons[name];
+  if (!shapes) throw new Error(`unknown icon "${name}"`);
+  return (
+    <svg x={x} y={y} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {shapes.map(([tag, attrs], i) => createElement(tag, { key: i, ...attrs }))}
+    </svg>
+  );
+}

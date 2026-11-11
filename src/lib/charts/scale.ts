@@ -26,7 +26,7 @@ export function niceTicks(min: number, max: number, count: number) {
   return Array.from({ length: Math.round((end - start) / step) + 1 }, (_, i) => +(start + i * step).toFixed(10));
 }
 
-const fit = (label: string, room: number, size: number) => {
+export const fit = (label: string, room: number, size: number) => {
   if (textWidth(label, size) <= room) return label;
   const chars = [...label];
   while (chars.length > 1 && textWidth(`${chars.join("")}…`, size) > room) chars.pop();

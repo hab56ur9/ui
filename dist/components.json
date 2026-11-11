@@ -2652,6 +2652,45 @@
       ]
     },
     {
+      "name": "Graph",
+      "props": [
+        {
+          "name": "nodes",
+          "optional": false,
+          "kind": "list",
+          "type": "GraphNode[]"
+        },
+        {
+          "name": "edges",
+          "optional": false,
+          "kind": "list",
+          "type": "GraphEdge[]"
+        },
+        {
+          "name": "groups",
+          "optional": true,
+          "kind": "list",
+          "type": "GraphGroup[] | undefined"
+        },
+        {
+          "name": "direction",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "down",
+            "right"
+          ],
+          "type": "\"down\" | \"right\" | undefined"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
       "name": "ActionList",
       "props": [
         {

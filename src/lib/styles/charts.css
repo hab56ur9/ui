@@ -448,3 +448,81 @@
 .meter + .meter {
   margin-top: var(--space-4);
 }
+
+.graph {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-family-sans);
+}
+
+.graph-group-box {
+  fill: color-mix(in srgb, var(--graph-tone) 8%, transparent);
+  stroke: color-mix(in srgb, var(--graph-tone) 50%, transparent);
+  stroke-width: var(--border-width-default);
+  stroke-dasharray: 6 4;
+  rx: var(--radius-card);
+}
+
+.graph-group-label {
+  fill: var(--color-fg-secondary);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.graph-node > rect {
+  fill: var(--color-bg-surface);
+  stroke: var(--color-border-strong);
+  stroke-width: var(--border-width-default);
+  rx: var(--radius-control);
+}
+
+.graph-node-icon {
+  color: var(--graph-tone, var(--color-main-default));
+}
+
+.graph-node-label {
+  fill: var(--color-fg-default);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.graph-node-caption {
+  fill: var(--color-fg-muted);
+  font-size: 12px;
+}
+
+.graph-edge {
+  fill: none;
+  stroke: var(--color-fg-muted);
+  stroke-width: 1.5;
+}
+
+.graph-edge.is-dashed {
+  stroke-dasharray: 5 4;
+}
+
+.graph-arrow {
+  fill: var(--color-fg-muted);
+}
+
+.graph-edge-label > rect {
+  fill: var(--color-bg-page);
+  stroke: var(--color-border-default);
+  rx: 11px;
+}
+
+.graph-edge-label > text {
+  fill: var(--color-fg-secondary);
+  font-size: 12px;
+}
+
+.graph-step > circle {
+  fill: var(--color-main-default);
+}
+
+.graph-step > text {
+  fill: var(--color-main-on);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+}
