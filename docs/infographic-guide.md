@@ -34,4 +34,5 @@ Animation helps only when the motion is the content.
 
 - `Graph` draws one panel's diagram: groups as tinted regions, nodes with icons, arrows with labels and step numbers.
 - Motion follows the theme's style through `motion.stagger` and `motion.intensity`, and stops under reduced motion.
-- Planned: flowing arrows with moving icons, an infographic panel component, logo nodes and video export.
+- Arrows can carry moving icons step by step or marching dots; `docs/motion-graphics-guide.md` describes the motion.
+- Planned: an infographic panel component, logo nodes and video export.
