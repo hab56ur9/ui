@@ -3,6 +3,7 @@ import { existsSync, readFileSync, statSync, watch, writeFileSync, readdirSync, 
 import { createServer } from "node:http";
 import { networkInterfaces } from "node:os";
 import { dirname, extname, join, relative, resolve, sep } from "node:path";
+import { buildDiagrams } from "./diagram.mjs";
 import { buildHtml, checkSpec } from "./spec.mjs";
 
 const pkgRoot = resolve(import.meta.dirname, "..");
@@ -38,6 +39,7 @@ Usage
   ui lint <file…>
   ui spec check <spec.json>
   ui spec build <spec.json> [--out app.html] [--lang en|ko] [--cdn]
+  ui diagram build <page.html> [--out dir] [--theme light|dark]
   ui help
 
 serve   Serves [dir] (default: current folder) at / and this design system at /ui/.
@@ -52,7 +54,11 @@ spec    check validates an app spec against the components and its own data,
         Built pages open in the editor at /__ui/edit?file=/<page>.html under ui serve.
         build checks the spec, then writes one editable HTML file: a function per
         screen and overlay, example data inline, widgets marked with data-id.
-        --lang sets the page language, number and date formats (default en).`;
+        --lang sets the page language, number and date formats (default en).
+diagram build renders every Diagram on the page in headless Chrome and writes
+        <id>.svg (moves three times, then rests) and <id>.still.svg (no motion)
+        for documents. Needs Chrome or Chromium; UI_CHROME overrides the path.
+        --theme picks light (default) or dark.`;
 
 function parse(argv) {
   const args = { _: [] };
@@ -121,13 +127,7 @@ function saveReview(req, res, root, send) {
   });
 }
 
-function serve(args) {
-  const root = resolve(args._[1] ?? ".");
-  if (!existsSync(root) || !statSync(root).isDirectory()) throw new Error(`not a folder: ${root}`);
-  const reload = !args["no-reload"];
-  const clients = new Set();
-  const localModule = existsSync(join(pkgRoot, "dist/ui.js"));
-
+function site(root, { reload = false, clients = new Set() } = {}) {
   const send = (res, status, body, type = TYPES[".txt"]) => {
     res.writeHead(status, { "content-type": type, "cache-control": "no-store", "access-control-allow-origin": "*" });
     res.end(body);
@@ -144,7 +144,7 @@ function serve(args) {
     send(res, 200, body, type);
   };
 
-  const server = createServer((req, res) => {
+  return (req, res) => {
     const path = decodeURIComponent(new URL(req.url ?? "/", "http://localhost").pathname);
     if (path === RELOAD) {
       res.writeHead(200, { "content-type": "text/event-stream", "cache-control": "no-store", connection: "keep-alive" });
@@ -182,7 +182,16 @@ function serve(args) {
       return send(res, 200, reload ? page.replace("</body>", `${CLIENT}</body>`) : page, TYPES[".html"]);
     }
     return file(res, target);
-  });
+  };
+}
+
+function serve(args) {
+  const root = resolve(args._[1] ?? ".");
+  if (!existsSync(root) || !statSync(root).isDirectory()) throw new Error(`not a folder: ${root}`);
+  const reload = !args["no-reload"];
+  const clients = new Set();
+  const localModule = existsSync(join(pkgRoot, "dist/ui.js"));
+  const server = createServer(site(root, { reload, clients }));
 
   if (reload) {
     let timer;
@@ -304,6 +313,7 @@ try {
   else if (command === "lint") lint(args._.slice(1));
   else if (command === "spec" && args._[1] === "check") checkFile(args._[2]);
   else if (command === "spec" && args._[1] === "build") buildFile(args._[2], args);
+  else if (command === "diagram" && args._[1] === "build") await buildDiagrams(args._[2], { out: args.out, theme: args.theme, handler: site });
   else console.log(HELP);
 } catch (error) {
   console.error(`ui: ${error.message}`);

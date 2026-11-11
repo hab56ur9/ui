@@ -7,7 +7,7 @@ import { Icon, IconGlyph, type IconName } from "../Icon";
 
 export type DiagramFlow = "packets" | "dots" | "both";
 export type DiagramMotion = "packet" | "dots" | "still";
-export type DiagramProps = { title: string; direction?: "right" | "down"; flow?: DiagramFlow; children: ReactNode };
+export type DiagramProps = { title: string; id?: string; direction?: "right" | "down"; flow?: DiagramFlow; children: ReactNode };
 export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; children?: ReactNode };
 export type DiagramGroupProps = { id: string; label: string; children: ReactNode };
 export type DiagramArrowProps = { from: string; to: string; label?: string; step?: number; dashed?: boolean; packet?: IconName; motion?: DiagramMotion };
@@ -217,7 +217,7 @@ const tone = (index: number) => ({ "--diagram-tone": `var(--color-series-${(inde
 
 const sameSizes = (a: Map<string, Size> | null, b: Map<string, Size>) => a !== null && a.size === b.size && [...b].every(([id, size]) => a.get(id)?.w === size.w && a.get(id)?.h === size.h);
 
-function DiagramRoot({ title, direction = "right", flow = "packets", children }: DiagramProps) {
+function DiagramRoot({ title, id, direction = "right", flow = "packets", children }: DiagramProps) {
   const { text } = useI18n();
   const raw = useId();
   const name = `diagram-${raw.replace(/[^a-zA-Z0-9]/g, "")}`;
@@ -262,7 +262,7 @@ function DiagramRoot({ title, direction = "right", flow = "packets", children }:
   });
 
   return (
-    <figure className={`diagram${playing ? "" : " is-paused"}`} data-diagram={name} aria-label={title} style={{ "--diagram-cycle": `${cycle}ms`, maxWidth: width } as CSSProperties}>
+    <figure className={`diagram${playing ? "" : " is-paused"}`} data-diagram={name} data-name={id} aria-label={title} style={{ "--diagram-cycle": `${cycle}ms`, maxWidth: width } as CSSProperties}>
       <style>{css}</style>
       <div ref={host} className="diagram-host" style={{ height: ready ? height * scale : undefined }}>
         <div ref={canvas} className="diagram-canvas" style={{ width, height, transform: `scale(${scale})`, visibility: ready ? undefined : "hidden" }}>

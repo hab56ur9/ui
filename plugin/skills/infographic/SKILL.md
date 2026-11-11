@@ -1,0 +1,94 @@
+---
+name: infographic
+description: Draws architecture diagrams, system flows and infographics with the ui Diagram component, then builds them into animated and still SVG files for documents. Invoke on "인포그래픽", "아키텍처 도면", "구조도", "흐름도", "시스템 설계 그림", "다이어그램 그려", "ByteByteGo처럼", "infographic", or "diagram".
+user-invocable: true
+---
+
+# ui Infographic
+
+This skill draws diagrams that show how parts of a system connect and how data moves between them, and builds them into SVG files that documents embed as images.
+
+## When to use
+
+A diagram shows structure and flow; a chart shows numbers.
+
+- Use a diagram for request paths, data pipelines, service architecture, deployment flows and event fan-out.
+- Use a chart from the design-system skill when the point is a value, a trend or a comparison.
+- Use numbered steps when order matters, and leave them out for a static structure.
+
+## Rules
+
+Every diagram follows these rules.
+
+- Give the diagram a title and a one-line message; the message states what the reader should take away.
+- Keep one reading direction. The default runs left to right; use `direction: "down"` for tall flows.
+- Group parts that belong together, such as services, data stores or providers. A group becomes one column with its own color.
+- Use icons that name the part: server, database, queue, cloud, phone, user, lock, shield, mail, file, code, box and the rest of the icon set.
+- Animate only what moves in reality. A packet travels along an arrow for each numbered step; marching dots show continuous flow.
+- Make the still frame complete. Step numbers and labels tell the story without motion.
+
+## Writing a diagram
+
+A diagram is written with tags in an HTML page that loads the design system. Nodes may hold any ui component.
+
+```html
+<div id="app"></div>
+<script type="module">
+  import { render, h, themes, Diagram, Badge, Stat } from "https://hab56ur9.github.io/ui/dist/ui.js";
+
+  render("#app",
+    h(Diagram, { id: "payment-flow", title: "결제 처리 흐름", flow: "packets" },
+      h(Diagram.Node, { id: "client", label: "Client", caption: "웹·앱", icon: "phone" }),
+      h(Diagram.Group, { id: "payment", label: "Payment" },
+        h(Diagram.Node, { id: "api", label: "Payment API", icon: "server" },
+          h(Stat, { label: "초당 요청", value: "1,240", size: "sm" }),
+        ),
+      ),
+      h(Diagram.Node, { id: "ledger", label: "Ledger DB", icon: "database" }, h(Badge, { tone: "good" }, "정상")),
+      h(Diagram.Arrow, { from: "client", to: "api", step: 1, label: "POST /pay", packet: "link" }),
+      h(Diagram.Arrow, { from: "api", to: "ledger", step: 2, packet: "file" }),
+    ),
+    { theme: themes.sky.minimal, lang: "ko" },
+  );
+</script>
+```
+
+| Tag | Props |
+| --- | --- |
+| Diagram | title*, id (the output file name), direction ("right", "down"), flow ("packets", "dots", "both"), children* |
+| Diagram.Group | id*, label*, children* (Diagram.Node tags) |
+| Diagram.Node | id*, label*, caption, icon, children (any ui component) |
+| Diagram.Arrow | from*, to*, label, step (number), dashed, packet (icon that travels on this step), motion ("packet", "dots", "still") |
+
+- `flow: "packets"` moves an icon along each arrow that has a `packet`, one step at a time.
+- `flow: "dots"` turns every arrow into marching dots for continuous flow.
+- `flow: "both"` combines them; `motion` on one arrow overrides the diagram's flow.
+- Arrows with the same step move together, and each step number is drawn once.
+
+## Building SVG files
+
+Documents embed built SVG files, not the page. The build renders the page in headless Chrome and writes two files per diagram.
+
+```bash
+npx --yes github:hab56ur9/ui diagram build flow.html --out diagrams/
+```
+
+| File | Use |
+| --- | --- |
+| `<id>.svg` | Web documents such as Confluence, Notion and GitHub. It plays three loops after loading, then rests on the still frame. |
+| `<id>.still.svg` | PDF, print and anything that cannot animate |
+
+- Embed the file as an image, such as `<img src="diagrams/payment-flow.svg" alt="결제 처리 흐름">`, with the title as the alt text.
+- The default theme is light; `--theme dark` builds for dark pages.
+- A node's icon, label, caption and badges become plain SVG. Other components inside a node are kept as HTML inside the SVG; browsers show them, but some converters, such as PDF tools and design-file importers, drop them, so use `<id>.still.svg` with plain nodes for those destinations.
+
+## PNG and GIF
+
+The design system builds SVG only. Other formats come from the still or animated SVG with general tools.
+
+- PNG: open `<id>.still.svg` in a browser and save a screenshot, or convert it with any SVG-to-PNG tool.
+- GIF: record the animated SVG in a browser at 25 frames per second for one loop.
+
+## Check
+
+Open the built SVG through an `<img>` tag in a browser before sharing it. Confirm that the packets move, the still file shows every step number, and no label is cut off.

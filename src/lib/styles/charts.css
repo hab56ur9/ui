@@ -643,3 +643,14 @@
     display: none;
   }
 }
+
+@media print {
+  .diagram *,
+  .diagram *::after {
+    animation: none !important;
+  }
+
+  .diagram-play {
+    display: none;
+  }
+}
