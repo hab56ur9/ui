@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 import { Icon } from "./Icon";
 import { useI18n } from "./i18n";
 
-const CALLOUT_ICON = { info: "info", warning: "warning", good: "success", do: "check", dont: "close" };
+const CALLOUT_ICON = { info: "info", warning: "warning", critical: "error", good: "success", do: "check", dont: "close" };
 
-export type CalloutProps = { tone?: "info" | "warning" | "good" | "do" | "dont"; accent?: "left" | "top"; title?: string; children: ReactNode };
+export type CalloutProps = { tone?: "info" | "warning" | "critical" | "good" | "do" | "dont"; accent?: "left" | "top"; title?: string; children: ReactNode };
 
 export function Callout({ tone = "info", accent = "left", title, children }: CalloutProps) {
   const { text } = useI18n();

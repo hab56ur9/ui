@@ -11,7 +11,7 @@ export function Page({ title, lede, actions, children }: PageProps) {
             {title && <h1 className="page-title">{title}</h1>}
             {lede && <p className="page-lede">{lede}</p>}
           </div>
-          {actions}
+          {actions && <div className="page-actions">{actions}</div>}
         </header>
       )}
       {children}

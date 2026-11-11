@@ -153,7 +153,7 @@ export function PrdKo() {
       </DocSection>
       <DocSection title="열린 질문">
         <Options>
-          <Option name="확인 후 적립" chosen>
+          <Option name="확인 후 적립" recommended>
             <Pros>
               <li>중복·부정 적립을 막습니다.</li>
             </Pros>

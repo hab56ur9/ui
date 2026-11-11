@@ -51,25 +51,26 @@ function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabel
   const yTicks = niceTicks(Math.min(...values), Math.max(...values), Math.max(2, Math.floor(height / (size * 4.5))));
   const last = (s: Drawn) => s.points[s.points.length - 1];
   const endText = (s: Drawn) => `${s.name} ${f.value(last(s).v)}`;
+  const top = size * (annotations.length ? 2 : 1);
+  const bottom = size * 2.2;
+  const y = linear([yTicks[0], yTicks[yTicks.length - 1]], [height - bottom, top]);
+  const ends = drawn.map((s) => ({ s, y: y(last(s).v) })).sort((a, b) => a.y - b.y);
+  const collides = ends.some((end, i) => i > 0 && end.y - ends[i - 1].y < size * 1.3);
   const margin = {
-    top: size * (annotations.length ? 2 : 1),
-    right: endLabels ? Math.max(...drawn.map((s) => textWidth(endText(s), size))) + 16 : size,
-    bottom: size * 2.2,
+    top,
+    right: endLabels && !collides ? Math.max(...drawn.map((s) => textWidth(endText(s), size))) + 16 : size,
+    bottom,
     left: Math.max(...yTicks.map((t) => textWidth(f.axis(t), size))) + 12,
   };
   const t0 = times[0];
   const t1 = times[times.length - 1];
   const x = linear([t0, t1], [margin.left, width - margin.right]);
-  const y = linear([yTicks[0], yTicks[yTicks.length - 1]], [height - margin.bottom, margin.top]);
   const count = Math.floor((x(t1) - x(t0)) / (size * 6));
   const axis = categories ? categoryTicks(categories, x(t0 + 1) - x(t0), size) : timeTicks(t0, t1, count, locale);
   const breaching = (v: number) => threshold !== undefined && (threshold.direction === "below" ? v < threshold.value : v > threshold.value);
   const lookup = drawn.map((s) => new Map(s.points.map(({ t, v }) => [t, v])));
   const positions = times.map(x);
   const { index, handlers } = useScrub(svg, positions);
-
-  const ends = drawn.map((s) => ({ s, y: y(last(s).v) })).sort((a, b) => a.y - b.y);
-  const collides = ends.some((end, i) => i > 0 && end.y - ends[i - 1].y < size * 1.3);
 
   let labelEdge = -Infinity;
   const marks = annotations

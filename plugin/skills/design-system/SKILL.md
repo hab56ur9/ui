@@ -38,7 +38,7 @@ createRoot(root).render(
 
 ## HTML pages
 
-A page without a bundler imports the component module in one line. The module carries React, loads the stylesheets, presets and styles itself, and exports every component together with render, h, Fragment, useState, useEffect, useMemo and useRef. render(target, node, { lang }) already wraps the tree in UIProvider, so toasts and confirms work without adding one; lang sets the component language.
+A page without a bundler imports the component module in one line. The module carries React, loads the stylesheets, presets and styles itself, and exports every component together with render, h, Fragment, useState, useEffect, useMemo, useRef, useI18n (lang, locale and text for the current language), useToast, useConfirm, iconNames and DAY (one day in milliseconds). render(target, node, { lang }) already wraps the tree in UIProvider, so toasts and confirms work without adding one; lang sets the component language.
 
 ```html
 <div id="app"></div>
@@ -72,30 +72,32 @@ The page sets its medium on the root element: app for dense tools and dashboards
 
 ## Component reference
 
-Every exported component and its props are listed in https://hab56ur9.github.io/ui/dist/components.json (name, required flag, kind and TypeScript type of each prop). Each component also has a docs page at https://hab56ur9.github.io/ui/#/<page> whose last section is an API table with types, defaults and meaning. These are the props a dashboard needs most; a star marks a required prop.
+Every exported component and its props are listed in https://hab56ur9.github.io/ui/dist/components.json (name, required flag, kind and TypeScript type of each prop). Each component also has a docs page at https://hab56ur9.github.io/ui/#/<page> whose last section is an API table with types, defaults and meaning; the same tables are plain source at https://github.com/hab56ur9/ui/blob/master/src/site/api.en.ts for readers that cannot run the site's scripts. These are the props a dashboard needs most; a star marks a required prop.
 
 | Component | Props |
 | --- | --- |
 | AppShell | brand*, nav* (groups of { title?, items: { id, label, icon?, href?, onSelect?, current?, sub? }[] }), navHeader, title, actions, aside, scroll ("frame" scrolls inside the shell, "page" scrolls the document; use "page" when the page should print or be captured whole), mobileNav, tabBar |
-| Page | title, lede, actions, children* |
+| Page | title, lede, actions (any number of buttons; they line up at the right), children* |
 | Board | initialLayout, onLayoutChange (every move, for live mirrors), onLayoutCommit (once after changes settle; save from this one), commitDelay, toolbar, actions, busy |
-| Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows of var(--widget-row), 72px in the app medium; the height is fixed, so size a table widget for its rows plus the header), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card" or "plain") |
+| Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows of var(--widget-row), 72px in the app medium; the height is fixed, so a DataTable widget with n rows needs h = ceil((n + 1) / 2) + 1), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card" or "plain") |
 | Stat | label, value*, delta ({ change: ratio, goodWhenUp?, neutral?, label }; neutral for values such as spend whose rise is neither good nor bad), note, trend (Point[]), color, size |
-| Meter | label*, value*, max (100), target, format, status ("good" reads On track, "warning" At risk, "critical" Off track), note; use it for budget spent, quota and goal progress; consecutive meters space themselves |
+| Meter | label*, value*, max (100), target, format, status ("good" reads On track, "warning" At risk, "critical" Off track; the page decides the rule, for example warning when pacing drifts more than 10% from plan and critical when it will miss the budget), note; use it for budget spent, quota and goal progress; consecutive meters space themselves |
 | LineChart | series* ({ name, points, color?, dashed?, area?, flagBreaches? }[]), format ({ axis, value?, date? }), band, threshold ({ value, label, breach, direction?: "above" or "below" }; below for a floor such as a minimum CTR), baseline, annotations, endLabels, categories |
 | BarChart | points*, name, color, colorOf, format, categories |
 | Heatmap | rows*, columns*, values*, format* ({ value, column?, cell? }), labelEvery, ramp, zeroIsEmpty |
 | Sparkline | points*, color |
 | DataTable | columns* ({ label, numeric?, wrap?, width? }[]), rows* (cells are strings or { text?, content?, color?, swatch?, delta?, render? }), fit |
 | Badge | children*, tone ("neutral", "main", "good", "warning", "critical"), variant ("soft", "solid", "outline") |
+| Callout | children*, tone ("info", "good", "warning", "critical", "do", "dont"), accent ("left", "top"), title |
+| Option (inside Options) | name*, chosen (decided) or recommended (still open), children of Pros and Cons |
 | Segmented | options* ({ value, label }[]), value or defaultValue, label*, onChange |
 | Tabs | items* ({ id, label }[]), value or defaultValue, onChange, variant ("line", "pill") |
 
-Time series are { t, v } with t as a millisecond timestamp in local time. A category axis passes categories (string[]) and uses the index as t. Numbers are formatted by the page with Intl.NumberFormat; compact Korean amounts read better with useGrouping: "always" (₩9,542.5만, not ₩9542.5만).
+Time series are { t, v } with t as a millisecond timestamp in local time. A color is a series slot number or a token path such as "chart.emphasis". Format numbers with the locale from useI18n so they follow the page language. A category axis passes categories (string[]) and uses the index as t. Numbers are formatted by the page with Intl.NumberFormat; compact Korean amounts read better with useGrouping: "always" (₩9,542.5만, not ₩9542.5만).
 
 ## Product specs
 
-A product requirements document (PRD) is a Doc page whose screens and behavior are specified together, so it starts from the prd example. Screens are drawn with real components inside Phone or Browser frames: Phone takes scale (0.5 fits three phones across a document), Browser takes address and an optional width it scales from. A stack of components directly inside a phone gets the screen's inner padding. Name each screen (S1, S2, O1) in the figure caption. The behavior spec is a RequirementTable whose items read "condition → result" and name the screen; the text refers to them with Ref. States (loading, empty, error, pending) and tracked events are DataTables, and decisions still open go in Options.
+A product requirements document (PRD) is a Doc page whose screens and behavior are specified together, so it starts from the prd example. Screens are drawn with real components inside Phone or Browser frames. Phone takes scale (0.5 fits three phones across a document) and holds a `div.stack` of components, which gets the screen's inner padding. Browser takes address, width (the desktop width it scales down from, such as 1200) and height (a number, or "auto" to fit the content); an app screen inside it is a Page with a WidgetGrid. In print, browser frames drop their scaling and reflow to the page width, figures and frames do not split across pages, and the floating ThemePicker is hidden. Name each screen (S1, S2, O1) in the figure caption. The behavior spec is a RequirementTable whose items read "condition → result" and name the screen; the text refers to them with Ref, which also reaches tables with another prefix such as F for fraud rules or A for advertiser rules. Leave status out for a requirement that has no state yet. States and tracked events are DataTables: an empty state is an info Callout with the next step, an error is a critical Callout with a retry Button, and a pending state is a Badge or Callout that says what is being checked. Decisions still open go in Options without chosen; mark the preferred one recommended.
 
 ```tsx
 <Figure caption="User screens: list (S1), detail (S2)">
@@ -128,6 +130,8 @@ Components take props only. Data points are { t, v }, color is a series slot or 
 const ok = await confirm({ title, description, confirmLabel, danger: true });
 ```
 
+Toasts and confirms come from hooks: `const toast = useToast(); toast({ message, status, action: { label, onClick }, duration })` with status info, good, warning or critical, and `const confirm = useConfirm(); const ok = await confirm({ title, description, confirmLabel, danger })`. Icons are named; iconNames lists them: alert, arrow-down, arrow-up, bell, bookmark, calendar, chart-bar, chart-line, check, chevron-down, chevron-left, chevron-right, chevron-up, clock, close, compass, copy, download, error, expand, external, eye, eye-off, filter, globe, grid, grip, heart, home, image, info, link, menu, message, minus, monitor, moon, more, phone, plus, printer, refresh, resize, search, send, sliders, success, sun, table, tablet, trash, trend-down, trend-up, undo, user, warning.
+
 Shared overlays follow one rule set. A destructive action asks through useConfirm, whose cancel button holds focus, and a reversible action reports through useToast with an undo action. Modal and Sheet are controlled by open and onClose; narrow screens use a Sheet where wide screens use a menu. Component text such as Cancel or Close follows the provider language; the page supplies only its own sentences. Icons come from the Icon component, or an svg use element points at dist/icons.svg; icons take the surrounding text color.
 
 ## Slides
@@ -145,7 +149,7 @@ A deck is HTML. Deck holds the slides on a 1920×1080 canvas with the slide medi
 
 ## Tech docs
 
-A technical document is HTML. Doc holds the header, contents and numbered sections with the doc medium tokens, and prints only itself on A4 portrait. The summary states the conclusion in one sentence, requirements live in a RequirementTable and the design refers to them with Ref, alternatives go in Options, and open questions get their own section. A design doc starts from the design-doc example; a question-driven proposal starts from the rfc example, one Problem and one Solution paragraph per question.
+A technical document is HTML. Doc holds the header, contents and numbered sections with the doc medium tokens, and prints only itself on A4 portrait through its print button. Its meta takes status (draft, review, final), authors, reviewers, date and version, each optional. Steps fits four items across a document column; use TextList ordered for longer sequences. The summary states the conclusion in one sentence, requirements live in a RequirementTable and the design refers to them with Ref, alternatives go in Options, and open questions get their own section. A design doc starts from the design-doc example; a question-driven proposal starts from the rfc example, one Problem and one Solution paragraph per question.
 
 ## Reference pages
 

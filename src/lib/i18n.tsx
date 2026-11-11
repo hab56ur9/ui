@@ -135,6 +135,7 @@ const MESSAGES = {
     "doc.pros": "장점",
     "doc.cons": "단점",
     "doc.chosen": "선택함",
+    "doc.recommended": "추천",
     "doc.change": "변경 내용",
   },
   en: {
@@ -271,6 +272,7 @@ const MESSAGES = {
     "doc.pros": "Pros",
     "doc.cons": "Cons",
     "doc.chosen": "Chosen",
+    "doc.recommended": "Recommended",
     "doc.change": "Change",
   },
 };

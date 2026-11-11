@@ -153,7 +153,7 @@ export function PrdEn() {
       </DocSection>
       <DocSection title="Open questions">
         <Options>
-          <Option name="Reward after confirmation" chosen>
+          <Option name="Reward after confirmation" recommended>
             <Pros>
               <li>Blocks duplicate and fraudulent rewards.</li>
             </Pros>

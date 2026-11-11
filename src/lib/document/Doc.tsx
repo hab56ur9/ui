@@ -7,8 +7,8 @@ import { PrintCopy } from "../print";
 export type DocStatus = "draft" | "review" | "final";
 const STATUS_TONE: Record<DocStatus, BadgeTone> = { draft: "neutral", review: "warning", final: "main" };
 
-export type DocMeta = { status: DocStatus; authors: string[]; reviewers?: string[]; date: string; version?: string };
-export type DocProps = { title: ReactNode; summary?: ReactNode; meta: DocMeta; toc?: boolean; printable?: boolean; children: ReactNode };
+export type DocMeta = { status?: DocStatus; authors?: string[]; reviewers?: string[]; date?: string; version?: string };
+export type DocProps = { title: ReactNode; summary?: ReactNode; meta?: DocMeta; toc?: boolean; printable?: boolean; children: ReactNode };
 
 type Entry = { id: string; number: string; title: string; level: number };
 
@@ -25,7 +25,7 @@ const jump = (e: MouseEvent, selector: string) => {
   target.classList.add("is-flash");
 };
 
-export function Doc({ title, summary, meta, toc = true, printable = true, children }: DocProps) {
+export function Doc({ title, summary, meta = {}, toc = true, printable = true, children }: DocProps) {
   const { text } = useI18n();
   const root = useRef<HTMLElement>(null);
   const [outline, setOutline] = useState<Entry[]>([]);
@@ -57,9 +57,11 @@ export function Doc({ title, summary, meta, toc = true, printable = true, childr
     <article ref={root} className="doc" data-medium="doc">
       <header className="doc-head">
         <div className="doc-head-row">
-          <Badge tone={STATUS_TONE[meta.status]} variant={meta.status === "final" ? "solid" : "outline"}>
-            {text(`doc.${meta.status}`)}
-          </Badge>
+          {meta.status && STATUS_TONE[meta.status] && (
+            <Badge tone={STATUS_TONE[meta.status]} variant={meta.status === "final" ? "solid" : "outline"}>
+              {text(`doc.${meta.status}`)}
+            </Badge>
+          )}
           <span className="toolbar-spacer" />
           {printable && (
             <button type="button" className="doc-print" aria-label={text("print")} title={text("print")} onClick={() => setPrinting(true)}>
@@ -72,8 +74,12 @@ export function Doc({ title, summary, meta, toc = true, printable = true, childr
         <dl className="doc-meta">
           {people(text("doc.authors"), meta.authors)}
           {people(text("doc.reviewers"), meta.reviewers)}
-          <dt>{text("doc.date")}</dt>
-          <dd>{meta.date}</dd>
+          {meta.date && (
+            <>
+              <dt>{text("doc.date")}</dt>
+              <dd>{meta.date}</dd>
+            </>
+          )}
           {meta.version && (
             <>
               <dt>{text("doc.version")}</dt>

@@ -35,7 +35,7 @@ const fit = (label: string, room: number, size: number) => {
 
 export function categoryTicks(labels: string[], spacing: number, size: number) {
   const all = labels.map((_, i) => i);
-  if (spacing >= size * 3) return { ticks: all, format: (t: number) => fit(labels[t] ?? "", spacing - size / 2, size) };
+  if (spacing >= size * 3) return { ticks: all, format: (t: number) => fit(labels[t] ?? "", spacing - size, size) };
   const widest = Math.max(0, ...labels.map((label) => textWidth(label, size))) + size;
   const step = Math.max(1, Math.ceil(widest / Math.max(spacing, 1)));
   return { ticks: all.filter((i) => i % step === 0), format: (t: number) => labels[t] ?? "" };

@@ -162,9 +162,9 @@
         },
         {
           "name": "meta",
-          "optional": false,
+          "optional": true,
           "kind": "object",
-          "type": "DocMeta"
+          "type": "DocMeta | undefined"
         },
         {
           "name": "toc",
@@ -489,6 +489,12 @@
         },
         {
           "name": "chosen",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "recommended",
           "optional": true,
           "kind": "boolean",
           "type": "boolean | undefined"
@@ -1274,13 +1280,14 @@
           "optional": true,
           "kind": "enum",
           "values": [
+            "critical",
             "do",
             "dont",
             "good",
             "info",
             "warning"
           ],
-          "type": "\"do\" | \"dont\" | \"good\" | \"info\" | \"warning\" | undefined"
+          "type": "\"critical\" | \"do\" | \"dont\" | \"good\" | \"info\" | \"warning\" | undefined"
         },
         {
           "name": "accent",
@@ -3187,8 +3194,8 @@
         {
           "name": "height",
           "optional": true,
-          "kind": "number",
-          "type": "number | undefined"
+          "kind": "scalar",
+          "type": "number | \"auto\" | undefined"
         },
         {
           "name": "children",

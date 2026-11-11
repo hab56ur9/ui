@@ -465,8 +465,7 @@
                   "printable": {}
                 },
                 "required": [
-                  "title",
-                  "meta"
+                  "title"
                 ],
                 "additionalProperties": false
               }
@@ -733,7 +732,8 @@
                 "type": "object",
                 "properties": {
                   "name": {},
-                  "chosen": {}
+                  "chosen": {},
+                  "recommended": {}
                 },
                 "required": [
                   "name"

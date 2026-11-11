@@ -71,6 +71,13 @@ p {
   padding: var(--layout-section) var(--layout-inset);
 }
 
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .page-head {
   display: flex;
   flex-wrap: wrap;
@@ -426,7 +433,7 @@ p {
 }
 
 .stack > :has(> .chart) {
-  flex: 1;
+  flex: 1 0 auto;
   min-height: 120px;
 }
 
@@ -1449,6 +1456,10 @@ a.shell-link {
 
 .callout.is-good {
   --callout: var(--color-status-good);
+}
+
+.callout.is-critical {
+  --callout: var(--color-status-critical);
 }
 
 .callout.is-do {
@@ -2486,6 +2497,10 @@ button.mini-card {
   min-width: 0;
 }
 
-body:has(.theme-picker.is-floating) {
+body:has(.theme-picker.is-floating):not(:has(.shell-content)) {
+  padding-bottom: var(--space-16);
+}
+
+body:has(.theme-picker.is-floating) .shell-content {
   padding-bottom: var(--space-16);
 }

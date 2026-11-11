@@ -14,16 +14,23 @@ export function Phone({ scale, children }: { scale?: number; children: ReactNode
   );
 }
 
-export function Browser({ address, width, height = 720, children }: { address: string; width?: number; height?: number; children: ReactNode }) {
+export function Browser({ address, width, height, children }: { address: string; width?: number; height?: number | "auto"; children: ReactNode }) {
   const box = useRef<HTMLDivElement>(null);
+  const canvas = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [natural, setNatural] = useState(720);
   useLayoutEffect(() => {
     const el = box.current;
     if (!width || !el) return;
-    const observer = new ResizeObserver(() => setScale(Math.min(1, el.clientWidth / width)));
+    const observer = new ResizeObserver(() => {
+      setScale(Math.min(1, el.clientWidth / width));
+      if (height === "auto" && canvas.current) setNatural(canvas.current.scrollHeight);
+    });
     observer.observe(el);
+    if (canvas.current) observer.observe(canvas.current);
     return () => observer.disconnect();
-  }, [width]);
+  }, [width, height]);
+  const tall = height === "auto" ? natural : (height ?? 720);
   return (
     <div className="browser">
       <div className="browser-bar" aria-hidden="true">
@@ -31,13 +38,13 @@ export function Browser({ address, width, height = 720, children }: { address: s
         <span className="browser-address">{address}</span>
       </div>
       {width ? (
-        <div ref={box} className="browser-screen is-scaled" style={{ height: height * scale }}>
-          <div className="browser-canvas" style={{ width, height, transform: `scale(${scale})` }}>
+        <div ref={box} className="browser-screen is-scaled" style={{ height: tall * scale }}>
+          <div ref={canvas} className="browser-canvas" style={{ width, height: height === "auto" ? undefined : tall, transform: `scale(${scale})` }}>
             {children}
           </div>
         </div>
       ) : (
-        <div className="browser-screen">{children}</div>
+        <div className={`browser-screen${height === "auto" ? " is-auto" : ""}`}>{children}</div>
       )}
     </div>
   );

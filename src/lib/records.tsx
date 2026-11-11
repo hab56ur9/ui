@@ -24,24 +24,30 @@ export function RequirementTable({ items, prefix = "R" }: { items: Requirement[]
           ),
         },
         { text: text(`doc.${item.priority}`), className: `priority is-${item.priority}` },
-        text(`doc.${item.status ?? "open"}`),
+        item.status ? text(`doc.${item.status}`) : "",
       ])}
     />
   );
 }
 
-export type OptionProps = { name: ReactNode; chosen?: boolean; children?: ReactNode };
+export type OptionProps = { name: ReactNode; chosen?: boolean; recommended?: boolean; children?: ReactNode };
 
-export function Option({ name, chosen = false, children }: OptionProps) {
+export function Option({ name, chosen = false, recommended = false, children }: OptionProps) {
   const { text } = useI18n();
   return (
     <Card
       title={name}
       aside={
-        chosen && (
+        chosen ? (
           <Badge tone="main" variant="solid">
             {text("doc.chosen")}
           </Badge>
+        ) : (
+          recommended && (
+            <Badge tone="main" variant="outline">
+              {text("doc.recommended")}
+            </Badge>
+          )
         )
       }
       selected={chosen}
