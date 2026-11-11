@@ -1,0 +1,12 @@
+{
+  "title": "상품 PRD",
+  "description": "요약, 지표, 사용자 흐름, 화면 목업, 동작 명세, 상태, 이벤트, 운영 화면, 열린 질문, 변경 이력 순서의 상품 요구사항 문서입니다. 화면은 휴대폰·브라우저 틀 안에 실제 컴포넌트로 그리고, 동작 명세는 요구사항 번호로 화면과 이어집니다.",
+  "category": "기술 문서",
+  "kind": "doc",
+  "uses": ["문서 틀", "장", "단계", "휴대폰 틀", "브라우저 틀", "요구사항 표", "참조", "표", "진행률", "선택지 비교", "변경 이력"],
+  "en": {
+    "title": "Product PRD",
+    "description": "A product requirements document in the order summary, metrics, user flow, screen mockups, behavior spec, states, events, operations screen, open questions and change history. Screens are drawn with real components inside phone and browser frames, and the behavior spec links to them by requirement ID.",
+    "uses": ["Doc", "Section", "Steps", "Phone", "Browser", "Requirements", "Reference", "Table", "Meter", "Options", "Change log"]
+  }
+}

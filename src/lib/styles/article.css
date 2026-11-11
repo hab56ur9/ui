@@ -483,3 +483,74 @@
 .copy-name:hover {
   color: var(--color-main-default);
 }
+
+.phone-screen .shell-frame,
+.browser-screen .shell-frame {
+  height: 100%;
+}
+
+.browser {
+  overflow: hidden;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-overlay);
+}
+
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: var(--space-10);
+  padding: 0 var(--space-4);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
+  background: var(--color-bg-surface);
+}
+
+.browser-dots {
+  width: 52px;
+  height: 12px;
+  background:
+    radial-gradient(circle, var(--color-status-critical) 5px, transparent 6px) 0
+      0 / 18px 12px no-repeat,
+    radial-gradient(circle, var(--color-status-warning) 5px, transparent 6px)
+      18px 0 / 18px 12px no-repeat,
+    radial-gradient(circle, var(--color-status-good) 5px, transparent 6px) 36px
+      0 / 18px 12px no-repeat;
+}
+
+.browser-address {
+  flex: 1;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+  text-align: center;
+}
+
+.browser-screen {
+  height: min(720px, 72vh);
+  background: var(--color-bg-page);
+}
+
+.browser-screen.is-scaled {
+  position: relative;
+  overflow: hidden;
+}
+
+.browser-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.browser-canvas .shell-frame {
+  height: 100%;
+}
+
+.phone-screen > .stack {
+  padding: 0 var(--space-3) var(--space-3);
+}

@@ -78,7 +78,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["label", "ReactNode", "", "값 위의 이름표입니다. 위젯 안에서는 제목줄이 이름을 대신하므로 생략합니다."],
         ["value", "ReactNode", "", "형식을 맞춘 큰 값입니다."],
-        ["delta", "{ change, goodWhenUp?, label }", "", "`change`는 비율(0.063 = 6.3%)입니다. 기본은 오르면 좋음입니다."],
+        ["delta", "{ change, goodWhenUp?, neutral?, label }", "", "`change`는 비율(0.063 = 6.3%)입니다. 기본은 오르면 좋음이고, `neutral`이면 좋고 나쁨 색 없이 변화만 보여 줍니다."],
         ["note", "string", "", "값 아래 보조 문장입니다."],
         ["trend", POINTS, "", "있으면 스파크라인을 그립니다."],
         ["color", COLOR, "1", "스파크라인 마지막 점의 색입니다."],
@@ -168,7 +168,7 @@ export const api: Record<string, Section[]> = {
         ["format", "{ axis, value?, date? }", "", "축 눈금, 툴팁·끝점 값, 툴팁 날짜 형식입니다."],
         ["categories", "string[]", "", "범주 축의 이름입니다. 점의 t는 시간 대신 이 목록의 순번입니다."],
         ["band", "{ name, lower, upper, color? }", "", "예측 구간처럼 위아래 경계 사이를 칠합니다."],
-        ["threshold", "{ value, label, breach }", "", "임계선입니다. `flagBreaches` 시리즈의 초과 지점을 표시하고 툴팁에 `breach`를 붙입니다."],
+        ["threshold", "{ value, label, breach, direction? }", "", "임계선입니다. `flagBreaches` 시리즈의 초과 지점을 표시하고 툴팁에 `breach`를 붙입니다. `direction: \"below\"`면 선 아래 값이 초과입니다."],
         ["baseline", "number", "", "기준선입니다. 지수 비교의 100처럼 씁니다."],
         ["annotations", "{ t, label }[]", "[]", "사건을 세로선으로 표시합니다. 라벨이 겹치면 뒤의 것을 생략합니다."],
         ["endLabels", "boolean", "true", "선 끝에 이름과 마지막 값을 적습니다. 겹치면 생략합니다."],

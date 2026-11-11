@@ -537,6 +537,10 @@ p {
   color: var(--color-delta-bad);
 }
 
+.delta.is-neutral {
+  color: var(--color-fg-secondary);
+}
+
 .stat-trend {
   position: relative;
   flex: 1;
@@ -2480,4 +2484,8 @@ button.mini-card {
 .widget-titles > .widget-subtitle {
   flex: 1 1 0;
   min-width: 0;
+}
+
+body:has(.theme-picker.is-floating) {
+  padding-bottom: var(--space-16);
 }

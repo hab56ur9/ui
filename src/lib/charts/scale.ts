@@ -26,10 +26,19 @@ export function niceTicks(min: number, max: number, count: number) {
   return Array.from({ length: Math.round((end - start) / step) + 1 }, (_, i) => +(start + i * step).toFixed(10));
 }
 
+const fit = (label: string, room: number, size: number) => {
+  if (textWidth(label, size) <= room) return label;
+  const chars = [...label];
+  while (chars.length > 1 && textWidth(`${chars.join("")}…`, size) > room) chars.pop();
+  return `${chars.join("")}…`;
+};
+
 export function categoryTicks(labels: string[], spacing: number, size: number) {
+  const all = labels.map((_, i) => i);
+  if (spacing >= size * 3) return { ticks: all, format: (t: number) => fit(labels[t] ?? "", spacing - size / 2, size) };
   const widest = Math.max(0, ...labels.map((label) => textWidth(label, size))) + size;
   const step = Math.max(1, Math.ceil(widest / Math.max(spacing, 1)));
-  return { ticks: labels.map((_, i) => i).filter((i) => i % step === 0), format: (t: number) => labels[t] ?? "" };
+  return { ticks: all.filter((i) => i % step === 0), format: (t: number) => labels[t] ?? "" };
 }
 
 export function timeTicks(t0: number, t1: number, count: number, locale: string) {

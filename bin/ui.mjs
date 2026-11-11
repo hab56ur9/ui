@@ -35,6 +35,7 @@ const HELP = `ui ${pkg.version}
 Usage
   ui serve [dir] [--port 4321] [--host] [--no-reload]
   ui new <file.html> [--lang en|ko] [--medium app|doc|slide] [--cdn]
+  ui lint <file…>
   ui spec check <spec.json>
   ui spec build <spec.json> [--out app.html] [--lang en|ko] [--cdn]
   ui help
@@ -44,6 +45,8 @@ serve   Serves [dir] (default: current folder) at / and this design system at /u
         --host also listens on the local network so a phone can open the page.
 new     Writes a starter page that imports the design system in one line.
         --cdn imports the released module from ${pkg.homepage} instead of /ui/.
+lint    Checks pages for raw color literals and local machine paths;
+        style colors with var(--color-*) tokens instead.
 spec    check validates an app spec against the components and its own data,
         formats, actions, screens and overlays. The schema is dist/spec.schema.json.
         Built pages open in the editor at /__ui/edit?file=/<page>.html under ui serve.
@@ -253,6 +256,29 @@ function create(args) {
   if (!args.cdn) console.log(`open it with: ui serve ${relative(process.cwd(), dirname(path)) || "."}`);
 }
 
+const LINT = [
+  ["raw color literal; use a var(--color-*) token", /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/],
+  ["local machine path; link the published site or a relative path", /file:\/\/\/|\/Users\/|~\/Developer/],
+];
+
+function lint(files) {
+  if (!files.length) throw new Error("ui lint <file…>");
+  let count = 0;
+  for (const file of files) {
+    readFileSync(resolve(file), "utf8")
+      .split("\n")
+      .forEach((line, i) => {
+        for (const [message, pattern] of LINT) {
+          if (!pattern.test(line)) continue;
+          count += 1;
+          console.log(`  ✗ ${file}:${i + 1} ${message}: ${line.trim().slice(0, 120)}`);
+        }
+      });
+  }
+  console.log(count ? `${count} problems` : "lint: clean");
+  if (count) process.exitCode = 1;
+}
+
 function checkFile(file) {
   if (!file) throw new Error("ui spec check <spec.json>");
   const { components } = JSON.parse(readFileSync(join(pkgRoot, "dist/components.json"), "utf8"));
@@ -279,6 +305,7 @@ const command = args._[0] ?? "help";
 try {
   if (command === "serve") serve(args);
   else if (command === "new") create(args);
+  else if (command === "lint") lint(args._.slice(1));
   else if (command === "spec" && args._[1] === "check") checkFile(args._[2]);
   else if (command === "spec" && args._[1] === "build") buildFile(args._[2], args);
   else console.log(HELP);

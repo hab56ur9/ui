@@ -42,7 +42,7 @@ const components = exports
       ? checker
           .getPropertiesOfType(param)
           .filter((prop) => own(prop) || DOM_PROPS.has(prop.name))
-          .map((prop) => ({ name: prop.name, optional: has(prop.flags, SymbolFlags.Optional), ...kindOf(checker.getTypeOfSymbol(prop)) }))
+          .map((prop) => ({ name: prop.name, optional: has(prop.flags, SymbolFlags.Optional), ...kindOf(checker.getTypeOfSymbol(prop)), type: checker.typeToString(checker.getTypeOfSymbol(prop)) }))
       : [];
     return { name, props };
   });

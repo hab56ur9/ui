@@ -48,7 +48,9 @@ A page without a bundler imports the component module in one line. The module ca
 </script>
 ```
 
-A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right, so the page ends with about var(--space-16) of empty space to keep the last widget clear; the reviewer opens it to switch between the color presets, the styles and the light, dark and system modes, so one page is checked under every preset and style. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
+A page made for review always includes `ThemePicker` with `floating: true`. It pins a Theme button to the bottom right and reserves space at the end of the page so the last widget stays clear; the reviewer opens it to switch between the color presets, the styles and the light, dark and system modes, so one page is checked under every preset and style. Brand color in the page comes only from the `color.main.*` and `color.sub.*` roles, so a preset restyles all of it.
+
+Blocks and examples are written in JSX; their source is at https://github.com/hab56ur9/ui/tree/master/src/blocks. In an HTML page, write `<Widget id="a" w={3} h={2}>{child}</Widget>` as `h(Widget, { id: "a", w: 3, h: 2 }, child)` and a fragment as `h(Fragment, null, …)`. To capture a page in one theme, set `data-theme="light"` or `"dark"` on the html element.
 
 A page that cannot run scripts links the token stylesheet and the component stylesheet and uses the CSS classes directly: button, segmented, data-table, page, page-head, page-title, page-lede, toolbar. A page that runs scripts uses the Page component for its title, lede and actions instead of those classes.
 
@@ -70,17 +72,17 @@ The page sets its medium on the root element: app for dense tools and dashboards
 
 ## Component reference
 
-Every exported component and its props are listed in https://hab56ur9.github.io/ui/dist/components.json (name, required flag and kind of each prop). Each component also has a docs page at https://hab56ur9.github.io/ui/#/<page> whose last section is an API table with types, defaults and meaning. These are the props a dashboard needs most; a star marks a required prop.
+Every exported component and its props are listed in https://hab56ur9.github.io/ui/dist/components.json (name, required flag, kind and TypeScript type of each prop). Each component also has a docs page at https://hab56ur9.github.io/ui/#/<page> whose last section is an API table with types, defaults and meaning. These are the props a dashboard needs most; a star marks a required prop.
 
 | Component | Props |
 | --- | --- |
 | AppShell | brand*, nav* (groups of { title?, items: { id, label, icon?, href?, onSelect?, current?, sub? }[] }), navHeader, title, actions, aside, scroll ("frame" scrolls inside the shell, "page" scrolls the document; use "page" when the page should print or be captured whole), mobileNav, tabBar |
 | Page | title, lede, actions, children* |
 | Board | initialLayout, onLayoutChange (every move, for live mirrors), onLayoutCommit (once after changes settle; save from this one), commitDelay, toolbar, actions, busy |
-| Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card" or "plain") |
-| Stat | label, value*, delta ({ change: ratio, goodWhenUp?, label }), note, trend (Point[]), color, size |
-| Meter | label*, value*, max (100), target, format, status ("good", "warning", "critical"), note; use it for budget spent, quota and goal progress |
-| LineChart | series* ({ name, points, color?, dashed?, area?, flagBreaches? }[]), format ({ axis, value?, date? }), band, threshold ({ value, label, breach }), baseline, annotations, endLabels, categories |
+| Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows of var(--widget-row), 72px in the app medium; the height is fixed, so size a table widget for its rows plus the header), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card" or "plain") |
+| Stat | label, value*, delta ({ change: ratio, goodWhenUp?, neutral?, label }; neutral for values such as spend whose rise is neither good nor bad), note, trend (Point[]), color, size |
+| Meter | label*, value*, max (100), target, format, status ("good" reads On track, "warning" At risk, "critical" Off track), note; use it for budget spent, quota and goal progress; consecutive meters space themselves |
+| LineChart | series* ({ name, points, color?, dashed?, area?, flagBreaches? }[]), format ({ axis, value?, date? }), band, threshold ({ value, label, breach, direction?: "above" or "below" }; below for a floor such as a minimum CTR), baseline, annotations, endLabels, categories |
 | BarChart | points*, name, color, colorOf, format, categories |
 | Heatmap | rows*, columns*, values*, format* ({ value, column?, cell? }), labelEvery, ramp, zeroIsEmpty |
 | Sparkline | points*, color |
@@ -90,6 +92,21 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | Tabs | items* ({ id, label }[]), value or defaultValue, onChange, variant ("line", "pill") |
 
 Time series are { t, v } with t as a millisecond timestamp in local time. A category axis passes categories (string[]) and uses the index as t. Numbers are formatted by the page with Intl.NumberFormat; compact Korean amounts read better with useGrouping: "always" (₩9,542.5만, not ₩9542.5만).
+
+## Product specs
+
+A product requirements document (PRD) is a Doc page whose screens and behavior are specified together, so it starts from the prd example. Screens are drawn with real components inside Phone or Browser frames: Phone takes scale (0.5 fits three phones across a document), Browser takes address and an optional width it scales from. A stack of components directly inside a phone gets the screen's inner padding. Name each screen (S1, S2, O1) in the figure caption. The behavior spec is a RequirementTable whose items read "condition → result" and name the screen; the text refers to them with Ref. States (loading, empty, error, pending) and tracked events are DataTables, and decisions still open go in Options.
+
+```tsx
+<Figure caption="User screens: list (S1), detail (S2)">
+  <Row>
+    <Phone scale={0.5}>
+      <div className="stack">…</div>
+    </Phone>
+  </Row>
+</Figure>
+<RequirementTable items={[{ text: "Tapping an offer on S1 → opens S2 and records a detail view.", priority: "must" }]} />
+```
 
 ## Snapshot outputs
 
@@ -165,10 +182,10 @@ A guide, reference or how-to page uses the parts the documentation site is built
 
 ## Check
 
-The lint rejects raw color literals and local machine paths. Run it from a clone of the repository, on the repository itself or on any page built elsewhere. After a token change, open the token review page; its summary lists contrast failures and unused primitives.
+The lint rejects raw color literals and local machine paths. Run it on any page with the CLI, which works without a clone; inside a clone, the repository's own lint covers the source. After a token change, open the token review page; its summary lists contrast failures and unused primitives.
 
 ```bash
 npm run check
-node scripts/lint.mjs path/to/page.html
+npx --yes github:hab56ur9/ui lint path/to/page.html
 https://hab56ur9.github.io/ui/#/theme
 ```

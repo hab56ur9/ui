@@ -78,7 +78,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["label", "ReactNode", "", "A label above the value. Leave it out inside a widget, whose title bar names it."],
         ["value", "ReactNode", "", "The formatted large value."],
-        ["delta", "{ change, goodWhenUp?, label }", "", "`change` is a ratio (0.063 = 6.3%). By default a rise is good."],
+        ["delta", "{ change, goodWhenUp?, neutral?, label }", "", "`change` is a ratio (0.063 = 6.3%). By default a rise is good; `neutral` shows the change without good or bad color."],
         ["note", "string", "", "A supporting line below the value."],
         ["trend", POINTS, "", "Draws a sparkline when present."],
         ["color", COLOR, "1", "The color of the sparkline's last point."],
@@ -168,7 +168,7 @@ export const api: Record<string, Section[]> = {
         ["format", "{ axis, value?, date? }", "", "Formats for axis ticks, tooltip and end values, and tooltip dates."],
         ["categories", "string[]", "", "Names for a category axis; point t is the index into it instead of a time."],
         ["band", "{ name, lower, upper, color? }", "", "Fills between an upper and a lower bound, such as a forecast band."],
-        ["threshold", "{ value, label, breach }", "", "The threshold line. It marks breaches in `flagBreaches` series and adds `breach` to the tooltip."],
+        ["threshold", "{ value, label, breach, direction? }", "", "The threshold line. It marks breaches in `flagBreaches` series and adds `breach` to the tooltip; `direction: \"below\"` makes values under the line the breaches."],
         ["baseline", "number", "", "The baseline, such as 100 in an index comparison."],
         ["annotations", "{ t, label }[]", "[]", "Marks events with vertical lines. When labels overlap, the later ones are dropped."],
         ["endLabels", "boolean", "true", "Writes the name and last value at the end of each line. Overlapping labels are dropped."],

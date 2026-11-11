@@ -28,7 +28,7 @@ export function Meter({ label, value, max = 100, target, format = (v) => v.toLoc
           {status && (
             <span className="meter-status">
               <Icon name={ICONS[status]} size="sm" />
-              {text(`status.${status}`)}
+              {text(`meter.${status}`)}
             </span>
           )}
           {note}

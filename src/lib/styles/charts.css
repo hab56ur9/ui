@@ -444,3 +444,7 @@
 .meter.is-critical .meter-status .icon {
   color: var(--color-status-critical);
 }
+
+.meter + .meter {
+  margin-top: var(--space-4);
+}

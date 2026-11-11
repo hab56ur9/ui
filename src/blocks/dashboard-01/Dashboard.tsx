@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AppShell, BarChart, Board, DAY, DataTable, Heatmap, Icon, LineChart, Segmented, Sparkline, Stat, useI18n, Widget, type DataTableProps, type LayoutItem, type ShellGroup } from "ui";
+import { AppShell, BarChart, Board, DataTable, type DataTableProps, DAY, Heatmap, Icon, type LayoutItem, LineChart, Page, Segmented, type ShellGroup, Sparkline, Stat, useI18n, Widget } from "ui";
 import { campaignMarks, errors, HOURS, latency, mean, platforms, RANGES, releaseMarks, revenue, sum, total, WEEKDAYS, windowOf, type Range, type Window } from "./data";
 import { TEXT, type Text } from "./text";
 
@@ -244,16 +244,10 @@ export default function Dashboard() {
       nav={navOf(t, section, setSection)}
       title={t.nav[section]}
     >
-      <main className="page">
-        <header className="page-head">
-          <div>
-            <h1 className="page-title">{t.title}</h1>
-            <p className="page-lede">{t.lede}</p>
-          </div>
-        </header>
+      <Page title={t.title} lede={t.lede}>
         <Board
           initialLayout={layout}
-          onLayoutChange={(next) => remember("layout.v2", JSON.stringify(next))}
+          onLayoutCommit={(next) => remember("layout.v2", JSON.stringify(next))}
           toolbar={
             <Segmented
               label={t.period}
@@ -268,7 +262,7 @@ export default function Dashboard() {
         >
           {widgetsFor({ w: windowOf(range), t, fmt: formatters(locale), label: t.recent(t.range[range]) })}
         </Board>
-      </main>
+      </Page>
     </AppShell>
   );
 }

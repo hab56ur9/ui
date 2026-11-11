@@ -6,12 +6,14 @@
         {
           "name": "lang",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -22,42 +24,49 @@
           "name": "initialLayout",
           "optional": true,
           "kind": "list",
-          "type": "LayoutItem[]"
+          "type": "LayoutItem[] | undefined"
         },
         {
           "name": "onLayoutChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((layout: LayoutItem[]) => void) | undefined"
         },
         {
           "name": "onLayoutCommit",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((layout: LayoutItem[]) => void) | undefined"
         },
         {
           "name": "commitDelay",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "toolbar",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "actions",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "busy",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -67,47 +76,56 @@
         {
           "name": "id",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "subtitle",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "w",
           "optional": false,
-          "kind": "number"
+          "kind": "number",
+          "type": "number"
         },
         {
           "name": "h",
           "optional": false,
-          "kind": "number"
+          "kind": "number",
+          "type": "number"
         },
         {
           "name": "minW",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "minH",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "maxH",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "table",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => DataTableProps) | undefined"
         },
         {
           "name": "frame",
@@ -116,12 +134,14 @@
           "values": [
             "card",
             "plain"
-          ]
+          ],
+          "type": "\"card\" | \"plain\" | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -131,12 +151,14 @@
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "summary",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "meta",
@@ -147,17 +169,20 @@
         {
           "name": "toc",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "printable",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -167,17 +192,20 @@
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "id",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -187,7 +215,8 @@
         {
           "name": "to",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         }
       ]
     },
@@ -197,23 +226,26 @@
         {
           "name": "name",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "role",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "intro",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "contacts",
           "optional": true,
           "kind": "list",
-          "type": "ResumeContact[]"
+          "type": "ResumeContact[] | undefined"
         },
         {
           "name": "density",
@@ -222,17 +254,20 @@
           "values": [
             "comfortable",
             "compact"
-          ]
+          ],
+          "type": "\"comfortable\" | \"compact\" | undefined"
         },
         {
           "name": "printable",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -242,12 +277,14 @@
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -257,45 +294,50 @@
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "period",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "role",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "image",
           "optional": true,
           "kind": "object",
-          "type": "ImageProps"
+          "type": "ImageProps | undefined"
         },
         {
           "name": "summary",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "metrics",
           "optional": true,
           "kind": "list",
-          "type": "ProjectMetric[]"
+          "type": "ProjectMetric[] | undefined"
         },
         {
           "name": "tags",
           "optional": true,
           "kind": "list",
-          "type": "string[]"
+          "type": "string[] | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -305,23 +347,26 @@
         {
           "name": "name",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "role",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "contacts",
           "optional": true,
           "kind": "list",
-          "type": "ResumeContact[]"
+          "type": "ResumeContact[] | undefined"
         },
         {
           "name": "summary",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "density",
@@ -330,17 +375,20 @@
           "values": [
             "comfortable",
             "compact"
-          ]
+          ],
+          "type": "\"comfortable\" | \"compact\" | undefined"
         },
         {
           "name": "printable",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -350,38 +398,44 @@
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "org",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "period",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "place",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "items",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode[] | undefined"
         },
         {
           "name": "tags",
           "optional": true,
           "kind": "list",
-          "type": "string[]"
+          "type": "string[] | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -391,12 +445,14 @@
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -417,7 +473,8 @@
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -427,17 +484,20 @@
         {
           "name": "name",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "chosen",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -447,7 +507,8 @@
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -457,7 +518,8 @@
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -473,7 +535,8 @@
         {
           "name": "prefix",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -483,27 +546,32 @@
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "start",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "controls",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "grid",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -518,32 +586,38 @@
             "accent",
             "dark",
             "plain"
-          ]
+          ],
+          "type": "SlideTone | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "footer",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "className",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -553,7 +627,8 @@
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -563,17 +638,20 @@
         {
           "name": "kicker",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "subtitle",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -583,17 +661,20 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "items",
@@ -604,7 +685,8 @@
         {
           "name": "current",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         }
       ]
     },
@@ -614,32 +696,38 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "takeaway",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "aside",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -649,28 +737,32 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "items",
           "optional": true,
           "kind": "list",
-          "type": "string[]"
+          "type": "string[] | undefined"
         },
         {
           "name": "contact",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "tone",
@@ -680,7 +772,8 @@
             "accent",
             "dark",
             "plain"
-          ]
+          ],
+          "type": "SlideTone | undefined"
         }
       ]
     },
@@ -690,22 +783,26 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "takeaway",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "before",
@@ -727,22 +824,26 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "takeaway",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "metrics",
@@ -758,27 +859,32 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "quote",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "by",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "role",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "tone",
@@ -788,7 +894,8 @@
             "accent",
             "dark",
             "plain"
-          ]
+          ],
+          "type": "SlideTone | undefined"
         }
       ]
     },
@@ -798,27 +905,32 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "number",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "subtitle",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "tone",
@@ -828,7 +940,8 @@
             "accent",
             "dark",
             "plain"
-          ]
+          ],
+          "type": "SlideTone | undefined"
         }
       ]
     },
@@ -838,32 +951,38 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "takeaway",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "left",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "right",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "ratio",
@@ -873,7 +992,8 @@
             "1:1",
             "2:3",
             "3:2"
-          ]
+          ],
+          "type": "\"1:1\" | \"2:3\" | \"3:2\" | undefined"
         }
       ]
     },
@@ -883,27 +1003,32 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "kicker",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "statement",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "detail",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "tone",
@@ -913,7 +1038,8 @@
             "accent",
             "dark",
             "plain"
-          ]
+          ],
+          "type": "SlideTone | undefined"
         }
       ]
     },
@@ -923,22 +1049,26 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "takeaway",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "table",
@@ -954,22 +1084,26 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "takeaway",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "items",
@@ -985,32 +1119,38 @@
         {
           "name": "notes",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "source",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "kicker",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "subtitle",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "meta",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "tone",
@@ -1020,7 +1160,8 @@
             "accent",
             "dark",
             "plain"
-          ]
+          ],
+          "type": "SlideTone | undefined"
         }
       ]
     },
@@ -1041,7 +1182,8 @@
         {
           "name": "caption",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "kind",
@@ -1050,17 +1192,20 @@
           "values": [
             "figure",
             "table"
-          ]
+          ],
+          "type": "\"figure\" | \"table\" | undefined"
         },
         {
           "name": "height",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1081,7 +1226,8 @@
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1091,7 +1237,8 @@
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "tone",
@@ -1103,7 +1250,8 @@
             "main",
             "neutral",
             "warning"
-          ]
+          ],
+          "type": "BadgeTone | undefined"
         },
         {
           "name": "variant",
@@ -1113,7 +1261,8 @@
             "outline",
             "soft",
             "solid"
-          ]
+          ],
+          "type": "\"outline\" | \"soft\" | \"solid\" | undefined"
         }
       ]
     },
@@ -1130,7 +1279,8 @@
             "good",
             "info",
             "warning"
-          ]
+          ],
+          "type": "\"do\" | \"dont\" | \"good\" | \"info\" | \"warning\" | undefined"
         },
         {
           "name": "accent",
@@ -1139,17 +1289,20 @@
           "values": [
             "left",
             "top"
-          ]
+          ],
+          "type": "\"left\" | \"top\" | undefined"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1159,32 +1312,38 @@
         {
           "name": "title",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "aside",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "description",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "selected",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "onClick",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => void) | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1195,18 +1354,19 @@
           "name": "previous",
           "optional": true,
           "kind": "object",
-          "type": "PagerLink"
+          "type": "PagerLink | undefined"
         },
         {
           "name": "next",
           "optional": true,
           "kind": "object",
-          "type": "PagerLink"
+          "type": "PagerLink | undefined"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -1222,22 +1382,26 @@
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "current",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "offset",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "onSelect",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
         }
       ]
     },
@@ -1247,32 +1411,38 @@
         {
           "name": "label",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "hideLabel",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "value",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "defaultValue",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "onChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((value: string) => void) | undefined"
         },
         {
           "name": "placeholder",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "type",
@@ -1286,22 +1456,26 @@
             "tel",
             "text",
             "url"
-          ]
+          ],
+          "type": "\"email\" | \"number\" | \"password\" | \"search\" | \"tel\" | \"text\" | \"url\" | undefined"
         },
         {
           "name": "icon",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "hint",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "disabled",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -1311,7 +1485,8 @@
         {
           "name": "brand",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "nav",
@@ -1322,22 +1497,26 @@
         {
           "name": "navHeader",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "actions",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "aside",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "scroll",
@@ -1346,7 +1525,8 @@
           "values": [
             "frame",
             "page"
-          ]
+          ],
+          "type": "\"frame\" | \"page\" | undefined"
         },
         {
           "name": "mobileNav",
@@ -1355,18 +1535,20 @@
           "values": [
             "drawer",
             "tabs"
-          ]
+          ],
+          "type": "\"drawer\" | \"tabs\" | undefined"
         },
         {
           "name": "tabBar",
           "optional": true,
           "kind": "object",
-          "type": "TabBarStyle"
+          "type": "TabBarStyle | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1376,33 +1558,38 @@
         {
           "name": "value",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | null | undefined"
         },
         {
           "name": "onChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((day: number) => void) | undefined"
         },
         {
           "name": "marks",
           "optional": true,
           "kind": "list",
-          "type": "number[]"
+          "type": "number[] | undefined"
         },
         {
           "name": "month",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "today",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -1412,12 +1599,14 @@
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "size",
@@ -1427,12 +1616,14 @@
             "card",
             "full",
             "mini"
-          ]
+          ],
+          "type": "\"card\" | \"full\" | \"mini\" | undefined"
         },
         {
           "name": "peek",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -1442,17 +1633,20 @@
         {
           "name": "alt",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "src",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "seed",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "ratio",
@@ -1463,7 +1657,8 @@
             "1:1",
             "3:4",
             "4:3"
-          ]
+          ],
+          "type": "\"16:9\" | \"1:1\" | \"3:4\" | \"4:3\" | undefined"
         },
         {
           "name": "fit",
@@ -1472,12 +1667,14 @@
           "values": [
             "contain",
             "cover"
-          ]
+          ],
+          "type": "\"contain\" | \"cover\" | undefined"
         },
         {
           "name": "rounded",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -1493,27 +1690,32 @@
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "description",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "meta",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "badge",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "onSelect",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => void) | undefined"
         }
       ]
     },
@@ -1529,17 +1731,20 @@
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "meta",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "onSelect",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => void) | undefined"
         }
       ]
     },
@@ -1549,12 +1754,14 @@
         {
           "name": "name",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "src",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "size",
@@ -1564,7 +1771,8 @@
             "lg",
             "md",
             "sm"
-          ]
+          ],
+          "type": "\"lg\" | \"md\" | \"sm\" | undefined"
         },
         {
           "name": "ring",
@@ -1573,7 +1781,8 @@
           "values": [
             "new",
             "seen"
-          ]
+          ],
+          "type": "\"new\" | \"seen\" | undefined"
         }
       ]
     },
@@ -1589,12 +1798,14 @@
         {
           "name": "onSelect",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -1610,7 +1821,8 @@
         {
           "name": "onSelect",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
         }
       ]
     },
@@ -1620,17 +1832,20 @@
         {
           "name": "author",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "avatar",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "place",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "photo",
@@ -1641,47 +1856,56 @@
         {
           "name": "likes",
           "optional": false,
-          "kind": "number"
+          "kind": "number",
+          "type": "number"
         },
         {
           "name": "liked",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "caption",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "comments",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "time",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "onLike",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((liked: boolean) => void) | undefined"
         },
         {
           "name": "onComment",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => void) | undefined"
         },
         {
           "name": "onShare",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => void) | undefined"
         },
         {
           "name": "onSave",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => void) | undefined"
         }
       ]
     },
@@ -1691,33 +1915,38 @@
         {
           "name": "name",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "handle",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "avatar",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "bio",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "stats",
           "optional": true,
           "kind": "list",
-          "type": "ProfileStat[]"
+          "type": "ProfileStat[] | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1733,12 +1962,14 @@
         {
           "name": "onSelect",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -1748,22 +1979,26 @@
         {
           "name": "title",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "lede",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "actions",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1773,12 +2008,14 @@
         {
           "name": "flow",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -1788,39 +2025,44 @@
         {
           "name": "children",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "defaultValue",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "readOnly",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "onChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((markdown: string) => void) | undefined"
         },
         {
           "name": "data",
           "optional": true,
           "kind": "object",
-          "type": "Record<string, unknown>"
+          "type": "Record<string, unknown> | undefined"
         },
         {
           "name": "formats",
           "optional": true,
           "kind": "object",
-          "type": "Record<string, JsonUIFormat>"
+          "type": "Record<string, JsonUIFormat> | undefined"
         },
         {
           "name": "onAction",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((action: JsonUIAction) => void) | undefined"
         }
       ]
     },
@@ -1834,7 +2076,8 @@
           "values": [
             "bar",
             "floating"
-          ]
+          ],
+          "type": "\"bar\" | \"floating\" | undefined"
         },
         {
           "name": "labels",
@@ -1844,7 +2087,8 @@
             "active",
             "hide",
             "show"
-          ]
+          ],
+          "type": "\"active\" | \"hide\" | \"show\" | undefined"
         },
         {
           "name": "items",
@@ -1855,17 +2099,20 @@
         {
           "name": "value",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "onChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -1881,17 +2128,20 @@
         {
           "name": "value",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "defaultValue",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "onChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
         },
         {
           "name": "variant",
@@ -1900,12 +2150,14 @@
           "values": [
             "line",
             "pill"
-          ]
+          ],
+          "type": "\"line\" | \"pill\" | undefined"
         },
         {
           "name": "fill",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "orientation",
@@ -1914,12 +2166,14 @@
           "values": [
             "horizontal",
             "vertical"
-          ]
+          ],
+          "type": "\"horizontal\" | \"vertical\" | undefined"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -1940,32 +2194,38 @@
         {
           "name": "preset",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | null | undefined"
         },
         {
           "name": "theme",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | null | undefined"
         },
         {
           "name": "style",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | null | undefined"
         },
         {
           "name": "onChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((value: ThemePickerValue) => void) | undefined"
         },
         {
           "name": "floating",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "inline",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -1987,7 +2247,8 @@
         {
           "name": "fit",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -1997,17 +2258,20 @@
         {
           "name": "disabled",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "onClick",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "MouseEventHandler<HTMLButtonElement> | undefined"
         },
         {
           "name": "variant",
@@ -2017,12 +2281,14 @@
             "danger",
             "primary",
             "secondary"
-          ]
+          ],
+          "type": "\"danger\" | \"primary\" | \"secondary\" | undefined"
         },
         {
           "name": "icon",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -2032,12 +2298,20 @@
         {
           "name": "change",
           "optional": false,
-          "kind": "number"
+          "kind": "number",
+          "type": "number"
         },
         {
           "name": "goodWhenUp",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "neutral",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -2054,23 +2328,25 @@
           "name": "value",
           "optional": true,
           "kind": "object",
-          "type": "V"
+          "type": "V | undefined"
         },
         {
           "name": "defaultValue",
           "optional": true,
           "kind": "object",
-          "type": "V"
+          "type": "V | undefined"
         },
         {
           "name": "label",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "onChange",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((value: V) => void) | undefined"
         }
       ]
     },
@@ -2080,34 +2356,38 @@
         {
           "name": "label",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "value",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "delta",
           "optional": true,
           "kind": "object",
-          "type": "{ change: number; goodWhenUp?: boolean | undefined; label?: string | undefined; }"
+          "type": "{ change: number; goodWhenUp?: boolean | undefined; neutral?: boolean | undefined; label?: string | undefined; } | undefined"
         },
         {
           "name": "note",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "trend",
           "optional": true,
           "kind": "list",
-          "type": "Point[]"
+          "type": "Point[] | undefined"
         },
         {
           "name": "color",
           "optional": true,
-          "kind": "scalar"
+          "kind": "scalar",
+          "type": "Color | undefined"
         },
         {
           "name": "size",
@@ -2116,7 +2396,8 @@
           "values": [
             "md",
             "sm"
-          ]
+          ],
+          "type": "\"md\" | \"sm\" | undefined"
         }
       ]
     },
@@ -2126,7 +2407,8 @@
         {
           "name": "code",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "lang",
@@ -2138,17 +2420,20 @@
             "plain",
             "sql",
             "tsx"
-          ]
+          ],
+          "type": "\"html\" | \"json\" | \"plain\" | \"sql\" | \"tsx\" | undefined"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "actions",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -2158,7 +2443,8 @@
         {
           "name": "code",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "lang",
@@ -2170,12 +2456,14 @@
             "plain",
             "sql",
             "tsx"
-          ]
+          ],
+          "type": "\"html\" | \"json\" | \"plain\" | \"sql\" | \"tsx\" | undefined"
         },
         {
           "name": "numbers",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -2185,7 +2473,8 @@
         {
           "name": "name",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "size",
@@ -2195,12 +2484,14 @@
             "lg",
             "md",
             "sm"
-          ]
+          ],
+          "type": "\"lg\" | \"md\" | \"sm\" | undefined"
         },
         {
           "name": "label",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -2217,46 +2508,49 @@
           "name": "format",
           "optional": true,
           "kind": "object",
-          "type": "Format"
+          "type": "Format | undefined"
         },
         {
           "name": "band",
           "optional": true,
           "kind": "object",
-          "type": "{ name: string; lower: Point[]; upper: Point[]; color?: Color | undefined; }"
+          "type": "{ name: string; lower: Point[]; upper: Point[]; color?: Color | undefined; } | undefined"
         },
         {
           "name": "threshold",
           "optional": true,
           "kind": "object",
-          "type": "{ value: number; label: string; breach: string; }"
+          "type": "{ value: number; label: string; breach: string; direction?: \"above\" | \"below\" | undefined; } | undefined"
         },
         {
           "name": "baseline",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "annotations",
           "optional": true,
           "kind": "list",
-          "type": "{ t: number; label: string; }[]"
+          "type": "{ t: number; label: string; }[] | undefined"
         },
         {
           "name": "endLabels",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "categories",
           "optional": true,
           "kind": "list",
-          "type": "string[]"
+          "type": "string[] | undefined"
         }
       ]
     },
@@ -2272,34 +2566,38 @@
         {
           "name": "name",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "color",
           "optional": true,
-          "kind": "scalar"
+          "kind": "scalar",
+          "type": "Color | undefined"
         },
         {
           "name": "colorOf",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((point: Point, index: number) => Color) | undefined"
         },
         {
           "name": "format",
           "optional": true,
           "kind": "object",
-          "type": "Format"
+          "type": "Format | undefined"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "categories",
           "optional": true,
           "kind": "list",
-          "type": "string[]"
+          "type": "string[] | undefined"
         }
       ]
     },
@@ -2333,7 +2631,8 @@
         {
           "name": "labelEvery",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "ramp",
@@ -2342,17 +2641,20 @@
           "values": [
             "sequential",
             "sequential-main"
-          ]
+          ],
+          "type": "\"sequential\" | \"sequential-main\" | undefined"
         },
         {
           "name": "zeroIsEmpty",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -2368,7 +2670,8 @@
         {
           "name": "color",
           "optional": true,
-          "kind": "scalar"
+          "kind": "scalar",
+          "type": "Color | undefined"
         }
       ]
     },
@@ -2378,43 +2681,50 @@
         {
           "name": "open",
           "optional": false,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean"
         },
         {
           "name": "onClose",
           "optional": false,
-          "kind": "action"
+          "kind": "action",
+          "type": "(value: V | null) => void"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "description",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "actions",
           "optional": true,
           "kind": "list",
-          "type": "DialogAction<V>[]"
+          "type": "DialogAction<V>[] | undefined"
         },
         {
           "name": "dismissible",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "inline",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "size",
@@ -2424,7 +2734,8 @@
             "lg",
             "md",
             "sm"
-          ]
+          ],
+          "type": "\"lg\" | \"md\" | \"sm\" | undefined"
         }
       ]
     },
@@ -2434,43 +2745,50 @@
         {
           "name": "open",
           "optional": false,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean"
         },
         {
           "name": "onClose",
           "optional": false,
-          "kind": "action"
+          "kind": "action",
+          "type": "(value: V | null) => void"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "description",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "actions",
           "optional": true,
           "kind": "list",
-          "type": "DialogAction<V>[]"
+          "type": "DialogAction<V>[] | undefined"
         },
         {
           "name": "dismissible",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "inline",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -2480,7 +2798,8 @@
         {
           "name": "message",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "status",
@@ -2491,23 +2810,26 @@
             "good",
             "info",
             "warning"
-          ]
+          ],
+          "type": "ToastStatus | undefined"
         },
         {
           "name": "action",
           "optional": true,
           "kind": "object",
-          "type": "{ label: string; onClick?: (() => void) | undefined; }"
+          "type": "{ label: string; onClick?: (() => void) | undefined; } | undefined"
         },
         {
           "name": "duration",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "onDismiss",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "(() => void) | undefined"
         }
       ]
     },
@@ -2517,12 +2839,14 @@
         {
           "name": "lang",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -2543,32 +2867,38 @@
         {
           "name": "eyebrow",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "title",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "lede",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "wide",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         },
         {
           "name": "pager",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -2578,17 +2908,20 @@
         {
           "name": "id",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -2598,17 +2931,20 @@
         {
           "name": "name",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "version",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "href",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -2618,7 +2954,8 @@
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -2628,12 +2965,14 @@
         {
           "name": "code",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         },
         {
           "name": "title",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },
@@ -2643,7 +2982,8 @@
         {
           "name": "caption",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "layout",
@@ -2653,34 +2993,38 @@
             "centered",
             "fullscreen",
             "padded"
-          ]
+          ],
+          "type": "\"centered\" | \"fullscreen\" | \"padded\" | undefined"
         },
         {
           "name": "medium",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "lang",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "files",
           "optional": true,
           "kind": "list",
-          "type": "ExampleFile[]"
+          "type": "ExampleFile[] | undefined"
         },
         {
           "name": "variants",
           "optional": true,
           "kind": "list",
-          "type": "ExampleVariant[]"
+          "type": "ExampleVariant[] | undefined"
         },
         {
           "name": "children",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -2712,7 +3056,8 @@
         {
           "name": "description",
           "optional": true,
-          "kind": "string"
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "rows",
@@ -2728,7 +3073,8 @@
         {
           "name": "text",
           "optional": false,
-          "kind": "string"
+          "kind": "string",
+          "type": "string"
         }
       ]
     },
@@ -2738,7 +3084,8 @@
         {
           "name": "children",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },
@@ -2754,7 +3101,8 @@
         {
           "name": "ordered",
           "optional": true,
-          "kind": "boolean"
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -2775,27 +3123,32 @@
         {
           "name": "label",
           "optional": false,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "value",
           "optional": false,
-          "kind": "number"
+          "kind": "number",
+          "type": "number"
         },
         {
           "name": "max",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "target",
           "optional": true,
-          "kind": "number"
+          "kind": "number",
+          "type": "number | undefined"
         },
         {
           "name": "format",
           "optional": true,
-          "kind": "action"
+          "kind": "action",
+          "type": "((value: number) => string) | undefined"
         },
         {
           "name": "status",
@@ -2805,12 +3158,60 @@
             "critical",
             "good",
             "warning"
-          ]
+          ],
+          "type": "MeterStatus | undefined"
         },
         {
           "name": "note",
           "optional": true,
-          "kind": "node"
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Browser",
+      "props": [
+        {
+          "name": "address",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "width",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "height",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Phone",
+      "props": [
+        {
+          "name": "scale",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     }

@@ -430,7 +430,9 @@
             "Row",
             "TextList",
             "TokenTable",
-            "Meter"
+            "Meter",
+            "Browser",
+            "Phone"
           ]
         },
         "description": {
@@ -1949,7 +1951,8 @@
                 "type": "object",
                 "properties": {
                   "change": {},
-                  "goodWhenUp": {}
+                  "goodWhenUp": {},
+                  "neutral": {}
                 },
                 "required": [
                   "change"
@@ -2532,6 +2535,52 @@
                   "label",
                   "value"
                 ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Browser"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "address": {},
+                  "width": {},
+                  "height": {}
+                },
+                "required": [
+                  "address"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Phone"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "scale": {}
+                },
+                "required": [],
                 "additionalProperties": false
               }
             }

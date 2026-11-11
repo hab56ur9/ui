@@ -13,7 +13,7 @@ export type LineChartProps = {
   series: LineSeries[];
   format?: Format;
   band?: { name: string; lower: Point[]; upper: Point[]; color?: Color };
-  threshold?: { value: number; label: string; breach: string };
+  threshold?: { value: number; label: string; breach: string; direction?: "above" | "below" };
   baseline?: number;
   annotations?: { t: number; label: string }[];
   endLabels?: boolean;
@@ -63,7 +63,7 @@ function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabel
   const y = linear([yTicks[0], yTicks[yTicks.length - 1]], [height - margin.bottom, margin.top]);
   const count = Math.floor((x(t1) - x(t0)) / (size * 6));
   const axis = categories ? categoryTicks(categories, x(t0 + 1) - x(t0), size) : timeTicks(t0, t1, count, locale);
-  const breaching = (v: number) => threshold !== undefined && v > threshold.value;
+  const breaching = (v: number) => threshold !== undefined && (threshold.direction === "below" ? v < threshold.value : v > threshold.value);
   const lookup = drawn.map((s) => new Map(s.points.map(({ t, v }) => [t, v])));
   const positions = times.map(x);
   const { index, handlers } = useScrub(svg, positions);

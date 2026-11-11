@@ -18,19 +18,19 @@ export function Button({ variant = "secondary", icon, className, children, type 
 export type StatProps = {
   label?: ReactNode;
   value: ReactNode;
-  delta?: { change: number; goodWhenUp?: boolean; label?: string };
+  delta?: { change: number; goodWhenUp?: boolean; neutral?: boolean; label?: string };
   note?: string;
   trend?: Point[];
   color?: Color;
   size?: "md" | "sm";
 };
 
-export type DeltaProps = { change: number; goodWhenUp?: boolean };
+export type DeltaProps = { change: number; goodWhenUp?: boolean; neutral?: boolean };
 
-export function Delta({ change, goodWhenUp = true }: DeltaProps) {
+export function Delta({ change, goodWhenUp = true, neutral = false }: DeltaProps) {
   const rising = change >= 0;
   return (
-    <strong className={`delta ${rising === goodWhenUp ? "is-good" : "is-bad"}`}>
+    <strong className={`delta ${neutral ? "is-neutral" : rising === goodWhenUp ? "is-good" : "is-bad"}`}>
       <Icon name={rising ? "arrow-up" : "arrow-down"} size="sm" />
       {`${Math.abs(change * 100).toFixed(1)}%`}
     </strong>
@@ -48,7 +48,7 @@ export function Stat({ label, value, delta, note, trend, color = 1, size = "md" 
       <div className="stat-value">{value}</div>
       {delta && (
         <div className="stat-delta">
-          <Delta change={delta.change} goodWhenUp={delta.goodWhenUp} />
+          <Delta change={delta.change} goodWhenUp={delta.goodWhenUp} neutral={delta.neutral} />
           {delta.label && <span>{delta.label}</span>}
         </div>
       )}
