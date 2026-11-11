@@ -33,9 +33,20 @@ const fit = (label: string, room: number, size: number) => {
   return `${chars.join("")}…`;
 };
 
-export function categoryTicks(labels: string[], spacing: number, size: number) {
+const wrap = (label: string, room: number, size: number) => {
+  if (textWidth(label, size) <= room) return label;
+  const chars = [...label];
+  let cut = chars.length;
+  while (cut > 1 && textWidth(chars.slice(0, cut).join(""), size) > room) cut -= 1;
+  const space = chars.slice(0, cut).lastIndexOf(" ");
+  const head = chars.slice(0, space > 0 ? space : cut).join("").trim();
+  const tail = chars.slice(space > 0 ? space + 1 : cut).join("").trim();
+  return `${head}\n${fit(tail, room, size)}`;
+};
+
+export function categoryTicks(labels: string[], spacing: number, size: number, lines = 1) {
   const all = labels.map((_, i) => i);
-  if (spacing >= size * 3) return { ticks: all, format: (t: number) => fit(labels[t] ?? "", spacing - size, size) };
+  if (spacing >= size * 3) return { ticks: all, format: (t: number) => (lines > 1 ? wrap : fit)(labels[t] ?? "", spacing - size, size) };
   const widest = Math.max(0, ...labels.map((label) => textWidth(label, size))) + size;
   const step = Math.max(1, Math.ceil(widest / Math.max(spacing, 1)));
   return { ticks: all.filter((i) => i % step === 0), format: (t: number) => labels[t] ?? "" };

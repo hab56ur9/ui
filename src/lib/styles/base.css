@@ -1184,7 +1184,7 @@ a.shell-link {
   translate: 0 -50%;
 }
 
-@media (max-width: 760px) {
+@media screen and (max-width: 760px) {
   :not([data-medium="slide"]) > .steps {
     grid-auto-flow: row;
   }

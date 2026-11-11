@@ -1,3 +1,4 @@
+import { flushSync } from "react-dom";
 import { useLayoutEffect, useRef, useState } from "react";
 
 export function useSize<T extends HTMLElement>() {
@@ -10,7 +11,17 @@ export function useSize<T extends HTMLElement>() {
     measure(node.clientWidth, node.clientHeight);
     const observer = new ResizeObserver(([entry]) => measure(entry.contentRect.width, entry.contentRect.height));
     observer.observe(node);
-    return () => observer.disconnect();
+    const print = matchMedia("print");
+    const remeasure = () => flushSync(() => measure(node.clientWidth, node.clientHeight));
+    print.addEventListener("change", remeasure);
+    addEventListener("beforeprint", remeasure);
+    addEventListener("afterprint", remeasure);
+    return () => {
+      observer.disconnect();
+      print.removeEventListener("change", remeasure);
+      removeEventListener("beforeprint", remeasure);
+      removeEventListener("afterprint", remeasure);
+    };
   }, []);
   return [ref, size] as const;
 }

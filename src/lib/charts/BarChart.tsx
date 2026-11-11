@@ -34,8 +34,10 @@ function BarPlot({ points, name = "", format, title, width, height, node, ...pro
   const paintOf = (point: Point, i: number) => color(props.colorOf?.(point, i) ?? props.color ?? 1);
   const size = tokenPx(node, "--font-size-label", 12);
   const yTicks = niceTicks(0, Math.max(...points.map(({ v }) => v)), Math.max(2, Math.floor(height / (size * 4.5))));
-  const margin = { top: size, right: size, bottom: size * 2.2, left: Math.max(...yTicks.map((t) => textWidth(f.axis(t), size))) + 12 };
-  const band = (width - margin.left - margin.right) / points.length;
+  const left = Math.max(...yTicks.map((t) => textWidth(f.axis(t), size))) + 12;
+  const band = (width - left - size) / points.length;
+  const wrapped = Boolean(props.categories?.some((label) => textWidth(label, size) > band - size)) && band >= size * 3;
+  const margin = { top: size, right: size, bottom: size * (wrapped ? 3.4 : 2.2), left };
   const x = (i: number) => margin.left + band * (i + 0.5);
   const y = linear([0, yTicks[yTicks.length - 1]], [height - margin.bottom, margin.top]);
   const barWidth = Math.max(1, Math.min(tokenPx(node, "--chart-bar-max", 24), band * 0.7));
@@ -44,7 +46,7 @@ function BarPlot({ points, name = "", format, title, width, height, node, ...pro
   const final = points[points.length - 1].t;
   const time = linear([first, final], [x(0), x(points.length - 1)]);
   const count = Math.floor((time(final) - time(first)) / (size * 6));
-  const axis = props.categories ? categoryTicks(props.categories, band, size) : timeTicks(first, final, count, locale);
+  const axis = props.categories ? categoryTicks(props.categories, band, size, wrapped ? 2 : 1) : timeTicks(first, final, count, locale);
   const { index, handlers } = useScrub(
     svg,
     points.map((_, i) => x(i)),

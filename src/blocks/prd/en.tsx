@@ -1,4 +1,4 @@
-import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Phone, Pros, Ref, RequirementTable, Row, Steps, TextList } from "ui";
+import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Page, Phone, Pros, Ref, RequirementTable, Row, Steps, TextList, Widget, WidgetGrid } from "ui";
 
 const OFFERS = [
   { title: "Install a coffee brand app", reward: "300P", tone: "main" as const, badge: "Install" },
@@ -134,20 +134,28 @@ export function PrdEn() {
       </DocSection>
       <DocSection title="Operations screen">
         <Figure caption="Advertiser budget screen (O1): budget spent and completions">
-          <Browser address="ads.example.com/campaigns">
-            <div className="stack">
-              <Meter label="Coffee brand app install · monthly budget" value={6600000} max={21300000} target={7100000} format={(v) => `₩${(v / 1000000).toFixed(1)}M`} status="warning" note="Spending slower than planned." />
-              <Meter label="Insurance consultation · monthly budget" value={15800000} max={20000000} target={14200000} format={(v) => `₩${(v / 1000000).toFixed(1)}M`} status="good" />
-              <DataTable
-                fit
-                columns={[{ label: "Offer" }, { label: "Joined", numeric: true }, { label: "Rewarded", numeric: true }, { label: "Completion", numeric: true }]}
-                rows={[
-                  ["Install a coffee brand app", "4,210", "3,982", "17.8%"],
-                  ["Request an insurance consultation", "1,054", "1,031", "21.2%"],
-                  ["Watch a 30-second new-season clip", "12,480", "12,402", "64.0%"],
-                ]}
-              />
-            </div>
+          <Browser address="ads.example.com/campaigns" width={1200} height="auto">
+            <Page title="Campaign budgets">
+              <WidgetGrid>
+                <Widget id="pacing" title="Budget pacing" w={5} h={4}>
+                  <div className="stack">
+                    <Meter label="Coffee brand app install · monthly budget" value={6600000} max={21300000} target={7100000} format={(v) => `₩${(v / 1000000).toFixed(1)}M`} status="warning" note="Spending slower than planned." />
+                    <Meter label="Insurance consultation · monthly budget" value={15800000} max={20000000} target={14200000} format={(v) => `₩${(v / 1000000).toFixed(1)}M`} status="good" />
+                  </div>
+                </Widget>
+                <Widget id="results" title="Results by offer" w={7} h={4}>
+                  <DataTable
+                    fit
+                    columns={[{ label: "Offer" }, { label: "Joined", numeric: true }, { label: "Rewarded", numeric: true }, { label: "Completion", numeric: true }]}
+                    rows={[
+                      ["Install a coffee brand app", "4,210", "3,982", "17.8%"],
+                      ["Request an insurance consultation", "1,054", "1,031", "21.2%"],
+                      ["Watch a 30-second new-season clip", "12,480", "12,402", "64.0%"],
+                    ]}
+                  />
+                </Widget>
+              </WidgetGrid>
+            </Page>
           </Browser>
         </Figure>
       </DocSection>

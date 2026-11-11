@@ -1,4 +1,4 @@
-import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Phone, Pros, Ref, RequirementTable, Row, Steps, TextList } from "ui";
+import { Badge, Browser, Button, Callout, Card, ChangeLog, Cons, DataTable, Doc, DocSection, Figure, Meter, Option, Options, Page, Phone, Pros, Ref, RequirementTable, Row, Steps, TextList, Widget, WidgetGrid } from "ui";
 
 const OFFERS = [
   { title: "커피 브랜드 앱 설치", reward: "300P", tone: "main" as const, badge: "설치형" },
@@ -134,20 +134,28 @@ export function PrdKo() {
       </DocSection>
       <DocSection title="운영 화면">
         <Figure caption="광고주 예산 화면(O1): 예산 소진과 일별 참여">
-          <Browser address="ads.example.com/campaigns">
-            <div className="stack">
-              <Meter label="커피 브랜드 앱 설치 · 월 예산" value={6600000} max={21300000} target={7100000} format={(v) => `₩${(v / 10000).toLocaleString()}만`} status="warning" note="계획보다 느리게 소진되고 있습니다." />
-              <Meter label="보험 상담 신청 · 월 예산" value={15800000} max={20000000} target={14200000} format={(v) => `₩${(v / 10000).toLocaleString()}만`} status="good" />
-              <DataTable
-                fit
-                columns={[{ label: "광고" }, { label: "참여", numeric: true }, { label: "적립", numeric: true }, { label: "참여율", numeric: true }]}
-                rows={[
-                  ["커피 브랜드 앱 설치", "4,210", "3,982", "17.8%"],
-                  ["보험 상담 신청", "1,054", "1,031", "21.2%"],
-                  ["새 시즌 영상 30초 보기", "12,480", "12,402", "64.0%"],
-                ]}
-              />
-            </div>
+          <Browser address="ads.example.com/campaigns" width={1200} height="auto">
+            <Page title="캠페인 예산">
+              <WidgetGrid>
+                <Widget id="pacing" title="예산 소진" w={5} h={4}>
+                  <div className="stack">
+                    <Meter label="커피 브랜드 앱 설치 · 월 예산" value={6600000} max={21300000} target={7100000} format={(v) => `₩${(v / 10000).toLocaleString()}만`} status="warning" note="계획보다 느리게 소진되고 있습니다." />
+                    <Meter label="보험 상담 신청 · 월 예산" value={15800000} max={20000000} target={14200000} format={(v) => `₩${(v / 10000).toLocaleString()}만`} status="good" />
+                  </div>
+                </Widget>
+                <Widget id="results" title="광고별 결과" w={7} h={4}>
+                  <DataTable
+                    fit
+                    columns={[{ label: "광고" }, { label: "참여", numeric: true }, { label: "적립", numeric: true }, { label: "참여율", numeric: true }]}
+                    rows={[
+                      ["커피 브랜드 앱 설치", "4,210", "3,982", "17.8%"],
+                      ["보험 상담 신청", "1,054", "1,031", "21.2%"],
+                      ["새 시즌 영상 30초 보기", "12,480", "12,402", "64.0%"],
+                    ]}
+                  />
+                </Widget>
+              </WidgetGrid>
+            </Page>
           </Browser>
         </Figure>
       </DocSection>

@@ -585,3 +585,8 @@
     transform: none !important;
   }
 }
+
+.browser-screen > .page,
+.browser-canvas > .page {
+  padding: var(--space-6);
+}

@@ -9,10 +9,11 @@ export type Requirement = { text: ReactNode; priority: Priority; status?: "open"
 
 export function RequirementTable({ items, prefix = "R" }: { items: Requirement[]; prefix?: string }) {
   const { text } = useI18n();
+  const tracked = items.some((item) => item.status);
   return (
     <DataTable
       fit
-      columns={[{ label: text("doc.id") }, { label: text("doc.requirement"), wrap: true }, { label: text("doc.priority") }, { label: text("doc.state") }]}
+      columns={[{ label: text("doc.id") }, { label: text("doc.requirement"), wrap: true }, { label: text("doc.priority") }, ...(tracked ? [{ label: text("doc.state") }] : [])]}
       rows={items.map((item, i) => [
         { content: <span data-ref={`${prefix}${i + 1}`}>{`${prefix}${i + 1}`}</span>, className: "record-id" },
         {
@@ -24,7 +25,7 @@ export function RequirementTable({ items, prefix = "R" }: { items: Requirement[]
           ),
         },
         { text: text(`doc.${item.priority}`), className: `priority is-${item.priority}` },
-        item.status ? text(`doc.${item.status}`) : "",
+        ...(tracked ? [item.status ? text(`doc.${item.status}`) : ""] : []),
       ])}
     />
   );

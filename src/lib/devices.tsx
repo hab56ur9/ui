@@ -8,7 +8,9 @@ export function Phone({ scale, children }: { scale?: number; children: ReactNode
         <span className="phone-island" />
         <span className="phone-signal" />
       </div>
-      <div className="phone-screen">{children}</div>
+      <div className="phone-screen" data-medium="app">
+        {children}
+      </div>
       <div className="phone-home" aria-hidden="true" />
     </div>
   );
@@ -38,13 +40,15 @@ export function Browser({ address, width, height, children }: { address: string;
         <span className="browser-address">{address}</span>
       </div>
       {width ? (
-        <div ref={box} className="browser-screen is-scaled" style={{ height: tall * scale }}>
+        <div ref={box} className="browser-screen is-scaled" data-medium="app" style={{ height: tall * scale }}>
           <div ref={canvas} className="browser-canvas" style={{ width, height: height === "auto" ? undefined : tall, transform: `scale(${scale})` }}>
             {children}
           </div>
         </div>
       ) : (
-        <div className={`browser-screen${height === "auto" ? " is-auto" : ""}`}>{children}</div>
+        <div className={`browser-screen${height === "auto" ? " is-auto" : ""}`} data-medium="app">
+          {children}
+        </div>
       )}
     </div>
   );
