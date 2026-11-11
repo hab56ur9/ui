@@ -859,8 +859,7 @@
                   "tone": {},
                   "source": {},
                   "footer": {},
-                  "notes": {},
-                  "className": {}
+                  "notes": {}
                 },
                 "required": [],
                 "additionalProperties": false
@@ -1936,10 +1935,12 @@
               "props": {
                 "type": "object",
                 "properties": {
-                  "disabled": {},
-                  "onClick": {},
                   "variant": {},
-                  "icon": {}
+                  "icon": {},
+                  "label": {},
+                  "disabled": {},
+                  "type": {},
+                  "onClick": {}
                 },
                 "required": [],
                 "additionalProperties": false

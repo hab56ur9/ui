@@ -3,9 +3,14 @@ import { Sparkline } from "./charts/Sparkline";
 import { Icon, type IconName } from "./Icon";
 import type { Color, Point } from "./types";
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "secondary" | "primary" | "danger"; icon?: IconName };
+export type ButtonVariant = "secondary" | "primary" | "danger";
+export type ButtonProps = { variant?: ButtonVariant; icon?: IconName; label?: string; disabled?: boolean; type?: "button" | "submit"; onClick?: () => void; children?: ReactNode };
 
-export function Button({ variant = "secondary", icon, className, children, type = "button", ...rest }: ButtonProps) {
+export function Button({ label, ...props }: ButtonProps) {
+  return <ButtonBase {...props} {...(label && { "aria-label": label, title: label })} />;
+}
+
+export function ButtonBase({ variant = "secondary", icon, className, children, type = "button", ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant; icon?: IconName }) {
   const classes = ["button", variant === "secondary" ? "" : `is-${variant}`, className ?? ""].filter(Boolean).join(" ");
   return (
     <button type={type} className={classes} title={typeof children === "string" ? children : undefined} {...rest}>

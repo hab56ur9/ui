@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { BoardLayout, WidgetSpec } from "./Board";
-import { Button } from "./controls";
+import { ButtonBase } from "./controls";
 import { useI18n } from "./i18n";
 import { Sheet } from "./overlay/Dialog";
 import { useConfirm, useToast } from "./overlay/Provider";
@@ -21,7 +21,7 @@ export function BoardActions({ board }: BoardActionsProps) {
   return (
     <>
       <AddWidget hidden={board.hidden} onShow={board.show} />
-      <Button onClick={reset}>{text("resetLayout")}</Button>
+      <ButtonBase onClick={reset}>{text("resetLayout")}</ButtonBase>
     </>
   );
 }
@@ -54,9 +54,9 @@ function AddWidget({ hidden, onShow }: { hidden: WidgetSpec[]; onShow: (id: stri
   ));
   return (
     <div className="menu" ref={menu}>
-      <Button aria-expanded={open === "menu"} aria-haspopup="true" onClick={() => setOpen(open ? null : narrow() ? "sheet" : "menu")}>
+      <ButtonBase aria-expanded={open === "menu"} aria-haspopup="true" onClick={() => setOpen(open ? null : narrow() ? "sheet" : "menu")}>
         {hidden.length ? text("addWidgetCount", { n: hidden.length }) : text("addWidget")}
-      </Button>
+      </ButtonBase>
       {open === "menu" && (
         <ul className="menu-list">
           {hidden.length === 0 && <li className="menu-empty">{text("noHidden")}</li>}

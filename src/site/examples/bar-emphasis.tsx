@@ -9,7 +9,7 @@ export default function Example() {
   const fmt = useFmt();
   return (
     <Canvas>
-      <BarChart name={text.signUps} points={points} colorOf={(_, i) => (latest(i) ? "chart.emphasis" : "chart.de-emphasis")} format={{ axis: fmt.count, value: fmt.full }} />
+      <BarChart name={text.signUps} points={points} colorOf={(_, i) => (latest(i) ? "emphasis" : "de-emphasis")} format={{ axis: fmt.count, value: fmt.full }} />
     </Canvas>
   );
 }

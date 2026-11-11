@@ -11,8 +11,8 @@ export default function Example() {
     <Canvas height={220}>
       <LineChart
         series={[
-          { name: text.thisYear, color: "chart.emphasis", area: true, points: thisYear },
-          { name: text.lastYear, color: "chart.de-emphasis", dashed: true, points: lastYear },
+          { name: text.thisYear, color: "emphasis", area: true, points: thisYear },
+          { name: text.lastYear, color: "de-emphasis", dashed: true, points: lastYear },
         ]}
         format={{ axis: fmt.count }}
       />

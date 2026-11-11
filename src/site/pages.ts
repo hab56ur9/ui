@@ -299,7 +299,7 @@ export const pages: Page[] = [
           ],
           [
             "강조",
-            "핵심 시리즈 하나는 브랜드 연두 `chart.emphasis`, 비교 대상은 회색 `chart.de-emphasis`로 그립니다. 브랜드 히트맵은 `sequential-main` 7단계를 씁니다."
+            "핵심 시리즈 하나는 `color: \"emphasis\"`(브랜드 연두), 비교 대상은 `color: \"de-emphasis\"`(회색)로 그립니다. 브랜드 히트맵은 `sequential-main` 7단계를 씁니다."
           ]
         ]
       },
@@ -311,7 +311,7 @@ export const pages: Page[] = [
             "9번째 색을 새로 만들어 씁니다."
           ],
           [
-            "하나만 강조할 때는 그 시리즈만 색을 쓰고 나머지는 `chart.de-emphasis`로 둡니다.",
+            "하나만 강조할 때는 그 시리즈만 색을 쓰고 나머지는 `\"de-emphasis\"`로 둡니다.",
             "상태 색을 일반 시리즈 색처럼 씁니다."
           ]
         ]

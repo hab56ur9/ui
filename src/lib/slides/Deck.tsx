@@ -158,7 +158,7 @@ export function Deck({ title, start = 0, controls = true, grid: initialGrid = fa
 }
 
 export type SlideTone = "plain" | "dark" | "accent";
-export type SlideProps = { tone?: SlideTone; source?: ReactNode; footer?: boolean; notes?: string; className?: string; children: ReactNode };
+export type SlideProps = { tone?: SlideTone; source?: ReactNode; footer?: boolean; notes?: string; children: ReactNode };
 
 const GRID_LINES = ["top", "content", "hero", "foot"];
 
@@ -177,7 +177,11 @@ function SlideGrid() {
   );
 }
 
-export function Slide({ tone = "plain", source, footer = true, className, children }: SlideProps) {
+export function Slide(props: SlideProps) {
+  return <SlideBase {...props} />;
+}
+
+export function SlideBase({ tone = "plain", source, footer = true, className, children }: SlideProps & { className?: string }) {
   const { index, total, grid } = useContext(SlideContext);
   return (
     <section className={["slide", `is-${tone}`, className ?? ""].filter(Boolean).join(" ")} data-theme={tone === "dark" ? "dark" : undefined} aria-label={`${index + 1} / ${total}`}>

@@ -614,12 +614,6 @@
           "type": "string | undefined"
         },
         {
-          "name": "className",
-          "optional": true,
-          "kind": "string",
-          "type": "string | undefined"
-        },
-        {
           "name": "children",
           "optional": false,
           "kind": "node",
@@ -2222,24 +2216,6 @@
       "name": "Button",
       "props": [
         {
-          "name": "disabled",
-          "optional": true,
-          "kind": "boolean",
-          "type": "boolean | undefined"
-        },
-        {
-          "name": "children",
-          "optional": true,
-          "kind": "node",
-          "type": "ReactNode"
-        },
-        {
-          "name": "onClick",
-          "optional": true,
-          "kind": "action",
-          "type": "MouseEventHandler<HTMLButtonElement> | undefined"
-        },
-        {
           "name": "variant",
           "optional": true,
           "kind": "enum",
@@ -2248,13 +2224,47 @@
             "primary",
             "secondary"
           ],
-          "type": "\"danger\" | \"primary\" | \"secondary\" | undefined"
+          "type": "ButtonVariant | undefined"
         },
         {
           "name": "icon",
           "optional": true,
           "kind": "string",
           "type": "string | undefined"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "disabled",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "type",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "button",
+            "submit"
+          ],
+          "type": "\"button\" | \"submit\" | undefined"
+        },
+        {
+          "name": "onClick",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },

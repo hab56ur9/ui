@@ -4,7 +4,7 @@ import { Delta, type DeltaProps } from "./controls";
 import { color } from "./format";
 import type { Color } from "./types";
 
-export type Cell = string | { text?: string; content?: ReactNode; color?: Color; swatch?: "line" | "rect"; className?: string; delta?: DeltaProps; render?: () => ReactNode };
+export type Cell = string | { text?: string; content?: ReactNode; color?: Color; swatch?: "line" | "rect"; delta?: DeltaProps; render?: () => ReactNode };
 
 export type DataTableProps = { columns: { label: string; numeric?: boolean; wrap?: boolean; width?: string }[]; rows: Cell[][]; fit?: boolean };
 
@@ -26,7 +26,7 @@ export function DataTable({ columns, rows, fit = false }: DataTableProps) {
           {rows.map((row, r) => (
             <tr key={r}>
               {row.map((cell, c) => (
-                <td key={c} className={[columns[c]?.numeric ? "is-numeric" : "", columns[c]?.wrap ? "is-wrap" : "", typeof cell === "object" ? (cell.className ?? "") : ""].join(" ").trim()}>
+                <td key={c} className={[columns[c]?.numeric ? "is-numeric" : "", columns[c]?.wrap ? "is-wrap" : ""].join(" ").trim()}>
                   {typeof cell === "object" ? <CellContent cell={cell} /> : cell}
                 </td>
               ))}

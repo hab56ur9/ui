@@ -2,7 +2,7 @@ import type { Color, Format } from "./types";
 
 export const DAY = 864e5;
 
-export const color = (value: Color) => (typeof value === "number" ? `var(--color-series-${value})` : `var(--color-${value.replaceAll(".", "-")})`);
+export const color = (value: Color) => (typeof value === "number" ? `var(--color-series-${value})` : `var(--color-chart-${value})`);
 
 export const fullDate = (time: number, locale: string) =>
   new Intl.DateTimeFormat(locale, { year: "numeric", month: "numeric", day: "numeric", weekday: "short" }).format(new Date(time));

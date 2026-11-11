@@ -76,6 +76,7 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | Sparkline | points*, color |
 | DataTable | columns* ({ label, numeric?, wrap?, width? }[]), rows* (cells are strings or { text?, content?, color?, swatch?, delta?, render? }), fit |
 | Badge | children*, tone ("neutral", "main", "good", "warning", "critical"), variant ("soft", "solid", "outline") |
+| Button | children, variant ("secondary", "primary", "danger"), icon, label (name and tooltip of an icon-only button), onClick, disabled, type ("button", "submit"); nothing else passes through |
 | Callout | children*, tone ("info", "good", "warning", "critical", "do", "dont"), accent ("left", "top"), title |
 | ActionList | items* ({ id, label }[]), onSelect* ((id) => void); full-width choices, usually inside a Sheet |
 | Option (inside Options) | name*, chosen (decided) or recommended (still open), children of Pros and Cons |
@@ -86,7 +87,7 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | RequirementTable | items* ({ text, priority: "must", "should" or "could", status?: "open", "done" or "dropped", note? }[]), prefix ("R" by default, "F" or "A" for other tables); the status column appears only when an item has a status |
 | Phone · Browser | Phone: scale, children; Browser: address*, width, height (number or "auto"), children. Both screens use the app medium, so widgets inside size as in an app |
 
-Time series are { t, v } with t as a millisecond timestamp in local time. A color is a series slot number or a token path such as "chart.emphasis". Format numbers with the locale from useI18n so they follow the page language; useI18n is a hook, so call it inside a component and pass formatters down. A category axis passes categories (string[]) and uses the index as t. Numbers are formatted by the page with Intl.NumberFormat; compact Korean amounts read better with useGrouping: "always" (₩9,542.5만, not ₩9542.5만).
+Time series are { t, v } with t as a millisecond timestamp in local time. A color is a series slot number, or "emphasis" and "de-emphasis" for the one series that matters and its comparison. Format numbers with the locale from useI18n so they follow the page language; useI18n is a hook, so call it inside a component and pass formatters down. A category axis passes categories (string[]) and uses the index as t. Numbers are formatted by the page with Intl.NumberFormat; compact Korean amounts read better with useGrouping: "always" (₩9,542.5만, not ₩9542.5만).
 
 ## Product specs
 
@@ -109,7 +110,7 @@ A snapshot is any output that cannot load a stylesheet: a pptx, a claude.ai Arti
 
 ## Interactive dashboards
 
-Components take props only. Data points are { t, v }, color is a series slot or a token name, and format holds the axis, value and date formatters. Charts measure their parent and redraw on resize, so they sit inside a parent with a height. Dashboards are widget boards: each widget is a Widget tag with an id, title, subtitle, default size in grid columns and rows and, for charts, a table function, wrapped around an existing component. Board draws the add-widget menu and the layout reset and stores nothing itself: it takes initialLayout from the app; onLayoutCommit fires once with the final layout after changes settle, and the app saves it wherever it keeps layouts; the board supplies drag to reorder, corner resize snapped to the grid, keyboard move and resize, and hide with an undo toast. useDisplay with DisplaySwitch holds the theme and medium switches; it takes starting values and reports changes, and the app remembers them. AppShell frames an app with a sidebar and a top bar. A new dashboard starts from the dashboard-01 block (https://github.com/hab56ur9/ui/tree/master/src/blocks/dashboard-01) and swaps in its own widgets; a mobile one starts from dashboard-mobile.
+Components take props only and pass nothing through: no className, style or raw HTML attributes. Data points are { t, v }, color is a series slot or a token name, and format holds the axis, value and date formatters. Charts measure their parent and redraw on resize, so they sit inside a parent with a height. Dashboards are widget boards: each widget is a Widget tag with an id, title, subtitle, default size in grid columns and rows and, for charts, a table function, wrapped around an existing component. Board draws the add-widget menu and the layout reset and stores nothing itself: it takes initialLayout from the app; onLayoutCommit fires once with the final layout after changes settle, and the app saves it wherever it keeps layouts; the board supplies drag to reorder, corner resize snapped to the grid, keyboard move and resize, and hide with an undo toast. useDisplay with DisplaySwitch holds the theme and medium switches; it takes starting values and reports changes, and the app remembers them. AppShell frames an app with a sidebar and a top bar. A new dashboard starts from the dashboard-01 block (https://github.com/hab56ur9/ui/tree/master/src/blocks/dashboard-01) and swaps in its own widgets; a mobile one starts from dashboard-mobile.
 
 ```tsx
 <Board initialLayout={saved} onLayoutCommit={save} toolbar={<Segmented label="Period" value={range} onChange={setRange} options={ranges} />}>
@@ -173,7 +174,7 @@ A guide, reference or how-to page uses the parts the documentation site is built
 - Axis formats carry enough precision that ticks never repeat (1.25% and 1.30%, not 1.3% twice).
 - One y-axis per chart; compare different units by indexing to 100.
 - Two or more series get a legend, plus direct end labels while they do not collide.
-- One series that carries the story uses chart.emphasis; its comparison uses chart.de-emphasis.
+- One series that carries the story uses color "emphasis"; its comparison uses "de-emphasis".
 - Every chart widget offers a table view; tooltips list every series at the hovered date.
 - Status colors mean state only and always travel with a second cue: a Badge's dot plus its label is enough; Meter and alerts add an icon.
 - Text uses fg tokens; series colors belong to marks.

@@ -1,8 +1,8 @@
 import type { Section } from "./pages";
 
 const POINTS = "Point[]";
-const COLOR = "number | string";
-const COLOR_NOTE = "숫자는 시리즈 슬롯(1~8), 문자열은 토큰 이름(`\"chart.emphasis\"`)입니다.";
+const COLOR = 'number | "emphasis" | "de-emphasis"';
+const COLOR_NOTE = "숫자는 시리즈 슬롯(1~8), `\"emphasis\"`·`\"de-emphasis\"`는 핵심 시리즈와 비교 대상입니다.";
 const DIALOG_PROPS = [
   ["open", "boolean", "", "열림 상태입니다. 부모가 들고 있습니다."],
   ["onClose", "(value: V | null) => void", "", "버튼을 누르면 그 `value`, Esc·바깥 클릭·닫기 버튼·끌어내리기면 `null`로 호출됩니다."],
@@ -42,7 +42,6 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "도우미",
       rows: [
-        ["color(value)", "string", "", "`color` 속성을 CSS 값으로 바꿉니다."],
         ["DAY", "number", "86400000", "하루(ms)입니다."],
       ],
     },
@@ -51,10 +50,12 @@ export const api: Record<string, Section[]> = {
     {
       type: "api",
       title: "<Button>",
-      description: "나머지 속성은 `<button>`에 그대로 넘어갑니다.",
+      description: "버튼은 아래 속성만 받습니다. 모양은 `variant`로만 고릅니다.",
       rows: [
         ["variant", '"secondary" | "primary" | "danger"', '"secondary"', "버튼 종류입니다."],
         ["icon", "IconName", "", "글자 앞에 붙는 `sm` 아이콘입니다."],
+        ["label", "string", "", "글자 없는 아이콘 버튼의 접근성 이름이자 툴팁입니다."],
+        ["onClick · disabled · type", '() => void · boolean · "button" | "submit"', '· false · "button"', "누를 때 할 일, 비활성, 폼 제출 여부입니다."],
       ],
     },
   ],

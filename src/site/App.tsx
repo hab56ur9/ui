@@ -267,7 +267,7 @@ function Block({ id }: { id: string }) {
         {tab === "preview" && !json.kind && (
           <div className="docs-block-tools">
             <Segmented label={c.width} value={width} onChange={setWidth} options={VIEWPORTS.map(([value, icon], i) => ({ value, title: c.viewports[i], label: <Icon name={icon} size="sm" /> }))} />
-            <Button icon="refresh" aria-label={c.rerun} title={c.rerun} onClick={() => setRun((n) => n + 1)} />
+            <Button icon="refresh" label={c.rerun} onClick={() => setRun((n) => n + 1)} />
           </div>
         )}
         <Button icon="copy" onClick={() => copy(current.content, current.name)}>

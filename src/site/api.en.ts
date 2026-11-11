@@ -1,8 +1,8 @@
 import type { Section } from "./pages";
 
 const POINTS = "Point[]";
-const COLOR = "number | string";
-const COLOR_NOTE = "A number is a series slot (1–8), and a string is a token name (`\"chart.emphasis\"`).";
+const COLOR = 'number | "emphasis" | "de-emphasis"';
+const COLOR_NOTE = "A number is a series slot (1–8), and `\"emphasis\"` or `\"de-emphasis\"` marks the one series that matters and its comparison.";
 const DIALOG_PROPS = [
   ["open", "boolean", "", "The open state. The parent holds it."],
   ["onClose", "(value: V | null) => void", "", "Called with the button's `value`, or with `null` on Esc, an outside click, the close button or a drag down."],
@@ -42,7 +42,6 @@ export const api: Record<string, Section[]> = {
       type: "api",
       title: "Helpers",
       rows: [
-        ["color(value)", "string", "", "Converts a `color` prop into a CSS value."],
         ["DAY", "number", "86400000", "One day (ms)."],
       ],
     },
@@ -51,10 +50,12 @@ export const api: Record<string, Section[]> = {
     {
       type: "api",
       title: "<Button>",
-      description: "All other props pass through to `<button>`.",
+      description: "A button takes only these props. Its look is chosen with `variant` alone.",
       rows: [
         ["variant", '"secondary" | "primary" | "danger"', '"secondary"', "The button variant."],
         ["icon", "IconName", "", "An `sm` icon placed before the text."],
+        ["label", "string", "", "The accessible name and tooltip of an icon-only button."],
+        ["onClick · disabled · type", '() => void · boolean · "button" | "submit"', '· false · "button"', "What a press does, whether it is disabled, and whether it submits a form."],
       ],
     },
   ],

@@ -281,7 +281,7 @@ export const pages: Page[] = [
           ],
           [
             "Emphasis",
-            "Draw the one key series in the brand light green `chart.emphasis` and comparisons in the gray `chart.de-emphasis`. Brand heatmaps use the 7 steps of `sequential-main`."
+            "Draw the one key series with `color: \"emphasis\"` (brand light green) and comparisons with `color: \"de-emphasis\"` (gray). Brand heatmaps use the 7 steps of `sequential-main`."
           ]
         ]
       },
@@ -293,7 +293,7 @@ export const pages: Page[] = [
             "Invent a 9th color."
           ],
           [
-            "To highlight one series, color only that series and leave the rest in `chart.de-emphasis`.",
+            "To highlight one series, color only that series and leave the rest at `\"de-emphasis\"`.",
             "Use status colors as ordinary series colors."
           ]
         ]

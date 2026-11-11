@@ -1,7 +1,7 @@
 import { Component, useState, type CSSProperties, type ErrorInfo, type ReactNode } from "react";
 import { Callout } from "./Callout";
 import { CodeBlock, type CodeLang } from "./Code";
-import { Button, Segmented } from "./controls";
+import { ButtonBase, Segmented } from "./controls";
 import { DataTable } from "./DataTable";
 import { useI18n } from "./i18n";
 import { useToast } from "./overlay/Provider";
@@ -122,9 +122,9 @@ export function CopyCode({ code, title }: { code: string; title?: string }) {
       code={code}
       title={title}
       actions={
-        <Button className="copy-button" onClick={() => copy(code, text("theCode"))}>
+        <ButtonBase className="copy-button" onClick={() => copy(code, text("theCode"))}>
           {text("copy")}
-        </Button>
+        </ButtonBase>
       }
     />
   );
@@ -245,9 +245,9 @@ export function Example({ caption, layout = "padded", medium, lang, files = [], 
           />
           <span className="toolbar-spacer" />
           {variants && <Segmented label={text("device")} value={variant} onChange={setVariant} options={variants.map((item) => ({ value: item.value, label: item.label }))} />}
-          <Button className="copy-button" onClick={() => copy(tab === "code" ? (shown?.code ?? source) : source, text("theCode"))}>
+          <ButtonBase className="copy-button" onClick={() => copy(tab === "code" ? (shown?.code ?? source) : source, text("theCode"))}>
             {text("copy")}
-          </Button>
+          </ButtonBase>
         </div>
         <div className={`example-preview is-${layout}`} data-medium={medium ?? "app"} lang={lang} hidden={tab !== "preview"}>
           <div className="example-stage">

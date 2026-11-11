@@ -1,6 +1,6 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type MouseEvent, type PointerEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "../controls";
+import { ButtonBase } from "../controls";
 import { useI18n } from "../i18n";
 import { Icon } from "../Icon";
 import { fadeBackdrop, motion } from "./motion";
@@ -115,9 +115,9 @@ function Dialog<V>({ kind, size = "md", open, onClose, title, description, child
       {actions.length > 0 && (
         <div className="overlay-actions">
           {actions.map((action) => (
-            <Button key={action.label} variant={action.variant} data-autofocus={action.autoFocus || undefined} onClick={() => onClose(action.value ?? (action.label as V))}>
+            <ButtonBase key={action.label} variant={action.variant} data-autofocus={action.autoFocus || undefined} onClick={() => onClose(action.value ?? (action.label as V))}>
               {action.label}
-            </Button>
+            </ButtonBase>
           ))}
         </div>
       )}
@@ -168,7 +168,7 @@ export function ActionList({ items, onSelect }: ActionListProps) {
     <ul className="sheet-list">
       {items.map((item) => (
         <li key={item.id}>
-          <Button onClick={() => onSelect(item.id)}>{item.label}</Button>
+          <ButtonBase onClick={() => onSelect(item.id)}>{item.label}</ButtonBase>
         </li>
       ))}
     </ul>

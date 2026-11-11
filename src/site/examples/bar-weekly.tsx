@@ -9,7 +9,7 @@ export default function Example() {
   const fmt = useFmt();
   return (
     <Canvas height={220}>
-      <BarChart name={text.weeklyDistance} points={points} colorOf={(_, i) => (latest(i) ? "chart.emphasis" : "chart.de-emphasis")} format={{ axis: (v) => `${fmt.full(v)}km` }} />
+      <BarChart name={text.weeklyDistance} points={points} colorOf={(_, i) => (latest(i) ? "emphasis" : "de-emphasis")} format={{ axis: (v) => `${fmt.full(v)}km` }} />
     </Canvas>
   );
 }

@@ -4,7 +4,7 @@ import "../../dist/styles.css";
 import "./styles.css";
 
 export type { Color, Format, Point, Swatch } from "./types";
-export { DAY, color } from "./format";
+export { DAY } from "./format";
 export { LangProvider, languages, useI18n } from "./i18n";
 export { Board, Widget, type BoardProps, type LayoutItem, type WidgetProps } from "./Board";
 export { Doc, DocSection, Ref, type DocMeta, type DocProps, type DocSectionProps, type DocStatus } from "./document/Doc";
@@ -28,7 +28,7 @@ export { Markdown, type MarkdownProps } from "./markdown/Markdown";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
 export { Tabs, type TabItem, type TabsProps } from "./Tabs";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";
-export { Button, Delta, Segmented, Stat, type ButtonProps, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";
+export { Button, Delta, Segmented, Stat, type ButtonProps, type ButtonVariant, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";
 export { CodeBlock, Highlight, type CodeBlockProps, type CodeLang } from "./Code";
 export { Icon, iconNames, type IconName, type IconProps } from "./Icon";
 export { LineChart, type LineChartProps, type LineSeries } from "./charts/LineChart";

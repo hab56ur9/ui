@@ -1,6 +1,6 @@
 export type Point = { t: number; v: number };
 
-export type Color = number | string;
+export type Color = number | "emphasis" | "de-emphasis";
 
 export type Format = {
   axis?: (value: number) => string;
