@@ -13,9 +13,9 @@ export type GraphFlow = "packets" | "dots" | "both";
 export type GraphProps = { nodes: GraphNode[]; edges: GraphEdge[]; groups?: GraphGroup[]; direction?: "right" | "down"; flow?: GraphFlow; title?: string };
 
 type Point = { x: number; y: number };
-type Placed = GraphNode & Point & { rank: number; order: number };
+type Placed = GraphNode & Point & { rank: number; order: number; w: number };
 
-const NODE = { w: 196, h: 60 };
+const NODE = { w: 168, max: 280, h: 60 };
 const ICON = 24;
 const PAD = 16;
 const HEAD = 26;
@@ -54,7 +54,8 @@ function layout({ nodes, edges, groups = [], direction = "right" }: GraphProps) 
   const across = direction === "right";
   const { rank, incoming } = ranksOf(nodes, edges);
   const groupIndex = (node: GraphNode) => groups.findIndex((group) => group.id === node.group);
-  const size = { main: across ? NODE.w : NODE.h, cross: across ? NODE.h : NODE.w };
+  const w = Math.min(NODE.max, Math.max(NODE.w, ...nodes.map((node) => (node.icon ? 16 + ICON + 12 : 16) + Math.max(textWidth(node.label, 14), textWidth(node.caption ?? "", 12)) + 16)));
+  const size = { main: across ? w : NODE.h, cross: across ? NODE.h : w };
   const gap = GAPS[direction];
   const columns: GraphNode[][] = [];
   for (const node of nodes) (columns[rank.get(node.id) ?? 0] ??= []).push(node);
@@ -66,7 +67,11 @@ function layout({ nodes, edges, groups = [], direction = "right" }: GraphProps) 
       const rows = (incoming.get(node.id) ?? []).map((id) => row.get(id)).filter((value): value is number => value !== undefined);
       return rows.length ? rows.reduce((sum, value) => sum + value, 0) / rows.length : nodes.indexOf(node);
     };
-    const sorted = [...column].sort((a, b) => groupIndex(a) - groupIndex(b) || bary(a) - bary(b));
+    const block = (node: GraphNode) => {
+      const members = column.filter((other) => node.group !== undefined && other.group === node.group);
+      return members.length ? members.reduce((sum, other) => sum + bary(other), 0) / members.length : bary(node);
+    };
+    const sorted = [...column].sort((a, b) => block(a) - block(b) || groupIndex(a) - groupIndex(b) || bary(a) - bary(b));
     let cursor = 0;
     sorted.forEach((node, i) => {
       const changed = i > 0 && sorted[i - 1].group !== node.group;
@@ -85,10 +90,10 @@ function layout({ nodes, edges, groups = [], direction = "right" }: GraphProps) 
       .map((node) => {
         const main = MARGIN + r * (size.main + gap.main);
         const cross = MARGIN + (longest - (lengths[r] ?? 0)) / 2 + (crossOf.get(node.id) ?? 0);
-        return { ...node, rank: r, order: order++, x: across ? main : cross, y: across ? cross : main };
+        return { ...node, rank: r, order: order++, w, x: across ? main : cross, y: across ? cross : main };
       }),
   );
-  const width = Math.max(...placed.map((node) => node.x + NODE.w)) + MARGIN;
+  const width = Math.max(...placed.map((node) => node.x + node.w)) + MARGIN;
   const height = Math.max(...placed.map((node) => node.y + NODE.h)) + MARGIN;
   return { placed, width, height, across };
 }
@@ -117,10 +122,10 @@ function portsOf(placed: Placed[], edges: GraphEdge[], across: boolean) {
 const mid = (a: Point, b: Point, c: Point, d: Point) => ({ x: (a.x + 3 * b.x + 3 * c.x + d.x) / 8, y: (a.y + 3 * b.y + 3 * c.y + d.y) / 8 });
 
 function route(from: Placed, to: Placed, across: boolean, port: Port) {
-  const center = (node: Placed) => ({ x: node.x + NODE.w / 2, y: node.y + NODE.h / 2 });
+  const center = (node: Placed) => ({ x: node.x + node.w / 2, y: node.y + NODE.h / 2 });
   const a = center(from);
   const b = center(to);
-  const half = { main: across ? NODE.w / 2 : NODE.h / 2, cross: across ? NODE.h / 2 : NODE.w / 2 };
+  const half = { main: across ? from.w / 2 : NODE.h / 2, cross: across ? NODE.h / 2 : from.w / 2 };
   const along = (p: Point, main: number, cross: number) => (across ? { x: p.x + main, y: p.y + cross } : { x: p.x + cross, y: p.y + main });
   const forward = to.rank > from.rank;
   const sameRank = to.rank === from.rank;
@@ -136,7 +141,7 @@ function route(from: Placed, to: Placed, across: boolean, port: Port) {
 function groupBox(members: Placed[]) {
   const left = Math.min(...members.map((node) => node.x)) - PAD;
   const top = Math.min(...members.map((node) => node.y)) - PAD - HEAD;
-  const right = Math.max(...members.map((node) => node.x + NODE.w)) + PAD;
+  const right = Math.max(...members.map((node) => node.x + node.w)) + PAD;
   const bottom = Math.max(...members.map((node) => node.y + NODE.h)) + PAD;
   return { x: left, y: top, w: right - left, h: bottom - top };
 }
@@ -224,6 +229,7 @@ export function Graph(props: GraphProps) {
   const groupIndex = (key?: string) => groups.findIndex((group) => group.id === key);
   const { text } = useI18n();
   const [stages] = useState(() => stagesOf(edges, flow));
+  const numbered = edges.map((edge, i) => edge.step !== undefined && edges.findIndex((other) => other.step === edge.step) === i);
   const dots = flow !== "packets";
   const [playing, setPlaying] = useState(() => !reducedMotion());
   useFlow(svg, edges, stages, playing);
@@ -280,7 +286,7 @@ export function Graph(props: GraphProps) {
                   </text>
                 </g>
               )}
-              {edge.step !== undefined && (
+              {numbered[i] && (
                 <g className="graph-step">
                   <circle cx={stepX} cy={path.label.y} r={11} />
                   <text x={stepX} y={path.label.y + 4} textAnchor="middle">
@@ -294,11 +300,11 @@ export function Graph(props: GraphProps) {
         {placed.map((node) => {
           const index = groupIndex(node.group);
           const textX = node.icon ? 16 + ICON + 12 : 16;
-          const room = NODE.w - textX - 12;
+          const room = node.w - textX - 12;
           return (
             <g key={node.id} transform={`translate(${node.x} ${node.y})`}>
               <g className="graph-node" style={index < 0 ? undefined : tone(index)} data-enter={node.order} data-node={node.id}>
-                <rect width={NODE.w} height={NODE.h} />
+                <rect width={node.w} height={NODE.h} />
                 {node.icon && (
                   <g className="graph-node-icon">
                     <IconGlyph name={node.icon} x={16} y={(NODE.h - ICON) / 2} size={ICON} />
