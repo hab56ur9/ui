@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { ButtonBase } from "../controls";
 import { useI18n } from "../i18n";
 import { Icon } from "../Icon";
-import { fadeBackdrop, motion } from "./motion";
+import { fadeBackdrop, motion } from "../motion";
 
 export type DialogAction<V> = { label: string; value?: V; variant?: "secondary" | "primary" | "danger"; autoFocus?: boolean };
 

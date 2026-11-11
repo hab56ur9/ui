@@ -13,4 +13,6 @@
   --elevation-card: 3px 3px 0px 0px var(--color-fg-default);
   --elevation-lifted: 6px 6px 0px 0px var(--color-fg-default);
   --elevation-overlay: 8px 8px 0px 0px var(--color-fg-default);
+  --motion-stagger: 0ms;
+  --motion-intensity: 0;
 }

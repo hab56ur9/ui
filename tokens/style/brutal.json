@@ -25,6 +25,10 @@
       "card": { "$value": { "color": "{color.fg.default}", "offsetX": { "value": 3, "unit": "px" }, "offsetY": { "value": 3, "unit": "px" }, "blur": { "value": 0, "unit": "px" }, "spread": { "value": 0, "unit": "px" } } },
       "lifted": { "$value": { "color": "{color.fg.default}", "offsetX": { "value": 6, "unit": "px" }, "offsetY": { "value": 6, "unit": "px" }, "blur": { "value": 0, "unit": "px" }, "spread": { "value": 0, "unit": "px" } } },
       "overlay": { "$value": { "color": "{color.fg.default}", "offsetX": { "value": 8, "unit": "px" }, "offsetY": { "value": 8, "unit": "px" }, "blur": { "value": 0, "unit": "px" }, "spread": { "value": 0, "unit": "px" } } }
+    },
+    "motion": {
+      "stagger": { "$type": "duration", "$value": { "value": 0, "unit": "ms" } },
+      "intensity": { "$type": "number", "$value": 0 }
     }
   }
 }

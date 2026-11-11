@@ -42,7 +42,7 @@ A style file may override these global tokens. Components read only these names 
 | Focus | `focus-ring.width`, `focus-ring.offset` | 2, 2 px |
 | Depth | `elevation.card`, `elevation.lifted`, `elevation.overlay` | Soft shadows tinted by the theme |
 | Material | `material.surface-opacity`, `material.backdrop` | 1 (opaque), none |
-| Motion | `motion.duration.fast/base/slow`, `motion.easing.standard/enter/exit` | 120, 200, 280 ms; standard curves |
+| Motion | `motion.duration.fast/base/slow`, `motion.easing.standard/enter/exit`, `motion.stagger`, `motion.intensity` | 120, 200, 280 ms; standard curves; 30 ms between staggered items; intensity 0.5 (expressive 1, brutal 0) |
 
 Material applies to floating surfaces only: menus, the floating tab bar, the theme picker panel, chart tooltips, the markdown menu, dialogs and toasts.
 

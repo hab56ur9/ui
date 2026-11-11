@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { LangProvider, useI18n } from "../i18n";
 import { Icon } from "../Icon";
 import { Modal } from "./Dialog";
-import { motion } from "./motion";
+import { motion } from "../motion";
 import { lookOf, type Theme } from "../theme";
 
 export type ToastStatus = "info" | "good" | "warning" | "critical";

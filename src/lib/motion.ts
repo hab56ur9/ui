@@ -1,4 +1,4 @@
-import { reducedMotion, token } from "../hooks";
+import { reducedMotion, token } from "./hooks";
 
 const TIMING = {
   enter: { duration: "--motion-duration-base", easing: "--motion-easing-enter" },
