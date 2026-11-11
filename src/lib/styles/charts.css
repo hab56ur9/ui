@@ -614,8 +614,10 @@
 }
 
 .diagram-packet > g,
-.diagram-spark {
+.diagram-spark > g {
   opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 .diagram-spark {

@@ -202,7 +202,7 @@ function flowCss(scope: string, name: string, arrows: DiagramArrowProps[], packe
 @keyframes ${name}-edge-${i} { 0%, ${at(a)} { stroke: var(--color-fg-muted); stroke-width: 1.5; } ${at(a + 2.5)}, ${at(a + share - 1)} { stroke: var(--color-main-default); stroke-width: 2.5; } ${at(a + share + 1.5)}, 100% { stroke: var(--color-fg-muted); stroke-width: 1.5; } }
 ${scope} [data-packet="${i}"] { animation: ${name}-travel-${i} var(--diagram-cycle) linear infinite; }
 ${scope} [data-packet="${i}"] > g { animation: ${name}-pop-${i} var(--diagram-cycle) linear infinite; }
-${scope} [data-spark="${i}"] { animation: ${name}-spark-${i} var(--diagram-cycle) linear infinite; }
+${scope} [data-spark="${i}"] > g { animation: ${name}-spark-${i} var(--diagram-cycle) linear infinite; }
 ${scope} [data-edge="${i}"] { animation: ${name}-edge-${i} var(--diagram-cycle) linear infinite; }`;
   });
   const hits = [...arrivals].map(([node, times], n) => {
@@ -343,8 +343,10 @@ function DiagramRoot({ title, direction = "right", flow = "packets", children }:
               return (
                 <g key={i}>
                   <g className="diagram-spark" data-spark={i} style={along}>
-                    <circle r={10} />
-                    <path d="M0 -17V-12M0 12V17M-17 0H-12M12 0H17" />
+                    <g>
+                      <circle r={10} />
+                      <path d="M0 -17V-12M0 12V17M-17 0H-12M12 0H17" />
+                    </g>
                   </g>
                   <g className="diagram-packet" data-packet={i} style={along}>
                     <g>
