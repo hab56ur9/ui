@@ -112,6 +112,18 @@ The design system builds SVG only. Other formats come from the still or animated
 - PNG: open `<id>.still.svg` in a browser and save a screenshot, or convert it with any SVG-to-PNG tool.
 - GIF: record the animated SVG in a browser at 25 frames per second for one loop.
 
+## Layout check
+
+The build refuses a diagram whose text is unreadable. Run the check while drawing; it renders the page and fails when a label overlaps another label or a node, another arrow crosses a label, an arrow runs through a node, or text inside a node is cut off.
+
+```bash
+npx --yes github:hab56ur9/ui diagram check flow.html
+```
+
+- Back arrows (to a node the flow already passed) are found automatically and route on a rail above or below the columns they span.
+- Parallel arrows between the same two nodes bow apart, and labels slide along their own arrow to a free spot; when none is free, the layout widens and tries again.
+- When the check still fails, shorten labels, split the diagram, or move a node into a group.
+
 ## Check
 
 Open the built SVG through an `<img>` tag in a browser before sharing it. Confirm that the packets move, the still file shows every step number, and no label is cut off.

@@ -28,13 +28,13 @@ type Declared = DiagramNodeProps & { group?: string };
 type Size = { w: number; h: number };
 type Point = { x: number; y: number };
 type Placed = Declared & Point & Size & { rank: number; order: number };
-type Port = { out: number; in: number };
+type Port = { out: number; in: number; bow: number };
 
 const PAD = 16;
 const HEAD = 26;
 const MARGIN = PAD + HEAD + 8;
 const LABEL = 12;
-const GAPS = { right: { main: 120, cross: 28 }, down: { main: 88, cross: 28 } };
+const GAPS = { right: { main: 128, cross: 44 }, down: { main: 96, cross: 36 } };
 const STEP = 1800;
 const REST = 900;
 const PULSE_SPEED = 180;
@@ -57,11 +57,32 @@ function collect(children: ReactNode, group: string | undefined, out = { nodes: 
   return out;
 }
 
+function backArrows(nodes: Declared[], arrows: DiagramArrowProps[]) {
+  const order = arrows.map((arrow, i) => ({ arrow, i })).sort((a, b) => (a.arrow.step ?? Infinity) - (b.arrow.step ?? Infinity) || a.i - b.i);
+  const state = new Map<string, "open" | "done">();
+  const back = new Set<DiagramArrowProps>();
+  const visit = (id: string) => {
+    state.set(id, "open");
+    for (const { arrow } of order) {
+      if (arrow.from !== id) continue;
+      const seen = state.get(arrow.to);
+      if (seen === "open") back.add(arrow);
+      if (seen === undefined) visit(arrow.to);
+    }
+    state.set(id, "done");
+  };
+  const sources = nodes.filter((node) => !arrows.some((arrow) => arrow.to === node.id));
+  for (const node of [...sources, ...nodes]) if (!state.has(node.id)) visit(node.id);
+  return back;
+}
+
 function ranksOf(nodes: Declared[], arrows: DiagramArrowProps[]) {
   const key = new Map(nodes.map((node) => [node.id, node.group ?? node.id]));
   const incoming = new Map(nodes.map((node) => [node.id, [] as string[]]));
   const upstream = new Map<string, Set<string>>();
+  const back = backArrows(nodes, arrows);
   for (const arrow of arrows) {
+    if (back.has(arrow)) continue;
     incoming.get(arrow.to)?.push(arrow.from);
     const from = key.get(arrow.from);
     const to = key.get(arrow.to);
@@ -81,17 +102,17 @@ function ranksOf(nodes: Declared[], arrows: DiagramArrowProps[]) {
     return value;
   };
   const rank = new Map(nodes.map((node) => [node.id, visit(key.get(node.id) ?? node.id)]));
-  return { rank, incoming };
+  return { rank, incoming, back };
 }
 
-function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: string }[], sizes: Map<string, Size>, direction: "right" | "down") {
+function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: string }[], sizes: Map<string, Size>, direction: "right" | "down", spread: number) {
   const across = direction === "right";
-  const { rank, incoming } = ranksOf(nodes, arrows);
+  const { rank, incoming, back } = ranksOf(nodes, arrows);
   const sizeOf = (node: Declared) => sizes.get(node.id) ?? { w: 168, h: 60 };
   const main = (node: Declared) => (across ? sizeOf(node).w : sizeOf(node).h);
   const cross = (node: Declared) => (across ? sizeOf(node).h : sizeOf(node).w);
   const groupIndex = (node: Declared) => groups.findIndex((group) => group.id === node.group);
-  const gap = GAPS[direction];
+  const gap = { main: GAPS[direction].main + spread * 24, cross: GAPS[direction].cross + spread * 16 };
   const columns: Declared[][] = [];
   for (const node of nodes) (columns[rank.get(node.id) ?? 0] ??= []).push(node);
   const row = new Map<string, number>();
@@ -118,7 +139,14 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
     lengths[r] = cursor;
   });
   const widths = columns.map((column = []) => Math.max(0, ...column.map(main)));
-  const starts = widths.map((_, r) => MARGIN + widths.slice(0, r).reduce((sum, value) => sum + value + gap.main, 0));
+  const labelRoom = (r: number) =>
+    Math.max(
+      gap.main,
+      ...arrows
+        .filter((arrow) => !back.has(arrow) && (rank.get(arrow.from) ?? 0) <= r && (rank.get(arrow.to) ?? 0) > r)
+        .map((arrow) => (arrow.label ? textWidth(arrow.label, LABEL) + 16 : 0) + (arrow.step !== undefined ? 28 : 0) + 48),
+    ) + arrows.filter((arrow) => back.has(arrow) && rank.get(arrow.to) === r).length * 48;
+  const starts = widths.map((_, r) => MARGIN + widths.slice(0, r).reduce((sum, value, k) => sum + value + labelRoom(k), 0));
   const longest = Math.max(0, ...lengths);
   let order = 0;
   const placed: Placed[] = columns.flatMap((column = [], r) =>
@@ -132,7 +160,7 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
   );
   const width = Math.max(0, ...placed.map((node) => node.x + node.w)) + MARGIN;
   const height = Math.max(0, ...placed.map((node) => node.y + node.h)) + MARGIN;
-  return { placed, width, height, across };
+  return { placed, width, height, across, back };
 }
 
 const spread = (count: number, index: number) => (index - (count - 1) / 2) * 12;
@@ -144,7 +172,10 @@ function portsOf(placed: Placed[], arrows: DiagramArrowProps[], across: boolean)
     return node ? (across ? node.y : node.x) : 0;
   };
   const forward = arrows.filter((arrow) => (byId.get(arrow.to)?.rank ?? 0) > (byId.get(arrow.from)?.rank ?? 0));
-  const ports = new Map<DiagramArrowProps, Port>(arrows.map((arrow) => [arrow, { out: 0, in: 0 }]));
+  const ports = new Map<DiagramArrowProps, Port>(arrows.map((arrow) => [arrow, { out: 0, in: 0, bow: 0 }]));
+  const pairs = new Map<string, DiagramArrowProps[]>();
+  for (const arrow of forward) pairs.set(`${arrow.from}>${arrow.to}`, [...(pairs.get(`${arrow.from}>${arrow.to}`) ?? []), arrow]);
+  for (const group of pairs.values()) group.forEach((arrow, i) => Object.assign(ports.get(arrow) ?? {}, { bow: (i - (group.length - 1) / 2) * 60 }));
   for (const node of placed) {
     const outs = forward.filter((arrow) => arrow.from === node.id).sort((a, b) => cross(a.to) - cross(b.to));
     outs.forEach((arrow, i) => Object.assign(ports.get(arrow) ?? {}, { out: spread(outs.length, i) }));
@@ -154,9 +185,30 @@ function portsOf(placed: Placed[], arrows: DiagramArrowProps[], across: boolean)
   return ports;
 }
 
-const mid = (a: Point, b: Point, c: Point, d: Point) => ({ x: (a.x + 3 * b.x + 3 * c.x + d.x) / 8, y: (a.y + 3 * b.y + 3 * c.y + d.y) / 8 });
 
-function route(from: Placed, to: Placed, across: boolean, port: Port) {
+type Curve = { d: string; label: Point; length: number; point: (t: number) => Point };
+
+const cubic = (a: Point, b: Point, c: Point, d: Point) => (t: number) => ({
+  x: (1 - t) ** 3 * a.x + 3 * (1 - t) ** 2 * t * b.x + 3 * (1 - t) * t ** 2 * c.x + t ** 3 * d.x,
+  y: (1 - t) ** 3 * a.y + 3 * (1 - t) ** 2 * t * b.y + 3 * (1 - t) * t ** 2 * c.y + t ** 3 * d.y,
+});
+const quad = (a: Point, b: Point, c: Point) => (t: number) => ({ x: (1 - t) ** 2 * a.x + 2 * (1 - t) * t * b.x + t ** 2 * c.x, y: (1 - t) ** 2 * a.y + 2 * (1 - t) * t * b.y + t ** 2 * c.y });
+const line = (a: Point, b: Point) => (t: number) => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+
+function trace(d: string, ...parts: ((t: number) => Point)[]): Curve {
+  const samples = parts.flatMap((part, i) => Array.from({ length: 17 }, (_, k) => part(k / 16)).slice(i === 0 ? 0 : 1));
+  const lengths = samples.reduce<number[]>((sums, point, i) => [...sums, i === 0 ? 0 : sums[i - 1] + Math.hypot(point.x - samples[i - 1].x, point.y - samples[i - 1].y)], []);
+  const length = lengths[lengths.length - 1] ?? 0;
+  const point = (t: number) => {
+    const target = t * length;
+    const j = Math.max(1, lengths.findIndex((sum) => sum >= target));
+    const span = lengths[j] - lengths[j - 1] || 1;
+    return line(samples[j - 1], samples[j])((target - lengths[j - 1]) / span);
+  };
+  return { d, label: point(0.5), length, point };
+}
+
+function route(from: Placed, to: Placed, across: boolean, port: Port, lane: number, placed: Placed[]): Curve {
   const center = (node: Placed) => ({ x: node.x + node.w / 2, y: node.y + node.h / 2 });
   const half = (node: Placed) => ({ main: across ? node.w / 2 : node.h / 2, cross: across ? node.h / 2 : node.w / 2 });
   const a = center(from);
@@ -164,19 +216,60 @@ function route(from: Placed, to: Placed, across: boolean, port: Port) {
   const along = (p: Point, main: number, cross: number) => (across ? { x: p.x + main, y: p.y + cross } : { x: p.x + cross, y: p.y + main });
   const forward = to.rank > from.rank;
   const sameRank = to.rank === from.rank;
-  const below = (across ? b.y - a.y : b.x - a.x) > 0 ? 1 : -1;
-  const start = forward ? along(a, half(from).main, port.out) : sameRank ? along(a, 0, below * half(from).cross) : along(a, 0, half(from).cross);
-  const end = forward ? along(b, -half(to).main, port.in) : sameRank ? along(b, 0, -below * half(to).cross) : along(b, 0, half(to).cross);
-  const reach = forward ? Math.abs(across ? end.x - start.x : end.y - start.y) / 2 : 48;
-  const c1 = forward ? along(start, reach, 0) : sameRank ? along(start, 0, below * reach) : along(start, 0, reach);
-  const c2 = forward ? along(end, -reach, 0) : sameRank ? along(end, 0, -below * reach) : along(end, 0, reach);
-  const at = (t: number) => ({
-    x: (1 - t) ** 3 * start.x + 3 * (1 - t) ** 2 * t * c1.x + 3 * (1 - t) * t ** 2 * c2.x + t ** 3 * end.x,
-    y: (1 - t) ** 3 * start.y + 3 * (1 - t) ** 2 * t * c1.y + 3 * (1 - t) * t ** 2 * c2.y + t ** 3 * end.y,
-  });
-  const samples = Array.from({ length: 17 }, (_, i) => at(i / 16));
-  const length = samples.slice(1).reduce((sum, point, i) => sum + Math.hypot(point.x - samples[i].x, point.y - samples[i].y), 0);
-  return { d: `M${start.x} ${start.y}C${c1.x} ${c1.y} ${c2.x} ${c2.y} ${end.x} ${end.y}`, label: mid(start, c1, c2, end), length };
+  const path = (points: Point[], command: string) => points.map((point) => `${point.x} ${point.y}`).join(command);
+  if (forward) {
+    const start = along(a, half(from).main, port.out);
+    const end = along(b, -half(to).main, port.in);
+    const reach = Math.abs(across ? end.x - start.x : end.y - start.y) / 2;
+    const c1 = along(start, reach, port.bow);
+    const c2 = along(end, -reach, port.bow);
+    return trace(`M${path([start], "")}C${path([c1, c2, end], " ")}`, cubic(start, c1, c2, end));
+  }
+  if (sameRank) {
+    const below = (across ? b.y - a.y : b.x - a.x) > 0 ? 1 : -1;
+    const start = along(a, 0, below * half(from).cross);
+    const end = along(b, 0, -below * half(to).cross);
+    const c1 = along(start, 0, below * 40);
+    const c2 = along(end, 0, -below * 40);
+    return trace(`M${path([start], "")}C${path([c1, c2, end], " ")}`, cubic(start, c1, c2, end));
+  }
+  const mainOf = (p: Point) => (across ? p.x : p.y);
+  const at = (main: number, cross: number) => (across ? { x: main, y: cross } : { x: cross, y: main });
+  const crossStart = (node: Placed) => (across ? node.y : node.x);
+  const crossEnd = (node: Placed) => (across ? node.y + node.h : node.x + node.w);
+  const span = placed.filter((node) => node.rank >= to.rank && node.rank <= from.rank);
+  const gap = 24 + lane * 16;
+  const belowLine = Math.max(...span.map(crossEnd)) + gap;
+  const aboveLine = Math.min(...span.map(crossStart)) - gap;
+  const blocked = (node: Placed, below: boolean) => placed.some((other) => other !== node && other.rank === node.rank && (below ? crossStart(other) >= crossEnd(node) : crossEnd(other) <= crossStart(node)));
+  const free = (below: boolean) => !blocked(from, below) && !blocked(to, below);
+  const nearer = belowLine - Math.max(crossEnd(from), crossEnd(to)) <= Math.min(crossStart(from), crossStart(to)) - aboveLine;
+  const useBelow = free(nearer) || !free(!nearer) ? nearer : !nearer;
+  const side = useBelow ? 1 : -1;
+  const rail = useBelow ? belowLine : aboveLine;
+  const start = along(a, 0, side * half(from).cross);
+  const into = blocked(to, useBelow);
+  const end = into ? along(b, half(to).main, 0) : along(b, 0, side * half(to).cross);
+  const turn = into ? mainOf(end) + 24 : mainOf(end);
+  const dir = Math.sign(turn - mainOf(start)) || -1;
+  const r = Math.min(20, Math.abs(turn - mainOf(start)) / 2);
+  const q1 = at(mainOf(start), rail);
+  const p1 = at(mainOf(start) + dir * r, rail);
+  const p2 = at(turn - dir * r, rail);
+  const q2 = at(turn, rail);
+  if (!into) return trace(`M${path([start], "")}Q${path([q1, p1], " ")}L${path([p2], "")}Q${path([q2, end], " ")}`, quad(start, q1, p1), line(p1, p2), quad(p2, q2, end));
+  const crossOfEnd = across ? end.y : end.x;
+  const back = Math.sign(crossOfEnd - rail) * Math.min(20, Math.abs(crossOfEnd - rail) / 2);
+  const p3 = at(turn, crossOfEnd - back);
+  const q3 = at(turn, crossOfEnd);
+  return trace(
+    `M${path([start], "")}Q${path([q1, p1], " ")}L${path([p2], "")}Q${path([q2, at(turn, rail + back)], " ")}L${path([p3], "")}Q${path([q3, end], " ")}`,
+    quad(start, q1, p1),
+    line(p1, p2),
+    quad(p2, q2, at(turn, rail + back)),
+    line(at(turn, rail + back), p3),
+    quad(p3, q3, end),
+  );
 }
 
 function groupBox(members: Placed[]) {
@@ -253,6 +346,55 @@ ${scope} [data-bead="${i}"] { animation: ${name}-bead-${i} ${ms}ms linear infini
     .join("\n");
 }
 
+type Box = { x: number; y: number; w: number; h: number };
+
+const overlaps = (a: Box, b: Box) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+
+function placeLabels(arrows: DiagramArrowProps[], paths: (Curve | null)[], numbered: boolean[], placed: Placed[]) {
+  const taken: Box[] = placed.map((node) => ({ x: node.x - 4, y: node.y - 4, w: node.w + 8, h: node.h + 8 }));
+  const traces = paths.map((path) => (path ? Array.from({ length: Math.ceil(path.length / 6) + 1 }, (_, k) => path.point(Math.min(1, (k * 6) / (path.length || 1)))) : []));
+  let conflicts = 0;
+  const crossed = (box: Box, own: number) => traces.some((points, j) => j !== own && points.some((p) => p.x > box.x && p.x < box.x + box.w && p.y > box.y && p.y < box.y + box.h));
+  const place = (path: Curve, own: number, width: number, tries: number[]) => {
+    const options = tries.map((t) => {
+      const point = path.point(t);
+      return { point, box: { x: point.x - width / 2 - 3, y: point.y - 14, w: width + 6, h: 28 } };
+    });
+    const clear = options.find(({ box }) => !taken.some((other) => overlaps(box, other)) && !crossed(box, own));
+    const free = clear ?? options.find(({ box }) => !taken.some((other) => overlaps(box, other))) ?? options[0];
+    conflicts += clear ? 0 : 1;
+    taken.push(free.box);
+    return free.point;
+  };
+  const spots = arrows.map((arrow, i) => {
+    const path = paths[i];
+    if (!path) return { label: null, step: null };
+    const step = numbered[i] ? place(path, i, 22, [0.24, 0.32, 0.16, 0.4, 0.5, 0.6, 0.7, 0.8]) : null;
+    const label = arrow.label ? place(path, i, textWidth(arrow.label, LABEL) + 16, [0.5, 0.58, 0.42, 0.66, 0.34, 0.74, 0.26, 0.82, 0.18, 0.88, 0.12]) : null;
+    return { label, step };
+  });
+  return { spots, conflicts };
+}
+
+function arrange(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: string }[], sizes: Map<string, Size>, direction: "right" | "down", numbered: boolean[]) {
+  const attempt = (spread: number) => {
+    const { placed, width, height, across, back } = layout(nodes, arrows, groups, sizes, direction, spread);
+    const lanes = new Map([...back].map((arrow, i) => [arrow, i]));
+    const byId = new Map(placed.map((node) => [node.id, node]));
+    const ports = portsOf(placed, arrows, across);
+    const paths = arrows.map((item) => {
+      const from = byId.get(item.from);
+      const to = byId.get(item.to);
+      return from && to ? route(from, to, across, ports.get(item) ?? { out: 0, in: 0, bow: 0 }, lanes.get(item) ?? 0, placed) : null;
+    });
+    const { spots, conflicts } = placeLabels(arrows, paths, numbered, placed);
+    return { placed, width, height, across, paths, spots, conflicts };
+  };
+  let best = attempt(0);
+  for (let spread = 1; spread <= 4 && best.conflicts > 0; spread++) best = attempt(spread);
+  return best;
+}
+
 const tone = (index: number) => ({ "--diagram-tone": `var(--color-series-${(index % 8) + 1})` }) as CSSProperties;
 
 const sameSizes = (a: Map<string, Size> | null, b: Map<string, Size>) => a !== null && a.size === b.size && [...b].every(([id, size]) => a.get(id)?.w === size.w && a.get(id)?.h === size.h);
@@ -282,24 +424,18 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
     return () => observer.disconnect();
   }, [signature]);
 
-  const { placed, width, height, across } = layout(nodes, arrows, groups, sizes ?? new Map(), direction);
+  const numbered = arrows.map((arrow, i) => arrow.step !== undefined && arrows.findIndex((other) => other.step === arrow.step) === i);
+  const { placed, width, height, across, paths, spots } = arrange(nodes, arrows, groups, sizes ?? new Map(), direction, numbered);
   const byId = new Map(placed.map((node) => [node.id, node]));
-  const ports = portsOf(placed, arrows, across);
   const motions = arrows.map((arrow) => motionOf(arrow, flow));
   const packets = arrows.flatMap((arrow, i) => (motions[i].packet ? [i] : []));
   const stages = [...new Set(packets.map((i) => arrows[i].step ?? Infinity))].sort((a, b) => a - b);
   const animated = packets.length > 0 || motions.some((motion) => motion.dots || motion.pulse);
   const { css, cycle } = flowCss(scope, name, arrows, packets, stages);
-  const numbered = arrows.map((arrow, i) => arrow.step !== undefined && arrows.findIndex((other) => other.step === arrow.step) === i);
   const scale = room > 0 ? Math.min(1, room / width) : 1;
   const ready = sizes !== null;
   const groupIndex = (key?: string) => groups.findIndex((group) => group.id === key);
   const arrow = `${name}-arrow`;
-  const paths = arrows.map((item) => {
-    const from = byId.get(item.from);
-    const to = byId.get(item.to);
-    return from && to ? route(from, to, across, ports.get(item) ?? { out: 0, in: 0 }) : null;
-  });
   const beads = arrows.flatMap((_, i) => (motions[i].bead && paths[i] ? [i] : []));
   const spans = paths.map((path) => (path ? Math.ceil(path.length / DOT_GAP) * DOT_GAP : 0));
   const relay = relayCss(scope, name, beads, arrows, spans);
@@ -331,10 +467,8 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
             {arrows.map((item, i) => {
               const path = paths[i];
               if (!path) return null;
-              const labelWidth = item.label ? textWidth(item.label, LABEL) + 16 : 0;
-              const stepX = path.label.x - (labelWidth ? labelWidth / 2 + 14 : 0);
               return (
-                <g key={i} className="diagram-arrow" style={{ "--order": placed.length } as CSSProperties}>
+                <g key={i} className="diagram-arrow" data-arrow={i} style={{ "--order": placed.length } as CSSProperties}>
                   <path
                     className={["diagram-line", item.dashed ? "is-dashed" : "", motions[i].dots ? "is-dots" : ""].filter(Boolean).join(" ")}
                     d={path.d}
@@ -342,18 +476,27 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
                     data-edge={i}
                     style={motions[i].bead ? { animationDuration: `${(DOT_PERIOD / BEAD_SPEED) * 1000}ms` } : undefined}
                   />
-                  {item.label && (
+                </g>
+              );
+            })}
+            {arrows.map((item, i) => {
+              const { label, step } = spots[i];
+              const labelWidth = item.label ? textWidth(item.label, LABEL) + 16 : 0;
+              if (!label && !step) return null;
+              return (
+                <g key={i} className="diagram-tags" data-arrow={i} style={{ "--order": placed.length } as CSSProperties}>
+                  {label && (
                     <g className="diagram-label">
-                      <rect x={path.label.x - labelWidth / 2} y={path.label.y - 11} width={labelWidth} height={22} />
-                      <text x={path.label.x} y={path.label.y + 4} textAnchor="middle">
+                      <rect x={label.x - labelWidth / 2} y={label.y - 11} width={labelWidth} height={22} />
+                      <text x={label.x} y={label.y + 4} textAnchor="middle">
                         {item.label}
                       </text>
                     </g>
                   )}
-                  {numbered[i] && (
+                  {step && (
                     <g className="diagram-step">
-                      <circle cx={stepX} cy={path.label.y} r={11} />
-                      <text x={stepX} y={path.label.y + 4} textAnchor="middle">
+                      <circle cx={step.x} cy={step.y} r={11} />
+                      <text x={step.x} y={step.y + 4} textAnchor="middle">
                         {item.step}
                       </text>
                     </g>

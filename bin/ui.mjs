@@ -3,7 +3,7 @@ import { existsSync, readFileSync, statSync, watch, writeFileSync, readdirSync, 
 import { createServer } from "node:http";
 import { networkInterfaces } from "node:os";
 import { dirname, extname, join, relative, resolve, sep } from "node:path";
-import { buildDiagrams } from "./diagram.mjs";
+import { buildDiagrams, checkDiagrams } from "./diagram.mjs";
 import { buildHtml, checkSpec } from "./spec.mjs";
 
 const pkgRoot = resolve(import.meta.dirname, "..");
@@ -40,6 +40,7 @@ Usage
   ui spec check <spec.json>
   ui spec build <spec.json> [--out app.html] [--lang en|ko] [--cdn]
   ui diagram build <page.html> [--out dir] [--theme light|dark]
+  ui diagram check <page.html>
   ui help
 
 serve   Serves [dir] (default: current folder) at / and this design system at /ui/.
@@ -59,7 +60,9 @@ spec    check validates an app spec against the components and its own data,
 diagram build renders every Diagram on the page in headless Chrome and writes
         <id>.svg (moves three times, then rests) and <id>.still.svg (no motion)
         for documents. Needs Chrome or Chromium; UI_CHROME overrides the path.
-        --theme picks light (default) or dark.`;
+        --theme picks light (default) or dark. The build stops when the check fails.
+diagram check renders the page and fails when labels overlap each other or a node,
+        an arrow crosses a label or runs through a node, or text in a node is cut off.`;
 
 function parse(argv) {
   const args = { _: [] };
@@ -333,6 +336,7 @@ try {
   else if (command === "spec" && args._[1] === "check") checkFile(args._[2]);
   else if (command === "spec" && args._[1] === "build") buildFile(args._[2], args);
   else if (command === "diagram" && args._[1] === "build") await buildDiagrams(args._[2], { out: args.out, theme: args.theme, handler: site });
+  else if (command === "diagram" && args._[1] === "check") process.exitCode = (await checkDiagrams(args._[2], { theme: args.theme, handler: site })).length ? 1 : 0;
   else console.log(HELP);
 } catch (error) {
   console.error(`ui: ${error.message}`);

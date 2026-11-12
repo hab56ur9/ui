@@ -104,7 +104,7 @@ function serialize() {
     }
     for (const rule of list) {
       if (rule instanceof CSSKeyframesRule && rule.name.startsWith("diagram")) globalRules.push(rule.cssText);
-      if (rule instanceof CSSStyleRule && /\.diagram-(group|arrow|line|arrowhead|label|step|packet|spark|pulse)|\.diagram-node(?![-\w])/.test(rule.selectorText) && !rule.selectorText.includes("::after")) globalRules.push(rule.cssText);
+      if (rule instanceof CSSStyleRule && /\.diagram-(group|arrow|tags|line|arrowhead|label|step|packet|spark|pulse)|\.diagram-node(?![-\w])/.test(rule.selectorText) && !rule.selectorText.includes("::after")) globalRules.push(rule.cssText);
       if (rule instanceof CSSMediaRule && rule.conditionText.includes("prefers-reduced-motion")) {
         const inner = [...rule.cssRules].filter((child) => child.selectorText?.startsWith("*")).map((child) => child.cssText);
         if (inner.length) globalRules.push(`@media ${rule.conditionText} { ${inner.join(" ")} }`);
@@ -277,27 +277,90 @@ function serialize() {
   return [...posters, ...[...built].filter(([figure]) => !figure.closest(".infographic")).map(([, result]) => result)];
 }
 
-export async function buildDiagrams(file, { out, theme = "light", handler }) {
+function inspect() {
+  const problems = [];
+  const inside = (p, box, pad) => p.x > box.x + pad && p.x < box.x + box.w - pad && p.y > box.y + pad && p.y < box.y + box.h - pad;
+  const overlaps = (a, b) => a.x < b.x + b.w - 1 && b.x < a.x + a.w - 1 && a.y < b.y + b.h - 1 && b.y < a.y + a.h - 1;
+  for (const figure of document.querySelectorAll(".diagram")) {
+    const title = figure.getAttribute("aria-label") ?? "diagram";
+    const canvas = figure.querySelector(".diagram-canvas");
+    const nodes = [...canvas.querySelectorAll(".diagram-node")].map((node) => ({ id: node.dataset.node, element: node, box: { x: node.offsetLeft, y: node.offsetTop, w: node.offsetWidth, h: node.offsetHeight } }));
+    const arrows = [...canvas.querySelectorAll(".diagram-arrow")].map((group, index) => {
+      const path = group.querySelector(".diagram-line");
+      const length = path.getTotalLength();
+      const points = Array.from({ length: Math.ceil(length / 4) + 1 }, (_, k) => path.getPointAtLength(Math.min(length, k * 4)));
+      const tags = canvas.querySelector(`.diagram-tags[data-arrow="${group.dataset.arrow}"]`);
+      const labels = [...(tags?.querySelectorAll(".diagram-label > rect, .diagram-step > circle") ?? [])].map((shape) => {
+        const b = shape.getBBox();
+        return { text: shape.parentElement.textContent.trim(), box: { x: b.x, y: b.y, w: b.width, h: b.height } };
+      });
+      return { index, points, labels };
+    });
+    const labels = arrows.flatMap((arrow) => arrow.labels.map((label) => ({ ...label, arrow: arrow.index })));
+    labels.forEach((label, i) => {
+      labels.slice(i + 1).filter((other) => other.arrow !== label.arrow && overlaps(label.box, other.box)).forEach((other) => problems.push(`${title}: label "${label.text}" overlaps label "${other.text}"`));
+      nodes.filter((node) => overlaps(label.box, node.box)).forEach((node) => problems.push(`${title}: label "${label.text}" overlaps node "${node.id}"`));
+      const crossing = arrows.find((arrow) => arrow.index !== label.arrow && arrow.points.some((point) => inside(point, label.box, 2)));
+      if (crossing) problems.push(`${title}: label "${label.text}" is crossed by arrow ${crossing.index + 1}${crossing.labels[0] ? ` ("${crossing.labels.map((tag) => tag.text).join(" ")}")` : ""}`);
+    });
+    arrows.forEach((arrow) => {
+      nodes.filter((node) => arrow.points.some((point) => inside(point, node.box, 3))).forEach((node) => problems.push(`${title}: arrow ${arrow.index + 1} runs through node "${node.id}"`));
+    });
+    nodes.forEach((node) => {
+      const cut = [...node.element.querySelectorAll("*")].filter((element) => element.children.length === 0 && element.textContent.trim() && element.scrollWidth > element.clientWidth + 1 && getComputedStyle(element).overflow !== "visible");
+      cut.forEach((element) => problems.push(`${title}: text "${element.textContent.trim()}" is cut off in node "${node.id}"`));
+    });
+  }
+  return problems;
+}
+
+async function render(file, theme, handler) {
   const page = resolve(file);
   if (!existsSync(page)) throw new Error(`no such file: ${file}`);
   const root = dirname(page);
-  const target = resolve(out ?? root);
-  mkdirSync(target, { recursive: true });
   const server = createServer(handler(root));
   await new Promise((done) => server.listen(0, "127.0.0.1", done));
   const chrome = await browser();
+  await chrome.send("Page.enable");
+  await chrome.send("Emulation.setDeviceMetricsOverride", { width: 4000, height: 3000, deviceScaleFactor: 1, mobile: false });
+  await chrome.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
+  await chrome.send("Page.navigate", { url: `http://127.0.0.1:${server.address().port}/${relative(root, page)}` });
+  await sleep(1500);
+  await chrome.evaluate("document.querySelectorAll('.infographic').forEach((poster) => { poster.style.maxWidth = '1280px'; })");
+  await sleep(800);
+  await chrome.evaluate("document.fonts.ready.then(() => document.getAnimations().forEach((a) => a.animationName === 'diagram-enter' && a.finish()))");
+  await sleep(300);
+  const close = async () => {
+    await chrome.close();
+    server.close();
+  };
+  return { page, root, evaluate: chrome.evaluate, close };
+}
+
+export async function checkDiagrams(file, { theme = "light", handler }) {
+  const session = await render(file, theme, handler);
   try {
-    await chrome.send("Page.enable");
-    await chrome.send("Emulation.setDeviceMetricsOverride", { width: 4000, height: 3000, deviceScaleFactor: 1, mobile: false });
-    await chrome.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
-    await chrome.send("Page.navigate", { url: `http://127.0.0.1:${server.address().port}/${relative(root, page)}` });
-    await sleep(1500);
-    await chrome.evaluate("document.querySelectorAll('.infographic').forEach((poster) => { poster.style.maxWidth = '1280px'; })");
-    await sleep(800);
-    await chrome.evaluate("document.fonts.ready.then(() => document.getAnimations().forEach((a) => a.animationName === 'diagram-enter' && a.finish()))");
-    await sleep(300);
-    const diagrams = await chrome.evaluate(`(${serialize.toString()})()`);
-    if (!diagrams?.length) throw new Error(`no Diagram or Infographic found in ${basename(page)}`);
+    const problems = await session.evaluate(`(${inspect.toString()})()`);
+    for (const problem of problems) console.log(`  ✗ ${problem}`);
+    console.log(problems.length ? `${problems.length} problems` : "diagram check: clean");
+    return problems;
+  } finally {
+    await session.close();
+  }
+}
+
+export async function buildDiagrams(file, { out, theme = "light", handler }) {
+  const session = await render(file, theme, handler);
+  try {
+    const problems = await session.evaluate(`(${inspect.toString()})()`);
+    if (problems.length) {
+      for (const problem of problems) console.log(`  ✗ ${problem}`);
+      throw new Error(`${problems.length} layout problems; fix them before building`);
+    }
+    const target = resolve(out ?? session.root);
+    mkdirSync(target, { recursive: true });
+    const diagrams = await session.evaluate(`(${serialize.toString()})()`);
+    if (!diagrams?.length) throw new Error(`no Diagram or Infographic found in ${basename(session.page)}`);
     for (const diagram of diagrams) {
       const fonts = fontsFor(diagram.still);
       const embed = (svg) => svg.replace("<style>", `<style>${fonts}\n`);
@@ -306,7 +369,6 @@ export async function buildDiagrams(file, { out, theme = "light", handler }) {
       console.log(`built ${relative(process.cwd(), join(target, diagram.file))}.svg and .still.svg`);
     }
   } finally {
-    await chrome.close();
-    server.close();
+    await session.close();
   }
 }

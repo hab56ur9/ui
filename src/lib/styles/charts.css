@@ -479,6 +479,7 @@
 
 .diagram-group,
 .diagram-arrow,
+.diagram-tags,
 .diagram-node {
   animation: diagram-enter calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-enter) both;
   animation-delay: calc(var(--order) * var(--motion-stagger));
