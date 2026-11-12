@@ -721,6 +721,7 @@
     "comment1": "This should be completed_at, not created_at.",
     "comment2": "Round once after summing, or the totals drift.",
     "diffSame": "## Metric",
-    "diffAdd": "Amounts are summed, then rounded to the won once"
+    "diffAdd": "Amounts are summed, then rounded to the won once",
+    "ticket": "To ticket"
   }
 }

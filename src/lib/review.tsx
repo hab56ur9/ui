@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Badge, type BadgeTone } from "./Badge";
 import { PresenceAvatar, type Face } from "./chat";
-import { Icon } from "./Icon";
+import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
 
 const cx = (...names: (string | false | null | undefined)[]) => names.filter(Boolean).join(" ");
@@ -43,17 +43,20 @@ function indexText(root: HTMLElement) {
 }
 
 export type Anchor = { id: string; quote: string; resolved?: boolean };
+export type QuoteAction = { id: string; label: string; icon?: IconName };
 
 export type AnnotatorProps = {
   anchors?: Anchor[];
   active?: string | null;
   quoteLabel?: string;
+  actions?: QuoteAction[];
   onPick?: (id: string) => void;
   onQuote?: (quote: string) => void;
+  onAction?: (id: string, quote: string) => void;
   children: ReactNode;
 };
 
-export function Annotator({ anchors = [], active, quoteLabel, onPick, onQuote, children }: AnnotatorProps) {
+export function Annotator({ anchors = [], active, quoteLabel, actions = [], onPick, onQuote, onAction, children }: AnnotatorProps) {
   const { text: t } = useI18n();
   const box = useRef<HTMLDivElement>(null);
   const ranges = useRef(new Map<string, Range>());
@@ -127,22 +130,25 @@ export function Annotator({ anchors = [], active, quoteLabel, onPick, onQuote, c
   return (
     <div ref={box} className="annotate" onClick={click} onMouseUp={up} onKeyUp={(event) => event.shiftKey && up()}>
       {children}
-      {pop?.quote && onQuote && (
-        <button
-          type="button"
-          className="annotate-pop"
-          style={{ left: `${pop.x}px`, top: `${pop.y}px` }}
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={(event) => {
-            event.stopPropagation();
-            onQuote(pop.quote);
-            setPop(null);
-            getSelection()?.removeAllRanges();
-          }}
-        >
-          <Icon name="message" size="sm" />
-          {quoteLabel ?? t("annotate.comment")}
-        </button>
+      {pop?.quote && (onQuote || actions.length > 0) && (
+        <span className="annotate-pop" style={{ left: `${pop.x}px`, top: `${pop.y}px` }} onMouseDown={(event) => event.preventDefault()}>
+          {[...(onQuote ? [{ id: "", label: quoteLabel ?? t("annotate.comment"), icon: "message" as IconName }] : []), ...actions].map((action) => (
+            <button
+              key={action.id || "quote"}
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                if (action.id) onAction?.(action.id, pop.quote);
+                if (!action.id) onQuote?.(pop.quote);
+                setPop(null);
+                getSelection()?.removeAllRanges();
+              }}
+            >
+              {action.icon && <Icon name={action.icon} size="sm" />}
+              {action.label}
+            </button>
+          ))}
+        </span>
       )}
     </div>
   );
@@ -157,6 +163,8 @@ export type CommentCardProps = Face & {
   text: ReactNode;
   resolved?: boolean;
   stale?: boolean;
+  suggestion?: string | null;
+  onApply?: () => void;
   active?: boolean;
   replies?: CommentReply[];
   onPick?: () => void;
@@ -164,7 +172,7 @@ export type CommentCardProps = Face & {
   onReply?: () => void;
 };
 
-export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, stale = false, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
+export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, stale = false, suggestion, onApply, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
   const { text: t } = useI18n();
   const stop = (run?: () => void) => (event: MouseEvent) => {
     event.stopPropagation();
@@ -184,6 +192,14 @@ export function CommentCard({ quote, name, tone, avatar, role, time, text, resol
         {resolved ? <Badge tone="good">{t("comment.resolved")}</Badge> : onResolve && <button type="button" className="comment-action" onClick={stop(onResolve)}><Icon name="check" size="sm" />{t("comment.resolve")}</button>}
       </div>
       <p>{text}</p>
+      {suggestion && (
+        <div className="comment-suggestion">
+          <span>{t("comment.suggestion")}</span>
+          <del>{quote}</del>
+          <ins>{suggestion}</ins>
+          {!resolved && onApply && <button type="button" className="comment-action" onClick={stop(onApply)}><Icon name="check" size="sm" />{t("comment.apply")}</button>}
+        </div>
+      )}
       {replies.map((reply, i) => (
         <div key={i} className="comment-reply">
           <PresenceAvatar name={reply.name} tone={reply.tone} avatar={reply.avatar} size="xs" />

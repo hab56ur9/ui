@@ -98,6 +98,7 @@ export const api: Record<string, Section[]> = {
       ["anchors", "{ id, quote, resolved? }[]", "[]", "Sentences to highlight, matched ignoring markdown marks and spacing."],
       ["active · onPick", "string, (id) => void", "", "The emphasized anchor and the click event on a highlight."],
       ["onQuote · quoteLabel", "(quote) => void, string", "\"Comment\"", "The button on a selection and its event; works in an editing block too."],
+      ["actions · onAction", "{ id, label, icon? }[], (id, quote) => void", "[]", "Extra actions beside the selection button, such as making a ticket from the quote."],
     ] },
     { type: "api", title: "<CommentCard> · <ReviewBar> · <DiffView>", rows: [
       ["CommentCard quote · name · text · replies", "string, string, ReactNode, { name, time?, text }[]", "", "Quote, author, comment and replies."],

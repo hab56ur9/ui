@@ -148,6 +148,8 @@ const MESSAGES = {
     "comment.resolve": "해결",
     "comment.resolved": "해결됨",
     "comment.stale": "본문에서 사라짐",
+    "comment.suggestion": "수정 제안",
+    "comment.apply": "반영",
     "diff.empty": "바뀐 내용이 없습니다",
   },
   en: {
@@ -297,6 +299,8 @@ const MESSAGES = {
     "comment.resolve": "Resolve",
     "comment.resolved": "Resolved",
     "comment.stale": "No longer in the text",
+    "comment.suggestion": "Suggested edit",
+    "comment.apply": "Apply",
     "diff.empty": "No changes",
   },
 };

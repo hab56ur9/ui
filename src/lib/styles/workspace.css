@@ -125,7 +125,9 @@
 ::highlight(annotate-open) { background-color: color-mix(in oklab, var(--color-status-warning) 24%, transparent); text-decoration: underline 2px var(--color-status-warning); }
 ::highlight(annotate-active) { background-color: color-mix(in oklab, var(--color-status-warning) 48%, transparent); text-decoration: underline 2px var(--color-status-warning); }
 ::highlight(annotate-resolved) { text-decoration: underline dashed 1px var(--color-border-strong); }
-.annotate-pop { position: absolute; z-index: 3; transform: translate(-50%, -100%); display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-control); background: var(--color-bg-raised); color: var(--color-fg-default); font: inherit; font-size: var(--font-size-caption); box-shadow: var(--elevation-overlay); cursor: pointer; }
+.annotate-pop { position: absolute; z-index: 3; transform: translate(-50%, -100%); display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-control); background: var(--color-bg-raised); box-shadow: var(--elevation-overlay); }
+.annotate-pop button { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 0; border-radius: var(--radius-mark); background: none; color: var(--color-fg-default); font: inherit; font-size: var(--font-size-caption); white-space: nowrap; cursor: pointer; }
+.annotate-pop button:hover { background: var(--color-bg-subtle); }
 .comment-card { display: grid; gap: var(--space-2); margin: var(--space-2) var(--space-4); padding: var(--space-3); border: 1px solid var(--color-border-default); border-left: 3px solid var(--color-status-warning); border-radius: var(--radius-card); background: var(--color-bg-raised); font-size: var(--font-size-caption); cursor: pointer; }
 .comment-card.is-active { border-color: var(--color-status-warning); box-shadow: 0 0 0 1px var(--color-status-warning); }
 .comment-card.is-resolved { border-left-color: var(--color-border-strong); opacity: 0.72; }
@@ -148,3 +150,8 @@
 .review-person { display: inline-flex; align-items: center; gap: 6px; color: var(--color-fg-secondary); }
 .comment-card.is-stale blockquote { text-decoration: line-through; }
 .comment-card > .badge { justify-self: start; }
+.comment-suggestion { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 4px var(--space-2); padding: var(--space-2); border-radius: var(--radius-control); background: var(--color-bg-subtle); }
+.comment-suggestion > span { grid-column: 1 / -1; font-weight: var(--font-weight-semibold); color: var(--color-fg-secondary); }
+.comment-suggestion del { grid-column: 1 / -1; color: var(--color-status-critical); }
+.comment-suggestion ins { grid-column: 1 / -1; text-decoration: none; color: var(--color-status-good); }
+.comment-suggestion .comment-action { grid-column: 1 / -1; justify-self: start; }

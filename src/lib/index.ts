@@ -44,5 +44,5 @@ export { Anatomy, Article, ArticleSection, Brand, CardGrid, CopyCode, ErrorBound
 export { Meter, type MeterProps, type MeterStatus } from "./Meter";
 export { ChatMessage, ChatPane, Composer, DayDivider, Faces, Mention, MessageLog, PresenceAvatar, SystemNote, TypingIndicator, type ChatMessageProps, type ChatReaction, type ComposerChip, type ComposerProps, type Face, type MentionCandidate, type MessageAction, type Presence, type PresenceAvatarProps } from "./chat";
 export { Kanban, KanbanHeads, type KanbanCard, type KanbanColumn, type KanbanProps } from "./Kanban";
-export { Annotator, CommentCard, DiffView, ReviewBar, type Anchor, type AnnotatorProps, type CommentCardProps, type CommentReply, type DiffLine, type Reviewer } from "./review";
+export { Annotator, CommentCard, DiffView, ReviewBar, type QuoteAction, type Anchor, type AnnotatorProps, type CommentCardProps, type CommentReply, type DiffLine, type Reviewer } from "./review";
 export { Browser, Phone } from "./devices";

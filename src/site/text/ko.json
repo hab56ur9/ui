@@ -721,6 +721,7 @@
     "comment1": "created_at이 아니라 completed_at이어야 합니다.",
     "comment2": "합산한 뒤 한 번만 반올림해야 합계가 맞습니다.",
     "diffSame": "## 지표 정의",
-    "diffAdd": "금액은 합산한 뒤 원 단위로 한 번 반올림한다"
+    "diffAdd": "금액은 합산한 뒤 원 단위로 한 번 반올림한다",
+    "ticket": "티켓으로"
   }
 }

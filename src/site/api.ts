@@ -98,6 +98,7 @@ export const api: Record<string, Section[]> = {
       ["anchors", "{ id, quote, resolved? }[]", "[]", "형광펜을 칠할 문장. 마크다운 기호와 공백은 무시하고 찾습니다."],
       ["active · onPick", "string, (id) => void", "", "강조할 주석과 형광펜을 누를 때 이벤트."],
       ["onQuote · quoteLabel", "(quote) => void, string", "\"댓글\"", "드래그한 문장에 뜨는 버튼과 누를 때 이벤트. 편집 중인 블록에서도 씁니다."],
+      ["actions · onAction", "{ id, label, icon? }[], (id, quote) => void", "[]", "선택 버튼 옆에 붙는 추가 동작. 예: 인용으로 티켓 만들기."],
     ] },
     { type: "api", title: "<CommentCard> · <ReviewBar> · <DiffView>", rows: [
       ["CommentCard quote · name · text · replies", "string, string, ReactNode, { name, time?, text }[]", "", "인용, 작성자, 의견, 답."],
