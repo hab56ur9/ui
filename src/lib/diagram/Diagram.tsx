@@ -226,6 +226,33 @@ ${scope} [data-node="${node}"]::after { animation: ${name}-hit-${n} var(--diagra
   return { css: [...blocks, ...hits].join("\n"), cycle };
 }
 
+function relayCss(scope: string, name: string, beads: number[], arrows: DiagramArrowProps[], spans: number[]) {
+  if (beads.length === 0) return "";
+  const arrival = new Map<string, number>();
+  const starts = new Map<number, number>();
+  const pending = [...beads];
+  for (let guard = 0; pending.length > 0 && guard < beads.length * beads.length + 1; guard++) {
+    const ready = pending.findIndex((i) => !pending.some((j) => arrows[j].to === arrows[i].from && j !== i));
+    const i = pending.splice(ready < 0 ? 0 : ready, 1)[0];
+    const from = arrows[i].from;
+    const start = arrival.get(from) ?? 0;
+    starts.set(i, start);
+    const end = start + spans[i];
+    arrival.set(arrows[i].to, Math.min(arrival.get(arrows[i].to) ?? end, end));
+  }
+  const period = Math.max(...beads.map((i) => (starts.get(i) ?? 0) + spans[i])) + DOT_GAP * 4;
+  const ms = (period / BEAD_SPEED) * 1000;
+  return beads
+    .map((i) => {
+      const a = ((starts.get(i) ?? 0) / period) * 100;
+      const b = (((starts.get(i) ?? 0) + spans[i]) / period) * 100;
+      const fade = (DOT_GAP / period) * 100;
+      return `@keyframes ${name}-bead-${i} { 0%, ${at(a)} { offset-distance: 0px; opacity: 0; } ${at(a + fade)} { opacity: 1; } ${at(b - fade)} { opacity: 1; } ${at(b)}, 100% { offset-distance: ${spans[i]}px; opacity: 0; } }
+${scope} [data-bead="${i}"] { animation: ${name}-bead-${i} ${ms}ms linear infinite; }`;
+    })
+    .join("\n");
+}
+
 const tone = (index: number) => ({ "--diagram-tone": `var(--color-series-${(index % 8) + 1})` }) as CSSProperties;
 
 const sameSizes = (a: Map<string, Size> | null, b: Map<string, Size>) => a !== null && a.size === b.size && [...b].every(([id, size]) => a.get(id)?.w === size.w && a.get(id)?.h === size.h);
@@ -273,10 +300,13 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
     const to = byId.get(item.to);
     return from && to ? route(from, to, across, ports.get(item) ?? { out: 0, in: 0 }) : null;
   });
+  const beads = arrows.flatMap((_, i) => (motions[i].bead && paths[i] ? [i] : []));
+  const spans = paths.map((path) => (path ? Math.ceil(path.length / DOT_GAP) * DOT_GAP : 0));
+  const relay = relayCss(scope, name, beads, arrows, spans);
 
   return (
     <figure className={`diagram${playing ? "" : " is-paused"}`} data-diagram={name} data-name={id} aria-label={title} style={{ "--diagram-cycle": `${cycle}ms`, maxWidth: width } as CSSProperties}>
-      <style>{css}</style>
+      <style>{`${css}\n${relay}`}</style>
       <div ref={host} className="diagram-host" style={{ height: ready ? height * scale : undefined }}>
         <div ref={canvas} className="diagram-canvas" style={{ width, height, transform: `scale(${scale})`, visibility: ready ? undefined : "hidden" }}>
           <svg className="diagram-lines" width={width} height={height} aria-hidden="true">
@@ -358,11 +388,11 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
               const path = paths[i];
               if (!path || !motions[i].pulse) return null;
               const bead = motions[i].bead;
-              const span = Math.ceil(path.length / DOT_GAP) * DOT_GAP;
-              const duration = bead ? (span / BEAD_SPEED) * 1000 : Math.min(3000, Math.max(900, (path.length / PULSE_SPEED) * 1000));
-              const lead = bead ? (Math.round((((i * 0.37) % 1) * span) / DOT_GAP) * DOT_GAP * 1000) / BEAD_SPEED : ((i * 0.37) % 1) * duration;
+              const duration = Math.min(3000, Math.max(900, (path.length / PULSE_SPEED) * 1000));
+              const along = { offsetPath: `path("${path.d}")` };
+              const timing = bead ? along : { ...along, animationDuration: `${duration}ms`, animationDelay: `${-((i * 0.37) % 1) * duration}ms` };
               return (
-                <g key={i} className={`diagram-pulse${bead ? " is-bead" : ""}`} style={{ offsetPath: `path("${path.d}")`, animationDuration: `${duration}ms`, animationDelay: `${-lead}ms`, "--bead-length": `${span}px` } as CSSProperties}>
+                <g key={i} className={`diagram-pulse${bead ? " is-bead" : ""}`} data-bead={bead ? i : undefined} style={timing}>
                   {!bead && <circle className="diagram-pulse-halo" r={9} />}
                   <circle r={bead ? 4.5 : 3.5} />
                 </g>
