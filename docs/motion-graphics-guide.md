@@ -79,7 +79,7 @@ The ui library has one motion vocabulary that every component uses, so a diagram
 | count | Each digit of a number rolls up to its value; a later change rolls to the new value | Stat values |
 | attention | One short emphasis after the content settles | Warning and critical Badges, Meter status when not good |
 
-- Motion is opt-in per container. Diagram and Infographic turn it on by default because they are motion graphics; Board turns it on only with `motion: true`. Outside these containers, components stay still.
+- Motion belongs to containers. As of 2026-11-12, Diagram, Infographic and Board turn it on by default, and `motion: false` turns it off. Outside these containers, components stay still.
 - Components attach the motions themselves through internal `data-motion` attributes; apps see only the `motion` prop.
 - The order comes from the container: Diagram nodes follow the layout order, Board widgets follow the layout, Heatmap cells sweep diagonally, and each Infographic panel starts after the one before it.
 

@@ -122,7 +122,7 @@ export const api: Record<string, Section[]> = {
         ["toolbar", "ReactNode", "", "Controls such as filters on the left of the toolbar."],
         ["actions", "boolean", "true", "Draws the add-widget and reset-layout buttons."],
         ["busy", "boolean", "false", "Keeps the previous view translucent while new data loads."],
-        ["motion", "boolean", "false", "Turns on entrance motion: widgets appear in order, numbers roll up, and bars, lines and Meters draw in."],
+        ["motion", "boolean", "true", "Entrance motion; false turns it off. Widgets appear in order, numbers roll up, and bars, lines and Meters draw in."],
       ],
     },
     {

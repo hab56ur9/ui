@@ -136,7 +136,7 @@ const specsOf = (children: ReactNode): WidgetSpec[] =>
 
 const isText = (node: ReactNode) => typeof node === "string";
 
-export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit, commitDelay = 1500, toolbar, actions = true, busy, motion = false }: BoardProps) {
+export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit, commitDelay = 1500, toolbar, actions = true, busy, motion = true }: BoardProps) {
   const { text } = useI18n();
   const specs = specsOf(children);
   const board = useBoardLayout(specs, { initial: initialLayout, onChange: onLayoutChange, onCommit: onLayoutCommit, delay: commitDelay });

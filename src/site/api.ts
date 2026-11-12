@@ -122,7 +122,7 @@ export const api: Record<string, Section[]> = {
         ["toolbar", "ReactNode", "", "도구 막대 왼쪽에 둘 필터 같은 조작입니다."],
         ["actions", "boolean", "true", "위젯 추가·배치 초기화 버튼을 그립니다."],
         ["busy", "boolean", "false", "새 데이터를 불러오는 동안 이전 화면을 반투명하게 둡니다."],
-        ["motion", "boolean", "false", "등장 움직임을 켭니다. 위젯이 차례로 나타나고, 숫자가 굴러 올라가며, 막대·선·Meter가 그려집니다."],
+        ["motion", "boolean", "true", "등장 움직임입니다. false면 꺼집니다. 위젯이 차례로 나타나고, 숫자가 굴러 올라가며, 막대·선·Meter가 그려집니다."],
       ],
     },
     {
