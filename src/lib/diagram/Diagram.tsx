@@ -38,7 +38,7 @@ const GAPS = { right: { main: 120, cross: 28 }, down: { main: 88, cross: 28 } };
 const STEP = 1800;
 const REST = 900;
 const PULSE_SPEED = 180;
-const BEAD_SPEED = 110;
+const BEAD_SPEED = 82;
 const DOT_PERIOD = 18;
 const DOT_GAP = 9;
 
