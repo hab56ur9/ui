@@ -143,7 +143,13 @@
       "exit": { "$value": [0.3, 0, 1, 1] }
     },
     "stagger": { "$type": "duration", "$value": { "value": 30, "unit": "ms" } },
-    "intensity": { "$type": "number", "$value": 0.5 }
+    "intensity": { "$type": "number", "$value": 0.5 },
+    "distance": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+    "shape": {
+      "$description": "Keyframes each motion plays; a style swaps the shape without touching components.",
+      "enter": { "$value": "motion-rise" },
+      "attention": { "$value": "motion-ring" }
+    }
   },
   "border-width": {
     "$type": "dimension",

@@ -20,6 +20,10 @@
         "enter": { "$value": [0.34, 1.56, 0.64, 1] }
       },
       "stagger": { "$type": "duration", "$value": { "value": 60, "unit": "ms" } },
+      "shape": {
+        "enter": { "$value": "motion-pop" },
+        "attention": { "$value": "motion-bump" }
+      },
       "intensity": { "$type": "number", "$value": 1 }
     }
   }

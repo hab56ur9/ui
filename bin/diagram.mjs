@@ -344,7 +344,7 @@ async function render(file, theme, handler) {
   await sleep(1500);
   await chrome.evaluate("document.querySelectorAll('.infographic').forEach((poster) => { poster.style.maxWidth = '1280px'; })");
   await sleep(800);
-  await chrome.evaluate("document.fonts.ready.then(() => document.getAnimations().forEach((a) => a.animationName === 'motion-enter' && a.finish()))");
+  await chrome.evaluate("document.fonts.ready.then(() => document.getAnimations().forEach((a) => a.animationName.startsWith('motion-') && a.finish()))");
   await sleep(300);
   const close = async () => {
     await chrome.close();

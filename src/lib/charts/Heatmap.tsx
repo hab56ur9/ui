@@ -1,5 +1,6 @@
 import { useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 import { tokenPx, useSize } from "../hooks";
+import { useMotion } from "../MotionScope";
 import { useI18n } from "../i18n";
 import { Tooltip } from "./parts";
 import { clamp, textWidth } from "./scale";
@@ -52,6 +53,7 @@ export function Heatmap<C>(props: HeatmapProps<C>) {
 }
 
 function HeatmapPlot<C>({ rows, columns, values, format, labelEvery, title, fillOf, width, height, node }: HeatmapProps<C> & { fillOf: (v: number) => string; width: number; height: number; node: HTMLDivElement | null }) {
+  const motion = useMotion();
   const svg = useRef<SVGSVGElement>(null);
   const [cursor, setCursor] = useState<[number, number] | null>(null);
   const [last, setLast] = useState<[number, number]>([0, 0]);
@@ -111,7 +113,8 @@ function HeatmapPlot<C>({ rows, columns, values, format, labelEvery, title, fill
                 y={margin.top + ch * r + gap / 2}
                 width={Math.max(0, cw - gap)}
                 height={Math.max(0, ch - gap)}
-                style={seq(fillOf(v))}
+                style={motion ? ({ ...seq(fillOf(v)), "--motion-order": r + c } as CSSProperties) : seq(fillOf(v))}
+                data-motion={motion ? "enter" : undefined}
               />
             ),
           ),

@@ -1,3 +1,4 @@
+import { MotionScope, useMotion } from "./MotionScope";
 import { Children, isValidElement, useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactElement, type ReactNode } from "react";
 import { BoardActions } from "./BoardActions";
 import { DataTable, type DataTableProps } from "./DataTable";
@@ -103,14 +104,16 @@ export type BoardProps = {
   toolbar?: ReactNode;
   actions?: boolean;
   busy?: boolean;
+  motion?: boolean;
   children?: ReactNode;
 };
 
 export type WidgetProps = Omit<WidgetSpec, "render"> & { frame?: "card" | "plain"; children: ReactNode };
 
 export function Widget({ id, title, subtitle, w, h, frame = "card", children }: WidgetProps) {
+  const motion = useMotion();
   return (
-    <section className={`widget is-static is-${frame}`} data-id={id} style={{ "--w": w, "--h": h } as CSSProperties}>
+    <section className={`widget is-static is-${frame}`} data-id={id} data-motion={motion ? "enter" : undefined} style={{ "--w": w, "--h": h } as CSSProperties}>
       {title && (
         <header className="widget-head">
           <div className="widget-titles">
@@ -133,7 +136,7 @@ const specsOf = (children: ReactNode): WidgetSpec[] =>
 
 const isText = (node: ReactNode) => typeof node === "string";
 
-export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit, commitDelay = 1500, toolbar, actions = true, busy }: BoardProps) {
+export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit, commitDelay = 1500, toolbar, actions = true, busy, motion = false }: BoardProps) {
   const { text } = useI18n();
   const specs = specsOf(children);
   const board = useBoardLayout(specs, { initial: initialLayout, onChange: onLayoutChange, onCommit: onLayoutCommit, delay: commitDelay });
@@ -146,7 +149,9 @@ export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit,
           {actions && <BoardActions board={board} />}
         </div>
       )}
-      <BoardGrid widgets={specs} layout={board.layout} onLayoutChange={board.setLayout} busy={busy} />
+      <MotionScope on={motion}>
+        <BoardGrid widgets={specs} layout={board.layout} onLayoutChange={board.setLayout} busy={busy} />
+      </MotionScope>
     </>
   );
 }
@@ -172,6 +177,7 @@ function track(event: PointerEvent, move: (e: globalThis.PointerEvent) => void, 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
 function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = false }: GridProps) {
+  const motion = useMotion();
   const { text } = useI18n();
   const ui = useOptionalUI();
   const [message, setMessage] = useState("");
@@ -337,12 +343,12 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
   return (
     <div className="board-frame">
       <div className={classes} ref={grid}>
-        {shown.map((item) => {
+        {shown.map((item, order) => {
           const def = defOf(item.id);
           const table = tables.has(item.id) && def.table;
           const state = [item.id === dragging ? "is-placeholder" : "", item.id === resizing ? "is-resizing" : ""].filter(Boolean).join(" ");
           return (
-            <section key={item.id} className={`widget ${state}`.trim()} data-id={item.id} aria-label={def.title} style={{ "--w": item.w, "--h": item.h } as CSSProperties}>
+            <section key={item.id} className={`widget ${state}`.trim()} data-id={item.id} data-motion={motion ? "enter" : undefined} aria-label={def.title} style={{ "--w": item.w, "--h": item.h, "--motion-order": order } as CSSProperties}>
               <header className="widget-head" onPointerDown={(e) => armDrag(item.id, e)}>
                 <button type="button" className="widget-handle" aria-label={text("move", { title: def.title })} title={text("move", { title: def.title })} onKeyDown={(e) => moveByKey(item.id, e)}>
                   <Icon name="grip" size="sm" />

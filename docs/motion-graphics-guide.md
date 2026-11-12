@@ -69,20 +69,35 @@ The theme's style sets how much the diagram moves when it first appears. The flo
 
 ## Shared motion vocabulary
 
-The ui library has one motion vocabulary that every component uses, so a diagram, a poster and a dashboard move the same way. As of 2026-11-12 it has four motions.
+The ui library has one motion vocabulary that every component uses, so a diagram, a poster and a dashboard move the same way. As of 2026-11-12 it has five motions.
 
 | Motion | What moves | Used by |
 | --- | --- | --- |
-| enter | The element fades in and rises slightly, in order | Diagram nodes, arrows and groups; Infographic title and panels |
-| draw | A line traces itself, or a bar grows from its start | Line chart and sparkline lines, Meter fill |
+| enter | The element appears, in order | Diagram nodes, arrows and groups; Infographic title and panels; Board widgets; Heatmap cells |
+| draw | A line traces itself | LineChart and Sparkline lines |
+| grow | A bar grows from its base | BarChart bars, Meter fill |
 | count | Each digit of a number rolls up to its value; a later change rolls to the new value | Stat values |
-| attention | One soft ring pulses once after the content settles | Warning and critical Badges, Meter status when not good |
+| attention | One short emphasis after the content settles | Warning and critical Badges, Meter status when not good |
 
-- Components attach the motions themselves; apps only turn them on or off with the `motion` prop of Diagram and Infographic.
-- Motion runs only inside a Diagram or an Infographic, so a dashboard of Stats stays still.
-- The order comes from the container: Diagram nodes follow the layout order, and each Infographic panel starts after the panel before it.
-- Every motion is a CSS keyframe declared once in the library, so the built SVG plays it too; the still SVG and print show the final values.
-- Durations scale with the style's motion intensity: brutal turns every motion off.
+- Motion is opt-in per container. Diagram and Infographic turn it on by default because they are motion graphics; Board turns it on only with `motion: true`. Outside these containers, components stay still.
+- Components attach the motions themselves through internal `data-motion` attributes; apps see only the `motion` prop.
+- The order comes from the container: Diagram nodes follow the layout order, Board widgets follow the layout, Heatmap cells sweep diagonally, and each Infographic panel starts after the one before it.
+
+## Changing how motion looks
+
+A redesign changes motion through tokens, without touching components or apps.
+
+| Token | Sets | Default |
+| --- | --- | --- |
+| motion.shape.enter | The keyframes for enter: motion-rise, motion-pop or motion-fade | motion-rise (expressive: motion-pop) |
+| motion.shape.attention | The keyframes for attention: motion-ring or motion-bump | motion-ring (expressive: motion-bump) |
+| motion.distance | How far motion-rise travels | 8px |
+| motion.duration.emphasis | How long draw, grow, count and attention take | 1200ms |
+| motion.stagger | The delay between items in order | 30ms (expressive: 60ms) |
+| motion.intensity | A multiplier on every distance and duration; 0 turns motion off | 0.5 (expressive: 1, brutal: 0) |
+
+- A new shape is a new keyframes block in `src/lib/styles/motion.css` plus a token value that names it.
+- Every motion is CSS, so the built SVG plays it too, and the still SVG and print show the final values.
 
 ## Accessibility
 

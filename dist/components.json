@@ -63,6 +63,12 @@
           "type": "boolean | undefined"
         },
         {
+          "name": "motion",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
           "name": "children",
           "optional": true,
           "kind": "node",

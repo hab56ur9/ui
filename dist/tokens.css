@@ -1017,6 +1017,9 @@
   --motion-easing-exit: cubic-bezier(0.3, 0, 1, 1);
   --motion-stagger: 30ms;
   --motion-intensity: 0.5;
+  --motion-distance: 8px;
+  --motion-shape-enter: motion-rise;
+  --motion-shape-attention: motion-ring;
   --border-width-default: 1px;
   --border-width-strong: 2px;
   --border-width-accent: 3px;

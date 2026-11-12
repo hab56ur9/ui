@@ -22,7 +22,7 @@ export function Meter({ label, value, max = 100, target, format = (v) => v.toLoc
         </span>
       </div>
       <div className="meter-track" style={{ "--meter": share(value, max), "--meter-target": target === undefined ? undefined : share(target, max) } as CSSProperties}>
-        <span className="meter-fill" data-motion={motion ? "draw" : undefined} />
+        <span className="meter-fill" data-motion={motion ? "grow" : undefined} />
         {target !== undefined && <span className="meter-target" />}
       </div>
       {(status || note) && (

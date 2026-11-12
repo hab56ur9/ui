@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
+import { useMotion } from "../MotionScope";
 import { color, formats } from "../format";
 import { tokenPx, useSize } from "../hooks";
 import { useI18n } from "../i18n";
@@ -28,6 +29,7 @@ export function BarChart(props: BarChartProps) {
 }
 
 function BarPlot({ points, name = "", format, title, width, height, node, ...props }: BarChartProps & { width: number; height: number; node: HTMLDivElement | null }) {
+  const motion = useMotion();
   const svg = useRef<SVGSVGElement>(null);
   const { locale } = useI18n();
   const f = formats(format, locale);
@@ -75,7 +77,7 @@ function BarPlot({ points, name = "", format, title, width, height, node, ...pro
         <YGrid ticks={yTicks} y={y} left={margin.left} right={width - margin.right} format={f.axis} />
         <XAxis ticks={axis.ticks} x={time} from={first} to={final} bottom={height - margin.bottom} size={size} format={axis.format} />
         {points.map((point, i) => (
-          <path key={point.t} className={`chart-bar${index === i ? " is-hover" : ""}`} d={bar(point.v, i)} style={paint(paintOf(point, i))} />
+          <path key={point.t} className={`chart-bar${index === i ? " is-hover" : ""}`} d={bar(point.v, i)} style={motion ? ({ ...paint(paintOf(point, i)), "--motion-order": i, "--motion-grow-from": "1 0", "--motion-grow-origin": "center bottom" } as CSSProperties) : paint(paintOf(point, i))} data-motion={motion ? "grow" : undefined} />
         ))}
         <rect className="chart-overlay" x={margin.left} y={0} width={Math.max(0, width - margin.left - margin.right)} height={height} {...handlers} />
       </svg>
