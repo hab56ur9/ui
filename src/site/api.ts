@@ -32,7 +32,7 @@ export const api: Record<string, Section[]> = {
       description: "테마, 토스트와 확인 창을 띄울 자리, 언어를 제공합니다. 앱 최상위에 한 번 두고, CSS도 여기서 실립니다.",
       rows: [
         ["theme", "Theme", "필수", "`themes.<프리셋>.<스타일>` 중 하나입니다. 예: `themes.sky.expressive`. 앱은 고르기만 하고 값을 펼치거나 고칠 수 없습니다."],
-        ["lang", "string", "<html lang>", "컴포넌트 고유 문구(닫기, 취소 등)와 날짜·숫자 형식의 언어입니다. 표에 없는 언어면 `ko`입니다."],
+        ["lang", "string", "<html lang>", "컴포넌트 고유 문구(닫기, 취소 등)와 날짜·숫자 형식의 언어입니다. 표에 없는 언어면 `en`입니다."],
         ["useToast()", "(props) => ToastHandle", "", "토스트를 띄우는 함수를 돌려줍니다."],
         ["useConfirm()", "(props) => Promise<boolean>", "", "확인 창을 띄우고 결과를 기다리는 함수를 돌려줍니다."],
         ["useI18n()", "{ lang, locale, text }", "", "지금 언어와 `Intl`에 넘길 언어 태그를 돌려줍니다."],

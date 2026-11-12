@@ -32,7 +32,7 @@ export const api: Record<string, Section[]> = {
       description: "Provides the theme, the place where toasts and confirm dialogs open, and the language. Place it once at the app root; it also loads the CSS.",
       rows: [
         ["theme", "Theme", "required", "One of `themes.<preset>.<style>`, such as `themes.sky.expressive`. The app picks one and cannot spread or change it."],
-        ["lang", "string", "<html lang>", "The language of built-in component text (Close, Cancel and so on) and of date and number formats. Languages outside the table fall back to `ko`."],
+        ["lang", "string", "<html lang>", "The language of built-in component text (Close, Cancel and so on) and of date and number formats. Languages outside the table fall back to `en`."],
         ["useToast()", "(props) => ToastHandle", "", "Returns a function that opens a toast."],
         ["useConfirm()", "(props) => Promise<boolean>", "", "Returns a function that opens a confirm dialog and waits for the result."],
         ["useI18n()", "{ lang, locale, text }", "", "Returns the current language and the language tag to pass to `Intl`."],
