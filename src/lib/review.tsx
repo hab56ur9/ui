@@ -164,6 +164,7 @@ export type CommentCardProps = Face & {
   resolved?: boolean;
   stale?: boolean;
   suggestion?: string | null;
+  original?: string;
   onApply?: () => void;
   footer?: ReactNode;
   active?: boolean;
@@ -173,7 +174,7 @@ export type CommentCardProps = Face & {
   onReply?: () => void;
 };
 
-export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, stale = false, suggestion, onApply, footer, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
+export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, stale = false, suggestion, original, onApply, footer, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
   const { text: t } = useI18n();
   const stop = (run?: () => void) => (event: MouseEvent) => {
     event.stopPropagation();
@@ -196,7 +197,7 @@ export function CommentCard({ quote, name, tone, avatar, role, time, text, resol
       {suggestion && (
         <div className="comment-suggestion">
           <span>{t("comment.suggestion")}</span>
-          <del>{quote}</del>
+          <del>{original ?? quote}</del>
           <ins>{suggestion}</ins>
           {!resolved && onApply && <button type="button" className="comment-action" onClick={stop(onApply)}><Icon name="check" size="sm" />{t("comment.apply")}</button>}
         </div>
