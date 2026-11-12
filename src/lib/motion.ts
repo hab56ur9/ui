@@ -8,8 +8,10 @@ const TIMING = {
 
 export type MotionKind = keyof typeof TIMING;
 
+const unstyled = () => token(TIMING.enter.easing) === "";
+
 export function motion(node: Element, frames: Keyframe[], kind: MotionKind, extra: KeyframeAnimationOptions = {}) {
-  if (reducedMotion()) return Promise.resolve();
+  if (reducedMotion() || unstyled()) return Promise.resolve();
   const { duration, easing } = TIMING[kind];
   return node
     .animate(frames, { duration: parseFloat(token(duration)), easing: token(easing), fill: "forwards", ...extra })
