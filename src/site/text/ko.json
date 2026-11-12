@@ -677,5 +677,50 @@
     "logMessage": "흩어진 서비스 로그를 한곳에 모아 검색합니다.",
     "cdcTitle": "변경 데이터 캡처",
     "cdcMessage": "DB 변경을 캐시에 계속 반영합니다."
+  },
+  "chat-basic": {
+    "mina": "미나",
+    "jun": "준",
+    "minaRole": "기획",
+    "junRole": "개발",
+    "today": "오늘",
+    "ask": "환불 지표 쿼리 언제 될까요?",
+    "note": "준이 티켓 T-3을 진행 중으로 옮겼다",
+    "answer": "집계 기준을 completed_at으로 바꿔서 오늘 오후에 올리겠습니다.",
+    "follow": "테스트도 같이 붙일게요.",
+    "replies": "답글 2개",
+    "last": "마지막 답글 09:20",
+    "typing": "준 작업 중…",
+    "placeholder": "메시지 보내기 · @로 멘션"
+  },
+  "kanban-basic": {
+    "todo": "할 일",
+    "doing": "진행 중",
+    "review": "검토",
+    "done": "완료",
+    "empty": "카드를 여기로 끌어 온다",
+    "copy": "결제 실패 알림 문구 정리",
+    "query": "환불 지표 일별 집계 쿼리",
+    "chart": "환불 지표 차트 위젯",
+    "index": "refunds 인덱스 확인",
+    "mina": "미나",
+    "jun": "준",
+    "unassigned": "담당 없음",
+    "yesterday": "어제"
+  },
+  "annotator-basic": {
+    "review": "리뷰",
+    "jun": "준",
+    "mina": "미나",
+    "changes": "수정 요청",
+    "approved": "승인",
+    "open": "열린 댓글 1 · 해결 1",
+    "body": "## 지표 정의\n\n환불 건수는 refunds.created_at 기준으로 일별 집계한다.\n\n금액은 원 단위로 반올림한다.",
+    "quote1": "환불 건수는 refunds.created_at 기준으로 일별 집계한다",
+    "quote2": "금액은 원 단위로 반올림한다",
+    "comment1": "created_at이 아니라 completed_at이어야 합니다.",
+    "comment2": "합산한 뒤 한 번만 반올림해야 합계가 맞습니다.",
+    "diffSame": "## 지표 정의",
+    "diffAdd": "금액은 합산한 뒤 원 단위로 한 번 반올림한다"
   }
 }

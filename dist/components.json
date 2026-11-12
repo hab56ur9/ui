@@ -3261,6 +3261,590 @@
       ]
     },
     {
+      "name": "ChatMessage",
+      "props": [
+        {
+          "name": "author",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "avatar",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "badge",
+          "optional": true,
+          "kind": "node",
+          "type": "{ tone?: BadgeTone | undefined; label: ReactNode; } | undefined"
+        },
+        {
+          "name": "time",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "via",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "continued",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "selected",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "pending",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "list",
+          "type": "MessageAction[] | undefined"
+        },
+        {
+          "name": "reactions",
+          "optional": true,
+          "kind": "list",
+          "type": "ChatReaction[] | undefined"
+        },
+        {
+          "name": "onReact",
+          "optional": true,
+          "kind": "action",
+          "type": "((emoji: string) => void) | undefined"
+        },
+        {
+          "name": "replies",
+          "optional": true,
+          "kind": "object",
+          "type": "{ label: string; last?: string | undefined; members: Face[]; } | undefined"
+        },
+        {
+          "name": "onOpenThread",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "ChatPane",
+      "props": [
+        {
+          "name": "composer",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "footer",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Composer",
+      "props": [
+        {
+          "name": "placeholder",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "submitLabel",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "mentions",
+          "optional": true,
+          "kind": "list",
+          "type": "MentionCandidate[] | undefined"
+        },
+        {
+          "name": "chips",
+          "optional": true,
+          "kind": "list",
+          "type": "ComposerChip[] | undefined"
+        },
+        {
+          "name": "onRemoveChip",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "insert",
+          "optional": true,
+          "kind": "object",
+          "type": "{ text: string; nonce: number; } | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((text: string) => void) | undefined"
+        },
+        {
+          "name": "onSubmit",
+          "optional": true,
+          "kind": "action",
+          "type": "((text: string) => void) | undefined"
+        }
+      ]
+    },
+    {
+      "name": "DayDivider",
+      "props": [
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "string",
+          "type": "\"new\" | undefined"
+        },
+        {
+          "name": "align",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "center",
+            "start"
+          ],
+          "type": "\"center\" | \"start\" | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Faces",
+      "props": [
+        {
+          "name": "members",
+          "optional": false,
+          "kind": "list",
+          "type": "Face[]"
+        },
+        {
+          "name": "size",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "sm",
+            "xs"
+          ],
+          "type": "\"sm\" | \"xs\" | undefined"
+        }
+      ]
+    },
+    {
+      "name": "Mention",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "MessageLog",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "PresenceAvatar",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "avatar",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "state",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "active",
+            "busy",
+            "critical",
+            "good",
+            "idle",
+            "warning"
+          ],
+          "type": "Presence | undefined"
+        },
+        {
+          "name": "size",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "lg",
+            "md",
+            "sm",
+            "xs"
+          ],
+          "type": "\"lg\" | \"md\" | \"sm\" | \"xs\" | undefined"
+        }
+      ]
+    },
+    {
+      "name": "SystemNote",
+      "props": [
+        {
+          "name": "icon",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "time",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "TypingIndicator",
+      "props": [
+        {
+          "name": "members",
+          "optional": true,
+          "kind": "list",
+          "type": "Face[] | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Kanban",
+      "props": [
+        {
+          "name": "columns",
+          "optional": false,
+          "kind": "list",
+          "type": "KanbanColumn[]"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string",
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "heads",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "lane",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "addLabel",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onMove",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string, column: string) => void) | undefined"
+        },
+        {
+          "name": "onAdd",
+          "optional": true,
+          "kind": "action",
+          "type": "((column: string) => void) | undefined"
+        }
+      ]
+    },
+    {
+      "name": "KanbanHeads",
+      "props": [
+        {
+          "name": "columns",
+          "optional": false,
+          "kind": "list",
+          "type": "{ id: string; title: string; dot?: Presence | undefined; count: number; }[]"
+        }
+      ]
+    },
+    {
+      "name": "Annotator",
+      "props": [
+        {
+          "name": "anchors",
+          "optional": true,
+          "kind": "list",
+          "type": "Anchor[] | undefined"
+        },
+        {
+          "name": "active",
+          "optional": true,
+          "kind": "string",
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "quoteLabel",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onPick",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onQuote",
+          "optional": true,
+          "kind": "action",
+          "type": "((quote: string) => void) | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "CommentCard",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "avatar",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "state",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "active",
+            "busy",
+            "critical",
+            "good",
+            "idle",
+            "warning"
+          ],
+          "type": "Presence | undefined"
+        },
+        {
+          "name": "quote",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "role",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "time",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "text",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "resolved",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "active",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "replies",
+          "optional": true,
+          "kind": "list",
+          "type": "CommentReply[] | undefined"
+        },
+        {
+          "name": "onPick",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onResolve",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onReply",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        }
+      ]
+    },
+    {
+      "name": "DiffView",
+      "props": [
+        {
+          "name": "lines",
+          "optional": false,
+          "kind": "list",
+          "type": "DiffLine[]"
+        },
+        {
+          "name": "empty",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ReviewBar",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "reviewers",
+          "optional": true,
+          "kind": "list",
+          "type": "Reviewer[] | undefined"
+        },
+        {
+          "name": "aside",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
       "name": "Browser",
       "props": [
         {

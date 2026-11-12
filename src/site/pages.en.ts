@@ -1098,6 +1098,69 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "chat",
+    "group": "콘텐츠",
+    "title": "Chat",
+    "lede": "Chat is the message log people and agents share. It is made of messages, day dividers, system notes, a working indicator and a composer that completes @mentions.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "caption": "Type @ in the composer for mention suggestions; Korean initial consonants match too",
+        "example": "chat-basic"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "ChatMessage",
+            "Author, role badge, time, body, reactions and a thread reply summary. A run from one author folds the avatar with continued."
+          ],
+          [
+            "SystemNote",
+            "One line saying who did what. With onSelect it becomes a link to the subject."
+          ],
+          [
+            "TypingIndicator",
+            "The faces of who is working and three dots."
+          ],
+          [
+            "Composer",
+            "Enter sends and Shift+Enter breaks a line. Arrow keys pick a mention."
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kanban",
+    "group": "데이터",
+    "title": "Kanban",
+    "lede": "A kanban board lays cards out in columns by state. Dragging a card into another column changes its state.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "caption": "Drag a card to another column; a card in progress carries a stripe on its left",
+        "example": "kanban-basic"
+      }
+    ]
+  },
+  {
+    "id": "annotator",
+    "group": "콘텐츠",
+    "title": "Annotator",
+    "lede": "The annotator lets people comment on sentences in a text. Selecting a sentence shows a comment button, and commented sentences are highlighted. A review bar and a line diff go with it.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "caption": "Clicking a highlight or a comment card points at the other; select a sentence to comment",
+        "example": "annotator-basic"
+      }
+    ]
+  },
+  {
     "id": "meter",
     "group": "데이터",
     "title": "Meter",

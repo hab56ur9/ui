@@ -445,6 +445,22 @@
             "TextList",
             "TokenTable",
             "Meter",
+            "ChatMessage",
+            "ChatPane",
+            "Composer",
+            "DayDivider",
+            "Faces",
+            "Mention",
+            "MessageLog",
+            "PresenceAvatar",
+            "SystemNote",
+            "TypingIndicator",
+            "Kanban",
+            "KanbanHeads",
+            "Annotator",
+            "CommentCard",
+            "DiffView",
+            "ReviewBar",
             "Browser",
             "Phone"
           ]
@@ -2570,6 +2586,413 @@
                 "required": [
                   "label",
                   "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ChatMessage"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "author": {},
+                  "tone": {},
+                  "avatar": {},
+                  "badge": {},
+                  "time": {},
+                  "via": {},
+                  "continued": {},
+                  "selected": {},
+                  "pending": {},
+                  "actions": {},
+                  "reactions": {},
+                  "onReact": {},
+                  "replies": {},
+                  "onOpenThread": {}
+                },
+                "required": [
+                  "author"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ChatPane"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "composer": {},
+                  "footer": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Composer"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "placeholder": {},
+                  "submitLabel": {},
+                  "mentions": {},
+                  "chips": {},
+                  "onRemoveChip": {},
+                  "insert": {},
+                  "actions": {},
+                  "onChange": {},
+                  "onSubmit": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DayDivider"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "tone": {},
+                  "align": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Faces"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "members": {},
+                  "size": {}
+                },
+                "required": [
+                  "members"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Mention"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "MessageLog"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "PresenceAvatar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "tone": {},
+                  "avatar": {},
+                  "state": {},
+                  "size": {}
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "SystemNote"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "icon": {},
+                  "time": {},
+                  "onSelect": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "TypingIndicator"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "members": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Kanban"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "columns": {},
+                  "value": {},
+                  "heads": {},
+                  "lane": {},
+                  "addLabel": {},
+                  "onSelect": {},
+                  "onMove": {},
+                  "onAdd": {}
+                },
+                "required": [
+                  "columns"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "KanbanHeads"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "columns": {}
+                },
+                "required": [
+                  "columns"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Annotator"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "anchors": {},
+                  "active": {},
+                  "quoteLabel": {},
+                  "onPick": {},
+                  "onQuote": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CommentCard"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "tone": {},
+                  "avatar": {},
+                  "state": {},
+                  "quote": {},
+                  "role": {},
+                  "time": {},
+                  "text": {},
+                  "resolved": {},
+                  "active": {},
+                  "replies": {},
+                  "onPick": {},
+                  "onResolve": {},
+                  "onReply": {}
+                },
+                "required": [
+                  "name",
+                  "quote",
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DiffView"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "lines": {},
+                  "empty": {}
+                },
+                "required": [
+                  "lines"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ReviewBar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "reviewers": {},
+                  "aside": {}
+                },
+                "required": [
+                  "label"
                 ],
                 "additionalProperties": false
               }

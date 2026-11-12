@@ -42,4 +42,7 @@ export { themes, type Theme } from "./theme";
 export { Toast, UIProvider, useConfirm, useToast, type UIProviderProps, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";
 export { Anatomy, Article, ArticleSection, Brand, CardGrid, CopyCode, ErrorBoundary, Example, Guidelines, Paragraphs, PropsTable, RichText, Row, TextList, TokenTable, useCopy, type ArticleProps, type ArticleSectionProps, type ExampleFile, type ExampleProps, type ExampleVariant, type PropsTableProps, type TokenRow } from "./article";
 export { Meter, type MeterProps, type MeterStatus } from "./Meter";
+export { ChatMessage, ChatPane, Composer, DayDivider, Faces, Mention, MessageLog, PresenceAvatar, SystemNote, TypingIndicator, type ChatMessageProps, type ChatReaction, type ComposerChip, type ComposerProps, type Face, type MentionCandidate, type MessageAction, type Presence, type PresenceAvatarProps } from "./chat";
+export { Kanban, KanbanHeads, type KanbanCard, type KanbanColumn, type KanbanProps } from "./Kanban";
+export { Annotator, CommentCard, DiffView, ReviewBar, type Anchor, type AnnotatorProps, type CommentCardProps, type CommentReply, type DiffLine, type Reviewer } from "./review";
 export { Browser, Phone } from "./devices";

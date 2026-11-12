@@ -1116,6 +1116,69 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "chat",
+    "group": "콘텐츠",
+    "title": "Chat",
+    "lede": "채팅은 사람과 에이전트가 주고받는 메시지 묶음입니다. 메시지, 날짜 구분선, 시스템 알림, 작업 중 표시, @멘션 자동 완성 입력창으로 이루어집니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "caption": "입력창에 @를 치면 멘션 후보가 뜹니다. 한글 초성으로도 찾습니다",
+        "example": "chat-basic"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "ChatMessage",
+            "작성자, 역할 배지, 시각, 본문, 리액션, 스레드 답글 요약. 같은 사람이 이어 쓰면 continued로 아바타를 접습니다."
+          ],
+          [
+            "SystemNote",
+            "누가 무엇을 했는지 한 줄로 남깁니다. onSelect를 주면 눌러서 대상으로 갑니다."
+          ],
+          [
+            "TypingIndicator",
+            "지금 일하는 사람의 얼굴과 점 세 개."
+          ],
+          [
+            "Composer",
+            "Enter로 보내고 Shift+Enter로 줄을 바꿉니다. @멘션 후보는 방향키로 고릅니다."
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kanban",
+    "group": "데이터",
+    "title": "Kanban",
+    "lede": "칸반은 카드를 상태별 칸에 늘어놓는 보드입니다. 카드를 끌어 다른 칸에 놓으면 상태가 바뀝니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "caption": "카드를 다른 칸으로 끌어 보세요. 작업 중인 카드는 왼쪽 띠로 표시됩니다",
+        "example": "kanban-basic"
+      }
+    ]
+  },
+  {
+    "id": "annotator",
+    "group": "콘텐츠",
+    "title": "Annotator",
+    "lede": "주석은 글의 문장에 댓글을 다는 틀입니다. 문장을 드래그하면 댓글 버튼이 뜨고, 댓글이 달린 문장에는 형광펜이 칠해집니다. 리뷰 줄과 바뀐 줄 보기가 함께 쓰입니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "caption": "형광펜이나 댓글 카드를 누르면 서로를 가리킵니다. 문장을 드래그하면 댓글 버튼이 뜹니다",
+        "example": "annotator-basic"
+      }
+    ]
+  },
+  {
     "id": "meter",
     "group": "데이터",
     "title": "진행률",

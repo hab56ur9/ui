@@ -59,6 +59,53 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  chat: [
+    { type: "api", title: "<ChatMessage>", rows: [
+      ["author · tone · avatar", "string, number, string", "", "Author name, color slot and photo."],
+      ["badge · time · via", "{ tone?, label }, string, string", "", "Role badge, time and source."],
+      ["continued · selected · pending", "boolean", "false", "Continued run (folds the avatar), selection, typing dots."],
+      ["actions", "MessageAction[]", "[]", "Buttons that appear on hover; one with menu opens a menu."],
+      ["reactions · onReact", "{ emoji, count, mine?, title? }[], (emoji) => void", "[]", "Reaction pills and the click event."],
+      ["replies · onOpenThread", "{ label, last?, members }, () => void", "", "Thread reply summary and the click event."],
+    ] },
+    { type: "api", title: "<Composer>", rows: [
+      ["placeholder · submitLabel", "string", "\"Send\"", "Empty-field text and the send button name."],
+      ["mentions", "{ id, label, description?, tone?, avatar?, state? }[]", "[]", "Candidates after @, matched by name, id and Korean initial consonants."],
+      ["chips · onRemoveChip", "{ id, label, icon? }[], (id) => void", "[]", "Quote or attachment chips under the field."],
+      ["insert", "{ text, nonce }", "", "When nonce changes, puts text at the start and the caret after it."],
+      ["onChange · onSubmit", "(text) => void", "", "On every change and on send."],
+    ] },
+    { type: "api", title: "<ChatPane> · <MessageLog> · <SystemNote> · <TypingIndicator> · <DayDivider> · <PresenceAvatar>", rows: [
+      ["ChatPane composer · footer", "ReactNode", "", "The composer at the bottom and one line above it."],
+      ["MessageLog", "children", "", "A message list that sticks to the bottom as it grows."],
+      ["SystemNote icon · time · onSelect", "IconName, string, () => void", "\"info\"", "One system line; with onSelect it is a link."],
+      ["TypingIndicator members", "Face[]", "[]", "Faces of who is working; empty without children."],
+      ["DayDivider tone · align", "\"new\", \"center\" | \"start\"", "\"center\"", "A date or new-messages divider."],
+      ["PresenceAvatar name · tone · avatar · state · size", "Face, \"xs\" | \"sm\" | \"md\" | \"lg\"", "\"md\"", "Photo or initial with a status dot."],
+    ] },
+  ],
+  kanban: [
+    { type: "api", title: "<Kanban>", rows: [
+      ["columns", "{ id, title, dot?, empty?, cards }[]", "", "Columns and cards; a card is { id, title, key?, assignee?, tags?, replies?, meta?, working? }."],
+      ["value · onSelect", "string, (id) => void", "", "The selected card and the click event."],
+      ["onMove", "(id, column) => void", "", "Fires when a card lands in another column; without it cards do not drag."],
+      ["onAdd · addLabel", "(column) => void, string", "\"Add\"", "The + button in a column head."],
+      ["heads · lane", "boolean", "true · false", "Hide the heads and use the board as a swimlane; draw the heads once with KanbanHeads."],
+    ] },
+  ],
+  annotator: [
+    { type: "api", title: "<Annotator>", rows: [
+      ["anchors", "{ id, quote, resolved? }[]", "[]", "Sentences to highlight, matched ignoring markdown marks and spacing."],
+      ["active · onPick", "string, (id) => void", "", "The emphasized anchor and the click event on a highlight."],
+      ["onQuote · quoteLabel", "(quote) => void, string", "\"Comment\"", "The button on a selection and its event; works in an editing block too."],
+    ] },
+    { type: "api", title: "<CommentCard> · <ReviewBar> · <DiffView>", rows: [
+      ["CommentCard quote · name · text · replies", "string, string, ReactNode, { name, time?, text }[]", "", "Quote, author, comment and replies."],
+      ["CommentCard resolved · active · onResolve · onReply · onPick", "boolean, () => void", "", "Resolution, emphasis and button events."],
+      ["ReviewBar reviewers · aside", "{ name, label, badge? }[], ReactNode", "", "A state badge per reviewer and a summary on the right."],
+      ["DiffView lines · empty", "{ kind: \"same\" | \"add\" | \"del\", text }[], string", "", "Line diff; the empty text shows when nothing changed."],
+    ] },
+  ],
   meter: [
     {
       type: "api",

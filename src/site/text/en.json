@@ -677,5 +677,50 @@
     "logMessage": "Scattered service logs land in one searchable place.",
     "cdcTitle": "Change data capture",
     "cdcMessage": "Database changes keep flowing into the cache."
+  },
+  "chat-basic": {
+    "mina": "Mina",
+    "jun": "Jun",
+    "minaRole": "Planner",
+    "junRole": "Builder",
+    "today": "Today",
+    "ask": "when will the refund query land?",
+    "note": "Jun moved ticket T-3 to In progress",
+    "answer": "I'm switching the count to completed_at and will push it this afternoon.",
+    "follow": "Tests come with it.",
+    "replies": "2 replies",
+    "last": "Last reply 09:20",
+    "typing": "Jun is working…",
+    "placeholder": "Send a message · @ to mention"
+  },
+  "kanban-basic": {
+    "todo": "To do",
+    "doing": "In progress",
+    "review": "Review",
+    "done": "Done",
+    "empty": "Drag a card here",
+    "copy": "Tidy the payment failure copy",
+    "query": "Daily refund count query",
+    "chart": "Refund chart widget",
+    "index": "Check the refunds index",
+    "mina": "Mina",
+    "jun": "Jun",
+    "unassigned": "Unassigned",
+    "yesterday": "Yesterday"
+  },
+  "annotator-basic": {
+    "review": "Review",
+    "jun": "Jun",
+    "mina": "Mina",
+    "changes": "Changes requested",
+    "approved": "Approved",
+    "open": "1 open · 1 resolved",
+    "body": "## Metric\n\nRefunds are counted per day by refunds.created_at.\n\nAmounts are rounded to the won.",
+    "quote1": "Refunds are counted per day by refunds.created_at",
+    "quote2": "Amounts are rounded to the won",
+    "comment1": "This should be completed_at, not created_at.",
+    "comment2": "Round once after summing, or the totals drift.",
+    "diffSame": "## Metric",
+    "diffAdd": "Amounts are summed, then rounded to the won once"
   }
 }

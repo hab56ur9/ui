@@ -59,6 +59,53 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  chat: [
+    { type: "api", title: "<ChatMessage>", rows: [
+      ["author · tone · avatar", "string, number, string", "", "작성자 이름, 색 슬롯, 사진."],
+      ["badge · time · via", "{ tone?, label }, string, string", "", "역할 배지, 시각, 출처."],
+      ["continued · selected · pending", "boolean", "false", "이어 쓰기(아바타 접음), 선택 강조, 입력 중 점."],
+      ["actions", "MessageAction[]", "[]", "마우스를 올리면 뜨는 버튼. menu가 있으면 메뉴를 엽니다."],
+      ["reactions · onReact", "{ emoji, count, mine?, title? }[], (emoji) => void", "[]", "리액션 알약과 누를 때 이벤트."],
+      ["replies · onOpenThread", "{ label, last?, members }, () => void", "", "스레드 답글 요약과 누를 때 이벤트."],
+    ] },
+    { type: "api", title: "<Composer>", rows: [
+      ["placeholder · submitLabel", "string", "\"보내기\"", "빈 입력창 문구와 보내기 버튼 이름."],
+      ["mentions", "{ id, label, description?, tone?, avatar?, state? }[]", "[]", "@ 뒤에 뜨는 멘션 후보. 이름, id, 한글 초성으로 찾습니다."],
+      ["chips · onRemoveChip", "{ id, label, icon? }[], (id) => void", "[]", "입력창 아래 붙는 인용·첨부 칩."],
+      ["insert", "{ text, nonce }", "", "nonce가 바뀔 때 text를 맨 앞에 넣고 커서를 둡니다."],
+      ["onChange · onSubmit", "(text) => void", "", "글이 바뀔 때와 보낼 때."],
+    ] },
+    { type: "api", title: "<ChatPane> · <MessageLog> · <SystemNote> · <TypingIndicator> · <DayDivider> · <PresenceAvatar>", rows: [
+      ["ChatPane composer · footer", "ReactNode", "", "아래에 붙는 입력창과 그 위 한 줄."],
+      ["MessageLog", "children", "", "맨 아래에 붙어 따라 내려가는 메시지 목록."],
+      ["SystemNote icon · time · onSelect", "IconName, string, () => void", "\"info\"", "시스템 한 줄. onSelect면 링크가 됩니다."],
+      ["TypingIndicator members", "Face[]", "[]", "일하는 사람 얼굴. children이 없으면 비워 둡니다."],
+      ["DayDivider tone · align", "\"new\", \"center\" | \"start\"", "\"center\"", "날짜나 새 메시지 구분선."],
+      ["PresenceAvatar name · tone · avatar · state · size", "Face, \"xs\" | \"sm\" | \"md\" | \"lg\"", "\"md\"", "사진이나 첫 글자에 상태 점."],
+    ] },
+  ],
+  kanban: [
+    { type: "api", title: "<Kanban>", rows: [
+      ["columns", "{ id, title, dot?, empty?, cards }[]", "", "칸과 카드. 카드는 { id, title, key?, assignee?, tags?, replies?, meta?, working? }."],
+      ["value · onSelect", "string, (id) => void", "", "선택된 카드와 누를 때 이벤트."],
+      ["onMove", "(id, column) => void", "", "카드를 다른 칸에 놓았을 때. 없으면 끌 수 없습니다."],
+      ["onAdd · addLabel", "(column) => void, string", "\"추가\"", "칸 머리의 + 버튼."],
+      ["heads · lane", "boolean", "true · false", "칸 머리를 숨기고 줄(swimlane)로 씁니다. KanbanHeads로 머리를 한 번만 그립니다."],
+    ] },
+  ],
+  annotator: [
+    { type: "api", title: "<Annotator>", rows: [
+      ["anchors", "{ id, quote, resolved? }[]", "[]", "형광펜을 칠할 문장. 마크다운 기호와 공백은 무시하고 찾습니다."],
+      ["active · onPick", "string, (id) => void", "", "강조할 주석과 형광펜을 누를 때 이벤트."],
+      ["onQuote · quoteLabel", "(quote) => void, string", "\"댓글\"", "드래그한 문장에 뜨는 버튼과 누를 때 이벤트. 편집 중인 블록에서도 씁니다."],
+    ] },
+    { type: "api", title: "<CommentCard> · <ReviewBar> · <DiffView>", rows: [
+      ["CommentCard quote · name · text · replies", "string, string, ReactNode, { name, time?, text }[]", "", "인용, 작성자, 의견, 답."],
+      ["CommentCard resolved · active · onResolve · onReply · onPick", "boolean, () => void", "", "해결 상태, 강조, 버튼 이벤트."],
+      ["ReviewBar reviewers · aside", "{ name, label, badge? }[], ReactNode", "", "리뷰어별 상태 배지와 오른쪽 요약."],
+      ["DiffView lines · empty", "{ kind: \"same\" | \"add\" | \"del\", text }[], string", "", "줄 단위 비교. 바뀐 줄이 없으면 empty 문구."],
+    ] },
+  ],
   meter: [
     {
       type: "api",
