@@ -165,6 +165,7 @@ export type CommentCardProps = Face & {
   stale?: boolean;
   suggestion?: string | null;
   onApply?: () => void;
+  footer?: ReactNode;
   active?: boolean;
   replies?: CommentReply[];
   onPick?: () => void;
@@ -172,7 +173,7 @@ export type CommentCardProps = Face & {
   onReply?: () => void;
 };
 
-export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, stale = false, suggestion, onApply, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
+export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, stale = false, suggestion, onApply, footer, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
   const { text: t } = useI18n();
   const stop = (run?: () => void) => (event: MouseEvent) => {
     event.stopPropagation();
@@ -208,6 +209,7 @@ export function CommentCard({ quote, name, tone, avatar, role, time, text, resol
           <span>{reply.text}</span>
         </div>
       ))}
+      {footer && <div className="comment-foot" onClick={(event) => event.stopPropagation()}>{footer}</div>}
     </div>
   );
 }

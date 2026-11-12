@@ -103,6 +103,7 @@ export const api: Record<string, Section[]> = {
     { type: "api", title: "<CommentCard> · <ReviewBar> · <DiffView>", rows: [
       ["CommentCard quote · name · text · replies", "string, string, ReactNode, { name, time?, text }[]", "", "Quote, author, comment and replies."],
       ["CommentCard resolved · active · onResolve · onReply · onPick", "boolean, () => void", "", "Resolution, emphasis and button events."],
+      ["CommentCard suggestion · onApply · footer", "string, () => void, ReactNode", "", "A suggested edit with an apply button, and extra content under the card such as vote buttons."],
       ["ReviewBar reviewers · aside", "{ name, label, badge? }[], ReactNode", "", "A state badge per reviewer and a summary on the right."],
       ["DiffView lines · empty", "{ kind: \"same\" | \"add\" | \"del\", text }[], string", "", "Line diff; the empty text shows when nothing changed."],
     ] },

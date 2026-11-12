@@ -103,6 +103,7 @@ export const api: Record<string, Section[]> = {
     { type: "api", title: "<CommentCard> · <ReviewBar> · <DiffView>", rows: [
       ["CommentCard quote · name · text · replies", "string, string, ReactNode, { name, time?, text }[]", "", "인용, 작성자, 의견, 답."],
       ["CommentCard resolved · active · onResolve · onReply · onPick", "boolean, () => void", "", "해결 상태, 강조, 버튼 이벤트."],
+      ["CommentCard suggestion · onApply · footer", "string, () => void, ReactNode", "", "수정 제안과 반영 버튼, 카드 아래 덧붙일 내용(평가 버튼 등)."],
       ["ReviewBar reviewers · aside", "{ name, label, badge? }[], ReactNode", "", "리뷰어별 상태 배지와 오른쪽 요약."],
       ["DiffView lines · empty", "{ kind: \"same\" | \"add\" | \"del\", text }[], string", "", "줄 단위 비교. 바뀐 줄이 없으면 empty 문구."],
     ] },
