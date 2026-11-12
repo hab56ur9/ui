@@ -583,7 +583,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", motion 
                 className="diagram-node"
                 data-node={node.id}
                 data-motion={enter}
-                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, "--motion-order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
+                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, width: ready ? spot?.w : undefined, height: ready ? spot?.h : undefined, "--motion-order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
               >
                 <div className="diagram-node-inner">
                   <div className="diagram-node-head">

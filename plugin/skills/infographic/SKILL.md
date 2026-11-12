@@ -31,7 +31,7 @@ Every diagram follows these rules.
 
 The agent places every node; the component only draws what it is told and checks the result. Automatic placement exists for quick drafts and is never the final layout.
 
-- Aim for a 3:2 box, not a line. `ui diagram check` prints each diagram's size and ratio; move nodes until a diagram of more than six nodes lands near 1.50:1. As of 2026-11-12, 3 columns by 4 rows or 4 columns by 5 to 6 rows land there; a short chain of three or four nodes may stay wide. More than 4 columns means the story should fold or split.
+- Aim for a 3:2 box, not a line. `ui diagram check` prints each diagram's size and ratio; move nodes until a diagram of more than six nodes lands between 1.35:1 and 1.65:1. As of 2026-11-12, plain nodes make short rows, so 4 × 4 measures about 2:1; add a row, or put a small Stat or Badge inside the key nodes to make their rows taller. A short chain of three or four nodes may stay wide. More than 4 columns means the story should fold or split.
 - Sketch the grid before writing tags: put the entry point at the top left, the main path in one row or one column, and the rest around it.
 - Fold a long chain: run the first steps down the first column, then continue to the right, as in Client above API Gateway.
 - Put a side system next to the node that talks to it: the payment provider right of Payment, the retry queue under the event bus.
