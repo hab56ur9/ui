@@ -20,10 +20,10 @@ A diagram shows structure and flow; a chart shows numbers.
 
 Every diagram follows these rules.
 
-- Give the diagram a title and a one-line message; the message states what the reader should take away.
+- Give the diagram a title; it becomes the alt text of the built SVG. State the takeaway in one sentence where the diagram sits: the page lede, the Infographic.Panel message, or the document text around the image.
 - Keep one reading direction. The default runs left to right; use `direction: "down"` for tall flows.
-- Group parts that belong together, such as services, data stores or providers. A group becomes one column with its own color.
-- Use icons that name the part: server, database, queue, cloud, phone, user, lock, shield, mail, file, code, box and the rest of the icon set.
+- Group parts that belong together, such as services, data stores or providers. A group becomes one column with its own color; a node outside the group may take a free row in that column.
+- Use icons that name the part. The whole icon set is: alert, arrow-down, arrow-up, bell, bookmark, box, calendar, chart-bar, chart-line, check, chevron-down, chevron-left, chevron-right, chevron-up, clock, close, cloud, code, compass, copy, database, download, error, expand, external, eye-off, eye, file, filter, globe, grid, grip, heart, home, image, info, link, lock, mail, menu, message, minus, monitor, moon, more, pause, phone, play, plus, printer, queue, refresh, resize, search, send, server, shield, sliders, success, sun, table, tablet, trash, trend-down, trend-up, undo, user, warning. Any other name stops the page, and the check reports it.
 - Animate only what moves in reality. A packet travels along an arrow for each numbered step; marching dots show continuous flow.
 - Make the still frame complete. Step numbers and labels tell the story without motion.
 
@@ -31,19 +31,20 @@ Every diagram follows these rules.
 
 The agent places every node; the component only draws what it is told and checks the result. Automatic placement exists for quick drafts and is never the final layout.
 
-- Aim for a box, not a line: about 4 columns by 3 to 4 rows, roughly 16:9. More than 5 columns means the story should fold or split.
+- Aim for a box, not a line: about 4 columns by 3 to 4 rows. Columns sit farther apart than rows, so 4 × 4 renders near 2.5:1 and 5 × 3 near 4:1; prefer another row over another column. More than 5 columns means the story should fold or split.
 - Sketch the grid before writing tags: put the entry point at the top left, the main path in one row or one column, and the rest around it.
 - Fold a long chain: run the first steps down the first column, then continue to the right, as in Client above API Gateway.
 - Put a side system next to the node that talks to it: the payment provider right of Payment, the retry queue under the event bus.
-- Place a group's members in one column and consecutive rows; pin one member with `col` and `row`, and the others follow.
+- Place a group's members in one column and consecutive rows, and give each member its own `col` and `row`.
 - Give every node a `col` and `row`. Nodes keep their natural size and sit centered in their cell, so cells need not line up exactly; what matters is that the whole diagram reads as one rectangle without stray gaps.
 - Leave empty cells only where they separate two stories; otherwise move a node into them.
 - Keep labels to one or two words, and leave short hops unlabeled when the step number says enough.
-- Run `ui diagram check` after every change and look at the result before building.
+- Run `ui diagram check` after every change. Then build and open `<id>.still.svg` in a browser: the check catches collisions, not whether the story reads well.
+- Two arrows between nodes in the same row or column run straight and cannot bow apart; when both directions matter, place the two nodes diagonally.
 
 ## Writing a diagram
 
-A diagram is written with tags in an HTML page that loads the design system. Nodes may hold any ui component.
+A diagram is written with tags in an HTML page that loads the design system. Nodes may hold any ui component. A page served by `ui serve` imports `/ui/dist/ui.js` instead of the published URL.
 
 ```html
 <div id="app"></div>
@@ -129,17 +130,25 @@ The design system builds SVG only. Other formats come from the still or animated
 
 ## Layout check
 
-The build refuses a diagram whose text is unreadable. Run the check while drawing; it renders the page and fails when a label overlaps another label or a node, another arrow crosses a label, an arrow runs through a node, or text inside a node is cut off.
+The build refuses a diagram whose text is unreadable. Run the check while drawing; `ui diagram check` and `npx --yes github:hab56ur9/ui diagram check` are the same command.
 
 ```bash
 npx --yes github:hab56ur9/ui diagram check flow.html
 ```
 
-- The layout is a grid: each node takes its predecessor's row, so the main flow runs in one straight row and branches take the rows next to it; nodes share a width per column and a height per row.
-- Give nodes a `lane` when the reader should see horizontal bands, such as client, application and data; lanes stack in the order they first appear.
-- Back arrows (to a node the flow already passed) are found automatically and route on a rail above or below the columns they span.
-- Parallel arrows between the same two nodes bow apart, and labels slide along their own arrow to a free spot; when none is free, the layout widens and tries again.
-- When the check still fails, shorten labels, split the diagram, or move a node into a group.
+The check renders the page and fails on any of these.
+
+- A page error, such as an unknown icon name, or a page with no Diagram or Infographic.
+- A label that overlaps another label, a node or a group name, or that another arrow crosses.
+- Two arrows that run on the same line.
+- An arrow that runs through a node.
+- Text cut off inside a node.
+
+`col` and `row` always win over automatic placement. A node without them is placed for a quick draft: it takes its predecessor's row, branches take the rows next to it, and `lane` gathers nodes into horizontal bands.
+
+- Back arrows (to a node the flow already passed) are found automatically; one that returns to the next column runs beside its forward partner, and a longer one routes on a rail above or below the columns it spans.
+- Parallel arrows between the same two nodes bow apart, and labels slide along their own arrow to a free spot.
+- When the check still fails, move a node, shorten or drop a label, or split the diagram.
 
 ## Check
 

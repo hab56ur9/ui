@@ -60,9 +60,11 @@ async function browser() {
   await new Promise((done) => socket.addEventListener("open", done));
   let seq = 0;
   const pending = new Map();
+  const errors = [];
   socket.addEventListener("message", ({ data }) => {
     const message = JSON.parse(data);
     if (message.id && pending.has(message.id)) pending.get(message.id)(message);
+    if (message.method === "Runtime.exceptionThrown") errors.push(message.params.exceptionDetails.exception?.description?.split("\n")[0] ?? message.params.exceptionDetails.text);
   });
   const send = (method, params = {}) =>
     new Promise((done) => {
@@ -82,7 +84,7 @@ async function browser() {
     await exited;
     rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   };
-  return { send, evaluate, close };
+  return { send, evaluate, close, errors };
 }
 
 function serialize() {
@@ -304,6 +306,18 @@ function inspect() {
       const crossing = arrows.find((arrow) => arrow.index !== label.arrow && arrow.points.some((point) => inside(point, label.box, 2)));
       if (crossing) problems.push(`${title}: label "${label.text}" is crossed by arrow ${crossing.index + 1}${crossing.labels[0] ? ` ("${crossing.labels.map((tag) => tag.text).join(" ")}")` : ""}`);
     });
+    const groupLabels = [...canvas.querySelectorAll(".diagram-group-label")].map((label) => {
+      const b = label.getBBox();
+      return { text: label.textContent.trim(), box: { x: b.x, y: b.y, w: b.width, h: b.height } };
+    });
+    labels.forEach((label) => groupLabels.filter((group) => overlaps(label.box, group.box)).forEach((group) => problems.push(`${title}: label "${label.text}" covers group name "${group.text}"`)));
+    const near = (a, b) => Math.abs(a.x - b.x) < 3 && Math.abs(a.y - b.y) < 3;
+    arrows.forEach((arrow, i) => {
+      arrows.slice(i + 1).forEach((other) => {
+        const shared = arrow.points.filter((point) => other.points.some((p) => near(point, p))).length;
+        if (shared > 12) problems.push(`${title}: arrows ${arrow.index + 1} and ${other.index + 1} run on the same line`);
+      });
+    });
     arrows.forEach((arrow) => {
       nodes.filter((node) => arrow.points.some((point) => inside(point, node.box, 3))).forEach((node) => problems.push(`${title}: arrow ${arrow.index + 1} runs through node "${node.id}"`));
     });
@@ -323,6 +337,7 @@ async function render(file, theme, handler) {
   await new Promise((done) => server.listen(0, "127.0.0.1", done));
   const chrome = await browser();
   await chrome.send("Page.enable");
+  await chrome.send("Runtime.enable");
   await chrome.send("Emulation.setDeviceMetricsOverride", { width: 4000, height: 3000, deviceScaleFactor: 1, mobile: false });
   await chrome.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
   await chrome.send("Page.navigate", { url: `http://127.0.0.1:${server.address().port}/${relative(root, page)}` });
@@ -335,13 +350,16 @@ async function render(file, theme, handler) {
     await chrome.close();
     server.close();
   };
-  return { page, root, evaluate: chrome.evaluate, close };
+  return { page, root, evaluate: chrome.evaluate, close, errors: chrome.errors };
 }
 
 export async function checkDiagrams(file, { theme = "light", handler }) {
   const session = await render(file, theme, handler);
   try {
-    const problems = await session.evaluate(`(${inspect.toString()})()`);
+    const found = await session.evaluate(`document.querySelectorAll(".diagram").length`);
+    const problems = [...new Set(session.errors)].map((error) => `page error: ${error}`);
+    if (!found) problems.push(`no Diagram or Infographic found in ${basename(session.page)}`);
+    problems.push(...(await session.evaluate(`(${inspect.toString()})()`)));
     for (const problem of problems) console.log(`  ✗ ${problem}`);
     console.log(problems.length ? `${problems.length} problems` : "diagram check: clean");
     return problems;
