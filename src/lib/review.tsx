@@ -8,6 +8,7 @@ const cx = (...names: (string | false | null | undefined)[]) => names.filter(Boo
 const HIGHLIGHTS = ["annotate-open", "annotate-active", "annotate-resolved"] as const;
 const SKIPPED = /[*_`]/;
 const BLOCKS = "p,li,h1,h2,h3,h4,h5,h6,pre,blockquote,td,th,div";
+const HIDDEN = "[aria-hidden=\"true\"], button";
 const squash = (text: string) => text.replace(/[*_`]/g, "").replace(/\s+/g, " ").trim();
 
 type Point = [Text, number];
@@ -18,7 +19,7 @@ const registry = () => (globalThis as { CSS?: { highlights?: HighlightRegistry }
 const Highlight = () => (globalThis as { Highlight?: HighlightConstructor }).Highlight;
 
 function indexText(root: HTMLElement) {
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (node) => (node.parentElement?.closest(HIDDEN) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT) });
   const map: Point[] = [];
   let text = "";
   let block: Element | null = null;
