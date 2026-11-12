@@ -32,26 +32,28 @@ function xychart(lines: string[]): MermaidChart | null {
       (keyword === "bar" ? bars : lineSeries).push(values);
     } else return null;
   }
-  if (bars.length && lineSeries.length) return null;
-  if (bars.length > 1) return null;
-  const series = bars.length ? bars : lineSeries;
+  const same = (a: number[], b: number[]) => a.length === b.length && a.every((value, i) => value === b[i]);
+  const extraLines = lineSeries.filter((values) => !bars.some((bar) => same(bar, values)));
+  const series = [...bars, ...extraLines];
   if (!series.length) return null;
   const count = Math.max(...series.map((values) => values.length));
   const labels = chart.labels.length ? chart.labels : Array.from({ length: count }, (_, i) => String(i + 1));
+  const single = series.length === 1;
   return {
     ...chart,
-    kind: bars.length ? "bar" : "line",
+    kind: single && bars.length ? "bar" : "line",
     labels,
-    series: series.map((values, i) => ({ name: chart.title && series.length === 1 ? chart.title : `${i + 1}`, values })),
+    series: series.map((values, i) => ({ name: chart.title && single ? chart.title : `${i + 1}`, values })),
   };
 }
 
 function pie(first: string, lines: string[]): MermaidChart | null {
-  const chart: MermaidChart = { kind: "bar", title: first.match(/\btitle\s+(.+)$/)?.[1]?.trim(), labels: [], series: [{ name: "", values: [] }] };
+  const heading = first.match(/\btitle\s+(.+)$/)?.[1];
+  const chart: MermaidChart = { kind: "bar", title: heading ? unquote(heading) : undefined, labels: [], series: [{ name: "", values: [] }] };
   for (const line of lines) {
     const title = line.match(/^title\s+(.+)$/);
     if (title) {
-      chart.title = title[1].trim();
+      chart.title = unquote(title[1]);
       continue;
     }
     const slice = line.match(/^"([^"]+)"\s*:\s*(-?[\d.]+)$/);

@@ -4969,6 +4969,16 @@ h3.doc-heading::before {
   align-items: flex-start;
 }
 
+.md-chart-source > summary {
+  cursor: pointer;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+}
+
+.md-chart-source[open] > summary {
+  margin-bottom: var(--space-2);
+}
+
 .md-ui > .json-ui > :is(.widget, .board-frame, .calendar) {
   align-self: stretch;
 }

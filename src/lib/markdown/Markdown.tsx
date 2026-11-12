@@ -520,7 +520,18 @@ function Row({ block, readOnly, inline, anchor, number, focus, dropBefore, dropA
             onFocus("end");
           }}
         >
-          {block.kind === "ui" ? <div className="md-ui">{ui(block.text)}</div> : chart ? <MermaidView chart={chart} /> : <CodeBlock code={block.text} lang={LANGS[block.lang ?? ""] ?? "plain"} />}
+          {block.kind === "ui" ? (
+            <div className="md-ui">{ui(block.text)}</div>
+          ) : chart ? (
+            <MermaidView chart={chart} />
+          ) : readOnly && block.lang === "mermaid" ? (
+            <details className="md-chart-source">
+              <summary>{text("md.chartSource")}</summary>
+              <CodeBlock code={block.text} lang="plain" />
+            </details>
+          ) : (
+            <CodeBlock code={block.text} lang={LANGS[block.lang ?? ""] ?? "plain"} />
+          )}
         </div>
       );
       break;
