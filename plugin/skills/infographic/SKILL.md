@@ -35,6 +35,10 @@ The agent places every node; the component only draws what it is told and checks
 - Sketch the grid before writing tags: put the entry point at the top left, the main path in one row or one column, and the rest around it.
 - Fold a long chain: run the first steps down the first column, then continue to the right, as in Client above API Gateway.
 - Put a side system next to the node that talks to it: the payment provider right of Payment, the retry queue under the event bus.
+- Put a fan-out source one column before its targets, beside the middle target. A source in the same column as its targets stacks their arrows on one line.
+- Arrows connect nodes, not groups. To reach every member of a group, draw one arrow per member and give them the same step, so they move together.
+- A row that opens a group is taller by the group's name; expect a slightly larger gap there.
+- Content inside a node, such as a Stat or a Badge, makes its row taller and helps reach 3:2, but it stays HTML in the SVG; for PDF, keep the key number in the caption.
 - Place a group's members in one column and consecutive rows, and give each member its own `col` and `row`.
 - Give every node a `col` and `row`. Nodes keep their natural size and sit centered in their cell, so cells need not line up exactly; what matters is that the whole diagram reads as one rectangle without stray gaps.
 - Leave empty cells only where they separate two stories; otherwise move a node into them.
@@ -44,7 +48,7 @@ The agent places every node; the component only draws what it is told and checks
 
 ## Writing a diagram
 
-A diagram is written with tags in an HTML page that loads the design system. Nodes may hold any ui component. A page served by `ui serve` imports `/ui/dist/ui.js` instead of the published URL.
+A diagram is written with tags in an HTML page that loads the design system. Nodes may hold any ui component. A page served by `ui serve` imports `/ui/dist/ui.js` instead of the published URL. Wrap a standalone diagram in `Page`, whose `title` and `lede` give the page heading and the takeaway sentence: `h(Page, { title, lede }, h(Diagram, …))`. A diagram is as wide as its grid; only a poster is capped at 1280 px.
 
 ```html
 <div id="app"></div>
