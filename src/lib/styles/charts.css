@@ -638,6 +638,10 @@
   opacity: 0.25;
 }
 
+.diagram-pulse.is-bead {
+  fill: var(--color-fg-muted);
+}
+
 @keyframes diagram-pulse {
   0% {
     offset-distance: 0%;

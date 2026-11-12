@@ -192,6 +192,7 @@ function serialize() {
       const tone = node.style.getPropertyValue("--diagram-tone");
       return `<g class="diagram-node" data-node="${escape(node.dataset.node ?? "")}" style="--order: ${order};${tone ? ` --diagram-tone: ${tone};` : ""}"><g transform="translate(${node.offsetLeft} ${node.offsetTop})"><rect width="${w}" height="${h}" rx="${radius}" fill="${style.backgroundColor}" stroke="${style.borderTopColor}" stroke-width="${parseFloat(style.borderTopWidth) || 1}"/>${iconSvg}${label ? textOf(label, node) : ""}${caption ? textOf(caption, node) : ""}${bodySvg}<rect class="diagram-hit" x="-1" y="-1" width="${w + 2}" height="${h + 2}" rx="${radius + 1}"/></g></g>`;
     });
+    canvas.querySelectorAll(".diagram-line.is-dots").forEach((line) => line.style.animationDuration && line.style.setProperty("animation-iteration-count", String(Math.ceil(total / parseFloat(line.style.animationDuration)))));
     canvas.querySelectorAll(".diagram-pulse").forEach((pulse) => pulse.style.setProperty("animation-iteration-count", String(Math.ceil(total / (parseFloat(pulse.style.animationDuration) || 1600)))));
     const layer = (selector) => [...canvas.querySelector(selector).children].map((child) => xml.serializeToString(child)).join("");
     const base = `.diagram-hit { fill: none; stroke: transparent; stroke-width: 2.5; }`;

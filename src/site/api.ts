@@ -238,7 +238,7 @@ export const api: Record<string, Section[]> = {
         ["label", "string", "", "화살표 가운데 라벨입니다."],
         ["step", "number", "", "단계 번호입니다. 같은 번호는 함께 움직이고 번호는 한 번만 그립니다."],
         ["packet", "IconName", "", "이 단계에 화살표를 따라 이동할 아이콘입니다."],
-        ["motion", '"packet" | "dots" | "pulse" | "still"', "도면의 flow", "이 화살표만의 움직임입니다. `pulse`는 빛나는 점 하나가 일정한 속도로 계속 흐릅니다."],
+        ["motion", '"packet" | "dots" | "pulse" | "dots-pulse" | "still"', "도면의 flow", "이 화살표만의 움직임입니다. `pulse`는 빛나는 점 하나가 일정한 속도로 흐르고, `dots-pulse`는 흐르는 점선 속에서 점 하나가 커진 채 같은 속도로 함께 흐릅니다."],
         ["dashed", "boolean", "false", "점선 화살표입니다."],
       ],
     },

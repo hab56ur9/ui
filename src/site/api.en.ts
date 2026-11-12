@@ -238,7 +238,7 @@ export const api: Record<string, Section[]> = {
         ["label", "string", "", "A label in the middle of the arrow."],
         ["step", "number", "", "The step number; arrows with the same number move together and the number is drawn once."],
         ["packet", "IconName", "", "The icon that travels along this arrow on its step."],
-        ["motion", '"packet" | "dots" | "pulse" | "still"', "the diagram's flow", "The motion of this arrow alone; `pulse` glides one glowing dot along it at a steady speed."],
+        ["motion", '"packet" | "dots" | "pulse" | "dots-pulse" | "still"', "the diagram's flow", "The motion of this arrow alone; `pulse` glides one glowing dot along it at a steady speed, and `dots-pulse` lets one enlarged dot ride with the marching dots at their speed."],
         ["dashed", "boolean", "false", "Draws a dashed arrow."],
       ],
     },

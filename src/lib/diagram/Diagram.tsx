@@ -6,7 +6,7 @@ import { useI18n } from "../i18n";
 import { Icon, IconGlyph, type IconName } from "../Icon";
 
 export type DiagramFlow = "packets" | "dots" | "pulses" | "both";
-export type DiagramMotion = "packet" | "dots" | "pulse" | "still";
+export type DiagramMotion = "packet" | "dots" | "pulse" | "dots-pulse" | "still";
 export type DiagramProps = { title: string; id?: string; direction?: "right" | "down"; flow?: DiagramFlow; children: ReactNode };
 export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; children?: ReactNode };
 export type DiagramGroupProps = { id: string; label: string; children: ReactNode };
@@ -38,6 +38,8 @@ const GAPS = { right: { main: 120, cross: 28 }, down: { main: 88, cross: 28 } };
 const STEP = 1800;
 const REST = 900;
 const PULSE_SPEED = 180;
+const BEAD_SPEED = 110;
+const DOT_PERIOD = 18;
 
 function collect(children: ReactNode, group: string | undefined, out = { nodes: [] as Declared[], arrows: [] as DiagramArrowProps[], groups: [] as { id: string; label: string }[] }) {
   Children.forEach(children, (child) => {
@@ -186,12 +188,13 @@ function groupBox(members: Placed[]) {
 
 function motionOf(arrow: DiagramArrowProps, flow: DiagramFlow) {
   const explicit = arrow.motion;
-  if (explicit === "still") return { packet: false, dots: false, pulse: false };
-  if (explicit === "dots") return { packet: false, dots: true, pulse: false };
-  if (explicit === "pulse") return { packet: false, dots: false, pulse: true };
-  if (explicit === "packet") return { packet: arrow.packet !== undefined, dots: false, pulse: false };
-  if (flow === "pulses") return { packet: false, dots: false, pulse: true };
-  return { packet: flow !== "dots" && arrow.packet !== undefined, dots: flow === "dots" || flow === "both", pulse: false };
+  if (explicit === "still") return { packet: false, dots: false, pulse: false, bead: false };
+  if (explicit === "dots") return { packet: false, dots: true, pulse: false, bead: false };
+  if (explicit === "pulse") return { packet: false, dots: false, pulse: true, bead: false };
+  if (explicit === "dots-pulse") return { packet: false, dots: true, pulse: true, bead: true };
+  if (explicit === "packet") return { packet: arrow.packet !== undefined, dots: false, pulse: false, bead: false };
+  if (flow === "pulses") return { packet: false, dots: false, pulse: true, bead: false };
+  return { packet: flow !== "dots" && arrow.packet !== undefined, dots: flow === "dots" || flow === "both", pulse: false, bead: false };
 }
 
 const at = (value: number) => `${Math.min(100, Math.max(0, value)).toFixed(2)}%`;
@@ -301,7 +304,13 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
               const stepX = path.label.x - (labelWidth ? labelWidth / 2 + 14 : 0);
               return (
                 <g key={i} className="diagram-arrow" style={{ "--order": placed.length } as CSSProperties}>
-                  <path className={["diagram-line", item.dashed ? "is-dashed" : "", motions[i].dots ? "is-dots" : ""].filter(Boolean).join(" ")} d={path.d} markerEnd={`url(#${arrow})`} data-edge={i} />
+                  <path
+                    className={["diagram-line", item.dashed ? "is-dashed" : "", motions[i].dots ? "is-dots" : ""].filter(Boolean).join(" ")}
+                    d={path.d}
+                    markerEnd={`url(#${arrow})`}
+                    data-edge={i}
+                    style={motions[i].bead ? { animationDuration: `${(DOT_PERIOD / BEAD_SPEED) * 1000}ms` } : undefined}
+                  />
                   {item.label && (
                     <g className="diagram-label">
                       <rect x={path.label.x - labelWidth / 2} y={path.label.y - 11} width={labelWidth} height={22} />
@@ -347,11 +356,12 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
             {arrows.map((_, i) => {
               const path = paths[i];
               if (!path || !motions[i].pulse) return null;
-              const duration = Math.min(3000, Math.max(900, (path.length / PULSE_SPEED) * 1000));
+              const bead = motions[i].bead;
+              const duration = bead ? (path.length / BEAD_SPEED) * 1000 : Math.min(3000, Math.max(900, (path.length / PULSE_SPEED) * 1000));
               return (
-                <g key={i} className="diagram-pulse" style={{ offsetPath: `path("${path.d}")`, animationDuration: `${duration}ms`, animationDelay: `${-((i * 0.37) % 1) * duration}ms` }}>
-                  <circle className="diagram-pulse-halo" r={9} />
-                  <circle r={3.5} />
+                <g key={i} className={`diagram-pulse${bead ? " is-bead" : ""}`} style={{ offsetPath: `path("${path.d}")`, animationDuration: `${duration}ms`, animationDelay: `${-((i * 0.37) % 1) * duration}ms` }}>
+                  {!bead && <circle className="diagram-pulse-halo" r={9} />}
+                  <circle r={bead ? 4.5 : 3.5} />
                 </g>
               );
             })}

@@ -58,7 +58,7 @@ A diagram is written with tags in an HTML page that loads the design system. Nod
 | Diagram | title*, id (the output file name), direction ("right", "down"), flow ("packets", "dots", "pulses", "both"), children* |
 | Diagram.Group | id*, label*, children* (Diagram.Node tags) |
 | Diagram.Node | id*, label*, caption, icon, children (any ui component) |
-| Diagram.Arrow | from*, to*, label, step (number), dashed, packet (icon that travels on this step), motion ("packet", "dots", "pulse", "still") |
+| Diagram.Arrow | from*, to*, label, step (number), dashed, packet (icon that travels on this step), motion ("packet", "dots", "pulse", "dots-pulse", "still") |
 
 - `flow: "packets"` moves an icon along each arrow that has a `packet`, one step at a time.
 - `flow: "dots"` turns every arrow into marching dots for continuous flow.
