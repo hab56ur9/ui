@@ -1386,6 +1386,57 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "diagram",
+    "group": "데이터",
+    "title": "Diagram",
+    "lede": "A diagram shows how the parts of a system connect and where data flows. Nodes, groups and arrows are written as tags and laid out automatically, and an icon travels along the arrow of each numbered step. A node can hold any component.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Steps and groups",
+        "caption": "Icons travel in step order, and the receiving node lights up on arrival",
+        "example": "diagram-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Components in nodes",
+        "caption": "A stat, a meter and badges sit inside nodes. The last arrow uses motion=\"dots\" for continuous flow",
+        "example": "diagram-components"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Showing how parts connect and where data flows, such as request paths, data pipelines or service architecture",
+          "Explaining an ordered process with numbered steps"
+        ],
+        "avoid": [
+          "Values or trends are the point, which calls for a chart"
+        ]
+      },
+      {
+        "type": "list",
+        "title": "Putting it in a document",
+        "items": [
+          "Documents embed a built SVG as an image, not the page.",
+          "`<id>.svg` moves for three loops and then rests; `<id>.still.svg` is the still frame for PDF and print.",
+          "The fonts for the characters used are embedded, so the file looks the same everywhere."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "npx --yes github:hab56ur9/ui diagram build flow.html --out diagrams/"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "A diagram is a figure named by its `title`; use the title as the alt text in documents too.",
+          "Looping motion has a pause button, and reduced motion and print show the still frame only.",
+          "Step numbers and labels carry the flow, so nothing is lost without motion."
+        ]
+      }
+    ]
+  },
+  {
     "id": "table",
     "group": "데이터",
     "title": "Table",

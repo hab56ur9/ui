@@ -652,5 +652,22 @@
     "goalNote": "Goal reached at 10,000.",
     "quota": "Storage used",
     "quotaNote": "Free space or upgrade the plan."
+  },
+  "diagram-basic": {
+    "title": "URL shortener",
+    "client": "Web and app",
+    "api": "Redirects",
+    "db": "URL map",
+    "lookup": "Look up",
+    "miss": "Cache miss"
+  },
+  "diagram-components": {
+    "title": "Payment flow",
+    "requests": "Requests per second",
+    "approval": "Approval rate",
+    "healthy": "Healthy",
+    "lag": "0.4 s behind",
+    "write": "Write",
+    "event": "Event"
   }
 }

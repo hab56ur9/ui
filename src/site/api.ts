@@ -208,6 +208,41 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  diagram: [
+    {
+      type: "api",
+      title: "<Diagram>",
+      rows: [
+        ["title", "string", "필수", "도면의 이름입니다. 접근성 이름과 빌드한 SVG의 제목이 됩니다."],
+        ["id", "string", "", "빌드한 파일 이름입니다. 없으면 제목에서 만듭니다."],
+        ["direction", '"right" | "down"', '"right"', "흐름 방향입니다."],
+        ["flow", '"packets" | "dots" | "both"', '"packets"', "움직임 프리셋입니다. 아이콘 이동, 점 흐름, 둘 다."],
+        ["children", "Diagram.Group · Diagram.Node · Diagram.Arrow", "", "도면을 이루는 태그입니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Diagram.Group> · <Diagram.Node>",
+      rows: [
+        ["id · label", "string", "필수", "노드와 그룹의 이름입니다. 화살표는 `id`로 잇습니다."],
+        ["caption", "string", "", "노드 이름 아래 보조 문구입니다."],
+        ["icon", "IconName", "", "노드 왼쪽 아이콘입니다. 그룹 안이면 그룹 색을 씁니다."],
+        ["children", "ReactNode", "", "그룹은 노드를, 노드는 어떤 컴포넌트든 담습니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Diagram.Arrow>",
+      rows: [
+        ["from · to", "string", "필수", "잇는 두 노드의 `id`입니다."],
+        ["label", "string", "", "화살표 가운데 라벨입니다."],
+        ["step", "number", "", "단계 번호입니다. 같은 번호는 함께 움직이고 번호는 한 번만 그립니다."],
+        ["packet", "IconName", "", "이 단계에 화살표를 따라 이동할 아이콘입니다."],
+        ["motion", '"packet" | "dots" | "still"', "도면의 flow", "이 화살표만의 움직임입니다."],
+        ["dashed", "boolean", "false", "점선 화살표입니다."],
+      ],
+    },
+  ],
   table: [
     {
       type: "api",

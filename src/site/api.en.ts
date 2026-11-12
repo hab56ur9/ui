@@ -208,6 +208,41 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  diagram: [
+    {
+      type: "api",
+      title: "<Diagram>",
+      rows: [
+        ["title", "string", "required", "The diagram's name; it becomes the accessible name and the title of the built SVG."],
+        ["id", "string", "", "The built file name; the title is used when it is missing."],
+        ["direction", '"right" | "down"', '"right"', "The direction of the flow."],
+        ["flow", '"packets" | "dots" | "both"', '"packets"', "The motion preset: travelling icons, marching dots, or both."],
+        ["children", "Diagram.Group · Diagram.Node · Diagram.Arrow", "", "The tags that make up the diagram."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Diagram.Group> · <Diagram.Node>",
+      rows: [
+        ["id · label", "string", "required", "The name of the node or group; arrows connect by `id`."],
+        ["caption", "string", "", "A secondary line under the node name."],
+        ["icon", "IconName", "", "The icon on the left of the node; inside a group it takes the group color."],
+        ["children", "ReactNode", "", "A group holds nodes, and a node holds any component."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Diagram.Arrow>",
+      rows: [
+        ["from · to", "string", "required", "The `id`s of the two nodes it connects."],
+        ["label", "string", "", "A label in the middle of the arrow."],
+        ["step", "number", "", "The step number; arrows with the same number move together and the number is drawn once."],
+        ["packet", "IconName", "", "The icon that travels along this arrow on its step."],
+        ["motion", '"packet" | "dots" | "still"', "the diagram's flow", "The motion of this arrow alone."],
+        ["dashed", "boolean", "false", "Draws a dashed arrow."],
+      ],
+    },
+  ],
   table: [
     {
       type: "api",

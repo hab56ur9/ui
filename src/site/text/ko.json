@@ -652,5 +652,22 @@
     "goalNote": "10,000걸음이면 목표 달성입니다.",
     "quota": "저장 공간 사용",
     "quotaNote": "공간을 비우거나 요금제를 올리세요."
+  },
+  "diagram-basic": {
+    "title": "URL 단축 서비스",
+    "client": "웹·앱",
+    "api": "리다이렉트",
+    "db": "URL 매핑",
+    "lookup": "조회",
+    "miss": "캐시 미스"
+  },
+  "diagram-components": {
+    "title": "결제 처리 흐름",
+    "requests": "초당 요청",
+    "approval": "승인 성공률",
+    "healthy": "정상",
+    "lag": "지연 0.4초",
+    "write": "기록",
+    "event": "이벤트"
   }
 }

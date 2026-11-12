@@ -84,6 +84,7 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | Tabs | items* ({ id, label }[]), value or defaultValue, onChange, variant ("line", "pill") |
 | WidgetGrid | children* (Widgets), flow (stacks plain full-width widgets as document sections; leave it out for a grid) |
 | Stack | children* (stacked vertically with the standard gap; a chart child takes the remaining height) |
+| Diagram | title*, id, direction, flow, children* (Diagram.Group, Diagram.Node, Diagram.Arrow tags); architecture and flow diagrams, built into SVG for documents — follow the infographic skill |
 | RequirementTable | items* ({ text, priority: "must", "should" or "could", status?: "open", "done" or "dropped", note? }[]), prefix ("R" by default, "F" or "A" for other tables); the status column appears only when an item has a status |
 | Phone · Browser | Phone: scale, children; Browser: address*, width, height (number or "auto"), children. Both screens use the app medium, so widgets inside size as in an app |
 
