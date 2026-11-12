@@ -640,6 +640,24 @@
 
 .diagram-pulse.is-bead {
   fill: var(--color-fg-muted);
+  animation-name: diagram-bead;
+}
+
+@keyframes diagram-bead {
+  0% {
+    offset-distance: 0px;
+    opacity: 0;
+  }
+
+  10%,
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    offset-distance: var(--bead-length);
+    opacity: 0;
+  }
 }
 
 @keyframes diagram-pulse {

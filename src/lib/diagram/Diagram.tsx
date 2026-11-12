@@ -40,6 +40,7 @@ const REST = 900;
 const PULSE_SPEED = 180;
 const BEAD_SPEED = 110;
 const DOT_PERIOD = 18;
+const DOT_GAP = 9;
 
 function collect(children: ReactNode, group: string | undefined, out = { nodes: [] as Declared[], arrows: [] as DiagramArrowProps[], groups: [] as { id: string; label: string }[] }) {
   Children.forEach(children, (child) => {
@@ -357,9 +358,11 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
               const path = paths[i];
               if (!path || !motions[i].pulse) return null;
               const bead = motions[i].bead;
-              const duration = bead ? (path.length / BEAD_SPEED) * 1000 : Math.min(3000, Math.max(900, (path.length / PULSE_SPEED) * 1000));
+              const span = Math.ceil(path.length / DOT_GAP) * DOT_GAP;
+              const duration = bead ? (span / BEAD_SPEED) * 1000 : Math.min(3000, Math.max(900, (path.length / PULSE_SPEED) * 1000));
+              const lead = bead ? (Math.round((((i * 0.37) % 1) * span) / DOT_GAP) * DOT_GAP * 1000) / BEAD_SPEED : ((i * 0.37) % 1) * duration;
               return (
-                <g key={i} className={`diagram-pulse${bead ? " is-bead" : ""}`} style={{ offsetPath: `path("${path.d}")`, animationDuration: `${duration}ms`, animationDelay: `${-((i * 0.37) % 1) * duration}ms` }}>
+                <g key={i} className={`diagram-pulse${bead ? " is-bead" : ""}`} style={{ offsetPath: `path("${path.d}")`, animationDuration: `${duration}ms`, animationDelay: `${-lead}ms`, "--bead-length": `${span}px` } as CSSProperties}>
                   {!bead && <circle className="diagram-pulse-halo" r={9} />}
                   <circle r={bead ? 4.5 : 3.5} />
                 </g>
