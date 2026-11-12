@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, relative, resolve } from "node:path";
@@ -14,6 +14,33 @@ const CHROMES = [
 ];
 
 const sleep = (ms) => new Promise((done) => setTimeout(done, ms));
+
+const DIST = resolve(import.meta.dirname, "../dist");
+
+const codes = (range) =>
+  range.split(",").map((part) => {
+    const [from, to = from] = part.trim().replace(/^U\+/i, "").split("-");
+    return [parseInt(from, 16), parseInt(to, 16)];
+  });
+
+const faces = [...readFileSync(join(DIST, "tokens.css"), "utf8").matchAll(/@font-face\s*\{([^}]*)\}/g)].map(([, body]) => ({
+  body,
+  file: resolve(DIST, body.match(/url\("?([^")]+)"?\)/)[1]),
+  ranges: codes(body.match(/unicode-range:\s*([^;]+)/)?.[1] ?? "U+0-10FFFF"),
+}));
+
+function fontsFor(svg) {
+  const text = svg
+    .replace(/<style>[\s\S]*?<\/style>/g, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&(amp|lt|gt|quot);/g, (_, name) => ({ amp: "&", lt: "<", gt: ">", quot: '"' })[name]);
+  const used = [...new Set(text.replace(/\s/g, ""))].map((char) => char.codePointAt(0));
+  const covers = (face) => used.some((code) => face.ranges.some(([from, to]) => from <= code && code <= to));
+  return faces
+    .filter((face) => covers(face) && existsSync(face.file))
+    .map((face) => `@font-face {${face.body.replace(/url\([^)]+\)/, `url(data:font/woff2;base64,${readFileSync(face.file).toString("base64")})`).replace(/font-display:[^;]+;/, "")}}`)
+    .join("\n");
+}
 
 async function browser() {
   const path = CHROMES.find((candidate) => candidate && existsSync(candidate));
@@ -199,8 +226,10 @@ export async function buildDiagrams(file, { out, theme = "light", handler }) {
     const diagrams = await chrome.evaluate(`(${serialize.toString()})()`);
     if (!diagrams?.length) throw new Error(`no Diagram found in ${basename(page)}`);
     for (const diagram of diagrams) {
-      writeFileSync(join(target, `${diagram.file}.svg`), diagram.animated);
-      writeFileSync(join(target, `${diagram.file}.still.svg`), diagram.still);
+      const fonts = fontsFor(diagram.still);
+      const embed = (svg) => svg.replace("<style>", `<style>${fonts}\n`);
+      writeFileSync(join(target, `${diagram.file}.svg`), embed(diagram.animated));
+      writeFileSync(join(target, `${diagram.file}.still.svg`), embed(diagram.still));
       console.log(`built ${relative(process.cwd(), join(target, diagram.file))}.svg and .still.svg`);
     }
   } finally {

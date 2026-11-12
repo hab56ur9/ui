@@ -80,6 +80,7 @@ npx --yes github:hab56ur9/ui diagram build flow.html --out diagrams/
 
 - Embed the file as an image, such as `<img src="diagrams/payment-flow.svg" alt="결제 처리 흐름">`, with the title as the alt text.
 - The default theme is light; `--theme dark` builds for dark pages.
+- The build embeds the font files that cover the characters in the diagram, so the SVG looks the same everywhere. A Korean diagram is about 400 KB.
 - A node's icon, label, caption and badges become plain SVG. Other components inside a node are kept as HTML inside the SVG; browsers show them, but some converters, such as PDF tools and design-file importers, drop them, so use `<id>.still.svg` with plain nodes for those destinations.
 
 ## PNG and GIF
