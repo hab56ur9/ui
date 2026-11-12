@@ -8,7 +8,7 @@ import { Icon, IconGlyph, type IconName } from "../Icon";
 export type DiagramFlow = "packets" | "dots" | "pulses" | "both";
 export type DiagramMotion = "packet" | "dots" | "pulse" | "dots-pulse" | "still";
 export type DiagramProps = { title: string; id?: string; direction?: "right" | "down"; flow?: DiagramFlow; children: ReactNode };
-export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; children?: ReactNode };
+export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; lane?: string; children?: ReactNode };
 export type DiagramGroupProps = { id: string; label: string; children: ReactNode };
 export type DiagramArrowProps = { from: string; to: string; label?: string; step?: number; dashed?: boolean; packet?: IconName; motion?: DiagramMotion };
 
@@ -107,38 +107,57 @@ function ranksOf(nodes: Declared[], arrows: DiagramArrowProps[]) {
 
 function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: string }[], sizes: Map<string, Size>, direction: "right" | "down", spread: number) {
   const across = direction === "right";
-  const { rank, incoming, back } = ranksOf(nodes, arrows);
+  const { rank, back } = ranksOf(nodes, arrows);
   const sizeOf = (node: Declared) => sizes.get(node.id) ?? { w: 168, h: 60 };
   const main = (node: Declared) => (across ? sizeOf(node).w : sizeOf(node).h);
   const cross = (node: Declared) => (across ? sizeOf(node).h : sizeOf(node).w);
-  const groupIndex = (node: Declared) => groups.findIndex((group) => group.id === node.group);
   const gap = { main: GAPS[direction].main + spread * 24, cross: GAPS[direction].cross + spread * 16 };
+  const forward = arrows
+    .map((arrow, index) => ({ arrow, index }))
+    .filter(({ arrow }) => !back.has(arrow))
+    .sort((a, b) => (a.arrow.step ?? Infinity) - (b.arrow.step ?? Infinity) || a.index - b.index)
+    .map(({ arrow }) => arrow);
+  const lanes = [...new Set(nodes.flatMap((node) => (node.lane ? [node.lane] : [])))];
   const columns: Declared[][] = [];
   for (const node of nodes) (columns[rank.get(node.id) ?? 0] ??= []).push(node);
   const row = new Map<string, number>();
-  const offset = new Map<string, number>();
-  const lengths: number[] = [];
-  columns.forEach((column = [], r) => {
-    const bary = (node: Declared) => {
-      const rows = (incoming.get(node.id) ?? []).map((id) => row.get(id)).filter((value): value is number => value !== undefined);
-      return rows.length ? rows.reduce((sum, value) => sum + value, 0) / rows.length : nodes.indexOf(node);
+  const lane = new Map<string, number>();
+  const parent = (node: Declared) => forward.find((arrow) => arrow.to === node.id && row.has(arrow.from))?.from;
+  columns.forEach((column = []) => {
+    const taken = new Set<number>();
+    const blocks = column.reduce<Declared[][]>((list, node) => {
+      const same = node.group !== undefined ? list.find((block) => block[0].group === node.group) : undefined;
+      if (same) same.push(node);
+      if (!same) list.push([node]);
+      return list;
+    }, []);
+    const want = (node: Declared) => {
+      const from = parent(node);
+      const band = node.lane ? lanes.indexOf(node.lane) : from !== undefined ? (lane.get(from) ?? 0) : 0;
+      lane.set(node.id, band);
+      const inherited = from !== undefined && lane.get(from) === band ? (row.get(from) ?? 0) % 1000 : 0;
+      return band * 1000 + inherited;
     };
-    const block = (node: Declared) => {
-      const members = column.filter((other) => node.group !== undefined && other.group === node.group);
-      return members.length ? members.reduce((sum, other) => sum + bary(other), 0) / members.length : bary(node);
-    };
-    const sorted = [...column].sort((a, b) => block(a) - block(b) || groupIndex(a) - groupIndex(b) || bary(a) - bary(b));
-    let cursor = 0;
-    sorted.forEach((node, i) => {
-      const changed = i > 0 && sorted[i - 1].group !== node.group;
-      cursor += i === 0 ? 0 : gap.cross + (changed ? PAD * 2 + HEAD : 0);
-      offset.set(node.id, cursor);
-      row.set(node.id, i);
-      cursor += cross(node);
-    });
-    lengths[r] = cursor;
+    const wanted = blocks.map((block) => ({ block, start: Math.round(block.map((node, i) => want(node) - i).sort((a, b) => a - b)[Math.floor(block.length / 2)]) }));
+    wanted.sort((a, b) => a.start - b.start);
+    for (const { block, start } of wanted) {
+      const fits = (first: number) => block.every((_, i) => !taken.has(first + i));
+      const steps = Array.from({ length: 64 }, (_, k) => (k % 2 === 0 ? k / 2 : -(k + 1) / 2));
+      const first = start + (steps.find((step) => fits(start + step)) ?? 0);
+      block.forEach((node, i) => {
+        row.set(node.id, first + i);
+        taken.add(first + i);
+      });
+    }
   });
+  const keys = [...new Set(row.values())].sort((a, b) => a - b);
+  const index = new Map(keys.map((key, i) => [key, i]));
+  const rowOf = (node: Declared) => index.get(row.get(node.id) ?? 0) ?? 0;
   const widths = columns.map((column = []) => Math.max(0, ...column.map(main)));
+  const heights = keys.map((_, k) => Math.max(0, ...nodes.filter((node) => rowOf(node) === k).map(cross)));
+  const opens = (k: number) => groups.some((group) => nodes.some((node) => node.group === group.id && rowOf(node) === k && !nodes.some((other) => other.group === group.id && rank.get(other.id) === rank.get(node.id) && rowOf(other) === k - 1)));
+  const closes = (k: number) => groups.some((group) => nodes.some((node) => node.group === group.id && rowOf(node) === k && !nodes.some((other) => other.group === group.id && rank.get(other.id) === rank.get(node.id) && rowOf(other) === k + 1)));
+  const rowGap = (k: number) => gap.cross + (closes(k) ? PAD : 0) + (opens(k + 1) ? PAD + HEAD : 0);
   const labelRoom = (r: number) =>
     Math.max(
       gap.main,
@@ -147,15 +166,15 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
         .map((arrow) => (arrow.label ? textWidth(arrow.label, LABEL) + 16 : 0) + (arrow.step !== undefined ? 28 : 0) + 48),
     ) + arrows.filter((arrow) => back.has(arrow) && rank.get(arrow.to) === r).length * 48;
   const starts = widths.map((_, r) => MARGIN + widths.slice(0, r).reduce((sum, value, k) => sum + value + labelRoom(k), 0));
-  const longest = Math.max(0, ...lengths);
+  const tops = heights.map((_, k) => MARGIN + heights.slice(0, k).reduce((sum, value, j) => sum + value + rowGap(j), 0));
   let order = 0;
   const placed: Placed[] = columns.flatMap((column = [], r) =>
     [...column]
-      .sort((a, b) => (offset.get(a.id) ?? 0) - (offset.get(b.id) ?? 0))
+      .sort((a, b) => rowOf(a) - rowOf(b))
       .map((node) => {
-        const along = starts[r] + (widths[r] - main(node)) / 2;
-        const side = MARGIN + (longest - (lengths[r] ?? 0)) / 2 + (offset.get(node.id) ?? 0);
-        return { ...node, ...sizeOf(node), rank: r, order: order++, x: across ? along : side, y: across ? side : along };
+        const k = rowOf(node);
+        const cell = across ? { w: widths[r], h: heights[k] } : { w: heights[k], h: widths[r] };
+        return { ...node, ...cell, rank: r, order: order++, x: across ? starts[r] : tops[k], y: across ? tops[k] : starts[r] };
       }),
   );
   const width = Math.max(0, ...placed.map((node) => node.x + node.w)) + MARGIN;
@@ -415,7 +434,16 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
     const root = canvas.current;
     if (!root) return;
     const measure = () => {
-      const next = new Map([...root.querySelectorAll<HTMLElement>("[data-node]")].map((node) => [node.dataset.node ?? "", { w: node.offsetWidth, h: node.offsetHeight }]));
+      const next = new Map(
+        [...root.querySelectorAll<HTMLElement>("[data-node]")].map((node) => {
+          const style = getComputedStyle(node);
+          const inner = node.querySelector<HTMLElement>(".diagram-node-inner");
+          const pad = (a: string, b: string) => parseFloat(style.getPropertyValue(a)) + parseFloat(style.getPropertyValue(b));
+          const w = (inner?.offsetWidth ?? 0) + pad("padding-left", "padding-right") + pad("border-left-width", "border-right-width");
+          const h = (inner?.offsetHeight ?? 0) + pad("padding-top", "padding-bottom") + pad("border-top-width", "border-bottom-width");
+          return [node.dataset.node ?? "", { w: Math.max(168, w), h }];
+        }),
+      );
       setSizes((current) => (sameSizes(current, next) ? current : next));
     };
     measure();
@@ -513,16 +541,18 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
                 key={node.id}
                 className="diagram-node"
                 data-node={node.id}
-                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, "--order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
+                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, width: ready ? spot?.w : undefined, height: ready ? spot?.h : undefined, "--order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
               >
-                <div className="diagram-node-head">
-                  {node.icon && <Icon name={node.icon} />}
-                  <div>
-                    <div className="diagram-node-label">{node.label}</div>
-                    {node.caption && <div className="diagram-node-caption">{node.caption}</div>}
+                <div className="diagram-node-inner">
+                  <div className="diagram-node-head">
+                    {node.icon && <Icon name={node.icon} />}
+                    <div>
+                      <div className="diagram-node-label">{node.label}</div>
+                      {node.caption && <div className="diagram-node-caption">{node.caption}</div>}
+                    </div>
                   </div>
+                  {node.children !== undefined && <div className="diagram-node-body">{node.children}</div>}
                 </div>
-                {node.children !== undefined && <div className="diagram-node-body">{node.children}</div>}
               </div>
             );
           })}

@@ -57,7 +57,7 @@ A diagram is written with tags in an HTML page that loads the design system. Nod
 | --- | --- |
 | Diagram | title*, id (the output file name), direction ("right", "down"), flow ("packets", "dots", "pulses", "both"), children* |
 | Diagram.Group | id*, label*, children* (Diagram.Node tags) |
-| Diagram.Node | id*, label*, caption, icon, children (any ui component) |
+| Diagram.Node | id*, label*, caption, icon, lane (a band name such as "client", "app" or "data"), children (any ui component) |
 | Diagram.Arrow | from*, to*, label, step (number), dashed, packet (icon that travels on this step), motion ("packet", "dots", "pulse", "dots-pulse", "still") |
 
 - `flow: "packets"` moves an icon along each arrow that has a `packet`, one step at a time.
@@ -120,6 +120,8 @@ The build refuses a diagram whose text is unreadable. Run the check while drawin
 npx --yes github:hab56ur9/ui diagram check flow.html
 ```
 
+- The layout is a grid: each node takes its predecessor's row, so the main flow runs in one straight row and branches take the rows next to it; nodes share a width per column and a height per row.
+- Give nodes a `lane` when the reader should see horizontal bands, such as client, application and data; lanes stack in the order they first appear.
 - Back arrows (to a node the flow already passed) are found automatically and route on a rail above or below the columns they span.
 - Parallel arrows between the same two nodes bow apart, and labels slide along their own arrow to a free spot; when none is free, the layout widens and tries again.
 - When the check still fails, shorten labels, split the diagram, or move a node into a group.

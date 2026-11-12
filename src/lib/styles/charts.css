@@ -511,10 +511,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  width: max-content;
-  min-width: 168px;
-  max-width: 320px;
+  justify-content: center;
   padding: var(--space-3) var(--space-4);
   border: var(--border-width-default) solid var(--color-border-strong);
   border-radius: var(--radius-control);
@@ -528,6 +525,14 @@
   border-radius: inherit;
   outline: 2.5px solid transparent;
   pointer-events: none;
+}
+
+.diagram-node-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: max-content;
+  max-width: 288px;
 }
 
 .diagram-node-head {
