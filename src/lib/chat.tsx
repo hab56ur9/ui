@@ -92,12 +92,13 @@ export type ChatMessageProps = {
   onReact?: (emoji: string) => void;
   replies?: { label: string; last?: string; members: Face[] };
   onOpenThread?: () => void;
+  anchor?: string;
   children?: ReactNode;
 };
 
-export function ChatMessage({ author, tone = 1, avatar, badge, time, via, continued = false, selected = false, pending = false, actions = [], reactions = [], onReact, replies, onOpenThread, children }: ChatMessageProps) {
+export function ChatMessage({ author, tone = 1, avatar, badge, time, via, continued = false, selected = false, pending = false, actions = [], reactions = [], onReact, replies, onOpenThread, anchor, children }: ChatMessageProps) {
   return (
-    <article className={cx("chat-message", continued && "is-continued", selected && "is-selected")} tabIndex={-1}>
+    <article id={anchor} className={cx("chat-message", continued && "is-continued", selected && "is-selected")} tabIndex={-1}>
       {actions.length > 0 && <MessageActions actions={actions} />}
       {continued ? <span className="chat-time is-side">{time}</span> : <PresenceAvatar name={author} tone={tone} avatar={avatar} />}
       <div className="chat-body">
