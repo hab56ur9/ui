@@ -29,14 +29,14 @@ Every diagram follows these rules.
 
 ## Composing for one screen
 
-The automatic layout keeps the flow readable but leaves space; a diagram meant for a document is placed by hand on a small grid, the way hand-drawn infographics are.
+The agent places every node; the component only draws what it is told and checks the result. Automatic placement exists for quick drafts and is never the final layout.
 
 - Aim for a box, not a line: about 4 columns by 3 to 4 rows, roughly 16:9. More than 5 columns means the story should fold or split.
 - Sketch the grid before writing tags: put the entry point at the top left, the main path in one row or one column, and the rest around it.
 - Fold a long chain: run the first steps down the first column, then continue to the right, as in Client above API Gateway.
 - Put a side system next to the node that talks to it: the payment provider right of Payment, the retry queue under the event bus.
 - Place a group's members in one column and consecutive rows; pin one member with `col` and `row`, and the others follow.
-- Give every node a `col` and `row` once more than about eight nodes are on the grid; leave `col` and `row` off for small diagrams.
+- Give every node a `col` and `row`. Nodes keep their natural size and sit centered in their cell, so cells need not line up exactly; what matters is that the whole diagram reads as one rectangle without stray gaps.
 - Leave empty cells only where they separate two stories; otherwise move a node into them.
 - Keep labels to one or two words, and leave short hops unlabeled when the step number says enough.
 - Run `ui diagram check` after every change and look at the result before building.

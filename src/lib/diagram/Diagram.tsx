@@ -28,7 +28,7 @@ type Declared = DiagramNodeProps & { group?: string };
 type Size = { w: number; h: number };
 type Point = { x: number; y: number };
 type Placed = Declared & Point & Size & { rank: number; order: number };
-type Port = { out: number; in: number; bow: number };
+type Port = { out: number; in: number; bow: number; direct: boolean };
 
 const PAD = 16;
 const HEAD = 26;
@@ -161,9 +161,13 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
   const rowOf = (node: Declared) => index.get(row.get(node.id) ?? 0) ?? 0;
   const widths = columns.map((column = []) => Math.max(0, ...column.map(main)));
   const heights = keys.map((_, k) => Math.max(0, ...nodes.filter((node) => rowOf(node) === k).map(cross)));
-  const opens = (k: number) => groups.some((group) => nodes.some((node) => node.group === group.id && rowOf(node) === k && !nodes.some((other) => other.group === group.id && rank.get(other.id) === rank.get(node.id) && rowOf(other) === k - 1)));
-  const closes = (k: number) => groups.some((group) => nodes.some((node) => node.group === group.id && rowOf(node) === k && !nodes.some((other) => other.group === group.id && rank.get(other.id) === rank.get(node.id) && rowOf(other) === k + 1)));
-  const rowGap = (k: number) => gap.cross + (closes(k) ? PAD : 0) + (opens(k + 1) ? PAD + HEAD : 0);
+  const at = (r: number | undefined, k: number) => nodes.find((node) => rank.get(node.id) === r && rowOf(node) === k);
+  const edge = (upper: Declared | undefined, lower: Declared | undefined) => {
+    const closing = upper?.group !== undefined && upper.group !== lower?.group;
+    const opening = lower?.group !== undefined && lower.group !== upper?.group;
+    return (upper && closing ? PAD : 0) + (upper && opening ? PAD + HEAD : 0);
+  };
+  const rowGap = (k: number) => gap.cross + Math.max(0, ...columns.map((_, r) => edge(at(r, k), at(r, k + 1))));
   const labelRoom = (r: number) =>
     Math.max(
       gap.main,
@@ -179,8 +183,9 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
       .sort((a, b) => rowOf(a) - rowOf(b))
       .map((node) => {
         const k = rowOf(node);
-        const cell = across ? { w: widths[r], h: heights[k] } : { w: heights[k], h: widths[r] };
-        return { ...node, ...cell, rank: r, order: order++, x: across ? starts[r] : tops[k], y: across ? tops[k] : starts[r] };
+        const along = starts[r] + (widths[r] - main(node)) / 2;
+        const side = tops[k] + (heights[k] - cross(node)) / 2;
+        return { ...node, ...sizeOf(node), rank: r, order: order++, x: across ? along : side, y: across ? side : along };
       }),
   );
   const width = Math.max(0, ...placed.map((node) => node.x + node.w)) + MARGIN;
@@ -188,7 +193,7 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
   return { placed, width, height, across, back };
 }
 
-const spread = (count: number, index: number) => (index - (count - 1) / 2) * 12;
+const spread = (count: number, index: number) => (index - (count - 1) / 2) * 16;
 
 function portsOf(placed: Placed[], arrows: DiagramArrowProps[], across: boolean) {
   const byId = new Map(placed.map((node) => [node.id, node]));
@@ -196,16 +201,27 @@ function portsOf(placed: Placed[], arrows: DiagramArrowProps[], across: boolean)
     const node = byId.get(id);
     return node ? (across ? node.y : node.x) : 0;
   };
-  const forward = arrows.filter((arrow) => (byId.get(arrow.to)?.rank ?? 0) > (byId.get(arrow.from)?.rank ?? 0));
-  const ports = new Map<DiagramArrowProps, Port>(arrows.map((arrow) => [arrow, { out: 0, in: 0, bow: 0 }]));
+  const rankOf = (id: string) => byId.get(id)?.rank ?? 0;
+  const forward = arrows.filter((arrow) => rankOf(arrow.to) > rankOf(arrow.from));
+  const direct = arrows.filter((arrow) => rankOf(arrow.to) === rankOf(arrow.from) - 1);
+  const ports = new Map<DiagramArrowProps, Port>(arrows.map((arrow) => [arrow, { out: 0, in: 0, bow: 0, direct: direct.includes(arrow) }]));
   const pairs = new Map<string, DiagramArrowProps[]>();
-  for (const arrow of forward) pairs.set(`${arrow.from}>${arrow.to}`, [...(pairs.get(`${arrow.from}>${arrow.to}`) ?? []), arrow]);
+  const pairKey = (arrow: DiagramArrowProps) => [arrow.from, arrow.to].sort().join("|");
+  for (const arrow of [...forward, ...direct]) pairs.set(pairKey(arrow), [...(pairs.get(pairKey(arrow)) ?? []), arrow]);
   for (const group of pairs.values()) group.forEach((arrow, i) => Object.assign(ports.get(arrow) ?? {}, { bow: (i - (group.length - 1) / 2) * 60 }));
+  const assign = (items: { arrow: DiagramArrowProps; other: string; end: "out" | "in"; back: boolean }[]) => {
+    items.sort((a, b) => cross(a.other) - cross(b.other) || Number(a.back) - Number(b.back));
+    items.forEach((item, i) => Object.assign(ports.get(item.arrow) ?? {}, { [item.end]: spread(items.length, i) }));
+  };
   for (const node of placed) {
-    const outs = forward.filter((arrow) => arrow.from === node.id).sort((a, b) => cross(a.to) - cross(b.to));
-    outs.forEach((arrow, i) => Object.assign(ports.get(arrow) ?? {}, { out: spread(outs.length, i) }));
-    const ins = forward.filter((arrow) => arrow.to === node.id).sort((a, b) => cross(a.from) - cross(b.from));
-    ins.forEach((arrow, i) => Object.assign(ports.get(arrow) ?? {}, { in: spread(ins.length, i) }));
+    assign([
+      ...forward.filter((arrow) => arrow.from === node.id).map((arrow) => ({ arrow, other: arrow.to, end: "out" as const, back: false })),
+      ...direct.filter((arrow) => arrow.to === node.id).map((arrow) => ({ arrow, other: arrow.from, end: "in" as const, back: true })),
+    ]);
+    assign([
+      ...forward.filter((arrow) => arrow.to === node.id).map((arrow) => ({ arrow, other: arrow.from, end: "in" as const, back: false })),
+      ...direct.filter((arrow) => arrow.from === node.id).map((arrow) => ({ arrow, other: arrow.to, end: "out" as const, back: true })),
+    ]);
   }
   return ports;
 }
@@ -242,6 +258,14 @@ function route(from: Placed, to: Placed, across: boolean, port: Port, lane: numb
   const forward = to.rank > from.rank;
   const sameRank = to.rank === from.rank;
   const path = (points: Point[], command: string) => points.map((point) => `${point.x} ${point.y}`).join(command);
+  if (port.direct) {
+    const start = along(a, -half(from).main, port.out);
+    const end = along(b, half(to).main, port.in);
+    const reach = Math.abs(across ? end.x - start.x : end.y - start.y) / 2;
+    const c1 = along(start, -reach, port.bow);
+    const c2 = along(end, reach, port.bow);
+    return trace(`M${path([start], "")}C${path([c1, c2, end], " ")}`, cubic(start, c1, c2, end));
+  }
   if (forward) {
     const start = along(a, half(from).main, port.out);
     const end = along(b, -half(to).main, port.in);
@@ -418,7 +442,7 @@ function arrange(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: s
     const paths = arrows.map((item) => {
       const from = byId.get(item.from);
       const to = byId.get(item.to);
-      return from && to ? route(from, to, across, ports.get(item) ?? { out: 0, in: 0, bow: 0 }, lanes.get(item) ?? 0, placed) : null;
+      return from && to ? route(from, to, across, ports.get(item) ?? { out: 0, in: 0, bow: 0, direct: false }, lanes.get(item) ?? 0, placed) : null;
     });
     const { spots, conflicts } = placeLabels(arrows, paths, numbered, placed);
     return { placed, width, height, across, paths, spots, conflicts };
@@ -555,7 +579,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
                 key={node.id}
                 className="diagram-node"
                 data-node={node.id}
-                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, width: ready ? spot?.w : undefined, height: ready ? spot?.h : undefined, "--order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
+                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, "--order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
               >
                 <div className="diagram-node-inner">
                   <div className="diagram-node-head">
