@@ -1,3 +1,4 @@
+import { useMotion } from "../MotionScope";
 import { useRef } from "react";
 import { color, formats } from "../format";
 import { tokenPx, useSize } from "../hooks";
@@ -40,6 +41,7 @@ export function LineChart(props: LineChartProps) {
 type Drawn = LineSeries & { paint: string; swatch: "line" | "dashed" };
 
 function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabels = true, format, title, categories, width, height, node }: LineChartProps & { drawn: Drawn[]; width: number; height: number; node: HTMLDivElement | null }) {
+  const motion = useMotion();
   const svg = useRef<SVGSVGElement>(null);
   const { locale } = useI18n();
   const f = formats(format, locale);
@@ -130,7 +132,7 @@ function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabel
           </g>
         )}
         {drawn.map((s) => (
-          <path key={`line-${s.name}`} className={`series-line${s.dashed ? " is-dashed" : ""}`} d={pathOf(s.points, x, y)} style={paint(s.paint)} />
+          <path key={`line-${s.name}`} className={`series-line${s.dashed ? " is-dashed" : ""}`} d={pathOf(s.points, x, y)} style={paint(s.paint)} {...(motion && !s.dashed ? { pathLength: 1, "data-motion": "draw" } : {})} />
         ))}
         {drawn
           .filter((s) => s.flagBreaches)

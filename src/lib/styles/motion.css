@@ -1,0 +1,114 @@
+[data-motion~="enter"] {
+  animation: motion-enter
+    calc(var(--motion-duration-slow) * var(--motion-intensity))
+    var(--motion-easing-enter) backwards;
+  animation-delay: calc(
+    (var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger)
+  );
+}
+
+@keyframes motion-enter {
+  from {
+    opacity: 0;
+    translate: 0 calc(8px * var(--motion-intensity));
+  }
+}
+
+path[data-motion~="draw"] {
+  stroke-dasharray: 1;
+  animation: motion-draw
+    calc(var(--motion-duration-emphasis) * var(--motion-intensity))
+    var(--motion-easing-standard) backwards;
+  animation-delay: calc(
+    (var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) +
+      var(--motion-duration-slow) * var(--motion-intensity)
+  );
+}
+
+@keyframes motion-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+:not(path)[data-motion~="draw"] {
+  transform-origin: left center;
+  animation: motion-grow
+    calc(var(--motion-duration-emphasis) * var(--motion-intensity))
+    var(--motion-easing-standard) backwards;
+  animation-delay: calc(
+    (var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) +
+      var(--motion-duration-slow) * var(--motion-intensity)
+  );
+}
+
+@keyframes motion-grow {
+  from {
+    scale: 0 1;
+  }
+}
+
+.motion-count {
+  font-variant-numeric: tabular-nums;
+}
+
+[data-digit] {
+  display: inline-block;
+  height: 1lh;
+  overflow: clip;
+  vertical-align: top;
+}
+
+[data-digit] > span {
+  display: flex;
+  flex-direction: column;
+  translate: 0 calc(var(--digit) * -1lh);
+  transition: translate
+    calc(var(--motion-duration-emphasis) * var(--motion-intensity))
+    var(--motion-easing-standard);
+}
+
+[data-motion~="count"] [data-digit] > span {
+  animation: motion-count
+    calc(var(--motion-duration-emphasis) * var(--motion-intensity))
+    var(--motion-easing-standard) backwards;
+  animation-delay: calc(
+    (var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) +
+      var(--motion-duration-slow) * var(--motion-intensity)
+  );
+}
+
+@keyframes motion-count {
+  from {
+    translate: 0 0;
+  }
+}
+
+[data-motion~="attention"] {
+  animation: motion-attention
+    calc(var(--motion-duration-emphasis) * var(--motion-intensity))
+    var(--motion-easing-standard) backwards;
+  animation-delay: calc(
+    (var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) +
+      (var(--motion-duration-slow) + var(--motion-duration-emphasis)) *
+      var(--motion-intensity)
+  );
+}
+
+@keyframes motion-attention {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 calc(10px * var(--motion-intensity)) transparent;
+  }
+}
+
+@media print {
+  [data-motion],
+  [data-motion] *,
+  [data-digit] > span {
+    animation: none !important;
+    transition: none !important;
+  }
+}

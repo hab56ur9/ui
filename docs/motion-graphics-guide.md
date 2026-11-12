@@ -67,6 +67,23 @@ The theme's style sets how much the diagram moves when it first appears. The flo
 | expressive | Overshooting entrance, larger stagger |
 | brutal | No entrance motion |
 
+## Shared motion vocabulary
+
+The ui library has one motion vocabulary that every component uses, so a diagram, a poster and a dashboard move the same way. As of 2026-11-12 it has four motions.
+
+| Motion | What moves | Used by |
+| --- | --- | --- |
+| enter | The element fades in and rises slightly, in order | Diagram nodes, arrows and groups; Infographic title and panels |
+| draw | A line traces itself, or a bar grows from its start | Line chart and sparkline lines, Meter fill |
+| count | Each digit of a number rolls up to its value; a later change rolls to the new value | Stat values |
+| attention | One soft ring pulses once after the content settles | Warning and critical Badges, Meter status when not good |
+
+- Components attach the motions themselves; apps only turn them on or off with the `motion` prop of Diagram and Infographic.
+- Motion runs only inside a Diagram or an Infographic, so a dashboard of Stats stays still.
+- The order comes from the container: Diagram nodes follow the layout order, and each Infographic panel starts after the panel before it.
+- Every motion is a CSS keyframe declared once in the library, so the built SVG plays it too; the still SVG and print show the final values.
+- Durations scale with the style's motion intensity: brutal turns every motion off.
+
 ## Accessibility
 
 - Every looping diagram shows a pause button.

@@ -1,3 +1,4 @@
+import { Count, useMotion } from "./MotionScope";
 import { useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { Sparkline } from "./charts/Sparkline";
 import { Icon, type IconName } from "./Icon";
@@ -43,6 +44,8 @@ export function Delta({ change, goodWhenUp = true, neutral = false }: DeltaProps
 }
 
 export function Stat({ label, value, delta, note, trend, color = 1, size = "md" }: StatProps) {
+  const motion = useMotion();
+  const counted = motion && (typeof value === "string" || typeof value === "number");
   return (
     <div className={`stat is-${size}`}>
       {label && (
@@ -50,7 +53,7 @@ export function Stat({ label, value, delta, note, trend, color = 1, size = "md" 
           {label}
         </div>
       )}
-      <div className="stat-value">{value}</div>
+      <div className="stat-value">{counted ? <Count value={String(value)} /> : value}</div>
       {delta && (
         <div className="stat-delta">
           <Delta change={delta.change} goodWhenUp={delta.goodWhenUp} neutral={delta.neutral} />

@@ -4,10 +4,11 @@ import { ButtonBase } from "../controls";
 import { useSize } from "../hooks";
 import { useI18n } from "../i18n";
 import { Icon, IconGlyph, type IconName } from "../Icon";
+import { MotionScope } from "../MotionScope";
 
 export type DiagramFlow = "packets" | "dots" | "pulses" | "both";
 export type DiagramMotion = "packet" | "dots" | "pulse" | "dots-pulse" | "still";
-export type DiagramProps = { title: string; id?: string; direction?: "right" | "down"; flow?: DiagramFlow; children: ReactNode };
+export type DiagramProps = { title: string; id?: string; direction?: "right" | "down"; flow?: DiagramFlow; motion?: boolean; children: ReactNode };
 export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; lane?: string; col?: number; row?: number; children?: ReactNode };
 export type DiagramGroupProps = { id: string; label: string; children: ReactNode };
 export type DiagramArrowProps = { from: string; to: string; label?: string; step?: number; dashed?: boolean; packet?: IconName; motion?: DiagramMotion };
@@ -456,7 +457,8 @@ const tone = (index: number) => ({ "--diagram-tone": `var(--color-series-${(inde
 
 const sameSizes = (a: Map<string, Size> | null, b: Map<string, Size>) => a !== null && a.size === b.size && [...b].every(([id, size]) => a.get(id)?.w === size.w && a.get(id)?.h === size.h);
 
-function DiagramRoot({ title, id, direction = "right", flow = "packets", children }: DiagramProps) {
+function DiagramRoot({ title, id, direction = "right", flow = "packets", motion = true, children }: DiagramProps) {
+  const enter = motion ? "enter" : undefined;
   const { text } = useI18n();
   const raw = useId();
   const name = `diagram-${raw.replace(/[^a-zA-Z0-9]/g, "")}`;
@@ -507,6 +509,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
   const relay = relayCss(scope, name, beads, arrows, spans);
 
   return (
+    <MotionScope on={motion}>
     <figure className={`diagram${playing ? "" : " is-paused"}`} data-diagram={name} data-name={id} aria-label={title} style={{ "--diagram-cycle": `${cycle}ms`, maxWidth: width } as CSSProperties}>
       <style>{`${css}\n${relay}`}</style>
       <div ref={host} className="diagram-host" style={{ height: ready ? height * scale : undefined }}>
@@ -522,7 +525,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
               if (members.length === 0) return null;
               const box = groupBox(members);
               return (
-                <g key={group.id} className="diagram-group" style={{ ...tone(i), "--order": 0 } as CSSProperties}>
+                <g key={group.id} className="diagram-group" data-motion={enter} style={{ ...tone(i), "--motion-order": 0 } as CSSProperties}>
                   <rect className="diagram-group-box" x={box.x} y={box.y} width={box.w} height={box.h} />
                   <text className="diagram-group-label" x={box.x + PAD} y={box.y + HEAD - 6}>
                     {group.label}
@@ -534,7 +537,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
               const path = paths[i];
               if (!path) return null;
               return (
-                <g key={i} className="diagram-arrow" data-arrow={i} style={{ "--order": placed.length } as CSSProperties}>
+                <g key={i} className="diagram-arrow" data-arrow={i} data-motion={enter} style={{ "--motion-order": placed.length } as CSSProperties}>
                   <path
                     className={["diagram-line", item.dashed ? "is-dashed" : "", motions[i].dots ? "is-dots" : ""].filter(Boolean).join(" ")}
                     d={path.d}
@@ -550,7 +553,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
               const labelWidth = item.label ? textWidth(item.label, LABEL) + 16 : 0;
               if (!label && !step) return null;
               return (
-                <g key={i} className="diagram-tags" data-arrow={i} style={{ "--order": placed.length } as CSSProperties}>
+                <g key={i} className="diagram-tags" data-arrow={i} data-motion={enter} style={{ "--motion-order": placed.length } as CSSProperties}>
                   {label && (
                     <g className="diagram-label">
                       <rect x={label.x - labelWidth / 2} y={label.y - 11} width={labelWidth} height={22} />
@@ -579,7 +582,8 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
                 key={node.id}
                 className="diagram-node"
                 data-node={node.id}
-                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, "--order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
+                data-motion={enter}
+                style={{ left: spot?.x ?? 0, top: spot?.y ?? 0, "--motion-order": spot?.order ?? 0, ...(index < 0 ? {} : tone(index)) } as CSSProperties}
               >
                 <div className="diagram-node-inner">
                   <div className="diagram-node-head">
@@ -638,6 +642,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
         <ButtonBase className="diagram-play" icon={playing ? "pause" : "play"} aria-label={text(playing ? "pauseFlow" : "playFlow")} title={text(playing ? "pauseFlow" : "playFlow")} onClick={() => setPlaying(!playing)} />
       )}
     </figure>
+    </MotionScope>
   );
 }
 

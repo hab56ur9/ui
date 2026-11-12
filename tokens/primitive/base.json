@@ -133,7 +133,8 @@
       "$type": "duration",
       "fast": { "$value": { "value": 120, "unit": "ms" } },
       "base": { "$value": { "value": 200, "unit": "ms" } },
-      "slow": { "$value": { "value": 280, "unit": "ms" } }
+      "slow": { "$value": { "value": 280, "unit": "ms" } },
+      "emphasis": { "$value": { "value": 1200, "unit": "ms" } }
     },
     "easing": {
       "$type": "cubicBezier",

@@ -69,7 +69,7 @@ A diagram is written with tags in an HTML page that loads the design system. Nod
 
 | Tag | Props |
 | --- | --- |
-| Diagram | title*, id (the output file name), direction ("right", "down"), flow ("packets", "dots", "pulses", "both"), children* |
+| Diagram | title*, id (the output file name), direction ("right", "down"), flow ("packets", "dots", "pulses", "both"), motion (entrance motion, on by default), children* |
 | Diagram.Group | id*, label*, children* (Diagram.Node tags) |
 | Diagram.Node | id*, label*, caption, icon, lane (a band name such as "client", "app" or "data"), col and row (grid cell, from 0), children (any ui component) |
 | Diagram.Arrow | from*, to*, label, step (number), dashed, packet (icon that travels on this step), motion ("packet", "dots", "pulse", "dots-pulse", "still") |
@@ -79,6 +79,7 @@ A diagram is written with tags in an HTML page that loads the design system. Nod
 - `flow: "pulses"` glides one glowing dot along every arrow at a steady speed, staggered so arrows do not fire together; it reads as live traffic with less noise than dots.
 - `flow: "both"` combines them; `motion` on one arrow overrides the diagram's flow.
 - Arrows with the same step move together, and each step number is drawn once.
+- Entrance motion is built in: nodes appear in order, a Stat inside a node rolls up its number, a Meter fills and a chart line draws. Pass `motion: false` for a diagram that should appear at once.
 
 ## Posters
 
@@ -94,7 +95,7 @@ h(Infographic, { id: "system-design", title: "시스템 설계 단골 구조 4�
 
 | Tag | Props |
 | --- | --- |
-| Infographic | title*, id (the output file name), lede, children* (Infographic.Panel tags) |
+| Infographic | title*, id (the output file name), lede, motion (entrance motion, on by default), children* (Infographic.Panel tags) |
 | Infographic.Panel | title*, icon, message, children* (a Diagram or any component) |
 
 - Write the message as the takeaway of the panel, in one sentence.

@@ -88,7 +88,7 @@ async function browser() {
 function serialize() {
   const XHTML = "http://www.w3.org/1999/xhtml";
   const LOOPS = 3;
-  const STYLE = ["display", "box-sizing", "width", "height", "margin", "padding", "border", "border-radius", "background-color", "color", "font-family", "font-size", "font-weight", "line-height", "letter-spacing", "text-align", "white-space", "gap", "flex-direction", "flex-wrap", "align-items", "justify-content", "flex", "grid-template-columns", "overflow", "opacity", "fill", "stroke", "stroke-width", "stroke-dasharray", "stroke-linecap", "stroke-linejoin", "vertical-align", "text-overflow", "position", "inset", "top", "left", "right", "bottom"];
+  const STYLE = ["--motion-order", "--motion-base", "--digit", "translate", "scale", "transform-origin", "font-variant-numeric", "display", "box-sizing", "width", "height", "margin", "padding", "border", "border-radius", "background-color", "color", "font-family", "font-size", "font-weight", "line-height", "letter-spacing", "text-align", "white-space", "gap", "flex-direction", "flex-wrap", "align-items", "justify-content", "flex", "grid-template-columns", "overflow", "opacity", "fill", "stroke", "stroke-width", "stroke-dasharray", "stroke-linecap", "stroke-linejoin", "vertical-align", "text-overflow", "position", "inset", "top", "left", "right", "bottom"];
   const escape = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   const xml = new XMLSerializer();
   const root = getComputedStyle(document.documentElement);
@@ -103,7 +103,8 @@ function serialize() {
       continue;
     }
     for (const rule of list) {
-      if (rule instanceof CSSKeyframesRule && rule.name.startsWith("diagram")) globalRules.push(rule.cssText);
+      if (rule instanceof CSSKeyframesRule && /^(diagram|motion)-/.test(rule.name)) globalRules.push(rule.cssText);
+      if (rule instanceof CSSStyleRule && /\[data-(motion|digit)/.test(rule.selectorText)) globalRules.push(rule.cssText);
       if (rule instanceof CSSStyleRule && /\.diagram-(group|arrow|tags|line|arrowhead|label|step|packet|spark|pulse)|\.diagram-node(?![-\w])/.test(rule.selectorText) && !rule.selectorText.includes("::after")) globalRules.push(rule.cssText);
       if (rule instanceof CSSMediaRule && rule.conditionText.includes("prefers-reduced-motion")) {
         const inner = [...rule.cssRules].filter((child) => child.selectorText?.startsWith("*")).map((child) => child.cssText);
@@ -192,7 +193,7 @@ function serialize() {
             })();
       const order = node.style.getPropertyValue("--order");
       const tone = node.style.getPropertyValue("--diagram-tone");
-      return `<g class="diagram-node" data-node="${escape(node.dataset.node ?? "")}" style="--order: ${order};${tone ? ` --diagram-tone: ${tone};` : ""}"><g transform="translate(${node.offsetLeft} ${node.offsetTop})"><rect width="${w}" height="${h}" rx="${radius}" fill="${style.backgroundColor}" stroke="${style.borderTopColor}" stroke-width="${parseFloat(style.borderTopWidth) || 1}"/>${iconSvg}${label ? textOf(label, node) : ""}${caption ? textOf(caption, node) : ""}${bodySvg}<rect class="diagram-hit" x="-1" y="-1" width="${w + 2}" height="${h + 2}" rx="${radius + 1}"/></g></g>`;
+      return `<g class="diagram-node" data-node="${escape(node.dataset.node ?? "")}"${node.dataset.motion ? ` data-motion="${node.dataset.motion}"` : ""} style="--motion-order: ${order};${tone ? ` --diagram-tone: ${tone};` : ""}"><g transform="translate(${node.offsetLeft} ${node.offsetTop})"><rect width="${w}" height="${h}" rx="${radius}" fill="${style.backgroundColor}" stroke="${style.borderTopColor}" stroke-width="${parseFloat(style.borderTopWidth) || 1}"/>${iconSvg}${label ? textOf(label, node) : ""}${caption ? textOf(caption, node) : ""}${bodySvg}<rect class="diagram-hit" x="-1" y="-1" width="${w + 2}" height="${h + 2}" rx="${radius + 1}"/></g></g>`;
     });
     canvas.querySelectorAll(".diagram-line.is-dots").forEach((line) => line.style.animationDuration && line.style.setProperty("animation-iteration-count", String(Math.ceil(total / parseFloat(line.style.animationDuration)))));
     canvas.querySelectorAll(".diagram-pulse:not(.is-bead)").forEach((pulse) => pulse.style.setProperty("animation-iteration-count", String(Math.ceil(total / (parseFloat(pulse.style.animationDuration) || 1600)))));
@@ -307,7 +308,7 @@ function inspect() {
       nodes.filter((node) => arrow.points.some((point) => inside(point, node.box, 3))).forEach((node) => problems.push(`${title}: arrow ${arrow.index + 1} runs through node "${node.id}"`));
     });
     nodes.forEach((node) => {
-      const cut = [...node.element.querySelectorAll("*")].filter((element) => element.children.length === 0 && element.textContent.trim() && element.scrollWidth > element.clientWidth + 1 && getComputedStyle(element).overflow !== "visible");
+      const cut = [...node.element.querySelectorAll("*")].filter((element) => element.children.length === 0 && element.textContent.trim() && !element.closest(".sr-only, [data-digit]") && element.scrollWidth > element.clientWidth + 1 && getComputedStyle(element).overflow !== "visible");
       cut.forEach((element) => problems.push(`${title}: text "${element.textContent.trim()}" is cut off in node "${node.id}"`));
     });
   }
@@ -328,7 +329,7 @@ async function render(file, theme, handler) {
   await sleep(1500);
   await chrome.evaluate("document.querySelectorAll('.infographic').forEach((poster) => { poster.style.maxWidth = '1280px'; })");
   await sleep(800);
-  await chrome.evaluate("document.fonts.ready.then(() => document.getAnimations().forEach((a) => a.animationName === 'diagram-enter' && a.finish()))");
+  await chrome.evaluate("document.fonts.ready.then(() => document.getAnimations().forEach((a) => a.animationName === 'motion-enter' && a.finish()))");
   await sleep(300);
   const close = async () => {
     await chrome.close();
