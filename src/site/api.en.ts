@@ -293,7 +293,17 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
-  sheet: [{ type: "api", title: "<Sheet>", rows: DIALOG_PROPS }],
+  sheet: [
+    { type: "api", title: "<Sheet>", rows: DIALOG_PROPS },
+    {
+      type: "api",
+      title: "<ActionList>",
+      rows: [
+        ["items", "{ id, label }[]", "", "The choices, one full-width row each."],
+        ["onSelect", "(id: string) => void", "", "Called with the chosen id."],
+      ],
+    },
+  ],
   toast: [
     {
       type: "api",

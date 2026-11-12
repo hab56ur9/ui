@@ -293,7 +293,17 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
-  sheet: [{ type: "api", title: "<Sheet>", rows: DIALOG_PROPS }],
+  sheet: [
+    { type: "api", title: "<Sheet>", rows: DIALOG_PROPS },
+    {
+      type: "api",
+      title: "<ActionList>",
+      rows: [
+        ["items", "{ id, label }[]", "", "선택지입니다. 한 줄에 하나씩 가로를 꽉 채웁니다."],
+        ["onSelect", "(id: string) => void", "", "고른 항목의 id로 호출됩니다."],
+      ],
+    },
+  ],
   toast: [
     {
       type: "api",

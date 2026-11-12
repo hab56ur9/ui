@@ -31,23 +31,38 @@ function kindOf(type) {
 }
 
 const exports = checker.getExportsOfModule(checker.getSymbolAtLocation(project.program.getSourceFile(join(root, "src/lib/index.ts"))));
-const components = exports
+const callable = (type) => checker.getSignaturesOfType(type, SignatureKind.Call).length > 0;
+
+function describe(name, type) {
+  const [signature] = checker.getSignaturesOfType(type, SignatureKind.Call);
+  const param = signature && checker.getParameterType(signature, 0);
+  const props = param
+    ? checker
+        .getPropertiesOfType(param)
+        .filter((prop) => own(prop) || DOM_PROPS.has(prop.name))
+        .map((prop) => ({ name: prop.name, optional: has(prop.flags, SymbolFlags.Optional), ...kindOf(checker.getTypeOfSymbol(prop)), type: checker.typeToString(checker.getTypeOfSymbol(prop)) }))
+    : [];
+  return { name, props };
+}
+
+const roots = exports
   .filter((symbol) => /^[A-Z]/.test(symbol.name))
   .map((symbol) => ({ name: symbol.name, target: has(symbol.flags, SymbolFlags.Alias) ? checker.getAliasedSymbol(symbol) : symbol }))
-  .filter(({ target }) => has(target.flags, SymbolFlags.Function))
-  .map(({ name, target }) => {
-    const [signature] = checker.getSignaturesOfType(checker.getTypeOfSymbol(target), SignatureKind.Call);
-    const param = signature && checker.getParameterType(signature, 0);
-    const props = param
-      ? checker
-          .getPropertiesOfType(param)
-          .filter((prop) => own(prop) || DOM_PROPS.has(prop.name))
-          .map((prop) => ({ name: prop.name, optional: has(prop.flags, SymbolFlags.Optional), ...kindOf(checker.getTypeOfSymbol(prop)), type: checker.typeToString(checker.getTypeOfSymbol(prop)) }))
-      : [];
-    return { name, props };
-  });
+  .map(({ name, target }) => ({ name, plain: has(target.flags, SymbolFlags.Function), type: checker.getTypeOfSymbol(target) }))
+  .filter(({ type }) => callable(type));
+const parts = roots
+  .filter(({ plain }) => !plain)
+  .flatMap(({ name, type }) =>
+    checker
+      .getPropertiesOfType(type)
+      .filter((member) => /^[A-Z]/.test(member.name))
+      .map((member) => ({ name: `${name}.${member.name}`, type: checker.getTypeOfSymbol(member) }))
+      .filter((member) => callable(member.type)),
+  );
+const components = [...roots, ...parts].map(({ name, type }) => describe(name, type));
+const plainNames = new Set(roots.filter(({ plain }) => plain).map(({ name }) => name));
 api.close();
 
 writeFileSync(join(root, "dist/components.json"), `${JSON.stringify({ components }, null, 2)}\n`);
-writeFileSync(join(root, "dist/spec.schema.json"), `${JSON.stringify(specSchema(components), null, 2)}\n`);
+writeFileSync(join(root, "dist/spec.schema.json"), `${JSON.stringify(specSchema(components.filter(({ name }) => plainNames.has(name))), null, 2)}\n`);
 console.log(`components: ${components.length} schemas`);
