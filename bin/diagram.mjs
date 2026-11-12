@@ -119,7 +119,9 @@ function serialize() {
     [...source.children].forEach((child, i) => inline(child, target.children[i]));
   };
 
-  return [...document.querySelectorAll(".diagram")].map((figure, index) => {
+  const diagram = (figure, index) => {
+    const here = getComputedStyle(figure);
+    const panelTone = figure.closest(".infographic-panel") ? getComputedStyle(figure.closest(".infographic-panel")).getPropertyValue("--panel-tone").trim() : "";
     const canvas = figure.querySelector(".diagram-canvas");
     const width = canvas.offsetWidth;
     const height = canvas.offsetHeight;
@@ -196,16 +198,83 @@ function serialize() {
     canvas.querySelectorAll(".diagram-pulse:not(.is-bead)").forEach((pulse) => pulse.style.setProperty("animation-iteration-count", String(Math.ceil(total / (parseFloat(pulse.style.animationDuration) || 1600)))));
     const layer = (selector) => [...canvas.querySelector(selector).children].map((child) => xml.serializeToString(child)).join("");
     const base = `.diagram-hit { fill: none; stroke: transparent; stroke-width: 2.5; }`;
-    const content = `${layer(".diagram-lines")}${nodes.join("")}${layer(".diagram-flow")}</svg>`;
+    const drawn = `${layer(".diagram-lines")}${nodes.join("")}${layer(".diagram-flow")}</svg>`;
+    const content = panelTone ? drawn.replace(/--diagram-tone: [^;"]+/g, `--diagram-tone: ${panelTone}`) : drawn;
     const names = new Set([...(rules.join(" ") + content).matchAll(/var\((--[\w-]+)/g)].map((match) => match[1]));
-    const vars = [...names].map((key) => [key, root.getPropertyValue(key).trim()]).filter(([, value]) => value).map(([key, value]) => `${key}: ${value};`).join(" ");
+    const vars = [...names].map((key) => [key, here.getPropertyValue(key).trim()]).filter(([, value]) => value).map(([key, value]) => `${key}: ${value};`).join(" ");
     const open = (css) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" data-diagram="${name}" role="img" aria-label="${escape(figure.getAttribute("aria-label") ?? "")}" style="${vars} --diagram-cycle: ${cycle}ms; font-family: ${escape(font)}; background: ${root.getPropertyValue("--color-bg-page").trim()};"><title>${escape(figure.getAttribute("aria-label") ?? "")}</title><style>${css}</style>`;
     return {
       file: figure.dataset.name || (figure.getAttribute("aria-label") ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || `diagram-${index + 1}`,
       animated: open([...looped, base].join("\n")) + content,
       still: open([...rules, base, "* { animation: none !important; }"].join("\n")) + content,
     };
-  });
+  };
+
+  const poster = (figure, index, built) => {
+    const MARGIN = 32;
+    const box = figure.getBoundingClientRect();
+    const at = (element) => {
+      const r = element.getBoundingClientRect();
+      return { x: r.left - box.left, y: r.top - box.top, w: r.width, h: r.height };
+    };
+    const lines = (element) => {
+      const style = getComputedStyle(element);
+      const found = [];
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        for (let k = 0; k < node.textContent.length; k++) {
+          const range = document.createRange();
+          range.setStart(node, k);
+          range.setEnd(node, k + 1);
+          const r = range.getBoundingClientRect();
+          if (!r.width && !r.height) continue;
+          const last = found[found.length - 1];
+          const sameLine = last && Math.abs(last.top - r.top) < r.height / 2;
+          if (sameLine) last.text += node.textContent[k];
+          if (!sameLine) found.push({ text: node.textContent[k], left: r.left, top: r.top, height: r.height });
+        }
+      }
+      return found.map((line) => `<text x="${line.left - box.left}" y="${line.top - box.top + line.height / 2}" dominant-baseline="central" font-size="${style.fontSize}" font-weight="${style.fontWeight}" fill="${style.color}">${escape(line.text.trim())}</text>`).join("");
+    };
+    const glyph = (icon) => {
+      const r = at(icon);
+      const clone = icon.cloneNode(true);
+      clone.removeAttribute("class");
+      for (const [key, value] of Object.entries({ x: r.x, y: r.y, width: r.w, height: r.h, fill: "none", stroke: getComputedStyle(icon).color, "stroke-width": getComputedStyle(icon).strokeWidth, "stroke-linecap": "round", "stroke-linejoin": "round" })) clone.setAttribute(key, String(value));
+      return xml.serializeToString(clone);
+    };
+    const file = figure.dataset.name || (figure.getAttribute("aria-label") ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || `infographic-${index + 1}`;
+    const page = root.getPropertyValue("--color-bg-page").trim();
+    const draw = (variant) => {
+      const head = figure.querySelector(".infographic-head");
+      const panels = [...figure.querySelectorAll(".infographic-panel")].map((section, i) => {
+        const s = getComputedStyle(section);
+        const r = at(section);
+        const radius = parseFloat(s.borderTopLeftRadius) || 0;
+        const border = parseFloat(s.borderTopWidth) || 0;
+        const top = section.querySelector(".infographic-panel-head");
+        const hs = getComputedStyle(top);
+        const hr = at(top);
+        const clip = `${file}-panel-${i}`;
+        const divider = parseFloat(hs.borderRightWidth) > 0 ? `<line x1="${hr.x + hr.w}" y1="${hr.y}" x2="${hr.x + hr.w}" y2="${hr.y + hr.h}" stroke="${hs.borderRightColor}" stroke-width="${hs.borderRightWidth}"/>` : `<line x1="${hr.x}" y1="${hr.y + hr.h}" x2="${hr.x + hr.w}" y2="${hr.y + hr.h}" stroke="${hs.borderBottomColor}" stroke-width="${hs.borderBottomWidth}"/>`;
+        const icon = top.querySelector(":scope > svg");
+        const diagrams = [...section.querySelectorAll(".diagram")].map((inner) => {
+          const canvas = at(inner.querySelector(".diagram-canvas"));
+          return (built.get(inner)?.[variant] ?? "").replace("<svg ", `<svg x="${canvas.x}" y="${canvas.y}" `).replace(/ width="[^"]*" height="[^"]*"/, ` width="${canvas.w}" height="${canvas.h}"`).replace(/ background: [^;"]+;/, "");
+        });
+        const words = [...top.querySelectorAll(".infographic-panel-title, .infographic-panel-message")].map(lines).join("");
+        return `<clipPath id="${clip}"><rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" rx="${radius}"/></clipPath><rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" rx="${radius}" fill="${s.backgroundColor}"/><g clip-path="url(#${clip})"><rect x="${hr.x}" y="${hr.y}" width="${hr.w}" height="${hr.h}" fill="${hs.backgroundColor}"/>${divider}</g><rect x="${r.x + border / 2}" y="${r.y + border / 2}" width="${r.w - border}" height="${r.h - border}" rx="${radius}" fill="none" stroke="${s.borderTopColor}" stroke-width="${border}"/>${icon ? glyph(icon) : ""}${words}${diagrams.join("")}`;
+      });
+      const width = box.width + MARGIN * 2;
+      const height = box.height + MARGIN * 2;
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escape(figure.getAttribute("aria-label") ?? "")}" style="font-family: ${escape(getComputedStyle(figure).fontFamily)}; background: ${page};"><title>${escape(figure.getAttribute("aria-label") ?? "")}</title><style></style><rect width="${width}" height="${height}" fill="${page}"/><g transform="translate(${MARGIN} ${MARGIN})">${head ? [...head.children].map(lines).join("") : ""}${panels.join("")}</g></svg>`;
+    };
+    return { file, animated: draw("animated"), still: draw("still") };
+  };
+
+  const built = new Map([...document.querySelectorAll(".diagram")].map((figure, index) => [figure, diagram(figure, index)]));
+  const posters = [...document.querySelectorAll(".infographic")].map((figure, index) => poster(figure, index, built));
+  return [...posters, ...[...built].filter(([figure]) => !figure.closest(".infographic")).map(([, result]) => result)];
 }
 
 export async function buildDiagrams(file, { out, theme = "light", handler }) {
@@ -223,10 +292,12 @@ export async function buildDiagrams(file, { out, theme = "light", handler }) {
     await chrome.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
     await chrome.send("Page.navigate", { url: `http://127.0.0.1:${server.address().port}/${relative(root, page)}` });
     await sleep(1500);
+    await chrome.evaluate("document.querySelectorAll('.infographic').forEach((poster) => { poster.style.maxWidth = '1280px'; })");
+    await sleep(800);
     await chrome.evaluate("document.fonts.ready.then(() => document.getAnimations().forEach((a) => a.animationName === 'diagram-enter' && a.finish()))");
     await sleep(300);
     const diagrams = await chrome.evaluate(`(${serialize.toString()})()`);
-    if (!diagrams?.length) throw new Error(`no Diagram found in ${basename(page)}`);
+    if (!diagrams?.length) throw new Error(`no Diagram or Infographic found in ${basename(page)}`);
     for (const diagram of diagrams) {
       const fonts = fontsFor(diagram.still);
       const embed = (svg) => svg.replace("<style>", `<style>${fonts}\n`);

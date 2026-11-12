@@ -686,3 +686,105 @@
     display: none;
   }
 }
+
+.infographic {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.infographic-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.infographic-title {
+  margin: 0;
+  color: var(--color-fg-default);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+}
+
+.infographic-lede {
+  margin: 0;
+  color: var(--color-fg-secondary);
+}
+
+.infographic-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  border: var(--border-width-strong) solid color-mix(in srgb, var(--panel-tone) 55%, transparent);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-surface);
+}
+
+.infographic-panel-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-bottom: var(--border-width-default) solid color-mix(in srgb, var(--panel-tone) 35%, transparent);
+  background: color-mix(in srgb, var(--panel-tone) 8%, transparent);
+}
+
+.infographic-panel-head > .icon {
+  width: 40px;
+  height: 40px;
+  color: var(--panel-tone);
+}
+
+.infographic-panel-title {
+  margin: 0;
+  color: var(--color-fg-default);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+}
+
+.infographic-panel-message {
+  margin: 0;
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-label);
+  line-height: 1.45;
+}
+
+.infographic-panel-body {
+  min-width: 0;
+  padding: var(--space-3);
+}
+
+.infographic-panel .diagram {
+  --color-main-default: var(--panel-tone);
+  --color-main-on: var(--color-fg-on-fill);
+}
+
+.infographic-panel .diagram-group,
+.infographic-panel .diagram-node {
+  --diagram-tone: var(--panel-tone) !important;
+}
+
+@container (min-width: 720px) {
+  .infographic-panel {
+    grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  }
+
+  .infographic-panel-head {
+    justify-content: center;
+    border-right: var(--border-width-default) solid color-mix(in srgb, var(--panel-tone) 35%, transparent);
+    border-bottom: 0;
+  }
+}
+
+.infographic-panel-body {
+  display: grid;
+  align-items: center;
+}
+
+.infographic-panel-body > .diagram {
+  justify-self: center;
+  width: 100%;
+}

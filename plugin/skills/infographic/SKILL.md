@@ -66,9 +66,30 @@ A diagram is written with tags in an HTML page that loads the design system. Nod
 - `flow: "both"` combines them; `motion` on one arrow overrides the diagram's flow.
 - Arrows with the same step move together, and each step number is drawn once.
 
+## Posters
+
+An infographic is one tall figure of panels. Each panel has a title, an icon and a one-line message beside its content, and one color that its border, icon and diagram share.
+
+```html
+h(Infographic, { id: "system-design", title: "시스템 설계 단골 구조 4가지", lede: "한 장으로 보는 네 가지 흐름" },
+  h(Infographic.Panel, { title: "로그 분석", icon: "file", message: "흩어진 로그를 한곳에서 검색합니다." },
+    h(Diagram, { title: "로그 분석" }, …),
+  ),
+)
+```
+
+| Tag | Props |
+| --- | --- |
+| Infographic | title*, id (the output file name), lede, children* (Infographic.Panel tags) |
+| Infographic.Panel | title*, icon, message, children* (a Diagram or any component) |
+
+- Write the message as the takeaway of the panel, in one sentence.
+- Keep panels to a handful; split a long story into two posters.
+- A panel's color comes from its position; text stays in the default colors.
+
 ## Building SVG files
 
-Documents embed built SVG files, not the page. The build renders the page in headless Chrome and writes two files per diagram.
+Documents embed built SVG files, not the page. The build renders the page in headless Chrome and writes two files per poster, and per diagram that sits outside a poster. A poster is built 1280 px wide.
 
 ```bash
 npx --yes github:hab56ur9/ui diagram build flow.html --out diagrams/
