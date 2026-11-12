@@ -56,7 +56,7 @@ Templates set the medium: Doc, Resume and Portfolio use doc, Deck uses slide, an
 
 The look comes from the theme constant alone, `themes.<preset>.<style>`. The preset picks the brand colors (lime, sky, mono). The style picks the design language: minimal is the default; expressive uses large radii and an overshooting entrance; brutal uses square corners, thick borders and hard offset shadows. A style changes shape, border, focus ring, elevation, floating-surface material and motion, never color. The app picks one constant at its root and cannot change part of it.
 
-When a page needs a part that no component covers, the part is added to ui as a component first, and the page then uses it.
+When a page needs a part that no component covers, the part is added to ui as a component first, and the page then uses it. A part that an app drew for itself under a deadline is broken into ui components later with the design-decompose skill.
 
 ## Component reference
 
