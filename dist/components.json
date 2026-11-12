@@ -2658,6 +2658,92 @@
       ]
     },
     {
+      "name": "Diagram",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "direction",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "down",
+            "right"
+          ],
+          "type": "\"down\" | \"right\" | undefined"
+        },
+        {
+          "name": "flow",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "both",
+            "dots",
+            "packets",
+            "pulses"
+          ],
+          "type": "DiagramFlow | undefined"
+        },
+        {
+          "name": "motion",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Infographic",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "lede",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "motion",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
       "name": "ActionList",
       "props": [
         {
@@ -3211,6 +3297,165 @@
           "optional": true,
           "kind": "number",
           "type": "number | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Diagram.Node",
+      "props": [
+        {
+          "name": "id",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "caption",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "icon",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "lane",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "col",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "row",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Diagram.Group",
+      "props": [
+        {
+          "name": "id",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Diagram.Arrow",
+      "props": [
+        {
+          "name": "from",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "to",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "step",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "dashed",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "packet",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "motion",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "dots",
+            "dots-pulse",
+            "packet",
+            "pulse",
+            "still"
+          ],
+          "type": "DiagramMotion | undefined"
+        }
+      ]
+    },
+    {
+      "name": "Infographic.Panel",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "message",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
         },
         {
           "name": "children",
