@@ -271,6 +271,7 @@ const LINT = [
   ["ui token used directly; tokens are private, so style through component props", /var\(--[a-z]/],
   ["ui stylesheet imported; ui loads its own CSS through UIProvider or render", /ui\/(?:tokens|ui|presets|styles)\.css|dist\/(?:tokens|ui|presets|styles)(?:\/[\w-]+)?\.css/],
   ["theme or medium attribute set by hand; pass themes.<preset>.<style> to UIProvider, and templates set the medium", /data-(?:preset|style|medium)=/],
+  ["motion attribute set by hand; turn motion on with the motion prop of Diagram, Infographic or Board", /data-(?:motion|digit)\b/],
   ["style passed to a component; components take props only", /\bh\([A-Z][\w.]*,\s*\{[^}]*\bstyle\s*:|<[A-Z][\w.]*\b[^>]*\sstyle=\{/],
 ];
 
