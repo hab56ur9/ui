@@ -437,6 +437,14 @@
   color: var(--color-status-good);
 }
 
+.meter.is-warning .meter-status {
+  --motion-tone: var(--color-status-warning);
+}
+
+.meter.is-critical .meter-status {
+  --motion-tone: var(--color-status-critical);
+}
+
 .meter.is-warning .meter-status .icon {
   color: var(--color-status-warning);
 }

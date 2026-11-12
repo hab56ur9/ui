@@ -1094,10 +1094,12 @@ a.shell-link {
 
 .badge.is-warning {
   --badge-dot: var(--color-status-warning);
+  --motion-tone: var(--color-status-warning);
 }
 
 .badge.is-critical {
   --badge-dot: var(--color-status-critical);
+  --motion-tone: var(--color-status-critical);
 }
 
 .takeaway {

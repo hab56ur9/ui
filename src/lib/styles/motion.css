@@ -91,16 +91,18 @@ path[data-motion~="draw"] {
 }
 
 [data-motion~="attention"] {
-  animation: var(--motion-shape-attention) calc(var(--motion-duration-slow) * 2 * var(--motion-intensity)) var(--motion-easing-standard) backwards;
+  animation: var(--motion-shape-attention) calc(var(--motion-duration-slow) * 3 * var(--motion-intensity)) var(--motion-easing-standard) backwards;
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) + (var(--motion-duration-slow) + var(--motion-duration-emphasis)) * var(--motion-intensity));
 }
 
 @keyframes motion-ring {
   from {
-    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+    outline: var(--border-width-strong) solid var(--motion-tone, currentColor);
+    outline-offset: 0;
   }
   to {
-    box-shadow: 0 0 0 calc(10px * var(--motion-intensity)) transparent;
+    outline: var(--border-width-strong) solid transparent;
+    outline-offset: calc(8px * var(--motion-intensity));
   }
 }
 
