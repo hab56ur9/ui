@@ -627,6 +627,34 @@
   stroke-linecap: round;
 }
 
+.diagram-pulse {
+  offset-rotate: 0deg;
+  opacity: 0;
+  fill: var(--color-main-default);
+  animation: diagram-pulse 1600ms linear infinite;
+}
+
+.diagram-pulse-halo {
+  opacity: 0.25;
+}
+
+@keyframes diagram-pulse {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+
+  12%,
+  86% {
+    opacity: 1;
+  }
+
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
 .diagram.is-paused *,
 .diagram.is-paused *::after {
   animation-play-state: paused;

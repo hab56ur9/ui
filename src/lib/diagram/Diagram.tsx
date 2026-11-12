@@ -5,8 +5,8 @@ import { useSize } from "../hooks";
 import { useI18n } from "../i18n";
 import { Icon, IconGlyph, type IconName } from "../Icon";
 
-export type DiagramFlow = "packets" | "dots" | "both";
-export type DiagramMotion = "packet" | "dots" | "still";
+export type DiagramFlow = "packets" | "dots" | "pulses" | "both";
+export type DiagramMotion = "packet" | "dots" | "pulse" | "still";
 export type DiagramProps = { title: string; id?: string; direction?: "right" | "down"; flow?: DiagramFlow; children: ReactNode };
 export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; children?: ReactNode };
 export type DiagramGroupProps = { id: string; label: string; children: ReactNode };
@@ -37,6 +37,7 @@ const LABEL = 12;
 const GAPS = { right: { main: 120, cross: 28 }, down: { main: 88, cross: 28 } };
 const STEP = 1800;
 const REST = 900;
+const PULSE_SPEED = 180;
 
 function collect(children: ReactNode, group: string | undefined, out = { nodes: [] as Declared[], arrows: [] as DiagramArrowProps[], groups: [] as { id: string; label: string }[] }) {
   Children.forEach(children, (child) => {
@@ -166,7 +167,13 @@ function route(from: Placed, to: Placed, across: boolean, port: Port) {
   const reach = forward ? Math.abs(across ? end.x - start.x : end.y - start.y) / 2 : 48;
   const c1 = forward ? along(start, reach, 0) : sameRank ? along(start, 0, below * reach) : along(start, 0, reach);
   const c2 = forward ? along(end, -reach, 0) : sameRank ? along(end, 0, -below * reach) : along(end, 0, reach);
-  return { d: `M${start.x} ${start.y}C${c1.x} ${c1.y} ${c2.x} ${c2.y} ${end.x} ${end.y}`, label: mid(start, c1, c2, end) };
+  const at = (t: number) => ({
+    x: (1 - t) ** 3 * start.x + 3 * (1 - t) ** 2 * t * c1.x + 3 * (1 - t) * t ** 2 * c2.x + t ** 3 * end.x,
+    y: (1 - t) ** 3 * start.y + 3 * (1 - t) ** 2 * t * c1.y + 3 * (1 - t) * t ** 2 * c2.y + t ** 3 * end.y,
+  });
+  const samples = Array.from({ length: 17 }, (_, i) => at(i / 16));
+  const length = samples.slice(1).reduce((sum, point, i) => sum + Math.hypot(point.x - samples[i].x, point.y - samples[i].y), 0);
+  return { d: `M${start.x} ${start.y}C${c1.x} ${c1.y} ${c2.x} ${c2.y} ${end.x} ${end.y}`, label: mid(start, c1, c2, end), length };
 }
 
 function groupBox(members: Placed[]) {
@@ -179,10 +186,12 @@ function groupBox(members: Placed[]) {
 
 function motionOf(arrow: DiagramArrowProps, flow: DiagramFlow) {
   const explicit = arrow.motion;
-  if (explicit === "still") return { packet: false, dots: false };
-  if (explicit === "dots") return { packet: false, dots: true };
-  if (explicit === "packet") return { packet: arrow.packet !== undefined, dots: false };
-  return { packet: flow !== "dots" && arrow.packet !== undefined, dots: flow !== "packets" };
+  if (explicit === "still") return { packet: false, dots: false, pulse: false };
+  if (explicit === "dots") return { packet: false, dots: true, pulse: false };
+  if (explicit === "pulse") return { packet: false, dots: false, pulse: true };
+  if (explicit === "packet") return { packet: arrow.packet !== undefined, dots: false, pulse: false };
+  if (flow === "pulses") return { packet: false, dots: false, pulse: true };
+  return { packet: flow !== "dots" && arrow.packet !== undefined, dots: flow === "dots" || flow === "both", pulse: false };
 }
 
 const at = (value: number) => `${Math.min(100, Math.max(0, value)).toFixed(2)}%`;
@@ -248,7 +257,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
   const motions = arrows.map((arrow) => motionOf(arrow, flow));
   const packets = arrows.flatMap((arrow, i) => (motions[i].packet ? [i] : []));
   const stages = [...new Set(packets.map((i) => arrows[i].step ?? Infinity))].sort((a, b) => a - b);
-  const animated = packets.length > 0 || motions.some((motion) => motion.dots);
+  const animated = packets.length > 0 || motions.some((motion) => motion.dots || motion.pulse);
   const { css, cycle } = flowCss(scope, name, arrows, packets, stages);
   const numbered = arrows.map((arrow, i) => arrow.step !== undefined && arrows.findIndex((other) => other.step === arrow.step) === i);
   const scale = room > 0 ? Math.min(1, room / width) : 1;
@@ -335,6 +344,17 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", childre
             );
           })}
           <svg className="diagram-flow" width={width} height={height} aria-hidden="true">
+            {arrows.map((_, i) => {
+              const path = paths[i];
+              if (!path || !motions[i].pulse) return null;
+              const duration = Math.min(3000, Math.max(900, (path.length / PULSE_SPEED) * 1000));
+              return (
+                <g key={i} className="diagram-pulse" style={{ offsetPath: `path("${path.d}")`, animationDuration: `${duration}ms`, animationDelay: `${-((i * 0.37) % 1) * duration}ms` }}>
+                  <circle className="diagram-pulse-halo" r={9} />
+                  <circle r={3.5} />
+                </g>
+              );
+            })}
             {packets.map((i) => {
               const path = paths[i];
               const icon = arrows[i].packet;

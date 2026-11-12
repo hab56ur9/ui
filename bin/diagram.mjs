@@ -104,7 +104,7 @@ function serialize() {
     }
     for (const rule of list) {
       if (rule instanceof CSSKeyframesRule && rule.name.startsWith("diagram")) globalRules.push(rule.cssText);
-      if (rule instanceof CSSStyleRule && /\.diagram-(group|arrow|line|arrowhead|label|step|packet|spark)|\.diagram-node(?![-\w])/.test(rule.selectorText) && !rule.selectorText.includes("::after")) globalRules.push(rule.cssText);
+      if (rule instanceof CSSStyleRule && /\.diagram-(group|arrow|line|arrowhead|label|step|packet|spark|pulse)|\.diagram-node(?![-\w])/.test(rule.selectorText) && !rule.selectorText.includes("::after")) globalRules.push(rule.cssText);
       if (rule instanceof CSSMediaRule && rule.conditionText.includes("prefers-reduced-motion")) {
         const inner = [...rule.cssRules].filter((child) => child.selectorText?.startsWith("*")).map((child) => child.cssText);
         if (inner.length) globalRules.push(`@media ${rule.conditionText} { ${inner.join(" ")} }`);
@@ -192,6 +192,7 @@ function serialize() {
       const tone = node.style.getPropertyValue("--diagram-tone");
       return `<g class="diagram-node" data-node="${escape(node.dataset.node ?? "")}" style="--order: ${order};${tone ? ` --diagram-tone: ${tone};` : ""}"><g transform="translate(${node.offsetLeft} ${node.offsetTop})"><rect width="${w}" height="${h}" rx="${radius}" fill="${style.backgroundColor}" stroke="${style.borderTopColor}" stroke-width="${parseFloat(style.borderTopWidth) || 1}"/>${iconSvg}${label ? textOf(label, node) : ""}${caption ? textOf(caption, node) : ""}${bodySvg}<rect class="diagram-hit" x="-1" y="-1" width="${w + 2}" height="${h + 2}" rx="${radius + 1}"/></g></g>`;
     });
+    canvas.querySelectorAll(".diagram-pulse").forEach((pulse) => pulse.style.setProperty("animation-iteration-count", String(Math.ceil(total / (parseFloat(pulse.style.animationDuration) || 1600)))));
     const layer = (selector) => [...canvas.querySelector(selector).children].map((child) => xml.serializeToString(child)).join("");
     const base = `.diagram-hit { fill: none; stroke: transparent; stroke-width: 2.5; }`;
     const content = `${layer(".diagram-lines")}${nodes.join("")}${layer(".diagram-flow")}</svg>`;

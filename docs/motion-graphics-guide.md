@@ -50,6 +50,7 @@ A full loop lasts the number of steps times 1.8 s, plus 0.9 s.
 | --- | --- | --- |
 | `packets` | Icons travel step by step | The order of steps is the point, as in a request path |
 | `dots` | Every arrow becomes a dotted line whose dots march toward the target | Data flows continuously, as in streaming or replication |
+| `pulses` | One glowing dot glides along each arrow at a steady speed, fading in and out, with arrows offset in time | Continuous traffic that should stay calm, such as a pipeline overview |
 | `both` | Marching dots on every arrow, with packets on the steps | A continuous system that also has one highlighted path |
 
 An arrow gets a packet when the data names an icon for it. Arrows without a packet stay still in `packets` and march in `dots` and `both`.
