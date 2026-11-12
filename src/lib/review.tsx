@@ -156,6 +156,7 @@ export type CommentCardProps = Face & {
   time?: string;
   text: ReactNode;
   resolved?: boolean;
+  stale?: boolean;
   active?: boolean;
   replies?: CommentReply[];
   onPick?: () => void;
@@ -163,15 +164,16 @@ export type CommentCardProps = Face & {
   onReply?: () => void;
 };
 
-export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
+export function CommentCard({ quote, name, tone, avatar, role, time, text, resolved = false, stale = false, active = false, replies = [], onPick, onResolve, onReply }: CommentCardProps) {
   const { text: t } = useI18n();
   const stop = (run?: () => void) => (event: MouseEvent) => {
     event.stopPropagation();
     run?.();
   };
   return (
-    <div className={cx("comment-card", active && "is-active", resolved && "is-resolved")} onClick={onPick}>
+    <div className={cx("comment-card", active && "is-active", resolved && "is-resolved", stale && "is-stale")} onClick={onPick}>
       <blockquote>{quote}</blockquote>
+      {stale && !resolved && <Badge tone="warning">{t("comment.stale")}</Badge>}
       <div className="comment-head">
         <PresenceAvatar name={name} tone={tone} avatar={avatar} size="sm" />
         <strong>{name}</strong>
