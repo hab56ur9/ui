@@ -90,13 +90,18 @@ A redesign changes motion through tokens, without touching components or apps.
 | Token | Sets | Default |
 | --- | --- | --- |
 | motion.shape.enter | The keyframes for enter: motion-rise, motion-pop or motion-fade | motion-rise (expressive: motion-pop) |
+| motion.shape.draw | The keyframes for draw: motion-draw or motion-fade | motion-draw |
+| motion.shape.grow | The keyframes for grow: motion-grow or motion-fade | motion-grow |
+| motion.shape.count | The keyframes for count: motion-count (digits roll) or motion-fade | motion-count |
 | motion.shape.attention | The keyframes for attention: motion-ring or motion-bump | motion-ring (expressive: motion-bump) |
 | motion.distance | How far motion-rise travels | 8px |
 | motion.duration.emphasis | How long draw, grow, count and attention take | 1200ms |
 | motion.stagger | The delay between items in order | 30ms (expressive: 60ms) |
 | motion.intensity | A multiplier on every distance and duration; 0 turns motion off | 0.5 (expressive: 1, brutal: 0) |
 
-- A new shape is a new keyframes block in `src/lib/styles/motion.css` plus a token value that names it.
+- Each style can pick a different shape for every motion in its own token file, `tokens/style/<style>.json`, under `tokens.motion.shape`.
+- A new shape is a new keyframes block named `motion-<shape>` in `src/lib/styles/motion.css`, plus the token value that names it. The keyframes read only `--motion-*` variables, so the built SVG carries them too.
+- motion-fade fits every motion, so a calm style can set every shape to it.
 - Every motion is CSS, so the built SVG plays it too, and the still SVG and print show the final values.
 
 ## Accessibility

@@ -25,7 +25,7 @@
 
 path[data-motion~="draw"] {
   stroke-dasharray: 1;
-  animation: motion-draw calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
+  animation: var(--motion-shape-draw) calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) + var(--motion-duration-slow) * var(--motion-intensity));
 }
 
@@ -38,7 +38,7 @@ path[data-motion~="draw"] {
 [data-motion~="grow"] {
   transform-box: fill-box;
   transform-origin: var(--motion-grow-origin, left center);
-  animation: motion-grow calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
+  animation: var(--motion-shape-grow) calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) + var(--motion-duration-slow) * var(--motion-intensity));
 }
 
@@ -67,7 +67,7 @@ path[data-motion~="draw"] {
 }
 
 [data-motion~="count"] [data-digit] > span {
-  animation: motion-count calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
+  animation: var(--motion-shape-count) calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) + var(--motion-duration-slow) * var(--motion-intensity));
 }
 

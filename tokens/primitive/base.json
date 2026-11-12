@@ -148,6 +148,9 @@
     "shape": {
       "$description": "Keyframes each motion plays; a style swaps the shape without touching components.",
       "enter": { "$value": "motion-rise" },
+      "draw": { "$value": "motion-draw" },
+      "grow": { "$value": "motion-grow" },
+      "count": { "$value": "motion-count" },
       "attention": { "$value": "motion-ring" }
     }
   },

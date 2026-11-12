@@ -11,7 +11,7 @@ This skill holds the few coding rules that every change in this repository follo
 
 - A component's props are its whole contract. Apps see props only: tokens, CSS classes and inline styles stay inside `src/lib`, and a new look arrives as a new prop value or a new component.
 - Styles live in `src/lib/styles/` and read `var(--*)` tokens. A new visual value becomes a token first.
-- Motion reads the `motion.*` tokens, and every animation stops under reduced motion and in print. A component marks an element with an internal `data-motion` (enter, draw, grow, count, attention) only inside a motion scope, and the keyframes it plays come from `motion.shape.*`, so a redesign swaps motion through tokens.
+- Motion reads the `motion.*` tokens, and every animation stops under reduced motion and in print. A component marks an element with an internal `data-motion` (enter, draw, grow, count, attention) only inside a motion scope, and every motion plays the keyframes named by its `motion.shape.*` token, so each style can pick its own motion in its token file.
 - Code ships without comments. Names carry the meaning, and a function is extracted only when its name adds information.
 - Control flow stays flat: return early, test one condition at a time, name a comparison as a predicate, and loop over ranges or collections.
 - The library depends on react and react-dom only, and `bin/` on Node built-ins only. A new dependency is the maintainer's decision.
