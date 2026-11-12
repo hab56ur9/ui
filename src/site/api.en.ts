@@ -226,6 +226,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["id · label", "string", "required", "The name of the node or group; arrows connect by `id`."],
         ["caption", "string", "", "A secondary line under the node name."],
+        ["col · row", "number", "automatic", "Pins the node to a grid cell, counted from 0; use it to fill one screen. A group follows the column of any member that sets one."],
         ["lane", "string", "", "Gathers nodes with the same name into a horizontal band, such as client, app or data; bands stack in the order they first appear."],
         ["icon", "IconName", "", "The icon on the left of the node; inside a group it takes the group color."],
         ["children", "ReactNode", "", "A group holds nodes, and a node holds any component."],

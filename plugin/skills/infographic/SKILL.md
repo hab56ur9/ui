@@ -27,6 +27,20 @@ Every diagram follows these rules.
 - Animate only what moves in reality. A packet travels along an arrow for each numbered step; marching dots show continuous flow.
 - Make the still frame complete. Step numbers and labels tell the story without motion.
 
+## Composing for one screen
+
+The automatic layout keeps the flow readable but leaves space; a diagram meant for a document is placed by hand on a small grid, the way hand-drawn infographics are.
+
+- Aim for a box, not a line: about 4 columns by 3 to 4 rows, roughly 16:9. More than 5 columns means the story should fold or split.
+- Sketch the grid before writing tags: put the entry point at the top left, the main path in one row or one column, and the rest around it.
+- Fold a long chain: run the first steps down the first column, then continue to the right, as in Client above API Gateway.
+- Put a side system next to the node that talks to it: the payment provider right of Payment, the retry queue under the event bus.
+- Place a group's members in one column and consecutive rows; pin one member with `col` and `row`, and the others follow.
+- Give every node a `col` and `row` once more than about eight nodes are on the grid; leave `col` and `row` off for small diagrams.
+- Leave empty cells only where they separate two stories; otherwise move a node into them.
+- Keep labels to one or two words, and leave short hops unlabeled when the step number says enough.
+- Run `ui diagram check` after every change and look at the result before building.
+
 ## Writing a diagram
 
 A diagram is written with tags in an HTML page that loads the design system. Nodes may hold any ui component.
@@ -57,7 +71,7 @@ A diagram is written with tags in an HTML page that loads the design system. Nod
 | --- | --- |
 | Diagram | title*, id (the output file name), direction ("right", "down"), flow ("packets", "dots", "pulses", "both"), children* |
 | Diagram.Group | id*, label*, children* (Diagram.Node tags) |
-| Diagram.Node | id*, label*, caption, icon, lane (a band name such as "client", "app" or "data"), children (any ui component) |
+| Diagram.Node | id*, label*, caption, icon, lane (a band name such as "client", "app" or "data"), col and row (grid cell, from 0), children (any ui component) |
 | Diagram.Arrow | from*, to*, label, step (number), dashed, packet (icon that travels on this step), motion ("packet", "dots", "pulse", "dots-pulse", "still") |
 
 - `flow: "packets"` moves an icon along each arrow that has a `packet`, one step at a time.

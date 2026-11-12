@@ -8,7 +8,7 @@ import { Icon, IconGlyph, type IconName } from "../Icon";
 export type DiagramFlow = "packets" | "dots" | "pulses" | "both";
 export type DiagramMotion = "packet" | "dots" | "pulse" | "dots-pulse" | "still";
 export type DiagramProps = { title: string; id?: string; direction?: "right" | "down"; flow?: DiagramFlow; children: ReactNode };
-export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; lane?: string; children?: ReactNode };
+export type DiagramNodeProps = { id: string; label: string; caption?: string; icon?: IconName; lane?: string; col?: number; row?: number; children?: ReactNode };
 export type DiagramGroupProps = { id: string; label: string; children: ReactNode };
 export type DiagramArrowProps = { from: string; to: string; label?: string; step?: number; dashed?: boolean; packet?: IconName; motion?: DiagramMotion };
 
@@ -107,7 +107,11 @@ function ranksOf(nodes: Declared[], arrows: DiagramArrowProps[]) {
 
 function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: string }[], sizes: Map<string, Size>, direction: "right" | "down", spread: number) {
   const across = direction === "right";
-  const { rank, back } = ranksOf(nodes, arrows);
+  const { rank: auto, back } = ranksOf(nodes, arrows);
+  const pinned = (node: Declared) => node.col ?? nodes.find((other) => other.group !== undefined && other.group === node.group && other.col !== undefined)?.col;
+  const target = new Map(nodes.map((node) => [node.id, pinned(node) ?? auto.get(node.id) ?? 0]));
+  const used = [...new Set(target.values())].sort((a, b) => a - b);
+  const rank = new Map([...target].map(([id, value]) => [id, used.indexOf(value)]));
   const sizeOf = (node: Declared) => sizes.get(node.id) ?? { w: 168, h: 60 };
   const main = (node: Declared) => (across ? sizeOf(node).w : sizeOf(node).h);
   const cross = (node: Declared) => (across ? sizeOf(node).h : sizeOf(node).w);
@@ -132,6 +136,7 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
       return list;
     }, []);
     const want = (node: Declared) => {
+      if (node.row !== undefined) return node.row;
       const from = parent(node);
       const band = node.lane ? lanes.indexOf(node.lane) : from !== undefined ? (lane.get(from) ?? 0) : 0;
       lane.set(node.id, band);
@@ -139,11 +144,12 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
       return band * 1000 + inherited;
     };
     const wanted = blocks.map((block) => ({ block, start: Math.round(block.map((node, i) => want(node) - i).sort((a, b) => a - b)[Math.floor(block.length / 2)]) }));
-    wanted.sort((a, b) => a.start - b.start);
+    wanted.sort((a, b) => Number(b.block.some((node) => node.row !== undefined)) - Number(a.block.some((node) => node.row !== undefined)) || a.start - b.start);
     for (const { block, start } of wanted) {
       const fits = (first: number) => block.every((_, i) => !taken.has(first + i));
       const steps = Array.from({ length: 64 }, (_, k) => (k % 2 === 0 ? k / 2 : -(k + 1) / 2));
-      const first = start + (steps.find((step) => fits(start + step)) ?? 0);
+      const fixed = block.some((node) => node.row !== undefined);
+      const first = start + (fixed && fits(start) ? 0 : (steps.find((step) => fits(start + step)) ?? 0));
       block.forEach((node, i) => {
         row.set(node.id, first + i);
         taken.add(first + i);
@@ -253,6 +259,7 @@ function route(from: Placed, to: Placed, across: boolean, port: Port, lane: numb
     return trace(`M${path([start], "")}C${path([c1, c2, end], " ")}`, cubic(start, c1, c2, end));
   }
   const mainOf = (p: Point) => (across ? p.x : p.y);
+  const crossOf = (p: Point) => (across ? p.y : p.x);
   const at = (main: number, cross: number) => (across ? { x: main, y: cross } : { x: cross, y: main });
   const crossStart = (node: Placed) => (across ? node.y : node.x);
   const crossEnd = (node: Placed) => (across ? node.y + node.h : node.x + node.w);
@@ -261,34 +268,41 @@ function route(from: Placed, to: Placed, across: boolean, port: Port, lane: numb
   const belowLine = Math.max(...span.map(crossEnd)) + gap;
   const aboveLine = Math.min(...span.map(crossStart)) - gap;
   const blocked = (node: Placed, below: boolean) => placed.some((other) => other !== node && other.rank === node.rank && (below ? crossStart(other) >= crossEnd(node) : crossEnd(other) <= crossStart(node)));
-  const free = (below: boolean) => !blocked(from, below) && !blocked(to, below);
-  const nearer = belowLine - Math.max(crossEnd(from), crossEnd(to)) <= Math.min(crossStart(from), crossStart(to)) - aboveLine;
-  const useBelow = free(nearer) || !free(!nearer) ? nearer : !nearer;
+  const useBelow = belowLine - Math.max(crossEnd(from), crossEnd(to)) <= Math.min(crossStart(from), crossStart(to)) - aboveLine;
   const side = useBelow ? 1 : -1;
   const rail = useBelow ? belowLine : aboveLine;
-  const start = along(a, 0, side * half(from).cross);
+  const toward = Math.sign(mainOf(b) - mainOf(a)) || -1;
+  const outof = blocked(from, useBelow);
   const into = blocked(to, useBelow);
-  const end = into ? along(b, half(to).main, 0) : along(b, 0, side * half(to).cross);
-  const turn = into ? mainOf(end) + 24 : mainOf(end);
-  const dir = Math.sign(turn - mainOf(start)) || -1;
-  const r = Math.min(20, Math.abs(turn - mainOf(start)) / 2);
-  const q1 = at(mainOf(start), rail);
-  const p1 = at(mainOf(start) + dir * r, rail);
-  const p2 = at(turn - dir * r, rail);
-  const q2 = at(turn, rail);
-  if (!into) return trace(`M${path([start], "")}Q${path([q1, p1], " ")}L${path([p2], "")}Q${path([q2, end], " ")}`, quad(start, q1, p1), line(p1, p2), quad(p2, q2, end));
-  const crossOfEnd = across ? end.y : end.x;
-  const back = Math.sign(crossOfEnd - rail) * Math.min(20, Math.abs(crossOfEnd - rail) / 2);
-  const p3 = at(turn, crossOfEnd - back);
-  const q3 = at(turn, crossOfEnd);
-  return trace(
-    `M${path([start], "")}Q${path([q1, p1], " ")}L${path([p2], "")}Q${path([q2, at(turn, rail + back)], " ")}L${path([p3], "")}Q${path([q3, end], " ")}`,
-    quad(start, q1, p1),
-    line(p1, p2),
-    quad(p2, q2, at(turn, rail + back)),
-    line(at(turn, rail + back), p3),
-    quad(p3, q3, end),
-  );
+  const start = outof ? along(a, toward * half(from).main, 0) : along(a, 0, side * half(from).cross);
+  const end = into ? along(b, -toward * half(to).main, 0) : along(b, 0, side * half(to).cross);
+  const leave = outof ? mainOf(start) + toward * 24 : mainOf(start);
+  const arrive = into ? mainOf(end) - toward * 24 : mainOf(end);
+  const points = [start, ...(outof ? [at(leave, crossOf(start))] : []), at(leave, rail), at(arrive, rail), ...(into ? [at(arrive, crossOf(end))] : []), end];
+  return rounded(points, 16);
+}
+
+function rounded(points: Point[], radius: number): Curve {
+  const toward = (a: Point, b: Point, r: number) => {
+    const length = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+    return { x: a.x + ((b.x - a.x) / length) * r, y: a.y + ((b.y - a.y) / length) * r };
+  };
+  const parts: ((t: number) => Point)[] = [];
+  let d = `M${points[0].x} ${points[0].y}`;
+  let cursor = points[0];
+  for (let i = 1; i < points.length - 1; i++) {
+    const corner = points[i];
+    const r = Math.min(radius, Math.hypot(corner.x - cursor.x, corner.y - cursor.y) / 2, Math.hypot(points[i + 1].x - corner.x, points[i + 1].y - corner.y) / 2);
+    const enter = toward(corner, cursor, r);
+    const exit = toward(corner, points[i + 1], r);
+    parts.push(line(cursor, enter), quad(enter, corner, exit));
+    d += `L${enter.x} ${enter.y}Q${corner.x} ${corner.y} ${exit.x} ${exit.y}`;
+    cursor = exit;
+  }
+  const last = points[points.length - 1];
+  parts.push(line(cursor, last));
+  d += `L${last.x} ${last.y}`;
+  return trace(d, ...parts);
 }
 
 function groupBox(members: Placed[]) {

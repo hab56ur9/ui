@@ -226,6 +226,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["id · label", "string", "필수", "노드와 그룹의 이름입니다. 화살표는 `id`로 잇습니다."],
         ["caption", "string", "", "노드 이름 아래 보조 문구입니다."],
+        ["col · row", "number", "자동", "격자 칸을 직접 지정합니다(0부터). 한 화면에 꽉 차게 배치할 때 씁니다. 그룹은 한 멤버만 지정해도 같은 열을 씁니다."],
         ["lane", "string", "", "같은 이름의 노드를 가로 띠로 모읍니다. 예: client, app, data. 처음 나온 순서로 위에서 아래로 쌓입니다."],
         ["icon", "IconName", "", "노드 왼쪽 아이콘입니다. 그룹 안이면 그룹 색을 씁니다."],
         ["children", "ReactNode", "", "그룹은 노드를, 노드는 어떤 컴포넌트든 담습니다."],
