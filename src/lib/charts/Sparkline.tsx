@@ -15,13 +15,14 @@ export function Sparkline({ points, color: dot = 1 }: SparklineProps) {
   const x = ready ? linear([points[0].t, points[points.length - 1].t], [ring, width - ring]) : null;
   const y = ready ? linear([Math.min(...values), Math.max(...values)], [height - ring, ring]) : null;
   const end = points[points.length - 1];
-  const drawn = useMotion() ? { pathLength: 1, "data-motion": "draw" } : {};
+  const motion = useMotion();
+  const drawn = motion ? { pathLength: 1, "data-motion": "draw" } : {};
   return (
     <span className="sparkline" ref={host}>
       {x && y && (
         <svg className="chart-sparkline" width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
           <path className="series-line is-muted" d={pathOf(points, x, y)} {...drawn} />
-          <circle className="series-dot" cx={x(end.t)} cy={y(end.v)} style={paint(color(dot))} />
+          <circle className="series-dot" cx={x(end.t)} cy={y(end.v)} style={paint(color(dot))} data-motion={motion ? "settle" : undefined} />
         </svg>
       )}
     </span>

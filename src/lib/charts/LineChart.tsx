@@ -140,7 +140,7 @@ function LinePlot({ drawn, band, threshold, baseline, annotations = [], endLabel
         {endLabels &&
           !collides &&
           ends.map(({ s, y: ey }) => (
-            <g key={`end-${s.name}`}>
+            <g key={`end-${s.name}`} data-motion={motion ? "settle" : undefined}>
               <circle className="series-dot" cx={x(last(s).t)} cy={ey} style={paint(s.paint)} />
               <text className="chart-end-label" x={x(last(s).t) + 10} y={ey} dominantBaseline="middle">
                 <tspan>{`${s.name} `}</tspan>

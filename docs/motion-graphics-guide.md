@@ -69,13 +69,14 @@ The theme's style sets how much the diagram moves when it first appears. The flo
 
 ## Shared motion vocabulary
 
-The ui library has one motion vocabulary that every component uses, so a diagram, a poster and a dashboard move the same way. As of 2026-11-12 it has five motions.
+The ui library has one motion vocabulary that every component uses, so a diagram, a poster and a dashboard move the same way. As of 2026-11-12 it has six motions.
 
 | Motion | What moves | Used by |
 | --- | --- | --- |
 | enter | The element appears, in order | Diagram nodes, arrows and groups; Infographic title and panels; Board widgets; Heatmap cells |
 | draw | A line traces itself | LineChart and Sparkline lines |
 | grow | A bar grows from its base | BarChart bars, Meter fill |
+| settle | The element fades in once drawing ends | LineChart end labels, Sparkline end dot, Diagram packets and pulses |
 | count | Each digit of a number rolls up to its value; a later change rolls to the new value | Stat values |
 | attention | One short emphasis after the content settles | Warning and critical Badges, Meter status when not good |
 

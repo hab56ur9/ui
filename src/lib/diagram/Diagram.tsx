@@ -600,7 +600,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", motion 
               </div>
             );
           })}
-          <svg className="diagram-flow" width={width} height={height} aria-hidden="true">
+          <svg className="diagram-flow" width={width} height={height} aria-hidden="true" data-motion={motion ? "settle" : undefined} style={{ "--motion-order": placed.length } as CSSProperties}>
             {arrows.map((_, i) => {
               const path = paths[i];
               if (!path || !motions[i].pulse) return null;

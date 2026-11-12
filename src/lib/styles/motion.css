@@ -1,4 +1,6 @@
 [data-motion~="enter"] {
+  transform-box: fill-box;
+  transform-origin: center;
   animation: var(--motion-shape-enter) calc(var(--motion-duration-slow) * var(--motion-intensity)) var(--motion-easing-enter) backwards;
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger));
 }
@@ -21,6 +23,11 @@
   from {
     opacity: 0;
   }
+}
+
+[data-motion~="settle"] {
+  animation: motion-fade calc(var(--motion-duration-slow) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
+  animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) + (var(--motion-duration-slow) + var(--motion-duration-emphasis)) * var(--motion-intensity));
 }
 
 path[data-motion~="draw"] {
@@ -62,7 +69,7 @@ path[data-motion~="draw"] {
 [data-digit] > span {
   display: flex;
   flex-direction: column;
-  translate: 0 calc(var(--digit) * -1lh);
+  translate: 0 calc(var(--digit) * -2lh - 0.5lh);
   transition: translate calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
@@ -71,14 +78,20 @@ path[data-motion~="draw"] {
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) + var(--motion-duration-slow) * var(--motion-intensity));
 }
 
+[data-digit] > span > span {
+  display: flex;
+  align-items: center;
+  height: 2lh;
+}
+
 @keyframes motion-count {
   from {
-    translate: 0 0;
+    translate: 0 -0.5lh;
   }
 }
 
 [data-motion~="attention"] {
-  animation: var(--motion-shape-attention) calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard) backwards;
+  animation: var(--motion-shape-attention) calc(var(--motion-duration-slow) * 2 * var(--motion-intensity)) var(--motion-easing-standard) backwards;
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger) + (var(--motion-duration-slow) + var(--motion-duration-emphasis)) * var(--motion-intensity));
 }
 
