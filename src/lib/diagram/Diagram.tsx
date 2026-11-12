@@ -136,6 +136,8 @@ function layout(nodes: Declared[], arrows: DiagramArrowProps[], groups: { id: st
       if (!same) list.push([node]);
       return list;
     }, []);
+    const pinnedRow = (node: Declared) => node.row !== undefined;
+    for (const block of blocks.filter((members) => members.every(pinnedRow))) block.sort((a, b) => (a.row ?? 0) - (b.row ?? 0));
     const want = (node: Declared) => {
       if (node.row !== undefined) return node.row;
       const from = parent(node);
