@@ -53,6 +53,8 @@ A full loop lasts the number of steps times 1.8 s, plus 0.9 s.
 | `pulses` | One glowing dot glides along each arrow at a steady speed, fading in and out, with arrows offset in time | Continuous traffic that should stay calm, such as a pipeline overview |
 | `both` | Marching dots on every arrow, with packets on the steps | A continuous system that also has one highlighted path |
 
+An arrow can also take `motion: "dots-pulse"`: its dots march, one enlarged dot rides on top of them at the same speed, and the enlarged dot is relayed from arrow to arrow, leaving a node the moment the previous one enters it. After the last arrow it rests briefly before the next run.
+
 An arrow gets a packet when the data names an icon for it. Arrows without a packet stay still in `packets` and march in `dots` and `both`.
 
 ## Styles
