@@ -182,7 +182,7 @@ A guide, reference or how-to page uses the parts the documentation site is built
 
 ## Check
 
-The lint rejects raw color literals and local machine paths. Run it on any page with the CLI, which works without a clone; inside a clone, the repository's own lint covers the source. After a token change, open the token review page; its summary lists contrast failures and unused primitives.
+The lint holds a page to the ui contract: it rejects raw colors, ui tokens (`var(--…)`), ui class names, ui stylesheet imports, hand-set `data-preset`, `data-style` or `data-medium` attributes, `style` passed to a component, and local machine paths. A page that fails changes its component props, or asks for a new component in ui. Run it on any page with the CLI, which works without a clone; inside a clone, the repository's own lint covers the source. After a token change, open the token review page; its summary lists contrast failures and unused primitives.
 
 ```bash
 npm run check

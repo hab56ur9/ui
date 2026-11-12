@@ -47,8 +47,9 @@ serve   Serves [dir] (default: current folder) at / and this design system at /u
         --host also listens on the local network so a phone can open the page.
 new     Writes a starter page that imports the design system in one line.
         --cdn imports the released module from ${pkg.homepage} instead of /ui/.
-lint    Checks pages for raw color literals and local machine paths;
-        style colors with var(--color-*) tokens instead.
+lint    Checks app pages and code against the ui contract: no raw colors, ui tokens,
+        ui class names, ui stylesheet imports, hand-set theme attributes, style
+        props on components or local machine paths. Apps use component props only.
 spec    check validates an app spec against the components and its own data,
         formats, actions, screens and overlays. The schema is dist/spec.schema.json.
         Built pages open in the editor at /__ui/edit?file=/<page>.html under ui serve.
@@ -262,12 +263,26 @@ function create(args) {
 }
 
 const LINT = [
-  ["raw color literal; use a var(--color-*) token", /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/],
+  ["raw color literal; colors come from components, so pass a tone or variant prop", /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/],
   ["local machine path; link the published site or a relative path", /file:\/\/\/|\/Users\/|~\/Developer/],
+  ["ui token used directly; tokens are private, so style through component props", /var\(--[a-z]/],
+  ["ui stylesheet imported; ui loads its own CSS through UIProvider or render", /ui\/(?:tokens|ui|presets|styles)\.css|dist\/(?:tokens|ui|presets|styles)(?:\/[\w-]+)?\.css/],
+  ["theme or medium attribute set by hand; pass themes.<preset>.<style> to UIProvider, and templates set the medium", /data-(?:preset|style|medium)=/],
+  ["style passed to a component; components take props only", /\bh\([A-Z][\w.]*,\s*\{[^}]*\bstyle\s*:|<[A-Z][\w.]*\b[^>]*\sstyle=\{/],
 ];
+
+const uiClasses = () => new Set([...readFileSync(join(pkgRoot, "dist/ui.css"), "utf8").matchAll(/\.(-?[a-z][\w-]*)/g)].map((match) => match[1]));
+
+function classProblems(line, classes) {
+  const named = [...line.matchAll(/\bclass(?:Name)?\s*[=:]\s*\{?\s*["'`]([^"'`]+)["'`]/g)].flatMap((match) => match[1].split(/\s+/));
+  const selector = line.match(/^\s*([^{}();="'`]+)\{/)?.[1] ?? "";
+  const selected = [...selector.matchAll(/\.([a-z][\w-]*)/g)].map((match) => match[1]);
+  return [...new Set([...named, ...selected])].filter((name) => classes.has(name));
+}
 
 function lint(files) {
   if (!files.length) throw new Error("ui lint <file…>");
+  const classes = uiClasses();
   let count = 0;
   for (const file of files) {
     readFileSync(resolve(file), "utf8")
@@ -278,6 +293,10 @@ function lint(files) {
           count += 1;
           console.log(`  ✗ ${file}:${i + 1} ${message}: ${line.trim().slice(0, 120)}`);
         }
+        const leaked = classProblems(line, classes);
+        if (leaked.length === 0) return;
+        count += 1;
+        console.log(`  ✗ ${file}:${i + 1} ui class name used (${leaked.join(", ")}); class names are private, so use the component: ${line.trim().slice(0, 120)}`);
       });
   }
   console.log(count ? `${count} problems` : "lint: clean");
