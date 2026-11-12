@@ -1437,6 +1437,43 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "infographic",
+    "group": "데이터",
+    "title": "Infographic",
+    "lede": "An infographic is one poster of stacked panels, each with a title, an icon and a one-line message. Each panel gets one color, and a diagram inside it follows that color. Wide posters put the title column on the left; narrow ones put it on top.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Two-panel poster",
+        "caption": "Groups, highlighted arrows and travelling icons inside each panel follow the panel color",
+        "example": "infographic-basic"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Comparing or collecting several structures or flows on one page",
+          "A single shareable figure for a document, a talk or a post"
+        ],
+        "avoid": [
+          "Use Diagram alone when there is only one diagram",
+          "Split a long poster into two when it has many panels"
+        ]
+      },
+      {
+        "type": "list",
+        "title": "Putting it in a document",
+        "items": [
+          "`ui diagram build` writes one animated and one still SVG per poster.",
+          "Posters build 1280 px wide, with their diagrams and motion inside."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "npx --yes github:hab56ur9/ui diagram build poster.html --out diagrams/"
+      }
+    ]
+  },
+  {
     "id": "table",
     "group": "데이터",
     "title": "Table",

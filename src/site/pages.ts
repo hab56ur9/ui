@@ -1455,6 +1455,43 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "infographic",
+    "group": "데이터",
+    "title": "인포그래픽",
+    "lede": "인포그래픽은 제목, 아이콘, 한 줄 메시지를 가진 패널을 세로로 쌓은 포스터 한 장입니다. 패널마다 색이 하나 정해지고, 패널 안의 도면도 그 색을 따릅니다. 넓으면 제목 칸이 왼쪽, 좁으면 위에 놓입니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "두 패널 포스터",
+        "caption": "패널 안 도면의 그룹, 강조선, 이동 아이콘이 패널 색을 따릅니다",
+        "example": "infographic-basic"
+      },
+      {
+        "type": "usage",
+        "when": [
+          "여러 구조나 흐름을 한 장으로 비교하거나 묶어 보여 줄 때",
+          "문서·발표·공유용으로 한 장짜리 그림이 필요할 때"
+        ],
+        "avoid": [
+          "도면이 하나뿐이면 Diagram만 씁니다",
+          "패널이 많아 길어지면 포스터를 둘로 나눕니다"
+        ]
+      },
+      {
+        "type": "list",
+        "title": "문서에 넣기",
+        "items": [
+          "`ui diagram build`가 포스터마다 움직이는 SVG와 정지 SVG를 한 장씩 만듭니다.",
+          "포스터는 1280px 폭으로 빌드되고, 안의 도면은 움직임까지 함께 들어갑니다."
+        ]
+      },
+      {
+        "type": "code",
+        "code": "npx --yes github:hab56ur9/ui diagram build poster.html --out diagrams/"
+      }
+    ]
+  },
+  {
     "id": "table",
     "group": "데이터",
     "title": "표",

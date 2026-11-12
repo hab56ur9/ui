@@ -243,6 +243,28 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  infographic: [
+    {
+      type: "api",
+      title: "<Infographic>",
+      rows: [
+        ["title", "string", "required", "The poster title; it becomes the title of the built SVG."],
+        ["id", "string", "", "The built file name."],
+        ["lede", "string", "", "One sentence under the title."],
+        ["children", "Infographic.Panel", "", "The panel tags."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Infographic.Panel>",
+      rows: [
+        ["title", "string", "required", "The panel title."],
+        ["icon", "IconName", "", "A large icon drawn in the panel color."],
+        ["message", "string", "", "The panel's takeaway in one sentence."],
+        ["children", "ReactNode", "", "A Diagram or any component."],
+      ],
+    },
+  ],
   table: [
     {
       type: "api",

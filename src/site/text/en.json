@@ -669,5 +669,13 @@
     "lag": "0.4 s behind",
     "write": "Write",
     "event": "Event"
+  },
+  "infographic-basic": {
+    "title": "Two flows through one queue",
+    "lede": "One message queue handles both log collection and data sync.",
+    "logTitle": "Log analysis",
+    "logMessage": "Scattered service logs land in one searchable place.",
+    "cdcTitle": "Change data capture",
+    "cdcMessage": "Database changes keep flowing into the cache."
   }
 }

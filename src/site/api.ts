@@ -243,6 +243,28 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  infographic: [
+    {
+      type: "api",
+      title: "<Infographic>",
+      rows: [
+        ["title", "string", "필수", "포스터 제목입니다. 빌드한 SVG의 제목이 됩니다."],
+        ["id", "string", "", "빌드한 파일 이름입니다."],
+        ["lede", "string", "", "제목 아래 한 문장입니다."],
+        ["children", "Infographic.Panel", "", "패널 태그입니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Infographic.Panel>",
+      rows: [
+        ["title", "string", "필수", "패널 제목입니다."],
+        ["icon", "IconName", "", "패널 색으로 그려지는 큰 아이콘입니다."],
+        ["message", "string", "", "패널의 결론을 한 문장으로 씁니다."],
+        ["children", "ReactNode", "", "Diagram이나 어떤 컴포넌트든 넣습니다."],
+      ],
+    },
+  ],
   table: [
     {
       type: "api",
