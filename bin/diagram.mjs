@@ -360,6 +360,8 @@ export async function checkDiagrams(file, { theme = "light", handler }) {
     const problems = [...new Set(session.errors)].map((error) => `page error: ${error}`);
     if (!found) problems.push(`no Diagram or Infographic found in ${basename(session.page)}`);
     problems.push(...(await session.evaluate(`(${inspect.toString()})()`)));
+    const shapes = await session.evaluate(`[...document.querySelectorAll(".diagram")].map((figure) => { const canvas = figure.querySelector(".diagram-canvas"); return { title: figure.getAttribute("aria-label"), w: canvas.offsetWidth, h: canvas.offsetHeight }; })`);
+    for (const shape of shapes ?? []) console.log(`  ${shape.title}: ${shape.w}×${shape.h}, ${(shape.w / shape.h).toFixed(2)}:1 (target 1.50:1)`);
     for (const problem of problems) console.log(`  ✗ ${problem}`);
     console.log(problems.length ? `${problems.length} problems` : "diagram check: clean");
     return problems;
