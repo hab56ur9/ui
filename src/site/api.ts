@@ -494,6 +494,26 @@ export const api: Record<string, Section[]> = {
       ["onSelect · empty", "(id) => void, string", "\"없음\"", "누를 때 이벤트와 빈 상태 문구입니다."],
     ] },
   ],
+  panel: [
+    {
+      type: "api",
+      title: "<Panel>",
+      rows: [
+        ["title · meta", "ReactNode · ReactNode", "", "헤더 한 줄의 제목과 보조 정보입니다. 넘치면 말줄임표로 줄입니다."],
+        ["actions", "ReactNode", "", "헤더 오른쪽 끝의 버튼 자리입니다. 보통 `PanelAction`을 둡니다."],
+        ["variant", "\"section\" | \"pane\"", "\"section\"", "`section`은 사이드바의 묶음, `pane`은 칸 하나를 채우고 본문만 스크롤합니다."],
+        ["children", "ReactNode", "", "본문입니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<PanelAction>",
+      rows: [
+        ["icon · label", "IconName · string", "", "아이콘과 그 이름입니다. `label`은 툴팁과 접근성 이름이 됩니다."],
+        ["onClick", "() => void", "", "눌렀을 때 부릅니다."],
+      ],
+    },
+  ],
   "image-preview": [
     {
       type: "api",

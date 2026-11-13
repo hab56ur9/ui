@@ -413,6 +413,8 @@
             "ImageCard",
             "MiniCard",
             "ImagePreview",
+            "Panel",
+            "PanelAction",
             "Avatar",
             "List",
             "PhotoGrid",
@@ -1784,6 +1786,56 @@
                 "required": [
                   "src",
                   "alt"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panel"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "meta": {},
+                  "actions": {},
+                  "variant": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "PanelAction"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "icon": {},
+                  "label": {},
+                  "onClick": {}
+                },
+                "required": [
+                  "icon",
+                  "label"
                 ],
                 "additionalProperties": false
               }

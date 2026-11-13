@@ -1894,6 +1894,32 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "panel",
+    "group": "콘텐츠",
+    "title": "패널",
+    "lede": "패널은 한 줄 헤더와 본문으로 화면의 한 구역을 나눕니다. 헤더에는 제목, 보조 정보, 아이콘 버튼이 놓입니다. 테두리로 감싸는 `Card`와 달리 패널은 테두리 없이 사이드바나 칸을 채웁니다. 헤더 버튼은 `PanelAction`을 씁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "사이드바 묶음",
+        "example": "panel-section",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "칸을 채우는 패널",
+        "example": "panel-pane",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "패널은 `section`이고, `PanelAction`은 `label`을 접근성 이름으로 가진 버튼입니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image-preview",
     "group": "콘텐츠",
     "title": "이미지 미리보기",

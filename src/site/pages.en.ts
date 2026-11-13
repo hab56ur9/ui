@@ -1876,6 +1876,32 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "panel",
+    "group": "콘텐츠",
+    "title": "Panel",
+    "lede": "A panel splits off one area of a screen with a one-line header and a body. The header holds a title, secondary info and icon buttons. Unlike `Card`, which draws a border, a panel fills a sidebar or pane without one. Header buttons use `PanelAction`.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Sidebar groups",
+        "example": "panel-section",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "A panel that fills a pane",
+        "example": "panel-pane",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The panel is a `section`; `PanelAction` is a button whose accessible name is its `label`."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image-preview",
     "group": "콘텐츠",
     "title": "Image preview",

@@ -130,6 +130,10 @@
     "preview": {
       "width": { "$value": { "value": 360, "unit": "px" } },
       "height": { "$value": { "value": 240, "unit": "px" } }
+    },
+    "panel": {
+      "head": { "$value": { "value": 32, "unit": "px" } },
+      "action": { "$value": { "value": 26, "unit": "px" } }
     }
   },
   "motion": {

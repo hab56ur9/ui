@@ -1024,6 +1024,8 @@
   --size-toast: 380px;
   --size-preview-width: 360px;
   --size-preview-height: 240px;
+  --size-panel-head: 32px;
+  --size-panel-action: 26px;
   --motion-duration-fast: 120ms;
   --motion-duration-base: 200ms;
   --motion-duration-slow: 280ms;

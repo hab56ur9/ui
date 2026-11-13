@@ -685,6 +685,27 @@
     "approved": "Approved",
     "changes": "Changes requested"
   },
+  "panel-section": {
+    "channels": "Channels",
+    "addChannel": "New channel",
+    "design": "# design-system",
+    "app": "# app",
+    "agents": "Agents",
+    "addAgent": "Add agent",
+    "builder": "Builder",
+    "qa": "QA",
+    "building": "Extracting panels",
+    "waiting": "Waiting for review"
+  },
+  "panel-pane": {
+    "thread": "Thread",
+    "where": "# design-system · Panel extraction",
+    "copyLink": "Copy thread link",
+    "close": "Close thread",
+    "first": "Panel is in. Light and dark captures are attached.",
+    "second": "The header keeps title, meta and actions on one line.",
+    "third": "When the body runs long, only the body scrolls and the header stays."
+  },
   "image-preview-basic": {
     "wide": "Code review screen, light theme",
     "tall": "Phone screen of the board, dark theme"

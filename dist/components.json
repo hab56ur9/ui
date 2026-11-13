@@ -1913,6 +1913,68 @@
       ]
     },
     {
+      "name": "Panel",
+      "props": [
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "variant",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "pane",
+            "section"
+          ],
+          "type": "\"pane\" | \"section\" | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "PanelAction",
+      "props": [
+        {
+          "name": "icon",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "onClick",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        }
+      ]
+    },
+    {
       "name": "Avatar",
       "props": [
         {

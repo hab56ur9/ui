@@ -2677,3 +2677,108 @@ body:has(.theme-picker.is-floating):not(:has(.shell-content)) {
 body:has(.theme-picker.is-floating) .shell-content {
   padding-bottom: var(--space-16);
 }
+
+.panel {
+  min-width: 0;
+}
+
+.panel.is-section {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2) var(--space-2);
+}
+
+.panel.is-section + .panel.is-section {
+  border-top: var(--border-width-default) solid var(--color-border-default);
+}
+
+.panel.is-pane {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--size-panel-action);
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.panel.is-section > .panel-head {
+  padding: 0 var(--space-2);
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.panel.is-pane > .panel-head {
+  height: var(--size-panel-head);
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
+  font-size: var(--font-size-caption);
+}
+
+.panel.is-pane > .panel-head .panel-title {
+  font-weight: var(--font-weight-medium);
+}
+
+.panel-title,
+.panel-meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panel-meta {
+  color: var(--color-fg-muted);
+  font-weight: var(--font-weight-regular);
+}
+
+.panel-gap {
+  flex: 1;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.panel-body {
+  min-width: 0;
+  min-height: 0;
+}
+
+.panel.is-section > .panel-body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.panel.is-pane > .panel-body {
+  display: grid;
+  overflow: auto;
+}
+
+.panel-action {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--size-panel-action);
+  height: var(--size-panel-action);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-mark);
+  background: none;
+  color: var(--color-fg-muted);
+  cursor: pointer;
+}
+
+.panel-action:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-default);
+}

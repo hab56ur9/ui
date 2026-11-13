@@ -494,6 +494,26 @@ export const api: Record<string, Section[]> = {
       ["onSelect · empty", "(id) => void, string", "\"None\"", "Press event and empty-state text."],
     ] },
   ],
+  panel: [
+    {
+      type: "api",
+      title: "<Panel>",
+      rows: [
+        ["title · meta", "ReactNode · ReactNode", "", "Title and secondary info on the one-line header; both truncate with an ellipsis."],
+        ["actions", "ReactNode", "", "Slot at the header's right end, usually `PanelAction` buttons."],
+        ["variant", "\"section\" | \"pane\"", "\"section\"", "`section` groups items in a sidebar; `pane` fills one pane and scrolls only its body."],
+        ["children", "ReactNode", "", "The body."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<PanelAction>",
+      rows: [
+        ["icon · label", "IconName · string", "", "The icon and its name; `label` is the tooltip and accessible name."],
+        ["onClick", "() => void", "", "Called on press."],
+      ],
+    },
+  ],
   "image-preview": [
     {
       type: "api",

@@ -27,6 +27,7 @@ export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from ".
 export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";
 export { ImagePreview, type ImagePreviewProps } from "./ImagePreview";
+export { Panel, PanelAction, type PanelActionProps, type PanelProps } from "./Panel";
 export { Avatar, List, PhotoGrid, Post, ProfileHeader, Stories, type AvatarProps, type GridPhoto, type ListItem, type ListProps, type PhotoGridProps, type PostProps, type ProfileHeaderProps, type ProfileStat, type StoriesProps, type StoryItem } from "./Social";
 export { Page, Stack, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout";
 export { Markdown, type MarkdownProps } from "./markdown/Markdown";
