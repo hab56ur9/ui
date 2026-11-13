@@ -479,6 +479,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "image-preview": [
+    {
+      type: "api",
+      title: "<ImagePreview>",
+      rows: [
+        ["src · alt", "string · string", "", "The image and its description; `alt` is also the tooltip when the preview opens."],
+        ["onOpen", "() => void", "", "Makes the preview a button that opens the full image, such as in a viewer."],
+      ],
+    },
+  ],
   image: [
     {
       type: "api",

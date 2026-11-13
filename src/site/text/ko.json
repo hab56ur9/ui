@@ -644,6 +644,10 @@
     "checks": "완료 조건",
     "count": "3/5"
   },
+  "image-preview-basic": {
+    "wide": "코드 리뷰 화면, 라이트 테마",
+    "tall": "보드의 휴대폰 화면, 다크 테마"
+  },
   "toast-place-mobile": {
     "saved": "저장했습니다",
     "undo": "되돌리기"

@@ -644,6 +644,10 @@
     "checks": "Checks done",
     "count": "3/5"
   },
+  "image-preview-basic": {
+    "wide": "Code review screen, light theme",
+    "tall": "Phone screen of the board, dark theme"
+  },
   "toast-place-mobile": {
     "saved": "Saved",
     "undo": "Undo"

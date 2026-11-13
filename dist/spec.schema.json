@@ -412,6 +412,7 @@
             "Image",
             "ImageCard",
             "MiniCard",
+            "ImagePreview",
             "Avatar",
             "List",
             "PhotoGrid",
@@ -1754,6 +1755,32 @@
                 "required": [
                   "image",
                   "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ImagePreview"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "src": {},
+                  "alt": {},
+                  "onOpen": {}
+                },
+                "required": [
+                  "src",
+                  "alt"
                 ],
                 "additionalProperties": false
               }

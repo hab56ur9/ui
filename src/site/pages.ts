@@ -1861,6 +1861,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "image-preview",
+    "group": "콘텐츠",
+    "title": "이미지 미리보기",
+    "lede": "이미지 미리보기는 첨부한 이미지를 크기 한도 안에서 원래 모양대로 보여 줍니다. 메시지 속 스크린샷이 그 예입니다. 정해진 비율을 채우는 `Image`와 달리 잘라 내지 않습니다. `onOpen`을 주면 원본을 여는 버튼이 됩니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "가로·세로 이미지 열기",
+        "example": "image-preview-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "이미지는 `alt`를 그대로 가지고, 버튼일 때는 Tab으로 가서 Enter나 Space로 엽니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image",
     "group": "콘텐츠",
     "title": "이미지",

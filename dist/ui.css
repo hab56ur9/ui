@@ -2052,6 +2052,28 @@ code.has-lines .line::before {
   box-shadow: 0 0 0 var(--focus-ring-offset) var(--color-bg-page), 0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--color-border-default);
 }
 
+.image-preview {
+  display: inline-block;
+  max-width: min(var(--size-preview-width), 100%);
+  padding: 0;
+  overflow: hidden;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-raised);
+  vertical-align: top;
+}
+
+.image-preview img {
+  display: block;
+  max-width: 100%;
+  max-height: var(--size-preview-height);
+  object-fit: contain;
+}
+
+.image-preview.is-action {
+  cursor: zoom-in;
+}
+
 .image {
   position: relative;
   display: block;

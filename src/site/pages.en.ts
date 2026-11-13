@@ -1843,6 +1843,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "image-preview",
+    "group": "콘텐츠",
+    "title": "Image preview",
+    "lede": "An image preview shows an attached image at its own shape inside a size limit, such as a screenshot in a message. Unlike `Image`, which fills a fixed ratio, it never crops. With `onOpen` it becomes a button that opens the full image.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Wide and tall images that open",
+        "example": "image-preview-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The image keeps its `alt`; as a button it is reachable by Tab and opens with Enter or Space."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image",
     "group": "콘텐츠",
     "title": "Image",

@@ -479,6 +479,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "image-preview": [
+    {
+      type: "api",
+      title: "<ImagePreview>",
+      rows: [
+        ["src · alt", "string · string", "", "이미지와 그 설명입니다. 열 수 있으면 `alt`가 툴팁으로도 보입니다."],
+        ["onOpen", "() => void", "", "미리보기를 버튼으로 만듭니다. 뷰어에서 원본을 열 때 씁니다."],
+      ],
+    },
+  ],
   image: [
     {
       type: "api",

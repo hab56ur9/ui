@@ -193,6 +193,7 @@ Data display patterns differ by how many items share the same fields.
 | Description list | Labeled values for one item, label beside value | Yes: `DescriptionList` |
 | Data table | Rows of items that share columns | Yes: `DataTable` |
 | Tree view | Nested items that expand and collapse | No |
+| Image preview | One attached image shown whole within a size limit, opening the original on press | Yes: `ImagePreview` |
 
 ## Navigation
 

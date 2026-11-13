@@ -1890,6 +1890,29 @@
       ]
     },
     {
+      "name": "ImagePreview",
+      "props": [
+        {
+          "name": "src",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "alt",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "onOpen",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        }
+      ]
+    },
+    {
       "name": "Avatar",
       "props": [
         {
