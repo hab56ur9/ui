@@ -12,7 +12,8 @@ export function useModalFocus(ref: RefObject<HTMLDialogElement | null>, active: 
     const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     return () => {
       if (dialog.open) dialog.close();
-      if (opener?.isConnected) opener.focus();
+      const current = document.activeElement;
+      if (opener?.isConnected && (current === document.body || dialog.contains(current))) opener.focus();
     };
   }, [active]);
 
