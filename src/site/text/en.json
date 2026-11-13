@@ -1058,7 +1058,7 @@
     "detailsTitle": "Details",
     "details": "The right column.",
     "meta": "Saved just now",
-    "body": "The overlay scope decides whether the window covers the whole screen, the middle column, or everything from the sidebar on.",
+    "body": "The overlay scope decides whether the window covers the whole screen, the middle column, or everything from the left edge to the inspector.",
     "scope": "Overlay scope",
     "open": "Open file",
     "tree": [
