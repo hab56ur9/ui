@@ -398,6 +398,7 @@
             "Steps",
             "Takeaway",
             "Badge",
+            "Chip",
             "Callout",
             "Card",
             "Pager",
@@ -1380,6 +1381,32 @@
                   "variant": {}
                 },
                 "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Chip"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "icon": {},
+                  "onSelect": {},
+                  "onRemove": {}
+                },
+                "required": [
+                  "label"
+                ],
                 "additionalProperties": false
               }
             }

@@ -604,6 +604,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  chip: [
+    {
+      type: "api",
+      title: "<Chip>",
+      rows: [
+        ["label", "string", "", "보일 글입니다. 한 줄이고, 길면 말줄임표와 툴팁으로 보입니다."],
+        ["icon", "IconName", "", "앞 아이콘입니다."],
+        ["onSelect", "() => void", "", "칩을 버튼으로 만듭니다. 칩이 가리키는 항목을 열 때 씁니다."],
+        ["onRemove", "() => void", "", "빼기 버튼을 붙입니다. \"{label} 빼기\"로 읽힙니다."],
+      ],
+    },
+  ],
   card: [
     {
       type: "api",

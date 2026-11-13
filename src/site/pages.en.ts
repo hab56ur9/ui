@@ -1631,6 +1631,27 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "chip",
+    "group": "콘텐츠",
+    "title": "Chip",
+    "lede": "A chip is a small token that names one item, such as a ticket a task waits for. It can open the item and can be removed; a badge, by contrast, only shows a state. Lay several chips out with `Row`, which wraps them.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Plain, button, removable",
+        "example": "chip-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Opening and removing are two separate buttons, so neither sits inside the other.",
+          "The remove button reads as \"Remove\" with the chip's label."
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "group": "콘텐츠",
     "title": "Card",

@@ -1273,6 +1273,35 @@
       ]
     },
     {
+      "name": "Chip",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onRemove",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        }
+      ]
+    },
+    {
       "name": "Callout",
       "props": [
         {

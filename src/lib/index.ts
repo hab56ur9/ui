@@ -15,6 +15,7 @@ export { Deck, Slide, SlideFooter, SlideHeader, type DeckProps, type SlideHeader
 export { AgendaSlide, ChartSlide, ClosingSlide, CompareSlide, MetricSlide, QuoteSlide, SectionSlide, SplitSlide, StatementSlide, TableSlide, TimelineSlide, TitleSlide, type AgendaSlideProps, type ChartSlideProps, type ClosingSlideProps, type ComparePane, type CompareSlideProps, type Metric, type MetricSlideProps, type Milestone, type QuoteSlideProps, type SectionSlideProps, type SplitSlideProps, type StatementSlideProps, type TableSlideProps, type TimelineSlideProps, type TitleSlideProps } from "./slides/layouts";
 export { Bullets, Figure, Steps, Takeaway, type BulletItem, type Step } from "./content";
 export { Badge, type BadgeProps, type BadgeTone } from "./Badge";
+export { Chip, type ChipProps } from "./Chip";
 export { Callout, type CalloutProps } from "./Callout";
 export { Card, type CardProps } from "./Card";
 export { Pager, Toc, type PagerLink, type PagerProps, type TocItem, type TocProps } from "./navigation";

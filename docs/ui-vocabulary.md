@@ -33,7 +33,7 @@ Feedback patterns differ by how much they interrupt the person.
 | Popover | A small floating panel anchored to a control, with content or actions | No |
 | Coach mark | An overlay that points at a control to teach it | No |
 | Badge | A count or dot on an icon or tab | Partial: `Badge` is a text label, not a count dot |
-| Chip | A compact, often removable or selectable token | No |
+| Chip | A compact, often removable or selectable token | Yes: `Chip` |
 
 ## Loading
 

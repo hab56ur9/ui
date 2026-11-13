@@ -240,7 +240,7 @@ function Primitives() {
         {[...new Set(colors.map((t) => groupOf(t.path)))].map((hue) => (
           <div className="ramp" key={hue}>
             <div className="ramp-name">{last(hue)}</div>
-            <div className="chips">
+            <div className="swatch-chips">
               {colors
                 .filter((token) => groupOf(token.path) === hue)
                 .map((token) => {
@@ -249,14 +249,14 @@ function Primitives() {
                     <button
                       type="button"
                       key={token.path}
-                      className={`chip${users.length ? "" : " is-unused"}`}
+                      className={`swatch-chip${users.length ? "" : " is-unused"}`}
                       title={users.length ? t(`참조: ${users.join(", ")}`, `Referenced by: ${users.join(", ")}`) : t("미사용", "Unused")}
                       onClick={() => copy(token.path)}
                     >
                       <span className="swatch" style={sw(varOf(token.path))} />
-                      <span className="chip-step">{last(token.path)}</span>
-                      <span className="chip-meta">{token.values.all}</span>
-                      <span className="chip-meta">{users.length ? t(`사용 ${users.length}`, `Used ${users.length}`) : t("미사용", "Unused")}</span>
+                      <span className="swatch-chip-step">{last(token.path)}</span>
+                      <span className="swatch-chip-meta">{token.values.all}</span>
+                      <span className="swatch-chip-meta">{users.length ? t(`사용 ${users.length}`, `Used ${users.length}`) : t("미사용", "Unused")}</span>
                     </button>
                   );
                 })}

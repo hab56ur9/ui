@@ -45,6 +45,11 @@
       ]
     ]
   },
+  "chip-basic": {
+    "design": "디자인",
+    "waits": "T-12 토큰 이름 정리",
+    "sub": "T-15 · QA"
+  },
   "badge-basic": {
     "neutral": "기본",
     "main": "강조",

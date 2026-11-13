@@ -604,6 +604,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  chip: [
+    {
+      type: "api",
+      title: "<Chip>",
+      rows: [
+        ["label", "string", "", "The text, one line; a long label ends in an ellipsis with a tooltip."],
+        ["icon", "IconName", "", "A leading icon."],
+        ["onSelect", "() => void", "", "Makes the chip a button, such as opening the item it names."],
+        ["onRemove", "() => void", "", "Adds a remove button read as \"Remove {label}\"."],
+      ],
+    },
+  ],
   card: [
     {
       type: "api",

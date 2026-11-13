@@ -993,6 +993,64 @@ a.shell-link {
   font-size: var(--font-size-label);
 }
 
+.chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-width: 0;
+  height: var(--space-6);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-secondary);
+  font-size: var(--font-size-caption);
+}
+
+.chip-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  height: 100%;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+button.chip-label {
+  cursor: pointer;
+}
+
+button.chip-label:hover {
+  color: var(--color-fg-default);
+}
+
+.chip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chip-remove {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin-left: calc(-1 * var(--space-1));
+  padding: 0 var(--space-2) 0 var(--space-1);
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  color: var(--color-fg-muted);
+  cursor: pointer;
+}
+
+.chip-remove:hover {
+  color: var(--color-status-critical);
+}
+
 .badge {
   display: inline-flex;
   flex: none;

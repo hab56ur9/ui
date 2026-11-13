@@ -45,6 +45,11 @@
       ]
     ]
   },
+  "chip-basic": {
+    "design": "Design",
+    "waits": "T-12 Token rename",
+    "sub": "T-15 · In QA"
+  },
   "badge-basic": {
     "neutral": "Neutral",
     "main": "Main",
