@@ -1,4 +1,5 @@
 import { useState, type CSSProperties, type DragEvent } from "react";
+import { Segmented } from "./controls";
 import { PresenceAvatar, type Face, type Presence } from "./chat";
 import { Icon } from "./Icon";
 import { useI18n } from "./i18n";
@@ -26,13 +27,23 @@ export type KanbanProps = {
   onSelect?: (id: string) => void;
   onMove?: (id: string, column: string) => void;
   onAdd?: (column: string) => void;
+  switcher?: boolean;
+  column?: string;
+  defaultColumn?: string;
+  onColumnChange?: (column: string) => void;
 };
 
 const cx = (...names: (string | false | null | undefined)[]) => names.filter(Boolean).join(" ");
 
-export function Kanban({ columns, value, heads = true, lane = false, addLabel, onSelect, onMove, onAdd }: KanbanProps) {
+export function Kanban({ columns, value, heads = true, lane = false, addLabel, onSelect, onMove, onAdd, switcher = false, column: current, defaultColumn, onColumnChange }: KanbanProps) {
   const { text } = useI18n();
   const [over, setOver] = useState<string | null>(null);
+  const [own, setOwn] = useState(defaultColumn ?? columns[0]?.id);
+  const shown = current ?? own;
+  const pick = (id: string) => {
+    setOwn(id);
+    onColumnChange?.(id);
+  };
   const add = addLabel ?? text("kanban.add");
   const drop = (column: string) => (event: DragEvent) => {
     event.preventDefault();
@@ -40,12 +51,12 @@ export function Kanban({ columns, value, heads = true, lane = false, addLabel, o
     const id = event.dataTransfer.getData("text/plain");
     if (id) onMove?.(id, column);
   };
-  return (
+  const board = (
     <div className={cx("kanban", lane && "is-lane")} style={{ "--kanban-columns": columns.length } as CSSProperties}>
       {columns.map((column) => (
         <section
           key={column.id}
-          className={cx("kanban-column", over === column.id && "is-over")}
+          className={cx("kanban-column", over === column.id && "is-over", switcher && shown === column.id && "is-shown")}
           onDragOver={(event) => { event.preventDefault(); setOver(column.id); }}
           onDragLeave={() => setOver((current) => (current === column.id ? null : current))}
           onDrop={drop(column.id)}
@@ -82,6 +93,15 @@ export function Kanban({ columns, value, heads = true, lane = false, addLabel, o
           </div>
         </section>
       ))}
+    </div>
+  );
+  if (!switcher) return board;
+  return (
+    <div className="kanban-board">
+      <div className="kanban-switch">
+        <Segmented label={text("kanban.columns")} value={shown} onChange={pick} options={columns.map((column) => ({ value: column.id, label: `${column.title} ${column.cards.length}` }))} />
+      </div>
+      {board}
     </div>
   );
 }

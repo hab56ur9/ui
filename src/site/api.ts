@@ -122,6 +122,8 @@ export const api: Record<string, Section[]> = {
       ["onMove", "(id, column) => void", "", "카드를 다른 칸에 놓았을 때. 없으면 끌 수 없습니다."],
       ["onAdd · addLabel", "(column) => void, string", "\"추가\"", "칸 머리의 + 버튼."],
       ["heads · lane", "boolean", "true · false", "칸 머리를 숨기고 줄(swimlane)로 씁니다. KanbanHeads로 머리를 한 번만 그립니다."],
+      ["switcher", "boolean", "false", "보드 폭이 640px 이하이면 Segmented로 칸을 하나씩 보입니다. 넓으면 그대로입니다."],
+      ["column · defaultColumn · onColumnChange", "string, string, (column) => void", "첫 칸", "좁은 화면에서 보이는 칸입니다."],
     ] },
   ],
   annotator: [

@@ -122,6 +122,8 @@ export const api: Record<string, Section[]> = {
       ["onMove", "(id, column) => void", "", "Fires when a card lands in another column; without it cards do not drag."],
       ["onAdd · addLabel", "(column) => void, string", "\"Add\"", "The + button in a column head."],
       ["heads · lane", "boolean", "true · false", "Hide the heads and use the board as a swimlane; draw the heads once with KanbanHeads."],
+      ["switcher", "boolean", "false", "When the board is 640px wide or less, shows one column at a time with a Segmented. Wider boards are unchanged."],
+      ["column · defaultColumn · onColumnChange", "string, string, (column) => void", "first column", "The column shown on narrow screens."],
     ] },
   ],
   annotator: [

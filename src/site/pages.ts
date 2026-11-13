@@ -1563,6 +1563,13 @@ export const pages: Page[] = [
         "title": "기본",
         "caption": "카드를 다른 칸으로 끌어 보세요. 작업 중인 카드는 왼쪽 띠로 표시됩니다",
         "example": "kanban-basic"
+      },
+      {
+        "type": "demo",
+        "title": "좁은 화면 칸 전환",
+        "caption": "`switcher`를 주면 보드 폭이 640px 이하일 때 위의 Segmented로 칸을 하나씩 봅니다",
+        "example": "kanban-switch",
+        "layout": "centered"
       }
     ]
   },

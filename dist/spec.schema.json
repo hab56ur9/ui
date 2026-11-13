@@ -3466,7 +3466,11 @@
                   "addLabel": {},
                   "onSelect": {},
                   "onMove": {},
-                  "onAdd": {}
+                  "onAdd": {},
+                  "switcher": {},
+                  "column": {},
+                  "defaultColumn": {},
+                  "onColumnChange": {}
                 },
                 "required": [
                   "columns"

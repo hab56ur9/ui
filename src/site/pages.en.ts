@@ -1545,6 +1545,13 @@ export const pages: Page[] = [
         "title": "Basic",
         "caption": "Drag a card to another column; a card in progress carries a stripe on its left",
         "example": "kanban-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Column switch on narrow screens",
+        "caption": "With `switcher`, a board 640px wide or less shows one column at a time, picked with the Segmented above",
+        "example": "kanban-switch",
+        "layout": "centered"
       }
     ]
   },

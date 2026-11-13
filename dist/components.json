@@ -4596,6 +4596,30 @@
           "optional": true,
           "kind": "action",
           "type": "((column: string) => void) | undefined"
+        },
+        {
+          "name": "switcher",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "column",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "defaultColumn",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onColumnChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((column: string) => void) | undefined"
         }
       ]
     },
