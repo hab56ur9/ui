@@ -12,7 +12,7 @@
     "fg": {
       "default": { "$value": "{color.neutral.900}" },
       "secondary": { "$value": "{color.neutral.700}" },
-      "muted": { "$value": "{color.neutral.600}" },
+      "muted": { "$value": "{color.neutral.650}" },
       "on-fill": { "$value": "{color.neutral.0}" },
       "on-fill-light": { "$value": "{color.neutral.1000}" }
     },
