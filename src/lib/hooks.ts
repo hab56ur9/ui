@@ -1,6 +1,6 @@
 import { flushSync } from "react-dom";
 import { useLayoutEffect, useRef, useState } from "react";
-import { milliseconds } from "./format";
+import { durationMs } from "./format";
 
 export function useSize<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -34,7 +34,12 @@ export const tokenPx = (node: Element | null, name: string, fallback: number) =>
 
 export const tokenMs = (node: Element | null, name: string, fallback: number) => {
   if (!node) return fallback;
-  return milliseconds(getComputedStyle(node).getPropertyValue(name).trim()) || fallback;
+  return durationMs(getComputedStyle(node).getPropertyValue(name), fallback);
+};
+
+export const motionMs = (node: Element, name: string, fallback: number) => {
+  const style = getComputedStyle(node);
+  return durationMs(style.getPropertyValue(name), fallback, style.getPropertyValue("--motion-intensity"));
 };
 
 export const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;

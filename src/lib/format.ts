@@ -17,6 +17,12 @@ const measurable = (max: number) => max > 0;
 
 export const milliseconds = (time: string) => parseFloat(time) * (/[^m]s$/.test(time) ? 1000 : 1);
 
+export const durationMs = (time: string, fallback: number, intensity = "1") => {
+  const ms = milliseconds(time.trim());
+  const scale = parseFloat(intensity);
+  return (Number.isNaN(ms) ? fallback : ms) * (Number.isNaN(scale) ? 1 : scale);
+};
+
 export const percentOf = (value: number, max: number) => (measurable(max) ? `${Math.max(0, Math.min(100, (value / max) * 100))}%` : "0%");
 
 export const color = (value: Color) => (typeof value === "number" ? `var(--color-series-${value})` : `var(--color-chart-${value})`);

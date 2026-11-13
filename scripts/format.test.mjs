@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { bytes, milliseconds, percentOf } from "../src/lib/format.ts";
+import { bytes, durationMs, milliseconds, percentOf } from "../src/lib/format.ts";
 
 test("percentOf gives the share of max", () => {
   assert.equal(percentOf(3, 5), "60%");
@@ -45,4 +45,21 @@ test("milliseconds reads both units a minified stylesheet may use", () => {
   assert.equal(milliseconds(".24s"), 240);
   assert.equal(milliseconds("1.2s"), 1200);
   assert.equal(milliseconds("0s"), 0);
+});
+
+test("durationMs keeps a zero duration instead of the fallback", () => {
+  assert.equal(durationMs("0s", 200), 0);
+  assert.equal(durationMs("0ms", 200), 0);
+});
+
+test("durationMs falls back only when the token is missing", () => {
+  assert.equal(durationMs("", 200), 200);
+  assert.equal(durationMs("  ", 120, "0.5"), 60);
+});
+
+test("durationMs scales the token by motion intensity", () => {
+  assert.equal(durationMs(" .24s ", 200, "0.5"), 120);
+  assert.equal(durationMs("120ms", 200, "2"), 240);
+  assert.equal(durationMs(".4s", 200, "0"), 0);
+  assert.equal(durationMs(".4s", 200, ""), 400);
 });
