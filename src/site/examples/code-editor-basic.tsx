@@ -13,7 +13,7 @@ export default function Example() {
   const [code, setCode] = useState(SOURCE);
   return (
     <Stack>
-      <div style={{ height: 200, border: "var(--border-width-default) solid var(--color-border-default)", borderRadius: "var(--radius-card)", overflow: "hidden" }}>
+      <div style={{ height: 200, border: "var(--border-width-default) solid var(--color-border-default)", borderRadius: "var(--radius-card)", overflow: "auto" }}>
         <CodeEditor value={code} onChange={setCode} focus={[3]} />
       </div>
       <Row>
