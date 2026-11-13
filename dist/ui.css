@@ -1313,6 +1313,42 @@ a.shell-link {
   cursor: pointer;
 }
 
+.select-control {
+  position: relative;
+  padding: 0;
+}
+
+.select-control select {
+  flex: 1;
+  min-width: 0;
+  min-height: calc(var(--space-8) - 2 * var(--border-width-default));
+  padding: 0 calc(var(--space-3) + var(--space-5)) 0 var(--space-3);
+  border: 0;
+  border-radius: inherit;
+  outline: none;
+  background: transparent;
+  color: var(--color-fg-default);
+  font: inherit;
+  font-size: var(--font-size-label);
+  text-overflow: ellipsis;
+  appearance: none;
+  cursor: pointer;
+}
+
+.select-control .icon {
+  position: absolute;
+  right: var(--space-3);
+  pointer-events: none;
+}
+
+.select-control:has(select:disabled) {
+  opacity: 0.45;
+}
+
+.select-control select:disabled {
+  cursor: not-allowed;
+}
+
 .field-hint {
   color: var(--color-fg-muted);
   font-size: var(--font-size-caption);

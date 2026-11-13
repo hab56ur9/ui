@@ -602,6 +602,16 @@
     "notify": "답장 알림 받기",
     "archived": "보관된 항목 포함"
   },
+  "select-basic": {
+    "project": "프로젝트",
+    "none": "프로젝트 없음",
+    "design": "디자인 시스템",
+    "app": "에이전트 채팅 앱",
+    "builder": "빌더",
+    "unassigned": "미배정",
+    "status": "상태",
+    "todo": "할 일"
+  },
   "textfield-basic": {
     "search": "페이지 찾기",
     "name": "프로젝트 이름",

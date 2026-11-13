@@ -787,6 +787,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "select": [
+    {
+      type: "api",
+      title: "<Select>",
+      rows: [
+        ["label", "string", "", "The label; always set it."],
+        ["hideLabel", "boolean", "false", "Hides the label on screen only."],
+        ["options", "{ value, label }[]", "", "The choices in order; an empty `value` stands for \"none\"."],
+        ["value · defaultValue · onChange", "string · string · (value) => void", "", "Controlled and uncontrolled choice, and the change handler."],
+        ["disabled", "boolean", "false", "Turns the field off."],
+      ],
+    },
+  ],
   "toc": [
     {
       type: "api",

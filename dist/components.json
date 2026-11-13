@@ -1522,6 +1522,53 @@
       ]
     },
     {
+      "name": "Select",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "hideLabel",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "options",
+          "optional": false,
+          "kind": "list",
+          "type": "SelectOption[]"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "defaultValue",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((value: string) => void) | undefined"
+        },
+        {
+          "name": "disabled",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
       "name": "AppShell",
       "props": [
         {

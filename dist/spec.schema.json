@@ -404,6 +404,7 @@
             "Toc",
             "TextField",
             "Checkbox",
+            "Select",
             "Calendar",
             "Carousel",
             "Image",
@@ -1535,6 +1536,36 @@
                 },
                 "required": [
                   "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Select"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "hideLabel": {},
+                  "options": {},
+                  "value": {},
+                  "defaultValue": {},
+                  "onChange": {},
+                  "disabled": {}
+                },
+                "required": [
+                  "label",
+                  "options"
                 ],
                 "additionalProperties": false
               }

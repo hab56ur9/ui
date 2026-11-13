@@ -787,6 +787,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "select": [
+    {
+      type: "api",
+      title: "<Select>",
+      rows: [
+        ["label", "string", "", "이름표입니다. 꼭 넣습니다."],
+        ["hideLabel", "boolean", "false", "이름표를 화면에서만 숨깁니다."],
+        ["options", "{ value, label }[]", "", "고를 항목을 순서대로 둡니다. 빈 `value`는 \"없음\"을 뜻합니다."],
+        ["value · defaultValue · onChange", "string · string · (value) => void", "", "제어·비제어 선택값과, 바뀔 때 받는 함수입니다."],
+        ["disabled", "boolean", "false", "고를 수 없게 끕니다."],
+      ],
+    },
+  ],
   "toc": [
     {
       type: "api",

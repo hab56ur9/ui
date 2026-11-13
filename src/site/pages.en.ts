@@ -719,6 +719,27 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "select",
+    "group": "입력",
+    "title": "Select",
+    "lede": "A select keeps one value from a closed list, such as a ticket's project or builder. Like a text field it always has a label, and it hides the label on screen only when the row already names it. The choice leaves through `onChange`; the select stores nothing.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Label, hidden label, disabled",
+        "example": "select-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "A native `select`: arrow keys move through the choices and typing jumps to a match.",
+          "The label is tied to the select even when it is hidden on screen."
+        ]
+      }
+    ]
+  },
+  {
     "id": "calendar",
     "group": "입력",
     "title": "Calendar",

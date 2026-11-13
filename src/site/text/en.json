@@ -602,6 +602,16 @@
     "notify": "Notify me of replies",
     "archived": "Include archived"
   },
+  "select-basic": {
+    "project": "Project",
+    "none": "No project",
+    "design": "Design system",
+    "app": "Agent chat app",
+    "builder": "Builder",
+    "unassigned": "Unassigned",
+    "status": "Status",
+    "todo": "To do"
+  },
   "textfield-basic": {
     "search": "Find a page",
     "name": "Project name",
