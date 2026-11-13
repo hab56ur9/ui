@@ -428,6 +428,7 @@
   height: 100%;
   border-radius: inherit;
   background: var(--color-main-default);
+  transition: width calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .meter-track {
@@ -443,6 +444,7 @@
   width: var(--meter);
   border-radius: var(--radius-pill);
   background: var(--color-main-default);
+  transition: width calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard), background calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .meter.is-good .meter-fill {

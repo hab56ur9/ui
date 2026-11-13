@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { Badge } from "./Badge";
 import { Icon, type IconName } from "./Icon";
 
@@ -22,6 +22,22 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
   const current = items.find((item) => item.id === selected);
   const panels = items.some((item) => item.content !== undefined);
   const tabId = (id: string) => `${base}-tab-${id}`;
+  const sliding = variant === "line" && orientation === "horizontal";
+  const [mark, setMark] = useState<{ left: number; width: number }>();
+
+  useLayoutEffect(() => {
+    const node = list.current;
+    if (!node || !sliding) return;
+    const tabs = node.querySelectorAll<HTMLElement>('[role="tab"]');
+    const place = () => {
+      const tab = node.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+      setMark(tab ? { left: tab.offsetLeft, width: tab.offsetWidth } : undefined);
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    tabs.forEach((tab) => observer.observe(tab));
+    return () => observer.disconnect();
+  }, [selected, sliding, items]);
 
   const select = (id: string) => {
     setOwn(id);
@@ -68,6 +84,7 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
             </button>
           );
         })}
+        {sliding && mark && <span className="tabs-indicator" aria-hidden="true" style={{ "--tabs-left": `${mark.left}px`, "--tabs-width": `${mark.width}px` } as CSSProperties} />}
       </div>
       {panels && (
         <div className="tabs-panel" role="tabpanel" id={`${base}-panel`} aria-labelledby={selected ? tabId(selected) : undefined} tabIndex={0}>

@@ -102,6 +102,7 @@
 .chat-mentions span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--font-size-caption); color: var(--color-fg-secondary); }
 .chat-mentions code { font-family: var(--font-family-mono); font-size: var(--font-size-caption); color: var(--color-fg-muted); }
 
+.kanban-column, .kanban-card, .activity-row, .doc-row, .tree-row { transition-property: color, background-color, border-color, box-shadow; transition-duration: calc(var(--motion-duration-fast) * var(--motion-intensity)); transition-timing-function: var(--motion-easing-standard); }
 .kanban { display: grid; grid-template-columns: repeat(var(--kanban-columns), minmax(180px, 1fr)); gap: var(--space-3); align-items: stretch; }
 .kanban-column { display: flex; flex-direction: column; gap: var(--space-2); min-height: 240px; padding: var(--space-2); border: var(--border-width-default) dashed transparent; border-radius: var(--radius-card); background: var(--color-bg-subtle); }
 .kanban.is-lane .kanban-column { min-height: 64px; }

@@ -136,7 +136,7 @@ p {
   font-size: var(--font-size-label);
   padding: var(--space-1) var(--space-control-inline);
   cursor: pointer;
-  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
+  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard), color calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .segmented button:hover,
@@ -1446,6 +1446,13 @@ button.chip-label:hover {
   font-weight: var(--font-weight-medium);
   text-align: center;
   pointer-events: none;
+  transition: opacity calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-enter);
+}
+
+@starting-style {
+  .drop-zone-overlay {
+    opacity: 0;
+  }
 }
 
 .checkbox {
@@ -1787,6 +1794,19 @@ button.chip-label:hover {
   color: var(--color-fg-secondary);
 }
 
+.field-control,
+.chip,
+.chip-remove,
+.calendar-nav,
+.calendar-day,
+.pager-link,
+.card,
+.multi-select-row {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: calc(var(--motion-duration-fast) * var(--motion-intensity));
+  transition-timing-function: var(--motion-easing-standard);
+}
+
 .tabs {
   display: flex;
   flex-direction: column;
@@ -1795,6 +1815,7 @@ button.chip-label:hover {
 }
 
 .tabs-list {
+  position: relative;
   display: flex;
   gap: var(--space-1);
   overflow-x: auto;
@@ -1824,7 +1845,7 @@ button.chip-label:hover {
   font-size: var(--font-size-label);
   white-space: nowrap;
   cursor: pointer;
-  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard), box-shadow calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
+  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard), color calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .tabs-tab:focus-visible {
@@ -1848,11 +1869,25 @@ button.chip-label:hover {
 .tabs.is-line .tabs-tab {
   padding: var(--space-3) 0;
   font-size: var(--font-size-body);
-  box-shadow: inset 0 calc(-1 * var(--border-width-strong)) transparent;
 }
 
-.tabs.is-line .tabs-tab[aria-selected="true"] {
-  box-shadow: inset 0 calc(-1 * var(--border-width-strong)) var(--color-main-default);
+.tabs-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--tabs-width);
+  height: var(--border-width-strong);
+  background: var(--color-main-default);
+  transform: translateX(var(--tabs-left));
+  pointer-events: none;
+  transition: transform calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard), width calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
+}
+
+@media (forced-colors: active) {
+  .tabs-indicator {
+    background: Highlight;
+    forced-color-adjust: none;
+  }
 }
 
 .tabs.is-pill .tabs-tab {
@@ -3578,6 +3613,7 @@ path[data-motion~="draw"] {
   height: 100%;
   border-radius: inherit;
   background: var(--color-main-default);
+  transition: width calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .meter-track {
@@ -3593,6 +3629,7 @@ path[data-motion~="draw"] {
   width: var(--meter);
   border-radius: var(--radius-pill);
   background: var(--color-main-default);
+  transition: width calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard), background calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .meter.is-good .meter-fill {
