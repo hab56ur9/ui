@@ -91,13 +91,13 @@
     "code": {
       "$description": "Code sits in an inset well on the page tone, one step below the card around it; every syntax role clears 4.5:1 on it in both themes.",
       "background": { "$value": "{color.neutral.150}" },
-      "keyword": { "$value": "{color.violet.500}" },
-      "string": { "$value": "{color.green.550}" },
-      "number": { "$value": "{color.red.500}" },
-      "comment": { "$value": "{color.neutral.700}" },
-      "function": { "$value": "{color.blue.600}" },
-      "tag": { "$value": "{color.red.500}" },
-      "attr": { "$value": "{color.violet.500}" }
+      "keyword": { "$value": "{color.darcula-light.keyword}" },
+      "string": { "$value": "{color.darcula-light.string}" },
+      "number": { "$value": "{color.darcula-light.number}" },
+      "comment": { "$value": "{color.darcula-light.comment}" },
+      "function": { "$value": "{color.darcula-light.function}" },
+      "tag": { "$value": "{color.darcula-light.tag}" },
+      "attr": { "$value": "{color.darcula-light.attr}" }
     },
     "delta": {
       "$description": "Text color for a change whose direction is good or bad.",

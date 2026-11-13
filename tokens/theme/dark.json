@@ -84,13 +84,13 @@
     },
     "code": {
       "background": { "$value": "{color.neutral.900}" },
-      "keyword": { "$value": "{color.magenta.300}" },
-      "string": { "$value": "{color.lime.200}" },
-      "number": { "$value": "{color.yellow.200}" },
-      "comment": { "$value": "{color.neutral.400}" },
-      "function": { "$value": "{color.blue.300}" },
-      "tag": { "$value": "{color.red.300}" },
-      "attr": { "$value": "{color.orange.300}" }
+      "keyword": { "$value": "{color.darcula.keyword}" },
+      "string": { "$value": "{color.darcula.string}" },
+      "number": { "$value": "{color.darcula.number}" },
+      "comment": { "$value": "{color.darcula.comment}" },
+      "function": { "$value": "{color.darcula.function}" },
+      "tag": { "$value": "{color.darcula.tag}" },
+      "attr": { "$value": "{color.darcula.attr}" }
     },
     "delta": {
       "good": { "$value": "{color.green.350}" },

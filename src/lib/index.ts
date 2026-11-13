@@ -29,7 +29,7 @@ export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./T
 export { Tabs, type TabItem, type TabsProps } from "./Tabs";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";
 export { Button, Delta, Segmented, Stat, type ButtonProps, type ButtonVariant, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";
-export { CodeBlock, Highlight, type CodeBlockProps, type CodeLang } from "./Code";
+export { CodeBlock, CodeLine, Highlight, langOf, type CodeBlockProps, type CodeLang } from "./Code";
 export { Icon, iconNames, type IconName, type IconProps } from "./Icon";
 export { LineChart, type LineChartProps, type LineSeries } from "./charts/LineChart";
 export { BarChart, type BarChartProps } from "./charts/BarChart";

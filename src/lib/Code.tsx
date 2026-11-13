@@ -35,10 +35,46 @@ const GRAMMARS = {
     ["function", /[A-Za-z_][\w]*(?=\s*\()/y],
     ["plain", /[A-Za-z_][\w]*|\s+|./y],
   ],
+  go: [
+    ["comment", /\/\/[^\n]*|\/\*[\s\S]*?\*\//y],
+    ["string", /"(?:\\.|[^"\\\n])*"|`[^`]*`|'(?:\\.|[^'\\\n])*'/y],
+    ["keyword", /\b(?:package|import|func|return|if|else|for|range|switch|case|default|go|defer|select|chan|map|struct|interface|type|var|const|break|continue|nil|true|false|iota)\b/y],
+    ["number", /\b\d+(?:\.\d+)?\b/y],
+    ["function", /[A-Za-z_][\w]*(?=\s*\()/y],
+    ["plain", /[A-Za-z_][\w]*|\s+|./y],
+  ],
+  py: [
+    ["comment", /#[^\n]*/y],
+    ["string", /"""[\s\S]*?"""|\'\'\'[\s\S]*?\'\'\'|[rbf]?"(?:\\.|[^"\\\n])*"|[rbf]?'(?:\\.|[^'\\\n])*'/y],
+    ["tag", /@[A-Za-z_][\w.]*/y],
+    ["keyword", /\b(?:def|class|return|if|elif|else|for|while|in|not|and|or|is|import|from|as|with|try|except|finally|raise|yield|lambda|pass|break|continue|async|await|None|True|False|self)\b/y],
+    ["number", /\b\d+(?:\.\d+)?\b/y],
+    ["function", /[A-Za-z_][\w]*(?=\s*\()/y],
+    ["plain", /[A-Za-z_][\w]*|\s+|./y],
+  ],
+  yaml: [
+    ["comment", /#[^\n]*/y],
+    ["attr", /[\w.-]+(?=\s*:(?:\s|$))/y],
+    ["string", /"(?:\\.|[^"\\\n])*"|'[^'\n]*'/y],
+    ["keyword", /\b(?:true|false|null|yes|no)\b/y],
+    ["number", /-?\b\d+(?:\.\d+)?\b/y],
+    ["plain", /[\w-]+|\s+|./y],
+  ],
+  md: [
+    ["keyword", /^#{1,6} [^\n]*/my],
+    ["string", /`[^`\n]+`/y],
+    ["function", /\[[^\]\n]*\]\([^)\n]*\)/y],
+    ["tag", /^\s*(?:[-*+]|\d+\.) /my],
+    ["plain", /[^`[#\n-]+|\s+|./y],
+  ],
   plain: [["plain", /[\s\S]+/y]],
 } satisfies Record<string, [string, RegExp][]>;
 
 export type CodeLang = keyof typeof GRAMMARS;
+
+const EXTENSIONS: Record<string, CodeLang> = { ts: "tsx", tsx: "tsx", js: "tsx", jsx: "tsx", mjs: "tsx", cjs: "tsx", go: "go", py: "py", json: "json", yaml: "yaml", yml: "yaml", sql: "sql", md: "md", html: "html", css: "plain" };
+
+export const langOf = (path: string): CodeLang => EXTENSIONS[path.split(".").pop()?.toLowerCase() ?? ""] ?? "plain";
 
 const guess = (code: string): CodeLang => {
   if (/^\s*<[a-z!]/.test(code)) return "html";
@@ -116,6 +152,10 @@ export function Highlight({ code, lang = guess(code), numbers = false }: { code:
       })}
     </code>
   );
+}
+
+export function CodeLine({ code, lang }: { code: string; lang: CodeLang }) {
+  return <Tokens items={tokens(code, lang)} />;
 }
 
 export type CodeBlockProps = { code: string; lang?: CodeLang; title?: string; actions?: ReactNode };

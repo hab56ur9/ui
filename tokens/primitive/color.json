@@ -157,6 +157,26 @@
       "400": { "$value": "#e34948" },
       "450": { "$value": "#d03b3b" },
       "500": { "$value": "#b8302f" }
+    },
+    "darcula": {
+      "$description": "IntelliJ Darcula syntax colors for code on a dark well; each clears 4.5:1 on neutral.900.",
+      "keyword": { "$value": "#cc7832" },
+      "string": { "$value": "#7a9a62" },
+      "number": { "$value": "#6897bb" },
+      "comment": { "$value": "#8f8f8f" },
+      "function": { "$value": "#ffc66d" },
+      "tag": { "$value": "#e8bf6a" },
+      "attr": { "$value": "#a688b8" }
+    },
+    "darcula-light": {
+      "$description": "Darcula hues darkened for code on a light well; each clears 4.5:1 on neutral.150.",
+      "keyword": { "$value": "#94460f" },
+      "string": { "$value": "#476436" },
+      "number": { "$value": "#33628a" },
+      "comment": { "$value": "#626262" },
+      "function": { "$value": "#664b00" },
+      "tag": { "$value": "#6f5000" },
+      "attr": { "$value": "#6c4f82" }
     }
   }
 }
