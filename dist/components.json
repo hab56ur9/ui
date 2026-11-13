@@ -2848,17 +2848,19 @@
           "optional": true,
           "kind": "enum",
           "values": [
+            "css",
             "go",
             "html",
             "json",
             "md",
             "plain",
             "py",
+            "sh",
             "sql",
             "tsx",
             "yaml"
           ],
-          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
+          "type": "\"css\" | \"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sh\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
         },
         {
           "name": "title",
@@ -2888,17 +2890,19 @@
           "optional": false,
           "kind": "enum",
           "values": [
+            "css",
             "go",
             "html",
             "json",
             "md",
             "plain",
             "py",
+            "sh",
             "sql",
             "tsx",
             "yaml"
           ],
-          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\""
+          "type": "\"css\" | \"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sh\" | \"sql\" | \"tsx\" | \"yaml\""
         }
       ]
     },
@@ -2916,17 +2920,19 @@
           "optional": true,
           "kind": "enum",
           "values": [
+            "css",
             "go",
             "html",
             "json",
             "md",
             "plain",
             "py",
+            "sh",
             "sql",
             "tsx",
             "yaml"
           ],
-          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
+          "type": "\"css\" | \"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sh\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
         },
         {
           "name": "numbers",
@@ -2962,17 +2968,19 @@
           "optional": true,
           "kind": "enum",
           "values": [
+            "css",
             "go",
             "html",
             "json",
             "md",
             "plain",
             "py",
+            "sh",
             "sql",
             "tsx",
             "yaml"
           ],
-          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
+          "type": "\"css\" | \"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sh\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
         },
         {
           "name": "start",

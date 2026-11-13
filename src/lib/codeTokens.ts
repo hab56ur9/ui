@@ -65,12 +65,31 @@ const GRAMMARS = {
     ["tag", /^\s*(?:[-*+]|\d+\.) /my],
     ["plain", /[^`[#\n-]+|\s+|./y],
   ],
+  sh: [
+    ["comment", /(?<![\w$])#[^\n]*/y],
+    ["string", /"(?:\\.|[^"\\])*"|'[^']*'/y],
+    ["attr", /\$(?:\{[^}\n]*\}|[A-Za-z_][\w]*|[@*#?$!0-9])/y],
+    ["keyword", /\b(?:if|then|else|elif|fi|for|while|until|do|done|case|esac|in|function|return|export|local|set|unset|source)\b/y],
+    ["tag", /(?<![\w-])--?[A-Za-z][\w-]*/y],
+    ["number", /\b\d+\b/y],
+    ["plain", /[A-Za-z_][\w.-]*|\s+|./y],
+  ],
+  css: [
+    ["comment", /\/\*[\s\S]*?\*\//y],
+    ["string", /"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'/y],
+    ["keyword", /@[\w-]+|!important/y],
+    ["attr", /--?[A-Za-z][\w-]*(?=\s*:[^{};]*[;}])|[A-Za-z][\w-]*(?=\s*:[^{};]*[;}])/y],
+    ["tag", /[.#]?[A-Za-z_-][\w-]*(?=[^{};]*\{)/y],
+    ["number", /#[\da-fA-F]{3,8}\b|-?\d*\.?\d+(?:[a-z]+|%)?/y],
+    ["function", /[A-Za-z-]+(?=\()/y],
+    ["plain", /[A-Za-z_-][\w-]*|\s+|./y],
+  ],
   plain: [["plain", /[\s\S]+/y]],
 } satisfies Record<string, [string, RegExp][]>;
 
 export type CodeLang = keyof typeof GRAMMARS;
 
-const EXTENSIONS: Record<string, CodeLang> = { ts: "tsx", tsx: "tsx", js: "tsx", jsx: "tsx", mjs: "tsx", cjs: "tsx", go: "go", py: "py", json: "json", yaml: "yaml", yml: "yaml", sql: "sql", md: "md", html: "html", css: "plain" };
+const EXTENSIONS: Record<string, CodeLang> = { ts: "tsx", tsx: "tsx", js: "tsx", jsx: "tsx", mjs: "tsx", cjs: "tsx", go: "go", py: "py", json: "json", yaml: "yaml", yml: "yaml", sql: "sql", md: "md", html: "html", css: "css", sh: "sh", bash: "sh", zsh: "sh" };
 
 export const langOf = (path: string): CodeLang => EXTENSIONS[path.split(".").pop()?.toLowerCase() ?? ""] ?? "plain";
 

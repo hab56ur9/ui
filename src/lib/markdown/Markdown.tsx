@@ -76,7 +76,7 @@ const SHORTCUTS: [RegExp, (match: RegExpMatchArray) => Partial<EditorBlock> & { 
   [/^> ([\s\S]*)$/, (m) => ({ kind: "quote", text: m[1] })],
 ];
 
-const LANGS: Record<string, CodeLang> = { tsx: "tsx", ts: "tsx", typescript: "tsx", jsx: "tsx", js: "tsx", javascript: "tsx", html: "html", json: "json", sql: "sql" };
+const LANGS: Record<string, CodeLang> = { tsx: "tsx", ts: "tsx", typescript: "tsx", jsx: "tsx", js: "tsx", javascript: "tsx", html: "html", json: "json", sql: "sql", go: "go", py: "py", python: "py", yaml: "yaml", yml: "yaml", md: "md", markdown: "md", sh: "sh", bash: "sh", zsh: "sh", shell: "sh", console: "sh", css: "css" };
 
 function grow(el: HTMLTextAreaElement | null) {
   if (!el) return;
