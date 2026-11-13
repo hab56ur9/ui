@@ -134,7 +134,7 @@ p {
   color: var(--color-fg-secondary);
   font: inherit;
   font-size: var(--font-size-label);
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-1) var(--space-control-inline);
   cursor: pointer;
   transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
@@ -745,8 +745,8 @@ a.shell-link {
 .shell-menu {
   display: none;
   place-items: center;
-  width: var(--space-8);
-  height: var(--space-8);
+  width: var(--size-control);
+  height: var(--size-control);
   border: 0;
   border-radius: var(--radius-control);
   background: transparent;
@@ -757,8 +757,8 @@ a.shell-link {
 .shell-back {
   display: inline-grid;
   place-items: center;
-  width: var(--space-8);
-  height: var(--space-8);
+  width: var(--size-control);
+  height: var(--size-control);
   margin-left: calc(var(--space-2) * -1);
   border: 0;
   border-radius: var(--radius-control);
@@ -840,8 +840,8 @@ a.shell-link {
 .calendar-nav {
   display: inline-grid;
   place-items: center;
-  width: var(--space-8);
-  height: var(--space-8);
+  width: var(--size-control);
+  height: var(--size-control);
   border: 0;
   border-radius: var(--radius-control);
   background: transparent;
@@ -1352,8 +1352,8 @@ button.chip-label:hover {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: var(--space-8);
-  padding: 0 var(--space-3);
+  min-height: var(--size-control);
+  padding: 0 var(--space-control-inline);
   border: var(--border-width-default) solid var(--color-border-default);
   border-radius: var(--radius-control);
   background: var(--color-bg-surface);
@@ -1393,8 +1393,8 @@ button.chip-label:hover {
 .select-control select {
   flex: 1;
   min-width: 0;
-  min-height: calc(var(--space-8) - 2 * var(--border-width-default));
-  padding: 0 calc(var(--space-3) + var(--space-5)) 0 var(--space-3);
+  min-height: calc(var(--size-control) - 2 * var(--border-width-default));
+  padding: 0 calc(var(--space-control-inline) + var(--space-5)) 0 var(--space-control-inline);
   border: 0;
   border-radius: inherit;
   outline: none;
@@ -1409,7 +1409,7 @@ button.chip-label:hover {
 
 .select-control .icon {
   position: absolute;
-  right: var(--space-3);
+  right: var(--space-control-inline);
   pointer-events: none;
 }
 
@@ -1460,10 +1460,52 @@ button.chip-label:hover {
 }
 
 .checkbox input {
+  display: inline-grid;
+  place-content: center;
   flex: none;
+  width: var(--space-4);
+  height: var(--space-4);
   margin: 0;
-  accent-color: var(--color-main-default);
+  border: var(--border-width-default) solid var(--color-border-strong);
+  border-radius: var(--radius-indicator);
+  background: var(--color-bg-surface);
+  appearance: none;
   cursor: inherit;
+  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard), border-color calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
+}
+
+.checkbox input::before {
+  content: "";
+  width: var(--space-2);
+  height: var(--space-2);
+  background: var(--color-main-on);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+  transform: scale(0);
+  transition: transform calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-enter);
+}
+
+.checkbox input:checked {
+  border-color: var(--color-main-fill);
+  background: var(--color-main-fill);
+}
+
+.checkbox input:checked::before {
+  transform: scale(1);
+}
+
+@media (forced-colors: active) {
+  .checkbox input {
+    border-color: CanvasText;
+    forced-color-adjust: none;
+  }
+
+  .checkbox input:checked {
+    background: Highlight;
+  }
+
+  .checkbox input::before {
+    background: HighlightText;
+  }
 }
 
 .checkbox-label {
@@ -2660,8 +2702,8 @@ button.mini-card {
 .carousel-nav {
   display: inline-grid;
   place-items: center;
-  width: var(--space-8);
-  height: var(--space-8);
+  width: var(--size-control);
+  height: var(--size-control);
   border: 0;
   border-radius: 50%;
   background: transparent;

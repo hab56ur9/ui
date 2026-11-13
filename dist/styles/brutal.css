@@ -6,6 +6,9 @@
   --radius-mark: 0px;
   --radius-sheet: 0px;
   --radius-pill: 0px;
+  --radius-indicator: 0px;
+  --size-control: 40px;
+  --space-control-inline: 12px;
   --border-width-default: 2px;
   --border-width-strong: 3px;
   --border-width-accent: 4px;

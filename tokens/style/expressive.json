@@ -7,8 +7,11 @@
       "control": { "$value": { "value": 12, "unit": "px" } },
       "card": { "$value": { "value": 20, "unit": "px" } },
       "mark": { "$value": { "value": 6, "unit": "px" } },
-      "sheet": { "$value": { "value": 28, "unit": "px" } }
+      "sheet": { "$value": { "value": 28, "unit": "px" } },
+      "indicator": { "$value": { "value": 999, "unit": "px" } }
     },
+    "size": { "$type": "dimension", "control": { "$value": { "value": 44, "unit": "px" } } },
+    "space": { "$type": "dimension", "control-inline": { "$value": { "value": 16, "unit": "px" } } },
     "motion": {
       "duration": {
         "$type": "duration",

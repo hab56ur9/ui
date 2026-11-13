@@ -8,8 +8,11 @@
       "card": { "$value": { "value": 0, "unit": "px" } },
       "mark": { "$value": { "value": 0, "unit": "px" } },
       "sheet": { "$value": { "value": 0, "unit": "px" } },
-      "pill": { "$value": { "value": 0, "unit": "px" } }
+      "pill": { "$value": { "value": 0, "unit": "px" } },
+      "indicator": { "$value": { "value": 0, "unit": "px" } }
     },
+    "size": { "$type": "dimension", "control": { "$value": { "value": 40, "unit": "px" } } },
+    "space": { "$type": "dimension", "control-inline": { "$value": { "value": 12, "unit": "px" } } },
     "border-width": {
       "$type": "dimension",
       "default": { "$value": { "value": 2, "unit": "px" } },

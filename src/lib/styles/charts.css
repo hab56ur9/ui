@@ -61,7 +61,7 @@
 .key-band {
   width: 10px;
   height: 10px;
-  border-radius: 2px;
+  border-radius: calc(var(--radius-mark) / 2);
   background: var(--c);
 }
 
@@ -217,7 +217,7 @@
 .chart-scale-step {
   width: var(--space-5);
   height: var(--space-2);
-  border-radius: 2px;
+  border-radius: calc(var(--radius-mark) / 2);
   background: var(--seq);
 }
 

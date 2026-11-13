@@ -986,11 +986,13 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
+  --space-control-inline: 12px;
   --radius-control: 6px;
   --radius-card: 10px;
   --radius-mark: 4px;
   --radius-sheet: 16px;
   --radius-pill: 999px;
+  --radius-indicator: 2px;
   --font-stack-hangul: Inter, "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
   --font-stack-latin: Inter, "Pretendard Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   --font-family-mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
@@ -1027,6 +1029,7 @@
   --size-preview-height: 240px;
   --size-panel-head: 32px;
   --size-panel-action: 26px;
+  --size-control: 32px;
   --motion-duration-fast: 120ms;
   --motion-duration-base: 200ms;
   --motion-duration-slow: 280ms;

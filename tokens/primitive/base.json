@@ -12,7 +12,8 @@
     "10": { "$value": { "value": 40, "unit": "px" } },
     "12": { "$value": { "value": 48, "unit": "px" } },
     "16": { "$value": { "value": 64, "unit": "px" } },
-    "24": { "$value": { "value": 96, "unit": "px" } }
+    "24": { "$value": { "value": 96, "unit": "px" } },
+    "control-inline": { "$value": { "value": 12, "unit": "px" } }
   },
   "radius": {
     "$type": "dimension",
@@ -20,7 +21,8 @@
     "card": { "$value": { "value": 10, "unit": "px" } },
     "mark": { "$value": { "value": 4, "unit": "px" } },
     "sheet": { "$value": { "value": 16, "unit": "px" } },
-    "pill": { "$value": { "value": 999, "unit": "px" } }
+    "pill": { "$value": { "value": 999, "unit": "px" } },
+    "indicator": { "$value": { "value": 2, "unit": "px" } }
   },
   "font": {
     "stack": {
@@ -135,7 +137,8 @@
     "panel": {
       "head": { "$value": { "value": 32, "unit": "px" } },
       "action": { "$value": { "value": 26, "unit": "px" } }
-    }
+    },
+    "control": { "$value": { "value": 32, "unit": "px" } }
   },
   "motion": {
     "duration": {
