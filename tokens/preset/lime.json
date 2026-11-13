@@ -8,7 +8,7 @@
     "color": {
       "main": {
         "default": {
-          "$value": "{color.lime.450}"
+          "$value": "{color.lime.550}"
         },
         "subtle": {
           "$value": "{color.lime.50}"

@@ -1,7 +1,7 @@
 /* blue: Blue + blue-gray */
 
 [data-preset="blue"] {
-  --color-main-default: var(--color-blue-500);
+  --color-main-default: var(--color-blue-550);
   --color-main-subtle: var(--color-blue-100);
   --color-main-fill: var(--color-blue-500);
   --color-main-on: var(--color-neutral-0);

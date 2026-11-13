@@ -948,6 +948,7 @@
   --color-lime-400: #5a9313;
   --color-lime-450: #477f25;
   --color-lime-500: #457208;
+  --color-lime-550: #3a6204;
   --color-lime-600: #305301;
   --color-lime-700: #23361a;
   --color-green-350: #1fb21f;
@@ -1104,7 +1105,7 @@
   --color-fg-on-fill-light: var(--color-neutral-1000);
   --color-border-default: var(--color-neutral-250);
   --color-border-strong: var(--color-neutral-300);
-  --color-main-default: var(--color-lime-450);
+  --color-main-default: var(--color-lime-550);
   --color-main-subtle: var(--color-lime-50);
   --color-main-fill: var(--color-lime-200);
   --color-main-on: var(--color-neutral-1000);

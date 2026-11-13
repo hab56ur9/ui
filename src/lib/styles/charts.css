@@ -644,7 +644,7 @@
 
 .diagram-step > circle,
 .diagram-packet circle {
-  fill: var(--color-main-default);
+  fill: var(--color-main-fill);
 }
 
 .diagram-step > text {

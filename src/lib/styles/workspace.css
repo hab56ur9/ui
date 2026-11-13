@@ -201,7 +201,7 @@
 .queue li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: var(--space-2); padding: var(--space-2); border-radius: var(--radius-control); }
 .queue li.is-active { background: var(--color-main-subtle); }
 .queue-index { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--color-bg-subtle); font-family: var(--font-family-mono); font-size: var(--font-size-caption); color: var(--color-fg-secondary); }
-.queue li.is-active .queue-index { background: var(--color-main-default); color: var(--color-main-on); }
+.queue li.is-active .queue-index { background: var(--color-main-fill); color: var(--color-main-on); }
 .queue-body { display: grid; gap: 2px; min-width: 0; }
 .queue-head { display: flex; align-items: center; gap: 6px; font-size: var(--font-size-caption); color: var(--color-fg-muted); white-space: nowrap; overflow: hidden; }
 .queue-head strong { color: var(--color-fg-default); font-weight: var(--font-weight-semibold); }

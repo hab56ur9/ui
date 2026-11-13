@@ -22,7 +22,7 @@
     },
     "main": {
       "$description": "Main color of the preset: light green by default. Primary buttons fill with it and carry dark text; links, focus rings, current items and emphasized data use the deeper default so they stay readable on light surfaces.",
-      "default": { "$value": "{color.lime.450}" },
+      "default": { "$value": "{color.lime.550}" },
       "subtle": { "$value": "{color.lime.50}" },
       "fill": { "$value": "{color.lime.200}" },
       "on": { "$value": "{color.neutral.1000}" }

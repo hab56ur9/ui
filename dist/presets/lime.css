@@ -1,7 +1,7 @@
 /* lime: Light green + green-gray */
 
 [data-preset="lime"] {
-  --color-main-default: var(--color-lime-450);
+  --color-main-default: var(--color-lime-550);
   --color-main-subtle: var(--color-lime-50);
   --color-main-fill: var(--color-lime-200);
   --color-main-on: var(--color-neutral-1000);

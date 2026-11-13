@@ -1,7 +1,7 @@
 /* blue: Blue + blue-gray */
 
 [data-preset="blue"] {
-  --color-main-default: var(--color-blue-500);
+  --color-main-default: var(--color-blue-550);
   --color-main-subtle: var(--color-blue-100);
   --color-main-fill: var(--color-blue-500);
   --color-main-on: var(--color-neutral-0);
@@ -65,7 +65,7 @@
 /* lime: Light green + green-gray */
 
 [data-preset="lime"] {
-  --color-main-default: var(--color-lime-450);
+  --color-main-default: var(--color-lime-550);
   --color-main-subtle: var(--color-lime-50);
   --color-main-fill: var(--color-lime-200);
   --color-main-on: var(--color-neutral-1000);
@@ -193,7 +193,7 @@
 /* sky: Sky + blue-gray */
 
 [data-preset="sky"] {
-  --color-main-default: var(--color-sky-700);
+  --color-main-default: var(--color-sky-800);
   --color-main-subtle: var(--color-sky-100);
   --color-main-fill: var(--color-sky-300);
   --color-main-on: var(--color-neutral-1000);
