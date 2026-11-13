@@ -578,7 +578,7 @@ export const api: Record<string, Section[]> = {
       ["title · count", "string, string", "", "머리글 제목과 오른쪽 알약입니다."],
       ["columns", "[string, string, string, string]", "", "제목 · 진행 · 논의 · 상태 열 이름입니다."],
       ["rows", "{ id, title, progress?, discussion?, status?, excluded? }[]", "", "스레드 한 줄씩입니다. `excluded`면 체크를 끄고 `status` 배지로 제외 사유를 보입니다."],
-      ["limit", "number", "Infinity", "포함·제외 묶음마다 보일 줄 수입니다. 남은 줄은 \"+ n개 더\" 한 줄로 접히고 그 줄의 체크가 숨은 줄을 함께 고릅니다."],
+      ["limit", "number", "Infinity", "포함·제외 묶음마다 보일 줄 수입니다. 남은 줄은 \"+ n개 더\" 한 줄로 접히고 그 줄의 체크가 숨은 줄을 함께 고르고, 일부만 골랐으면 `indeterminate`로 보입니다. 펼친 뒤에는 접기로 돌아갑니다."],
       ["value · defaultValue · onChange", "string[], string[], (value) => void", "제외 아닌 줄 모두", "고른 줄의 id입니다."],
       ["actions · onAction · note", "{ id, label, variant? }[], (id, value) => void, string", "[]", "바닥 버튼, 누를 때 고른 id와 함께 오는 이벤트, 바닥 오른쪽 안내입니다."],
     ] },

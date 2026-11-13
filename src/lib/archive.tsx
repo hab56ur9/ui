@@ -121,10 +121,12 @@ export function ArchivePicker({ title, count, columns, rows, limit = Infinity, v
           <tbody>
             {groups.map((group) => {
               const expanded = open.includes(group.key);
+              const folds = group.rows.length > limit;
               const shown = expanded ? group.rows : group.rows.slice(0, limit);
-              const hidden = group.rows.slice(shown.length);
-              const hiddenIds = hidden.filter(included).map((row) => row.id);
-              const hiddenAll = hiddenIds.length > 0 && hiddenIds.every((id) => picked.includes(id));
+              const rest = group.rows.slice(limit);
+              const restIds = rest.filter(included).map((row) => row.id);
+              const restPicked = restIds.filter((id) => picked.includes(id)).length;
+              const restAll = restIds.length > 0 && restPicked === restIds.length;
               return [
                 ...shown.map((row) => (
                   <tr key={row.id} className={cx(row.excluded && "is-excluded")}>
@@ -137,14 +139,25 @@ export function ArchivePicker({ title, count, columns, rows, limit = Infinity, v
                     <td>{row.status && <Badge tone={row.status.tone}>{row.status.label}</Badge>}</td>
                   </tr>
                 )),
-                hidden.length > 0 && (
+                folds && (
                   <tr key={`${group.key}-more`} className={cx("archive-more", group.key === "excluded" && "is-excluded")}>
                     <td>
-                      <input type="checkbox" aria-label={t("archive.more", { n: hidden.length })} checked={hiddenAll} disabled={hiddenIds.length === 0} onChange={(e) => toggle(hiddenIds, e.target.checked)} />
+                      {!expanded && (
+                        <input
+                          type="checkbox"
+                          ref={(input) => {
+                            if (input) input.indeterminate = restPicked > 0 && !restAll;
+                          }}
+                          aria-label={t("archive.more", { n: rest.length })}
+                          checked={restAll}
+                          disabled={restIds.length === 0}
+                          onChange={(e) => toggle(restIds, e.target.checked)}
+                        />
+                      )}
                     </td>
-                    <td colSpan={3}>{t("archive.more", { n: hidden.length })}</td>
+                    <td colSpan={3}>{!expanded && t("archive.more", { n: rest.length })}</td>
                     <td>
-                      <ButtonBase onClick={() => setOpen([...open, group.key])}>{t("archive.expand")}</ButtonBase>
+                      <ButtonBase onClick={() => setOpen(expanded ? open.filter((key) => key !== group.key) : [...open, group.key])}>{t(expanded ? "archive.collapse" : "archive.expand")}</ButtonBase>
                     </td>
                   </tr>
                 ),

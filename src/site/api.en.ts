@@ -578,7 +578,7 @@ export const api: Record<string, Section[]> = {
       ["title · count", "string, string", "", "The header title and the pill on its right."],
       ["columns", "[string, string, string, string]", "", "Names of the title, progress, discussion and status columns."],
       ["rows", "{ id, title, progress?, discussion?, status?, excluded? }[]", "", "One row per thread. An `excluded` row has its checkbox disabled and shows the reason in its `status` badge."],
-      ["limit", "number", "Infinity", "Rows shown per group, included and excluded. The rest fold into one \"+ n more\" row whose checkbox picks the hidden rows together."],
+      ["limit", "number", "Infinity", "Rows shown per group, included and excluded. The rest fold into one \"+ n more\" row whose checkbox picks the hidden rows together and shows `indeterminate` when only some are picked. Collapse folds them again after expanding."],
       ["value · defaultValue · onChange", "string[], string[], (value) => void", "every row not excluded", "Ids of the picked rows."],
       ["actions · onAction · note", "{ id, label, variant? }[], (id, value) => void, string", "[]", "Footer buttons, the press event with the picked ids, and the note on the right of the footer."],
     ] },
