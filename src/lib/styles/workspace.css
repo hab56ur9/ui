@@ -89,6 +89,12 @@
 .chat-chips { flex: 1; min-width: 0; display: flex; gap: var(--space-2); overflow-x: auto; scrollbar-width: none; }
 .chat-chip { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 var(--space-2); border: 1px solid var(--color-border-default); border-radius: var(--radius-pill); background: var(--color-bg-subtle); color: var(--color-fg-secondary); font-size: var(--font-size-caption); white-space: nowrap; }
 .chat-chip button { display: grid; padding: 0; border: 0; background: none; color: var(--color-fg-muted); cursor: pointer; }
+.chat-chip.has-image { padding-left: 3px; }
+.chat-chip img { width: 16px; height: 16px; border-radius: 4px; object-fit: cover; }
+.chat-chip-label { max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
+.chat-chip-meta { color: var(--color-fg-muted); }
+.chat-chip.is-error { border-color: var(--color-danger-default); background: color-mix(in oklab, var(--color-danger-default) 10%, transparent); color: var(--color-danger-default); }
+.chat-chip.is-error .chat-chip-meta, .chat-chip.is-error button { color: inherit; }
 .chat-mentions { position: absolute; left: 0; right: 0; bottom: calc(100% + 6px); z-index: 30; max-height: 320px; margin: 0; padding: var(--space-1); overflow: auto; list-style: none; border: 1px solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg-raised); box-shadow: var(--elevation-overlay); }
 .chat-mentions button { width: 100%; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-2); padding: var(--space-2); border: 0; border-radius: var(--radius-control); background: none; color: var(--color-fg-default); font: inherit; text-align: left; cursor: pointer; }
 .chat-mentions button[aria-selected="true"] { background: var(--color-main-subtle); }

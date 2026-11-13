@@ -884,7 +884,11 @@
     "replies": "답글 2개",
     "last": "마지막 답글 09:20",
     "typing": "준 작업 중…",
-    "placeholder": "메시지 보내기 · @로 멘션"
+    "placeholder": "메시지 보내기 · @로 멘션",
+    "chart": "환불-추이.png",
+    "query": "refund.sql",
+    "video": "시연.mov",
+    "tooBig": "50 MB 초과"
   },
   "project-cards": {
     "all": "전체",

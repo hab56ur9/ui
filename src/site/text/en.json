@@ -884,7 +884,11 @@
     "replies": "2 replies",
     "last": "Last reply 09:20",
     "typing": "Jun is working…",
-    "placeholder": "Send a message · @ to mention"
+    "placeholder": "Send a message · @ to mention",
+    "chart": "refund-trend.png",
+    "query": "refund.sql",
+    "video": "demo.mov",
+    "tooBig": "Over 50 MB"
   },
   "project-cards": {
     "all": "All",

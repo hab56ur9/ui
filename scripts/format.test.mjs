@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { percentOf } from "../src/lib/format.ts";
+import { bytes, percentOf } from "../src/lib/format.ts";
 
 test("percentOf gives the share of max", () => {
   assert.equal(percentOf(3, 5), "60%");
@@ -17,4 +17,19 @@ test("percentOf draws nothing when max is zero", () => {
 
 test("percentOf draws nothing when max is negative", () => {
   assert.equal(percentOf(3, -5), "0%");
+});
+
+test("bytes keeps small sizes in bytes", () => {
+  assert.equal(bytes(0), "0 B");
+  assert.equal(bytes(1023), "1023 B");
+});
+
+test("bytes shows one decimal below ten units", () => {
+  assert.equal(bytes(1536), "1.5 KB");
+  assert.equal(bytes(2.4 * 1024 * 1024), "2.4 MB");
+});
+
+test("bytes rounds from ten units up", () => {
+  assert.equal(bytes(50 * 1024 * 1024), "50 MB");
+  assert.equal(bytes(5 * 1024 ** 5), "5120 TB");
 });

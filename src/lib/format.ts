@@ -2,6 +2,14 @@ import type { Color, Format } from "./types";
 
 export const DAY = 864e5;
 
+const UNITS = ["B", "KB", "MB", "GB", "TB"];
+
+export const bytes = (size: number) => {
+  const step = size < 1024 ? 0 : Math.min(UNITS.length - 1, Math.floor(Math.log(size) / Math.log(1024)));
+  const value = size / 1024 ** step;
+  return `${step === 0 || value >= 10 ? Math.round(value) : value.toFixed(1)} ${UNITS[step]}`;
+};
+
 const measurable = (max: number) => max > 0;
 
 export const percentOf = (value: number, max: number) => (measurable(max) ? `${Math.max(0, Math.min(100, (value / max) * 100))}%` : "0%");

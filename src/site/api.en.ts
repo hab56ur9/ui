@@ -71,7 +71,7 @@ export const api: Record<string, Section[]> = {
     { type: "api", title: "<Composer>", rows: [
       ["placeholder · submitLabel", "string", "\"Send\"", "Empty-field text and the send button name."],
       ["mentions", "{ id, label, description?, tone?, avatar?, state? }[]", "[]", "Candidates after @, matched by name, id and Korean initial consonants."],
-      ["chips · onRemoveChip", "{ id, label, icon? }[], (id) => void", "[]", "Quote or attachment chips under the field."],
+      ["chips · onRemoveChip", "{ id, label, icon?, image?, size?, error? }[], (id) => void", "[]", "Quote or attachment chips under the field. image shows a thumbnail and size shows the byte count. error turns the chip red and shows the reason. A chip with size and no error lets the viewer send without text."],
       ["insert", "{ text, nonce }", "", "When nonce changes, puts text at the start and the caret after it."],
       ["onChange · onSubmit", "(text) => void", "", "On every change and on send."],
     ] },

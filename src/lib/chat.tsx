@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { Badge, type BadgeTone } from "./Badge";
 import { Button } from "./controls";
+import { bytes } from "./format";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
 import { Tooltip } from "./overlay/Tooltip";
@@ -198,7 +199,9 @@ export function TypingIndicator({ members = [], children }: { members?: Face[]; 
 }
 
 export type MentionCandidate = { id: string; label: string; description?: string; tone?: number; avatar?: string; state?: Presence };
-export type ComposerChip = { id: string; label: string; icon?: IconName };
+export type ComposerChip = { id: string; label: string; icon?: IconName; image?: string; size?: number; error?: string };
+
+const sendable = (chip: ComposerChip) => chip.size !== undefined && !chip.error;
 
 export type ComposerProps = {
   placeholder?: string;
@@ -277,7 +280,7 @@ export function Composer({ placeholder, submitLabel, mentions = [], chips = [], 
     onChange?.(next);
   };
   const submit = () => {
-    if (!draft.trim()) return;
+    if (!draft.trim() && !chips.some(sendable)) return;
     onSubmit?.(draft);
     sent.mark();
     change("", 0);
@@ -346,9 +349,10 @@ export function Composer({ placeholder, submitLabel, mentions = [], chips = [], 
       <div className="chat-composer-bar">
         <div className="chat-chips">
           {chips.map((chip) => (
-            <span key={chip.id} className="chat-chip">
-              {chip.icon && <Icon name={chip.icon} size="sm" />}
-              {chip.label}
+            <span key={chip.id} className={cx("chat-chip", chip.image && "has-image", chip.error && "is-error")} title={chip.error}>
+              {chip.image ? <img src={chip.image} alt="" /> : chip.icon && <Icon name={chip.icon} size="sm" />}
+              <span className="chat-chip-label">{chip.label}</span>
+              {(chip.error || chip.size !== undefined) && <span className="chat-chip-meta">{chip.error ?? bytes(chip.size ?? 0)}</span>}
               {onRemoveChip && <button type="button" aria-label={t("chat.remove", { label: chip.label })} onClick={() => onRemoveChip(chip.id)}><Icon name="close" size="sm" /></button>}
             </span>
           ))}

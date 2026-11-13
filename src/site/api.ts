@@ -71,7 +71,7 @@ export const api: Record<string, Section[]> = {
     { type: "api", title: "<Composer>", rows: [
       ["placeholder · submitLabel", "string", "\"보내기\"", "빈 입력창 문구와 보내기 버튼 이름."],
       ["mentions", "{ id, label, description?, tone?, avatar?, state? }[]", "[]", "@ 뒤에 뜨는 멘션 후보. 이름, id, 한글 초성으로 찾습니다."],
-      ["chips · onRemoveChip", "{ id, label, icon? }[], (id) => void", "[]", "입력창 아래 붙는 인용·첨부 칩."],
+      ["chips · onRemoveChip", "{ id, label, icon?, image?, size?, error? }[], (id) => void", "[]", "입력창 아래 붙는 인용·첨부 칩. image는 썸네일, size는 바이트 수로 크기를 보입니다. error가 있으면 빨간 칩으로 이유를 보입니다. size가 있고 error가 없는 칩이 있으면 글 없이도 보낼 수 있습니다."],
       ["insert", "{ text, nonce }", "", "nonce가 바뀔 때 text를 맨 앞에 넣고 커서를 둡니다."],
       ["onChange · onSubmit", "(text) => void", "", "글이 바뀔 때와 보낼 때."],
     ] },
