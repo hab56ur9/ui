@@ -4090,6 +4090,7 @@ path[data-motion~="draw"] {
 
 .infographic-panel .diagram {
   --color-main-default: var(--panel-tone);
+  --color-main-fill: var(--panel-tone);
   --color-main-on: var(--color-fg-on-fill);
 }
 
