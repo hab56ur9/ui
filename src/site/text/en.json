@@ -771,6 +771,22 @@
     "twoItems": "2",
     "session": "Session"
   },
+  "viewer-document": {
+    "title": "design.md",
+    "meta": "Document · edited 3 minutes ago",
+    "copy": "Copy contents",
+    "open": "Open as a window",
+    "body": "# Notification design\n\nNotifications go out only for mentions and review requests.\n\n- Mentions go out at once.\n- Review requests go out again one hour before the due time."
+  },
+  "viewer-aside": {
+    "title": "Viewer.tsx",
+    "meta": "Review · revision 2",
+    "status": "Status",
+    "review": "In review",
+    "base": "Base",
+    "files": "Files",
+    "body": "## What changed\n\nThe header keeps tools and actions apart. The right column holds the review details."
+  },
   "image-preview-basic": {
     "wide": "Code review screen, light theme",
     "tall": "Phone screen of the board, dark theme"

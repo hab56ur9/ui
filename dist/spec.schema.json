@@ -441,6 +441,7 @@
             "Heatmap",
             "Sparkline",
             "ActionList",
+            "Viewer",
             "Anatomy",
             "ArticleSection",
             "Brand",
@@ -2546,6 +2547,38 @@
                 "required": [
                   "items",
                   "onSelect"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Viewer"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "open": {},
+                  "onClose": {},
+                  "title": {},
+                  "icon": {},
+                  "meta": {},
+                  "tools": {},
+                  "actions": {},
+                  "aside": {},
+                  "wide": {},
+                  "inline": {}
+                },
+                "required": [
+                  "title"
                 ],
                 "additionalProperties": false
               }

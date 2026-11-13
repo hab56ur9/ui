@@ -4098,6 +4098,165 @@ path[data-motion~="draw"] {
   }
 }
 
+.viewer {
+  width: min(1360px, calc(100% - 2 * var(--space-6)));
+  max-width: none;
+  height: min(900px, calc(100dvh - 2 * var(--space-6)));
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
+  border: var(--border-width-default) solid var(--color-border-strong);
+  border-radius: var(--radius-sheet);
+  background: var(--color-bg-page);
+  color: var(--color-fg-default);
+  box-shadow: var(--elevation-overlay);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.viewer::backdrop {
+  background: color-mix(in oklab, black 50%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+.viewer[open],
+.viewer.is-inline {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.viewer.is-inline {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.viewer-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 52px;
+  padding: 0 var(--space-3) 0 var(--space-4);
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
+  background: var(--color-bg-surface);
+  white-space: nowrap;
+}
+
+.viewer-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-control);
+  background: var(--color-main-subtle);
+  color: var(--color-main-default);
+}
+
+.viewer-title {
+  display: grid;
+  min-width: 0;
+}
+
+.viewer-title strong {
+  overflow: hidden;
+  font-weight: var(--font-weight-semibold);
+  text-overflow: ellipsis;
+}
+
+.viewer-title span {
+  overflow: hidden;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+  text-overflow: ellipsis;
+}
+
+.viewer-tools,
+.viewer-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.viewer-gap {
+  flex: 1;
+}
+
+.viewer-close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--size-panel-action);
+  height: var(--size-panel-action);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-mark);
+  background: none;
+  color: var(--color-fg-muted);
+  cursor: pointer;
+}
+
+.viewer-close:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-default);
+}
+
+.viewer-close:focus-visible {
+  outline: 2px solid var(--color-main-default);
+  outline-offset: 1px;
+}
+
+.viewer-body {
+  display: grid;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-4);
+}
+
+.viewer-body.has-aside {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.viewer-sheet {
+  justify-self: center;
+  align-self: start;
+  width: min(880px, 100%);
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sheet);
+  background: var(--color-bg-surface);
+  box-shadow: var(--elevation-overlay);
+}
+
+.viewer-sheet > * {
+  min-width: 0;
+}
+
+.viewer.is-wide .viewer-sheet {
+  display: grid;
+  align-self: stretch;
+  width: 100%;
+}
+
+.viewer-body.has-aside > .viewer-sheet {
+  min-height: 0;
+  overflow: auto;
+}
+
+.viewer-aside {
+  display: grid;
+  min-height: 0;
+  overflow: auto;
+  border-radius: var(--radius-sheet);
+  background: var(--color-bg-surface);
+  box-shadow: var(--elevation-overlay);
+}
+
 .deck {
   display: flex;
   flex-direction: column;

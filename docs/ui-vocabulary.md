@@ -27,6 +27,7 @@ Feedback patterns differ by how much they interrupt the person.
 | Snackbar | A toast with one action, such as Undo | Yes: `useToast` with `action` |
 | Banner | A persistent strip at the top of a page or section | Partial: `Callout` is inline, not pinned to the top |
 | Modal dialog | A centered window that blocks the page until answered | Yes: `Modal`, `useConfirm` |
+| Viewer | A large window that opens one file with a header, a center sheet and an optional right column | Yes: `Viewer` |
 | Bottom sheet | A panel that slides up from the bottom edge | Yes: `Sheet` |
 | Inline error | A field message that explains what to fix | Partial: `TextField` has `hint` but no error state |
 | Tooltip | A short label shown on hover or focus | Partial: chart tooltips only; no general tooltip |

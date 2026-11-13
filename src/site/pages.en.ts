@@ -1010,6 +1010,77 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "viewer",
+    "group": "피드백",
+    "title": "Viewer",
+    "lede": "A viewer opens one file in a large window at the center of the screen. The header holds the name and actions, the content sits on the center sheet, and side details go in the right column.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Document",
+        "example": "viewer-document"
+      },
+      {
+        "type": "demo",
+        "title": "Right column",
+        "example": "viewer-aside"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Icon and name",
+            "The file-kind icon and name. A long name ends in an ellipsis."
+          ],
+          [
+            "Meta",
+            "Short details such as the kind and edit time."
+          ],
+          [
+            "Tools and actions",
+            "Tools sit beside the name and actions on the right. Close always comes last."
+          ],
+          [
+            "Sheet",
+            "The file contents. It is up to 880px wide, or fills the column with `wide`."
+          ],
+          [
+            "Right column",
+            "Details read beside the content, such as comments or properties."
+          ]
+        ]
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Focusing on one file at a large size, such as a document, image or code review"
+        ],
+        "avoid": [
+          "A modal when only an input or decision is needed",
+          "A split pane when work continues beside a list"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "It uses the native `<dialog>`, so focus stays inside the window.",
+          "Esc, an outside click and the close button close it. The close button name is the i18n `close`.",
+          "The window's accessible name is `title`."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "radius.sheet",
+          "elevation.overlay",
+          "color.bg.page",
+          "color.bg.surface",
+          "color.main.subtle"
+        ]
+      }
+    ]
+  },
+  {
     "id": "confirm",
     "group": "피드백",
     "title": "Confirm dialog",

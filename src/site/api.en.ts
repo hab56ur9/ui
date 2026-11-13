@@ -372,6 +372,22 @@ export const api: Record<string, Section[]> = {
     },
   ],
   modal: [{ type: "api", title: "<Modal>", rows: [...DIALOG_PROPS, ["size", '"sm" | "md" | "lg"', '"md"', "The modal width."]] }],
+  viewer: [
+    {
+      type: "api",
+      title: "<Viewer>",
+      rows: [
+        ["title · icon", "string · IconName", "\"\" · \"file\"", "The name and icon in the header. The name is also the window's accessible name."],
+        ["meta", "ReactNode", "", "Small text under the name. Keep it short, such as the kind and edit time."],
+        ["tools · actions", "ReactNode · ReactNode", "", "Tools beside the name and actions on the right. The close button always ends the actions."],
+        ["aside", "ReactNode", "", "The right column. When given, it sits beside the content sheet."],
+        ["wide", "boolean", "false", "Lets the content sheet fill the column instead of stopping at 880px."],
+        ["open · onClose", "boolean · () => void", "true", "Opens and closes the window. Esc, an outside click and the close button call `onClose`."],
+        ["inline", "boolean", "false", "Draws in place instead of as a window. Used in docs and previews."],
+        ["children", "ReactNode", "", "The file contents placed on the center sheet."],
+      ],
+    },
+  ],
   confirm: [
     {
       type: "api",

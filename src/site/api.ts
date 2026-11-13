@@ -372,6 +372,22 @@ export const api: Record<string, Section[]> = {
     },
   ],
   modal: [{ type: "api", title: "<Modal>", rows: [...DIALOG_PROPS, ["size", '"sm" | "md" | "lg"', '"md"', "모달 너비입니다."]] }],
+  viewer: [
+    {
+      type: "api",
+      title: "<Viewer>",
+      rows: [
+        ["title · icon", "string · IconName", "\"\" · \"file\"", "머리 줄의 이름과 아이콘입니다. 이름은 창의 접근 가능한 이름도 됩니다."],
+        ["meta", "ReactNode", "", "이름 아래 작은 글씨입니다. 종류·수정 시각처럼 짧게 씁니다."],
+        ["tools · actions", "ReactNode · ReactNode", "", "이름 옆 도구와 오른쪽 동작입니다. 닫기 버튼은 동작 끝에 늘 붙습니다."],
+        ["aside", "ReactNode", "", "오른쪽 칸입니다. 있으면 본문 시트와 나란히 놓입니다."],
+        ["wide", "boolean", "false", "본문 시트를 880px로 줄이지 않고 칸을 꽉 채웁니다."],
+        ["open · onClose", "boolean · () => void", "true", "창을 열고 닫습니다. Esc·바깥 클릭·닫기 버튼이 `onClose`를 부릅니다."],
+        ["inline", "boolean", "false", "창으로 띄우지 않고 그 자리에 그립니다. 문서와 미리보기에 씁니다."],
+        ["children", "ReactNode", "", "가운데 시트에 놓일 파일 내용입니다."],
+      ],
+    },
+  ],
   confirm: [
     {
       type: "api",
