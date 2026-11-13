@@ -758,6 +758,34 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "multi-select",
+    "group": "입력",
+    "title": "여러 항목 고르기",
+    "lede": "여러 항목 고르기는 목록에서 항목 여럿을 체크해 고르게 합니다. 리뷰어나 참여 멤버 고르기가 그 예입니다. 항목마다 이름과 설명을 두고, `tone`이나 `avatar`를 주면 얼굴을 함께 그립니다. `selectAllLabel`을 주면 맨 위에 전체 선택 줄이 생기고, `locked` 항목은 바꿀 수 없습니다. 고른 값은 `onChange`로 나가고, 컴포넌트는 아무것도 저장하지 않습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "멤버 고르기와 전체 선택",
+        "example": "multi-select-members",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "설명만 있는 목록",
+        "example": "multi-select-plain",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`fieldset`과 `legend`로 묶어 목록 이름을 읽습니다.",
+          "항목마다 기본 체크박스라서 탭으로 옮기고 스페이스로 바꿉니다.",
+          "일부만 고르면 전체 선택 체크박스가 \"일부 선택\" 상태가 됩니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "drop-zone",
     "group": "입력",
     "title": "드롭 영역",

@@ -60,6 +60,7 @@ Input controls differ by whether the change applies at once or on submit.
 | --- | --- | --- |
 | Text field states | Default, focused, filled, disabled, error and read-only | Partial: no error or read-only state |
 | Select | A closed list that keeps the chosen value | Yes: `Select` |
+| Multi-select | A list of checkboxes that picks several items, with an optional select-all row | Yes: `MultiSelect` |
 | Dropdown menu | A list of commands that runs the chosen one | No |
 | Segmented control | A row of joined buttons with one selected | Yes: `Segmented` |
 | Switch | An on/off control that applies at once | No |

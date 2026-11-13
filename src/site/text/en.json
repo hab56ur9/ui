@@ -633,6 +633,26 @@
     "status": "Status",
     "todo": "To do"
   },
+  "multi-select-members": {
+    "label": "Members",
+    "all": "Select all",
+    "lead": "Lead",
+    "leadRole": "Runs the channel · always in",
+    "planner": "Planner",
+    "plannerRole": "Sets projects and tickets",
+    "builder": "Builder",
+    "builderRole": "Builds the tickets",
+    "qa": "QA",
+    "qaRole": "Checks the done criteria"
+  },
+  "multi-select-plain": {
+    "label": "Notify me about",
+    "mention": "Mentions",
+    "mentionNote": "Messages that call me",
+    "reply": "Replies to my posts",
+    "approval": "Approval requests",
+    "approvalNote": "Before delete, push or deploy"
+  },
   "drop-zone-basic": {
     "label": "Drop to attach to the thread",
     "box": "Drag files from your computer onto this box.",

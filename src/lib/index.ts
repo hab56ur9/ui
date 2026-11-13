@@ -23,6 +23,7 @@ export { TextField, type TextFieldProps } from "./TextField";
 export { Checkbox, type CheckboxProps } from "./Checkbox";
 export { DropZone, type DropZoneProps } from "./DropZone";
 export { Select, type SelectOption, type SelectProps } from "./Select";
+export { MultiSelect, type MultiSelectItem, type MultiSelectProps } from "./MultiSelect";
 export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from "./AppShell";
 export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";

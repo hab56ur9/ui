@@ -949,6 +949,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "multi-select": [
+    {
+      type: "api",
+      title: "<MultiSelect>",
+      rows: [
+        ["label", "string", "", "The name of the list, drawn as a `legend`."],
+        ["items", "{ id, label, description?, avatar?, tone?, locked? }[]", "", "The items. An `avatar` or `tone` draws a face, and a `locked` item cannot change."],
+        ["value · defaultValue · onChange", "string[] · string[] · (value) => void", "", "The controlled and uncontrolled picks, and the function called when they change."],
+        ["selectAllLabel", "string", "", "Adds a select-all row on top when two or more items can change."],
+      ],
+    },
+  ],
   "drop-zone": [
     {
       type: "api",

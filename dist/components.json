@@ -1621,6 +1621,47 @@
       ]
     },
     {
+      "name": "MultiSelect",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "MultiSelectItem[]"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "defaultValue",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((value: string[]) => void) | undefined"
+        },
+        {
+          "name": "selectAllLabel",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
       "name": "AppShell",
       "props": [
         {

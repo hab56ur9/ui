@@ -949,6 +949,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "multi-select": [
+    {
+      type: "api",
+      title: "<MultiSelect>",
+      rows: [
+        ["label", "string", "", "목록 이름입니다. `legend`로 그립니다."],
+        ["items", "{ id, label, description?, avatar?, tone?, locked? }[]", "", "고를 항목입니다. `avatar`나 `tone`이 있으면 얼굴을 그리고, `locked`는 바꿀 수 없습니다."],
+        ["value · defaultValue · onChange", "string[] · string[] · (value) => void", "", "제어·비제어 선택값과, 바뀔 때 받는 함수입니다."],
+        ["selectAllLabel", "string", "", "주면 고를 항목이 둘 이상일 때 전체 선택 줄을 맨 위에 둡니다."],
+      ],
+    },
+  ],
   "drop-zone": [
     {
       type: "api",

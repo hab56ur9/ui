@@ -740,6 +740,34 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "multi-select",
+    "group": "입력",
+    "title": "Multi-select",
+    "lede": "A multi-select lets people tick several items in a list. Picking reviewers or members is an example. Each item has a name and a description, and a `tone` or `avatar` draws a face beside it. `selectAllLabel` adds a select-all row on top, and a `locked` item cannot change. Picks go out through `onChange`, and the component stores nothing.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Members with select all",
+        "example": "multi-select-members",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "Descriptions only",
+        "example": "multi-select-plain",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "A `fieldset` with a `legend` names the list.",
+          "Each item is a native checkbox, so Tab moves between items and Space toggles one.",
+          "When only some items are picked, the select-all checkbox shows the mixed state."
+        ]
+      }
+    ]
+  },
+  {
     "id": "drop-zone",
     "group": "입력",
     "title": "Drop zone",

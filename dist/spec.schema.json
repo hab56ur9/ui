@@ -407,6 +407,7 @@
             "Checkbox",
             "DropZone",
             "Select",
+            "MultiSelect",
             "Calendar",
             "Carousel",
             "Image",
@@ -1633,6 +1634,34 @@
                 "required": [
                   "label",
                   "options"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "MultiSelect"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "label": {},
+                  "value": {},
+                  "defaultValue": {},
+                  "onChange": {},
+                  "selectAllLabel": {}
+                },
+                "required": [
+                  "items"
                 ],
                 "additionalProperties": false
               }

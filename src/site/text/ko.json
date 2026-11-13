@@ -633,6 +633,26 @@
     "status": "상태",
     "todo": "할 일"
   },
+  "multi-select-members": {
+    "label": "참여 멤버",
+    "all": "전체 선택",
+    "lead": "비서",
+    "leadRole": "채널을 이끕니다 · 늘 참여",
+    "planner": "기획",
+    "plannerRole": "프로젝트와 티켓을 정합니다",
+    "builder": "빌더",
+    "builderRole": "티켓을 구현합니다",
+    "qa": "QA",
+    "qaRole": "완료 조건을 검증합니다"
+  },
+  "multi-select-plain": {
+    "label": "알림 받을 일",
+    "mention": "멘션",
+    "mentionNote": "나를 부른 메시지",
+    "reply": "내 글의 답장",
+    "approval": "승인 요청",
+    "approvalNote": "삭제·push·배포 전"
+  },
   "drop-zone-basic": {
     "label": "여기에 놓으면 스레드에 첨부",
     "box": "컴퓨터의 파일을 이 상자에 끌어다 놓으세요.",
