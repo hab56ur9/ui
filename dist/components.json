@@ -2397,13 +2397,17 @@
           "optional": true,
           "kind": "enum",
           "values": [
+            "go",
             "html",
             "json",
+            "md",
             "plain",
+            "py",
             "sql",
-            "tsx"
+            "tsx",
+            "yaml"
           ],
-          "type": "\"html\" | \"json\" | \"plain\" | \"sql\" | \"tsx\" | undefined"
+          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
         },
         {
           "name": "title",
@@ -2416,6 +2420,34 @@
           "optional": true,
           "kind": "node",
           "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "CodeLine",
+      "props": [
+        {
+          "name": "code",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "lang",
+          "optional": false,
+          "kind": "enum",
+          "values": [
+            "go",
+            "html",
+            "json",
+            "md",
+            "plain",
+            "py",
+            "sql",
+            "tsx",
+            "yaml"
+          ],
+          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\""
         }
       ]
     },
@@ -2433,13 +2465,17 @@
           "optional": true,
           "kind": "enum",
           "values": [
+            "go",
             "html",
             "json",
+            "md",
             "plain",
+            "py",
             "sql",
-            "tsx"
+            "tsx",
+            "yaml"
           ],
-          "type": "\"html\" | \"json\" | \"plain\" | \"sql\" | \"tsx\" | undefined"
+          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
         },
         {
           "name": "numbers",
@@ -3348,6 +3384,12 @@
           "type": "(() => void) | undefined"
         },
         {
+          "name": "anchor",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
           "name": "children",
           "optional": true,
           "kind": "node",
@@ -3493,6 +3535,12 @@
           "optional": false,
           "kind": "node",
           "type": "ReactNode"
+        },
+        {
+          "name": "self",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
         }
       ]
     },
@@ -3688,6 +3736,12 @@
           "type": "string | undefined"
         },
         {
+          "name": "actions",
+          "optional": true,
+          "kind": "list",
+          "type": "QuoteAction[] | undefined"
+        },
+        {
           "name": "onPick",
           "optional": true,
           "kind": "action",
@@ -3698,6 +3752,12 @@
           "optional": true,
           "kind": "action",
           "type": "((quote: string) => void) | undefined"
+        },
+        {
+          "name": "onAction",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string, quote: string) => void) | undefined"
         },
         {
           "name": "children",
@@ -3771,6 +3831,36 @@
           "optional": true,
           "kind": "boolean",
           "type": "boolean | undefined"
+        },
+        {
+          "name": "stale",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "suggestion",
+          "optional": true,
+          "kind": "string",
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "original",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onApply",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "footer",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
         },
         {
           "name": "active",

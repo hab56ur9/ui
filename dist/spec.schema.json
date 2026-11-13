@@ -424,6 +424,7 @@
             "Segmented",
             "Stat",
             "CodeBlock",
+            "CodeLine",
             "Highlight",
             "Icon",
             "LineChart",
@@ -2076,6 +2077,31 @@
           "if": {
             "properties": {
               "type": {
+                "const": "CodeLine"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "code": {},
+                  "lang": {}
+                },
+                "required": [
+                  "code",
+                  "lang"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
                 "const": "Highlight"
               }
             }
@@ -2618,7 +2644,8 @@
                   "reactions": {},
                   "onReact": {},
                   "replies": {},
-                  "onOpenThread": {}
+                  "onOpenThread": {},
+                  "anchor": {}
                 },
                 "required": [
                   "author"
@@ -2737,7 +2764,9 @@
             "properties": {
               "props": {
                 "type": "object",
-                "properties": {},
+                "properties": {
+                  "self": {}
+                },
                 "required": [],
                 "additionalProperties": false
               }
@@ -2903,8 +2932,10 @@
                   "anchors": {},
                   "active": {},
                   "quoteLabel": {},
+                  "actions": {},
                   "onPick": {},
-                  "onQuote": {}
+                  "onQuote": {},
+                  "onAction": {}
                 },
                 "required": [],
                 "additionalProperties": false
@@ -2934,6 +2965,11 @@
                   "time": {},
                   "text": {},
                   "resolved": {},
+                  "stale": {},
+                  "suggestion": {},
+                  "original": {},
+                  "onApply": {},
+                  "footer": {},
                   "active": {},
                   "replies": {},
                   "onPick": {},
