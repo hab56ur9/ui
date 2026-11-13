@@ -1494,7 +1494,7 @@ export const pages: Page[] = [
         "items": [
           "The card is an `article` and every decision is a `button`.",
           "State shows as badge text, not only color.",
-          "The command is a `pre`, so it scrolls sideways without wrapping."
+          "Long commands wrap so every argument stays visible."
         ]
       }
     ]

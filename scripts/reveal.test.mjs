@@ -38,3 +38,10 @@ test("reveal names tag characters, variation selectors and filler letters", () =
     { text: "b", hidden: false },
   ]);
 });
+
+test("reveal names the halfwidth filler, grapheme joiner and Mongolian selectors", () => {
+  assert.deepEqual(
+    reveal("aﾠ͏᠋b").map((part) => part.text),
+    ["a", "U+FFA0", "U+034F", "U+180B", "b"],
+  );
+});

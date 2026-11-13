@@ -576,7 +576,7 @@ export const api: Record<string, Section[]> = {
   "approval": [
     { type: "api", title: "<ApprovalCard>", rows: [
       ["title · description", "ReactNode, ReactNode", "", "One line on who wants to do what, and why."],
-      ["command", "string", "", "The command to approve, verbatim. It renders in monospace and long lines scroll sideways."],
+      ["command", "string", "", "The command to approve, verbatim. It renders in monospace and long lines wrap so all of it shows."],
       ["state · scope", "\"pending\" | \"allowed\" | \"denied\", \"once\" | \"always\"", "\"pending\"", "The state badge and border. `allowed` with `always` reads \"Always allowed\"."],
       ["onDecide", "(decision, scope) => void", "", "While pending it draws Deny, Always allow and Allow once, and passes the decision and scope on press."],
       ["meta", "string", "", "One footer line shown once decided or when `onDecide` is absent."],
