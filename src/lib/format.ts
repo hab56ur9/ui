@@ -15,6 +15,8 @@ export const bytes = (size: number, step = 0): string => {
 
 const measurable = (max: number) => max > 0;
 
+export const milliseconds = (time: string) => parseFloat(time) * (/[^m]s$/.test(time) ? 1000 : 1);
+
 export const percentOf = (value: number, max: number) => (measurable(max) ? `${Math.max(0, Math.min(100, (value / max) * 100))}%` : "0%");
 
 export const color = (value: Color) => (typeof value === "number" ? `var(--color-series-${value})` : `var(--color-chart-${value})`);

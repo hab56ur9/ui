@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { bytes, percentOf } from "../src/lib/format.ts";
+import { bytes, milliseconds, percentOf } from "../src/lib/format.ts";
 
 test("percentOf gives the share of max", () => {
   assert.equal(percentOf(3, 5), "60%");
@@ -38,4 +38,11 @@ test("bytes moves to the next unit when rounding reaches it", () => {
   assert.equal(bytes(10239), "10 KB");
   assert.equal(bytes(1048575), "1.0 MB");
   assert.equal(bytes(1023.6), "1.0 KB");
+});
+
+test("milliseconds reads both units a minified stylesheet may use", () => {
+  assert.equal(milliseconds("240ms"), 240);
+  assert.equal(milliseconds(".24s"), 240);
+  assert.equal(milliseconds("1.2s"), 1200);
+  assert.equal(milliseconds("0s"), 0);
 });

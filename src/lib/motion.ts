@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState, type MouseEvent } from "react";
+import { milliseconds } from "./format";
 import { reducedMotion } from "./hooks";
 
 const TIMING = {
@@ -15,7 +16,7 @@ export function motion(node: Element, frames: Keyframe[], kind: MotionKind, extr
   if (reducedMotion() || token(TIMING.enter.easing) === "") return Promise.resolve();
   const { duration, easing } = TIMING[kind];
   return node
-    .animate(frames, { duration: parseFloat(token(duration)) * parseFloat(token("--motion-intensity")), easing: token(easing), fill: "forwards", ...extra })
+    .animate(frames, { duration: milliseconds(token(duration)) * parseFloat(token("--motion-intensity")), easing: token(easing), fill: "forwards", ...extra })
     .finished.then(
       () => undefined,
       () => undefined,

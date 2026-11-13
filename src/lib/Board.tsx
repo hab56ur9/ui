@@ -3,7 +3,7 @@ import { Children, isValidElement, useCallback, useEffect, useLayoutEffect, useR
 import { BoardActions } from "./BoardActions";
 import { DataTable, type DataTableProps } from "./DataTable";
 import { Icon } from "./Icon";
-import { reducedMotion, token, tokenPx } from "./hooks";
+import { reducedMotion, token, tokenMs, tokenPx } from "./hooks";
 import { useI18n } from "./i18n";
 import { useOptionalUI } from "./overlay/Provider";
 
@@ -199,7 +199,7 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
     const from = before.current;
     before.current = null;
     if (!from || !grid.current || reducedMotion()) return;
-    const duration = tokenPx(grid.current, "--motion-duration-base", 200);
+    const duration = tokenMs(grid.current, "--motion-duration-base", 200);
     const easing = token("--motion-easing-standard");
     nodes().forEach((node) => {
       const a = from.get(node.dataset.id as string);
@@ -238,7 +238,7 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
     let settledAt = 0;
     const move = (e: globalThis.PointerEvent) => {
       follow(e);
-      if (!grid.current || performance.now() - settledAt < tokenPx(grid.current, "--motion-duration-fast", 120)) return;
+      if (!grid.current || performance.now() - settledAt < tokenMs(grid.current, "--motion-duration-fast", 120)) return;
       const target = document
         .elementsFromPoint(e.clientX, e.clientY)
         .map((n) => n.closest<HTMLElement>(".widget"))
