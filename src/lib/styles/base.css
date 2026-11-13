@@ -2068,6 +2068,11 @@ code.has-lines .line::before {
   line-height: 20px;
 }
 
+.editor:focus-within {
+  outline: var(--focus-ring-width) solid var(--color-main-default);
+  outline-offset: calc(-1 * var(--focus-ring-width));
+}
+
 .editor-gutter {
   display: grid;
   align-content: start;

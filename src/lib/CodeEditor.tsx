@@ -1,4 +1,4 @@
-import { useState, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import { Highlight, type CodeLang } from "./Code";
 import { useI18n } from "./i18n";
 
@@ -16,6 +16,7 @@ export type CodeEditorProps = {
 export function CodeEditor({ value, defaultValue = "", onChange, lang = "tsx", start = 1, focus = [], label, readOnly = false }: CodeEditorProps) {
   const [draft, setDraft] = useState(defaultValue);
   const { text } = useI18n();
+  const escaped = useRef(false);
   const code = value ?? draft;
   const count = code.split("\n").length;
 
@@ -25,7 +26,9 @@ export function CodeEditor({ value, defaultValue = "", onChange, lang = "tsx", s
   };
 
   const key = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key !== "Tab" || readOnly) return;
+    const leaving = escaped.current;
+    escaped.current = event.key === "Escape";
+    if (event.key !== "Tab" || readOnly || leaving) return;
     event.preventDefault();
     const area = event.currentTarget;
     const at = area.selectionStart;
