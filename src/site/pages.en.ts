@@ -931,7 +931,9 @@ export const pages: Page[] = [
         "type": "a11y",
         "items": [
           "The list is a `tree` named by `label`, and each row carries `treeitem`, `aria-level` and `aria-selected`. A row with children also carries `aria-expanded`.",
-          "Up and down arrows move between rows, and right and left arrows unfold and fold."
+          "Tab enters the list once. It lands on the row focused last, or else the selected row or the first row.",
+          "Up and down arrows move between rows, and Home and End go to the first and last rows.",
+          "The right arrow unfolds a folded row and moves from an unfolded row to its first child. The left arrow folds an unfolded row and moves from a folded or child row to its parent."
         ]
       }
     ]

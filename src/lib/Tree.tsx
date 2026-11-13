@@ -31,15 +31,23 @@ export type TreeProps = {
 
 const branchIds = (items: TreeItem[]): string[] => items.flatMap((item) => (item.children?.length ? [item.id, ...branchIds(item.children)] : []));
 
-const moveFocus = (event: KeyboardEvent<HTMLButtonElement>, step: number) => {
+const levelOf = (row: HTMLButtonElement) => Number(row.getAttribute("aria-level"));
+
+const parentOf = (rows: HTMLButtonElement[], index: number) => rows.slice(0, index).findLast((row) => levelOf(row) < levelOf(rows[index]));
+
+const focusRow = (event: KeyboardEvent<HTMLButtonElement>, pick: (rows: HTMLButtonElement[], index: number) => HTMLButtonElement | undefined) => {
   const rows = [...(event.currentTarget.closest(".tree")?.querySelectorAll<HTMLButtonElement>(".tree-row") ?? [])];
-  rows[rows.indexOf(event.currentTarget) + step]?.focus();
+  pick(rows, rows.indexOf(event.currentTarget))?.focus();
   event.preventDefault();
 };
 
 export function Tree({ items, label, value, onSelect, expanded, defaultExpanded, onToggle, mono = false }: TreeProps) {
   const [open, setOpen] = useState(() => new Set(defaultExpanded ?? branchIds(items)));
+  const [active, setActive] = useState<string | null>(null);
   const shown = expanded ? new Set(expanded) : open;
+  const visible = (list: TreeItem[]): string[] => list.flatMap((item) => (item.children?.length && shown.has(item.id) ? [item.id, ...visible(item.children)] : [item.id]));
+  const ids = visible(items);
+  const stop = [active, value].find((id) => id && ids.includes(id)) ?? ids[0];
   const toggle = (id: string) => {
     const next = !shown.has(id);
     onToggle?.(id, next);
@@ -53,10 +61,15 @@ export function Tree({ items, label, value, onSelect, expanded, defaultExpanded,
   };
   const keys = (event: KeyboardEvent<HTMLButtonElement>, item: TreeItem) => {
     const branch = Boolean(item.children?.length);
-    if (event.key === "ArrowDown") return moveFocus(event, 1);
-    if (event.key === "ArrowUp") return moveFocus(event, -1);
-    if (event.key === "ArrowRight" && branch && !shown.has(item.id)) return toggle(item.id);
-    if (event.key === "ArrowLeft" && branch && shown.has(item.id)) return toggle(item.id);
+    const opened = branch && shown.has(item.id);
+    if (event.key === "ArrowDown") return focusRow(event, (rows, index) => rows[index + 1]);
+    if (event.key === "ArrowUp") return focusRow(event, (rows, index) => rows[index - 1]);
+    if (event.key === "Home") return focusRow(event, (rows) => rows[0]);
+    if (event.key === "End") return focusRow(event, (rows) => rows.at(-1));
+    if (event.key === "ArrowRight" && opened) return focusRow(event, (rows, index) => rows[index + 1]);
+    if (event.key === "ArrowRight" && branch) return toggle(item.id);
+    if (event.key === "ArrowLeft" && opened) return toggle(item.id);
+    if (event.key === "ArrowLeft") return focusRow(event, parentOf);
   };
   const rows = (list: TreeItem[], depth: number): ReactNode[] =>
     list.flatMap((item) => {
@@ -73,6 +86,8 @@ export function Tree({ items, label, value, onSelect, expanded, defaultExpanded,
             aria-level={depth + 1}
             aria-selected={item.id === value}
             aria-expanded={branch ? opened : undefined}
+            tabIndex={item.id === stop ? 0 : -1}
+            onFocus={() => setActive(item.id)}
             onClick={() => (branch ? toggle(item.id) : onSelect?.(item.id))}
             onKeyDown={(event) => keys(event, item)}
           >
