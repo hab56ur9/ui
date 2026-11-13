@@ -70,8 +70,8 @@ function TimelinePlot({
   const units = { h: t("time.h"), m: t("time.m"), s: t("time.s") };
   const endOf = (segment: TimelineSegment) => segment.end ?? now;
   const all = lanes.flatMap((lane) => lane.segments);
-  const t0 = from ?? Math.min(...all.map((segment) => segment.start));
-  const t1 = to ?? Math.max(...all.map(endOf));
+  const t1 = to ?? (all.length > 0 ? Math.max(...all.map(endOf)) : now);
+  const t0 = from ?? (all.length > 0 ? Math.min(...all.map((segment) => segment.start)) : t1 - 36e5);
   const margin = {
     top: 0,
     right: 8,
