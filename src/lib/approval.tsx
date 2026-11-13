@@ -3,6 +3,7 @@ import { Badge, type BadgeTone } from "./Badge";
 import { ButtonBase } from "./controls";
 import { Icon } from "./Icon";
 import { useI18n, type MessageKey } from "./i18n";
+import { reveal } from "./reveal";
 
 export type ApprovalState = "pending" | "allowed" | "denied";
 export type ApprovalScope = "once" | "always";
@@ -39,7 +40,17 @@ export function ApprovalCard({ title, description, command, state = "pending", s
       </header>
       {description && <p className="approval-description">{description}</p>}
       <pre className="approval-command">
-        <code>{command}</code>
+        <code>
+          {reveal(command).map((part, index) =>
+            part.hidden ? (
+              <span key={index} className="approval-hidden">
+                {part.text}
+              </span>
+            ) : (
+              part.text
+            ),
+          )}
+        </code>
       </pre>
       {deciding && (
         <footer className="approval-foot">

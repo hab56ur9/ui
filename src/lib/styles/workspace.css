@@ -250,7 +250,8 @@
 .approval.is-pending .approval-head > svg { color: var(--color-status-warning); }
 .approval-head strong { flex: 1; min-width: 0; font-weight: var(--font-weight-semibold); }
 .approval-description { margin: 0; font-size: var(--font-size-label); color: var(--color-fg-secondary); }
-.approval-command { margin: 0; padding: var(--space-2) var(--space-3); overflow-x: auto; border-radius: var(--radius-control); background: var(--color-bg-subtle); font-family: var(--font-family-mono); font-size: var(--font-size-caption); white-space: pre; }
+.approval-command { margin: 0; padding: var(--space-2) var(--space-3); border-radius: var(--radius-control); background: var(--color-bg-subtle); font-family: var(--font-family-mono); font-size: var(--font-size-caption); white-space: pre-wrap; overflow-wrap: anywhere; }
+.approval-hidden { padding: 0 var(--space-1); border-radius: var(--radius-control); outline: 1px solid var(--color-status-warning); unicode-bidi: isolate; }
 .approval-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
 .approval-meta { font-size: var(--font-size-caption); color: var(--color-fg-muted); }
 

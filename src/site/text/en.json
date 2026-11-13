@@ -1184,7 +1184,7 @@
     "doneCommand": "npm run restart",
     "doneMeta": "Admin · 09:12",
     "deniedTitle": "A builder asks to delete a branch",
-    "deniedCommand": "git branch -D feature/old-layout",
+    "deniedCommand": "git branch -D feature/old-layout && git push origin --delete feature/old-layout feature/old-sidebar feature/old-header && rm -rf ./build/\u202ehs.tpircs",
     "deniedMeta": "Admin · 08:47"
   }
 }

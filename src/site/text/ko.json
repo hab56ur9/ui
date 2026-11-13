@@ -1184,7 +1184,7 @@
     "doneCommand": "npm run restart",
     "doneMeta": "관리자 · 09:12",
     "deniedTitle": "빌더가 브랜치 삭제를 요청했습니다",
-    "deniedCommand": "git branch -D feature/old-layout",
+    "deniedCommand": "git branch -D feature/old-layout && git push origin --delete feature/old-layout feature/old-sidebar feature/old-header && rm -rf ./build/\u202ehs.tpircs",
     "deniedMeta": "관리자 · 08:47"
   }
 }
