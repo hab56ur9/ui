@@ -2041,6 +2041,63 @@
       ]
     },
     {
+      "name": "ImageCompare",
+      "props": [
+        {
+          "name": "before",
+          "optional": false,
+          "kind": "object",
+          "type": "CompareImage"
+        },
+        {
+          "name": "after",
+          "optional": false,
+          "kind": "object",
+          "type": "CompareImage"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "ratio",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "16:9",
+            "1:1",
+            "3:4",
+            "4:3"
+          ],
+          "type": "\"16:9\" | \"1:1\" | \"3:4\" | \"4:3\" | undefined"
+        },
+        {
+          "name": "fit",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "contain",
+            "cover"
+          ],
+          "type": "\"contain\" | \"cover\" | undefined"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((value: number) => void) | undefined"
+        }
+      ]
+    },
+    {
       "name": "ImagePreview",
       "props": [
         {

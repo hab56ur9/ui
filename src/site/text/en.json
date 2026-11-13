@@ -805,6 +805,13 @@
     "files": "Files",
     "body": "## What changed\n\nThe header keeps tools and actions apart. The right column holds the review details."
   },
+  "image-compare-basic": {
+    "before": "Before",
+    "after": "After",
+    "beforeAlt": "Review screen before the fix",
+    "afterAlt": "Review screen after the fix",
+    "at": "Divider"
+  },
   "image-preview-basic": {
     "wide": "Code review screen, light theme",
     "tall": "Phone screen of the board, dark theme"

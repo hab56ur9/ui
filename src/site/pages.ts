@@ -2348,6 +2348,40 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "image-compare",
+    "group": "콘텐츠",
+    "title": "이미지 비교",
+    "lede": "이미지 비교는 두 이미지를 겹쳐 놓고 경계를 옮기며 바뀐 곳을 봅니다. 고치기 전후 스크린샷을 비교할 때 씁니다. 왼쪽이 `before`, 오른쪽이 `after`입니다. 경계의 처음 위치는 `value`(0~100)로 주고, 옮긴 위치는 `onChange`로 받습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "고치기 전후 스크린샷",
+        "example": "image-compare-basic"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "크기가 다른 두 이미지는 `fit=\"contain\"`(기본)으로 같은 틀 안에 맞춥니다. 틀 비율은 `ratio`가 없으면 `before` 이미지를 따릅니다.",
+            "크기가 다른 두 이미지를 `cover`로 맞춰 가장자리 변경을 잘라 냅니다."
+          ],
+          [
+            "두 장만 겹쳐 비교하고 `label`은 \"이전\"·\"이후\"처럼 짧게 씁니다.",
+            "세 장 이상을 비교합니다. 여러 장은 이미지 미리보기를 나란히 둡니다."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "경계 손잡이는 `slider`이고 이름(기본 \"비교 경계\")과 백분율 값을 가지며 탭으로 닿습니다.",
+          "왼쪽·오른쪽 화살표로 1%씩, Shift나 Page Up·Page Down으로 10%씩, Home·End로 끝까지 옮깁니다.",
+          "두 이미지는 각자 `alt`를 가집니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image-preview",
     "group": "콘텐츠",
     "title": "이미지 미리보기",

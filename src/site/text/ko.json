@@ -805,6 +805,13 @@
     "files": "파일",
     "body": "## 바뀐 점\n\n머리 줄에 도구와 동작을 나눠 둡니다. 오른쪽 칸에는 리뷰 정보를 둡니다."
   },
+  "image-compare-basic": {
+    "before": "이전",
+    "after": "이후",
+    "beforeAlt": "고치기 전 리뷰 화면",
+    "afterAlt": "고친 뒤 리뷰 화면",
+    "at": "경계"
+  },
   "image-preview-basic": {
     "wide": "코드 리뷰 화면, 라이트 테마",
     "tall": "보드의 휴대폰 화면, 다크 테마"

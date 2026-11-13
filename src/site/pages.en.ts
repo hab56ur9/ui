@@ -2330,6 +2330,40 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "image-compare",
+    "group": "콘텐츠",
+    "title": "Image compare",
+    "lede": "An image compare stacks two images and moves a divider across them to show what changed, such as screenshots before and after a fix. `before` is on the left and `after` on the right. `value` (0–100) sets where the divider starts, and `onChange` reports where it moves.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Screenshots before and after a fix",
+        "example": "image-compare-basic"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Fit two images of different sizes in one frame with `fit=\"contain\"` (the default). Without `ratio`, the frame follows the `before` image.",
+            "Fit images of different sizes with `cover` and crop away changes at the edges."
+          ],
+          [
+            "Stack exactly two images and keep each `label` short, such as \"Before\" and \"After\".",
+            "Compare three or more images; put several image previews side by side instead."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The divider is a `slider` with a name (\"Comparison divider\" by default) and a percentage value, reachable by Tab.",
+          "Left and right arrows move it by 1%, Shift or Page Up and Page Down by 10%, and Home and End to either edge.",
+          "Each image keeps its own `alt`."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image-preview",
     "group": "콘텐츠",
     "title": "Image preview",

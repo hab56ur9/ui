@@ -659,6 +659,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "image-compare": [
+    {
+      type: "api",
+      title: "<ImageCompare>",
+      rows: [
+        ["before · after", "{ src, alt, label? }", "", "왼쪽과 오른쪽에 보일 이미지입니다. `label`은 위 모서리에 보입니다."],
+        ["value", "number", "50", "경계의 처음 위치(0~100)입니다."],
+        ["onChange", "(value: number) => void", "", "경계를 옮길 때마다 위치를 알립니다."],
+        ["ratio · fit", "\"1:1\" | \"3:4\" | \"4:3\" | \"16:9\" · \"contain\" | \"cover\"", "`before` 비율 · \"contain\"", "틀 비율과 이미지를 맞추는 방식입니다."],
+        ["label", "string", "\"비교 경계\"", "손잡이의 접근성 이름입니다."],
+      ],
+    },
+  ],
   "image-preview": [
     {
       type: "api",

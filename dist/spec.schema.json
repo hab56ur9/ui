@@ -414,6 +414,7 @@
             "Image",
             "ImageCard",
             "MiniCard",
+            "ImageCompare",
             "ImagePreview",
             "Panel",
             "PanelAction",
@@ -1840,6 +1841,36 @@
                 "required": [
                   "image",
                   "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ImageCompare"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "before": {},
+                  "after": {},
+                  "value": {},
+                  "ratio": {},
+                  "fit": {},
+                  "label": {},
+                  "onChange": {}
+                },
+                "required": [
+                  "before",
+                  "after"
                 ],
                 "additionalProperties": false
               }

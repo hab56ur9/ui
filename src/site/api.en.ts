@@ -659,6 +659,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "image-compare": [
+    {
+      type: "api",
+      title: "<ImageCompare>",
+      rows: [
+        ["before · after", "{ src, alt, label? }", "", "The images on the left and right; `label` shows in the top corner."],
+        ["value", "number", "50", "Where the divider starts (0–100)."],
+        ["onChange", "(value: number) => void", "", "Reports the position whenever the divider moves."],
+        ["ratio · fit", "\"1:1\" | \"3:4\" | \"4:3\" | \"16:9\" · \"contain\" | \"cover\"", "`before` ratio · \"contain\"", "The frame ratio and how images fit it."],
+        ["label", "string", "\"Comparison divider\"", "The accessible name of the handle."],
+      ],
+    },
+  ],
   "image-preview": [
     {
       type: "api",
