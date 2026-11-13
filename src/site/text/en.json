@@ -624,6 +624,16 @@
     "nameHint": "Used in lists and on the slide cover.",
     "email": "Team email"
   },
+  "description-list-basic": {
+    "tickets": "Tickets",
+    "ticketsValue": "To do 2 · Doing 1 · QA 3 · Done 12",
+    "time": "Time in progress",
+    "timeValue": "4h 20m",
+    "tokens": "Tokens on tickets",
+    "tokensValue": "1.2M",
+    "model": "Model",
+    "modelValue": "claude-opus-5-5"
+  },
   "toast-place-mobile": {
     "saved": "Saved",
     "undo": "Undo"

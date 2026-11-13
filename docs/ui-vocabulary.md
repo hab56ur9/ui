@@ -184,6 +184,16 @@ The size of a celebration matches the size of the finished task.
 | Confetti | Particles burst across the screen | No |
 | Success screen | A full screen confirms a large task | No |
 
+## Data display
+
+Data display patterns differ by how many items share the same fields.
+
+| Term | Definition | ui |
+| --- | --- | --- |
+| Description list | Labeled values for one item, label beside value | Yes: `DescriptionList` |
+| Data table | Rows of items that share columns | Yes: `DataTable` |
+| Tree view | Nested items that expand and collapse | No |
+
 ## Navigation
 
 Navigation patterns decide how people move between and within screens.

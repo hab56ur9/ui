@@ -593,6 +593,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "description-list": [
+    {
+      type: "api",
+      title: "<DescriptionList>",
+      rows: [
+        ["items", "{ label, value }[]", "", "이름과 값의 쌍을 순서대로 둡니다. `value`에는 글이나 아무 노드나 넣습니다."],
+        ["align", "\"start\" | \"end\"", "\"start\"", "`end`는 값을 오른쪽에 맞춥니다. 좁은 패널의 숫자에 씁니다."],
+      ],
+    },
+  ],
   badge: [
     {
       type: "api",

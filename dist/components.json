@@ -2330,6 +2330,27 @@
       ]
     },
     {
+      "name": "DescriptionList",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "DescriptionItem[]"
+        },
+        {
+          "name": "align",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "end",
+            "start"
+          ],
+          "type": "\"end\" | \"start\" | undefined"
+        }
+      ]
+    },
+    {
       "name": "Button",
       "props": [
         {

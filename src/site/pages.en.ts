@@ -1610,6 +1610,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "description-list",
+    "group": "데이터",
+    "title": "Description list",
+    "lede": "A description list shows a few labeled values, such as an agent's ticket counts and time spent. Labels sit in a muted column on the left and stay on one line; values wrap. For rows that share columns, use a table instead.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Values on the left, values on the right",
+        "example": "description-list-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "A native `dl` with `dt` and `dd`, so screen readers announce each label with its value."
+        ]
+      }
+    ]
+  },
+  {
     "id": "badge",
     "group": "콘텐츠",
     "title": "Badge",

@@ -1628,6 +1628,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "description-list",
+    "group": "데이터",
+    "title": "설명 목록",
+    "lede": "설명 목록은 이름 붙은 값 몇 개를 보여 줍니다. 에이전트가 맡은 티켓 수와 진행 시간이 그 예입니다. 이름은 왼쪽 흐린 열에 한 줄로 두고, 값은 줄을 바꿉니다. 같은 열을 가진 행이 여럿이면 표를 씁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "값 왼쪽 맞춤, 값 오른쪽 맞춤",
+        "example": "description-list-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "기본 `dl`·`dt`·`dd`라서 스크린리더가 이름과 값을 함께 읽습니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "badge",
     "group": "콘텐츠",
     "title": "배지",

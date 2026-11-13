@@ -593,6 +593,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "description-list": [
+    {
+      type: "api",
+      title: "<DescriptionList>",
+      rows: [
+        ["items", "{ label, value }[]", "", "The pairs in order; `value` takes text or any node."],
+        ["align", "\"start\" | \"end\"", "\"start\"", "`end` lines the values up on the right, for numbers in a narrow panel."],
+      ],
+    },
+  ],
   badge: [
     {
       type: "api",

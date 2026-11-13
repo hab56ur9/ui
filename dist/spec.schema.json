@@ -422,6 +422,7 @@
             "TabBar",
             "Tabs",
             "DataTable",
+            "DescriptionList",
             "Button",
             "Delta",
             "Segmented",
@@ -2019,6 +2020,30 @@
                 "required": [
                   "columns",
                   "rows"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DescriptionList"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "align": {}
+                },
+                "required": [
+                  "items"
                 ],
                 "additionalProperties": false
               }

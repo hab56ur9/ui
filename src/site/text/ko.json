@@ -624,6 +624,16 @@
     "nameHint": "목록과 슬라이드 표지에 쓰입니다.",
     "email": "팀 메일"
   },
+  "description-list-basic": {
+    "tickets": "맡은 티켓",
+    "ticketsValue": "할 일 2 · 진행 1 · QA 3 · 완료 12",
+    "time": "진행 시간 합",
+    "timeValue": "4시간 20분",
+    "tokens": "티켓 토큰 합",
+    "tokensValue": "120만",
+    "model": "모델",
+    "modelValue": "claude-opus-5-5"
+  },
   "toast-place-mobile": {
     "saved": "저장했습니다",
     "undo": "되돌리기"

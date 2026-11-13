@@ -31,6 +31,7 @@ export { Markdown, type MarkdownProps } from "./markdown/Markdown";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
 export { Tabs, type TabItem, type TabsProps } from "./Tabs";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";
+export { DescriptionList, type DescriptionItem, type DescriptionListProps } from "./DescriptionList";
 export { Button, Delta, Segmented, Stat, type ButtonProps, type ButtonVariant, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";
 export { CodeBlock, CodeLine, Highlight, langOf, type CodeBlockProps, type CodeLang } from "./Code";
 export { Icon, iconNames, type IconName, type IconProps } from "./Icon";
