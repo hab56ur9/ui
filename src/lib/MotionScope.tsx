@@ -1,18 +1,28 @@
 import {
   createContext,
   useContext,
+  useEffect,
+  useState,
   type CSSProperties,
   type ReactNode,
 } from "react";
 
-const MotionContext = createContext(false);
+const MotionContext = createContext({ on: false, settled: false });
 
-export const useMotion = () => useContext(MotionContext);
+export const useMotion = () => useContext(MotionContext).on;
 
 const ROWS = 12;
+const CONTENT = '[data-motion~="content"]';
+
+const entering = () =>
+  (document.getAnimations?.() ?? []).filter((animation) => {
+    const target = (animation.effect as KeyframeEffect | null)?.target;
+    return target instanceof Element && target.matches(CONTENT);
+  });
 
 export function useEnter() {
-  const on = useMotion();
+  const scope = useContext(MotionContext);
+  const on = scope.on && !scope.settled;
   return {
     enter: on ? "enter content" : undefined,
     row: (index: number) => (on ? ({ "--motion-row": Math.min(index, ROWS) } as CSSProperties) : undefined),
@@ -26,7 +36,19 @@ export function MotionScope({
   on: boolean;
   children: ReactNode;
 }) {
-  return <MotionContext.Provider value={on}>{children}</MotionContext.Provider>;
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    if (!on) return;
+    let live = true;
+    const frame = requestAnimationFrame(() =>
+      Promise.allSettled(entering().map((animation) => animation.finished)).then(() => live && setSettled(true)),
+    );
+    return () => {
+      live = false;
+      cancelAnimationFrame(frame);
+    };
+  }, [on]);
+  return <MotionContext.Provider value={{ on, settled }}>{children}</MotionContext.Provider>;
 }
 
 const DIGITS = [..."0123456789"];

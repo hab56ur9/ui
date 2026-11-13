@@ -338,8 +338,12 @@
     "backend": "Backend",
     "qa": "QA",
     "note": "Note",
-    "noteBody": "Widgets enter first, then the rows inside follow from the top.",
-    "replay": "Replay"
+    "noteBody": "Widgets enter first, then the rows inside follow from the top. Rows added after that show at once.",
+    "replay": "Replay",
+    "gwangju": "Gwangju",
+    "daejeon": "Daejeon",
+    "ulsan": "Ulsan",
+    "addRow": "Add row"
   },
   "motion-curves": {
     "play": "Play"
