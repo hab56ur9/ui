@@ -2,24 +2,32 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 
-const dir = new URL("../src/lib/styles/", import.meta.url);
-const transitions = readdirSync(dir)
-  .filter((file) => file.endsWith(".css"))
-  .flatMap((file) =>
-    readFileSync(new URL(file, dir), "utf8")
-      .split("\n")
-      .map((line, index) => ({ at: `${file}:${index + 1}`, line: line.trim() }))
-      .filter(({ line }) => /^transition(-duration)?\s*:/.test(line) && !/:\s*none\b/.test(line)),
-  );
+const styles = new URL("../src/lib/styles/", import.meta.url);
+const sheets = [
+  ...readdirSync(styles)
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => ({ name: file, url: new URL(file, styles) })),
+  { name: "docs.css", url: new URL("../src/site/docs.css", import.meta.url) },
+];
 
-test("transition times never use a literal duration", () => {
-  const literal = transitions.filter(({ line }) => /[\s(]\d*\.?\d+m?s\b/.test(line)).map(({ at }) => at);
+const declarations = sheets.flatMap(({ name, url }) => {
+  const text = readFileSync(url, "utf8");
+  return [...text.matchAll(/(?<![\w-])(transition|transition-duration|animation|animation-duration)\s*:\s*([^;{}]+)/g)].map((match) => ({
+    at: `${name}:${text.slice(0, match.index).split("\n").length}`,
+    value: match[2].trim(),
+  }));
+});
+
+const timed = declarations.filter(({ value }) => !/^none\b/.test(value) && !/\binfinite\b/.test(value));
+
+test("transitions and one-shot animations never use a literal duration", () => {
+  const literal = timed.filter(({ value }) => /(^|[\s(,])\d*\.?\d+m?s\b/.test(value)).map(({ at }) => at);
   assert.deepEqual(literal, []);
 });
 
-test("transition durations always scale with motion intensity", () => {
-  const unscaled = transitions
-    .filter(({ line }) => [...line.matchAll(/var\(--motion-duration-[a-z]+\)(?!\s*\*\s*var\(--motion-intensity\))/g)].length > 0)
+test("transitions and one-shot animations always scale with motion intensity", () => {
+  const unscaled = timed
+    .filter(({ value }) => /var\(--motion-duration-[a-z]+\)(?!(\s*\*\s*\d*\.?\d+)*\s*\*\s*var\(--motion-intensity\))/.test(value))
     .map(({ at }) => at);
   assert.deepEqual(unscaled, []);
 });

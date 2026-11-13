@@ -5402,7 +5402,7 @@ h3.doc-heading::before {
 }
 
 .is-flash {
-  animation: doc-flash 1.2s var(--motion-easing-standard);
+  animation: doc-flash calc(var(--motion-duration-emphasis) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 @keyframes doc-flash {
