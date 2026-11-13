@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { Badge, type BadgeTone } from "./Badge";
 import { Button } from "./controls";
 import { Icon, type IconName } from "./Icon";
@@ -6,6 +6,8 @@ import { useI18n } from "./i18n";
 
 export type Presence = "idle" | "good" | "busy" | "active" | "warning" | "critical";
 export type Face = { name: string; tone?: number; avatar?: string; state?: Presence };
+
+const Sent = createContext<{ count: number; mark: () => void }>({ count: 0, mark: () => {} });
 
 const cx = (...names: (string | false | null | undefined)[]) => names.filter(Boolean).join(" ");
 
@@ -137,6 +139,13 @@ export function ChatMessage({ author, tone = 1, avatar, badge, time, via, contin
 export function MessageLog({ children }: { children: ReactNode }) {
   const box = useRef<HTMLDivElement>(null);
   const stick = useRef(true);
+  const sent = useContext(Sent).count;
+  useEffect(() => {
+    const el = box.current;
+    if (!el || !sent) return;
+    stick.current = true;
+    el.scrollTop = el.scrollHeight;
+  }, [sent]);
   useEffect(() => {
     const el = box.current;
     if (!el) return;
@@ -234,6 +243,7 @@ export function Composer({ placeholder, submitLabel, mentions = [], chips = [], 
   const [index, setIndex] = useState(0);
   const [dismissed, setDismissed] = useState(false);
   const field = useRef<HTMLTextAreaElement>(null);
+  const sent = useContext(Sent);
   useEffect(() => {
     if (!insert) return;
     setDraft((current) => `${insert.text}${current}`);
@@ -264,6 +274,7 @@ export function Composer({ placeholder, submitLabel, mentions = [], chips = [], 
   const submit = () => {
     if (!draft.trim()) return;
     onSubmit?.(draft);
+    sent.mark();
     change("", 0);
   };
   const choose = (candidate: MentionCandidate) => {
@@ -345,10 +356,14 @@ export function Composer({ placeholder, submitLabel, mentions = [], chips = [], 
 }
 
 export function ChatPane({ composer, footer, children }: { composer?: ReactNode; footer?: ReactNode; children: ReactNode }) {
+  const [count, setCount] = useState(0);
+  const mark = useRef(() => setCount((n) => n + 1)).current;
   return (
-    <div className="chat-pane">
-      {children}
-      <div className="chat-pane-foot">{footer}{composer}</div>
-    </div>
+    <Sent.Provider value={{ count, mark }}>
+      <div className="chat-pane">
+        {children}
+        <div className="chat-pane-foot">{footer}{composer}</div>
+      </div>
+    </Sent.Provider>
   );
 }
