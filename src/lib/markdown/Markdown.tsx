@@ -455,6 +455,7 @@ function Row({ block, readOnly, inline, anchor, number, focus, dropBefore, dropA
       <div
         className={`md-field md-view ${className}`}
         onMouseDown={(e) => {
+          if ((e.target as HTMLElement).closest("a")) return;
           e.preventDefault();
           onFocus("end");
         }}
