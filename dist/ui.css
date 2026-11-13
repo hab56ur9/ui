@@ -1412,6 +1412,28 @@ button.chip-label:hover {
   font-size: var(--font-size-caption);
 }
 
+.drop-zone {
+  position: relative;
+  min-width: 0;
+}
+
+.drop-zone-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  border: var(--border-width-strong) dashed var(--color-main-default);
+  border-radius: var(--radius-card);
+  background: color-mix(in oklab, var(--color-main-default) 10%, var(--color-bg-raised));
+  color: var(--color-main-default);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  pointer-events: none;
+}
+
 .checkbox {
   display: inline-flex;
   align-items: center;

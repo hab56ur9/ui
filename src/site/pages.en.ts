@@ -740,6 +740,27 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "drop-zone",
+    "group": "입력",
+    "title": "Drop zone",
+    "lede": "A drop zone lets people drag files from their computer onto an area, such as a message box, to attach them. While files hover over it, a dashed frame names where they will go. It hands the files to `onFiles` and uploads nothing itself.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Drop files onto a box",
+        "example": "drop-zone-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Dragging needs a pointer, so keep a button or file field that attaches files from the keyboard.",
+          "Only file drags open the frame; dragged text passes through."
+        ]
+      }
+    ]
+  },
+  {
     "id": "calendar",
     "group": "입력",
     "title": "Calendar",

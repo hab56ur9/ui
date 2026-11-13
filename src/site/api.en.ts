@@ -833,6 +833,17 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "drop-zone": [
+    {
+      type: "api",
+      title: "<DropZone>",
+      rows: [
+        ["label", "string", "", "The sentence shown over the area while files are dragged over it, such as where they will go."],
+        ["onFiles", "(files: File[]) => void", "", "Called with the dropped files; uploading them is the app's job."],
+        ["children", "ReactNode", "", "The area that takes the drop, such as a message box."],
+      ],
+    },
+  ],
   "toc": [
     {
       type: "api",

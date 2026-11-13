@@ -21,6 +21,7 @@ export { Card, type CardProps } from "./Card";
 export { Pager, Toc, type PagerLink, type PagerProps, type TocItem, type TocProps } from "./navigation";
 export { TextField, type TextFieldProps } from "./TextField";
 export { Checkbox, type CheckboxProps } from "./Checkbox";
+export { DropZone, type DropZoneProps } from "./DropZone";
 export { Select, type SelectOption, type SelectProps } from "./Select";
 export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from "./AppShell";
 export { Calendar, type CalendarProps } from "./Calendar";

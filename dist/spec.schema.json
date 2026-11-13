@@ -405,6 +405,7 @@
             "Toc",
             "TextField",
             "Checkbox",
+            "DropZone",
             "Select",
             "Calendar",
             "Carousel",
@@ -1565,6 +1566,31 @@
                 },
                 "required": [
                   "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DropZone"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "onFiles": {}
+                },
+                "required": [
+                  "label",
+                  "onFiles"
                 ],
                 "additionalProperties": false
               }

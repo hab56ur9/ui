@@ -617,6 +617,11 @@
     "status": "상태",
     "todo": "할 일"
   },
+  "drop-zone-basic": {
+    "label": "여기에 놓으면 스레드에 첨부",
+    "box": "컴퓨터의 파일을 이 상자에 끌어다 놓으세요.",
+    "none": "아직 파일이 없습니다"
+  },
   "textfield-basic": {
     "search": "페이지 찾기",
     "name": "프로젝트 이름",

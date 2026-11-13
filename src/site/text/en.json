@@ -617,6 +617,11 @@
     "status": "Status",
     "todo": "To do"
   },
+  "drop-zone-basic": {
+    "label": "Drop to attach to the thread",
+    "box": "Drag files from your computer onto this box.",
+    "none": "No files yet"
+  },
   "textfield-basic": {
     "search": "Find a page",
     "name": "Project name",

@@ -97,7 +97,7 @@ Screens built around an AI assistant share a recurring set of parts.
 | Citations | Inline marks that link a claim to its source | Partial: `Ref` and `Footnotes` exist for documents |
 | Response feedback | Thumbs up and down on an answer | No |
 | Edit prompt | Changing a sent message and asking again | No |
-| File attachment | Adding a file to a message, with a preview chip | No |
+| File attachment | Adding a file to a message, with a preview chip | Partial: `DropZone` takes dropped files and `Chip` shows them; no file picker |
 | Agent steps | A live list of the steps an agent is taking | Partial: `Steps` without live status |
 
 ## Empty and error states

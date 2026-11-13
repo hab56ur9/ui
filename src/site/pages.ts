@@ -758,6 +758,27 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "drop-zone",
+    "group": "입력",
+    "title": "드롭 영역",
+    "lede": "드롭 영역은 컴퓨터의 파일을 메시지 입력창 같은 영역에 끌어다 놓아 첨부하게 합니다. 파일이 위에 있는 동안 점선 틀이 파일이 갈 곳을 알려 줍니다. 파일은 `onFiles`로 넘기고, 직접 올리지는 않습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "상자에 파일 놓기",
+        "example": "drop-zone-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "끌어 놓기는 포인터가 있어야 하므로, 키보드로 첨부하는 버튼이나 파일 입력을 함께 둡니다.",
+          "파일을 끌 때만 틀이 열리고, 글을 끌 때는 그대로 지나갑니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "calendar",
     "group": "입력",
     "title": "캘린더",

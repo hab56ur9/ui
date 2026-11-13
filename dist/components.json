@@ -1551,6 +1551,29 @@
       ]
     },
     {
+      "name": "DropZone",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "onFiles",
+          "optional": false,
+          "kind": "action",
+          "type": "(files: File[]) => void"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
       "name": "Select",
       "props": [
         {
