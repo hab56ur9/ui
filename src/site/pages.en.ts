@@ -1462,6 +1462,41 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "archive",
+    "group": "데이터",
+    "title": "Archive",
+    "lede": "An archive keeps a finished thread as one document and folds it in the feed. Use `ArchiveCard` for one thread, `ArchivePicker` to pick a day's threads at once, and `ArchivedLine` for the folded line left behind.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Draft card",
+        "example": "archive-card",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "Batch picking",
+        "caption": "Threads still in progress or with an open question cannot be picked. The folded row's checkbox picks the hidden rows together",
+        "example": "archive-picker",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "Folded line",
+        "example": "archived-line",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Each `ArchivePicker` checkbox is named after its thread title, and excluded rows are `disabled`.",
+          "The checkbox on the \"+ n more\" row is named after the hidden count.",
+          "Open and Restore on `ArchivedLine` are buttons."
+        ]
+      }
+    ]
+  },
+  {
     "id": "kanban",
     "group": "데이터",
     "title": "Kanban",

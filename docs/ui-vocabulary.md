@@ -199,6 +199,7 @@ Data display patterns differ by how many items share the same fields.
 | Data table | Rows of items that share columns | Yes: `DataTable` |
 | Tree view | Nested items that expand and collapse | Yes: `Tree` |
 | Work lists | Rows of handed-off work: notifications with a kind icon, a queue in handling order, and documents with reviewers | Yes: `ActivityList`, `QueueList`, `DocList` |
+| Archive | A finished thread kept as one summary card, a day's threads picked in a table with excluded rows, and the folded line left in the feed | Yes: `ArchiveCard`, `ArchivePicker`, `ArchivedLine` |
 | Panel | One area of a screen with a one-line header of title, meta and icon actions, filling a sidebar group or a pane without a border | Yes: `Panel`, `PanelAction` |
 | Split pane | Panes side by side or stacked, resized by dragging the handle between them | Yes: `SplitPane`, `ResizeHandle` |
 | Profile header | One person at the top of a profile: avatar, name and short details; the member layout adds presence, role, status, actions and facts | Yes: `ProfileHeader` |

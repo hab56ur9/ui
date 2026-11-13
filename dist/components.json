@@ -4940,6 +4940,165 @@
       ]
     },
     {
+      "name": "ArchiveCard",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "sections",
+          "optional": false,
+          "kind": "list",
+          "type": "ArchiveSection[]"
+        },
+        {
+          "name": "evidence",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "note",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "list",
+          "type": "ArchiveAction[] | undefined"
+        },
+        {
+          "name": "onAction",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "draft",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ArchivedLine",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "summary",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onOpen",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onRestore",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ArchivePicker",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "count",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "columns",
+          "optional": false,
+          "kind": "object",
+          "type": "[string, string, string, string]"
+        },
+        {
+          "name": "rows",
+          "optional": false,
+          "kind": "list",
+          "type": "ArchiveRow[]"
+        },
+        {
+          "name": "limit",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "defaultValue",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((value: string[]) => void) | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "list",
+          "type": "ArchiveAction[] | undefined"
+        },
+        {
+          "name": "onAction",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string, value: string[]) => void) | undefined"
+        },
+        {
+          "name": "note",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
       "name": "Tree",
       "props": [
         {

@@ -1480,6 +1480,41 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "archive",
+    "group": "데이터",
+    "title": "아카이브",
+    "lede": "아카이브는 끝난 스레드를 문서 한 장으로 남기고 피드에서 접는 화면입니다. 한 스레드는 `ArchiveCard`로, 하루치 일괄은 `ArchivePicker`로 고르고, 접힌 스레드는 `ArchivedLine` 한 줄로 남깁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "초안 카드",
+        "example": "archive-card",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "일괄 선택",
+        "caption": "진행 중이거나 질문이 열린 스레드는 고를 수 없습니다. 접힌 줄의 체크는 숨은 줄을 함께 고릅니다",
+        "example": "archive-picker",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "접힌 줄",
+        "example": "archived-line",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`ArchivePicker`의 체크박스는 스레드 제목을 이름으로 가지고, 제외된 줄은 `disabled`입니다.",
+          "\"+ n개 더\" 줄의 체크박스는 숨은 줄 수를 이름으로 가집니다.",
+          "`ArchivedLine`의 열기·되돌리기는 버튼입니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "kanban",
     "group": "데이터",
     "title": "Kanban",

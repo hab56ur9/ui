@@ -566,6 +566,27 @@ export const api: Record<string, Section[]> = {
       ["onSelect · empty", "(id) => void, string", "\"없음\"", "누를 때 이벤트와 빈 상태 문구입니다."],
     ] },
   ],
+  "archive": [
+    { type: "api", title: "<ArchiveCard>", rows: [
+      ["title · count", "string, string", "", "머리글 제목과 오른쪽 알약입니다. `count`에는 \"메시지 88 → 1\"처럼 압축 정도를 씁니다."],
+      ["sections", "{ label, entries: { text, meta?, badge? }[] }[]", "", "절마다 이름과 항목입니다. 진행·논의·결정·남은 일처럼 앱이 이름을 정합니다."],
+      ["evidence · note", "ReactNode, string", "", "본문 끝의 근거 한 줄과 바닥 오른쪽 안내입니다."],
+      ["actions · onAction", "{ id, label, variant? }[], (id) => void", "[]", "바닥 버튼과 누를 때 이벤트입니다. 버튼이 없으면 바닥을 그리지 않습니다."],
+      ["draft", "boolean", "false", "초안이면 테두리를 강조하고 📦 아이콘을 붙입니다."],
+    ] },
+    { type: "api", title: "<ArchivePicker>", rows: [
+      ["title · count", "string, string", "", "머리글 제목과 오른쪽 알약입니다."],
+      ["columns", "[string, string, string, string]", "", "제목 · 진행 · 논의 · 상태 열 이름입니다."],
+      ["rows", "{ id, title, progress?, discussion?, status?, excluded? }[]", "", "스레드 한 줄씩입니다. `excluded`면 체크를 끄고 `status` 배지로 제외 사유를 보입니다."],
+      ["limit", "number", "Infinity", "포함·제외 묶음마다 보일 줄 수입니다. 남은 줄은 \"+ n개 더\" 한 줄로 접히고 그 줄의 체크가 숨은 줄을 함께 고릅니다."],
+      ["value · defaultValue · onChange", "string[], string[], (value) => void", "제외 아닌 줄 모두", "고른 줄의 id입니다."],
+      ["actions · onAction · note", "{ id, label, variant? }[], (id, value) => void, string", "[]", "바닥 버튼, 누를 때 고른 id와 함께 오는 이벤트, 바닥 오른쪽 안내입니다."],
+    ] },
+    { type: "api", title: "<ArchivedLine>", rows: [
+      ["title · summary · meta", "string, string, string", "", "접힌 줄의 제목, 한 줄 요약, 오른쪽 메타입니다."],
+      ["onOpen · onRestore", "() => void, () => void", "", "주면 \"열기\" · \"되돌리기\" 버튼이 생깁니다."],
+    ] },
+  ],
   "split-pane": [
     {
       type: "api",

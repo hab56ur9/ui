@@ -487,6 +487,9 @@
             "ActivityList",
             "DocList",
             "QueueList",
+            "ArchiveCard",
+            "ArchivedLine",
+            "ArchivePicker",
             "Tree"
           ]
         },
@@ -3728,6 +3731,99 @@
                 },
                 "required": [
                   "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ArchiveCard"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "count": {},
+                  "sections": {},
+                  "evidence": {},
+                  "note": {},
+                  "actions": {},
+                  "onAction": {},
+                  "draft": {}
+                },
+                "required": [
+                  "title",
+                  "sections"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ArchivedLine"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "summary": {},
+                  "meta": {},
+                  "onOpen": {},
+                  "onRestore": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ArchivePicker"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "count": {},
+                  "columns": {},
+                  "rows": {},
+                  "limit": {},
+                  "value": {},
+                  "defaultValue": {},
+                  "onChange": {},
+                  "actions": {},
+                  "onAction": {},
+                  "note": {}
+                },
+                "required": [
+                  "title",
+                  "columns",
+                  "rows"
                 ],
                 "additionalProperties": false
               }

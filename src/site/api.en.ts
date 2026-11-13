@@ -566,6 +566,27 @@ export const api: Record<string, Section[]> = {
       ["onSelect · empty", "(id) => void, string", "\"None\"", "Press event and empty-state text."],
     ] },
   ],
+  "archive": [
+    { type: "api", title: "<ArchiveCard>", rows: [
+      ["title · count", "string, string", "", "The header title and the pill on its right. Put the compression in `count`, such as \"88 messages → 1\"."],
+      ["sections", "{ label, entries: { text, meta?, badge? }[] }[]", "", "Each section's name and entries. The app names them, such as progress, discussion, decisions and open work."],
+      ["evidence · note", "ReactNode, string", "", "The evidence line under the body and the note on the right of the footer."],
+      ["actions · onAction", "{ id, label, variant? }[], (id) => void", "[]", "Footer buttons and the press event. Without buttons the footer is not drawn."],
+      ["draft", "boolean", "false", "A draft gets a highlighted border and a 📦 icon."],
+    ] },
+    { type: "api", title: "<ArchivePicker>", rows: [
+      ["title · count", "string, string", "", "The header title and the pill on its right."],
+      ["columns", "[string, string, string, string]", "", "Names of the title, progress, discussion and status columns."],
+      ["rows", "{ id, title, progress?, discussion?, status?, excluded? }[]", "", "One row per thread. An `excluded` row has its checkbox disabled and shows the reason in its `status` badge."],
+      ["limit", "number", "Infinity", "Rows shown per group, included and excluded. The rest fold into one \"+ n more\" row whose checkbox picks the hidden rows together."],
+      ["value · defaultValue · onChange", "string[], string[], (value) => void", "every row not excluded", "Ids of the picked rows."],
+      ["actions · onAction · note", "{ id, label, variant? }[], (id, value) => void, string", "[]", "Footer buttons, the press event with the picked ids, and the note on the right of the footer."],
+    ] },
+    { type: "api", title: "<ArchivedLine>", rows: [
+      ["title · summary · meta", "string, string, string", "", "The folded line's title, one-line summary and right-hand meta."],
+      ["onOpen · onRestore", "() => void, () => void", "", "Each one adds an \"Open\" or \"Restore\" button."],
+    ] },
+  ],
   "split-pane": [
     {
       type: "api",
