@@ -1957,6 +1957,31 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "split-pane",
+    "group": "콘텐츠",
+    "title": "Split pane",
+    "lede": "A split pane lays panes side by side or stacked, and dragging the handle between two panes resizes them. Sizes go in and out as ratios, and `onResize` reports the new ratios when the handle is released. No pane shrinks below `min`.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Side by side",
+        "example": "split-row"
+      },
+      {
+        "type": "demo",
+        "title": "Stacked",
+        "example": "split-column"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Each handle is a `separator` with `aria-orientation` and a name (default \"Resize\"), and Tab reaches it.",
+          "Left and right arrows move a vertical handle, up and down arrows move a horizontal one, by 16px, or 64px with Shift."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image-preview",
     "group": "콘텐츠",
     "title": "Image preview",

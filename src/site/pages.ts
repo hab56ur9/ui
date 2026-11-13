@@ -1975,6 +1975,31 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "split-pane",
+    "group": "콘텐츠",
+    "title": "분할 창",
+    "lede": "분할 창은 칸 여러 개를 가로나 세로로 나란히 놓고, 칸 사이 손잡이를 끌어 크기를 바꿉니다. 크기는 비율로 주고받고, 손잡이를 놓을 때 `onResize`로 새 비율을 알립니다. 칸은 `min`보다 작아지지 않습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "가로로 나누기",
+        "example": "split-row"
+      },
+      {
+        "type": "demo",
+        "title": "세로로 나누기",
+        "example": "split-column"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "손잡이는 `separator`이고 `aria-orientation`과 이름(기본 \"크기 조절\")을 가지며 탭으로 닿습니다.",
+          "세로 손잡이는 왼쪽·오른쪽, 가로 손잡이는 위·아래 화살표로 16px씩, Shift와 함께 64px씩 옮깁니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "image-preview",
     "group": "콘텐츠",
     "title": "이미지 미리보기",

@@ -338,3 +338,13 @@
 .tree-mark.is-critical { color: var(--color-status-critical); }
 .tree-description { grid-column: 2 / 5; justify-self: start; max-width: 100%; font-size: var(--font-size-caption); color: var(--color-fg-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tree-icon:not(:empty) ~ .tree-description { grid-column: 3 / 5; }
+.resize-handle { position: relative; z-index: 2; cursor: col-resize; touch-action: none; }
+.resize-handle::after { content: ""; position: absolute; inset: 0 -2px; }
+.resize-handle[aria-orientation="horizontal"] { cursor: row-resize; }
+.resize-handle[aria-orientation="horizontal"]::after { inset: -2px 0; }
+.resize-handle:hover, .resize-handle.is-dragging, .resize-handle:focus-visible { background: var(--color-main-default); }
+.split-view { display: grid; min-width: 0; min-height: 0; }
+.split-view > .split-view-cell { min-width: 0; min-height: 0; display: grid; }
+.split-view-cell > * { min-width: 0; min-height: 0; }
+.split-view > .resize-handle { background: var(--color-border-default); }
+.split-view > .resize-handle:hover, .split-view > .resize-handle.is-dragging, .split-view > .resize-handle:focus-visible { background: var(--color-main-default); }

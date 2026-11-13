@@ -3753,6 +3753,78 @@
       ]
     },
     {
+      "name": "ResizeHandle",
+      "props": [
+        {
+          "name": "orientation",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "horizontal",
+            "vertical"
+          ],
+          "type": "\"horizontal\" | \"vertical\" | undefined"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onMove",
+          "optional": false,
+          "kind": "action",
+          "type": "(dx: number, dy: number) => void"
+        },
+        {
+          "name": "onEnd",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        }
+      ]
+    },
+    {
+      "name": "SplitPane",
+      "props": [
+        {
+          "name": "direction",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "column",
+            "row"
+          ],
+          "type": "\"column\" | \"row\" | undefined"
+        },
+        {
+          "name": "sizes",
+          "optional": true,
+          "kind": "list",
+          "type": "number[] | undefined"
+        },
+        {
+          "name": "min",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "onResize",
+          "optional": true,
+          "kind": "action",
+          "type": "((sizes: number[]) => void) | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
       "name": "ChatMessage",
       "props": [
         {

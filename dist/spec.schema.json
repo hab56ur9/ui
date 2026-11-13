@@ -458,6 +458,8 @@
             "Lane",
             "ProjectCards",
             "ProjectHeader",
+            "ResizeHandle",
+            "SplitPane",
             "ChatMessage",
             "ChatPane",
             "Composer",
@@ -2956,6 +2958,56 @@
                   "name",
                   "value"
                 ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ResizeHandle"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "orientation": {},
+                  "label": {},
+                  "onMove": {},
+                  "onEnd": {}
+                },
+                "required": [
+                  "onMove"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "SplitPane"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "direction": {},
+                  "sizes": {},
+                  "min": {},
+                  "onResize": {}
+                },
+                "required": [],
                 "additionalProperties": false
               }
             }

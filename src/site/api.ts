@@ -525,6 +525,28 @@ export const api: Record<string, Section[]> = {
       ["onSelect · empty", "(id) => void, string", "\"없음\"", "누를 때 이벤트와 빈 상태 문구입니다."],
     ] },
   ],
+  "split-pane": [
+    {
+      type: "api",
+      title: "<SplitPane>",
+      rows: [
+        ["direction", "\"row\" · \"column\"", "\"row\"", "칸을 가로로 놓을지 세로로 쌓을지 정합니다."],
+        ["sizes", "number[]", "· 같은 비율", "칸마다 처음 비율입니다. 합이 1일 필요는 없습니다."],
+        ["min", "number", "120", "손잡이로 줄일 수 있는 칸의 최소 px입니다."],
+        ["onResize", "(sizes) => void", "", "손잡이를 놓거나 키로 옮긴 뒤 새 비율로 부릅니다."],
+        ["children", "ReactNode", "", "칸입니다. 자식 하나가 칸 하나입니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<ResizeHandle>",
+      rows: [
+        ["orientation", "\"vertical\" · \"horizontal\"", "\"vertical\"", "세로 손잡이는 가로로, 가로 손잡이는 세로로 움직입니다."],
+        ["onMove · onEnd", "(dx, dy) => void · () => void", "", "끌기를 시작한 곳에서 움직인 거리와, 끌기가 끝날 때 부르는 함수입니다."],
+        ["label", "string", "· \"크기 조절\"", "손잡이의 이름입니다."],
+      ],
+    },
+  ],
   panel: [
     {
       type: "api",

@@ -701,6 +701,19 @@
     "approved": "승인",
     "changes": "수정 요청"
   },
+  "split-row": {
+    "list": "목록",
+    "first": "손잡이를 끌거나, 탭으로 손잡이에 닿은 뒤 화살표 키를 누릅니다.",
+    "second": "아래 숫자는 놓을 때 받은 비율입니다.",
+    "detail": "자세히",
+    "body": "오른쪽 칸은 남은 너비를 채웁니다. 두 칸 모두 120px보다 작아지지 않습니다."
+  },
+  "split-column": {
+    "editor": "편집기",
+    "editorBody": "위 칸입니다.",
+    "terminal": "터미널",
+    "terminalBody": "아래 칸입니다. 80px보다 작아지지 않습니다."
+  },
   "panel-section": {
     "channels": "채널",
     "addChannel": "채널 만들기",

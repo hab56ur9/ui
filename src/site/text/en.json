@@ -701,6 +701,19 @@
     "approved": "Approved",
     "changes": "Changes requested"
   },
+  "split-row": {
+    "list": "List",
+    "first": "Drag the handle, or Tab to it and press the arrow keys.",
+    "second": "The numbers below are the ratios reported on release.",
+    "detail": "Detail",
+    "body": "The right pane fills the remaining width. Neither pane shrinks below 120px."
+  },
+  "split-column": {
+    "editor": "Editor",
+    "editorBody": "The top pane.",
+    "terminal": "Terminal",
+    "terminalBody": "The bottom pane. It does not shrink below 80px."
+  },
   "panel-section": {
     "channels": "Channels",
     "addChannel": "New channel",

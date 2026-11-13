@@ -525,6 +525,28 @@ export const api: Record<string, Section[]> = {
       ["onSelect · empty", "(id) => void, string", "\"None\"", "Press event and empty-state text."],
     ] },
   ],
+  "split-pane": [
+    {
+      type: "api",
+      title: "<SplitPane>",
+      rows: [
+        ["direction", "\"row\" · \"column\"", "\"row\"", "Lays panes side by side or stacks them."],
+        ["sizes", "number[]", "· equal", "The starting ratio of each pane. They need not add up to 1."],
+        ["min", "number", "120", "The smallest size in px a handle can shrink a pane to."],
+        ["onResize", "(sizes) => void", "", "Called with the new ratios after a handle is released or moved by key."],
+        ["children", "ReactNode", "", "The panes. Each child is one pane."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<ResizeHandle>",
+      rows: [
+        ["orientation", "\"vertical\" · \"horizontal\"", "\"vertical\"", "A vertical handle moves sideways and a horizontal one moves up and down."],
+        ["onMove · onEnd", "(dx, dy) => void · () => void", "", "The distance moved from where the drag started, and the function called when it ends."],
+        ["label", "string", "· \"Resize\"", "The name of the handle."],
+      ],
+    },
+  ],
   panel: [
     {
       type: "api",
