@@ -29,8 +29,8 @@ export function Faces({ members, size = "xs" }: { members: Face[]; size?: "xs" |
   );
 }
 
-export function Mention({ children }: { children: ReactNode }) {
-  return <span className="chat-mention">@{children}</span>;
+export function Mention({ children, self = false }: { children: ReactNode; self?: boolean }) {
+  return <span className={cx("chat-mention", self && "is-self")}>@{children}</span>;
 }
 
 export type MessageAction = {

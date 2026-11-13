@@ -48,6 +48,7 @@
 .chat-message:hover .chat-time.is-side { visibility: visible; }
 .chat-via { font-size: var(--font-size-caption); color: var(--color-fg-muted); }
 .chat-mention { padding: 0 3px; border-radius: var(--radius-mark); background: color-mix(in oklab, var(--color-series-1) 18%, transparent); color: var(--color-series-1); font-weight: var(--font-weight-medium); }
+.chat-mention.is-self { background: color-mix(in oklab, var(--color-status-warning) 32%, transparent); color: var(--color-fg-default); }
 .chat-emoji { font-size: var(--font-size-body); line-height: 1; }
 .chat-actions { position: absolute; top: -12px; right: var(--space-4); z-index: 2; display: none; padding: 2px; border: 1px solid var(--color-border-default); border-radius: var(--radius-control); background: var(--color-bg-raised); box-shadow: var(--elevation-overlay); }
 .chat-message:hover > .chat-actions, .chat-message:focus-within > .chat-actions, .chat-actions.is-open { display: flex; }
