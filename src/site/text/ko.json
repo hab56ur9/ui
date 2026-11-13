@@ -706,6 +706,22 @@
     "second": "헤더는 제목, 보조 정보, 버튼 순서로 한 줄에 놓입니다.",
     "third": "본문이 길면 헤더는 그대로 두고 본문만 스크롤됩니다."
   },
+  "profile-header-member": {
+    "profile": "프로필",
+    "builder": "빌더",
+    "close": "프로필 닫기",
+    "maintainer": "메인테이너",
+    "working": "작업 중",
+    "expertise": "디자인 시스템 · React · 디자인 토큰",
+    "shell": "Shell",
+    "stop": "작업 중단",
+    "reload": "규칙 다시 읽기",
+    "active": "처리 중",
+    "oneItem": "1건",
+    "queue": "대기열",
+    "twoItems": "2건",
+    "session": "세션"
+  },
   "image-preview-basic": {
     "wide": "코드 리뷰 화면, 라이트 테마",
     "tall": "보드의 휴대폰 화면, 다크 테마"

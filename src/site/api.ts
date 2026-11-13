@@ -601,7 +601,12 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["name · handle · avatar · bio", "string", "", ""],
         ["stats", "{ label, value }[]", "[]", "숫자는 짧게 줄여 씁니다."],
-        ["children", "ReactNode", "", "아래 버튼 줄입니다."],
+        ["children", "ReactNode", "", "아래 버튼 줄입니다. `member`에서는 정보 목록 아래에 놓는 내용입니다."],
+        ["variant", "\"social\" | \"member\"", "\"social\"", "`member`는 상태 점이 있는 아바타 옆에 이름을 두고, 아래에 버튼 줄과 정보 목록을 놓습니다."],
+        ["tone · state", "number · Presence", "", "`member`에서 아바타 색과 상태 점입니다. `PresenceAvatar`와 같습니다."],
+        ["role · status", "string · ReactNode", "", "`member`에서 이름 아래에 놓는 역할 배지와 상태 문구입니다."],
+        ["actions", "ReactNode", "", "`member`에서 이름 아래 버튼 줄입니다."],
+        ["facts", "{ label, value }[]", "[]", "`member`에서 `DescriptionList`로 보이는 정보입니다. 값은 고정폭 글꼴입니다."],
       ],
     },
     {

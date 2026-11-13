@@ -2173,6 +2173,60 @@
           "optional": true,
           "kind": "node",
           "type": "ReactNode"
+        },
+        {
+          "name": "variant",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "member",
+            "social"
+          ],
+          "type": "\"member\" | \"social\" | undefined"
+        },
+        {
+          "name": "tone",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "state",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "active",
+            "busy",
+            "critical",
+            "good",
+            "idle",
+            "warning"
+          ],
+          "type": "Presence | undefined"
+        },
+        {
+          "name": "role",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "facts",
+          "optional": true,
+          "kind": "list",
+          "type": "DescriptionItem[] | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
         }
       ]
     },

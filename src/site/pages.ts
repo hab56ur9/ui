@@ -1993,10 +1993,17 @@ export const pages: Page[] = [
         "layout": "centered"
       },
       {
+        "type": "demo",
+        "title": "멤버 프로필",
+        "example": "profile-header-member",
+        "layout": "centered"
+      },
+      {
         "type": "a11y",
         "items": [
           "좋아요 버튼은 `aria-pressed`로 상태를 알리고, 사진을 두 번 눌러도 좋아요가 됩니다.",
-          "아이콘 버튼은 모두 이름을 가집니다."
+          "아이콘 버튼은 모두 이름을 가집니다.",
+          "멤버 프로필의 상태 점은 읽히지 않으므로 상태는 `status` 문구로도 씁니다. 정보는 `dl` 목록으로 읽힙니다."
         ]
       }
     ]

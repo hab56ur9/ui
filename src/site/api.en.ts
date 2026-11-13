@@ -601,7 +601,12 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["name · handle · avatar · bio", "string", "", ""],
         ["stats", "{ label, value }[]", "[]", "Numbers are shortened."],
-        ["children", "ReactNode", "", "The button row below."],
+        ["children", "ReactNode", "", "The button row below. In `member`, content placed under the facts."],
+        ["variant", "\"social\" | \"member\"", "\"social\"", "`member` puts the name beside an avatar with a presence dot, then a button row and a list of facts."],
+        ["tone · state", "number · Presence", "", "Avatar color and presence dot in `member`, as in `PresenceAvatar`."],
+        ["role · status", "string · ReactNode", "", "Role badge and status text under the name in `member`."],
+        ["actions", "ReactNode", "", "Button row under the name in `member`."],
+        ["facts", "{ label, value }[]", "[]", "Facts shown as a `DescriptionList` in `member`. Values use the monospace font."],
       ],
     },
     {

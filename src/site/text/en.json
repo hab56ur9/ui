@@ -706,6 +706,22 @@
     "second": "The header keeps title, meta and actions on one line.",
     "third": "When the body runs long, only the body scrolls and the header stays."
   },
+  "profile-header-member": {
+    "profile": "Profile",
+    "builder": "Builder",
+    "close": "Close profile",
+    "maintainer": "Maintainer",
+    "working": "Working",
+    "expertise": "Design system · React · Design tokens",
+    "shell": "Shell",
+    "stop": "Stop work",
+    "reload": "Reload rules",
+    "active": "Active",
+    "oneItem": "1",
+    "queue": "Queue",
+    "twoItems": "2",
+    "session": "Session"
+  },
   "image-preview-basic": {
     "wide": "Code review screen, light theme",
     "tall": "Phone screen of the board, dark theme"

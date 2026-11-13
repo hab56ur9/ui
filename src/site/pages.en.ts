@@ -1975,10 +1975,17 @@ export const pages: Page[] = [
         "layout": "centered"
       },
       {
+        "type": "demo",
+        "title": "Member profile",
+        "example": "profile-header-member",
+        "layout": "centered"
+      },
+      {
         "type": "a11y",
         "items": [
           "The like button reports its state with `aria-pressed`, and a double tap on the photo likes it too.",
-          "Every icon button has a name."
+          "Every icon button has a name.",
+          "The presence dot in a member profile is not read aloud, so also give the state as `status` text. Facts read as a `dl` list."
         ]
       }
     ]

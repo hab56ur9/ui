@@ -1,4 +1,7 @@
 import { useState, type ReactNode } from "react";
+import { Badge } from "./Badge";
+import { PresenceAvatar, type Presence } from "./chat";
+import { DescriptionList, type DescriptionItem } from "./DescriptionList";
 import { Icon } from "./Icon";
 import { useI18n } from "./i18n";
 import { Image, type ImageProps } from "./Image";
@@ -109,10 +112,47 @@ export function Post({ author, avatar, place, photo, likes, liked: initial = fal
 }
 
 export type ProfileStat = { label: string; value: string | number };
-export type ProfileHeaderProps = { name: string; handle?: string; avatar?: string; bio?: string; stats?: ProfileStat[]; children?: ReactNode };
+export type ProfileHeaderProps = {
+  name: string;
+  handle?: string;
+  avatar?: string;
+  bio?: string;
+  stats?: ProfileStat[];
+  children?: ReactNode;
+  variant?: "social" | "member";
+  tone?: number;
+  state?: Presence;
+  role?: string;
+  status?: ReactNode;
+  facts?: DescriptionItem[];
+  actions?: ReactNode;
+};
 
-export function ProfileHeader({ name, handle, avatar, bio, stats = [], children }: ProfileHeaderProps) {
+export function ProfileHeader({ name, handle, avatar, bio, stats = [], children, variant = "social", tone, state, role, status, facts = [], actions }: ProfileHeaderProps) {
   const { locale } = useI18n();
+  if (variant === "member") {
+    return (
+      <header className="profile is-member">
+        <div className="profile-member">
+          <PresenceAvatar name={name} tone={tone} avatar={avatar} state={state} size="lg" />
+          <div className="profile-text">
+            <strong>{name}</strong>
+            {(role || handle || status) && (
+              <span className="profile-meta">
+                {role && <Badge>{role}</Badge>}
+                {handle && <span>{handle}</span>}
+                {status && <span>{status}</span>}
+              </span>
+            )}
+            {bio && <p>{bio}</p>}
+          </div>
+        </div>
+        {actions && <div className="profile-member-actions">{actions}</div>}
+        {facts.length > 0 && <DescriptionList items={facts} />}
+        {children}
+      </header>
+    );
+  }
   return (
     <header className="profile">
       <div className="profile-top">

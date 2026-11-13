@@ -1971,7 +1971,14 @@
                   "handle": {},
                   "avatar": {},
                   "bio": {},
-                  "stats": {}
+                  "stats": {},
+                  "variant": {},
+                  "tone": {},
+                  "state": {},
+                  "role": {},
+                  "status": {},
+                  "facts": {},
+                  "actions": {}
                 },
                 "required": [
                   "name"

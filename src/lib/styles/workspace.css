@@ -13,7 +13,7 @@
 }
 .presence-avatar.has-image { background: none; }
 .presence-avatar img { width: 100%; height: 100%; border-radius: 50%; display: block; }
-.presence-avatar.is-lg { width: 56px; height: 56px; font-size: var(--font-size-heading); }
+.presence-avatar.is-lg { width: 56px; height: 56px; font-size: var(--font-size-title); }
 .presence-avatar.is-sm { width: 24px; height: 24px; font-size: var(--font-size-caption); }
 .presence-avatar.is-xs { width: 18px; height: 18px; font-size: var(--font-size-caption); }
 .presence-avatar .presence-dot { position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; box-shadow: 0 0 0 2px var(--color-bg-surface); }
