@@ -36,8 +36,9 @@ const ICON: Record<Section, string> = {
   symbols: "✅",
 };
 
-export function EmojiPicker({ selected = [], recent = [], onSelect, label }: EmojiPickerProps) {
+export function EmojiPicker({ selected = [], recent: given = [], onSelect, label }: EmojiPickerProps) {
   const { lang, text: t } = useI18n();
+  const recent = [...new Set(given)];
   const sections: Section[] = recent.length > 0 ? ["recent", ...EMOJI_CATEGORIES] : EMOJI_CATEGORIES;
   const [section, setSection] = useState<Section>(sections[0]);
   const [query, setQuery] = useState("");
