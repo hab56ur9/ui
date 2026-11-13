@@ -5,6 +5,18 @@ const FOCUSABLE = 'a[href], area[href], button, input:not([type="hidden"]), sele
 const tabbable = (root: HTMLElement) =>
   [...root.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.tabIndex >= 0 && !el.matches(":disabled") && !el.closest("[inert]") && el.getClientRects().length > 0);
 
+export function trapTab(root: HTMLElement | null, event: KeyboardEvent) {
+  if (event.key !== "Tab" || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || !root) return;
+  const items = tabbable(root);
+  const current = document.activeElement;
+  const edge = event.shiftKey ? items[0] : items[items.length - 1];
+  const target = event.shiftKey ? items[items.length - 1] : items[0];
+  const inside = current instanceof Node && root.contains(current);
+  if (inside && edge && current !== edge) return;
+  event.preventDefault();
+  target?.focus();
+}
+
 export function useModalFocus(ref: RefObject<HTMLDialogElement | null>, active: boolean) {
   useLayoutEffect(() => {
     const dialog = ref.current;
@@ -17,16 +29,5 @@ export function useModalFocus(ref: RefObject<HTMLDialogElement | null>, active: 
     };
   }, [active]);
 
-  return (event: KeyboardEvent<HTMLDialogElement>) => {
-    const dialog = ref.current;
-    if (event.key !== "Tab" || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || !dialog) return;
-    const items = tabbable(dialog);
-    const current = document.activeElement;
-    const edge = event.shiftKey ? items[0] : items[items.length - 1];
-    const target = event.shiftKey ? items[items.length - 1] : items[0];
-    const inside = current instanceof Node && dialog.contains(current);
-    if (inside && edge && current !== edge) return;
-    event.preventDefault();
-    target?.focus();
-  };
+  return (event: KeyboardEvent) => trapTab(ref.current, event);
 }

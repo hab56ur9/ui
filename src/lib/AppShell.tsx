@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
+import { trapTab } from "./overlay/focus";
 import { TabBar, type TabBarStyle } from "./TabBar";
 
 export type ShellItem = { id: string; label: string; icon?: IconName; href?: string; sub?: string; current?: boolean; onSelect?: () => void };
@@ -132,7 +133,7 @@ export function AppShell({ brand, nav, navHeader, title, onBack, actions, aside,
       </div>
       <div className={`shell-drawer${open ? " is-open" : ""}`} inert={!open}>
         <div className="shell-scrim" onClick={close} />
-        <aside ref={panel} className="shell-drawer-panel" role="dialog" aria-modal="true" aria-label={text("navigation")}>
+        <aside ref={panel} className="shell-drawer-panel" role="dialog" aria-modal="true" aria-label={text("navigation")} onKeyDown={(e) => trapTab(panel.current, e)}>
           <div className="shell-brand">
             {brand}
             <span className="toolbar-spacer" />
