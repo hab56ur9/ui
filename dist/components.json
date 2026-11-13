@@ -2477,6 +2477,12 @@
           "type": "boolean | undefined"
         },
         {
+          "name": "imageHosts",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
           "name": "onChange",
           "optional": true,
           "kind": "action",

@@ -13,29 +13,42 @@ export const slug = (text: string, seen: Map<string, number>) => {
   return count ? `${base}-${count}` : base;
 };
 
-function inline(nodes: Inline[]): ReactNode {
+const hostOf = (src: string) => src.match(/^https?:\/\/(?:[^/?#@]*@)?([^/?#]+)/i)?.[1].toLowerCase();
+
+export const showsImage = (src: string, hosts?: string[]) => {
+  const host = hostOf(src);
+  return !hosts || !host || hosts.some((allowed) => allowed.toLowerCase() === host);
+};
+
+export const ImageLink = ({ src, alt }: { src: string; alt?: string }) => (
+  <a href={src} target="_blank" rel="noreferrer noopener">
+    {alt || src}
+  </a>
+);
+
+function inline(nodes: Inline[], hosts?: string[]): ReactNode {
   return nodes.map((node, i) => {
     switch (node.kind) {
       case "text":
         return <Fragment key={i}>{node.text}</Fragment>;
       case "strong":
-        return <strong key={i}>{inline(node.children)}</strong>;
+        return <strong key={i}>{inline(node.children, hosts)}</strong>;
       case "em":
-        return <em key={i}>{inline(node.children)}</em>;
+        return <em key={i}>{inline(node.children, hosts)}</em>;
       case "del":
-        return <del key={i}>{inline(node.children)}</del>;
+        return <del key={i}>{inline(node.children, hosts)}</del>;
       case "code":
         return <code key={i}>{node.text}</code>;
       case "link": {
         const external = /^https?:/i.test(node.href);
         return (
           <a key={i} href={node.href} title={node.title} target={external ? "_blank" : undefined} rel={external ? "noreferrer noopener" : undefined}>
-            {inline(node.children)}
+            {inline(node.children, hosts)}
           </a>
         );
       }
       case "image":
-        return <img key={i} src={node.src} alt={node.alt} title={node.title} loading="lazy" />;
+        return showsImage(node.src, hosts) ? <img key={i} src={node.src} alt={node.alt} title={node.title} loading="lazy" /> : <ImageLink key={i} src={node.src} alt={node.alt} />;
       case "footnote":
         return (
           <sup key={i} className="markdown-footnote-ref">
@@ -50,16 +63,16 @@ function inline(nodes: Inline[]): ReactNode {
   });
 }
 
-export const renderInline = (text: string, refs?: Refs) => inline(inlineOf(text, refs));
+export const renderInline = (text: string, refs?: Refs, hosts?: string[]) => inline(inlineOf(text, refs), hosts);
 
-export function Footnotes({ refs }: { refs: Refs }) {
+export function Footnotes({ refs, imageHosts }: { refs: Refs; imageHosts?: string[] }) {
   if (refs.order.length === 0) return null;
   return (
     <section className="markdown-footnotes">
       <ol>
         {refs.order.map((id) => (
           <li key={id} id={`fn-${id}`}>
-            {renderInline(refs.notes.get(id) ?? "", refs)}
+            {renderInline(refs.notes.get(id) ?? "", refs, imageHosts)}
             <a href={`#fnref-${id}`} className="markdown-footnote-back" aria-label="back">
               ↩
             </a>

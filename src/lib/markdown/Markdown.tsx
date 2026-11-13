@@ -8,12 +8,13 @@ import { Callout } from "../Callout";
 import { fromMarkdown, LIST_KINDS, make, numbers, TEXT_KINDS, toMarkdown, type EditorBlock, type Kind } from "./blocks";
 import { MermaidView, parseMermaid } from "./mermaid";
 import { parseMarkdown } from "./parse";
-import { Footnotes, renderInline, slug } from "./render";
+import { Footnotes, ImageLink, renderInline, showsImage, slug } from "./render";
 
 export type MarkdownProps = {
   children?: string;
   defaultValue?: string;
   readOnly?: boolean;
+  imageHosts?: string[];
   onChange?: (markdown: string) => void;
   data?: Record<string, unknown>;
   formats?: Record<string, JsonUIFormat>;
@@ -82,14 +83,14 @@ function grow(el: HTMLTextAreaElement | null) {
   el.style.height = `${el.scrollHeight}px`;
 }
 
-export function Markdown({ children, defaultValue, readOnly = false, onChange, data, formats, onAction }: MarkdownProps) {
+export function Markdown({ children, defaultValue, readOnly = false, imageHosts, onChange, data, formats, onAction }: MarkdownProps) {
   const { text } = useI18n();
   const source = defaultValue ?? children ?? "";
   const [own, setBlocks] = useState<EditorBlock[]>(() => fromMarkdown(source));
   const fixed = useMemo(() => (readOnly ? fromMarkdown(source) : null), [readOnly, source]);
   const blocks = fixed ?? own;
   const refs = useMemo(() => parseMarkdown(toMarkdown(blocks)).refs, [blocks]);
-  const inline = (value: string) => renderInline(value, refs);
+  const inline = (value: string) => renderInline(value, refs, imageHosts);
   const seen = new Map<string, number>();
   const [focus, setFocus] = useState<Focus>(null);
   const [menu, setMenu] = useState(0);
@@ -301,6 +302,7 @@ export function Markdown({ children, defaultValue, readOnly = false, onChange, d
         number={marks[i]}
         readOnly={readOnly}
         inline={inline}
+        imageHosts={imageHosts}
         anchor={["h1", "h2", "h3"].includes(block.kind) ? slug(block.text, seen) : undefined}
         focus={focus?.id === block.id ? focus : null}
         dropBefore={drag?.over === i && drag.id !== block.id}
@@ -368,7 +370,7 @@ export function Markdown({ children, defaultValue, readOnly = false, onChange, d
   return (
     <div ref={root} className={`markdown md-editor${readOnly ? " is-read-only" : ""}${drag ? " is-dragging" : ""}`}>
       {content}
-      <Footnotes refs={refs} />
+      <Footnotes refs={refs} imageHosts={imageHosts} />
       {!readOnly && (
         <button type="button" className="md-append" onClick={() => insertAfter(blocks[blocks.length - 1].id, make("paragraph"), 0)}>
           <Icon name="plus" size="sm" />
@@ -383,6 +385,7 @@ type RowProps = {
   block: EditorBlock;
   readOnly: boolean;
   inline: (value: string) => ReactNode;
+  imageHosts?: string[];
   anchor?: string;
   number: number;
   focus: Focus;
@@ -404,7 +407,7 @@ type RowProps = {
   ui: (source: string) => ReactNode;
 };
 
-function Row({ block, readOnly, inline, anchor, number, focus, dropBefore, dropAfter, dragging, text, onFocus, onLeave, onKey, onText, onPatch, onRemove, onNext, onPrevious, onAdd, onGrab, menu, ui }: RowProps) {
+function Row({ block, readOnly, inline, imageHosts, anchor, number, focus, dropBefore, dropAfter, dragging, text, onFocus, onLeave, onKey, onText, onPatch, onRemove, onNext, onPrevious, onAdd, onGrab, menu, ui }: RowProps) {
   const field = useRef<HTMLTextAreaElement & HTMLInputElement>(null);
   const editing = focus !== null;
 
@@ -588,7 +591,9 @@ function Row({ block, readOnly, inline, anchor, number, focus, dropBefore, dropA
             onFocus(0);
           }}
         >
-          {block.src || readOnly ? (
+          {block.src && !showsImage(block.src, imageHosts) ? (
+            <ImageLink src={block.src} alt={block.alt} />
+          ) : block.src || readOnly ? (
             <img src={block.src} alt={block.alt ?? ""} />
           ) : (
             <div className="md-empty-image">
