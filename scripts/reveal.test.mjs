@@ -7,7 +7,7 @@ test("reveal keeps a plain command whole", () => {
 });
 
 test("reveal names a bidi override instead of applying it", () => {
-  assert.deepEqual(reveal("rm -rf ./‮txt.sh"), [
+  assert.deepEqual(reveal("rm -rf ./\u202Etxt.sh"), [
     { text: "rm -rf ./", hidden: false },
     { text: "U+202E", hidden: true },
     { text: "txt.sh", hidden: false },
@@ -15,7 +15,7 @@ test("reveal names a bidi override instead of applying it", () => {
 });
 
 test("reveal names each control and zero-width character in a run", () => {
-  assert.deepEqual(reveal("a\r​\u0007b"), [
+  assert.deepEqual(reveal("a\r\u200B\u0007b"), [
     { text: "a", hidden: false },
     { text: "U+000D", hidden: true },
     { text: "U+200B", hidden: true },
@@ -26,4 +26,15 @@ test("reveal names each control and zero-width character in a run", () => {
 
 test("reveal leaves tabs and line breaks visible as layout", () => {
   assert.deepEqual(reveal("a\tb\nc"), [{ text: "a\tb\nc", hidden: false }]);
+});
+
+test("reveal names tag characters, variation selectors and filler letters", () => {
+  assert.deepEqual(reveal("a\u{E0041}\uFE0F\u3164\u2028b"), [
+    { text: "a", hidden: false },
+    { text: "U+E0041", hidden: true },
+    { text: "U+FE0F", hidden: true },
+    { text: "U+3164", hidden: true },
+    { text: "U+2028", hidden: true },
+    { text: "b", hidden: false },
+  ]);
 });
