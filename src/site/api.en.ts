@@ -59,6 +59,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "emoji-picker": [
+    {
+      type: "api",
+      title: "<EmojiPicker>",
+      rows: [
+        ["selected", "string[]", "[]", "Reactions already added, shown with an outline and `aria-pressed`."],
+        ["recent", "string[]", "[]", "Frequently used emoji. When present they become the first tab. The app does the remembering."],
+        ["onSelect", "(emoji: string) => void", "", "Called when an emoji is clicked or Enter is pressed in search."],
+        ["label", "string", "Pick an emoji", "Accessible name of the panel."],
+      ],
+    },
+  ],
   chat: [
     { type: "api", title: "<ChatMessage>", rows: [
       ["author · tone · avatar", "string, number, string", "", "Author name, color slot and photo."],

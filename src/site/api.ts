@@ -59,6 +59,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "emoji-picker": [
+    {
+      type: "api",
+      title: "<EmojiPicker>",
+      rows: [
+        ["selected", "string[]", "[]", "이미 단 반응입니다. 테두리와 `aria-pressed`로 표시합니다."],
+        ["recent", "string[]", "[]", "자주 쓰는 이모지입니다. 있으면 맨 앞 탭이 됩니다. 기억은 앱이 합니다."],
+        ["onSelect", "(emoji: string) => void", "", "이모지를 누르거나 검색에서 Enter를 누르면 부릅니다."],
+        ["label", "string", "이모지 고르기", "패널의 접근성 이름입니다."],
+      ],
+    },
+  ],
   chat: [
     { type: "api", title: "<ChatMessage>", rows: [
       ["author · tone · avatar", "string, number, string", "", "작성자 이름, 색 슬롯, 사진."],

@@ -1219,5 +1219,8 @@
     "deniedTitle": "빌더가 브랜치 삭제를 요청했습니다",
     "deniedCommand": "git branch -D feature/old-layout && git push origin --delete feature/old-layout feature/old-sidebar feature/old-header && rm -rf ./build/\u202ehs.tpircs",
     "deniedMeta": "관리자 · 08:47"
+  },
+  "emoji-picker-basic": {
+    "title": "메시지에 단 반응"
   }
 }

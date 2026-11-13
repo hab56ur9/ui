@@ -1442,6 +1442,44 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "emoji-picker",
+    "group": "콘텐츠",
+    "title": "EmojiPicker",
+    "lede": "The emoji picker is a panel for choosing a reaction. People browse by category tab or search Korean and English words, including Korean initial consonants. Frequently used emoji sit in the first tab, and reactions already added carry an outline. Put it inside a Popover attached to a reaction button.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Choosing a reaction",
+        "example": "emoji-picker-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "The app remembers frequent emoji and passes them as `recent`.",
+            "Let the picker write to storage itself."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Arrow Down in the search field moves into the grid, and Enter picks the first result.",
+          "Arrow keys move through the eight-column grid, and Home and End jump to its ends. The grid is one tab stop.",
+          "Reactions already added read as `aria-pressed`, and every emoji has its name as `aria-label`."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "radius.control",
+          "color.series.1"
+        ]
+      }
+    ]
+  },
+  {
     "id": "chat",
     "group": "콘텐츠",
     "title": "Chat",

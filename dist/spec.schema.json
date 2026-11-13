@@ -427,6 +427,7 @@
             "Stack",
             "Markdown",
             "TabBar",
+            "EmojiPicker",
             "Tabs",
             "DataTable",
             "DescriptionList",
@@ -2193,6 +2194,30 @@
                 "required": [
                   "items"
                 ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "EmojiPicker"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "selected": {},
+                  "recent": {},
+                  "onSelect": {},
+                  "label": {}
+                },
+                "required": [],
                 "additionalProperties": false
               }
             }

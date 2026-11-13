@@ -35,6 +35,7 @@ export { Avatar, List, PhotoGrid, Post, ProfileHeader, Stories, type AvatarProps
 export { Page, Stack, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout";
 export { Markdown, type MarkdownProps } from "./markdown/Markdown";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
+export { EmojiPicker, type EmojiPickerProps } from "./EmojiPicker";
 export { Tabs, type TabItem, type TabsProps } from "./Tabs";
 export { DataTable, type Cell, type DataTableProps } from "./DataTable";
 export { DescriptionList, type DescriptionItem, type DescriptionListProps } from "./DescriptionList";

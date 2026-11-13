@@ -2622,6 +2622,35 @@
       ]
     },
     {
+      "name": "EmojiPicker",
+      "props": [
+        {
+          "name": "selected",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "recent",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "((emoji: string) => void) | undefined"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
       "name": "Tabs",
       "props": [
         {

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useRef, useState, type CSSPropert
 import { Badge, type BadgeTone } from "./Badge";
 import { Button } from "./controls";
 import { bytes } from "./format";
+import { initials } from "./emoji";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
 import { usePresence } from "./motion";
@@ -220,13 +221,6 @@ export type ComposerProps = {
 };
 
 const QUERY = /(^|\s)@([\p{L}\p{N}_-]*)$/u;
-const CHOSEONG = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
-
-const initials = (text: string) => [...text].map((char) => {
-  const code = char.charCodeAt(0) - 0xac00;
-  return code >= 0 && code <= 11171 ? CHOSEONG[Math.floor(code / 588)] : char.toLowerCase();
-}).join("");
-
 function isSubsequence(needle: string, haystack: string) {
   let at = 0;
   for (const char of needle) {

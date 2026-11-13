@@ -1460,6 +1460,44 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "emoji-picker",
+    "group": "콘텐츠",
+    "title": "EmojiPicker",
+    "lede": "이모지 피커는 메시지에 달 반응 이모지를 고르는 패널입니다. 분류 탭으로 둘러보거나 한국어·영어 낱말과 초성으로 찾습니다. 자주 쓰는 이모지를 맨 앞 탭에 두고, 이미 단 반응은 테두리로 표시합니다. 팝오버 안에 넣어 반응 버튼에 붙입니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "반응 고르기",
+        "example": "emoji-picker-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "자주 쓰는 이모지는 앱이 기억해 `recent`로 넘깁니다.",
+            "피커가 직접 저장소에 쓰게 합니다."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "검색창에서 아래 방향키를 누르면 격자로, Enter를 누르면 첫 결과를 고릅니다.",
+          "격자는 방향키로 8칸씩 움직이고 Home·End로 처음과 끝에 갑니다. 탭 정지점은 하나입니다.",
+          "이미 단 반응은 `aria-pressed`로 읽고, 이모지마다 이름을 `aria-label`로 둡니다."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "radius.control",
+          "color.series.1"
+        ]
+      }
+    ]
+  },
+  {
     "id": "chat",
     "group": "콘텐츠",
     "title": "Chat",
