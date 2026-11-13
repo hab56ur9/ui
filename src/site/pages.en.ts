@@ -1202,6 +1202,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "progress-bar",
+    "group": "데이터",
+    "title": "Progress bar",
+    "lede": "A progress bar shows how much of a task is done, such as checks ticked on a ticket or tickets closed in a project. It is a thin bar with no text of its own; put the count beside it when people need the number. A meter, by contrast, reads a value against a limit and names it.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Fill, short beside text",
+        "example": "progress-bar-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`role=\"progressbar\"` with its label, value and maximum, so screen readers read the share."
+        ]
+      }
+    ]
+  },
+  {
     "id": "meter",
     "group": "데이터",
     "title": "Meter",

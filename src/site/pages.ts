@@ -1220,6 +1220,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "progress-bar",
+    "group": "데이터",
+    "title": "진행 막대",
+    "lede": "진행 막대는 작업이 얼마나 끝났는지 보여 줍니다. 티켓의 완료 조건 체크나 프로젝트의 완료 티켓 수가 그 예입니다. 글이 없는 얇은 막대라서, 숫자가 필요하면 옆에 개수를 둡니다. 미터는 값을 한도와 견주어 이름과 함께 읽는다는 점이 다릅니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "채우기, 글 옆 짧은 막대",
+        "example": "progress-bar-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`role=\"progressbar\"`에 이름·값·최댓값이 붙어 있어 스크린리더가 비율을 읽습니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "meter",
     "group": "데이터",
     "title": "진행률",

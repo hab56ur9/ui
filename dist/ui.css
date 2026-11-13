@@ -3166,6 +3166,29 @@ path[data-motion~="draw"] {
   font-weight: var(--font-weight-regular);
 }
 
+.progress-bar {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--space-1);
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-border-default);
+}
+
+.progress-bar.is-short {
+  flex: none;
+  width: calc(var(--space-8) * 4);
+}
+
+.progress-bar-fill {
+  display: block;
+  width: var(--progress);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-main-default);
+}
+
 .meter-track {
   position: relative;
   height: var(--space-2);

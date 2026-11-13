@@ -108,6 +108,17 @@ export const api: Record<string, Section[]> = {
       ["DiffView lines · empty", "{ kind: \"same\" | \"add\" | \"del\", text }[], string", "", "Line diff; the empty text shows when nothing changed."],
     ] },
   ],
+  "progress-bar": [
+    {
+      type: "api",
+      title: "<ProgressBar>",
+      rows: [
+        ["label", "string", "", "What is progressing; read by screen readers and shown as a tooltip."],
+        ["value · max", "number · number", "· 100", "The done amount and the whole, such as 3 of 5 checks."],
+        ["length", "\"fill\" | \"short\"", "\"fill\"", "`fill` takes the free width of its row; `short` stays a fixed short bar beside text."],
+      ],
+    },
+  ],
   meter: [
     {
       type: "api",

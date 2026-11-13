@@ -634,6 +634,11 @@
     "model": "모델",
     "modelValue": "claude-opus-5-5"
   },
+  "progress-bar-basic": {
+    "project": "완료한 티켓",
+    "checks": "완료 조건",
+    "count": "3/5"
+  },
   "toast-place-mobile": {
     "saved": "저장했습니다",
     "undo": "되돌리기"

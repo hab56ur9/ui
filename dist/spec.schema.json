@@ -450,6 +450,7 @@
             "TextList",
             "TokenTable",
             "Meter",
+            "ProgressBar",
             "ChatMessage",
             "ChatPane",
             "Composer",
@@ -2719,6 +2720,33 @@
                   "format": {},
                   "status": {},
                   "note": {}
+                },
+                "required": [
+                  "label",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ProgressBar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "value": {},
+                  "max": {},
+                  "length": {}
                 },
                 "required": [
                   "label",

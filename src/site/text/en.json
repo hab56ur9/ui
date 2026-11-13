@@ -634,6 +634,11 @@
     "model": "Model",
     "modelValue": "claude-opus-5-5"
   },
+  "progress-bar-basic": {
+    "project": "Tickets closed",
+    "checks": "Checks done",
+    "count": "3/5"
+  },
   "toast-place-mobile": {
     "saved": "Saved",
     "undo": "Undo"

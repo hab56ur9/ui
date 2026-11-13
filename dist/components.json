@@ -3429,6 +3429,39 @@
       ]
     },
     {
+      "name": "ProgressBar",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "kind": "number",
+          "type": "number"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "length",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "fill",
+            "short"
+          ],
+          "type": "\"fill\" | \"short\" | undefined"
+        }
+      ]
+    },
+    {
       "name": "ChatMessage",
       "props": [
         {

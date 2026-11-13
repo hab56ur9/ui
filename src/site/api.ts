@@ -108,6 +108,17 @@ export const api: Record<string, Section[]> = {
       ["DiffView lines · empty", "{ kind: \"same\" | \"add\" | \"del\", text }[], string", "", "줄 단위 비교. 바뀐 줄이 없으면 empty 문구."],
     ] },
   ],
+  "progress-bar": [
+    {
+      type: "api",
+      title: "<ProgressBar>",
+      rows: [
+        ["label", "string", "", "무엇이 진행되는지입니다. 스크린리더가 읽고 툴팁으로도 보입니다."],
+        ["value · max", "number · number", "· 100", "끝난 양과 전체입니다. 완료 조건 5개 중 3개가 그 예입니다."],
+        ["length", "\"fill\" | \"short\"", "\"fill\"", "`fill`은 줄의 남은 너비를 채우고, `short`는 글 옆에 짧은 고정 막대로 둡니다."],
+      ],
+    },
+  ],
   meter: [
     {
       type: "api",
