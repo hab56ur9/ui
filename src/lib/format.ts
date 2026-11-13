@@ -2,6 +2,10 @@ import type { Color, Format } from "./types";
 
 export const DAY = 864e5;
 
+const measurable = (max: number) => max > 0;
+
+export const percentOf = (value: number, max: number) => (measurable(max) ? `${Math.max(0, Math.min(100, (value / max) * 100))}%` : "0%");
+
 export const color = (value: Color) => (typeof value === "number" ? `var(--color-series-${value})` : `var(--color-chart-${value})`);
 
 export const fullDate = (time: number, locale: string) =>

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { percentOf } from "./format";
 
 export type ProgressBarProps = {
   label: string;
@@ -6,9 +7,6 @@ export type ProgressBarProps = {
   max?: number;
   length?: "fill" | "short";
 };
-
-const measurable = (max: number) => max > 0;
-const share = (value: number, max: number) => (measurable(max) ? `${Math.max(0, Math.min(100, (value / max) * 100))}%` : "0%");
 
 export function ProgressBar({ label, value, max = 100, length = "fill" }: ProgressBarProps) {
   return (
@@ -20,7 +18,7 @@ export function ProgressBar({ label, value, max = 100, length = "fill" }: Progre
       aria-valuemin={0}
       aria-valuemax={max}
       aria-valuenow={value}
-      style={{ "--progress": share(value, max) } as CSSProperties}
+      style={{ "--progress": percentOf(value, max) } as CSSProperties}
     >
       <span className="progress-bar-fill" />
     </span>

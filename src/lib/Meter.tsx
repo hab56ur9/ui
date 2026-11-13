@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { percentOf } from "./format";
 import { useI18n } from "./i18n";
 import { Icon } from "./Icon";
 import { useMotion } from "./MotionScope";
@@ -7,7 +8,6 @@ export type MeterStatus = "good" | "warning" | "critical";
 export type MeterProps = { label: ReactNode; value: number; max?: number; target?: number; format?: (value: number) => string; status?: MeterStatus; note?: ReactNode };
 
 const ICONS = { good: "success", warning: "warning", critical: "error" } as const;
-const share = (value: number, max: number) => `${Math.max(0, Math.min(100, (value / max) * 100))}%`;
 
 export function Meter({ label, value, max = 100, target, format = (v) => v.toLocaleString(), status, note }: MeterProps) {
   const { text } = useI18n();
@@ -21,7 +21,7 @@ export function Meter({ label, value, max = 100, target, format = (v) => v.toLoc
           <span className="meter-max"> / {format(max)}</span>
         </span>
       </div>
-      <div className="meter-track" style={{ "--meter": share(value, max), "--meter-target": target === undefined ? undefined : share(target, max) } as CSSProperties}>
+      <div className="meter-track" style={{ "--meter": percentOf(value, max), "--meter-target": target === undefined ? undefined : percentOf(target, max) } as CSSProperties}>
         <span className="meter-fill" data-motion={motion ? "grow" : undefined} />
         {target !== undefined && <span className="meter-target" />}
       </div>

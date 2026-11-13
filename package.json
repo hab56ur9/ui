@@ -21,7 +21,8 @@
     "build": "node scripts/build.mjs && node scripts/components.mjs && npm run build:lib && vite build",
     "typecheck": "tsc",
     "lint": "node scripts/lint.mjs",
-    "check": "node scripts/build.mjs && node scripts/components.mjs && node scripts/lint.mjs && tsc && npm run build:lib && vite build",
+    "test": "node --test scripts/*.test.mjs",
+    "check": "node scripts/build.mjs && node scripts/components.mjs && node scripts/lint.mjs && node --test scripts/*.test.mjs && tsc && npm run build:lib && vite build",
     "build:lib": "vite build -c vite.lib.config.ts",
     "serve": "node bin/ui.mjs serve",
     "check:slides": "node scripts/slides-check.mjs"
