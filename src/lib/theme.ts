@@ -2,7 +2,7 @@ declare const brand: unique symbol;
 
 export type Theme = { readonly [brand]: true };
 
-type Preset = "lime" | "sky" | "mono";
+type Preset = "lime" | "sky" | "blue" | "mono";
 type Style = "minimal" | "expressive" | "brutal";
 type Look = { preset: Preset; style: Style };
 
@@ -24,6 +24,7 @@ const family = (preset: Preset) =>
 export const themes = Object.freeze({
   lime: family("lime"),
   sky: family("sky"),
+  blue: family("blue"),
   mono: family("mono"),
 });
 

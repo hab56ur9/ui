@@ -1,0 +1,127 @@
+{
+  "$description": "Preset blue: main and sub colors for light and dark. Copy this file to make a new preset; only these roles change.",
+  "label": {
+    "ko": "파랑 + 하늘빛 회색",
+    "en": "Blue + blue-gray"
+  },
+  "light": {
+    "color": {
+      "main": {
+        "default": {
+          "$value": "{color.blue.500}"
+        },
+        "subtle": {
+          "$value": "{color.blue.100}"
+        },
+        "fill": {
+          "$value": "{color.blue.500}"
+        },
+        "on": {
+          "$value": "{color.neutral.0}"
+        }
+      },
+      "sub": {
+        "default": {
+          "$value": "{color.sky-gray.700}"
+        },
+        "subtle": {
+          "$value": "{color.sky-gray.150}"
+        },
+        "fill": {
+          "$value": "{color.sky-gray.200}"
+        },
+        "on": {
+          "$value": "{color.sky-gray.900}"
+        }
+      },
+      "chart": {
+        "emphasis": {
+          "$value": "{color.blue.450}"
+        }
+      },
+      "sequential-main": {
+        "1": {
+          "$value": "{color.blue.100}"
+        },
+        "2": {
+          "$value": "{color.blue.150}"
+        },
+        "3": {
+          "$value": "{color.blue.200}"
+        },
+        "4": {
+          "$value": "{color.blue.250}"
+        },
+        "5": {
+          "$value": "{color.blue.300}"
+        },
+        "6": {
+          "$value": "{color.blue.400}"
+        },
+        "7": {
+          "$value": "{color.blue.500}"
+        }
+      }
+    }
+  },
+  "dark": {
+    "color": {
+      "main": {
+        "default": {
+          "$value": "{color.blue.300}"
+        },
+        "subtle": {
+          "$value": "{color.blue.700}"
+        },
+        "fill": {
+          "$value": "{color.blue.350}"
+        },
+        "on": {
+          "$value": "{color.neutral.1000}"
+        }
+      },
+      "sub": {
+        "default": {
+          "$value": "{color.sky-gray.300}"
+        },
+        "subtle": {
+          "$value": "{color.sky-gray.825}"
+        },
+        "fill": {
+          "$value": "{color.sky-gray.800}"
+        },
+        "on": {
+          "$value": "{color.sky-gray.100}"
+        }
+      },
+      "chart": {
+        "emphasis": {
+          "$value": "{color.blue.300}"
+        }
+      },
+      "sequential-main": {
+        "1": {
+          "$value": "{color.blue.700}"
+        },
+        "2": {
+          "$value": "{color.blue.650}"
+        },
+        "3": {
+          "$value": "{color.blue.600}"
+        },
+        "4": {
+          "$value": "{color.blue.500}"
+        },
+        "5": {
+          "$value": "{color.blue.400}"
+        },
+        "6": {
+          "$value": "{color.blue.300}"
+        },
+        "7": {
+          "$value": "{color.blue.200}"
+        }
+      }
+    }
+  }
+}

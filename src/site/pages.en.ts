@@ -171,6 +171,7 @@ export const pages: Page[] = [
         "items": [
           "`lime` Light green + neutral: the default, used when no preset is set.",
           "`sky` Sky + neutral",
+          "`blue` Blue + blue-gray: a deep blue whose buttons keep white text above 4.5:1 contrast.",
           "`mono` Neutral: a calm set where the main color is neutral too.",
           "For a new preset, copy `tokens/preset/lime.json` and change the colors; the build writes the preset stylesheet. Then add the same name to `themes` in `src/lib/theme.ts`. Pick steps that pass the contrast checks."
         ]
