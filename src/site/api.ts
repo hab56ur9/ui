@@ -1085,6 +1085,7 @@ export const api: Record<string, Section[]> = {
       title: "<AppShell>",
       rows: [
         ["brand · title · actions", "ReactNode", "", "메뉴 위 이름, 머리줄 가운데, 머리줄 오른쪽입니다."],
+        ["onBack", "() => void", "", "주면 머리줄 맨 왼쪽에 뒤로 가기 버튼을 두고, 메뉴 버튼과 이름 대신 씁니다. 목록에서 들어간 상세 화면에 씁니다."],
         ["nav", "{ title?, items: { id, label, icon?, href?, sub?, current?, onSelect? }[] }[]", "", "왼쪽 메뉴입니다. `href`가 있으면 링크, `sub`가 같은 항목은 한 묶음으로 들여 씁니다. 비우면 메뉴 없이 그립니다."],
         ["navHeader", "ReactNode", "", "메뉴 위에 놓는 검색창 같은 것입니다."],
         ["aside", "ReactNode", "", "오른쪽 보조 칸(목차 등)입니다. 1280px보다 좁으면 숨깁니다."],

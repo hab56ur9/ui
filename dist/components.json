@@ -1689,6 +1689,12 @@
           "type": "ReactNode"
         },
         {
+          "name": "onBack",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
           "name": "actions",
           "optional": true,
           "kind": "node",

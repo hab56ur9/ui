@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { AppShell, Page, Stat, Widget, WidgetGrid } from "ui";
+import { AppShell, Card, Page, Stat } from "ui";
 import { useText } from "../demo";
 import { Phone } from "../Phone";
 
 export default function Example() {
   const text = useText("appshell-basic");
   const [current, setCurrent] = useState("home");
+  const [open, setOpen] = useState<string>();
+  const stat = text.stats.find(([label]) => label === open);
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Phone>
@@ -14,17 +16,22 @@ export default function Example() {
           tabBar={{ variant: "floating", labels: "active" }}
           brand={text.brand}
           nav={[{ items: text.items.map((item) => ({ ...item, icon: item.icon as "home", current: item.id === current, onSelect: () => setCurrent(item.id) })) }]}
-          title={text.items.find((item) => item.id === current)?.label}
+          title={stat ? stat[0] : text.items.find((item) => item.id === current)?.label}
+          onBack={stat ? () => setOpen(undefined) : undefined}
         >
-          <Page title={text.title}>
-            <WidgetGrid>
+          {stat ? (
+            <Page title={stat[0]}>
+              <Stat value={stat[1]} />
+            </Page>
+          ) : (
+            <Page title={text.title}>
               {text.stats.map(([label, value]) => (
-                <Widget key={label} id={label} title={label} w={12} h={2}>
+                <Card key={label} title={label} onClick={() => setOpen(label)}>
                   <Stat value={value} />
-                </Widget>
+                </Card>
               ))}
-            </WidgetGrid>
-          </Page>
+            </Page>
+          )}
         </AppShell>
       </Phone>
     </div>

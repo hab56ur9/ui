@@ -1085,6 +1085,7 @@ export const api: Record<string, Section[]> = {
       title: "<AppShell>",
       rows: [
         ["brand · title · actions", "ReactNode", "", "The name above the menu, the bar's middle and the bar's right side."],
+        ["onBack", "() => void", "", "Puts a back button at the far left of the bar, in place of the menu button and the name. Use it on a detail screen opened from a list."],
         ["nav", "{ title?, items: { id, label, icon?, href?, sub?, current?, onSelect? }[] }[]", "", "The left menu; `href` makes links, and items sharing `sub` indent as one group. Empty means no menu."],
         ["navHeader", "ReactNode", "", "Something above the menu, such as search."],
         ["aside", "ReactNode", "", "The right column, such as a table of contents; hidden below 1280px."],

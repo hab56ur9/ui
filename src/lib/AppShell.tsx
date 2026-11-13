@@ -5,7 +5,7 @@ import { TabBar, type TabBarStyle } from "./TabBar";
 
 export type ShellItem = { id: string; label: string; icon?: IconName; href?: string; sub?: string; current?: boolean; onSelect?: () => void };
 export type ShellGroup = { title?: string; items: ShellItem[] };
-export type AppShellProps = { brand: ReactNode; nav: ShellGroup[]; navHeader?: ReactNode; title?: ReactNode; actions?: ReactNode; aside?: ReactNode; scroll?: "frame" | "page"; mobileNav?: "drawer" | "tabs"; tabBar?: TabBarStyle; children: ReactNode };
+export type AppShellProps = { brand: ReactNode; nav: ShellGroup[]; navHeader?: ReactNode; title?: ReactNode; onBack?: () => void; actions?: ReactNode; aside?: ReactNode; scroll?: "frame" | "page"; mobileNav?: "drawer" | "tabs"; tabBar?: TabBarStyle; children: ReactNode };
 
 function ShellNav({ nav, onPick }: { nav: ShellGroup[]; onPick?: () => void }) {
   const { text } = useI18n();
@@ -49,7 +49,7 @@ function ShellNav({ nav, onPick }: { nav: ShellGroup[]; onPick?: () => void }) {
   );
 }
 
-export function AppShell({ brand, nav, navHeader, title, actions, aside, scroll = "frame", mobileNav = "drawer", tabBar, children }: AppShellProps) {
+export function AppShell({ brand, nav, navHeader, title, onBack, actions, aside, scroll = "frame", mobileNav = "drawer", tabBar, children }: AppShellProps) {
   const side = nav.length > 0 || navHeader !== undefined;
   const { text } = useI18n();
   const [open, setOpen] = useState(false);
@@ -100,7 +100,11 @@ export function AppShell({ brand, nav, navHeader, title, actions, aside, scroll 
         )}
         <div className="shell-main">
           <header className="shell-bar">
-            {side ? (
+            {onBack ? (
+              <button type="button" className="shell-back" aria-label={text("back")} title={text("back")} onClick={onBack}>
+                <Icon name="chevron-left" />
+              </button>
+            ) : side ? (
               <button ref={menu} type="button" className="shell-menu" aria-label={text("openMenu")} title={text("openMenu")} aria-expanded={open} onClick={() => setOpen(true)}>
                 <Icon name="menu" />
               </button>
