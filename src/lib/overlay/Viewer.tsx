@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useI18n } from "../i18n";
 import { Icon, type IconName } from "../Icon";
 import { fadeBackdrop, motion } from "../motion";
+import { useModalFocus } from "./focus";
 
 export type ViewerProps = {
   open?: boolean;
@@ -26,6 +27,8 @@ export function Viewer({ open = true, onClose, title, icon = "file", meta, tools
   useEffect(() => {
     if (open) setMounted(true);
   }, [open]);
+
+  const trap = useModalFocus(ref, mounted && !inline);
 
   useLayoutEffect(() => {
     const dialog = ref.current;
@@ -80,6 +83,7 @@ export function Viewer({ open = true, onClose, title, icon = "file", meta, tools
   return createPortal(
     <dialog
       ref={ref}
+      onKeyDown={trap}
       className={className}
       lang={locale}
       aria-label={title}

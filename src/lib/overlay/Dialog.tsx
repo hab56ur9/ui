@@ -4,6 +4,7 @@ import { ButtonBase } from "../controls";
 import { useI18n } from "../i18n";
 import { Icon } from "../Icon";
 import { fadeBackdrop, motion } from "../motion";
+import { useModalFocus } from "./focus";
 
 export type DialogAction<V> = { label: string; value?: V; variant?: "secondary" | "primary" | "danger"; autoFocus?: boolean };
 
@@ -48,6 +49,8 @@ function Dialog<V>({ kind, size = "md", open, onClose, title, description, child
   useEffect(() => {
     if (open) setMounted(true);
   }, [open]);
+
+  const trap = useModalFocus(ref, mounted && !inline);
 
   useLayoutEffect(() => {
     const dialog = ref.current;
@@ -134,6 +137,7 @@ function Dialog<V>({ kind, size = "md", open, onClose, title, description, child
   return createPortal(
     <dialog
       ref={ref}
+      onKeyDown={trap}
       className={`overlay overlay-${kind}`}
       data-size={size}
       lang={locale}

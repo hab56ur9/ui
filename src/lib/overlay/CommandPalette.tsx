@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useI18n } from "../i18n";
 import { Icon, type IconName } from "../Icon";
 import { fadeBackdrop, motion } from "../motion";
+import { useModalFocus } from "./focus";
 
 export type CommandItem = {
   id: string;
@@ -55,6 +56,8 @@ export function CommandPalette({ open = true, onClose, groups, onSelect, onQuery
     if (open) setQuery("");
     if (open) setIndex(0);
   }, [open]);
+
+  const trap = useModalFocus(ref, mounted && !inline);
 
   useLayoutEffect(() => {
     const dialog = ref.current;
@@ -158,6 +161,7 @@ export function CommandPalette({ open = true, onClose, groups, onSelect, onQuery
   return createPortal(
     <dialog
       ref={ref}
+      onKeyDown={trap}
       className="palette"
       lang={locale}
       aria-label={label}
