@@ -53,6 +53,7 @@ export function CommandPalette({ open = true, onClose, groups, onSelect, onQuery
   useEffect(() => {
     if (open) setMounted(true);
     if (open) setQuery("");
+    if (open) setIndex(0);
   }, [open]);
 
   useLayoutEffect(() => {
