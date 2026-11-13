@@ -134,7 +134,7 @@ export function EntryList({ items, title, empty, onRemove }: EntryListProps) {
                 {item.text && <span className="entries-text">{item.text}</span>}
               </span>
               {onRemove && item.removable !== false && (
-                <button type="button" className="entries-remove" aria-label={t("entries.remove", { label: item.title ?? item.text ?? item.id })} onClick={() => onRemove(item.id)}>
+                <button type="button" className="entries-remove" aria-label={t("entries.remove", { label: item.title || item.text || item.id })} onClick={() => onRemove(item.id)}>
                   <Icon name="trash" size="sm" />
                 </button>
               )}

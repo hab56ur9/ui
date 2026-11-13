@@ -206,6 +206,7 @@
 .entries-body { display: grid; gap: 2px; min-width: 0; }
 .entries-head { display: flex; align-items: baseline; gap: var(--space-2); min-width: 0; font-size: var(--font-size-caption); color: var(--color-fg-muted); white-space: nowrap; }
 .entries-head strong { color: var(--color-fg-default); font-weight: var(--font-weight-semibold); }
+.entries-head > * { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .entries-text { font-size: var(--font-size-caption); color: var(--color-fg-secondary); white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .entries-remove { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: var(--radius-control); background: none; color: var(--color-fg-muted); cursor: pointer; opacity: 0; }
 .entries li:hover .entries-remove, .entries-remove:focus-visible { opacity: 1; }
