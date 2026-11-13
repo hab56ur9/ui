@@ -241,6 +241,7 @@
 }
 
 .viewer {
+  container: viewer / inline-size;
   width: min(1360px, calc(100% - 2 * var(--space-6)));
   max-width: none;
   height: min(900px, calc(100dvh - 2 * var(--space-6)));
@@ -397,6 +398,44 @@
   border-radius: var(--radius-sheet);
   background: var(--color-bg-surface);
   box-shadow: var(--elevation-overlay);
+}
+
+@media (max-width: 760px) {
+  .viewer:not(.is-inline) {
+    width: 100%;
+    height: 100dvh;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+@container viewer (max-width: 640px) {
+  .viewer-body,
+  .viewer-body.has-aside {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+
+  .viewer-sheet,
+  .viewer-aside {
+    align-self: stretch;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .viewer-aside {
+    border-top: var(--border-width-default) solid var(--color-border-default);
+  }
+
+  .viewer-sheet > .code-block {
+    min-height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
 }
 
 .palette {

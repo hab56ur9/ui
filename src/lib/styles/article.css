@@ -501,6 +501,11 @@
   height: 100%;
 }
 
+.phone-screen > .viewer.is-inline {
+  border: 0;
+  border-radius: 0;
+}
+
 .browser {
   overflow: hidden;
   border: var(--border-width-default) solid var(--color-border-default);
