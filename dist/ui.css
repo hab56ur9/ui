@@ -136,7 +136,7 @@ p {
   font-size: var(--font-size-label);
   padding: var(--space-1) var(--space-3);
   cursor: pointer;
-  transition: background var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .segmented button:hover,
@@ -247,7 +247,7 @@ p {
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
   grid-auto-rows: var(--widget-row);
   gap: var(--layout-gap);
-  transition: opacity var(--motion-duration-base) var(--motion-easing-standard);
+  transition: opacity calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .board.is-refetching {
@@ -404,7 +404,7 @@ p {
   display: flex;
   gap: 2px;
   opacity: 0;
-  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: opacity calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .widget:hover .widget-actions,
@@ -786,7 +786,7 @@ a.shell-link {
   inset: 0;
   background: var(--color-bg-scrim);
   opacity: 0;
-  transition: opacity var(--motion-duration-base) var(--motion-easing-standard);
+  transition: opacity calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .shell-drawer-panel {
@@ -802,7 +802,7 @@ a.shell-link {
   background: var(--color-bg-surface);
   box-shadow: var(--elevation-overlay);
   transform: translateX(-100%);
-  transition: transform var(--motion-duration-base) var(--motion-easing-exit);
+  transition: transform calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-exit);
 }
 
 .shell-drawer.is-open {
@@ -993,7 +993,7 @@ a.shell-link {
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-pill);
   font-size: var(--font-size-caption);
-  transition: background var(--motion-duration-fast) var(--motion-easing-standard), flex-grow var(--motion-duration-base) var(--motion-easing-standard);
+  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard), flex-grow calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .tab-bar.is-floating .tab-bar-item[aria-current="page"] {
@@ -1782,7 +1782,7 @@ button.chip-label:hover {
   font-size: var(--font-size-label);
   white-space: nowrap;
   cursor: pointer;
-  transition: background var(--motion-duration-fast) var(--motion-easing-standard), box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard), box-shadow calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .tabs-tab:focus-visible {
@@ -2544,7 +2544,7 @@ button.image-card:hover .image {
 }
 
 .image-card .image {
-  transition: scale var(--motion-duration-base) var(--motion-easing-standard);
+  transition: scale calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .image-card-badge {
@@ -2684,7 +2684,7 @@ button.mini-card {
   height: 6px;
   border-radius: 50%;
   background: var(--color-border-strong);
-  transition: width var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: width calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .carousel-dots .is-current {
@@ -3284,7 +3284,7 @@ path[data-motion~="draw"] {
 
 .chart-bar {
   fill: var(--c);
-  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: opacity calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .chart-bar.is-hover {
@@ -4509,7 +4509,7 @@ path[data-motion~="draw"] {
 }
 
 .tooltip:popover-open {
-  animation: motion-fade var(--motion-duration-fast) var(--motion-easing-standard);
+  animation: motion-fade calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .tooltip::after {
@@ -4571,7 +4571,7 @@ path[data-motion~="draw"] {
 }
 
 .deck-viewport.is-settling {
-  transition: transform var(--motion-duration-base) var(--motion-easing-standard);
+  transition: transform calc(var(--motion-duration-base) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .deck-page {
@@ -5666,7 +5666,7 @@ h3.doc-heading::before {
   left: calc(var(--indent, 0) * var(--space-6) - var(--space-12));
   display: flex;
   opacity: 0;
-  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: opacity calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .md-row:hover > .md-tools,

@@ -561,7 +561,7 @@
 }
 
 .tooltip:popover-open {
-  animation: motion-fade var(--motion-duration-fast) var(--motion-easing-standard);
+  animation: motion-fade calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .tooltip::after {

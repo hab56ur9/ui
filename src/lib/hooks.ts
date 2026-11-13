@@ -33,4 +33,6 @@ export const tokenPx = (node: Element | null, name: string, fallback: number) =>
 
 export const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+export const scrollBehavior = (): ScrollBehavior => (reducedMotion() ? "auto" : "smooth");
+
 export const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();

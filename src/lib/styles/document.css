@@ -546,7 +546,7 @@ h3.doc-heading::before {
   left: calc(var(--indent, 0) * var(--space-6) - var(--space-12));
   display: flex;
   opacity: 0;
-  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: opacity calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .md-row:hover > .md-tools,

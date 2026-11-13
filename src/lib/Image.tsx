@@ -1,5 +1,6 @@
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { color } from "./format";
+import { scrollBehavior } from "./hooks";
 import { Icon } from "./Icon";
 import { useI18n } from "./i18n";
 
@@ -74,7 +75,7 @@ export function Carousel({ children, label, size = "full", peek = true }: Carous
   const slides = [children].flat(Infinity).filter(Boolean) as ReactNode[];
   const go = (next: number) => {
     const target = Math.max(0, Math.min(slides.length - 1, next));
-    track.current?.children[target]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    track.current?.children[target]?.scrollIntoView({ behavior: scrollBehavior(), block: "nearest", inline: "start" });
   };
   const onScroll = () => {
     const el = track.current;

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Badge, type BadgeTone } from "./Badge";
 import { PresenceAvatar, type Face } from "./chat";
+import { scrollBehavior } from "./hooks";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
 
@@ -104,7 +105,7 @@ export function Annotator({ anchors = [], active, quoteLabel, actions = [], onPi
   }, []);
   useEffect(() => {
     const range = active ? ranges.current.get(active) : undefined;
-    range?.startContainer.parentElement?.scrollIntoView({ block: "center", behavior: "smooth" });
+    range?.startContainer.parentElement?.scrollIntoView({ block: "center", behavior: scrollBehavior() });
   }, [active]);
   const click = (event: MouseEvent) => {
     const caret = (document as Document & { caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node; offset: number } | null }).caretPositionFromPoint?.(event.clientX, event.clientY);

@@ -1,4 +1,5 @@
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+import { scrollBehavior } from "./hooks";
 import { useI18n } from "./i18n";
 
 export type TocItem = { id: string; label: ReactNode };
@@ -29,7 +30,7 @@ export function Toc({ items, title, current, offset = 96, onSelect }: TocProps) 
   const pick = (e: MouseEvent, id: string) => {
     e.preventDefault();
     if (onSelect) onSelect(id);
-    if (!onSelect) document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!onSelect) document.getElementById(id)?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
   };
   const selected = current ?? active;
   const name = title ?? text("onThisPage");

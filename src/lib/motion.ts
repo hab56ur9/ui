@@ -14,7 +14,7 @@ export function motion(node: Element, frames: Keyframe[], kind: MotionKind, extr
   if (reducedMotion() || unstyled()) return Promise.resolve();
   const { duration, easing } = TIMING[kind];
   return node
-    .animate(frames, { duration: parseFloat(token(duration)), easing: token(easing), fill: "forwards", ...extra })
+    .animate(frames, { duration: parseFloat(token(duration)) * parseFloat(token("--motion-intensity")), easing: token(easing), fill: "forwards", ...extra })
     .finished.then(
       () => undefined,
       () => undefined,

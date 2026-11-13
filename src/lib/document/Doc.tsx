@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useId, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Badge, type BadgeTone } from "../Badge";
+import { scrollBehavior } from "../hooks";
 import { Icon } from "../Icon";
 import { useI18n } from "../i18n";
 import { PrintCopy } from "../print";
@@ -19,7 +20,7 @@ const jump = (e: MouseEvent, selector: string) => {
   const found = (e.currentTarget as Element).closest(".doc")?.querySelector<HTMLElement>(selector);
   const target = found?.closest<HTMLElement>("tr") ?? found;
   if (!target) return;
-  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  target.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
   target.classList.remove("is-flash");
   void target.offsetWidth;
   target.classList.add("is-flash");

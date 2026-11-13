@@ -176,7 +176,7 @@
 
 .chart-bar {
   fill: var(--c);
-  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: opacity calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
 .chart-bar.is-hover {
