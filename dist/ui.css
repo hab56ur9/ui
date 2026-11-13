@@ -6042,8 +6042,7 @@ h3.doc-heading::before {
   margin-inline: auto;
 }
 
-.example-stage > .demo-row,
-.demo-row {
+.example-stage .demo-row {
   justify-content: center;
 }
 
