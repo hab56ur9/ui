@@ -24,7 +24,7 @@
 .presence-dot.is-warning { background: var(--color-status-warning); }
 .presence-dot.is-critical { background: var(--color-status-critical); }
 .presence-dot.is-active { background: var(--color-main-default); animation: presence-pulse 1.6s ease-in-out infinite; }
-.presence-dot.is-busy { background: var(--color-status-warning); animation: presence-pulse 0.9s ease-in-out infinite; }
+.presence-dot.is-busy { background: var(--color-status-good); animation: presence-pulse 0.9s ease-in-out infinite; }
 .presence-faces { display: inline-flex; }
 .presence-faces .presence-avatar { box-shadow: 0 0 0 2px var(--color-bg-surface); }
 .presence-faces .presence-avatar + .presence-avatar { margin-left: -5px; }
