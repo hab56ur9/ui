@@ -670,6 +670,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  tree: [
+    {
+      type: "api",
+      title: "<Tree>",
+      rows: [
+        ["items · label", "TreeItem[] · string", "", "The rows and the name of the tree. A row is `{ id, label, icon?, avatar?, tone?, state?, unread?, aside?, mark?, description?, children? }`."],
+        ["value · onSelect", "string · (id) => void", "", "The `id` of the selected row, and the function called when a row without children is clicked."],
+        ["expanded · defaultExpanded", "string[] · string[]", "· all open", "The `id`s of open rows. Passing `expanded` keeps the state outside."],
+        ["onToggle", "(id, open) => void", "", "Called when a row unfolds or folds."],
+        ["mono", "boolean", "false", "Draws shorter rows in the monospace font. Use it for file lists."],
+      ],
+    },
+  ],
   tabs: [
     {
       type: "api",

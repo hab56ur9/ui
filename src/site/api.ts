@@ -670,6 +670,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  tree: [
+    {
+      type: "api",
+      title: "<Tree>",
+      rows: [
+        ["items · label", "TreeItem[] · string", "", "줄 목록과 트리의 이름입니다. 한 줄은 `{ id, label, icon?, avatar?, tone?, state?, unread?, aside?, mark?, description?, children? }`입니다."],
+        ["value · onSelect", "string · (id) => void", "", "고른 줄의 `id`와 하위 항목이 없는 줄을 눌렀을 때 부르는 함수입니다."],
+        ["expanded · defaultExpanded", "string[] · string[]", "· 모두 펼침", "펼친 줄의 `id`입니다. `expanded`를 주면 밖에서 상태를 쥡니다."],
+        ["onToggle", "(id, open) => void", "", "줄을 펼치거나 접을 때 부릅니다."],
+        ["mono", "boolean", "false", "고정폭 글꼴의 낮은 줄로 그립니다. 파일 목록에 씁니다."],
+      ],
+    },
+  ],
   tabs: [
     {
       type: "api",

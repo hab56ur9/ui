@@ -1,0 +1,105 @@
+import { useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
+import { PresenceAvatar, type Presence } from "./chat";
+import { Icon, type IconName } from "./Icon";
+
+export type TreeMark = { text: ReactNode; tone?: "good" | "warning" | "critical" };
+
+export type TreeItem = {
+  id: string;
+  label: string;
+  icon?: IconName;
+  avatar?: string;
+  tone?: number;
+  state?: Presence;
+  unread?: boolean;
+  aside?: ReactNode;
+  mark?: TreeMark;
+  description?: string;
+  children?: TreeItem[];
+};
+
+export type TreeProps = {
+  items: TreeItem[];
+  label: string;
+  value?: string | null;
+  onSelect?: (id: string) => void;
+  expanded?: string[];
+  defaultExpanded?: string[];
+  onToggle?: (id: string, open: boolean) => void;
+  mono?: boolean;
+};
+
+const branchIds = (items: TreeItem[]): string[] => items.flatMap((item) => (item.children?.length ? [item.id, ...branchIds(item.children)] : []));
+
+const moveFocus = (event: KeyboardEvent<HTMLButtonElement>, step: number) => {
+  const rows = [...(event.currentTarget.closest(".tree")?.querySelectorAll<HTMLButtonElement>(".tree-row") ?? [])];
+  rows[rows.indexOf(event.currentTarget) + step]?.focus();
+  event.preventDefault();
+};
+
+export function Tree({ items, label, value, onSelect, expanded, defaultExpanded, onToggle, mono = false }: TreeProps) {
+  const [open, setOpen] = useState(() => new Set(defaultExpanded ?? branchIds(items)));
+  const shown = expanded ? new Set(expanded) : open;
+  const toggle = (id: string) => {
+    const next = !shown.has(id);
+    onToggle?.(id, next);
+    if (expanded) return;
+    setOpen((set) => {
+      const copy = new Set(set);
+      if (next) copy.add(id);
+      if (!next) copy.delete(id);
+      return copy;
+    });
+  };
+  const keys = (event: KeyboardEvent<HTMLButtonElement>, item: TreeItem) => {
+    const branch = Boolean(item.children?.length);
+    if (event.key === "ArrowDown") return moveFocus(event, 1);
+    if (event.key === "ArrowUp") return moveFocus(event, -1);
+    if (event.key === "ArrowRight" && branch && !shown.has(item.id)) return toggle(item.id);
+    if (event.key === "ArrowLeft" && branch && shown.has(item.id)) return toggle(item.id);
+  };
+  const rows = (list: TreeItem[], depth: number): ReactNode[] =>
+    list.flatMap((item) => {
+      const branch = Boolean(item.children?.length);
+      const opened = branch && shown.has(item.id);
+      const dot = !branch && item.state && !item.avatar;
+      const row = (
+        <li key={item.id} role="none">
+          <button
+            type="button"
+            role="treeitem"
+            className={item.unread ? "tree-row is-unread" : "tree-row"}
+            style={{ "--depth": depth } as CSSProperties}
+            aria-level={depth + 1}
+            aria-selected={item.id === value}
+            aria-expanded={branch ? opened : undefined}
+            onClick={() => (branch ? toggle(item.id) : onSelect?.(item.id))}
+            onKeyDown={(event) => keys(event, item)}
+          >
+            <span className="tree-lead">
+              {branch && <Icon name={opened ? "chevron-down" : "chevron-right"} size="sm" />}
+              {dot && <span className={`presence-dot is-${item.state}`} aria-hidden />}
+            </span>
+            <span className="tree-icon">
+              {item.avatar ? <PresenceAvatar name={item.label} tone={item.tone} avatar={item.avatar} state={item.state} size="sm" /> : item.icon && <Icon name={item.icon} size="sm" />}
+            </span>
+            <span className="tree-label" title={item.label}>
+              {item.label}
+            </span>
+            {item.mark ? <span className={item.mark.tone ? `tree-mark is-${item.mark.tone}` : "tree-mark"}>{item.mark.text}</span> : <span className="tree-aside">{item.aside}</span>}
+            {item.description && (
+              <span className="tree-description" title={item.description}>
+                {item.description}
+              </span>
+            )}
+          </button>
+        </li>
+      );
+      return opened ? [row, ...rows(item.children ?? [], depth + 1)] : [row];
+    });
+  return (
+    <ul className={mono ? "tree is-mono" : "tree"} role="tree" aria-label={label}>
+      {rows(items, 0)}
+    </ul>
+  );
+}

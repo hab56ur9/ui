@@ -323,6 +323,22 @@
     "needsASecurity": "Needs a security review",
     "n2Weeks": "2 weeks"
   },
+  "tree-basic": {
+    "label": "Navigation",
+    "mine": "My turn",
+    "activity": "Activity",
+    "channels": "Channels",
+    "designPurpose": "Design system upkeep",
+    "appPurpose": "App development",
+    "agents": "Agents",
+    "builder": "Builder · Maintainer",
+    "working": "Working",
+    "qa": "QA · Verification",
+    "waiting": "Waiting"
+  },
+  "tree-files": {
+    "label": "Changed files"
+  },
   "pager-basic": {
     "previous": "Tabs",
     "next": "Tab bar"

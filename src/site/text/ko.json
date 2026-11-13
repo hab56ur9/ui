@@ -323,6 +323,22 @@
     "needsASecurity": "보안 검토 필요",
     "n2Weeks": "2주"
   },
+  "tree-basic": {
+    "label": "탐색",
+    "mine": "내 차례",
+    "activity": "활동",
+    "channels": "채널",
+    "designPurpose": "디자인 시스템 유지보수",
+    "appPurpose": "앱 개발",
+    "agents": "에이전트",
+    "builder": "빌더 · 메인테이너",
+    "working": "작업 중",
+    "qa": "QA · 검증",
+    "waiting": "대기 중"
+  },
+  "tree-files": {
+    "label": "바뀐 파일"
+  },
   "pager-basic": {
     "previous": "탭",
     "next": "탭 바"

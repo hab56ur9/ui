@@ -193,7 +193,7 @@ Data display patterns differ by how many items share the same fields.
 | --- | --- | --- |
 | Description list | Labeled values for one item, label beside value | Yes: `DescriptionList` |
 | Data table | Rows of items that share columns | Yes: `DataTable` |
-| Tree view | Nested items that expand and collapse | No |
+| Tree view | Nested items that expand and collapse | Yes: `Tree` |
 | Work lists | Rows of handed-off work: notifications with a kind icon, a queue in handling order, and documents with reviewers | Yes: `ActivityList`, `QueueList`, `DocList` |
 | Panel | One area of a screen with a one-line header of title, meta and icon actions, filling a sidebar group or a pane without a border | Yes: `Panel`, `PanelAction` |
 | Profile header | One person at the top of a profile: avatar, name and short details; the member layout adds presence, role, status, actions and facts | Yes: `ProfileHeader` |

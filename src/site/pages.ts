@@ -902,6 +902,31 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "tree",
+    "group": "탐색",
+    "title": "트리",
+    "lede": "트리는 바로가기, 채널, 파일처럼 묶음이 있는 목록을 들여쓰기로 보여 주고, 줄을 누르면 그 항목을 고릅니다. 하위 항목이 있는 줄은 눌러서 접고 펼칩니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "사이드바",
+        "example": "tree-basic"
+      },
+      {
+        "type": "demo",
+        "title": "파일 목록",
+        "example": "tree-files"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "목록은 `label`을 이름으로 가진 `tree`이고 줄마다 `treeitem`, `aria-level`, `aria-selected`가 붙습니다. 하위 항목이 있는 줄에는 `aria-expanded`가 붙습니다.",
+          "위·아래 화살표로 줄을 옮기고, 오른쪽·왼쪽 화살표로 펼치고 접습니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "modal",
     "group": "피드백",
     "title": "모달",

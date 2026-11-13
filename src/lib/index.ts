@@ -56,3 +56,4 @@ export { Kanban, KanbanHeads, type KanbanCard, type KanbanColumn, type KanbanPro
 export { Annotator, CommentCard, DiffView, ReviewBar, type QuoteAction, type Anchor, type AnnotatorProps, type CommentCardProps, type CommentReply, type DiffLine, type Reviewer } from "./review";
 export { Browser, Phone } from "./devices";
 export { ActivityList, DocList, QueueList, type ActivityItem, type ActivityKind, type ActivityListProps, type DocItem, type DocListProps, type QueueItem, type QueueListProps } from "./lists";
+export { Tree, type TreeItem, type TreeMark, type TreeProps } from "./Tree";

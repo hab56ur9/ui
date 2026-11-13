@@ -884,6 +884,31 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "tree",
+    "group": "탐색",
+    "title": "Tree",
+    "lede": "A tree shows a grouped list such as shortcuts, channels or files with indentation, and a click on a row selects that item. A row with children folds and unfolds when clicked.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Sidebar",
+        "example": "tree-basic"
+      },
+      {
+        "type": "demo",
+        "title": "File list",
+        "example": "tree-files"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The list is a `tree` named by `label`, and each row carries `treeitem`, `aria-level` and `aria-selected`. A row with children also carries `aria-expanded`.",
+          "Up and down arrows move between rows, and right and left arrows unfold and fold."
+        ]
+      }
+    ]
+  },
+  {
     "id": "modal",
     "group": "피드백",
     "title": "Modal",

@@ -478,7 +478,8 @@
             "Phone",
             "ActivityList",
             "DocList",
-            "QueueList"
+            "QueueList",
+            "Tree"
           ]
         },
         "description": {
@@ -3493,6 +3494,37 @@
                 },
                 "required": [
                   "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Tree"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "label": {},
+                  "value": {},
+                  "onSelect": {},
+                  "expanded": {},
+                  "defaultExpanded": {},
+                  "onToggle": {},
+                  "mono": {}
+                },
+                "required": [
+                  "items",
+                  "label"
                 ],
                 "additionalProperties": false
               }

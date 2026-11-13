@@ -4512,6 +4512,59 @@
       ]
     },
     {
+      "name": "Tree",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "TreeItem[]"
+        },
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string",
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "expanded",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "defaultExpanded",
+          "optional": true,
+          "kind": "list",
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "onToggle",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string, open: boolean) => void) | undefined"
+        },
+        {
+          "name": "mono",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
       "name": "Diagram.Node",
       "props": [
         {
