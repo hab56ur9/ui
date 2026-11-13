@@ -70,10 +70,11 @@ export function SplitPane({ direction = "row", sizes, min = 120, onResize, child
   const handle = (i: number) => {
     const move = (dx: number, dy: number) => {
       const rect = box.current?.getBoundingClientRect();
-      const total = (row ? rect?.width : rect?.height) || 1;
+      const free = ((row ? rect?.width : rect?.height) || 1) - 5 * (base.current.length - 1);
+      const unit = base.current.reduce((sum, r) => sum + r, 0) / Math.max(free, 1);
       const pair = base.current[i - 1] + base.current[i];
-      const floor = Math.min(min / total, pair / 2);
-      const left = clamp(base.current[i - 1] + (row ? dx : dy) / total, floor, pair - floor);
+      const floor = Math.min(min * unit, pair / 2);
+      const left = clamp(base.current[i - 1] + (row ? dx : dy) * unit, floor, pair - floor);
       current.current = base.current.map((r, j) => (j === i - 1 ? left : j === i ? pair - left : r));
       setRatios(current.current);
     };
