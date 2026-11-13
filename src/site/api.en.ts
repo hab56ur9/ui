@@ -749,7 +749,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["defaultValue · children", "string", "\"\"", "The starting markdown; read-only views can pass it as `children`."],
         ["readOnly", "boolean", "false", "Shows the same look without editing; also for server rendering and print."],
-        ["imageHosts", "string[]", "", "Hosts that external images load from. When set, images from other hosts show as links instead of loading, so rendering someone else's text does not leak the viewer's IP."],
+        ["imageHosts", "string[]", "", "Hosts that external images load from, with the port when it is not the default (`localhost:4411`). When set, only same-origin images and images from listed hosts load; the rest show as links, so rendering someone else's text does not leak the viewer's IP."],
         ["onChange", "(markdown: string) => void", "", "Called with the whole standard markdown on every edit."],
         ["data · formats · onAction", "data map · format functions · action handler", "", "Used by ` ```ui ` blocks. ` ```mermaid ` `xychart-beta` and `pie` blocks draw with the chart components; other Mermaid blocks stay as code."],
       ],

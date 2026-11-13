@@ -749,7 +749,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["defaultValue · children", "string", "\"\"", "처음 마크다운입니다. 읽기 전용에서는 `children`으로 넘겨도 됩니다."],
         ["readOnly", "boolean", "false", "편집 도구 없이 같은 모양으로 보여 줍니다. 서버 렌더링·인쇄에도 씁니다."],
-        ["imageHosts", "string[]", "", "외부 이미지를 불러올 호스트입니다. 주면 목록 밖 호스트의 이미지는 불러오지 않고 링크로 보여 줍니다. 남이 쓴 글을 보여 줄 때 보는 사람의 IP가 새지 않게 합니다."],
+        ["imageHosts", "string[]", "", "외부 이미지를 불러올 호스트입니다. 기본 포트가 아니면 포트까지 적습니다(`localhost:4411`). 주면 같은 출처나 목록에 있는 호스트의 이미지만 불러오고, 나머지는 링크로 보여 줍니다. 남이 쓴 글을 보여 줄 때 보는 사람의 IP가 새지 않게 합니다."],
         ["onChange", "(markdown: string) => void", "", "고칠 때마다 표준 마크다운 전체를 넘깁니다."],
         ["data · formats · onAction", "데이터 맵 · 형식 함수 · 동작 처리기", "", "` ```ui ` 블록이 씁니다. ` ```mermaid `의 `xychart-beta`·`pie` 블록은 차트 컴포넌트로 그리고, 그 밖의 Mermaid는 코드로 둡니다."],
       ],

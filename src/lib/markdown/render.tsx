@@ -1,4 +1,5 @@
 import { Fragment, type ReactNode } from "react";
+import { showsImage } from "./images";
 import { inlineOf, type Inline, type Refs } from "./parse";
 
 export const slug = (text: string, seen: Map<string, number>) => {
@@ -11,13 +12,6 @@ export const slug = (text: string, seen: Map<string, number>) => {
   const count = seen.get(base) ?? 0;
   seen.set(base, count + 1);
   return count ? `${base}-${count}` : base;
-};
-
-const hostOf = (src: string) => src.match(/^https?:\/\/(?:[^/?#@]*@)?([^/?#]+)/i)?.[1].toLowerCase();
-
-export const showsImage = (src: string, hosts?: string[]) => {
-  const host = hostOf(src);
-  return !hosts || !host || hosts.some((allowed) => allowed.toLowerCase() === host);
 };
 
 export const ImageLink = ({ src, alt }: { src: string; alt?: string }) => (

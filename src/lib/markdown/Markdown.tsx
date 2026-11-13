@@ -8,7 +8,8 @@ import { Callout } from "../Callout";
 import { fromMarkdown, LIST_KINDS, make, numbers, TEXT_KINDS, toMarkdown, type EditorBlock, type Kind } from "./blocks";
 import { MermaidView, parseMermaid } from "./mermaid";
 import { parseMarkdown } from "./parse";
-import { Footnotes, ImageLink, renderInline, showsImage, slug } from "./render";
+import { showsImage } from "./images";
+import { Footnotes, ImageLink, renderInline, slug } from "./render";
 
 export type MarkdownProps = {
   children?: string;
