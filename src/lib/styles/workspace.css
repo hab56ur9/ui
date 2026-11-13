@@ -179,7 +179,7 @@
 .activity { list-style: none; margin: 0; padding: var(--space-2) 0; display: grid; overflow: auto; align-content: start; }
 .activity-row { width: 100%; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: var(--space-3); align-items: start; padding: var(--space-3) var(--space-4); border: 0; border-bottom: var(--border-width-default) solid var(--color-border-default); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
 .activity-row:hover { background: var(--color-bg-subtle); }
-.activity-row:focus-visible { outline-offset: calc(var(--focus-ring-width) * -1); }
+.activity-row:focus-visible { outline-offset: calc(var(--ring-inset) * -1); }
 .activity-row.is-unread { background: color-mix(in oklab, var(--color-main-subtle) 60%, transparent); }
 .activity-row[aria-current="true"] { box-shadow: inset 3px 0 0 var(--color-main-default); background: var(--color-main-subtle); }
 .activity-face { position: relative; width: 36px; }

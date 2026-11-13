@@ -775,7 +775,7 @@ h3.doc-heading::before {
 }
 
 .md-table input:focus {
-  box-shadow: inset 0 0 0 var(--border-width-strong) var(--color-main-default);
+  box-shadow: inset 0 0 0 var(--ring-inset) var(--color-main-default);
 }
 
 .md-table-tools {

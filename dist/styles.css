@@ -15,6 +15,7 @@
   --border-width-strong: 3px;
   --border-width-accent: 4px;
   --focus-ring-width: 3px;
+  --ring-inset: 3px;
   --elevation-card: 3px 3px 0px 0px var(--color-fg-default);
   --elevation-lifted: 6px 6px 0px 0px var(--color-fg-default);
   --elevation-overlay: 8px 8px 0px 0px var(--color-fg-default);

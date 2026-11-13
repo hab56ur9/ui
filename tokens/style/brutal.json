@@ -23,6 +23,7 @@
       "$type": "dimension",
       "width": { "$value": { "value": 3, "unit": "px" } }
     },
+    "ring": { "$type": "dimension", "inset": { "$value": { "value": 3, "unit": "px" } } },
     "elevation": {
       "$type": "shadow",
       "card": { "$value": { "color": "{color.fg.default}", "offsetX": { "value": 3, "unit": "px" }, "offsetY": { "value": 3, "unit": "px" }, "blur": { "value": 0, "unit": "px" }, "spread": { "value": 0, "unit": "px" } } },

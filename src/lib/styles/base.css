@@ -1828,7 +1828,7 @@ button.chip-label:hover {
 }
 
 .tabs-tab:focus-visible {
-  outline-offset: calc(-1 * var(--focus-ring-width));
+  outline-offset: calc(-1 * var(--ring-inset));
 }
 
 .tabs-tab:hover:not(:disabled) {
@@ -2126,7 +2126,7 @@ code.has-lines .line::before {
 
 .editor:focus-within {
   outline: var(--focus-ring-width) solid var(--color-main-default);
-  outline-offset: calc(-1 * var(--focus-ring-width));
+  outline-offset: calc(-1 * var(--ring-inset));
 }
 
 .editor-gutter {

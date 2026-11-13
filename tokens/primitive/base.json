@@ -177,6 +177,10 @@
     "width": { "$value": { "value": 2, "unit": "px" } },
     "offset": { "$value": { "value": 2, "unit": "px" } }
   },
+  "ring": {
+    "$type": "dimension",
+    "inset": { "$description": "Width of a ring drawn inside a control, for inset focus outlines and selection shadows.", "$value": { "value": 2, "unit": "px" } }
+  },
   "material": {
     "surface-opacity": { "$type": "number", "$value": 1 },
     "backdrop": { "$description": "backdrop-filter for floating surfaces; none keeps them opaque.", "$value": "none" }
