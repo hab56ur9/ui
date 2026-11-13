@@ -717,6 +717,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "checkbox",
+    "group": "입력",
+    "title": "체크박스",
+    "lede": "체크박스는 선택 하나를 켜고 끕니다. 답장 입력창 옆의 \"채널에도 보내기\"가 그 예입니다. 이름표는 오른쪽에 한 줄로 붙습니다. 상태는 `onChange`로 나가고, 체크박스는 아무것도 저장하지 않습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "제어, 기본 켜짐, 꺼짐",
+        "example": "checkbox-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`label` 안의 기본 체크박스라서 글자를 눌러도 바뀌고, 키보드에서는 Space로 바뀝니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "calendar",
     "group": "입력",
     "title": "캘린더",

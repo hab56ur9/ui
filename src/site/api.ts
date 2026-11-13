@@ -776,6 +776,17 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "checkbox": [
+    {
+      type: "api",
+      title: "<Checkbox>",
+      rows: [
+        ["label", "string", "", "고를 내용입니다. 한 줄이고, 길면 말줄임표와 툴팁으로 보입니다."],
+        ["checked · defaultChecked · onChange", "boolean · boolean · (checked) => void", "", "제어·비제어 상태와, 바뀔 때 받는 함수입니다."],
+        ["disabled", "boolean", "false", "고를 수 없게 끕니다."],
+      ],
+    },
+  ],
   "toc": [
     {
       type: "api",

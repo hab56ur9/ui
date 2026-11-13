@@ -699,6 +699,26 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "checkbox",
+    "group": "입력",
+    "title": "Checkbox",
+    "lede": "A checkbox turns one choice on or off, such as \"Also send to channel\" next to a reply box. Its label sits on the right and stays on one line. The state leaves through `onChange`; the checkbox stores nothing.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Controlled, default on, disabled",
+        "example": "checkbox-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "A native checkbox inside its `label`, so a click on the text toggles it and Space toggles it from the keyboard."
+        ]
+      }
+    ]
+  },
+  {
     "id": "calendar",
     "group": "입력",
     "title": "Calendar",

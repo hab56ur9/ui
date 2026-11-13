@@ -62,7 +62,7 @@ Input controls differ by whether the change applies at once or on submit.
 | Dropdown menu | A list of commands that runs the chosen one | No |
 | Segmented control | A row of joined buttons with one selected | Yes: `Segmented` |
 | Switch | An on/off control that applies at once | No |
-| Checkbox | An on/off choice that applies on submit; can be indeterminate | No |
+| Checkbox | An on/off choice that applies on submit; can be indeterminate | Partial: `Checkbox` has no indeterminate state |
 | Radio button | One choice from a short visible list | No |
 | Slider | A value picked by dragging along a track | No |
 | Stepper | A number changed with minus and plus buttons | No |

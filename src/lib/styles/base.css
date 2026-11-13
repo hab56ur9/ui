@@ -1318,6 +1318,35 @@ a.shell-link {
   font-size: var(--font-size-caption);
 }
 
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  color: var(--color-fg-default);
+  font-size: var(--font-size-label);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox input {
+  flex: none;
+  margin: 0;
+  accent-color: var(--color-main-default);
+  cursor: inherit;
+}
+
+.checkbox-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.checkbox:has(input:disabled) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .toc {
   display: flex;
   flex-direction: column;

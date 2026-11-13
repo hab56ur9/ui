@@ -403,6 +403,7 @@
             "Pager",
             "Toc",
             "TextField",
+            "Checkbox",
             "Calendar",
             "Carousel",
             "Image",
@@ -1503,6 +1504,33 @@
                   "type": {},
                   "icon": {},
                   "hint": {},
+                  "disabled": {}
+                },
+                "required": [
+                  "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Checkbox"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {},
+                  "checked": {},
+                  "defaultChecked": {},
+                  "onChange": {},
                   "disabled": {}
                 },
                 "required": [

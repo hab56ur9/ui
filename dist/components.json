@@ -1487,6 +1487,41 @@
       ]
     },
     {
+      "name": "Checkbox",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "checked",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "defaultChecked",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((checked: boolean) => void) | undefined"
+        },
+        {
+          "name": "disabled",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
       "name": "AppShell",
       "props": [
         {

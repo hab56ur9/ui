@@ -597,6 +597,11 @@
   "takeaway-basic": {
     "halfOfSign": "본인 인증 단계에서 가입자 절반이 떠납니다."
   },
+  "checkbox-basic": {
+    "alsoChannel": "채널에도 보내기",
+    "notify": "답장 알림 받기",
+    "archived": "보관된 항목 포함"
+  },
   "textfield-basic": {
     "search": "페이지 찾기",
     "name": "프로젝트 이름",

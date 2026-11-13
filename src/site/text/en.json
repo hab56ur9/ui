@@ -597,6 +597,11 @@
   "takeaway-basic": {
     "halfOfSign": "Half of sign-ups leave at identity verification."
   },
+  "checkbox-basic": {
+    "alsoChannel": "Also send to channel",
+    "notify": "Notify me of replies",
+    "archived": "Include archived"
+  },
   "textfield-basic": {
     "search": "Find a page",
     "name": "Project name",

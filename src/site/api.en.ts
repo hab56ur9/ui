@@ -776,6 +776,17 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "checkbox": [
+    {
+      type: "api",
+      title: "<Checkbox>",
+      rows: [
+        ["label", "string", "", "The choice, one line; a long label ends in an ellipsis with a tooltip."],
+        ["checked · defaultChecked · onChange", "boolean · boolean · (checked) => void", "", "Controlled and uncontrolled state, and the change handler."],
+        ["disabled", "boolean", "false", "Turns the choice off."],
+      ],
+    },
+  ],
   "toc": [
     {
       type: "api",
