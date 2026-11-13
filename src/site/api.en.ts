@@ -479,6 +479,21 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "work-lists": [
+    { type: "api", title: "<ActivityList>", rows: [
+      ["items", "{ id, kind, author, tone?, avatar?, title, where?, time?, text, unread? }[]", "", "One row per notification. `kind` is mention · approval · reply · failure · file and sets the corner icon and its color."],
+      ["value · onSelect", "string, (id) => void", "", "The selected row and the press event."],
+      ["empty", "string", "\"None\"", "Text when there are no rows."],
+    ] },
+    { type: "api", title: "<QueueList>", rows: [
+      ["items", "{ id, from, tone?, avatar?, where?, text, active?, waiting? }[]", "", "Rows in handling order. `active` marks the current job, `waiting` one that awaits a reply."],
+      ["title · empty", "string, string", "\"None\"", "Header and empty-state text."],
+    ] },
+    { type: "api", title: "<DocList>", rows: [
+      ["items", "{ id, title, meta?, badge?, reviewers?, aside? }[]", "", "One row per document. `reviewers` is the same `Reviewer[]` as `ReviewBar`; its `badge` tone colors the ring."],
+      ["onSelect · empty", "(id) => void, string", "\"None\"", "Press event and empty-state text."],
+    ] },
+  ],
   "image-preview": [
     {
       type: "api",

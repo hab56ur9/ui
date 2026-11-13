@@ -1213,6 +1213,39 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "work-lists",
+    "group": "데이터",
+    "title": "작업 목록",
+    "lede": "작업 목록은 사람과 에이전트가 주고받는 일을 한 줄씩 보여 줍니다. 알림은 `ActivityList`, 처리 순서는 `QueueList`, 리뷰를 받는 문서는 `DocList`를 씁니다. 사람 한 명과 한 줄 설명만 있으면 `List`를 씁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "알림",
+        "example": "activity-list-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "대기열",
+        "example": "queue-list-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "문서",
+        "example": "doc-list-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`ActivityList`와 `DocList`의 줄은 버튼이고, 고른 알림은 `aria-current`로 알립니다.",
+          "읽지 않음 점과 대기 시계는 이름을 가집니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "kanban",
     "group": "데이터",
     "title": "Kanban",

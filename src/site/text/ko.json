@@ -644,6 +644,47 @@
     "checks": "완료 조건",
     "count": "3/5"
   },
+  "activity-list-basic": {
+    "planner": "기획",
+    "builder": "빌더",
+    "qa": "QA",
+    "board": "# 디자인 시스템 · 보드",
+    "repo": "# 디자인 시스템 · 리뷰",
+    "mentionText": "@빌더 다음 티켓을 맡아 주세요. 오늘 안에 끝내면 됩니다.",
+    "approvalText": "배포 전에 승인이 필요합니다.",
+    "failureText": "검증이 실패했습니다. 재현 절차를 스레드에 남겼습니다."
+  },
+  "queue-list-basic": {
+    "title": "대기열",
+    "later": "나중에",
+    "empty": "비어 있음",
+    "planner": "기획",
+    "builder": "빌더",
+    "qa": "QA",
+    "board": "# 디자인 시스템",
+    "repo": "# 디자인 시스템 · 리뷰",
+    "first": "패널 추출 티켓을 시작합니다.",
+    "second": "리뷰 의견에 답을 기다립니다.",
+    "third": "목록 컴포넌트 캡처를 확인해 주세요."
+  },
+  "doc-list-basic": {
+    "design": "목록 컴포넌트 설계",
+    "designMeta": "기획 · 2시간 전",
+    "inReview": "리뷰 중",
+    "designAside": "열린 댓글 2",
+    "policy": "토큰 이름 규칙",
+    "policyMeta": "빌더 · 어제",
+    "final": "확정",
+    "policyAside": "댓글 없음",
+    "notes": "주간 회의록",
+    "notesMeta": "QA · 3일 전",
+    "notesAside": "초안",
+    "planner": "기획",
+    "builder": "빌더",
+    "qa": "QA",
+    "approved": "승인",
+    "changes": "수정 요청"
+  },
   "image-preview-basic": {
     "wide": "코드 리뷰 화면, 라이트 테마",
     "tall": "보드의 휴대폰 화면, 다크 테마"

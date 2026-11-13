@@ -479,6 +479,21 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "work-lists": [
+    { type: "api", title: "<ActivityList>", rows: [
+      ["items", "{ id, kind, author, tone?, avatar?, title, where?, time?, text, unread? }[]", "", "알림 한 줄씩입니다. `kind`는 mention · approval · reply · failure · file이고 아바타 모서리 아이콘과 색을 정합니다."],
+      ["value · onSelect", "string, (id) => void", "", "고른 항목과 누를 때 이벤트입니다."],
+      ["empty", "string", "\"없음\"", "항목이 없을 때 문구입니다."],
+    ] },
+    { type: "api", title: "<QueueList>", rows: [
+      ["items", "{ id, from, tone?, avatar?, where?, text, active?, waiting? }[]", "", "처리 순서대로 놓은 항목입니다. `active`는 지금 하는 일, `waiting`은 답을 기다리는 일입니다."],
+      ["title · empty", "string, string", "\"없음\"", "머리글과 빈 상태 문구입니다."],
+    ] },
+    { type: "api", title: "<DocList>", rows: [
+      ["items", "{ id, title, meta?, badge?, reviewers?, aside? }[]", "", "문서 한 줄씩입니다. `reviewers`는 `ReviewBar`와 같은 `Reviewer[]`이고 `badge` 색이 테두리가 됩니다."],
+      ["onSelect · empty", "(id) => void, string", "\"없음\"", "누를 때 이벤트와 빈 상태 문구입니다."],
+    ] },
+  ],
   "image-preview": [
     {
       type: "api",

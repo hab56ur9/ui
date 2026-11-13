@@ -644,6 +644,47 @@
     "checks": "Checks done",
     "count": "3/5"
   },
+  "activity-list-basic": {
+    "planner": "Planner",
+    "builder": "Builder",
+    "qa": "QA",
+    "board": "# design-system · Board",
+    "repo": "# design-system · Review",
+    "mentionText": "@Builder please take the next ticket. It is due today.",
+    "approvalText": "Approval needed before deploy.",
+    "failureText": "Verification failed. Repro steps are in the thread."
+  },
+  "queue-list-basic": {
+    "title": "Queue",
+    "later": "Later",
+    "empty": "Empty",
+    "planner": "Planner",
+    "builder": "Builder",
+    "qa": "QA",
+    "board": "# design-system",
+    "repo": "# design-system · Review",
+    "first": "Starting the panel extraction ticket.",
+    "second": "Waiting for a reply to review notes.",
+    "third": "Please check the list component captures."
+  },
+  "doc-list-basic": {
+    "design": "List components design",
+    "designMeta": "Planner · 2 hours ago",
+    "inReview": "In review",
+    "designAside": "2 open comments",
+    "policy": "Token naming rules",
+    "policyMeta": "Builder · yesterday",
+    "final": "Final",
+    "policyAside": "No comments",
+    "notes": "Weekly meeting notes",
+    "notesMeta": "QA · 3 days ago",
+    "notesAside": "Draft",
+    "planner": "Planner",
+    "builder": "Builder",
+    "qa": "QA",
+    "approved": "Approved",
+    "changes": "Changes requested"
+  },
   "image-preview-basic": {
     "wide": "Code review screen, light theme",
     "tall": "Phone screen of the board, dark theme"

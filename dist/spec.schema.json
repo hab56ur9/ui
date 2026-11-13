@@ -470,7 +470,10 @@
             "DiffView",
             "ReviewBar",
             "Browser",
-            "Phone"
+            "Phone",
+            "ActivityList",
+            "DocList",
+            "QueueList"
           ]
         },
         "description": {
@@ -3268,6 +3271,82 @@
                   "scale": {}
                 },
                 "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ActivityList"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "value": {},
+                  "onSelect": {},
+                  "empty": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DocList"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "onSelect": {},
+                  "empty": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "QueueList"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "title": {},
+                  "empty": {}
+                },
+                "required": [
+                  "items"
+                ],
                 "additionalProperties": false
               }
             }
