@@ -565,6 +565,11 @@ export const api: Record<string, Section[]> = {
       ["items", "{ id, title, meta?, badge?, reviewers?, aside? }[]", "", "문서 한 줄씩입니다. `reviewers`는 `ReviewBar`와 같은 `Reviewer[]`이고 `badge` 색이 테두리가 됩니다."],
       ["onSelect · empty", "(id) => void, string", "\"없음\"", "누를 때 이벤트와 빈 상태 문구입니다."],
     ] },
+    { type: "api", title: "<EntryList>", rows: [
+      ["items", "{ id, icon?, title?, meta?, text?, removable? }[]", "", "기록 한 줄씩입니다. `title` 옆에 `meta`, 아래에 `text`가 세 줄까지 보입니다. `removable: false`면 그 줄에는 지우기 버튼이 없습니다."],
+      ["title · empty", "string, string", "\"없음\"", "머리글과 빈 상태 문구입니다. 머리글 옆에 항목 수가 붙습니다."],
+      ["onRemove", "(id) => void", "", "지우기 버튼을 누를 때 이벤트입니다. 없으면 버튼을 그리지 않습니다. 확인 창과 권한 검사는 앱 몫입니다."],
+    ] },
   ],
   "archive": [
     { type: "api", title: "<ArchiveCard>", rows: [

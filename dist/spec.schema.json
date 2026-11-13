@@ -486,6 +486,7 @@
             "Phone",
             "ActivityList",
             "DocList",
+            "EntryList",
             "QueueList",
             "ArchiveCard",
             "ArchivedLine",
@@ -3704,6 +3705,32 @@
                   "items": {},
                   "onSelect": {},
                   "empty": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "EntryList"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "title": {},
+                  "empty": {},
+                  "onRemove": {}
                 },
                 "required": [
                   "items"

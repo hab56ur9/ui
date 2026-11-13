@@ -1,6 +1,6 @@
 import { Badge, type BadgeTone } from "./Badge";
 import { PresenceAvatar } from "./chat";
-import { Icon } from "./Icon";
+import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
 import type { Reviewer } from "./review";
 
@@ -101,5 +101,47 @@ export function DocList({ items, onSelect, empty }: DocListProps) {
         </button>
       ))}
     </div>
+  );
+}
+
+export type EntryItem = { id: string; icon?: IconName; title?: string; meta?: string; text?: string; removable?: boolean };
+export type EntryListProps = { items: EntryItem[]; title?: string; empty?: string; onRemove?: (id: string) => void };
+
+export function EntryList({ items, title, empty, onRemove }: EntryListProps) {
+  const { text: t } = useI18n();
+  return (
+    <section className="entries">
+      {title && (
+        <header>
+          <strong>{title}</strong>
+          <span>{items.length}</span>
+        </header>
+      )}
+      {items.length === 0 ? (
+        <div className="entries-empty">{empty ?? t("none")}</div>
+      ) : (
+        <ul>
+          {items.map((item) => (
+            <li key={item.id} className={cx(item.icon && "has-icon")}>
+              {item.icon && <Icon name={item.icon} size="sm" />}
+              <span className="entries-body">
+                {(item.title || item.meta) && (
+                  <span className="entries-head">
+                    {item.title && <strong>{item.title}</strong>}
+                    {item.meta && <span>{item.meta}</span>}
+                  </span>
+                )}
+                {item.text && <span className="entries-text">{item.text}</span>}
+              </span>
+              {onRemove && item.removable !== false && (
+                <button type="button" className="entries-remove" aria-label={t("entries.remove", { label: item.title ?? item.text ?? item.id })} onClick={() => onRemove(item.id)}>
+                  <Icon name="trash" size="sm" />
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }

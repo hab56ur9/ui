@@ -565,6 +565,11 @@ export const api: Record<string, Section[]> = {
       ["items", "{ id, title, meta?, badge?, reviewers?, aside? }[]", "", "One row per document. `reviewers` is the same `Reviewer[]` as `ReviewBar`; its `badge` tone colors the ring."],
       ["onSelect · empty", "(id) => void, string", "\"None\"", "Press event and empty-state text."],
     ] },
+    { type: "api", title: "<EntryList>", rows: [
+      ["items", "{ id, icon?, title?, meta?, text?, removable? }[]", "", "One record per row. `meta` sits beside `title`, and `text` shows up to three lines below. A row with `removable: false` has no delete button."],
+      ["title · empty", "string, string", "\"None\"", "The header and the empty-state text. The item count sits beside the header."],
+      ["onRemove", "(id) => void", "", "Fires when the delete button is pressed. Without it no button is drawn. Confirmation and permission checks belong to the app."],
+    ] },
   ],
   "archive": [
     { type: "api", title: "<ArchiveCard>", rows: [

@@ -1432,7 +1432,7 @@ export const pages: Page[] = [
     "id": "work-lists",
     "group": "데이터",
     "title": "Work lists",
-    "lede": "Work lists show, one row at a time, the work people and agents hand each other. Use `ActivityList` for notifications, `QueueList` for handling order and `DocList` for documents under review. For one person and a one-line description, use `List`.",
+    "lede": "Work lists show, one row at a time, the work people and agents hand each other. Use `ActivityList` for notifications, `QueueList` for handling order and `DocList` for documents under review and `EntryList` for deletable records such as routines and memos. For one person and a one-line description, use `List`.",
     "sections": [
       {
         "type": "demo",
@@ -1453,10 +1453,17 @@ export const pages: Page[] = [
         "layout": "centered"
       },
       {
+        "type": "demo",
+        "title": "Records",
+        "example": "entry-list-basic",
+        "layout": "centered"
+      },
+      {
         "type": "a11y",
         "items": [
           "Rows of `ActivityList` and `DocList` are buttons; the selected notification is announced with `aria-current`.",
-          "The unread dot and the waiting clock carry names."
+          "The unread dot and the waiting clock carry names.",
+          "The `EntryList` delete button shows on hover or focus and always on touch screens. Its name is \"Delete {title}\"."
         ]
       }
     ]

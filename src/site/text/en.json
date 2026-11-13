@@ -690,6 +690,24 @@
     "approvalText": "Approval needed before deploy.",
     "failureText": "Verification failed. Repro steps are in the thread."
   },
+  "entry-list-basic": {
+    "routines": "Routines",
+    "memos": "Memos",
+    "daily": "Daily 09:00",
+    "weekly": "Mondays 10:00",
+    "next1": "Next 11/14 09:00",
+    "next2": "Next 11/17 10:00",
+    "routine1": "Check open reviews in #design-system",
+    "routine2": "Sum up last week's token changes in #design-system",
+    "memo1Time": "11/13 22:41",
+    "memo1": "Node tests cannot import .tsx, so pure logic lives in .ts files.",
+    "memo2Time": "11/13 21:05",
+    "memo2": "Screenshots come from headless Chrome --screenshot.",
+    "memo3Time": "11/12 18:20",
+    "memo3": "The docs app pins its theme with ?theme=dark.",
+    "noMemos": "No memos yet.",
+    "noRoutines": "No routines registered."
+  },
   "queue-list-basic": {
     "title": "Queue",
     "later": "Later",

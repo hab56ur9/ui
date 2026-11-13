@@ -4923,6 +4923,35 @@
       ]
     },
     {
+      "name": "EntryList",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "EntryItem[]"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "empty",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onRemove",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        }
+      ]
+    },
+    {
       "name": "QueueList",
       "props": [
         {

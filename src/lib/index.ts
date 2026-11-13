@@ -62,6 +62,6 @@ export { ChatMessage, ChatPane, Composer, DayDivider, Faces, Mention, MessageLog
 export { Kanban, KanbanHeads, type KanbanCard, type KanbanColumn, type KanbanProps } from "./Kanban";
 export { Annotator, CommentCard, DiffView, ReviewBar, type QuoteAction, type Anchor, type AnnotatorProps, type CommentCardProps, type CommentReply, type DiffLine, type Reviewer } from "./review";
 export { Browser, Phone } from "./devices";
-export { ActivityList, DocList, QueueList, type ActivityItem, type ActivityKind, type ActivityListProps, type DocItem, type DocListProps, type QueueItem, type QueueListProps } from "./lists";
+export { ActivityList, DocList, EntryList, QueueList, type ActivityItem, type ActivityKind, type ActivityListProps, type DocItem, type DocListProps, type EntryItem, type EntryListProps, type QueueItem, type QueueListProps } from "./lists";
 export { ArchiveCard, ArchivedLine, ArchivePicker, type ArchiveAction, type ArchiveBadge, type ArchiveCardProps, type ArchivedLineProps, type ArchiveEntry, type ArchivePickerProps, type ArchiveRow, type ArchiveSection } from "./archive";
 export { Tree, type TreeItem, type TreeMark, type TreeProps } from "./Tree";

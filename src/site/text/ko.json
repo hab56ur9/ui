@@ -690,6 +690,24 @@
     "approvalText": "배포 전에 승인이 필요합니다.",
     "failureText": "검증이 실패했습니다. 재현 절차를 스레드에 남겼습니다."
   },
+  "entry-list-basic": {
+    "routines": "루틴",
+    "memos": "메모",
+    "daily": "매일 09:00",
+    "weekly": "매주 월 10:00",
+    "next1": "다음 11/14 09:00",
+    "next2": "다음 11/17 10:00",
+    "routine1": "#design-system 열린 리뷰 점검",
+    "routine2": "#design-system 지난주 토큰 변경 정리",
+    "memo1Time": "11/13 22:41",
+    "memo1": "Node 테스트는 .tsx를 import하지 못하므로 순수 로직은 .ts로 뺀다.",
+    "memo2Time": "11/13 21:05",
+    "memo2": "스크린샷은 headless Chrome --screenshot으로 찍는다.",
+    "memo3Time": "11/12 18:20",
+    "memo3": "문서 앱은 ?theme=dark로 테마를 고정할 수 있다.",
+    "noMemos": "남긴 메모가 없습니다.",
+    "noRoutines": "등록된 루틴이 없습니다."
+  },
   "queue-list-basic": {
     "title": "대기열",
     "later": "나중에",
