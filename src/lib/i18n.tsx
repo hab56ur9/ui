@@ -161,6 +161,7 @@ const MESSAGES = {
     "palette.move": "↑↓ 이동",
     "palette.open": "⏎ 열기",
     "palette.close": "esc 닫기",
+    "editor.label": "코드",
   },
   en: {
     copy: "Copy",
@@ -322,6 +323,7 @@ const MESSAGES = {
     "palette.move": "↑↓ move",
     "palette.open": "⏎ open",
     "palette.close": "esc close",
+    "editor.label": "Code",
   },
 };
 

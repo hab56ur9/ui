@@ -2062,6 +2062,24 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "code-editor",
+    "group": "콘텐츠",
+    "title": "Code editor",
+    "lede": "A code editor lets people change code while keeping line numbers and syntax colors. Tab inserts two spaces, and focused line numbers show in bold.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "code-editor-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Inside a viewer",
+        "example": "code-editor-viewer"
+      }
+    ]
+  },
+  {
     "id": "requirement-table",
     "group": "콘텐츠",
     "title": "Requirement table",

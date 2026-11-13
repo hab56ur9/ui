@@ -435,6 +435,7 @@
             "CodeBlock",
             "CodeLine",
             "Highlight",
+            "CodeEditor",
             "Icon",
             "LineChart",
             "BarChart",
@@ -2382,6 +2383,34 @@
                 "required": [
                   "code"
                 ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CodeEditor"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "value": {},
+                  "defaultValue": {},
+                  "onChange": {},
+                  "lang": {},
+                  "start": {},
+                  "focus": {},
+                  "label": {},
+                  "readOnly": {}
+                },
+                "required": [],
                 "additionalProperties": false
               }
             }

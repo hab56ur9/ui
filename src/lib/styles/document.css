@@ -184,7 +184,8 @@ h3.doc-heading::before {
   font-size: 0.9em;
 }
 
-.doc-body .code-block code {
+.doc-body .code-block code,
+.doc-body .editor code {
   padding: 0;
   background: none;
   font-size: inherit;
@@ -427,7 +428,8 @@ h3.doc-heading::before {
   font-size: 0.9em;
 }
 
-.markdown .code-block code {
+.markdown .code-block code,
+.markdown .editor code {
   padding: 0;
   background: none;
   font-size: inherit;

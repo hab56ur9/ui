@@ -972,5 +972,15 @@
     "theme": "Switch theme",
     "settings": "Settings",
     "help": "Help"
+  },
+  "code-editor-basic": {
+    "lines": "{n} lines",
+    "edited": "Edited",
+    "clean": "Unchanged"
+  },
+  "code-editor-viewer": {
+    "title": "settings.json",
+    "meta": "12 lines · saved just now",
+    "copy": "Copy"
   }
 }

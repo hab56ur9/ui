@@ -972,5 +972,15 @@
     "theme": "테마 바꾸기",
     "settings": "설정",
     "help": "도움말"
+  },
+  "code-editor-basic": {
+    "lines": "{n}줄",
+    "edited": "고침",
+    "clean": "그대로"
+  },
+  "code-editor-viewer": {
+    "title": "settings.json",
+    "meta": "12줄 · 방금 저장함",
+    "copy": "복사"
   }
 }

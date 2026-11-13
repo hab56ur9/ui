@@ -858,6 +858,22 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "code-editor": [
+    {
+      type: "api",
+      title: "<CodeEditor>",
+      rows: [
+        ["value", "string", "", "The code in controlled mode. Update it from `onChange`."],
+        ["defaultValue", "string", "\"\"", "The starting code in uncontrolled mode."],
+        ["onChange", "(value: string) => void", "", "Called when the code changes."],
+        ["lang", "CodeLang", "\"tsx\"", "Picks the syntax colors. Get it from a file name with `langOf(path)`."],
+        ["start", "number", "1", "The first line number."],
+        ["focus", "number[]", "[]", "Line numbers shown in bold."],
+        ["label", "string", "\"Code\"", "The accessible name of the editing area."],
+        ["readOnly", "boolean", "false", "Blocks edits; selecting and copying still work."],
+      ],
+    },
+  ],
   "requirement-table": [
     {
       type: "api",

@@ -2080,6 +2080,24 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "code-editor",
+    "group": "콘텐츠",
+    "title": "코드 편집기",
+    "lede": "코드 편집기는 줄 번호와 문법 색을 유지한 채 코드를 고치게 합니다. Tab은 공백 두 칸을 넣고, 강조할 줄 번호는 굵게 보입니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "code-editor-basic"
+      },
+      {
+        "type": "demo",
+        "title": "뷰어 안에서",
+        "example": "code-editor-viewer"
+      }
+    ]
+  },
+  {
     "id": "requirement-table",
     "group": "콘텐츠",
     "title": "요구사항 표",

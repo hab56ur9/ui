@@ -71,6 +71,7 @@ Input controls differ by whether the change applies at once or on submit.
 | Slider | A value picked by dragging along a track | No |
 | Stepper | A number changed with minus and plus buttons | No |
 | Date picker | A field that opens a calendar to choose a date | Partial: `Calendar` exists without the field and popup |
+| Code editor | A text area that edits code with line numbers and syntax colors | Yes: `CodeEditor` |
 
 ## Button states
 

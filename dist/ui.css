@@ -2057,6 +2057,77 @@ code.has-lines .line::before {
   color: var(--color-code-attr);
 }
 
+.editor {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  min-height: 100%;
+  background: var(--color-code-background);
+  color: var(--color-fg-default);
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.editor-gutter {
+  display: grid;
+  align-content: start;
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+  border-right: var(--border-width-default) solid var(--color-border-default);
+  color: var(--color-fg-muted);
+  text-align: right;
+  user-select: none;
+}
+
+.editor-gutter .is-focus {
+  color: var(--color-main-default);
+  font-weight: var(--font-weight-semibold);
+}
+
+.editor-area {
+  overflow: auto;
+}
+
+.editor-layer {
+  position: relative;
+  width: max-content;
+  min-width: 100%;
+}
+
+.editor-layer pre,
+.editor-layer textarea {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  white-space: pre;
+  tab-size: 2;
+}
+
+.editor-layer pre {
+  pointer-events: none;
+}
+
+.editor-layer textarea {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  resize: none;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--color-fg-default);
+}
+
+.editor-layer textarea::selection {
+  background: var(--color-main-subtle);
+  color: transparent;
+}
+
 @media print {
   html.is-printing body > :not(.print-root) {
     display: none !important;
@@ -5123,7 +5194,8 @@ h3.doc-heading::before {
   font-size: 0.9em;
 }
 
-.doc-body .code-block code {
+.doc-body .code-block code,
+.doc-body .editor code {
   padding: 0;
   background: none;
   font-size: inherit;
@@ -5366,7 +5438,8 @@ h3.doc-heading::before {
   font-size: 0.9em;
 }
 
-.markdown .code-block code {
+.markdown .code-block code,
+.markdown .editor code {
   padding: 0;
   background: none;
   font-size: inherit;
@@ -6142,7 +6215,8 @@ h3.doc-heading::before {
   font-size: 0.88em;
 }
 
-.article-section .code-block code {
+.article-section .code-block code,
+.article-section .editor code {
   padding: 0;
   border-radius: 0;
   background: none;

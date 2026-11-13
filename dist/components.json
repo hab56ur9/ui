@@ -2821,6 +2821,70 @@
       ]
     },
     {
+      "name": "CodeEditor",
+      "props": [
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "defaultValue",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((value: string) => void) | undefined"
+        },
+        {
+          "name": "lang",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "go",
+            "html",
+            "json",
+            "md",
+            "plain",
+            "py",
+            "sql",
+            "tsx",
+            "yaml"
+          ],
+          "type": "\"go\" | \"html\" | \"json\" | \"md\" | \"plain\" | \"py\" | \"sql\" | \"tsx\" | \"yaml\" | undefined"
+        },
+        {
+          "name": "start",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "focus",
+          "optional": true,
+          "kind": "list",
+          "type": "number[] | undefined"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "readOnly",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
       "name": "Icon",
       "props": [
         {

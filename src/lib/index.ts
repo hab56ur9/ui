@@ -38,6 +38,7 @@ export { DataTable, type Cell, type DataTableProps } from "./DataTable";
 export { DescriptionList, type DescriptionItem, type DescriptionListProps } from "./DescriptionList";
 export { Button, Delta, Segmented, Stat, type ButtonProps, type ButtonVariant, type DeltaProps, type SegmentedOption, type SegmentedProps, type StatProps } from "./controls";
 export { CodeBlock, CodeLine, Highlight, langOf, type CodeBlockProps, type CodeLang } from "./Code";
+export { CodeEditor, type CodeEditorProps } from "./CodeEditor";
 export { Icon, iconNames, type IconName, type IconProps } from "./Icon";
 export { LineChart, type LineChartProps, type LineSeries } from "./charts/LineChart";
 export { BarChart, type BarChartProps } from "./charts/BarChart";

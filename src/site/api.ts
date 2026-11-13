@@ -858,6 +858,22 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "code-editor": [
+    {
+      type: "api",
+      title: "<CodeEditor>",
+      rows: [
+        ["value", "string", "", "제어 모드의 코드입니다. 주면 `onChange`로 바꿔 줍니다."],
+        ["defaultValue", "string", "\"\"", "비제어 모드의 처음 코드입니다."],
+        ["onChange", "(value: string) => void", "", "코드가 바뀔 때 부릅니다."],
+        ["lang", "CodeLang", "\"tsx\"", "문법 색을 고릅니다. 파일 이름에서는 `langOf(path)`로 얻습니다."],
+        ["start", "number", "1", "첫 줄 번호입니다."],
+        ["focus", "number[]", "[]", "굵게 보일 줄 번호입니다."],
+        ["label", "string", "\"코드\"", "편집 영역의 접근성 이름입니다."],
+        ["readOnly", "boolean", "false", "고칠 수 없게 합니다. 선택과 복사는 됩니다."],
+      ],
+    },
+  ],
   "requirement-table": [
     {
       type: "api",
