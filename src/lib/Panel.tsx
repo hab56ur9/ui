@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "./Icon";
+import { useEnter } from "./MotionScope";
 
 export type PanelProps = {
   title?: ReactNode;
@@ -10,9 +11,10 @@ export type PanelProps = {
 };
 
 export function Panel({ title, meta, actions, variant = "section", children }: PanelProps) {
+  const { enter } = useEnter();
   const head = title !== undefined || meta !== undefined || actions !== undefined;
   return (
-    <section className={`panel is-${variant}`}>
+    <section className={`panel is-${variant}`} data-motion={enter}>
       {head && (
         <div className="panel-head">
           {title !== undefined && <span className="panel-title">{title}</span>}

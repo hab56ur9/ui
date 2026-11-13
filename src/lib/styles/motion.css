@@ -5,6 +5,10 @@
   animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0)) * var(--motion-stagger));
 }
 
+[data-motion~="content"] {
+  animation-delay: calc((var(--motion-base, 0) + var(--motion-order, 0) + var(--motion-row, 0)) * var(--motion-stagger) + var(--motion-duration-slow) * var(--motion-intensity));
+}
+
 @keyframes motion-rise {
   from {
     opacity: 0;

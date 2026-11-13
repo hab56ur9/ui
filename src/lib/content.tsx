@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Icon } from "./Icon";
+import { useEnter } from "./MotionScope";
 
 export function Takeaway({ children }: { children: ReactNode }) {
   return <p className="takeaway">{children}</p>;
@@ -32,10 +33,11 @@ export function Bullets({ items }: { items: BulletItem[] }) {
 export type Step = { title: string; body?: string };
 
 export function Steps({ items }: { items: Step[] }) {
+  const { enter, row } = useEnter();
   return (
     <ol className="steps">
       {items.map((step, i) => (
-        <li key={step.title}>
+        <li key={step.title} data-motion={enter} style={row(i)}>
           <span className="steps-number">{i + 1}</span>
           <strong>{step.title}</strong>
           {step.body && <p>{step.body}</p>}

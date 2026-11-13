@@ -488,6 +488,12 @@ export const pages: Page[] = [
         "example": "motion-curves"
       },
       {
+        "type": "demo",
+        "title": "Entrance",
+        "caption": "Tables, lists and cards enter in order only inside a Board, Diagram or Infographic. Outside them they stay still",
+        "example": "motion-enter"
+      },
+      {
         "type": "guidelines",
         "items": [
           [

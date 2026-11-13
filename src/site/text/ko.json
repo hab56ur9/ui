@@ -307,6 +307,22 @@
     "theFileHolds": "파일에는 위젯별 일간 값이 들어갑니다.",
     "open": "{size} 열기"
   },
+  "motion-enter": {
+    "regions": "지역별 사용자",
+    "region": "지역",
+    "users": "사용자",
+    "seoul": "서울",
+    "busan": "부산",
+    "daegu": "대구",
+    "incheon": "인천",
+    "people": "담당",
+    "design": "디자인",
+    "backend": "백엔드",
+    "qa": "QA",
+    "note": "안내",
+    "noteBody": "위젯이 먼저 들어오고, 안의 행이 위에서부터 차례로 들어옵니다.",
+    "replay": "다시 재생"
+  },
   "motion-curves": {
     "play": "재생"
   },

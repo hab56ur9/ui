@@ -4,6 +4,7 @@ import { PresenceAvatar, type Presence } from "./chat";
 import { DescriptionList, type DescriptionItem } from "./DescriptionList";
 import { Icon } from "./Icon";
 import { useI18n } from "./i18n";
+import { useEnter } from "./MotionScope";
 import { Image, type ImageProps } from "./Image";
 
 export type AvatarProps = { name: string; src?: string; size?: "sm" | "md" | "lg"; ring?: "new" | "seen" };
@@ -197,10 +198,11 @@ export type ListItem = { id: string; title: string; description?: string; avatar
 export type ListProps = { items: ListItem[]; onSelect?: (id: string) => void; label?: string };
 
 export function List({ items, onSelect, label }: ListProps) {
+  const { enter, row } = useEnter();
   return (
     <ul className="list" aria-label={label}>
-      {items.map(({ id, title, description, avatar, meta }) => (
-        <li key={id}>
+      {items.map(({ id, title, description, avatar, meta }, i) => (
+        <li key={id} data-motion={enter} style={row(i)}>
           <button type="button" className="list-item" onClick={() => onSelect?.(id)}>
             {avatar && <Avatar name={avatar} size="sm" />}
             <span className="list-text">

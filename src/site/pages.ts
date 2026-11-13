@@ -506,6 +506,12 @@ export const pages: Page[] = [
         "example": "motion-curves"
       },
       {
+        "type": "demo",
+        "title": "입장",
+        "caption": "Board·Diagram·Infographic 안에서만 표·목록·카드가 차례로 들어옵니다. 밖에서는 움직이지 않습니다",
+        "example": "motion-enter"
+      },
+      {
         "type": "guidelines",
         "items": [
           [

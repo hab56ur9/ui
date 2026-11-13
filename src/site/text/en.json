@@ -307,6 +307,22 @@
     "theFileHolds": "The file holds daily values per widget.",
     "open": "Open {size}"
   },
+  "motion-enter": {
+    "regions": "Users by region",
+    "region": "Region",
+    "users": "Users",
+    "seoul": "Seoul",
+    "busan": "Busan",
+    "daegu": "Daegu",
+    "incheon": "Incheon",
+    "people": "Owners",
+    "design": "Design",
+    "backend": "Backend",
+    "qa": "QA",
+    "note": "Note",
+    "noteBody": "Widgets enter first, then the rows inside follow from the top.",
+    "replay": "Replay"
+  },
   "motion-curves": {
     "play": "Play"
   },

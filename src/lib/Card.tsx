@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
+import { useEnter } from "./MotionScope";
 
 export type CardProps = { title?: ReactNode; aside?: ReactNode; description?: ReactNode; selected?: boolean; onClick?: () => void; children?: ReactNode };
 
 export function Card({ title, aside, description, selected = false, onClick, children }: CardProps) {
+  const { enter } = useEnter();
   const className = `card${selected ? " is-selected" : ""}${onClick ? " is-interactive" : ""}`;
   const body = (
     <>
@@ -22,10 +24,14 @@ export function Card({ title, aside, description, selected = false, onClick, chi
   );
   if (onClick) {
     return (
-      <button type="button" className={className} aria-pressed={selected} onClick={onClick}>
+      <button type="button" className={className} data-motion={enter} aria-pressed={selected} onClick={onClick}>
         {body}
       </button>
     );
   }
-  return <div className={className}>{body}</div>;
+  return (
+    <div className={className} data-motion={enter}>
+      {body}
+    </div>
+  );
 }

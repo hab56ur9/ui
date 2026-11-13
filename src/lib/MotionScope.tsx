@@ -9,6 +9,16 @@ const MotionContext = createContext(false);
 
 export const useMotion = () => useContext(MotionContext);
 
+const ROWS = 12;
+
+export function useEnter() {
+  const on = useMotion();
+  return {
+    enter: on ? "enter content" : undefined,
+    row: (index: number) => (on ? ({ "--motion-row": Math.min(index, ROWS) } as CSSProperties) : undefined),
+  };
+}
+
 export function MotionScope({
   on,
   children,
