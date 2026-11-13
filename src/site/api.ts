@@ -1056,4 +1056,23 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "desktop-shell": [
+    {
+      type: "api",
+      title: "<DesktopShell>",
+      rows: [
+        ["frame", "\"viewport\" | \"window\"", "\"viewport\"", "화면 전체를 채울지, 테두리 있는 창으로 그릴지입니다. `window`는 창 단추를 그립니다."],
+        ["path", "ReactNode[]", "[]", "제목 줄의 경로입니다. 마지막이 굵게 보입니다."],
+        ["search", "{ placeholder?, shortcut?, onOpen? }", "", "제목 줄 검색 단추입니다. 누르면 `onOpen`을 부릅니다."],
+        ["titleActions", "ReactNode", "", "제목 줄 오른쪽 도구입니다."],
+        ["rail · railFooter", "{ id, label, icon, current?, dot?, onSelect? }[]", "[]", "왼쪽 아이콘 레일의 위쪽·아래쪽 항목입니다. `dot`은 Presence 상태 점입니다."],
+        ["sidebar · inspector", "ReactNode", "", "왼쪽·오른쪽 칸입니다. 비우면 칸과 경계선을 그리지 않습니다."],
+        ["sizes", "{ sidebar?, inspector? }", "{ sidebar: 248, inspector: 300 }", "처음 너비(px)입니다."],
+        ["onResize", "(sizes: { sidebar, inspector }) => void", "", "경계선을 놓을 때 새 너비를 알립니다."],
+        ["status", "ReactNode", "", "맨 아래 상태 줄입니다."],
+        ["overlay · overlayScope", "ReactNode · \"content\" | \"main\" | \"modal\"", "\"content\"", "본문 위 덮개입니다. `content`는 왼쪽 끝부터 인스펙터 앞까지, `main`은 가운데 칸만, `modal`은 어두운 바탕 위 가운데에 띄웁니다."],
+        ["onOverlayClose", "() => void", "", "`modal` 덮개의 바깥을 누를 때 부릅니다."],
+      ],
+    },
+  ],
 };

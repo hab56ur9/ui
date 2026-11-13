@@ -408,6 +408,7 @@
             "DropZone",
             "Select",
             "MultiSelect",
+            "DesktopShell",
             "Calendar",
             "Carousel",
             "Image",
@@ -1666,6 +1667,40 @@
                 "required": [
                   "items"
                 ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "DesktopShell"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "frame": {},
+                  "path": {},
+                  "search": {},
+                  "titleActions": {},
+                  "rail": {},
+                  "railFooter": {},
+                  "sidebar": {},
+                  "inspector": {},
+                  "status": {},
+                  "sizes": {},
+                  "onResize": {},
+                  "overlay": {},
+                  "overlayScope": {},
+                  "onOverlayClose": {}
+                },
+                "required": [],
                 "additionalProperties": false
               }
             }

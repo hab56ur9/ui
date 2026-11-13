@@ -1735,6 +1735,110 @@
       ]
     },
     {
+      "name": "DesktopShell",
+      "props": [
+        {
+          "name": "frame",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "viewport",
+            "window"
+          ],
+          "type": "\"viewport\" | \"window\" | undefined"
+        },
+        {
+          "name": "path",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode[] | undefined"
+        },
+        {
+          "name": "search",
+          "optional": true,
+          "kind": "object",
+          "type": "{ placeholder?: string | undefined; shortcut?: string | undefined; onOpen?: (() => void) | undefined; } | undefined"
+        },
+        {
+          "name": "titleActions",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "rail",
+          "optional": true,
+          "kind": "list",
+          "type": "DesktopRailItem[] | undefined"
+        },
+        {
+          "name": "railFooter",
+          "optional": true,
+          "kind": "list",
+          "type": "DesktopRailItem[] | undefined"
+        },
+        {
+          "name": "sidebar",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "inspector",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "status",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "sizes",
+          "optional": true,
+          "kind": "object",
+          "type": "Partial<DesktopShellSizes> | undefined"
+        },
+        {
+          "name": "onResize",
+          "optional": true,
+          "kind": "action",
+          "type": "((sizes: DesktopShellSizes) => void) | undefined"
+        },
+        {
+          "name": "overlay",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "overlayScope",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "content",
+            "main",
+            "modal"
+          ],
+          "type": "\"content\" | \"main\" | \"modal\" | undefined"
+        },
+        {
+          "name": "onOverlayClose",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
       "name": "Calendar",
       "props": [
         {

@@ -982,5 +982,108 @@
     "title": "settings.json",
     "meta": "12줄 · 방금 저장함",
     "copy": "복사"
+  },
+  "desktop-shell-basic": {
+    "workspace": "작업 공간",
+    "search": "채널·티켓·문서 검색",
+    "live": "실시간",
+    "settings": "설정",
+    "channelsTitle": "채널",
+    "addChannel": "채널 추가",
+    "detailsTitle": "정보",
+    "rail": [
+      {
+        "id": "home",
+        "label": "홈",
+        "icon": "home"
+      },
+      {
+        "id": "channels",
+        "label": "채널",
+        "icon": "message"
+      },
+      {
+        "id": "alerts",
+        "label": "알림",
+        "icon": "bell"
+      },
+      {
+        "id": "docs",
+        "label": "문서",
+        "icon": "file"
+      }
+    ],
+    "channels": [
+      {
+        "id": "design",
+        "label": "design-system",
+        "description": "컴포넌트 추출"
+      },
+      {
+        "id": "app",
+        "label": "app",
+        "description": "앱 개발"
+      },
+      {
+        "id": "ops",
+        "label": "ops",
+        "description": "운영"
+      }
+    ],
+    "details": [
+      [
+        "담당",
+        "빌더"
+      ],
+      [
+        "진행",
+        "3 / 5"
+      ],
+      [
+        "마감",
+        "금요일"
+      ]
+    ],
+    "sizes": "사이드바 {side}px · 인스펙터 {aside}px",
+    "messages": [
+      "가운데 칸은 남은 너비를 모두 씁니다.",
+      "양쪽 경계선을 끌면 사이드바와 인스펙터 너비가 바뀌고, 놓을 때 onResize가 새 크기를 알립니다.",
+      "아래 상태 줄이 그 크기를 보여 줍니다."
+    ]
+  },
+  "desktop-shell-overlay": {
+    "workspace": "작업 공간",
+    "file": "README.md",
+    "files": "파일",
+    "detailsTitle": "정보",
+    "details": "오른쪽 칸입니다.",
+    "meta": "방금 저장",
+    "body": "덮개 범위에 따라 창이 화면 전체, 가운데 칸, 또는 사이드바부터 덮습니다.",
+    "scope": "덮개 범위",
+    "open": "파일 열기",
+    "tree": [
+      {
+        "id": "readme",
+        "label": "README.md"
+      },
+      {
+        "id": "agents",
+        "label": "AGENTS.md"
+      }
+    ],
+    "scopes": [
+      [
+        "modal",
+        "창"
+      ],
+      [
+        "main",
+        "가운데 칸"
+      ],
+      [
+        "content",
+        "내용"
+      ]
+    ]
   }
 }

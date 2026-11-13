@@ -25,6 +25,7 @@ export { DropZone, type DropZoneProps } from "./DropZone";
 export { Select, type SelectOption, type SelectProps } from "./Select";
 export { MultiSelect, type MultiSelectItem, type MultiSelectProps } from "./MultiSelect";
 export { AppShell, type AppShellProps, type ShellGroup, type ShellItem } from "./AppShell";
+export { DesktopShell, type DesktopRailItem, type DesktopShellProps, type DesktopShellSizes } from "./DesktopShell";
 export { Calendar, type CalendarProps } from "./Calendar";
 export { Carousel, Image, ImageCard, MiniCard, type CarouselProps, type ImageCardProps, type ImageProps, type MiniCardProps } from "./Image";
 export { ImagePreview, type ImagePreviewProps } from "./ImagePreview";

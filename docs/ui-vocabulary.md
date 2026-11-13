@@ -220,6 +220,7 @@ Navigation patterns decide how people move between and within screens.
 | Infinite scroll | More items load as the list nears its end | No |
 | Back navigation | A control that returns to the previous screen | No |
 | App bar | The title row at the top of a mobile screen | Partial: `AppShell` header |
+| Navigation rail | A narrow column of icon buttons for the main sections, beside a desktop layout's sidebar and resizable side columns | Yes: `DesktopShell` |
 
 ## First-run screens
 

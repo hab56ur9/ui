@@ -2452,6 +2452,78 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "desktop-shell",
+    "group": "틀",
+    "title": "Desktop shell",
+    "lede": "The desktop shell lays out one screen of a desktop app: a title bar with the path, search and tools on top, an icon rail and a sidebar on the left, the body in the middle, and an inspector on the right. Dragging a divider resizes the sidebar or the inspector, and `overlay` floats over the window, the middle column or the content.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "desktop-shell-basic"
+      },
+      {
+        "type": "demo",
+        "title": "Overlay",
+        "example": "desktop-shell-overlay"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Title bar",
+            "Window buttons with `window`, the path (the last part in bold), the search button and tools on the right. In a desktop app it drags the window."
+          ],
+          [
+            "Rail",
+            "A column of icon buttons. The current item is highlighted, and `dot` shows a state dot. `railFooter` sits at the bottom."
+          ],
+          [
+            "Sidebar and inspector",
+            "The side columns. Drag a divider or use the arrow keys to resize the sidebar within 180–420px and the inspector within 240–480px."
+          ],
+          [
+            "Body",
+            "Takes all the remaining width."
+          ],
+          [
+            "Status line",
+            "Passing `status` adds a 24px line at the bottom."
+          ]
+        ]
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Placing a list, a body and properties side by side on one screen, like a desktop app"
+        ],
+        "avoid": [
+          "The app shell (AppShell) for web pages and docs sites",
+          "Screens used mainly at narrow widths"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The rail is a `nav`; each button is named by `label`, and the current item has `aria-current=\"page\"`.",
+          "Dividers are `role=\"separator\"`, take focus and move with the arrow keys (Shift moves 64px).",
+          "A window overlay calls `onOverlayClose` when the dark outside is pressed. Trapping focus belongs to the component inside the overlay."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.bg.subtle",
+          "color.bg.surface",
+          "color.border.default",
+          "color.main.subtle",
+          "radius.sheet",
+          "elevation.overlay"
+        ]
+      }
+    ]
+  },
+  {
     "id": "slides",
     "group": "틀",
     "title": "Slide frame",

@@ -2470,6 +2470,78 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "desktop-shell",
+    "group": "틀",
+    "title": "데스크톱 틀",
+    "lede": "데스크톱 틀은 데스크톱 앱 한 화면을 짭니다. 위에는 경로·검색·도구가 있는 제목 줄, 왼쪽에는 아이콘 레일과 사이드바, 가운데에는 본문, 오른쪽에는 인스펙터가 놓입니다. 사이드바와 인스펙터는 경계선을 끌어 너비를 바꾸고, 덮개(`overlay`)는 창·가운데 칸·내용 위에 띄웁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "기본",
+        "example": "desktop-shell-basic"
+      },
+      {
+        "type": "demo",
+        "title": "덮개",
+        "example": "desktop-shell-overlay"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "제목 줄",
+            "`window`면 창 단추, 경로(마지막이 굵게), 검색 단추, 오른쪽 도구입니다. 데스크톱 앱에서는 끌어서 창을 옮깁니다."
+          ],
+          [
+            "레일",
+            "아이콘 단추 세로 줄입니다. 현재 항목은 강조되고, `dot`이 상태 점을 띄웁니다. `railFooter`는 아래 끝에 붙습니다."
+          ],
+          [
+            "사이드바·인스펙터",
+            "양쪽 칸입니다. 경계선을 끌거나 화살표 키로 사이드바 180~420px, 인스펙터 240~480px 사이에서 바꿉니다."
+          ],
+          [
+            "본문",
+            "남은 너비를 모두 씁니다."
+          ],
+          [
+            "상태 줄",
+            "`status`를 주면 맨 아래 24px 줄이 생깁니다."
+          ]
+        ]
+      },
+      {
+        "type": "usage",
+        "when": [
+          "데스크톱 앱처럼 목록·본문·속성을 한 화면에 나란히 둘 때"
+        ],
+        "avoid": [
+          "웹 페이지나 문서 사이트에는 앱 틀(AppShell)",
+          "좁은 화면이 주 사용처일 때"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "레일은 `nav`이고 단추 이름은 `label`, 현재 항목은 `aria-current=\"page\"`입니다.",
+          "경계선은 `role=\"separator\"`이고 포커스를 받아 화살표 키로 움직입니다(Shift는 64px).",
+          "창 덮개는 바깥(어두운 곳)을 누르면 `onOverlayClose`를 부릅니다. 포커스 가두기는 덮개 안 컴포넌트의 몫입니다."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.bg.subtle",
+          "color.bg.surface",
+          "color.border.default",
+          "color.main.subtle",
+          "radius.sheet",
+          "elevation.overlay"
+        ]
+      }
+    ]
+  },
+  {
     "id": "slides",
     "group": "틀",
     "title": "슬라이드 틀",

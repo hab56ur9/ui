@@ -1056,4 +1056,23 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  "desktop-shell": [
+    {
+      type: "api",
+      title: "<DesktopShell>",
+      rows: [
+        ["frame", "\"viewport\" | \"window\"", "\"viewport\"", "Fill the whole screen, or draw a bordered window. `window` draws window buttons."],
+        ["path", "ReactNode[]", "[]", "The path in the title bar. The last part shows in bold."],
+        ["search", "{ placeholder?, shortcut?, onOpen? }", "", "The search button in the title bar; pressing it calls `onOpen`."],
+        ["titleActions", "ReactNode", "", "Tools on the right of the title bar."],
+        ["rail · railFooter", "{ id, label, icon, current?, dot?, onSelect? }[]", "[]", "The top and bottom items of the left icon rail. `dot` is a Presence state dot."],
+        ["sidebar · inspector", "ReactNode", "", "The left and right columns. Leaving one out drops its column and divider."],
+        ["sizes", "{ sidebar?, inspector? }", "{ sidebar: 248, inspector: 300 }", "The starting widths in px."],
+        ["onResize", "(sizes: { sidebar, inspector }) => void", "", "Reports the new widths when a divider is released."],
+        ["status", "ReactNode", "", "The status line at the bottom."],
+        ["overlay · overlayScope", "ReactNode · \"content\" | \"main\" | \"modal\"", "\"content\"", "An overlay above the body. `content` covers from the left edge to the inspector, `main` only the middle column, and `modal` centers it on a dark backdrop."],
+        ["onOverlayClose", "() => void", "", "Called when the outside of a `modal` overlay is pressed."],
+      ],
+    },
+  ],
 };

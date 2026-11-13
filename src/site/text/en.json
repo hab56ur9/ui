@@ -982,5 +982,108 @@
     "title": "settings.json",
     "meta": "12 lines · saved just now",
     "copy": "Copy"
+  },
+  "desktop-shell-basic": {
+    "workspace": "Workspace",
+    "search": "Search channels, tickets and docs",
+    "live": "Live",
+    "settings": "Settings",
+    "channelsTitle": "Channels",
+    "addChannel": "Add channel",
+    "detailsTitle": "Details",
+    "rail": [
+      {
+        "id": "home",
+        "label": "Home",
+        "icon": "home"
+      },
+      {
+        "id": "channels",
+        "label": "Channels",
+        "icon": "message"
+      },
+      {
+        "id": "alerts",
+        "label": "Alerts",
+        "icon": "bell"
+      },
+      {
+        "id": "docs",
+        "label": "Docs",
+        "icon": "file"
+      }
+    ],
+    "channels": [
+      {
+        "id": "design",
+        "label": "design-system",
+        "description": "Component extraction"
+      },
+      {
+        "id": "app",
+        "label": "app",
+        "description": "App development"
+      },
+      {
+        "id": "ops",
+        "label": "ops",
+        "description": "Operations"
+      }
+    ],
+    "details": [
+      [
+        "Owner",
+        "Builder"
+      ],
+      [
+        "Progress",
+        "3 / 5"
+      ],
+      [
+        "Due",
+        "Friday"
+      ]
+    ],
+    "sizes": "Sidebar {side}px · Inspector {aside}px",
+    "messages": [
+      "The middle column takes all the remaining width.",
+      "Drag either divider to resize the sidebar or the inspector; onResize reports the new sizes on release.",
+      "The status line below shows those sizes."
+    ]
+  },
+  "desktop-shell-overlay": {
+    "workspace": "Workspace",
+    "file": "README.md",
+    "files": "Files",
+    "detailsTitle": "Details",
+    "details": "The right column.",
+    "meta": "Saved just now",
+    "body": "The overlay scope decides whether the window covers the whole screen, the middle column, or everything from the sidebar on.",
+    "scope": "Overlay scope",
+    "open": "Open file",
+    "tree": [
+      {
+        "id": "readme",
+        "label": "README.md"
+      },
+      {
+        "id": "agents",
+        "label": "AGENTS.md"
+      }
+    ],
+    "scopes": [
+      [
+        "modal",
+        "Window"
+      ],
+      [
+        "main",
+        "Middle column"
+      ],
+      [
+        "content",
+        "Content"
+      ]
+    ]
   }
 }
