@@ -103,14 +103,15 @@ function listing(dir, root) {
   return `<!doctype html><html lang="en" data-medium="doc"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/ui/dist/tokens.css"><link rel="stylesheet" href="/ui/dist/ui.css"><title>${escape(relative(root, dir) || ".")}</title></head><body><main class="page"><h1 class="page-title">/${escape(relative(root, dir).split(sep).join("/"))}</h1><ul>${rows}</ul></main></body></html>`;
 }
 
-function addresses(port, host) {
-  const urls = [`http://localhost:${port}/`];
-  if (!host) return urls;
-  for (const nets of Object.values(networkInterfaces())) {
-    for (const net of nets ?? []) if (net.family === "IPv4" && !net.internal) urls.push(`http://${net.address}:${port}/`);
-  }
-  return urls;
+function lanAddresses() {
+  return Object.values(networkInterfaces())
+    .flatMap((nets) => nets ?? [])
+    .filter((net) => net.family === "IPv4" && !net.internal)
+    .map((net) => net.address);
 }
+
+const addresses = (port, host) => ["localhost", ...(host ? lanAddresses() : [])].map((name) => `http://${name}:${port}/`);
+const hostnameOf = (req) => (req.headers.host ?? "").replace(/:\d+$/, "").replace(/^\[(.*)\]$/, "$1").toLowerCase();
 
 const sameOrigin = (req) => req.headers.origin === `http://${req.headers.host}`;
 const isJson = (req) => (req.headers["content-type"] ?? "").split(";")[0].trim() === "application/json";
@@ -137,9 +138,9 @@ function saveReview(req, res, root, send) {
   });
 }
 
-function site(root, { reload = false, clients = new Set() } = {}) {
+function site(root, { reload = false, clients = new Set(), hosts = new Set(["localhost", "127.0.0.1", "::1"]) } = {}) {
   const send = (res, status, body, type = TYPES[".txt"]) => {
-    res.writeHead(status, { "content-type": type, "cache-control": "no-store", "access-control-allow-origin": "*" });
+    res.writeHead(status, { "content-type": type, "cache-control": "no-store" });
     res.end(body);
   };
 
@@ -155,6 +156,7 @@ function site(root, { reload = false, clients = new Set() } = {}) {
   };
 
   return (req, res) => {
+    if (!hosts.has(hostnameOf(req))) return send(res, 421, "unknown host");
     const path = decodeURIComponent(new URL(req.url ?? "/", "http://localhost").pathname);
     if (hidden(path)) return send(res, 404, "not found");
     if (path === RELOAD) {
@@ -169,6 +171,7 @@ function site(root, { reload = false, clients = new Set() } = {}) {
     if (path === "/__ui/edit") return send(res, 200, EDITOR, TYPES[".html"]);
     if (path === REVIEW && req.method === "POST") return saveReview(req, res, root, send);
     if (path.startsWith("/ui/")) {
+      res.setHeader("access-control-allow-origin", "*");
       const rest = path.slice(4);
       const target = resolve(pkgRoot, rest);
       const allowed = ["dist", "assets"].some((dir) => inside(join(pkgRoot, dir), target));
@@ -202,7 +205,8 @@ function serve(args) {
   const reload = !args["no-reload"];
   const clients = new Set();
   const localModule = existsSync(join(pkgRoot, "dist/ui.js"));
-  const server = createServer(site(root, { reload, clients }));
+  const hosts = new Set(["localhost", "127.0.0.1", "::1", ...(args.host ? lanAddresses() : [])]);
+  const server = createServer(site(root, { reload, clients, hosts }));
 
   if (reload) {
     let timer;
