@@ -445,6 +445,7 @@
             "ActionList",
             "Viewer",
             "CommandPalette",
+            "Tooltip",
             "Anatomy",
             "ArticleSection",
             "Brand",
@@ -2675,6 +2676,29 @@
                 },
                 "required": [
                   "groups"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Tooltip"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {}
+                },
+                "required": [
+                  "label"
                 ],
                 "additionalProperties": false
               }

@@ -127,6 +127,7 @@
     },
     "sheet": { "$value": { "value": 640, "unit": "px" } },
     "toast": { "$value": { "value": 380, "unit": "px" } },
+    "tooltip": { "$value": { "value": 280, "unit": "px" } },
     "preview": {
       "width": { "$value": { "value": 360, "unit": "px" } },
       "height": { "$value": { "value": 240, "unit": "px" } }

@@ -498,3 +498,55 @@
   font-size: 11px;
   color: var(--color-fg-muted);
 }
+
+.tooltip-anchor {
+  display: contents;
+}
+
+.tooltip {
+  position: fixed;
+  inset: auto;
+  max-width: min(calc(100vw - 2 * var(--space-2)), var(--size-tooltip));
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-bg-raised);
+  color: var(--color-fg-default);
+  box-shadow: var(--elevation-overlay);
+  font-size: var(--font-size-caption);
+  line-height: 1.4;
+  text-align: center;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.tooltip:popover-open {
+  animation: motion-fade var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: var(--tooltip-arrow, 50%);
+  width: 8px;
+  height: 8px;
+  border: solid var(--color-border-default);
+  border-width: 0 var(--border-width-default) var(--border-width-default) 0;
+  background: var(--color-bg-raised);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.tooltip[data-side="below"]::after {
+  top: 0;
+  border-width: var(--border-width-default) 0 0 var(--border-width-default);
+}
+
+.tooltip-text {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}

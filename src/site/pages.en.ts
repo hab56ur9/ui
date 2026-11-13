@@ -1230,6 +1230,45 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "tooltip",
+    "group": "피드백",
+    "title": "Tooltip",
+    "lede": "A tooltip shows a short note a button cannot show itself, on hover or keyboard focus. Listing who reacted on a reaction button is an example. It appears centered above the button, slides inward at the screen edge, and drops below when there is no room above.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Reaction button",
+        "example": "tooltip-reaction",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Put a short note that helps before pressing.",
+            "Put information or actions that only the tooltip holds."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Hover opens it after 200ms and keyboard focus opens it at once. Touch does not open it.",
+          "It has `role=\"tooltip\"` and links to its element through `aria-describedby`.",
+          "Esc, scrolling and resizing the window close it."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.tooltip",
+          "elevation.overlay",
+          "motion.duration.fast"
+        ]
+      }
+    ]
+  },
+  {
     "id": "toast",
     "group": "피드백",
     "title": "Toast",

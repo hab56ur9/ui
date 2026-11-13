@@ -3,6 +3,7 @@ import { Badge, type BadgeTone } from "./Badge";
 import { Button } from "./controls";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
+import { Tooltip } from "./overlay/Tooltip";
 
 export type Presence = "idle" | "good" | "busy" | "active" | "warning" | "critical";
 export type Face = { name: string; tone?: number; avatar?: string; state?: Presence };
@@ -115,12 +116,16 @@ export function ChatMessage({ author, tone = 1, avatar, badge, time, via, contin
         {typeof children === "string" ? <p>{children}</p> : children}
         {reactions.length > 0 && (
           <div className="chat-reactions">
-            {reactions.map((reaction) => (
-              <button key={reaction.emoji} type="button" className={cx("chat-reaction", reaction.mine && "is-mine")} title={reaction.title} onClick={() => onReact?.(reaction.emoji)}>
-                <span className="chat-emoji">{reaction.emoji}</span>
-                {reaction.count}
-              </button>
-            ))}
+            {reactions.map((reaction) => {
+              const button = (
+                <button key={reaction.emoji} type="button" className={cx("chat-reaction", reaction.mine && "is-mine")} onClick={() => onReact?.(reaction.emoji)}>
+                  <span className="chat-emoji">{reaction.emoji}</span>
+                  {reaction.count}
+                </button>
+              );
+              if (!reaction.title) return button;
+              return <Tooltip key={reaction.emoji} label={reaction.title}>{button}</Tooltip>;
+            })}
           </div>
         )}
         {pending && <span className="chat-dots" aria-hidden><i /><i /><i /></span>}

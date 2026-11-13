@@ -3547,6 +3547,23 @@
       ]
     },
     {
+      "name": "Tooltip",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactElement<{ \"aria-describedby\"?: string | undefined; }, string | JSXElementConstructor<any>>"
+        }
+      ]
+    },
+    {
       "name": "Toast",
       "props": [
         {

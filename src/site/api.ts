@@ -426,6 +426,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  tooltip: [
+    {
+      type: "api",
+      title: "<Tooltip>",
+      rows: [
+        ["label", "string", "", "보여 줄 문구입니다. 넘긴 문자열 그대로 두 줄까지 줄바꿈하고, 넘치면 말줄임합니다."],
+        ["children", "ReactElement", "", "툴팁을 붙일 요소 하나입니다. `aria-describedby`를 받아 스크린리더가 문구를 설명으로 읽습니다."],
+      ],
+    },
+  ],
   toast: [
     {
       type: "api",

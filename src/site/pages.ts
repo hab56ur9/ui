@@ -1248,6 +1248,45 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "tooltip",
+    "group": "피드백",
+    "title": "툴팁",
+    "lede": "툴팁은 버튼이 다 보여 주지 못하는 짧은 설명을 마우스를 올리거나 키보드로 포커스할 때 띄웁니다. 반응 버튼에 누가 눌렀는지 보여 주는 것이 그 예입니다. 버튼 위 가운데에 뜨고, 화면 가장자리에서는 안쪽으로 밀려 들어옵니다. 위에 자리가 없으면 아래로 뜹니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "반응 버튼",
+        "example": "tooltip-reaction",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "누르기 전에 알면 좋은 짧은 설명을 둡니다.",
+            "툴팁에만 꼭 필요한 정보나 동작을 둡니다."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "마우스를 올리면 200ms 뒤에, 키보드 포커스는 바로 뜹니다. 터치에서는 뜨지 않습니다.",
+          "`role=\"tooltip\"`이고 대상 요소의 `aria-describedby`로 이어집니다.",
+          "Esc, 스크롤, 창 크기 변경에서 닫힙니다."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.tooltip",
+          "elevation.overlay",
+          "motion.duration.fast"
+        ]
+      }
+    ]
+  },
+  {
     "id": "toast",
     "group": "피드백",
     "title": "토스트",

@@ -426,6 +426,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  tooltip: [
+    {
+      type: "api",
+      title: "<Tooltip>",
+      rows: [
+        ["label", "string", "", "The text to show, as given. It wraps to two lines and ends in an ellipsis beyond that."],
+        ["children", "ReactElement", "", "The one element the tooltip belongs to. It receives `aria-describedby`, so screen readers read the text as its description."],
+      ],
+    },
+  ],
   toast: [
     {
       type: "api",

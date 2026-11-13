@@ -31,7 +31,7 @@ Feedback patterns differ by how much they interrupt the person.
 | Command palette | A search box near the top of the screen that finds items and commands by name in groups and opens one with the keyboard | Yes: `CommandPalette` |
 | Bottom sheet | A panel that slides up from the bottom edge | Yes: `Sheet` |
 | Inline error | A field message that explains what to fix | Partial: `TextField` has `hint` but no error state |
-| Tooltip | A short label shown on hover or focus | Partial: chart tooltips only; no general tooltip |
+| Tooltip | A short label shown on hover or focus | Yes: `Tooltip` |
 | Popover | A small floating panel anchored to a control, with content or actions | No |
 | Coach mark | An overlay that points at a control to teach it | No |
 | Badge | A count or dot on an icon or tab | Partial: `Badge` is a text label, not a count dot |

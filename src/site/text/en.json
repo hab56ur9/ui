@@ -791,6 +791,12 @@
     "wide": "Code review screen, light theme",
     "tall": "Phone screen of the board, dark theme"
   },
+  "tooltip-reaction": {
+    "author": "Hana",
+    "body": "I grouped today's release batch. Please take a look.",
+    "many": "Hana, Daon, Byeori, Soyul, Mir and 2 others",
+    "two": "Daon, Byeori"
+  },
   "toast-place-mobile": {
     "saved": "Saved",
     "undo": "Undo"
