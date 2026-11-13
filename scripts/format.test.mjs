@@ -33,3 +33,9 @@ test("bytes rounds from ten units up", () => {
   assert.equal(bytes(50 * 1024 * 1024), "50 MB");
   assert.equal(bytes(5 * 1024 ** 5), "5120 TB");
 });
+
+test("bytes moves to the next unit when rounding reaches it", () => {
+  assert.equal(bytes(10239), "10 KB");
+  assert.equal(bytes(1048575), "1.0 MB");
+  assert.equal(bytes(1023.6), "1.0 KB");
+});

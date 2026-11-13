@@ -4,10 +4,13 @@ export const DAY = 864e5;
 
 const UNITS = ["B", "KB", "MB", "GB", "TB"];
 
-export const bytes = (size: number) => {
-  const step = size < 1024 ? 0 : Math.min(UNITS.length - 1, Math.floor(Math.log(size) / Math.log(1024)));
+const shown = (value: number, step: number) => (step === 0 || value >= 9.95 ? String(Math.round(value)) : value.toFixed(1));
+
+export const bytes = (size: number, step = 0): string => {
   const value = size / 1024 ** step;
-  return `${step === 0 || value >= 10 ? Math.round(value) : value.toFixed(1)} ${UNITS[step]}`;
+  const last = step === UNITS.length - 1;
+  if (!last && Number(shown(value, step)) >= 1024) return bytes(size, step + 1);
+  return `${shown(value, step)} ${UNITS[step]}`;
 };
 
 const measurable = (max: number) => max > 0;

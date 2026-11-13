@@ -280,8 +280,9 @@ export function Composer({ placeholder, submitLabel, mentions = [], chips = [], 
     onChange?.(next);
   };
   const submit = () => {
-    if (!draft.trim() && !chips.some(sendable)) return;
-    onSubmit?.(draft);
+    const blank = !draft.trim();
+    if (blank && !chips.some(sendable)) return;
+    onSubmit?.(blank ? "" : draft);
     sent.mark();
     change("", 0);
   };
@@ -352,7 +353,7 @@ export function Composer({ placeholder, submitLabel, mentions = [], chips = [], 
             <span key={chip.id} className={cx("chat-chip", chip.image && "has-image", chip.error && "is-error")} title={chip.error}>
               {chip.image ? <img src={chip.image} alt="" /> : chip.icon && <Icon name={chip.icon} size="sm" />}
               <span className="chat-chip-label">{chip.label}</span>
-              {(chip.error || chip.size !== undefined) && <span className="chat-chip-meta">{chip.error ?? bytes(chip.size ?? 0)}</span>}
+              {(chip.error || chip.size !== undefined) && <span className="chat-chip-meta">{chip.error || bytes(chip.size ?? 0)}</span>}
               {onRemoveChip && <button type="button" aria-label={t("chat.remove", { label: chip.label })} onClick={() => onRemoveChip(chip.id)}><Icon name="close" size="sm" /></button>}
             </span>
           ))}
