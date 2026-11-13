@@ -589,3 +589,38 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+.popover-anchor {
+  display: contents;
+}
+
+.popover {
+  position: fixed;
+  inset: auto;
+  width: max-content;
+  max-width: min(calc(100vw - 2 * var(--space-2)), var(--size-popover));
+  margin: 0;
+  padding: var(--space-3);
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-raised);
+  color: var(--color-fg-default);
+  box-shadow: var(--elevation-overlay);
+  font-size: var(--font-size-label);
+  overflow: auto;
+  max-height: calc(100vh - 2 * var(--space-2));
+}
+
+.popover-title {
+  display: block;
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.popover-body {
+  display: grid;
+  gap: var(--space-2);
+  overflow-wrap: anywhere;
+}

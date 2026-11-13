@@ -445,6 +445,7 @@
             "ActionList",
             "Viewer",
             "CommandPalette",
+            "Popover",
             "Tooltip",
             "Anatomy",
             "ArticleSection",
@@ -2682,6 +2683,33 @@
                 },
                 "required": [
                   "groups"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Popover"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "content": {},
+                  "title": {},
+                  "trigger": {},
+                  "defaultOpen": {},
+                  "onOpenChange": {}
+                },
+                "required": [
+                  "content"
                 ],
                 "additionalProperties": false
               }

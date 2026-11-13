@@ -428,6 +428,20 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  popover: [
+    {
+      type: "api",
+      title: "<Popover>",
+      rows: [
+        ["content", "ReactNode", "", "패널에 담을 내용입니다."],
+        ["title", "string", "", "패널 머리 줄이자 접근성 이름입니다. 한 줄로 말줄임합니다."],
+        ["trigger", "\"hover\" | \"click\"", "\"click\"", "`hover`는 올리거나 키보드 포커스로, `click`은 눌러서 엽니다."],
+        ["defaultOpen", "boolean", "false", "처음 열림 상태입니다."],
+        ["onOpenChange", "(open: boolean) => void", "", "열리거나 닫힐 때 호출됩니다."],
+        ["children", "ReactElement", "", "팝오버를 붙일 버튼 하나입니다. `click`이면 `aria-expanded`와 `onClick`을 받습니다."],
+      ],
+    },
+  ],
   tooltip: [
     {
       type: "api",

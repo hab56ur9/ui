@@ -428,6 +428,20 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  popover: [
+    {
+      type: "api",
+      title: "<Popover>",
+      rows: [
+        ["content", "ReactNode", "", "The content of the panel."],
+        ["title", "string", "", "The panel header and its accessible name. It ends in an ellipsis on one line."],
+        ["trigger", "\"hover\" | \"click\"", "\"click\"", "`hover` opens on hover or keyboard focus, `click` on press."],
+        ["defaultOpen", "boolean", "false", "The initial open state."],
+        ["onOpenChange", "(open: boolean) => void", "", "Called when it opens or closes."],
+        ["children", "ReactElement", "", "The one button the popover belongs to. With `click` it receives `aria-expanded` and `onClick`."],
+      ],
+    },
+  ],
   tooltip: [
     {
       type: "api",

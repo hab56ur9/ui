@@ -809,6 +809,16 @@
     "wide": "Code review screen, light theme",
     "tall": "Phone screen of the board, dark theme"
   },
+  "popover-basic": {
+    "member": "Daon",
+    "role": "Role",
+    "roleValue": "QA",
+    "status": "Status",
+    "statusValue": "Reviewing · R-155",
+    "filter": "Filter",
+    "filterBody": "Show only tickets waiting for QA.",
+    "apply": "Apply"
+  },
   "tooltip-reaction": {
     "author": "Hana",
     "body": "I grouped today's release batch. Please take a look.",

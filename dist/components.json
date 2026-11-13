@@ -3567,6 +3567,51 @@
       ]
     },
     {
+      "name": "Popover",
+      "props": [
+        {
+          "name": "content",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "trigger",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "click",
+            "hover"
+          ],
+          "type": "\"click\" | \"hover\" | undefined"
+        },
+        {
+          "name": "defaultOpen",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "onOpenChange",
+          "optional": true,
+          "kind": "action",
+          "type": "((open: boolean) => void) | undefined"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactElement<TriggerProps, string | JSXElementConstructor<any>>"
+        }
+      ]
+    },
+    {
       "name": "Tooltip",
       "props": [
         {

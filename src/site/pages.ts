@@ -1249,6 +1249,47 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "popover",
+    "group": "피드백",
+    "title": "팝오버",
+    "lede": "팝오버는 버튼 옆에 작은 패널을 띄워 사람 정보나 필터처럼 화면을 떠나지 않고 보는 내용을 담습니다. 마우스를 올리면 뜨는 미리보기와 눌러야 뜨는 패널 두 가지가 있습니다. 버튼 아래 왼쪽에 맞춰 뜨고, 화면 가장자리에서는 안쪽으로 밀려 들어옵니다. 아래에 자리가 없으면 위로 뜹니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "미리보기와 패널",
+        "example": "popover-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "버튼과 바로 이어지는 짧은 내용과 동작을 둡니다.",
+            "여러 단계 입력이나 긴 글은 시트나 모달에 둡니다."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`trigger=\"hover\"`는 마우스를 올리면 200ms 뒤에, 키보드 포커스는 바로 뜹니다. 터치에서는 뜨지 않습니다.",
+          "`trigger=\"click\"`은 버튼에 `aria-expanded`와 `aria-controls`를 주고, 패널은 `role=\"dialog\"`입니다.",
+          "패널은 문서 순서상 버튼 바로 뒤에 있어 Tab으로 들어갑니다.",
+          "Esc와 바깥 클릭에서 닫히고, Esc는 포커스를 버튼으로 돌려줍니다."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.popover",
+          "radius.card",
+          "elevation.overlay",
+          "motion.duration.base"
+        ]
+      }
+    ]
+  },
+  {
     "id": "tooltip",
     "group": "피드백",
     "title": "툴팁",

@@ -1231,6 +1231,47 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "popover",
+    "group": "피드백",
+    "title": "Popover",
+    "lede": "A popover opens a small panel next to a button for content seen without leaving the screen, such as a person's details or a filter. It comes in two kinds: a preview on hover and a panel on press. It aligns to the button's left edge below it, slides inward at the screen edge, and rises above when there is no room below.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Preview and panel",
+        "example": "popover-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Put short content and actions tied to the button.",
+            "Put multi-step input or long text in a sheet or modal."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "`trigger=\"hover\"` opens after 200ms on hover and at once on keyboard focus. Touch does not open it.",
+          "`trigger=\"click\"` gives the button `aria-expanded` and `aria-controls`, and the panel is a `role=\"dialog\"`.",
+          "The panel follows the button in document order, so Tab enters it.",
+          "Esc and an outside click close it, and Esc returns focus to the button."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.popover",
+          "radius.card",
+          "elevation.overlay",
+          "motion.duration.base"
+        ]
+      }
+    ]
+  },
+  {
     "id": "tooltip",
     "group": "피드백",
     "title": "Tooltip",
