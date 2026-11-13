@@ -289,6 +289,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  timeline: [
+    {
+      type: "api",
+      title: "<Timeline>",
+      rows: [
+        ["lanes", "{ label, segments }[]", "", "줄 라벨과 그 줄의 구간입니다."],
+        ["segments", "{ start, end?, tone?, label? }[]", "", "시각은 ms입니다. `end`가 없으면 `now`까지 진행 중으로 그립니다. `tone`은 시리즈 색 번호입니다."],
+        ["from · to", "number", "구간 범위", "가로축 시작과 끝 시각입니다."],
+        ["now", "number", "Date.now()", "진행 중 구간의 끝과 지금 선 위치입니다."],
+        ["title", "string", "", "스크린리더용 차트 이름입니다."],
+      ],
+    },
+  ],
   heatmap: [
     {
       type: "api",

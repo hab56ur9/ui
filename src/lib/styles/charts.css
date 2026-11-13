@@ -839,3 +839,33 @@
   justify-self: center;
   width: 100%;
 }
+
+.timeline-span {
+  fill: var(--c);
+  rx: 3px;
+}
+
+.timeline-span.is-open {
+  fill-opacity: 0.55;
+  stroke: var(--c);
+  stroke-width: 1px;
+  stroke-dasharray: 3 2;
+}
+
+.timeline-span.is-hover {
+  stroke: var(--color-fg-default);
+  stroke-width: 1.5px;
+  stroke-dasharray: none;
+}
+
+.chart svg text.timeline-label {
+  fill: var(--color-fg-on-fill);
+  pointer-events: none;
+}
+
+.timeline-now {
+  stroke: var(--color-fg-default);
+  stroke-width: var(--chart-stroke-hairline);
+  stroke-dasharray: 2 2;
+  pointer-events: none;
+}

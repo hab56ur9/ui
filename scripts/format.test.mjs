@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { bytes, durationMs, milliseconds, percentOf } from "../src/lib/format.ts";
+import { bytes, clock, clockTicks, duration, durationMs, milliseconds, percentOf } from "../src/lib/format.ts";
 
 test("percentOf gives the share of max", () => {
   assert.equal(percentOf(3, 5), "60%");
@@ -62,4 +62,24 @@ test("durationMs scales the token by motion intensity", () => {
   assert.equal(durationMs("120ms", 200, "2"), 240);
   assert.equal(durationMs(".4s", 200, "0"), 0);
   assert.equal(durationMs(".4s", 200, ""), 400);
+});
+
+const at = (hour, minute = 0) => new Date(2026, 10, 14, hour, minute).getTime();
+const KO = { h: "시간", m: "분", s: "초" };
+
+test("clock shows local hours and minutes", () => {
+  assert.equal(clock(at(9, 5)), "09:05");
+});
+
+test("clockTicks lands on round local times inside the range", () => {
+  assert.deepEqual(clockTicks(at(9, 7), at(10, 7), 4).map(clock), ["09:15", "09:30", "09:45", "10:00"]);
+  assert.deepEqual(clockTicks(at(8), at(20), 6).map(clock), ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"]);
+});
+
+test("duration keeps the two largest units a person reads", () => {
+  assert.equal(duration(45e3, KO), "45초");
+  assert.equal(duration(27 * 6e4, KO), "27분");
+  assert.equal(duration(60 * 6e4, KO), "1시간");
+  assert.equal(duration(65 * 6e4, { h: "h", m: "m", s: "s" }), "1h 5m");
+  assert.equal(duration(-5, KO), "0초");
 });

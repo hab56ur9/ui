@@ -289,6 +289,19 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  timeline: [
+    {
+      type: "api",
+      title: "<Timeline>",
+      rows: [
+        ["lanes", "{ label, segments }[]", "", "Lane label and its segments."],
+        ["segments", "{ start, end?, tone?, label? }[]", "", "Times are in ms. Without `end` the segment runs until `now`. `tone` is the series color number."],
+        ["from · to", "number", "segment range", "Start and end time of the axis."],
+        ["now", "number", "Date.now()", "End of running segments and position of the now line."],
+        ["title", "string", "", "Chart name for screen readers."],
+      ],
+    },
+  ],
   heatmap: [
     {
       type: "api",

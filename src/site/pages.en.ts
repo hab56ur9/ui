@@ -1927,6 +1927,43 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "timeline",
+    "group": "데이터",
+    "sub": "차트",
+    "title": "Timeline",
+    "lede": "A timeline shows time segments as horizontal bars, one row per lane. It serves to compare at a glance when each agent or worker did what.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Agent work",
+        "example": "timeline-agents"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Tie segment color to one kind of work, and leave the end of a running segment open.",
+            "Draw overlapping segments in the same lane."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "With the chart focused, ←→ move between segments in a lane and ↑↓ move between lanes.",
+          "The tooltip shows start and end times and the duration as text."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.series.*",
+          "chart.stroke.*"
+        ]
+      }
+    ]
+  },
+  {
     "id": "heatmap",
     "group": "데이터",
     "sub": "차트",

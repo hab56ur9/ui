@@ -236,6 +236,24 @@
       "일"
     ]
   },
+  "timeline-agents": {
+    "title": "에이전트 작업 타임라인",
+    "lanes": [
+      "유나",
+      "벼리",
+      "다온",
+      "소율"
+    ],
+    "tasks": [
+      "Popover 구현",
+      "EmojiPicker 구현",
+      "Timeline 구현",
+      "ui 리뷰",
+      "QA 검증",
+      "문서 정리",
+      "스크린샷"
+    ]
+  },
   "heatmap-week": {
     "items": [
       "월",

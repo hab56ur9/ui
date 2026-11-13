@@ -444,6 +444,7 @@
             "BarChart",
             "Heatmap",
             "Sparkline",
+            "Timeline",
             "ActionList",
             "Viewer",
             "CommandPalette",
@@ -2651,6 +2652,33 @@
                 },
                 "required": [
                   "points"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Timeline"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "lanes": {},
+                  "from": {},
+                  "to": {},
+                  "now": {},
+                  "title": {}
+                },
+                "required": [
+                  "lanes"
                 ],
                 "additionalProperties": false
               }

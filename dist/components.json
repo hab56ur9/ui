@@ -3303,6 +3303,41 @@
       ]
     },
     {
+      "name": "Timeline",
+      "props": [
+        {
+          "name": "lanes",
+          "optional": false,
+          "kind": "list",
+          "type": "TimelineLane[]"
+        },
+        {
+          "name": "from",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "to",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "now",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
       "name": "Diagram",
       "props": [
         {

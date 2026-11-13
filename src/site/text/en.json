@@ -236,6 +236,24 @@
       "Sun"
     ]
   },
+  "timeline-agents": {
+    "title": "Agent work timeline",
+    "lanes": [
+      "Yuna",
+      "Byeori",
+      "Daon",
+      "Soyul"
+    ],
+    "tasks": [
+      "Build Popover",
+      "Build EmojiPicker",
+      "Build Timeline",
+      "ui review",
+      "QA check",
+      "Docs cleanup",
+      "Screenshots"
+    ]
+  },
   "heatmap-week": {
     "items": [
       "Mon",

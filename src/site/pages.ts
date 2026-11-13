@@ -1945,6 +1945,43 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "timeline",
+    "group": "데이터",
+    "sub": "차트",
+    "title": "타임라인",
+    "lede": "타임라인은 줄마다 시간 구간을 가로 막대로 보여 줍니다. 에이전트나 작업자가 언제 무엇을 했는지 한눈에 비교할 때 씁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "에이전트 작업",
+        "example": "timeline-agents"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "구간 색은 작업 종류 하나에만 묶고, 진행 중 구간은 끝을 비워 둡니다.",
+            "같은 줄에서 구간을 겹쳐 그립니다."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "차트에 포커스를 두고 ←→로 같은 줄의 구간을, ↑↓로 다른 줄을 옮겨 다닙니다.",
+          "툴팁에 시작·끝 시각과 길이가 글자로 보입니다."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "color.series.*",
+          "chart.stroke.*"
+        ]
+      }
+    ]
+  },
+  {
     "id": "heatmap",
     "group": "데이터",
     "sub": "차트",

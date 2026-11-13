@@ -46,3 +46,32 @@ export const formats = (format: Format | undefined, locale: string) => ({
   value: format?.value ?? format?.axis ?? String,
   date: format?.date ?? ((time: number) => fullDate(time, locale)),
 });
+
+const MINUTE = 6e4;
+
+const pad = (value: number) => String(value).padStart(2, "0");
+
+export const clock = (time: number) => {
+  const d = new Date(time);
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+};
+
+const CLOCK_STEPS = [1, 2, 5, 10, 15, 30, 60, 120, 180, 360, 720, 1440].map((minutes) => minutes * MINUTE);
+
+export const clockTicks = (t0: number, t1: number, count: number) => {
+  const step = CLOCK_STEPS.find((s) => s >= (t1 - t0) / Math.max(count, 1)) ?? CLOCK_STEPS[CLOCK_STEPS.length - 1];
+  const offset = new Date(t0).getTimezoneOffset() * MINUTE;
+  const first = Math.ceil((t0 - offset) / step) * step + offset;
+  return Array.from({ length: Math.max(0, Math.floor((t1 - first) / step) + 1) }, (_, i) => first + i * step);
+};
+
+export type DurationUnits = { h: string; m: string; s: string };
+
+export const duration = (ms: number, units: DurationUnits) => {
+  const total = Math.max(0, Math.round(ms / 1000));
+  if (total < 60) return `${total}${units.s}`;
+  const minutes = Math.round(total / 60);
+  const hours = Math.floor(minutes / 60);
+  if (hours === 0) return `${minutes}${units.m}`;
+  return minutes % 60 === 0 ? `${hours}${units.h}` : `${hours}${units.h} ${minutes % 60}${units.m}`;
+};

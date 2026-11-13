@@ -47,6 +47,7 @@ export { LineChart, type LineChartProps, type LineSeries } from "./charts/LineCh
 export { BarChart, type BarChartProps } from "./charts/BarChart";
 export { Heatmap, type HeatmapProps } from "./charts/Heatmap";
 export { Sparkline, type SparklineProps } from "./charts/Sparkline";
+export { Timeline, type TimelineLane, type TimelineProps, type TimelineSegment } from "./charts/Timeline";
 export { Diagram, type DiagramArrowProps, type DiagramFlow, type DiagramGroupProps, type DiagramMotion, type DiagramNodeProps, type DiagramProps } from "./diagram/Diagram";
 export { Infographic, type InfographicPanelProps, type InfographicProps } from "./diagram/Infographic";
 export { ActionList, Modal, Sheet, type ActionListItem, type ActionListProps, type DialogAction, type DialogProps } from "./overlay/Dialog";
