@@ -424,6 +424,10 @@
   text-align: right;
 }
 
+.review-card:has(> .mode-table) {
+  overflow-x: auto;
+}
+
 .mode-table {
   width: 100%;
   border-collapse: collapse;
