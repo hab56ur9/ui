@@ -3624,6 +3624,135 @@
       ]
     },
     {
+      "name": "Lane",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode[] | undefined"
+        },
+        {
+          "name": "badge",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "ProjectCards",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "ProjectCardItem[]"
+        },
+        {
+          "name": "value",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onNew",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "newLabel",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ProjectHeader",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "optional": false,
+          "kind": "number",
+          "type": "number"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "kind": "number",
+          "type": "number | undefined"
+        },
+        {
+          "name": "goal",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "owner",
+          "optional": true,
+          "kind": "object",
+          "type": "Face | undefined"
+        },
+        {
+          "name": "badge",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        }
+      ]
+    },
+    {
       "name": "ChatMessage",
       "props": [
         {

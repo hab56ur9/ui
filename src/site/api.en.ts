@@ -84,6 +84,37 @@ export const api: Record<string, Section[]> = {
       ["PresenceAvatar name · tone · avatar · state · size", "Face, \"xs\" | \"sm\" | \"md\" | \"lg\"", "\"md\"", "Photo or initial with a status dot."],
     ] },
   ],
+  projects: [
+    {
+      type: "api",
+      title: "<ProjectCards>",
+      rows: [
+        ["items", "ProjectCardItem[]", "", "The cards. Each is `{ id, name, value, max?, badge?, owner?, meta?, aside? }`, and `value`·`max` draw the progress bar."],
+        ["value · onSelect", "string · (id) => void", "", "The selected card's `id` and the handler called on a click."],
+        ["onNew · newLabel", "() => void · string", "· \"New project\"", "When given, a dashed card is added at the end."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<ProjectHeader>",
+      rows: [
+        ["name · goal", "string · ReactNode", "", "The project name and its one-sentence goal."],
+        ["value · max", "number · number", "· 100", "The amount done and the total."],
+        ["owner · meta · badge", "Face · ReactNode · ReactNode", "", "The owner avatar next to the name, supporting details, and a badge at the far end."],
+        ["actions", "ReactNode", "", "The button slot below the progress bar."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Lane>",
+      rows: [
+        ["title", "string", "", "The row title and the name of its `section`."],
+        ["value · max", "number · number", "· 100", "When given, a short progress bar sits next to the title."],
+        ["meta · badge", "ReactNode[] · ReactNode", "", "Supporting details placed one after another next to the title, and a badge."],
+        ["children", "ReactNode", "", "The row body, usually a `Kanban` with `lane` on."],
+      ],
+    },
+  ],
   kanban: [
     { type: "api", title: "<Kanban>", rows: [
       ["columns", "{ id, title, dot?, empty?, cards }[]", "", "Columns and cards; a card is { id, title, key?, assignee?, tags?, replies?, meta?, working? }."],

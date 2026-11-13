@@ -815,6 +815,46 @@
     "typing": "준 작업 중…",
     "placeholder": "메시지 보내기 · @로 멘션"
   },
+  "project-cards": {
+    "all": "전체",
+    "allDone": "7/12 완료",
+    "projects": "프로젝트 2",
+    "extract": "컴포넌트 추출",
+    "active": "진행 중",
+    "planner": "기획",
+    "extractDone": "5/8 완료",
+    "due": "11월 30일까지",
+    "docs": "문서 정리",
+    "late": "늦음",
+    "builder": "빌더",
+    "docsDone": "2/4 완료",
+    "overdue": "2일 지남"
+  },
+  "project-header": {
+    "extract": "컴포넌트 추출",
+    "goal": "앱에서 직접 그린 화면을 디자인 시스템 컴포넌트로 옮긴다.",
+    "planner": "기획",
+    "meta": "기획 · 11월 30일까지 · 완료 5/8",
+    "active": "진행 중",
+    "thread": "프로젝트 스레드"
+  },
+  "lane-basic": {
+    "todo": "할 일",
+    "doing": "진행 중",
+    "done": "완료",
+    "extract": "컴포넌트 추출",
+    "extractDone": "1/3 완료",
+    "planner": "기획",
+    "due": "11월 30일까지",
+    "active": "진행 중",
+    "tree": "트리 분해",
+    "cards": "프로젝트 카드 분해",
+    "panel": "패널 추가",
+    "loose": "프로젝트 없음",
+    "looseCount": "2개",
+    "icons": "아이콘 정리",
+    "fonts": "글꼴 갱신"
+  },
   "kanban-basic": {
     "todo": "할 일",
     "doing": "진행 중",

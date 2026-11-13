@@ -1242,6 +1242,36 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "projects",
+    "group": "데이터",
+    "title": "Project cards",
+    "lede": "Project cards lay out one card per project with its name, a progress bar, the owner and the due date, and a click selects that project. Above the selected project goes a `ProjectHeader` with its goal and buttons; in the overview each project gets a `Lane` row.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Pick a card",
+        "example": "project-cards"
+      },
+      {
+        "type": "demo",
+        "title": "Selected project header",
+        "example": "project-header"
+      },
+      {
+        "type": "demo",
+        "title": "Kanban row per project",
+        "example": "lane-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "Each card is a button, and the selected one carries `aria-pressed`.",
+          "The progress bar is a `progressbar` named after the project, and a `Lane` is a `section` named after its title."
+        ]
+      }
+    ]
+  },
+  {
     "id": "annotator",
     "group": "콘텐츠",
     "title": "Annotator",

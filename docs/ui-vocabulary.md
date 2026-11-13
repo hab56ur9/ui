@@ -44,6 +44,7 @@ Loading patterns differ by whether the wait has a known length.
 | Spinner | An indeterminate rotating indicator | No |
 | Skeleton | Gray placeholder shapes in the layout of the coming content | No |
 | Progress bar | A linear indicator of a known fraction | Yes: `ProgressBar` |
+| Project cards | One selectable card per project with name, progress, owner and due date; a header for the selected project; a row per project in an overview | Yes: `ProjectCards`, `ProjectHeader`, `Lane` |
 | Progress ring | A circular indicator of a known fraction | No |
 | Step indicator | A row of numbered stages with the current one marked | Partial: `Steps` is a static list, without a current step |
 | Button loading | A button that shows progress and blocks repeat presses | No |

@@ -1260,6 +1260,36 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "projects",
+    "group": "데이터",
+    "title": "프로젝트 카드",
+    "lede": "프로젝트 카드는 프로젝트마다 이름, 진행 막대, 담당과 마감을 한 장에 담아 늘어놓고, 누르면 그 프로젝트를 고릅니다. 고른 프로젝트 위에는 목표와 버튼을 가진 `ProjectHeader`를, 전체 보기의 프로젝트별 줄에는 `Lane`을 씁니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "카드 고르기",
+        "example": "project-cards"
+      },
+      {
+        "type": "demo",
+        "title": "고른 프로젝트 머리",
+        "example": "project-header"
+      },
+      {
+        "type": "demo",
+        "title": "프로젝트별 칸반 줄",
+        "example": "lane-basic"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "카드는 버튼이고 고른 카드에 `aria-pressed`가 붙습니다.",
+          "진행 막대는 프로젝트 이름을 이름으로 가진 `progressbar`이고, `Lane`은 제목을 이름으로 가진 `section`입니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "annotator",
     "group": "콘텐츠",
     "title": "Annotator",

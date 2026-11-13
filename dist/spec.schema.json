@@ -455,6 +455,9 @@
             "TokenTable",
             "Meter",
             "ProgressBar",
+            "Lane",
+            "ProjectCards",
+            "ProjectHeader",
             "ChatMessage",
             "ChatPane",
             "Composer",
@@ -2865,6 +2868,91 @@
                 },
                 "required": [
                   "label",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Lane"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "value": {},
+                  "max": {},
+                  "meta": {},
+                  "badge": {}
+                },
+                "required": [
+                  "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ProjectCards"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "value": {},
+                  "onSelect": {},
+                  "onNew": {},
+                  "newLabel": {}
+                },
+                "required": [
+                  "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ProjectHeader"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "name": {},
+                  "value": {},
+                  "max": {},
+                  "goal": {},
+                  "meta": {},
+                  "owner": {},
+                  "badge": {},
+                  "actions": {}
+                },
+                "required": [
+                  "name",
                   "value"
                 ],
                 "additionalProperties": false

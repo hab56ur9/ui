@@ -84,6 +84,37 @@ export const api: Record<string, Section[]> = {
       ["PresenceAvatar name · tone · avatar · state · size", "Face, \"xs\" | \"sm\" | \"md\" | \"lg\"", "\"md\"", "사진이나 첫 글자에 상태 점."],
     ] },
   ],
+  projects: [
+    {
+      type: "api",
+      title: "<ProjectCards>",
+      rows: [
+        ["items", "ProjectCardItem[]", "", "카드 목록입니다. 한 장은 `{ id, name, value, max?, badge?, owner?, meta?, aside? }`이고 `value`·`max`가 진행 막대가 됩니다."],
+        ["value · onSelect", "string · (id) => void", "", "고른 카드의 `id`와 카드를 눌렀을 때 부르는 함수입니다."],
+        ["onNew · newLabel", "() => void · string", "· \"새 프로젝트\"", "주면 끝에 점선 카드가 생깁니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<ProjectHeader>",
+      rows: [
+        ["name · goal", "string · ReactNode", "", "프로젝트 이름과 목표 한 문장입니다."],
+        ["value · max", "number · number", "· 100", "완료한 양과 전체입니다."],
+        ["owner · meta · badge", "Face · ReactNode · ReactNode", "", "이름 옆의 담당 아바타, 보조 정보, 오른쪽 끝 배지입니다."],
+        ["actions", "ReactNode", "", "진행 막대 아래 버튼 자리입니다."],
+      ],
+    },
+    {
+      type: "api",
+      title: "<Lane>",
+      rows: [
+        ["title", "string", "", "줄의 제목이자 `section`의 이름입니다."],
+        ["value · max", "number · number", "· 100", "주면 제목 옆에 짧은 진행 막대가 생깁니다."],
+        ["meta · badge", "ReactNode[] · ReactNode", "", "제목 옆에 차례로 놓이는 보조 정보와 배지입니다."],
+        ["children", "ReactNode", "", "줄의 본문입니다. 보통 `lane`을 켠 `Kanban`입니다."],
+      ],
+    },
+  ],
   kanban: [
     { type: "api", title: "<Kanban>", rows: [
       ["columns", "{ id, title, dot?, empty?, cards }[]", "", "칸과 카드. 카드는 { id, title, key?, assignee?, tags?, replies?, meta?, working? }."],
