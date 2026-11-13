@@ -60,7 +60,7 @@ const cells = (line: string) =>
 const startsBlock = (line: string, next = "") =>
   FENCE.test(line) || HEADING.test(line) || RULE.test(line) || QUOTE.test(line) || BULLET.test(line) || NUMBERED.test(line) || (line.includes("|") && DIVIDER.test(next));
 
-const SAFE_URL = /^(https?:|mailto:|tel:|\/|\.|#)/i;
+const SAFE_URL = /^(https?:|mailto:|tel:|\/(?![/\\])|\.|#)/i;
 const safe = (url: string) => (SAFE_URL.test(url) ? url : "#");
 
 const decode = (text: string) =>

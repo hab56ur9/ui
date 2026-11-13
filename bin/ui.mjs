@@ -88,6 +88,8 @@ function parse(argv) {
 }
 
 const inside = (root, path) => path === root || path.startsWith(root + sep);
+const hidden = (path) => path.split("/").some((part) => part.startsWith("."));
+const escape = (text) => text.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
 
 function listing(dir, root) {
   const rows = readdirSync(dir, { withFileTypes: true })
@@ -95,10 +97,10 @@ function listing(dir, root) {
     .sort((a, b) => Number(b.isDirectory()) - Number(a.isDirectory()) || a.name.localeCompare(b.name))
     .map((entry) => {
       const href = `/${relative(root, join(dir, entry.name)).split(sep).join("/")}${entry.isDirectory() ? "/" : ""}`;
-      return `<li><a href="${href}">${entry.name}${entry.isDirectory() ? "/" : ""}</a></li>`;
+      return `<li><a href="${escape(href)}">${escape(entry.name)}${entry.isDirectory() ? "/" : ""}</a></li>`;
     })
     .join("");
-  return `<!doctype html><html lang="en" data-medium="doc"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/ui/dist/tokens.css"><link rel="stylesheet" href="/ui/dist/ui.css"><title>${relative(root, dir) || "."}</title></head><body><main class="page"><h1 class="page-title">/${relative(root, dir).split(sep).join("/")}</h1><ul>${rows}</ul></main></body></html>`;
+  return `<!doctype html><html lang="en" data-medium="doc"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/ui/dist/tokens.css"><link rel="stylesheet" href="/ui/dist/ui.css"><title>${escape(relative(root, dir) || ".")}</title></head><body><main class="page"><h1 class="page-title">/${escape(relative(root, dir).split(sep).join("/"))}</h1><ul>${rows}</ul></main></body></html>`;
 }
 
 function addresses(port, host) {
@@ -110,7 +112,11 @@ function addresses(port, host) {
   return urls;
 }
 
+const sameOrigin = (req) => req.headers.origin === `http://${req.headers.host}`;
+const isJson = (req) => (req.headers["content-type"] ?? "").split(";")[0].trim() === "application/json";
+
 function saveReview(req, res, root, send) {
+  if (!sameOrigin(req) || !isJson(req)) return send(res, 403, "reviews come from pages on this server as JSON");
   const target = resolve(root, `.${new URL(req.url, "http://localhost").searchParams.get("file") ?? ""}`);
   if (!inside(root, target) || extname(target) !== ".html" || !existsSync(target)) return send(res, 404, "not a page under this folder");
   const html = readFileSync(target, "utf8");
@@ -150,6 +156,7 @@ function site(root, { reload = false, clients = new Set() } = {}) {
 
   return (req, res) => {
     const path = decodeURIComponent(new URL(req.url ?? "/", "http://localhost").pathname);
+    if (hidden(path)) return send(res, 404, "not found");
     if (path === RELOAD) {
       res.writeHead(200, { "content-type": "text/event-stream", "cache-control": "no-store", connection: "keep-alive" });
       res.write(": connected\n\n");
@@ -220,6 +227,7 @@ function serve(args) {
       for (const url of addresses(port, args.host)) console.log(`  ${url}`);
       console.log(`  design system at /ui/ (${localModule ? "local build" : `latest release from ${pkg.homepage}`})`);
       if (reload) console.log("  reloads on change; Ctrl+C stops");
+      if (args.host) console.warn("  warning: anyone on this network can read every file in this folder except hidden ones");
     });
   };
   listen(Number(args.port ?? 4321), 10);
