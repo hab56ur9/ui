@@ -156,6 +156,11 @@ const MESSAGES = {
     "comment.suggestion": "수정 제안",
     "comment.apply": "반영",
     "diff.empty": "바뀐 내용이 없습니다",
+    "palette.search": "검색…",
+    "palette.empty": "결과 없음",
+    "palette.move": "↑↓ 이동",
+    "palette.open": "⏎ 열기",
+    "palette.close": "esc 닫기",
   },
   en: {
     copy: "Copy",
@@ -312,6 +317,11 @@ const MESSAGES = {
     "comment.suggestion": "Suggested edit",
     "comment.apply": "Apply",
     "diff.empty": "No changes",
+    "palette.search": "Search…",
+    "palette.empty": "No results",
+    "palette.move": "↑↓ move",
+    "palette.open": "⏎ open",
+    "palette.close": "esc close",
   },
 };
 

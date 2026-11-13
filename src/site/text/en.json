@@ -950,5 +950,27 @@
     "diffSame": "## Metric",
     "diffAdd": "Amounts are summed, then rounded to the won once",
     "ticket": "To ticket"
+  },
+  "palette-search": {
+    "placeholder": "Find tickets, docs and channels",
+    "tickets": "Tickets",
+    "docs": "Docs",
+    "channels": "Channels",
+    "ticket1": "Notification settings screen",
+    "ticket2": "Sort search results",
+    "doc1": "Notification design",
+    "open": "Open as a window",
+    "picked": "Picked {id}"
+  },
+  "palette-commands": {
+    "placeholder": "Run a command",
+    "empty": "No matching command",
+    "move": "↑↓ move",
+    "run": "⏎ run",
+    "actions": "Actions",
+    "new": "New ticket",
+    "theme": "Switch theme",
+    "settings": "Settings",
+    "help": "Help"
   }
 }

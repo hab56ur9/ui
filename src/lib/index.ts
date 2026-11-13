@@ -47,6 +47,7 @@ export { Diagram, type DiagramArrowProps, type DiagramFlow, type DiagramGroupPro
 export { Infographic, type InfographicPanelProps, type InfographicProps } from "./diagram/Infographic";
 export { ActionList, Modal, Sheet, type ActionListItem, type ActionListProps, type DialogAction, type DialogProps } from "./overlay/Dialog";
 export { Viewer, type ViewerProps } from "./overlay/Viewer";
+export { CommandPalette, type CommandGroup, type CommandItem, type CommandPaletteProps } from "./overlay/CommandPalette";
 export { themes, type Theme } from "./theme";
 export { Toast, UIProvider, useConfirm, useToast, type UIProviderProps, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";
 export { Anatomy, Article, ArticleSection, Brand, CardGrid, CopyCode, ErrorBoundary, Example, Guidelines, Paragraphs, PropsTable, RichText, Row, TextList, TokenTable, useCopy, type ArticleProps, type ArticleSectionProps, type ExampleFile, type ExampleProps, type ExampleVariant, type PropsTableProps, type TokenRow } from "./article";

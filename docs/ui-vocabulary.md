@@ -28,6 +28,7 @@ Feedback patterns differ by how much they interrupt the person.
 | Banner | A persistent strip at the top of a page or section | Partial: `Callout` is inline, not pinned to the top |
 | Modal dialog | A centered window that blocks the page until answered | Yes: `Modal`, `useConfirm` |
 | Viewer | A large window that opens one file with a header, a center sheet and an optional right column | Yes: `Viewer` |
+| Command palette | A search box near the top of the screen that finds items and commands by name in groups and opens one with the keyboard | Yes: `CommandPalette` |
 | Bottom sheet | A panel that slides up from the bottom edge | Yes: `Sheet` |
 | Inline error | A field message that explains what to fix | Partial: `TextField` has `hint` but no error state |
 | Tooltip | A short label shown on hover or focus | Partial: chart tooltips only; no general tooltip |

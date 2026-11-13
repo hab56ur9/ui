@@ -3320,6 +3320,65 @@
       ]
     },
     {
+      "name": "CommandPalette",
+      "props": [
+        {
+          "name": "open",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "onClose",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "groups",
+          "optional": false,
+          "kind": "list",
+          "type": "CommandGroup[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onQuery",
+          "optional": true,
+          "kind": "action",
+          "type": "((query: string) => void) | undefined"
+        },
+        {
+          "name": "placeholder",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "empty",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "footer",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode[] | undefined"
+        },
+        {
+          "name": "inline",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
       "name": "Toast",
       "props": [
         {

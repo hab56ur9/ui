@@ -1101,6 +1101,75 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "command-palette",
+    "group": "피드백",
+    "title": "명령 팔레트",
+    "lede": "명령 팔레트는 화면 위쪽에 검색창 하나를 띄워 티켓·문서·채널·명령을 이름으로 찾아 바로 엽니다. 결과는 묶음별로 나뉘고, 키보드만으로 고릅니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "찾아 열기",
+        "example": "palette-search"
+      },
+      {
+        "type": "demo",
+        "title": "명령과 단축키",
+        "example": "palette-commands"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "입력",
+            "찾을 이름을 씁니다. 글자가 바뀔 때마다 `onQuery`가 불립니다."
+          ],
+          [
+            "묶음",
+            "결과를 종류별로 나누는 작은 머리글입니다. 맞는 항목이 없는 묶음은 숨깁니다."
+          ],
+          [
+            "항목",
+            "아이콘, 이름, 한 줄 설명, 오른쪽 단축키 힌트입니다. 고른 항목은 옅은 강조색입니다."
+          ],
+          [
+            "바닥 줄",
+            "쓸 수 있는 키를 짧게 알립니다."
+          ]
+        ]
+      },
+      {
+        "type": "usage",
+        "when": [
+          "⌘K처럼 어디서든 이름으로 찾아 바로 열 때",
+          "메뉴 깊이 숨은 명령을 이름으로 실행할 때"
+        ],
+        "avoid": [
+          "목록 안에서만 거르면 검색 입력",
+          "파일 하나를 크게 보면 뷰어"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "입력은 `combobox`이고 결과는 `listbox`입니다. 포커스는 입력에 머물고, 고른 항목은 `aria-activedescendant`로 알립니다.",
+          "위·아래 키로 고르고 Enter로 엽니다. 끝에서 반대쪽 끝으로 돌아갑니다.",
+          "브라우저 기본 `<dialog>`를 써서 Esc와 바깥 클릭으로 닫힙니다.",
+          "창의 접근 가능한 이름은 `placeholder`입니다."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "radius.sheet",
+          "elevation.overlay",
+          "color.bg.raised",
+          "color.bg.scrim",
+          "color.main.subtle"
+        ]
+      }
+    ]
+  },
+  {
     "id": "confirm",
     "group": "피드백",
     "title": "확인 창",

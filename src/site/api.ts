@@ -372,6 +372,21 @@ export const api: Record<string, Section[]> = {
     },
   ],
   modal: [{ type: "api", title: "<Modal>", rows: [...DIALOG_PROPS, ["size", '"sm" | "md" | "lg"', '"md"', "모달 너비입니다."]] }],
+  "command-palette": [
+    {
+      type: "api",
+      title: "<CommandPalette>",
+      rows: [
+        ["groups", "{ title, items: CommandItem[] }[]", "", "묶음별 결과입니다. 맞는 항목이 없는 묶음은 숨깁니다."],
+        ["CommandItem", "{ id, label, detail?, icon?, hint?, always? }", "", "`label`로 거르고, `always`면 늘 보입니다. `hint`는 오른쪽 단축키입니다."],
+        ["onSelect · onQuery", "(id: string) => void · (query: string) => void", "", "항목을 고르면 `onSelect` 뒤에 `onClose`가 불립니다. 검색어가 바뀌면 `onQuery`가 불립니다."],
+        ["placeholder · empty", "string · ReactNode", "i18n `palette.search` · `palette.empty`", "입력 안내와 결과가 없을 때 문구입니다."],
+        ["footer", "ReactNode[]", "i18n 이동·열기·닫기", "바닥 줄의 키 안내입니다."],
+        ["open · onClose", "boolean · () => void", "true", "창을 열고 닫습니다. 열 때마다 검색어를 비웁니다."],
+        ["inline", "boolean", "false", "창으로 띄우지 않고 그 자리에 그립니다. 문서와 미리보기에 씁니다."],
+      ],
+    },
+  ],
   viewer: [
     {
       type: "api",

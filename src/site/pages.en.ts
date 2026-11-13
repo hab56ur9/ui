@@ -1083,6 +1083,75 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "command-palette",
+    "group": "피드백",
+    "title": "Command palette",
+    "lede": "A command palette opens one search box near the top of the screen to find tickets, docs, channels and commands by name and open them at once. Results are split into groups and picked with the keyboard alone.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Find and open",
+        "example": "palette-search"
+      },
+      {
+        "type": "demo",
+        "title": "Commands and shortcuts",
+        "example": "palette-commands"
+      },
+      {
+        "type": "anatomy",
+        "items": [
+          [
+            "Input",
+            "Holds the name to find. Each change calls `onQuery`."
+          ],
+          [
+            "Group",
+            "A small heading that splits results by kind. A group with no match is hidden."
+          ],
+          [
+            "Item",
+            "An icon, a name, a one-line detail and a shortcut hint on the right. The picked item takes the subtle main color."
+          ],
+          [
+            "Footer",
+            "Briefly lists the keys you can use."
+          ]
+        ]
+      },
+      {
+        "type": "usage",
+        "when": [
+          "Finding anything by name and opening it at once, as with ⌘K",
+          "Running a command buried deep in menus by name"
+        ],
+        "avoid": [
+          "Filtering only within a list: a search input",
+          "Viewing one file large: a viewer"
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The input is a `combobox` and the results a `listbox`. Focus stays in the input, and the picked item is announced through `aria-activedescendant`.",
+          "Up and Down pick an item and Enter opens it. Moving past one end wraps to the other.",
+          "It uses the native `<dialog>`, so Esc and an outside click close it.",
+          "The window's accessible name is `placeholder`."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "radius.sheet",
+          "elevation.overlay",
+          "color.bg.raised",
+          "color.bg.scrim",
+          "color.main.subtle"
+        ]
+      }
+    ]
+  },
+  {
     "id": "confirm",
     "group": "피드백",
     "title": "Confirm dialog",

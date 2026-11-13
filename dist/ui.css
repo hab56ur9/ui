@@ -4257,6 +4257,106 @@ path[data-motion~="draw"] {
   box-shadow: var(--elevation-overlay);
 }
 
+.palette {
+  width: min(620px, calc(100vw - 32px));
+  max-width: none;
+  margin: 12vh auto auto;
+  padding: 0;
+  overflow: hidden;
+  border: var(--border-width-default) solid var(--color-border-default);
+  border-radius: var(--radius-sheet);
+  background: var(--color-bg-raised);
+  color: var(--color-fg-default);
+  box-shadow: var(--elevation-overlay);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.palette::backdrop {
+  background: var(--color-bg-scrim);
+}
+
+.palette.is-inline {
+  position: relative;
+  margin: 0 auto;
+}
+
+.palette-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: var(--border-width-default) solid var(--color-border-default);
+  padding: var(--space-4);
+  background: none;
+  color: var(--color-fg-default);
+  font: inherit;
+  font-size: var(--font-size-title);
+  outline: none;
+}
+
+.palette-list {
+  max-height: 380px;
+  overflow: auto;
+  padding: var(--space-2);
+}
+
+.palette-group {
+  padding: var(--space-2) var(--space-3) 4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+.palette-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  color: var(--color-fg-default);
+  cursor: pointer;
+}
+
+.palette-item[aria-selected="true"] {
+  background: var(--color-main-subtle);
+}
+
+.palette-label {
+  display: grid;
+  min-width: 0;
+}
+
+.palette-label small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-caption);
+}
+
+.palette-hint {
+  margin-left: auto;
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  color: var(--color-fg-muted);
+}
+
+.palette-empty {
+  padding: var(--space-4);
+  color: var(--color-fg-muted);
+}
+
+.palette-foot {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border-top: var(--border-width-default) solid var(--color-border-default);
+  font-size: 11px;
+  color: var(--color-fg-muted);
+}
+
 .deck {
   display: flex;
   flex-direction: column;

@@ -442,6 +442,7 @@
             "Sparkline",
             "ActionList",
             "Viewer",
+            "CommandPalette",
             "Anatomy",
             "ArticleSection",
             "Brand",
@@ -2579,6 +2580,37 @@
                 },
                 "required": [
                   "title"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CommandPalette"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "open": {},
+                  "onClose": {},
+                  "groups": {},
+                  "onSelect": {},
+                  "onQuery": {},
+                  "placeholder": {},
+                  "empty": {},
+                  "footer": {},
+                  "inline": {}
+                },
+                "required": [
+                  "groups"
                 ],
                 "additionalProperties": false
               }

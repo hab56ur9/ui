@@ -372,6 +372,21 @@ export const api: Record<string, Section[]> = {
     },
   ],
   modal: [{ type: "api", title: "<Modal>", rows: [...DIALOG_PROPS, ["size", '"sm" | "md" | "lg"', '"md"', "The modal width."]] }],
+  "command-palette": [
+    {
+      type: "api",
+      title: "<CommandPalette>",
+      rows: [
+        ["groups", "{ title, items: CommandItem[] }[]", "", "Results by group. A group with no match is hidden."],
+        ["CommandItem", "{ id, label, detail?, icon?, hint?, always? }", "", "Filtered by `label`; `always` keeps it shown. `hint` is the shortcut on the right."],
+        ["onSelect · onQuery", "(id: string) => void · (query: string) => void", "", "Picking an item calls `onSelect`, then `onClose`. Each query change calls `onQuery`."],
+        ["placeholder · empty", "string · ReactNode", "i18n `palette.search` · `palette.empty`", "The input prompt and the text shown with no results."],
+        ["footer", "ReactNode[]", "i18n move · open · close", "The key hints in the footer."],
+        ["open · onClose", "boolean · () => void", "true", "Opens and closes the window. Each open clears the query."],
+        ["inline", "boolean", "false", "Draws in place instead of as a window. Used in docs and previews."],
+      ],
+    },
+  ],
   viewer: [
     {
       type: "api",
