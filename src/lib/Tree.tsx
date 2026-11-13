@@ -1,6 +1,8 @@
-import { useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { PresenceAvatar, type Presence } from "./chat";
 import { Icon, type IconName } from "./Icon";
+import { fold, motion, settle, unfold } from "./motion";
 
 export type TreeMark = { text: ReactNode; tone?: "good" | "warning" | "critical" };
 
@@ -35,6 +37,13 @@ const levelOf = (row: HTMLButtonElement) => Number(row.getAttribute("aria-level"
 
 const parentOf = (rows: HTMLButtonElement[], index: number) => rows.slice(0, index).findLast((row) => levelOf(row) < levelOf(rows[index]));
 
+const branchRows = (row: HTMLButtonElement) => {
+  const rows = [...(row.closest(".tree")?.querySelectorAll<HTMLButtonElement>(".tree-row") ?? [])];
+  const after = rows.slice(rows.indexOf(row) + 1);
+  const end = after.findIndex((next) => levelOf(next) <= levelOf(row));
+  return end < 0 ? after : after.slice(0, end);
+};
+
 const focusRow = (event: KeyboardEvent<HTMLButtonElement>, pick: (rows: HTMLButtonElement[], index: number) => HTMLButtonElement | undefined) => {
   const rows = [...(event.currentTarget.closest(".tree")?.querySelectorAll<HTMLButtonElement>(".tree-row") ?? [])];
   pick(rows, rows.indexOf(event.currentTarget))?.focus();
@@ -48,15 +57,36 @@ export function Tree({ items, label, value, onSelect, expanded, defaultExpanded,
   const visible = (list: TreeItem[]): string[] => list.flatMap((item) => (item.children?.length && shown.has(item.id) ? [item.id, ...visible(item.children)] : [item.id]));
   const ids = visible(items);
   const stop = [active, value].find((id) => id && ids.includes(id)) ?? ids[0];
-  const toggle = (id: string) => {
+  const opening = useRef<HTMLButtonElement | null>(null);
+  const closing = useRef(new Set<string>());
+  useLayoutEffect(() => {
+    const row = opening.current;
+    opening.current = null;
+    if (row?.isConnected) branchRows(row).forEach((node) => motion(node, fold, "enter", { fill: "none" }));
+  });
+  const toggle = (id: string, row: HTMLButtonElement) => {
     const next = !shown.has(id);
-    onToggle?.(id, next);
-    if (expanded) return;
-    setOpen((set) => {
-      const copy = new Set(set);
-      if (next) copy.add(id);
-      if (!next) copy.delete(id);
-      return copy;
+    const commit = () => {
+      onToggle?.(id, next);
+      if (expanded) return;
+      setOpen((set) => {
+        const copy = new Set(set);
+        if (next) copy.add(id);
+        if (!next) copy.delete(id);
+        return copy;
+      });
+    };
+    if (next) {
+      opening.current = row;
+      return commit();
+    }
+    if (closing.current.has(id)) return;
+    closing.current.add(id);
+    const rows = branchRows(row);
+    Promise.all(rows.map((node) => motion(node, unfold, "exit"))).then(() => {
+      closing.current.delete(id);
+      flushSync(commit);
+      settle(...rows);
     });
   };
   const keys = (event: KeyboardEvent<HTMLButtonElement>, item: TreeItem) => {
@@ -67,8 +97,8 @@ export function Tree({ items, label, value, onSelect, expanded, defaultExpanded,
     if (event.key === "Home") return focusRow(event, (rows) => rows[0]);
     if (event.key === "End") return focusRow(event, (rows) => rows.at(-1));
     if (event.key === "ArrowRight" && opened) return focusRow(event, (rows, index) => rows[index + 1]);
-    if (event.key === "ArrowRight" && branch) return toggle(item.id);
-    if (event.key === "ArrowLeft" && opened) return toggle(item.id);
+    if (event.key === "ArrowRight" && branch) return toggle(item.id, event.currentTarget);
+    if (event.key === "ArrowLeft" && opened) return toggle(item.id, event.currentTarget);
     if (event.key === "ArrowLeft") return focusRow(event, parentOf);
   };
   const rows = (list: TreeItem[], depth: number): ReactNode[] =>
@@ -88,7 +118,7 @@ export function Tree({ items, label, value, onSelect, expanded, defaultExpanded,
             aria-expanded={branch ? opened : undefined}
             tabIndex={item.id === stop ? 0 : -1}
             onFocus={() => setActive(item.id)}
-            onClick={() => (branch ? toggle(item.id) : onSelect?.(item.id))}
+            onClick={(event) => (branch ? toggle(item.id, event.currentTarget) : onSelect?.(item.id))}
             onKeyDown={(event) => keys(event, item)}
           >
             <span className="tree-lead">

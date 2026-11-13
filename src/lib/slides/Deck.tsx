@@ -2,6 +2,7 @@ import { Children, createContext, useCallback, useContext, useEffect, useLayoutE
 import { useSize } from "../hooks";
 import { Icon } from "../Icon";
 import { useI18n } from "../i18n";
+import { motion } from "../motion";
 import { PrintCopy } from "../print";
 
 const WIDTH = 1920;
@@ -46,6 +47,9 @@ export function Deck({ title, start = 0, controls = true, grid: initialGrid = fa
   const swipe = useRef<Swipe | null>(null);
   const [drag, setDrag] = useState(0);
   const [settling, setSettling] = useState(false);
+  const viewport = useRef<HTMLDivElement>(null);
+  const shown = useRef(index);
+  const swiped = useRef(false);
 
   const onPointerDown = (e: PointerEvent) => {
     if (e.pointerType === "mouse") return;
@@ -78,6 +82,7 @@ export function Deck({ title, start = 0, controls = true, grid: initialGrid = fa
     const delta = dx < 0 ? 1 : -1;
     const moves = (Math.abs(dx) > size.width * 0.2 || fast) && clamp(index + delta) !== index;
     if (moves) {
+      swiped.current = true;
       setIndex(index + delta);
       setDrag(delta * size.width * 0.3);
       requestAnimationFrame(() =>
@@ -102,6 +107,17 @@ export function Deck({ title, start = 0, controls = true, grid: initialGrid = fa
     if (index > last) setIndex(last);
   }, [index, last]);
 
+  useLayoutEffect(() => {
+    const from = shown.current;
+    const slid = swiped.current;
+    shown.current = index;
+    swiped.current = false;
+    const page = viewport.current?.querySelector(".deck-page.is-current");
+    if (from === index || slid || !page) return;
+    const side = index > from ? 1 : -1;
+    motion(page, [{ opacity: 0, transform: `translateX(${side * 48}px)` }, { opacity: 1, transform: "none" }], "enter", { fill: "none" });
+  }, [index]);
+
   const present = () => (full ? document.exitFullscreen() : root.current?.requestFullscreen());
   const onKey = (e: KeyboardEvent) => {
     if (NEXT.includes(e.key)) step(1);
@@ -117,7 +133,7 @@ export function Deck({ title, start = 0, controls = true, grid: initialGrid = fa
   return (
     <div ref={root} className={`deck${full ? " is-full" : ""}`} tabIndex={0} role="region" aria-roledescription="slides" aria-label={title} onKeyDown={onKey}>
       <div ref={stage} className="deck-stage" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}>
-        <div className={`deck-viewport${settling ? " is-settling" : ""}`} data-medium="slide" style={{ transform: `translate(${offset.x + drag}px, ${offset.y}px) scale(${scale})` } as CSSProperties} aria-live="polite" onTransitionEnd={() => setSettling(false)}>
+        <div ref={viewport} className={`deck-viewport${settling ? " is-settling" : ""}`} data-medium="slide" style={{ transform: `translate(${offset.x + drag}px, ${offset.y}px) scale(${scale})` } as CSSProperties} aria-live="polite" onTransitionEnd={() => setSettling(false)}>
           <Pages slides={slides} title={title} current={index} grid={grid} />
         </div>
       </div>

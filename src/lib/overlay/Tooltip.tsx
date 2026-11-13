@@ -1,4 +1,5 @@
 import { cloneElement, useEffect, useId, useLayoutEffect, useRef, useState, type PointerEvent, type FocusEvent, type ReactElement } from "react";
+import { motion, settle } from "../motion";
 
 export type TooltipProps = {
   label: string;
@@ -28,6 +29,7 @@ export function Tooltip({ label, children }: TooltipProps) {
   const anchor = useRef<HTMLSpanElement>(null);
   const tip = useRef<HTMLDivElement>(null);
   const timer = useRef(0);
+  const turn = useRef(0);
   const [open, setOpen] = useState(false);
 
   const show = (delay: number) => {
@@ -45,7 +47,9 @@ export function Tooltip({ label, children }: TooltipProps) {
     const node = tip.current;
     const target = anchor.current?.firstElementChild;
     if (!open || !node || !target) return;
-    node.showPopover();
+    turn.current += 1;
+    settle(node);
+    if (!node.matches(":popover-open")) node.showPopover();
     place(node, target.getBoundingClientRect());
     const close = () => setOpen(false);
     const onKey = (event: KeyboardEvent) => {
@@ -55,10 +59,15 @@ export function Tooltip({ label, children }: TooltipProps) {
     window.addEventListener("resize", close);
     document.addEventListener("keydown", onKey);
     return () => {
-      if (node.matches(":popover-open")) node.hidePopover();
+      const closing = ++turn.current;
       window.removeEventListener("scroll", close, true);
       window.removeEventListener("resize", close);
       document.removeEventListener("keydown", onKey);
+      motion(node, [{ opacity: 1 }, { opacity: 0 }], "exit").then(() => {
+        if (closing !== turn.current || !node.matches(":popover-open")) return;
+        node.hidePopover();
+        settle(node);
+      });
     };
   }, [open]);
 

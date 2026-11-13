@@ -6,6 +6,7 @@ import { useI18n, type MessageKey } from "../i18n";
 import { JsonUI, type JsonUIAction, type JsonUIFormat, type JsonUINode } from "../JsonUI";
 import { Callout } from "../Callout";
 import { fromMarkdown, LIST_KINDS, make, numbers, TEXT_KINDS, toMarkdown, type EditorBlock, type Kind } from "./blocks";
+import { foldDetails } from "../motion";
 import { MermaidView, parseMermaid } from "./mermaid";
 import { parseMarkdown } from "./parse";
 import { showsImage } from "./images";
@@ -531,7 +532,7 @@ function Row({ block, readOnly, inline, imageHosts, anchor, number, focus, dropB
             <MermaidView chart={chart} />
           ) : readOnly && block.lang === "mermaid" ? (
             <details className="md-chart-source">
-              <summary>{text("md.chartSource")}</summary>
+              <summary onClick={foldDetails}>{text("md.chartSource")}</summary>
               <CodeBlock code={block.text} lang="plain" />
             </details>
           ) : (

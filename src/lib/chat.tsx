@@ -4,6 +4,7 @@ import { Button } from "./controls";
 import { bytes } from "./format";
 import { Icon, type IconName } from "./Icon";
 import { useI18n } from "./i18n";
+import { usePresence } from "./motion";
 import { Tooltip } from "./overlay/Tooltip";
 
 export type Presence = "idle" | "good" | "busy" | "active" | "warning" | "critical";
@@ -49,7 +50,10 @@ export type MessageAction = {
 
 function MessageActions({ actions }: { actions: MessageAction[] }) {
   const [open, setOpen] = useState<string | null>(null);
-  const menu = actions.find((action) => action.id === open);
+  const [last, setLast] = useState(open);
+  if (open && open !== last) setLast(open);
+  const menu = actions.find((action) => action.id === (open ?? last));
+  const [shown, panel] = usePresence<HTMLDivElement>(Boolean(open && menu?.menu));
   return (
     <div className={cx("chat-actions", open && "is-open")} onMouseLeave={() => setOpen(null)}>
       {actions.map((action) => (
@@ -64,8 +68,8 @@ function MessageActions({ actions }: { actions: MessageAction[] }) {
           {action.icon ? <Icon name={action.icon} size="sm" /> : <span className="chat-emoji">{action.emoji}</span>}
         </button>
       ))}
-      {menu?.menu && (
-        <div className={cx("chat-action-menu", menu.inline && "is-inline")} role="menu">
+      {shown && menu?.menu && (
+        <div className={cx("chat-action-menu", menu.inline && "is-inline")} role="menu" ref={panel}>
           {menu.menu.map((item) => (
             <button key={item.id} type="button" role="menuitem" title={item.label} onClick={() => { setOpen(null); menu.onSelect?.(item.id); }}>
               {item.emoji ? <span className="chat-emoji">{item.emoji}</span> : <PresenceAvatar name={item.label} tone={item.tone} avatar={item.avatar} size="xs" />}

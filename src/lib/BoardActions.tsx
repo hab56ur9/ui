@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { BoardLayout, WidgetSpec } from "./Board";
 import { ButtonBase } from "./controls";
 import { useI18n } from "./i18n";
+import { usePresence } from "./motion";
 import { Sheet } from "./overlay/Dialog";
 import { useConfirm, useToast } from "./overlay/Provider";
 
@@ -30,6 +31,7 @@ function AddWidget({ hidden, onShow }: { hidden: WidgetSpec[]; onShow: (id: stri
   const { text } = useI18n();
   const [open, setOpen] = useState<"menu" | "sheet" | null>(null);
   const menu = useRef<HTMLDivElement>(null);
+  const [listed, list] = usePresence<HTMLUListElement>(open === "menu");
   useEffect(() => {
     if (open !== "menu") return;
     const close = (e: Event) => (e instanceof KeyboardEvent ? e.key === "Escape" : !menu.current?.contains(e.target as Node)) && setOpen(null);
@@ -57,8 +59,8 @@ function AddWidget({ hidden, onShow }: { hidden: WidgetSpec[]; onShow: (id: stri
       <ButtonBase aria-expanded={open === "menu"} aria-haspopup="true" onClick={() => setOpen(open ? null : narrow() ? "sheet" : "menu")}>
         {hidden.length ? text("addWidgetCount", { n: hidden.length }) : text("addWidget")}
       </ButtonBase>
-      {open === "menu" && (
-        <ul className="menu-list">
+      {listed && (
+        <ul className="menu-list" ref={list}>
           {hidden.length === 0 && <li className="menu-empty">{text("noHidden")}</li>}
           {items}
         </ul>
