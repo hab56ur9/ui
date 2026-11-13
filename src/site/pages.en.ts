@@ -1470,6 +1470,36 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "approval",
+    "group": "데이터",
+    "title": "Approval card",
+    "lede": "An approval card shows one command an agent asks permission to run. While pending it offers Deny, Always allow and Allow once; once decided only a badge and a one-line record remain.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Pending and decided",
+        "caption": "Press a button on the first card to change its state",
+        "example": "approval-card",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "Mobile sheet",
+        "caption": "On narrow screens put it in a `Sheet`; the buttons share one row",
+        "example": "approval-sheet",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The card is an `article` and every decision is a `button`.",
+          "State shows as badge text, not only color.",
+          "The command is a `pre`, so it scrolls sideways without wrapping."
+        ]
+      }
+    ]
+  },
+  {
     "id": "archive",
     "group": "데이터",
     "title": "Archive",

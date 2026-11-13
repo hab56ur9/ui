@@ -571,6 +571,15 @@ export const api: Record<string, Section[]> = {
       ["onRemove", "(id) => void", "", "지우기 버튼을 누를 때 이벤트입니다. 없으면 버튼을 그리지 않습니다. 확인 창과 권한 검사는 앱 몫입니다."],
     ] },
   ],
+  "approval": [
+    { type: "api", title: "<ApprovalCard>", rows: [
+      ["title · description", "ReactNode, ReactNode", "", "누가 무엇을 하려는지 한 줄과 그 이유입니다."],
+      ["command", "string", "", "승인할 명령 원문입니다. 고정폭으로 그리고 긴 줄은 가로로 스크롤합니다."],
+      ["state · scope", "\"pending\" | \"allowed\" | \"denied\", \"once\" | \"always\"", "\"pending\"", "상태 배지와 테두리입니다. `allowed`에 `always`를 주면 \"항상 승인됨\"으로 보입니다."],
+      ["onDecide", "(decision, scope) => void", "", "대기 중일 때 거절 · 항상 승인 · 이번만 승인 버튼을 그리고, 누르면 결정과 범위를 넘깁니다."],
+      ["meta", "string", "", "결정이 끝났거나 `onDecide`가 없을 때 바닥에 보일 한 줄입니다."],
+    ] },
+  ],
   "archive": [
     { type: "api", title: "<ArchiveCard>", rows: [
       ["title · count", "string, string", "", "머리글 제목과 오른쪽 알약입니다. `count`에는 \"메시지 88 → 1\"처럼 압축 정도를 씁니다."],

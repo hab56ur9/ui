@@ -1173,5 +1173,18 @@
     "day": "11/13 · 18 threads archived",
     "daySummary": "4 decisions · 6 tickets done",
     "dayMeta": "D-31"
+  },
+  "approval-card": {
+    "title": "A builder asks to push",
+    "description": "Pushes the preset commit to master.",
+    "command": "git push origin HEAD:master",
+    "decided": "Decided just now",
+    "sheet": "Approval request",
+    "doneTitle": "The maintainer asks to restart the app",
+    "doneCommand": "npm run restart",
+    "doneMeta": "Admin · 09:12",
+    "deniedTitle": "A builder asks to delete a branch",
+    "deniedCommand": "git branch -D feature/old-layout",
+    "deniedMeta": "Admin · 08:47"
   }
 }

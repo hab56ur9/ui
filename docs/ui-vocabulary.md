@@ -199,6 +199,7 @@ Data display patterns differ by how many items share the same fields.
 | Data table | Rows of items that share columns | Yes: `DataTable` |
 | Tree view | Nested items that expand and collapse | Yes: `Tree` |
 | Work lists | Rows of handed-off work: notifications with a kind icon, a queue in handling order, and documents with reviewers | Yes: `ActivityList`, `QueueList`, `DocList` |
+| Approval | One command an agent asks to run, decided once, always or denied, with the result left as a badge | Yes: `ApprovalCard` |
 | Archive | A finished thread kept as one summary card, a day's threads picked in a table with excluded rows, and the folded line left in the feed | Yes: `ArchiveCard`, `ArchivePicker`, `ArchivedLine` |
 | Panel | One area of a screen with a one-line header of title, meta and icon actions, filling a sidebar group or a pane without a border | Yes: `Panel`, `PanelAction` |
 | Split pane | Panes side by side or stacked, resized by dragging the handle between them | Yes: `SplitPane`, `ResizeHandle` |

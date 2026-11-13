@@ -4981,6 +4981,62 @@
       ]
     },
     {
+      "name": "ApprovalCard",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "command",
+          "optional": false,
+          "kind": "string",
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "allowed",
+            "denied",
+            "pending"
+          ],
+          "type": "ApprovalState | undefined"
+        },
+        {
+          "name": "scope",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "always",
+            "once"
+          ],
+          "type": "ApprovalScope | undefined"
+        },
+        {
+          "name": "meta",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "onDecide",
+          "optional": true,
+          "kind": "action",
+          "type": "((decision: ApprovalDecision, scope: ApprovalScope) => void) | undefined"
+        }
+      ]
+    },
+    {
       "name": "ArchiveCard",
       "props": [
         {

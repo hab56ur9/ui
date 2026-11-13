@@ -1173,5 +1173,18 @@
     "day": "11/13 · 스레드 18개 아카이브됨",
     "daySummary": "결정 4 · 완료 티켓 6",
     "dayMeta": "D-31"
+  },
+  "approval-card": {
+    "title": "빌더가 push 승인을 요청했습니다",
+    "description": "프리셋 커밋을 master에 올립니다.",
+    "command": "git push origin HEAD:master",
+    "decided": "방금 결정함",
+    "sheet": "승인 요청",
+    "doneTitle": "메인테이너가 앱 재시작을 요청했습니다",
+    "doneCommand": "npm run restart",
+    "doneMeta": "관리자 · 09:12",
+    "deniedTitle": "빌더가 브랜치 삭제를 요청했습니다",
+    "deniedCommand": "git branch -D feature/old-layout",
+    "deniedMeta": "관리자 · 08:47"
   }
 }

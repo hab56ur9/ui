@@ -488,6 +488,7 @@
             "DocList",
             "EntryList",
             "QueueList",
+            "ApprovalCard",
             "ArchiveCard",
             "ArchivedLine",
             "ArchivePicker",
@@ -3759,6 +3760,36 @@
                 },
                 "required": [
                   "items"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ApprovalCard"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "title": {},
+                  "description": {},
+                  "command": {},
+                  "state": {},
+                  "scope": {},
+                  "meta": {},
+                  "onDecide": {}
+                },
+                "required": [
+                  "title",
+                  "command"
                 ],
                 "additionalProperties": false
               }

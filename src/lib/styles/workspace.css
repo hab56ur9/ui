@@ -229,6 +229,21 @@
 .doc-row-aside { font-size: var(--font-size-caption); color: var(--color-fg-muted); text-align: right; }
 .doc-list-empty { padding: var(--space-4) var(--space-2); text-align: center; font-size: var(--font-size-caption); color: var(--color-fg-muted); }
 
+.approval { container: approval / inline-size; display: grid; gap: var(--space-3); min-width: 0; padding: var(--space-3) var(--space-4); border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg-raised); }
+.approval.is-pending { border-color: var(--color-status-warning); }
+.approval-head { display: flex; align-items: center; gap: var(--space-2); min-width: 0; font-size: var(--font-size-label); }
+.approval-head > svg { flex: none; color: var(--color-fg-muted); }
+.approval.is-pending .approval-head > svg { color: var(--color-status-warning); }
+.approval-head strong { flex: 1; min-width: 0; font-weight: var(--font-weight-semibold); }
+.approval-description { margin: 0; font-size: var(--font-size-label); color: var(--color-fg-secondary); }
+.approval-command { margin: 0; padding: var(--space-2) var(--space-3); overflow-x: auto; border-radius: var(--radius-control); background: var(--color-bg-subtle); font-family: var(--font-family-mono); font-size: var(--font-size-caption); white-space: pre; }
+.approval-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
+.approval-meta { font-size: var(--font-size-caption); color: var(--color-fg-muted); }
+
+@container approval (max-width: 480px) {
+  .approval-foot > * { flex: 1; }
+}
+
 .archive { display: grid; min-width: 0; border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg-raised); overflow: hidden; }
 .archive.is-draft { border-color: var(--color-main-default); }
 .archive-head { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-bottom: var(--border-width-default) solid var(--color-border-default); background: var(--color-main-subtle); font-size: var(--font-size-label); }

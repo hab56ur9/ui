@@ -1488,6 +1488,36 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "approval",
+    "group": "데이터",
+    "title": "승인 카드",
+    "lede": "승인 카드는 에이전트가 실행 전에 허락을 구하는 명령 하나를 보여 주는 카드입니다. 대기 중이면 거절 · 항상 승인 · 이번만 승인을 고르고, 결정이 끝나면 배지와 한 줄 기록만 남습니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "대기와 결정",
+        "caption": "첫 카드의 버튼을 누르면 상태가 바뀝니다",
+        "example": "approval-card",
+        "layout": "centered"
+      },
+      {
+        "type": "demo",
+        "title": "모바일 시트",
+        "caption": "좁은 화면에서는 `Sheet` 안에 넣고 버튼이 한 줄을 나눠 씁니다",
+        "example": "approval-sheet",
+        "layout": "centered"
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "카드는 `article`이고 결정 버튼은 모두 `button`입니다.",
+          "상태는 색만이 아니라 배지 글자로도 보입니다.",
+          "명령은 `pre`라 줄바꿈 없이 가로로 스크롤합니다."
+        ]
+      }
+    ]
+  },
+  {
     "id": "archive",
     "group": "데이터",
     "title": "아카이브",

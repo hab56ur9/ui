@@ -571,6 +571,15 @@ export const api: Record<string, Section[]> = {
       ["onRemove", "(id) => void", "", "Fires when the delete button is pressed. Without it no button is drawn. Confirmation and permission checks belong to the app."],
     ] },
   ],
+  "approval": [
+    { type: "api", title: "<ApprovalCard>", rows: [
+      ["title · description", "ReactNode, ReactNode", "", "One line on who wants to do what, and why."],
+      ["command", "string", "", "The command to approve, verbatim. It renders in monospace and long lines scroll sideways."],
+      ["state · scope", "\"pending\" | \"allowed\" | \"denied\", \"once\" | \"always\"", "\"pending\"", "The state badge and border. `allowed` with `always` reads \"Always allowed\"."],
+      ["onDecide", "(decision, scope) => void", "", "While pending it draws Deny, Always allow and Allow once, and passes the decision and scope on press."],
+      ["meta", "string", "", "One footer line shown once decided or when `onDecide` is absent."],
+    ] },
+  ],
   "archive": [
     { type: "api", title: "<ArchiveCard>", rows: [
       ["title · count", "string, string", "", "The header title and the pill on its right. Put the compression in `count`, such as \"88 messages → 1\"."],
