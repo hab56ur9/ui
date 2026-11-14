@@ -810,8 +810,8 @@
 
 .infographic-panel .diagram {
   --color-main-default: var(--panel-tone);
-  --color-main-fill: var(--panel-tone);
-  --color-main-on: var(--color-fg-on-fill);
+  --color-main-fill: color-mix(in oklab, var(--panel-tone) 45%, var(--color-fg-on-fill));
+  --color-main-on: var(--color-fg-on-fill-light);
 }
 
 .infographic-panel .diagram-group,
