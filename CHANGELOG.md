@@ -1,5 +1,49 @@
 # Changelog
 
+## [0.3.0-alpha.10](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.9...v0.3.0-alpha.10) (2026-11-14)
+
+
+### Features
+
+* **charts:** add Timeline for lanes of time segments ([203894b](https://github.com/hab56ur9/ui/commit/203894bb13ffd6d045736be2aed48dda4b07e234))
+* **chat:** add EmojiPicker with category tabs and keyword search ([cd19d63](https://github.com/hab56ur9/ui/commit/cd19d6327f73255ccc99d4a26c89263e8a7f9e0f))
+* **code:** add sh and css grammars and hash and users icons ([c16f63b](https://github.com/hab56ur9/ui/commit/c16f63b10b1fd614534ff8b96c56f0e733783c12))
+* **image:** add ImageCompare with a draggable divider ([b9bc44a](https://github.com/hab56ur9/ui/commit/b9bc44a00d134795f34a9d61b1466b66710120fe))
+* **kanban:** add switcher to show one column at a time on narrow boards ([dd85912](https://github.com/hab56ur9/ui/commit/dd85912a7338460722d8300237c5242b857ce748))
+* **motion:** add state transitions and a sliding tabs indicator ([c80576f](https://github.com/hab56ur9/ui/commit/c80576fc4dbf29a76e52e58afcd29488331ee690))
+* **motion:** animate tooltips, trees, details, menus and slides in and out ([ab85b7e](https://github.com/hab56ur9/ui/commit/ab85b7e21677751e59dac2de440fb87b704f080e))
+* **motion:** let tables, lists, cards and callouts enter inside motion scopes ([8693ec2](https://github.com/hab56ur9/ui/commit/8693ec21e2e2415e9500522cdfe3069bd43440dd))
+* **motion:** scale transitions and overlay motion by motion intensity ([fd24d5f](https://github.com/hab56ur9/ui/commit/fd24d5fa4c78250c0f3f5256a8a8f56a28e1fcbe))
+* **overlay:** add Popover with hover and click triggers ([c603add](https://github.com/hab56ur9/ui/commit/c603addc358cc6d0305247767f92ce9d5588d8e9))
+* **shape:** add control size and indicator tokens and draw the checkbox ([41b2215](https://github.com/hab56ur9/ui/commit/41b2215d154ac648f231bf567e3359c8dd6663af))
+* **shape:** add the ring.inset token ([9ad6fe1](https://github.com/hab56ur9/ui/commit/9ad6fe132fb0b8e87feb7661d3807dba64d711a5))
+* **shell:** add onBack for a back button in the AppShell bar ([2143d75](https://github.com/hab56ur9/ui/commit/2143d75ed36fdec138a99558e41e8b3e24efd474))
+* **theme:** add the blue preset with a deep blue main color ([b2f3052](https://github.com/hab56ur9/ui/commit/b2f305234f6f6cace744c25b1a95c3dbf4d1079d))
+* **viewer:** fill narrow screens and let long code lines scroll ([10ad1e1](https://github.com/hab56ur9/ui/commit/10ad1e17c63854a0143283afe9f967c635418e24))
+* **workspace:** add ApprovalCard for commands awaiting approval ([0973055](https://github.com/hab56ur9/ui/commit/0973055ddd06c95a9dc5de611e0fe899df2607e5))
+
+
+### Bug Fixes
+
+* **app-shell:** trap Tab inside the mobile navigation drawer ([606c0a2](https://github.com/hab56ur9/ui/commit/606c0a2565a2be02d7320efe48b2725ab54aae8d))
+* **approval:** name tag, variation selector and filler characters too ([471534e](https://github.com/hab56ur9/ui/commit/471534e020b0027f2a212a553f18cd729b8ddbce))
+* **approval:** show the whole command and name hidden characters ([957e61f](https://github.com/hab56ur9/ui/commit/957e61f7256c46e1a2b281830a394f11c0c96076))
+* **charts:** give Timeline a one-hour range when no lane has segments ([ac08a9c](https://github.com/hab56ur9/ui/commit/ac08a9cf240fce6196409dbe92e52aca640f1526))
+* **charts:** keep panel tone on infographic diagram steps ([b93298d](https://github.com/hab56ur9/ui/commit/b93298db2ac43052484a89de416107218b6a62e2))
+* **charts:** tint infographic step circles so numerals reach 4.5:1 ([eb922c5](https://github.com/hab56ur9/ui/commit/eb922c5020060dafe7dd72ac5692d2590be8a26a))
+* **chat:** draw the EmojiPicker focus ring inside the cell so the grid edge does not clip it ([a8ab960](https://github.com/hab56ur9/ui/commit/a8ab9608e6dedaf68b2de53483fc1a4d565d1a2c))
+* **chat:** let EmojiPicker shrink to narrow containers and dedupe recent ([212be4a](https://github.com/hab56ur9/ui/commit/212be4acc9a12d223245072504ed66e5f02fcd2f))
+* **code:** render an unknown lang as plain text instead of crashing ([ec8460a](https://github.com/hab56ur9/ui/commit/ec8460a2fbb284b1e38c9d142ca7e0a7038e42c1))
+* **motion:** read duration tokens in seconds as well as milliseconds ([5524bfe](https://github.com/hab56ur9/ui/commit/5524bfe1d14adf318b67218aba1b6b5b1ccc6600))
+* **motion:** scale board reorder with intensity and keep zero durations ([4c62fba](https://github.com/hab56ur9/ui/commit/4c62fba859794306ecbfd72d1bcfe51689a33bfe))
+* **motion:** scale one-shot animations and the docs preview with intensity ([61fc383](https://github.com/hab56ur9/ui/commit/61fc383d91bb7b84f8b35081b27bd0f3468df746))
+* **motion:** show items added after the first entry right away ([1d2f4ee](https://github.com/hab56ur9/ui/commit/1d2f4eede54e9770aa2ddf09ff415805b9dcba9c))
+* **overlay:** restore focus only when it is still in the dialog ([50f26a5](https://github.com/hab56ur9/ui/commit/50f26a56b75924a15b63c3686e9bf8cebff97c73))
+* **overlay:** trap Tab and restore focus in modal overlays ([7ae6bf1](https://github.com/hab56ur9/ui/commit/7ae6bf13c5536d41ff7c9ede4ac7252d057409fb))
+* **site:** scroll the theme mode table inside its card on narrow screens ([0af1ac8](https://github.com/hab56ur9/ui/commit/0af1ac82b2de8894f34d71974ffb9a489215b0d2))
+* **tokens:** darken light main.default to reach 4.5:1 text contrast ([8a5669e](https://github.com/hab56ur9/ui/commit/8a5669e22829252da789fa51ebd10b405195d8a1))
+* **tokens:** raise fg.muted to 4.5:1 on every surface in both themes ([eedfc78](https://github.com/hab56ur9/ui/commit/eedfc78d0278e4dfc7734a834384533f3842ae77))
+
 ## [0.3.0-alpha.9](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.8...v0.3.0-alpha.9) (2026-11-13)
 
 
