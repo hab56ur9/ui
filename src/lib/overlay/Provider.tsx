@@ -144,26 +144,28 @@ function LiveToast({ entry, onDismiss, onGone }: { entry: Entry; onDismiss: () =
   const timer = useRef<{ id?: number; remaining: number; startedAt: number }>({ remaining: duration, startedAt: 0 });
 
   const run = useCallback(() => {
-    if (!timer.current.remaining) return;
+    if (!duration || timer.current.id !== undefined) return;
     timer.current.startedAt = performance.now();
     timer.current.id = window.setTimeout(onDismiss, timer.current.remaining);
-  }, [onDismiss]);
-  const pause = () => {
+  }, [duration, onDismiss]);
+  const pause = useCallback(() => {
+    if (timer.current.id === undefined) return;
     window.clearTimeout(timer.current.id);
-    timer.current.remaining -= performance.now() - timer.current.startedAt;
-  };
+    timer.current.id = undefined;
+    timer.current.remaining = Math.max(0, timer.current.remaining - (performance.now() - timer.current.startedAt));
+  }, []);
 
   useEffect(() => {
     if (node.current) motion(node.current, [{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], "enter");
     run();
-    return () => window.clearTimeout(timer.current.id);
-  }, [run]);
+    return pause;
+  }, [run, pause]);
 
   useEffect(() => {
     if (!entry.leaving || !node.current) return;
-    window.clearTimeout(timer.current.id);
+    pause();
     motion(node.current, [{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(4px)" }], "exit").then(onGone);
-  }, [entry.leaving, onGone]);
+  }, [entry.leaving, onGone, pause]);
 
   return (
     <div ref={node} className={`toast is-${status}`} role={status === "critical" ? "alert" : "status"} lang={locale} onPointerEnter={pause} onPointerLeave={run} onFocus={pause} onBlur={run}>
