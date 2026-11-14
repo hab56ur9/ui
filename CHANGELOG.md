@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0-alpha.11](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.10...v0.3.0-alpha.11) (2026-11-14)
+
+
+### Features
+
+* **TextField:** add inputMode for mobile keypads ([bdfc04b](https://github.com/hab56ur9/ui/commit/bdfc04be87c8a29b26d8a23da6ae70677fe42a78))
+
+
+### Bug Fixes
+
+* **toast:** pause the dismiss timer only while it runs ([f977b20](https://github.com/hab56ur9/ui/commit/f977b20b8d5dfbfbd18c881d45e5675c49717bd6))
+
 ## [0.3.0-alpha.10](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.9...v0.3.0-alpha.10) (2026-11-14)
 
 
