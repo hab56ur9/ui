@@ -1068,6 +1068,7 @@ export const api: Record<string, Section[]> = {
         ["hideLabel", "boolean", "false", "Hides the label on screen only."],
         ["value · defaultValue · onChange", "string · string · (value) => void", "", "Controlled and uncontrolled values, and the change handler."],
         ["type", "\"text\" | \"search\" | \"email\" | …", "\"text\"", "The input type."],
+        ["inputMode", "\"numeric\" | \"decimal\" | …", "", "The mobile keypad. Use \"numeric\" for whole numbers."],
         ["icon · placeholder · hint · disabled", "", "", "A leading icon, placeholder, hint below, and disabled state."],
       ],
     },

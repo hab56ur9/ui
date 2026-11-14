@@ -1068,6 +1068,7 @@ export const api: Record<string, Section[]> = {
         ["hideLabel", "boolean", "false", "이름표를 화면에서만 숨깁니다."],
         ["value · defaultValue · onChange", "string · string · (value) => void", "", "제어·비제어 값과, 글이 바뀔 때 받는 함수입니다."],
         ["type", "\"text\" | \"search\" | \"email\" | …", "\"text\"", "입력 종류입니다."],
+        ["inputMode", "\"numeric\" | \"decimal\" | …", "", "모바일 키패드 종류입니다. 정수만 받으면 \"numeric\"입니다."],
         ["icon · placeholder · hint · disabled", "", "", "앞 아이콘, 자리 표시 글, 아래 도움말, 꺼짐입니다."],
       ],
     },

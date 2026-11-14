@@ -1496,6 +1496,22 @@
           "type": "\"email\" | \"number\" | \"password\" | \"search\" | \"tel\" | \"text\" | \"url\" | undefined"
         },
         {
+          "name": "inputMode",
+          "optional": true,
+          "kind": "enum",
+          "values": [
+            "decimal",
+            "email",
+            "none",
+            "numeric",
+            "search",
+            "tel",
+            "text",
+            "url"
+          ],
+          "type": "\"decimal\" | \"email\" | \"none\" | \"numeric\" | \"search\" | \"tel\" | \"text\" | \"url\" | undefined"
+        },
+        {
           "name": "icon",
           "optional": true,
           "kind": "string",
