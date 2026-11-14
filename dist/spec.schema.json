@@ -426,6 +426,7 @@
             "Stories",
             "Stack",
             "Markdown",
+            "ActionBar",
             "TabBar",
             "EmojiPicker",
             "Tabs",
@@ -2166,6 +2167,27 @@
                   "data": {},
                   "formats": {},
                   "onAction": {}
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "ActionBar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "label": {}
                 },
                 "required": [],
                 "additionalProperties": false

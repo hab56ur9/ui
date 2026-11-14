@@ -34,6 +34,7 @@ export { Panel, PanelAction, type PanelActionProps, type PanelProps } from "./Pa
 export { Avatar, List, PhotoGrid, Post, ProfileHeader, Stories, type AvatarProps, type GridPhoto, type ListItem, type ListProps, type PhotoGridProps, type PostProps, type ProfileHeaderProps, type ProfileStat, type StoriesProps, type StoryItem } from "./Social";
 export { Page, Stack, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout";
 export { Markdown, type MarkdownProps } from "./markdown/Markdown";
+export { ActionBar, type ActionBarProps } from "./ActionBar";
 export { TabBar, type TabBarItem, type TabBarProps, type TabBarStyle } from "./TabBar";
 export { EmojiPicker, type EmojiPickerProps } from "./EmojiPicker";
 export { Tabs, type TabItem, type TabsProps } from "./Tabs";

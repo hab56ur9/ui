@@ -649,6 +649,39 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "actionbar",
+    "group": "입력",
+    "title": "Action bar",
+    "lede": "An action bar is the row of primary buttons fixed to the bottom of a phone screen. It keeps the last action of a screen, such as pay, apply or save, always within reach. Put it at the very end of the page and it sticks to the bottom of the screen; while it sticks, toasts rise above it and leave the buttons uncovered. Its one or two buttons share the width evenly.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "Basic",
+        "example": "actionbar-basic"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Put the one primary button on the right and the secondary button to its left.",
+            "Don't hold three or more buttons."
+          ],
+          [
+            "Make it the last child of the page.",
+            "Don't swap it for the tab bar on a screen that has one."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The bar is `role=\"group\"`, and `label` names the group.",
+          "The buttons follow screen order, so Tab moves from left to right."
+        ]
+      }
+    ]
+  },
+  {
     "id": "segmented",
     "group": "입력",
     "title": "Segmented control",

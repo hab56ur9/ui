@@ -2588,6 +2588,23 @@
       ]
     },
     {
+      "name": "ActionBar",
+      "props": [
+        {
+          "name": "children",
+          "optional": false,
+          "kind": "node",
+          "type": "ReactNode"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
       "name": "TabBar",
       "props": [
         {

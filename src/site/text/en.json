@@ -97,6 +97,13 @@
       "A failure sends them back to the start"
     ]
   },
+  "actionbar-basic": {
+    "label": "Checkout",
+    "save": "Save for later",
+    "pay": "Pay now",
+    "saved": "Saved for later.",
+    "failed": "Payment failed. Try again in a moment."
+  },
   "button-basic": {
     "secondary": "Secondary",
     "primary": "Primary",

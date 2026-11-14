@@ -714,6 +714,10 @@
   padding-bottom: var(--space-6);
 }
 
+.mock-overlay.is-dock > .action-bar {
+  padding-bottom: var(--space-6);
+}
+
 .mock-overlay.is-dock:has(> .tab-bar.is-floating) {
   padding: 0 var(--space-4) var(--space-8);
 }

@@ -46,6 +46,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  actionbar: [
+    {
+      type: "api",
+      title: "<ActionBar>",
+      rows: [
+        ["children", "ReactNode", "", "버튼 한두 개입니다. 같은 너비로 나눕니다."],
+        ["label", "string", "", "스크린리더에 읽힐 버튼 묶음의 이름입니다."],
+      ],
+    },
+  ],
   button: [
     {
       type: "api",

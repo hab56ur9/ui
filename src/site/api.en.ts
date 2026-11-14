@@ -46,6 +46,16 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  actionbar: [
+    {
+      type: "api",
+      title: "<ActionBar>",
+      rows: [
+        ["children", "ReactNode", "", "One or two buttons. They share the width evenly."],
+        ["label", "string", "", "The name of the button group read by screen readers."],
+      ],
+    },
+  ],
   button: [
     {
       type: "api",
