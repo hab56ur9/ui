@@ -1568,13 +1568,12 @@ button.chip-label:hover {
   cursor: pointer;
 }
 
-.multi-select-row:hover {
+.multi-select-row:not(.is-locked):hover {
   background: var(--color-bg-subtle);
 }
 
 .multi-select-row.is-locked {
   cursor: default;
-  opacity: 0.8;
 }
 
 .multi-select-row.is-all {
