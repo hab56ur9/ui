@@ -38,7 +38,16 @@ export default function Example() {
           <ChatMessage author={text.jun} tone={5} badge={{ label: text.junRole }} time="09:15" replies={{ label: text.replies, last: text.last, members: [people.mina, people.jun] }}>
             {text.answer}
           </ChatMessage>
-          <ChatMessage author={text.jun} tone={5} time="09:15" continued>{text.follow}</ChatMessage>
+          <ChatMessage
+            author={text.jun}
+            tone={5}
+            time="09:15"
+            continued
+            actions={[{ id: "react", label: text.react, emoji: "🙂", inline: true, menu: [{ id: "👍", label: "👍", emoji: "👍" }, { id: "👀", label: "👀", emoji: "👀" }, { id: "🏁", label: text.done, stamp: "done" }] }]}
+            reactions={[{ emoji: "🏁", stamp: "done", count: 1, title: text.done }]}
+          >
+            {text.follow}
+          </ChatMessage>
         </MessageLog>
       </ChatPane>
     </>

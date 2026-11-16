@@ -45,7 +45,7 @@ export type MessageAction = {
   icon?: IconName;
   emoji?: string;
   inline?: boolean;
-  menu?: { id: string; label: string; emoji?: string; description?: string; tone?: number; avatar?: string }[];
+  menu?: { id: string; label: string; emoji?: string; stamp?: string; description?: string; tone?: number; avatar?: string }[];
   onSelect?: (id: string) => void;
 };
 
@@ -73,7 +73,7 @@ function MessageActions({ actions }: { actions: MessageAction[] }) {
         <div className={cx("chat-action-menu", menu.inline && "is-inline")} role="menu" ref={panel}>
           {menu.menu.map((item) => (
             <button key={item.id} type="button" role="menuitem" title={item.label} onClick={() => { setOpen(null); menu.onSelect?.(item.id); }}>
-              {item.emoji ? <span className="chat-emoji">{item.emoji}</span> : <PresenceAvatar name={item.label} tone={item.tone} avatar={item.avatar} size="xs" />}
+              {item.stamp ? <span className="chat-stamp">{item.stamp}</span> : item.emoji ? <span className="chat-emoji">{item.emoji}</span> : <PresenceAvatar name={item.label} tone={item.tone} avatar={item.avatar} size="xs" />}
               {!menu.inline && <strong>{item.label}</strong>}
               {!menu.inline && item.description && <span>{item.description}</span>}
             </button>
@@ -84,7 +84,7 @@ function MessageActions({ actions }: { actions: MessageAction[] }) {
   );
 }
 
-export type ChatReaction = { emoji: string; count: number; mine?: boolean; title?: string };
+export type ChatReaction = { emoji: string; count: number; mine?: boolean; title?: string; stamp?: string };
 
 export type ChatMessageProps = {
   author: string;
@@ -125,7 +125,7 @@ export function ChatMessage({ author, tone = 1, avatar, badge, time, via, contin
             {reactions.map((reaction) => {
               const button = (
                 <button key={reaction.emoji} type="button" className={cx("chat-reaction", reaction.mine && "is-mine")} onClick={() => onReact?.(reaction.emoji)}>
-                  <span className="chat-emoji">{reaction.emoji}</span>
+                  {reaction.stamp ? <span className="chat-stamp">{reaction.stamp}</span> : <span className="chat-emoji">{reaction.emoji}</span>}
                   {reaction.count}
                 </button>
               );

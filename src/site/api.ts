@@ -87,7 +87,7 @@ export const api: Record<string, Section[]> = {
       ["badge · time · via", "{ tone?, label }, string, string", "", "역할 배지, 시각, 출처."],
       ["continued · selected · pending", "boolean", "false", "이어 쓰기(아바타 접음), 선택 강조, 입력 중 점."],
       ["actions", "MessageAction[]", "[]", "마우스를 올리면 뜨는 버튼. menu가 있으면 메뉴를 엽니다."],
-      ["reactions · onReact", "{ emoji, count, mine?, title? }[], (emoji) => void", "[]", "리액션 알약과 누를 때 이벤트."],
+      ["reactions · onReact", "{ emoji, count, mine?, title?, stamp? }[], (emoji) => void", "[]", "리액션 알약과 누를 때 이벤트. stamp가 있으면 이모지 대신 도장 글자를 그립니다."],
       ["replies · onOpenThread", "{ label, last?, members }, () => void", "", "스레드 답글 요약과 누를 때 이벤트."],
     ] },
     { type: "api", title: "<Composer>", rows: [

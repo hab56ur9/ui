@@ -968,7 +968,9 @@
     "chart": "refund-trend.png",
     "query": "refund.sql",
     "video": "demo.mov",
-    "tooBig": "Over 50 MB"
+    "tooBig": "Over 50 MB",
+    "react": "React",
+    "done": "Done"
   },
   "project-cards": {
     "all": "All",

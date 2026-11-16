@@ -968,7 +968,9 @@
     "chart": "환불-추이.png",
     "query": "refund.sql",
     "video": "시연.mov",
-    "tooBig": "50 MB 초과"
+    "tooBig": "50 MB 초과",
+    "react": "반응",
+    "done": "마침"
   },
   "project-cards": {
     "all": "전체",

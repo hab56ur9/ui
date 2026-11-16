@@ -87,7 +87,7 @@ export const api: Record<string, Section[]> = {
       ["badge · time · via", "{ tone?, label }, string, string", "", "Role badge, time and source."],
       ["continued · selected · pending", "boolean", "false", "Continued run (folds the avatar), selection, typing dots."],
       ["actions", "MessageAction[]", "[]", "Buttons that appear on hover; one with menu opens a menu."],
-      ["reactions · onReact", "{ emoji, count, mine?, title? }[], (emoji) => void", "[]", "Reaction pills and the click event."],
+      ["reactions · onReact", "{ emoji, count, mine?, title?, stamp? }[], (emoji) => void", "[]", "Reaction pills and the click event. With stamp, a stamp label replaces the emoji."],
       ["replies · onOpenThread", "{ label, last?, members }, () => void", "", "Thread reply summary and the click event."],
     ] },
     { type: "api", title: "<Composer>", rows: [

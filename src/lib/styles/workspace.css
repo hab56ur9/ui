@@ -50,6 +50,7 @@
 .chat-mention { padding: 0 3px; border-radius: var(--radius-mark); background: color-mix(in oklab, var(--color-series-1) 18%, transparent); color: color-mix(in oklab, var(--color-series-1) 60%, var(--color-fg-default)); font-weight: var(--font-weight-medium); }
 .chat-mention.is-self { background: color-mix(in oklab, var(--color-status-warning) 32%, transparent); color: var(--color-fg-default); }
 .chat-emoji { font-size: var(--font-size-body); line-height: 1; }
+.chat-stamp, .chat-action-menu .chat-stamp { display: inline-block; padding: 1px 4px; border: 1px solid currentColor; border-radius: calc(var(--radius-mark) / 2); color: color-mix(in oklab, var(--color-status-good) 72%, var(--color-fg-default)); font-size: 10px; font-weight: var(--font-weight-semibold); line-height: 1.2; letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-6deg); }
 .chat-actions { position: absolute; top: -12px; right: var(--space-4); z-index: 2; display: none; padding: 2px; border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-control); background: var(--color-bg-raised); box-shadow: var(--elevation-overlay); }
 .chat-message:hover > .chat-actions, .chat-message:focus-within > .chat-actions, .chat-actions.is-open { display: flex; }
 .chat-actions > button { display: inline-flex; align-items: center; gap: 4px; padding: 4px var(--space-2); border: 0; border-radius: var(--radius-mark); background: none; color: var(--color-fg-secondary); font: inherit; font-size: var(--font-size-caption); cursor: pointer; }
@@ -58,6 +59,7 @@
 .chat-action-menu.is-inline { min-width: 0; display: flex; gap: 2px; }
 .chat-action-menu button { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: var(--space-2); padding: 6px var(--space-2); border: 0; border-radius: var(--radius-control); background: none; color: var(--color-fg-default); font: inherit; font-size: var(--font-size-caption); text-align: left; cursor: pointer; }
 .chat-action-menu.is-inline button { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; }
+.chat-action-menu.is-inline button:has(.chat-stamp) { grid-template-columns: auto; width: auto; padding: 0 var(--space-2); }
 .chat-action-menu button:hover { background: var(--color-bg-subtle); }
 .chat-action-menu span { color: var(--color-fg-secondary); white-space: nowrap; }
 .chat-reactions { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: 2px; }
