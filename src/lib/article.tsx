@@ -243,11 +243,12 @@ export function Example({ caption, layout = "padded", medium, lang, files = [], 
               { id: "code", label: text("code") },
             ]}
           />
-          <span className="toolbar-spacer" />
-          {variants && <Segmented label={text("device")} value={variant} onChange={setVariant} options={variants.map((item) => ({ value: item.value, label: item.label }))} />}
-          <ButtonBase className="copy-button" onClick={() => copy(tab === "code" ? (shown?.code ?? source) : source, text("theCode"))}>
-            {text("copy")}
-          </ButtonBase>
+          <div className="example-tools">
+            {variants && <Segmented label={text("device")} value={variant} onChange={setVariant} options={variants.map((item) => ({ value: item.value, label: item.label }))} />}
+            <ButtonBase className="copy-button" onClick={() => copy(tab === "code" ? (shown?.code ?? source) : source, text("theCode"))}>
+              {text("copy")}
+            </ButtonBase>
+          </div>
         </div>
         <div className={`example-preview is-${layout}`} data-medium={medium ?? "app"} lang={lang} hidden={tab !== "preview"}>
           <div className="example-stage">
