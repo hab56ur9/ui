@@ -256,7 +256,7 @@
 .approval-meta { font-size: var(--font-size-caption); color: var(--color-fg-muted); }
 
 @container approval (max-width: 480px) {
-  .approval-foot > * { flex: 1; }
+  .approval-foot > * { flex: 1; min-width: max-content; }
 }
 
 .archive { display: grid; min-width: 0; border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg-raised); overflow: hidden; }
