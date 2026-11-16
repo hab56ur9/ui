@@ -59,7 +59,7 @@
 .chat-action-menu.is-inline { min-width: 0; display: flex; gap: 2px; }
 .chat-action-menu button { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: var(--space-2); padding: 6px var(--space-2); border: 0; border-radius: var(--radius-control); background: none; color: var(--color-fg-default); font: inherit; font-size: var(--font-size-caption); text-align: left; cursor: pointer; }
 .chat-action-menu.is-inline button { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; }
-.chat-action-menu.is-inline button:has(.chat-stamp) { grid-template-columns: auto; width: auto; padding: 0 var(--space-2); }
+.chat-action-menu.is-inline button:has(.chat-stamp) { grid-template-columns: auto; width: auto; padding: 0 2px; }
 .chat-action-menu button:hover { background: var(--color-bg-subtle); }
 .chat-action-menu span { color: var(--color-fg-secondary); white-space: nowrap; }
 .chat-reactions { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: 2px; }
