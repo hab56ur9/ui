@@ -6958,8 +6958,10 @@ h3.doc-heading::before {
   gap: var(--space-6);
 }
 
-.shell-content .article-main {
-  padding-right: 0;
+@container (min-width: 1280px) {
+  .shell-content .article-main {
+    padding-right: 0;
+  }
 }
 
 .example-stage > * {
