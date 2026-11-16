@@ -43,6 +43,27 @@ export function UIProvider({ theme, lang, children }: UIProviderProps) {
     root.preset = preset;
     root.style = style;
   }, [theme]);
+  useEffect(() => {
+    const root = document.documentElement;
+    let frame = 0;
+    const settle = () => {
+      root.dataset.themeSwitching = "";
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(() => delete root.dataset.themeSwitching);
+      });
+    };
+    const scheme = matchMedia("(prefers-color-scheme: dark)");
+    const observer = new MutationObserver(settle);
+    scheme.addEventListener("change", settle);
+    observer.observe(root, { attributes: true, attributeFilter: ["data-theme", "data-preset", "data-style"] });
+    return () => {
+      scheme.removeEventListener("change", settle);
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+      delete root.dataset.themeSwitching;
+    };
+  }, []);
   return (
     <LangProvider lang={lang}>
       <Hosts>{children}</Hosts>

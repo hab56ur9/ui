@@ -2038,6 +2038,12 @@ button.chip-label:hover {
   }
 }
 
+:root[data-theme-switching] *,
+:root[data-theme-switching] *::before,
+:root[data-theme-switching] *::after {
+  transition: none !important;
+}
+
 .icon {
   flex: none;
   width: var(--icon-size-md);
