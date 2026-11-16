@@ -47,7 +47,7 @@
 .chat-time.is-side { visibility: hidden; text-align: right; padding-top: 3px; }
 .chat-message:hover .chat-time.is-side { visibility: visible; }
 .chat-via { font-size: var(--font-size-caption); color: var(--color-fg-muted); }
-.chat-mention { padding: 0 3px; border-radius: var(--radius-mark); background: color-mix(in oklab, var(--color-series-1) 18%, transparent); color: var(--color-series-1); font-weight: var(--font-weight-medium); }
+.chat-mention { padding: 0 3px; border-radius: var(--radius-mark); background: color-mix(in oklab, var(--color-series-1) 18%, transparent); color: color-mix(in oklab, var(--color-series-1) 60%, var(--color-fg-default)); font-weight: var(--font-weight-medium); }
 .chat-mention.is-self { background: color-mix(in oklab, var(--color-status-warning) 32%, transparent); color: var(--color-fg-default); }
 .chat-emoji { font-size: var(--font-size-body); line-height: 1; }
 .chat-actions { position: absolute; top: -12px; right: var(--space-4); z-index: 2; display: none; padding: 2px; border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-control); background: var(--color-bg-raised); box-shadow: var(--elevation-overlay); }
@@ -62,7 +62,7 @@
 .chat-action-menu span { color: var(--color-fg-secondary); white-space: nowrap; }
 .chat-reactions { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: 2px; }
 .chat-reaction { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 var(--space-2); border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-pill); background: var(--color-bg-subtle); color: var(--color-fg-secondary); font: inherit; font-size: var(--font-size-caption); cursor: pointer; }
-.chat-reaction.is-mine { border-color: var(--color-series-1); background: color-mix(in oklab, var(--color-series-1) 14%, transparent); color: var(--color-series-1); }
+.chat-reaction.is-mine { border-color: var(--color-series-1); background: color-mix(in oklab, var(--color-series-1) 14%, transparent); color: color-mix(in oklab, var(--color-series-1) 60%, var(--color-fg-default)); }
 .chat-replies { justify-self: start; display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-1); padding: 4px var(--space-2) 4px 4px; border: var(--border-width-default) solid transparent; border-radius: var(--radius-control); background: none; color: var(--color-fg-muted); font: inherit; font-size: var(--font-size-caption); cursor: pointer; }
 .chat-replies strong { color: var(--color-main-default); font-weight: var(--font-weight-semibold); }
 .chat-replies:hover { border-color: var(--color-border-default); background: var(--color-bg-surface); }
@@ -93,7 +93,7 @@
 .chat-chip img { width: 16px; height: 16px; border-radius: var(--radius-mark); object-fit: cover; }
 .chat-chip-label { max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
 .chat-chip-meta { color: var(--color-fg-muted); }
-.chat-chip.is-error { border-color: var(--color-danger-default); background: color-mix(in oklab, var(--color-danger-default) 10%, transparent); color: var(--color-danger-default); }
+.chat-chip.is-error { border-color: var(--color-danger-default); background: color-mix(in oklab, var(--color-danger-default) 10%, transparent); color: color-mix(in oklab, var(--color-danger-default) 75%, var(--color-fg-default)); }
 .chat-chip.is-error .chat-chip-meta, .chat-chip.is-error button { color: inherit; }
 .chat-mentions { position: absolute; left: 0; right: 0; bottom: calc(100% + 6px); z-index: 30; max-height: 320px; margin: 0; padding: var(--space-1); overflow: auto; list-style: none; border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg-raised); box-shadow: var(--elevation-overlay); }
 .chat-mentions button { width: 100%; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-2); padding: var(--space-2); border: 0; border-radius: var(--radius-control); background: none; color: var(--color-fg-default); font: inherit; text-align: left; cursor: pointer; }
@@ -422,9 +422,9 @@
 .tree-row.is-unread .tree-label { font-weight: var(--font-weight-semibold); }
 .tree-aside, .tree-mark { grid-column: 4; justify-self: end; font-family: var(--font-family-mono); font-size: 11px; white-space: nowrap; }
 .tree-aside { color: var(--color-fg-muted); }
-.tree-mark.is-warning { color: var(--color-status-warning); }
-.tree-mark.is-good { color: var(--color-status-good); }
-.tree-mark.is-critical { color: var(--color-status-critical); }
+.tree-mark.is-warning { color: color-mix(in oklab, var(--color-status-warning) 40%, var(--color-fg-default)); }
+.tree-mark.is-good { color: color-mix(in oklab, var(--color-status-good) 55%, var(--color-fg-default)); }
+.tree-mark.is-critical { color: color-mix(in oklab, var(--color-status-critical) 55%, var(--color-fg-default)); }
 .tree-description { grid-column: 2 / 5; justify-self: start; max-width: 100%; font-size: var(--font-size-caption); color: var(--color-fg-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tree-icon:not(:empty) ~ .tree-description { grid-column: 3 / 5; }
 .resize-handle { position: relative; z-index: 2; cursor: col-resize; touch-action: none; }

@@ -1126,7 +1126,7 @@ button.chip-label:hover {
 
 .badge.is-solid.is-good {
   background: var(--color-status-good);
-  color: var(--color-fg-on-fill);
+  color: var(--color-fg-on-fill-light);
 }
 
 .badge.is-solid.is-warning {
