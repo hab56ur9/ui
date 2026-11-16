@@ -1919,6 +1919,7 @@ button.chip-label:hover {
 
 .tabs.is-fill .tabs-tab {
   flex: 1;
+  min-width: max-content;
 }
 
 .tabs-panel {
