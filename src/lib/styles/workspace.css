@@ -116,7 +116,7 @@
 .kanban-add:hover { background: var(--color-bg-raised); color: var(--color-fg-default); }
 .kanban-cards { display: grid; gap: var(--space-2); align-content: start; }
 .kanban-empty { padding: var(--space-4) var(--space-2); text-align: center; font-size: var(--font-size-caption); color: var(--color-fg-muted); }
-.kanban-board { container: kanban / inline-size; display: grid; gap: var(--space-3); min-width: 0; }
+.kanban-board { container: kanban / inline-size; display: grid; gap: var(--space-3); min-width: 0; overflow-x: auto; }
 .kanban-switch { display: none; overflow-x: auto; }
 
 @container kanban (max-width: 640px) {
