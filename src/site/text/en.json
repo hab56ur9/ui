@@ -422,7 +422,8 @@
     "n7d": "7D",
     "n30d": "30D",
     "n90d": "90D",
-    "n1y": "1Y"
+    "n1y": "1Y",
+    "locked": "Range (locked)"
   },
   "sheet-desktop": {
     "saveYourChanges": "Save your changes?",

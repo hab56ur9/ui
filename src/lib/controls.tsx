@@ -77,10 +77,11 @@ export type SegmentedProps<V extends string> = {
   value?: V;
   defaultValue?: V;
   label: string;
+  disabled?: boolean;
   onChange?: (value: V) => void;
 };
 
-export function Segmented<V extends string>({ options, value, defaultValue, label, onChange }: SegmentedProps<V>) {
+export function Segmented<V extends string>({ options, value, defaultValue, label, disabled, onChange }: SegmentedProps<V>) {
   const [own, setOwn] = useState(defaultValue ?? options[0]?.value);
   const selected = value ?? own;
   return (
@@ -93,6 +94,7 @@ export function Segmented<V extends string>({ options, value, defaultValue, labe
           aria-label={option.title}
           title={option.title ?? (typeof option.label === "string" ? option.label : undefined)}
           aria-pressed={option.value === selected}
+          disabled={disabled}
           onClick={() => {
             if (option.value === selected) return;
             setOwn(option.value);

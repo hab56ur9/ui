@@ -139,7 +139,7 @@ p {
   transition: background calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard), color calc(var(--motion-duration-fast) * var(--motion-intensity)) var(--motion-easing-standard);
 }
 
-.segmented button:hover,
+.segmented button:hover:not(:disabled),
 .button:hover {
   color: var(--color-fg-default);
 }
@@ -149,6 +149,14 @@ p {
   color: var(--color-fg-default);
   font-weight: var(--font-weight-medium);
   box-shadow: var(--elevation-card);
+}
+
+.segmented:has(button:disabled) {
+  opacity: 0.45;
+}
+
+.segmented button:disabled {
+  cursor: not-allowed;
 }
 
 .button {

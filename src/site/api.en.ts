@@ -219,6 +219,7 @@ export const api: Record<string, Section[]> = {
         ["options", "{ value, label, lang? }[]", "", "The options."],
         ["value · defaultValue", "string", "First option", "The selected value."],
         ["label", "string", "", "The group's accessible name."],
+        ["disabled", "boolean", "false", "Turns off every option and dims the selected one with the rest."],
         ["onChange", "(value) => void", "", "Called when another value is picked."],
       ],
     },

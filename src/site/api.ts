@@ -219,6 +219,7 @@ export const api: Record<string, Section[]> = {
         ["options", "{ value, label, lang? }[]", "", "선택지입니다."],
         ["value · defaultValue", "string", "첫 선택지", "선택된 값입니다."],
         ["label", "string", "", "그룹의 접근성 이름입니다."],
+        ["disabled", "boolean", "false", "모든 칸을 고를 수 없게 끄고, 선택된 칸까지 함께 흐리게 그립니다."],
         ["onChange", "(value) => void", "", "다른 값을 고를 때 호출됩니다."],
       ],
     },

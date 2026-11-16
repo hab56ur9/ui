@@ -2895,6 +2895,12 @@
           "type": "string"
         },
         {
+          "name": "disabled",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
           "name": "onChange",
           "optional": true,
           "kind": "action",
