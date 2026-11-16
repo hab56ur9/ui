@@ -2,16 +2,24 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 export type ActionBarProps = { children: ReactNode; label?: string };
 
+const docked = new Map<HTMLElement, number>();
+
+function publish() {
+  const root = document.documentElement;
+  const height = Math.max(0, ...docked.values());
+  if (height) return root.style.setProperty("--action-bar-height", `${height}px`);
+  root.style.removeProperty("--action-bar-height");
+}
+
 export function ActionBar({ children, label }: ActionBarProps) {
   const bar = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = bar.current;
     if (!el) return;
-    const root = document.documentElement;
     const measure = () => {
-      const docked = el.getBoundingClientRect().bottom >= window.innerHeight - 1;
-      if (docked) return root.style.setProperty("--action-bar-height", `${el.offsetHeight}px`);
-      root.style.removeProperty("--action-bar-height");
+      if (el.getBoundingClientRect().bottom >= window.innerHeight - 1) docked.set(el, el.offsetHeight);
+      else docked.delete(el);
+      publish();
     };
     measure();
     const observer = new ResizeObserver(measure);
@@ -22,7 +30,8 @@ export function ActionBar({ children, label }: ActionBarProps) {
       observer.disconnect();
       document.removeEventListener("scroll", measure, { capture: true });
       window.removeEventListener("resize", measure);
-      root.style.removeProperty("--action-bar-height");
+      docked.delete(el);
+      publish();
     };
   }, []);
   return (
