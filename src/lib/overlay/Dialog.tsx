@@ -6,7 +6,7 @@ import { Icon } from "../Icon";
 import { fadeBackdrop, motion } from "../motion";
 import { useModalFocus } from "./focus";
 
-export type DialogAction<V> = { label: string; value?: V; variant?: "secondary" | "primary" | "danger"; autoFocus?: boolean };
+export type DialogAction<V> = { label: string; value?: V; variant?: "secondary" | "primary" | "danger"; autoFocus?: boolean; disabled?: boolean };
 
 export type DialogProps<V> = {
   open: boolean;
@@ -118,7 +118,7 @@ function Dialog<V>({ kind, size = "md", open, onClose, title, description, child
       {actions.length > 0 && (
         <div className="overlay-actions">
           {actions.map((action) => (
-            <ButtonBase key={action.label} variant={action.variant} data-autofocus={action.autoFocus || undefined} onClick={() => onClose(action.value ?? (action.label as V))}>
+            <ButtonBase key={action.label} variant={action.variant} data-autofocus={action.autoFocus || undefined} disabled={action.disabled} onClick={() => onClose(action.value ?? (action.label as V))}>
               {action.label}
             </ButtonBase>
           ))}

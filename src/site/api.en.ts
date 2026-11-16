@@ -9,7 +9,7 @@ const DIALOG_PROPS = [
   ["title", "string", "", "The dialog title."],
   ["description", "string", "", "One or two sentences below the title."],
   ["children", "ReactNode", "", "The body. A string is wrapped in a paragraph."],
-  ["actions", "{ label, value?, variant?, autoFocus? }[]", "[]", "The bottom buttons. When `value` is omitted, `label` is the result. `variant` is `secondary` · `primary` · `danger`."],
+  ["actions", "{ label, value?, variant?, autoFocus?, disabled? }[]", "[]", "The bottom buttons. When `value` is omitted, `label` is the result. `variant` is `secondary` · `primary` · `danger`. A `disabled` button can't be pressed."],
   ["dismissible", "boolean", "true", "Whether Esc, an outside click, the close button or dragging a sheet down closes the dialog."],
 ];
 

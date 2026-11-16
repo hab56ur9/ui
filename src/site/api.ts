@@ -9,7 +9,7 @@ const DIALOG_PROPS = [
   ["title", "string", "", "창 제목입니다."],
   ["description", "string", "", "제목 아래 한두 문장 설명입니다."],
   ["children", "ReactNode", "", "본문입니다. 문자열이면 문단으로 감쌉니다."],
-  ["actions", "{ label, value?, variant?, autoFocus? }[]", "[]", "하단 버튼입니다. `value`를 생략하면 `label`이 결과값입니다. `variant`는 `secondary` · `primary` · `danger`입니다."],
+  ["actions", "{ label, value?, variant?, autoFocus?, disabled? }[]", "[]", "하단 버튼입니다. `value`를 생략하면 `label`이 결과값입니다. `variant`는 `secondary` · `primary` · `danger`입니다. `disabled`이면 버튼을 누를 수 없습니다."],
   ["dismissible", "boolean", "true", "Esc, 바깥 클릭, 닫기 버튼, 시트 끌어내리기로 닫을 수 있는지 정합니다."],
 ];
 
