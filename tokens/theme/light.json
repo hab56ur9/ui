@@ -7,7 +7,8 @@
       "surface": { "$value": "{color.neutral.125}" },
       "raised": { "$value": "{color.neutral.100}" },
       "subtle": { "$value": "{color.neutral.200}" },
-      "scrim": { "$value": "{color.alpha.black-32}" }
+      "scrim": { "$value": "{color.alpha.black-32}" },
+      "caption": { "$value": "{color.alpha.black-64}" }
     },
     "fg": {
       "default": { "$value": "{color.neutral.900}" },
