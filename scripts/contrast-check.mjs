@@ -78,7 +78,7 @@ const MEASURE = `(skip) => {
   return { checked, failures };
 }`;
 
-const skip = ["svg", "[aria-hidden=true]", ":disabled", "[aria-disabled=true]", ".is-disabled", "label:has(:disabled)", "code.mermaid", ...DIMMED].join(",");
+const skip = ["svg", "[aria-hidden=true]", ":disabled", "[aria-disabled=true]", ".is-disabled", "label:has(:disabled):not(.is-locked)", "code.mermaid", ...DIMMED].join(",");
 const failures = [];
 let checked = 0;
 for (const theme of THEMES) {

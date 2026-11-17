@@ -33,11 +33,13 @@ export async function openSite(name) {
   const origin = `http://127.0.0.1:${server.address().port}`;
 
   const profile = mkdtempSync(join(tmpdir(), `${name}-`));
-  const port = 9400 + Math.floor(Math.random() * 400);
-  const chrome = spawn(chromePath, ["--headless=new", "--no-sandbox", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore", detached: true });
+  const chrome = spawn(chromePath, ["--headless=new", "--no-sandbox", "--disable-gpu", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore", detached: true });
+  const portFile = join(profile, "DevToolsActivePort");
   let targets;
   for (let i = 0; i < 100 && !targets; i++) {
     await sleep(100);
+    if (!existsSync(portFile)) continue;
+    const port = readFileSync(portFile, "utf8").split("\n")[0];
     targets = await fetch(`http://127.0.0.1:${port}/json/list`)
       .then((r) => r.json())
       .catch(() => undefined);
