@@ -308,6 +308,14 @@ p {
   grid-row: auto;
 }
 
+.board > .widget.is-static:has(> .widget-body > .chat-log, > .widget-body > .chat-pane) {
+  height: calc(var(--h) * var(--widget-row) + (var(--h) - 1) * var(--layout-gap));
+}
+
+.widget-body > .chat-log {
+  height: 100%;
+}
+
 .widget.is-plain .widget-body:has(> .chart, > .stack > * > .chart) {
   height: calc(var(--h, 3) * var(--widget-row));
 }
