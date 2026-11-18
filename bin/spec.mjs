@@ -3,6 +3,7 @@ export const BUILTIN_ACTIONS = { navigate: ["screen"], open: ["overlay"], close:
 const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "DesktopShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "Modal", "Sheet", "Toast"]);
 const KINDS = ["modal", "sheet"];
 const SHELLS = ["app", "desktop"];
+const STATES = ["screen", "panel"];
 const VARIANTS = ["primary", "secondary", "danger"];
 
 const isObject = (value) => typeof value === "object" && value !== null && !Array.isArray(value);
@@ -55,6 +56,7 @@ export function checkSpec(spec, components) {
     if (!isObject(value)) return;
     if ("$data" in value && !(value.$data in data)) fail(path, `reads undeclared data ${value.$data}`);
     if ("$format" in value && !(value.$format in formats)) fail(path, `uses undeclared format ${value.$format}`);
+    if ("$state" in value && !STATES.includes(value.$state)) fail(path, `reads unknown state ${value.$state}; use ${STATES.join(", ")}`);
     if ("$action" in value) return checkAction(path, value.$action);
     if ("$each" in value) {
       checkValue(`${path}.$each`, value.$each);
@@ -252,6 +254,7 @@ function emitter(used) {
     if (value === null || typeof value !== "object") return quote(value);
     if ("$data" in value) return shown(`data[${quote(value.$data)}]`, value);
     if ("$field" in value) return shown(`${row}[${quote(value.$field)}]`, value);
+    if ("$state" in value) return `state[${quote(value.$state)}]`;
     if ("$each" in value) {
       const next = `row${depth + 1}`;
       return `(${expr(value.$each, row, depth)} ?? []).map((${next}, i${depth + 1}) =>\n  ${indent(expr(value.$as, next, depth + 1).replace(/^h\((\w+), \{/, `h($1, { key: i${depth + 1},`), 1)},\n)`;
@@ -294,26 +297,26 @@ export function buildHtml(spec, { module, lang = "en" }) {
     if (screen.layout === "article") {
       for (const name of ["Article", "RichText", "Pager"]) used.add(name);
       const head = [`title: ${quote(screen.title ?? "")}`, ...(screen.eyebrow ? [`eyebrow: ${quote(screen.eyebrow)}`] : []), ...(screen.lede ? [`lede: h(RichText, { text: ${quote(screen.lede)} })`] : []), ...(screen.wide ? ["wide: true"] : []), `pager: pagerFor(${quote(id)})`];
-      return `function ${screenName(id)}({ act }) {\n  return h(Article, { ${head.join(", ")} },\n    h(WidgetGrid, { flow: true },\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
+      return `function ${screenName(id)}({ act, state }) {\n  return h(Article, { ${head.join(", ")} },\n    h(WidgetGrid, { flow: true },\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
     }
     const actions = buttons(screen.actions);
     const page = { ...(screen.title && { title: screen.title }), ...(screen.lede && { lede: screen.lede }) };
     const pageProps = actions.length ? `{ ...${quote(page)}, actions: [${actions.join(", ")}] }` : quote(page);
-    return `function ${screenName(id)}({ act }) {\n  return h(Page, ${pageProps},\n    h(WidgetGrid, null,\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
+    return `function ${screenName(id)}({ act, state }) {\n  return h(Page, ${pageProps},\n    h(WidgetGrid, null,\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
   });
   const overlays = Object.entries(spec.overlays ?? {}).map(([id, overlay]) => {
     const kind = overlay.kind === "sheet" ? "Sheet" : "Modal";
     const actions = (overlay.actions ?? []).map((button, i) => ({ label: button.label, variant: button.variant ?? "secondary", value: i }));
-    return `function ${overlayName(id)}({ act, close }) {\n  const actions = ${quote((overlay.actions ?? []).map((button) => button.action))};\n  return h(${kind}, {\n    open: true,\n    title: ${quote(overlay.title)},\n    ${overlay.lede ? `description: ${quote(overlay.lede)},\n    ` : ""}actions: ${quote(actions)},\n    onClose: (i) => (i === null ? close() : act(actions[i])),\n  }${overlay.body ? `, ${quote(overlay.body)}` : ""});\n}`;
+    return `function ${overlayName(id)}({ act, close, state }) {\n  const actions = ${quote((overlay.actions ?? []).map((button) => button.action))};\n  return h(${kind}, {\n    open: true,\n    title: ${quote(overlay.title)},\n    ${overlay.lede ? `description: ${quote(overlay.lede)},\n    ` : ""}actions: ${quote(actions)},\n    onClose: (i) => (i === null ? close() : act(actions[i])),\n  }${overlay.body ? `, ${quote(overlay.body)}` : ""});\n}`;
   });
   const closeLabel = lang === "ko" ? "닫기" : "Close";
   const panels = Object.entries(spec.panels ?? {}).map(([id, panel]) => {
     for (const name of ["Panel", "PanelAction"]) used.add(name);
-    return `function ${partName(id, "Panel")}({ act }) {\n  return h(Panel, { variant: "pane", title: ${quote(panel.title)}, actions: h(PanelAction, { icon: "close", label: ${quote(closeLabel)}, onClick: () => act({ name: "panel" }) }) },\n    ${indent(content(panel.content), 2)},\n  );\n}`;
+    return `function ${partName(id, "Panel")}({ act, state }) {\n  return h(Panel, { variant: "pane", title: ${quote(panel.title)}, actions: h(PanelAction, { icon: "close", label: ${quote(closeLabel)}, onClick: () => act({ name: "panel" }) }) },\n    ${indent(content(panel.content), 2)},\n  );\n}`;
   });
   const sidebarSpecs = Object.entries(spec.screens).filter(([, screen]) => screen.sidebar !== undefined).map(([id, screen]) => [id, screen.sidebar]);
   const sidebars = [...(spec.frame?.sidebar !== undefined ? [["frame", spec.frame.sidebar]] : []), ...sidebarSpecs].map(
-    ([id, value]) => `function ${partName(id, "Sidebar")}({ act }) {\n  return ${indent(content(value), 1)};\n}`,
+    ([id, value]) => `function ${partName(id, "Sidebar")}({ act, state }) {\n  return ${indent(content(value), 1)};\n}`,
   );
   const formats = Object.entries(spec.formats ?? {}).map(([name, f]) => `${keyOf(name)}: ${f.style === "date" ? "date()" : f.style === "percent" ? `percent(${f.digits ?? 1})` : `number(${f.digits ?? 0}, ${quote(f.unit ?? "")}${f.style === "compact" ? ", true" : ""})`}`);
   const dataLines = Object.entries(spec.data ?? {}).map(([key, slot]) => `${quote(key)}: ${JSON.stringify(slot.example)}`);
@@ -335,7 +338,7 @@ export function buildHtml(spec, { module, lang = "en" }) {
       path: [${brandCode}, titleOf(screen)],
       ${actionCodes.length ? `titleActions: h(Fragment, null, ${actionCodes.join(", ")}),` : ""}
       rail: nav.map((item) => ({ id: item.id, label: item.label, icon: item.icon, current: item.id === screen, onSelect: () => go(item.id) })),
-      sidebar: Sidebar && h(Sidebar, { act }),
+      sidebar: Sidebar && h(Sidebar, { act, state }),
       inspector,
     }, screenView)`;
   const names = [...new Set([...FRAME, ...used])].sort();
@@ -420,17 +423,18 @@ function App() {
     const shown = detail ? \` \${detail}\` : "";
     if (action.name in actionNotes) toast({ message: \`\${action.name}\${shown}: \${actionNotes[action.name]}\`, status: "info" });
   };
+  const state = { screen, panel };
   const Screen = screens[screen];
   const Overlay = overlay && overlays[overlay];
   const PanelView = panel && panels[panel];
   const Sidebar = sidebars[screen] ?? defaultSidebar;
-  const inspector = PanelView && h("div", { "data-panel": panel, style: { display: "contents" } }, h(PanelView, { act }));
+  const inspector = PanelView && h("div", { "data-panel": panel, style: { display: "contents" } }, h(PanelView, { act, state }));
   const section = sectionOf(screen);
   const needle = query.trim().toLowerCase();
   const visible = nav.filter((item) => (needle ? item.label.toLowerCase().includes(needle) : !sections.length || sections[section].groups.includes(item.group)));
   const shellNav = groupsOf(visible).map((group) => ({ ...(group.title && { title: group.title }), items: group.items.map((item) => ({ id: item.id, label: item.label, ...(item.icon && { icon: item.icon }), ...(item.sub && { sub: item.sub }), href: \`#/\${item.id}\`, current: item.id === screen })) }));
   const toc = tocs[screen] ?? [];
-  const screenView = h("div", { "data-screen": screen, style: ${desktop ? '{ minHeight: 0, overflow: "auto" }' : '{ display: "contents" }'} }, h(Screen, { act }));
+  const screenView = h("div", { "data-screen": screen, style: ${desktop ? '{ minHeight: 0, overflow: "auto" }' : '{ display: "contents" }'} }, h(Screen, { act, state }));
   return h("div", { "data-density": ${quote(spec.app.density ?? "comfortable")}, "data-medium": "app" },
     ${desktop ? desktopCode : `h(AppShell, {
       ${frame.mobileNav ? `mobileNav: ${quote(frame.mobileNav)},` : frame.brand ? "" : 'mobileNav: "tabs",'}
@@ -442,7 +446,7 @@ function App() {
       ${actionCodes.length ? `actions: h(Fragment, null, ${actionCodes.join(", ")}),` : ""}
       aside: inspector${frame.toc ? ` ?? (toc.length ? h(Toc, { key: screen, title: ${quote(frame.toc)}, items: toc, offset: 120 }) : undefined)` : ""},
     }, screenView)`},
-    Overlay && h("div", { "data-overlay": overlay, style: { display: "contents" } }, h(Overlay, { act, close: () => setOverlay(null) })),
+    Overlay && h("div", { "data-overlay": overlay, style: { display: "contents" } }, h(Overlay, { act, state, close: () => setOverlay(null) })),
   );
 }
 
