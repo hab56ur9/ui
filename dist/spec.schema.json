@@ -53,6 +53,15 @@
     "frame": {
       "type": "object",
       "properties": {
+        "shell": {
+          "enum": [
+            "app",
+            "desktop"
+          ]
+        },
+        "sidebar": {
+          "$ref": "#/$defs/content"
+        },
         "brand": {
           "type": "object",
           "required": [
@@ -259,11 +268,37 @@
               "$ref": "#/$defs/button"
             }
           },
+          "sidebar": {
+            "$ref": "#/$defs/content"
+          },
           "widgets": {
             "type": "array",
             "items": {
               "$ref": "#/$defs/widget"
             }
+          }
+        }
+      }
+    },
+    "panels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description",
+          "title",
+          "content"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/$defs/content"
           }
         }
       }
@@ -354,6 +389,19 @@
       },
       "additionalProperties": false
     },
+    "content": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/node"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      ]
+    },
     "node": {
       "type": "object",
       "required": [
@@ -408,7 +456,6 @@
             "DropZone",
             "Select",
             "MultiSelect",
-            "DesktopShell",
             "Calendar",
             "Carousel",
             "Image",
@@ -1679,40 +1726,6 @@
                 "required": [
                   "items"
                 ],
-                "additionalProperties": false
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "type": {
-                "const": "DesktopShell"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "props": {
-                "type": "object",
-                "properties": {
-                  "frame": {},
-                  "path": {},
-                  "search": {},
-                  "titleActions": {},
-                  "rail": {},
-                  "railFooter": {},
-                  "sidebar": {},
-                  "inspector": {},
-                  "status": {},
-                  "sizes": {},
-                  "onResize": {},
-                  "overlay": {},
-                  "overlayScope": {},
-                  "onOverlayClose": {}
-                },
-                "required": [],
                 "additionalProperties": false
               }
             }
@@ -4113,17 +4126,7 @@
           "$ref": "#/$defs/action"
         },
         "content": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/node"
-            },
-            {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/node"
-              }
-            }
-          ]
+          "$ref": "#/$defs/content"
         }
       },
       "additionalProperties": false

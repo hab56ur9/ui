@@ -1,7 +1,8 @@
 export const SPEC_VERSION = 1;
-export const BUILTIN_ACTIONS = { navigate: ["screen"], open: ["overlay"], close: [] };
-const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "Modal", "Sheet", "Toast"]);
+export const BUILTIN_ACTIONS = { navigate: ["screen"], open: ["overlay"], close: [], panel: ["panel"] };
+const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "DesktopShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "Modal", "Sheet", "Toast"]);
 const KINDS = ["modal", "sheet"];
+const SHELLS = ["app", "desktop"];
 const VARIANTS = ["primary", "secondary", "danger"];
 
 const isObject = (value) => typeof value === "object" && value !== null && !Array.isArray(value);
@@ -16,6 +17,7 @@ export function checkSpec(spec, components) {
   const actions = isObject(spec.actions) ? spec.actions : {};
   const screens = isObject(spec.screens) ? spec.screens : {};
   const overlays = isObject(spec.overlays) ? spec.overlays : {};
+  const panels = isObject(spec.panels) ? spec.panels : {};
 
   if (spec.spec !== SPEC_VERSION) fail("spec", `must be ${SPEC_VERSION}`);
   if (!isObject(spec.app) || typeof spec.app.name !== "string") fail("app.name", "is required");
@@ -38,6 +40,7 @@ export function checkSpec(spec, components) {
     const params = action.params ?? {};
     if (action.name === "navigate" && !screens[params.screen]) fail(path, `navigates to no screen (${params.screen})`);
     if (action.name === "open" && !overlays[params.overlay]) fail(path, `opens no overlay (${params.overlay})`);
+    if (action.name === "panel" && params.panel !== undefined && !panels[params.panel]) fail(path, `opens no panel (${params.panel})`);
     if (!(action.name in BUILTIN_ACTIONS) && !actions[action.name]) fail(path, `uses undeclared action ${action.name}`);
   };
   const checkButtons = (path, buttons) =>
@@ -105,6 +108,20 @@ export function checkSpec(spec, components) {
   const groups = new Set((spec.nav ?? []).map((item) => item.group).filter(Boolean));
   (frame.sections ?? []).forEach((section, i) => (section.groups ?? []).forEach((group) => groups.has(group) || fail(`frame.sections.${i}.groups`, `names no nav group (${group})`)));
   for (const [id, screen] of Object.entries(screens)) if (screen.layout !== undefined && !["grid", "article"].includes(screen.layout)) fail(`screens.${id}.layout`, "must be grid or article");
+  if (frame.shell !== undefined && !SHELLS.includes(frame.shell)) fail("frame.shell", `must be one of ${SHELLS.join(", ")}`);
+  if (frame.shell === "desktop") for (const [i, item] of (spec.nav ?? []).entries()) if (typeof item.icon !== "string") fail(`nav.${i}.icon`, "is required by the desktop shell");
+  const sidebars = [["frame.sidebar", frame.sidebar], ...Object.entries(screens).map(([id, screen]) => [`screens.${id}.sidebar`, screen.sidebar])].filter(([, value]) => value !== undefined);
+  for (const [path, value] of sidebars) {
+    if (frame.shell !== "desktop") fail(path, "needs frame.shell desktop");
+    checkValue(path, value);
+  }
+  for (const [id, panel] of Object.entries(panels)) {
+    const path = `panels.${id}`;
+    if (typeof panel.title !== "string") fail(`${path}.title`, "is required");
+    if (!described(panel)) fail(`${path}.description`, "is required");
+    if (panel.content === undefined) fail(`${path}.content`, "is required");
+    checkValue(`${path}.content`, panel.content);
+  }
   for (const [id, overlay] of Object.entries(overlays)) {
     const path = `overlays.${id}`;
     if (!KINDS.includes(overlay.kind)) fail(`${path}.kind`, `must be one of ${KINDS.join(", ")}`);
@@ -161,10 +178,11 @@ export function specSchema(components) {
       frame: { enum: ["card", "plain"] },
       description: text,
       action: { $ref: "#/$defs/action" },
-      content: { oneOf: [{ $ref: "#/$defs/node" }, { type: "array", items: { $ref: "#/$defs/node" } }] },
+      content: { $ref: "#/$defs/content" },
     },
     additionalProperties: false,
   };
+  const content = { oneOf: [{ $ref: "#/$defs/node" }, { type: "array", items: { $ref: "#/$defs/node" } }] };
   const entry = (extra = {}, required = []) => ({ type: "object", required: ["description", ...required], properties: { description: text, ...extra } });
   return {
     $schema: "https://json-schema.org/draft/2020-12/schema",
@@ -178,6 +196,8 @@ export function specSchema(components) {
       frame: {
         type: "object",
         properties: {
+          shell: { enum: SHELLS },
+          sidebar: { $ref: "#/$defs/content" },
           brand: { type: "object", required: ["type"] },
           mobileNav: { enum: ["drawer", "tabs"] },
           scroll: { enum: ["frame", "page"] },
@@ -196,7 +216,11 @@ export function specSchema(components) {
       actions: { type: "object", additionalProperties: entry({ params: { type: "object" } }) },
       screens: {
         type: "object",
-        additionalProperties: entry({ layout: { enum: ["grid", "article"] }, toc: { type: "boolean" }, eyebrow: { type: "string" }, wide: { type: "boolean" }, title: { type: "string" }, lede: { type: "string" }, actions: { type: "array", items: { $ref: "#/$defs/button" } }, widgets: { type: "array", items: { $ref: "#/$defs/widget" } } }, ["widgets"]),
+        additionalProperties: entry({ layout: { enum: ["grid", "article"] }, toc: { type: "boolean" }, eyebrow: { type: "string" }, wide: { type: "boolean" }, title: { type: "string" }, lede: { type: "string" }, actions: { type: "array", items: { $ref: "#/$defs/button" } }, sidebar: { $ref: "#/$defs/content" }, widgets: { type: "array", items: { $ref: "#/$defs/widget" } } }, ["widgets"]),
+      },
+      panels: {
+        type: "object",
+        additionalProperties: entry({ title: { type: "string" }, content: { $ref: "#/$defs/content" } }, ["title", "content"]),
       },
       overlays: {
         type: "object",
@@ -204,7 +228,7 @@ export function specSchema(components) {
       },
     },
     additionalProperties: false,
-    $defs: { action, button, node, widget },
+    $defs: { action, button, content, node, widget },
   };
 }
 
@@ -215,6 +239,7 @@ const keyOf = (key) => (/^[A-Za-z_$][\w$]*$/.test(key) ? key : quote(key));
 const indent = (text, depth) => text.replace(/\n/g, `\n${"  ".repeat(depth)}`);
 const screenName = (id) => `${id.replace(/(^|[-_.\s])(\w)/g, (_, __, c) => c.toUpperCase())}Screen`;
 const overlayName = (id) => `${id.replace(/(^|[-_.\s])(\w)/g, (_, __, c) => c.toUpperCase())}Overlay`;
+const partName = (id, part) => `${id.replace(/(^|[-_.\s])(\w)/g, (_, __, c) => c.toUpperCase())}${part}`;
 
 function emitter(used) {
   const shown = (value, spec) => {
@@ -281,6 +306,15 @@ export function buildHtml(spec, { module, lang = "en" }) {
     const actions = (overlay.actions ?? []).map((button, i) => ({ label: button.label, variant: button.variant ?? "secondary", value: i }));
     return `function ${overlayName(id)}({ act, close }) {\n  const actions = ${quote((overlay.actions ?? []).map((button) => button.action))};\n  return h(${kind}, {\n    open: true,\n    title: ${quote(overlay.title)},\n    ${overlay.lede ? `description: ${quote(overlay.lede)},\n    ` : ""}actions: ${quote(actions)},\n    onClose: (i) => (i === null ? close() : act(actions[i])),\n  }${overlay.body ? `, ${quote(overlay.body)}` : ""});\n}`;
   });
+  const closeLabel = lang === "ko" ? "닫기" : "Close";
+  const panels = Object.entries(spec.panels ?? {}).map(([id, panel]) => {
+    for (const name of ["Panel", "PanelAction"]) used.add(name);
+    return `function ${partName(id, "Panel")}({ act }) {\n  return h(Panel, { variant: "pane", title: ${quote(panel.title)}, actions: h(PanelAction, { icon: "close", label: ${quote(closeLabel)}, onClick: () => act({ name: "panel" }) }) },\n    ${indent(content(panel.content), 2)},\n  );\n}`;
+  });
+  const sidebarSpecs = Object.entries(spec.screens).filter(([, screen]) => screen.sidebar !== undefined).map(([id, screen]) => [id, screen.sidebar]);
+  const sidebars = [...(spec.frame?.sidebar !== undefined ? [["frame", spec.frame.sidebar]] : []), ...sidebarSpecs].map(
+    ([id, value]) => `function ${partName(id, "Sidebar")}({ act }) {\n  return ${indent(content(value), 1)};\n}`,
+  );
   const formats = Object.entries(spec.formats ?? {}).map(([name, f]) => `${keyOf(name)}: ${f.style === "date" ? "date()" : f.style === "percent" ? `percent(${f.digits ?? 1})` : `number(${f.digits ?? 0}, ${quote(f.unit ?? "")}${f.style === "compact" ? ", true" : ""})`}`);
   const dataLines = Object.entries(spec.data ?? {}).map(([key, slot]) => `${quote(key)}: ${JSON.stringify(slot.example)}`);
   const described = Object.entries(spec.actions ?? {}).map(([name, action]) => `${quote(name)}: ${quote(action.description)}`);
@@ -293,8 +327,17 @@ export function buildHtml(spec, { module, lang = "en" }) {
   if (frame.toc) used.add("Toc");
   if (frame.search) used.add("TextField");
   if (frame.sections) used.add("Tabs");
+  const desktop = frame.shell === "desktop";
+  if (desktop) used.add("DesktopShell");
   const brandCode = frame.brand ? frameNode(frame.brand) : quote(spec.app.name);
   const actionCodes = (frame.actions ?? []).map(frameNode);
+  const desktopCode = `h(DesktopShell, {
+      path: [${brandCode}, titleOf(screen)],
+      ${actionCodes.length ? `titleActions: h(Fragment, null, ${actionCodes.join(", ")}),` : ""}
+      rail: nav.map((item) => ({ id: item.id, label: item.label, icon: item.icon, current: item.id === screen, onSelect: () => go(item.id) })),
+      sidebar: Sidebar && h(Sidebar, { act }),
+      inspector,
+    }, screenView)`;
   const names = [...new Set([...FRAME, ...used])].sort();
   const script = `import { ${names.join(", ")} } from ${quote(module)};
 
@@ -320,8 +363,15 @@ ${screens.join("\n\n")}
 
 ${overlays.join("\n\n")}
 
+${panels.join("\n\n")}
+
+${sidebars.join("\n\n")}
+
 const screens = { ${Object.keys(spec.screens).map((id) => `${keyOf(id)}: ${screenName(id)}`).join(", ")} };
 const overlays = { ${Object.keys(spec.overlays ?? {}).map((id) => `${keyOf(id)}: ${overlayName(id)}`).join(", ")} };
+const panels = { ${Object.keys(spec.panels ?? {}).map((id) => `${keyOf(id)}: ${partName(id, "Panel")}`).join(", ")} };
+const sidebars = { ${sidebarSpecs.map(([id]) => `${keyOf(id)}: ${partName(id, "Sidebar")}`).join(", ")} };
+const defaultSidebar = ${frame.sidebar !== undefined ? partName("frame", "Sidebar") : "null"};
 const nav = ${quote(nav)};
 
 const tocs = ${quote(tocs)};
@@ -350,6 +400,7 @@ function App() {
   const toast = useToast();
   const [screen, setScreen] = useState(fromHash);
   const [overlay, setOverlay] = useState(null);
+  const [panel, setPanel] = useState(null);
   const [query, setQuery] = useState("");
   useEffect(() => {
     const onHash = () => {
@@ -364,19 +415,24 @@ function App() {
     if (action.name === "navigate") go(action.params?.screen ?? value);
     if (action.name === "open") setOverlay(action.params.overlay);
     if (action.name === "close" || action.close) setOverlay(null);
+    if (action.name === "panel") setPanel(action.params?.panel ?? (value in panels ? value : null));
     const detail = ["string", "number", "boolean"].includes(typeof value) ? value : action.params && JSON.stringify(action.params);
     const shown = detail ? \` \${detail}\` : "";
     if (action.name in actionNotes) toast({ message: \`\${action.name}\${shown}: \${actionNotes[action.name]}\`, status: "info" });
   };
   const Screen = screens[screen];
   const Overlay = overlay && overlays[overlay];
+  const PanelView = panel && panels[panel];
+  const Sidebar = sidebars[screen] ?? defaultSidebar;
+  const inspector = PanelView && h("div", { "data-panel": panel, style: { display: "contents" } }, h(PanelView, { act }));
   const section = sectionOf(screen);
   const needle = query.trim().toLowerCase();
   const visible = nav.filter((item) => (needle ? item.label.toLowerCase().includes(needle) : !sections.length || sections[section].groups.includes(item.group)));
   const shellNav = groupsOf(visible).map((group) => ({ ...(group.title && { title: group.title }), items: group.items.map((item) => ({ id: item.id, label: item.label, ...(item.icon && { icon: item.icon }), ...(item.sub && { sub: item.sub }), href: \`#/\${item.id}\`, current: item.id === screen })) }));
   const toc = tocs[screen] ?? [];
+  const screenView = h("div", { "data-screen": screen, style: ${desktop ? '{ minHeight: 0, overflow: "auto" }' : '{ display: "contents" }'} }, h(Screen, { act }));
   return h("div", { "data-density": ${quote(spec.app.density ?? "comfortable")}, "data-medium": "app" },
-    h(AppShell, {
+    ${desktop ? desktopCode : `h(AppShell, {
       ${frame.mobileNav ? `mobileNav: ${quote(frame.mobileNav)},` : frame.brand ? "" : 'mobileNav: "tabs",'}
       ${frame.scroll ? `scroll: ${quote(frame.scroll)},` : ""}
       brand: ${brandCode},
@@ -384,8 +440,8 @@ function App() {
       ${frame.search ? `navHeader: h(TextField, { label: ${quote(frame.search.label ?? "")}, hideLabel: true, type: "search", icon: "search", placeholder: ${quote(frame.search.placeholder ?? frame.search.label ?? "")}, value: query, onChange: setQuery }),` : ""}
       title: ${frame.sections ? `h(Tabs, { variant: "pill", label: ${quote(frame.sectionsLabel ?? "")}, value: String(section), onChange: (index) => go(nav.find((item) => sections[Number(index)].groups.includes(item.group)).id), items: sections.map((item, index) => ({ id: String(index), label: item.label })) })` : "titleOf(screen)"},
       ${actionCodes.length ? `actions: h(Fragment, null, ${actionCodes.join(", ")}),` : ""}
-      ${frame.toc ? `aside: toc.length ? h(Toc, { key: screen, title: ${quote(frame.toc)}, items: toc, offset: 120 }) : undefined,` : ""}
-    }, h("div", { "data-screen": screen, style: { display: "contents" } }, h(Screen, { act }))),
+      aside: inspector${frame.toc ? ` ?? (toc.length ? h(Toc, { key: screen, title: ${quote(frame.toc)}, items: toc, offset: 120 }) : undefined)` : ""},
+    }, screenView)`},
     Overlay && h("div", { "data-overlay": overlay, style: { display: "contents" } }, h(Overlay, { act, close: () => setOverlay(null) })),
   );
 }

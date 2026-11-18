@@ -52,10 +52,12 @@ lint    Checks app pages and code against the ui contract: no raw colors, ui tok
         ui class names, ui stylesheet imports, hand-set theme attributes, style
         props on components or local machine paths. Apps use component props only.
 spec    check validates an app spec against the components and its own data,
-        formats, actions, screens and overlays. The schema is dist/spec.schema.json.
+        formats, actions, screens, overlays and panels. The schema is dist/spec.schema.json.
         Built pages open in the editor at /__ui/edit?file=/<page>.html under ui serve.
         build checks the spec, then writes one editable HTML file: a function per
-        screen and overlay, example data inline, widgets marked with data-id.
+        screen, overlay, panel and sidebar, example data inline, widgets marked with data-id.
+        frame.shell desktop puts the nav in a DesktopShell rail with frame.sidebar or
+        screens.<id>.sidebar beside it; the panel action opens panels.<id> on the right.
         --lang sets the page language, number and date formats (default en).
 diagram build renders every Diagram on the page in headless Chrome and writes
         <id>.svg (moves three times, then rests) and <id>.still.svg (no motion)
