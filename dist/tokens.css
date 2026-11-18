@@ -1079,6 +1079,8 @@
   --layout-compact-stack: var(--space-1);
   --widget-header: 36px;
   --widget-row: 72px;
+  --widget-compact-header: 30px;
+  --widget-compact-row: 56px;
   --chart-size-default: 220px;
   --chart-size-sparkline: 28px;
 }
@@ -1323,6 +1325,8 @@
   --layout-compact-stack: var(--space-2);
   --widget-header: 44px;
   --widget-row: 96px;
+  --widget-compact-header: 36px;
+  --widget-compact-row: 76px;
   --chart-size-default: 280px;
   --chart-size-sparkline: 32px;
 }
@@ -1347,6 +1351,8 @@
   --layout-compact-stack: var(--space-3);
   --widget-header: 64px;
   --widget-row: 140px;
+  --widget-compact-header: 52px;
+  --widget-compact-row: 112px;
   --chart-size-default: 420px;
   --chart-size-sparkline: 48px;
 }

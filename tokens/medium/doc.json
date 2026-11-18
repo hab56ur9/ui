@@ -99,6 +99,21 @@
         "value": 96,
         "unit": "px"
       }
+    },
+    "compact": {
+      "$description": "Shorter widget rows and headers for data-density=\"compact\", so a dense dashboard shows more per screen.",
+      "header": {
+        "$value": {
+          "value": 36,
+          "unit": "px"
+        }
+      },
+      "row": {
+        "$value": {
+          "value": 76,
+          "unit": "px"
+        }
+      }
     }
   },
   "chart-size": {

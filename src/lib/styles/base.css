@@ -63,6 +63,12 @@ p {
   --layout-gap: var(--layout-compact-gap);
   --layout-section: var(--layout-compact-section);
   --layout-stack: var(--layout-compact-stack);
+  --widget-header: var(--widget-compact-header);
+  --widget-row: var(--widget-compact-row);
+}
+
+[data-density="compact"] .page-title {
+  font-size: var(--font-size-title);
 }
 
 .page {
