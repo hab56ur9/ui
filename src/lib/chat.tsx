@@ -99,7 +99,7 @@ export type ChatMessageProps = {
   actions?: MessageAction[];
   reactions?: ChatReaction[];
   onReact?: (emoji: string) => void;
-  replies?: { label: string; last?: string; members: Face[] };
+  replies?: ThreadReplies;
   onOpenThread?: () => void;
   anchor?: string;
   children?: ReactNode;
@@ -135,13 +135,7 @@ export function ChatMessage({ author, tone = 1, avatar, badge, time, via, contin
           </div>
         )}
         {pending && <span className="chat-dots" aria-hidden><i /><i /><i /></span>}
-        {replies && (
-          <button type="button" className="chat-replies" onClick={onOpenThread}>
-            <Faces members={replies.members} />
-            <strong>{replies.label}</strong>
-            {replies.last && <span>{replies.last}</span>}
-          </button>
-        )}
+        {replies && <RepliesButton replies={replies} onOpen={onOpenThread} />}
       </div>
     </article>
   );
@@ -183,10 +177,30 @@ export function DayDivider({ tone, align = "center", children }: { tone?: "new";
   return <div className={cx("chat-day", tone && `is-${tone}`, align === "start" && "is-start")} role="separator"><span>{children}</span></div>;
 }
 
-export function SystemNote({ icon = "info", time, onSelect, children }: { icon?: IconName; time?: string; onSelect?: () => void; children: ReactNode }) {
+export type ThreadReplies = { label: string; last?: string; members: Face[] };
+
+function RepliesButton({ replies, onOpen }: { replies: ThreadReplies; onOpen?: () => void }) {
+  return (
+    <button type="button" className="chat-replies" onClick={onOpen}>
+      <Faces members={replies.members} />
+      <strong>{replies.label}</strong>
+      {replies.last && <span>{replies.last}</span>}
+    </button>
+  );
+}
+
+export type SystemNoteProps = { icon?: IconName; time?: string; onSelect?: () => void; replies?: ThreadReplies; onOpenThread?: () => void; children: ReactNode };
+
+export function SystemNote({ icon = "info", time, onSelect, replies, onOpenThread, children }: SystemNoteProps) {
   const parts = <><Icon name={icon} size="sm" /><span>{children}</span>{time && <time>{time}</time>}</>;
-  if (onSelect) return <button type="button" className="chat-system is-link" onClick={onSelect}>{parts}</button>;
-  return <div className="chat-system">{parts}</div>;
+  const note = onSelect ? <button type="button" className="chat-system is-link" onClick={onSelect}>{parts}</button> : <div className="chat-system">{parts}</div>;
+  if (!replies) return note;
+  return (
+    <div className="chat-system-thread">
+      {note}
+      <RepliesButton replies={replies} onOpen={onOpenThread} />
+    </div>
+  );
 }
 
 export function TypingIndicator({ members = [], children }: { members?: Face[]; children?: ReactNode }) {

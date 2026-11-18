@@ -4484,7 +4484,7 @@
           "name": "replies",
           "optional": true,
           "kind": "object",
-          "type": "{ label: string; last?: string | undefined; members: Face[]; } | undefined"
+          "type": "ThreadReplies | undefined"
         },
         {
           "name": "onOpenThread",
@@ -4730,6 +4730,18 @@
         },
         {
           "name": "onSelect",
+          "optional": true,
+          "kind": "action",
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "replies",
+          "optional": true,
+          "kind": "object",
+          "type": "ThreadReplies | undefined"
+        },
+        {
+          "name": "onOpenThread",
           "optional": true,
           "kind": "action",
           "type": "(() => void) | undefined"

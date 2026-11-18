@@ -101,6 +101,7 @@ export const api: Record<string, Section[]> = {
       ["ChatPane composer · footer", "ReactNode", "", "The composer at the bottom and one line above it."],
       ["MessageLog", "children", "", "A message list that sticks to the bottom as it grows."],
       ["SystemNote icon · time · onSelect", "IconName, string, () => void", "\"info\"", "One system line; with onSelect it is a link."],
+      ["SystemNote replies · onOpenThread", "ThreadReplies, () => void", "", "The same reply summary as ChatMessage and the click event."],
       ["TypingIndicator members", "Face[]", "[]", "Faces of who is working; empty without children."],
       ["DayDivider tone · align", "\"new\", \"center\" | \"start\"", "\"center\"", "A date or new-messages divider."],
       ["PresenceAvatar name · tone · avatar · state · size", "Face, \"xs\" | \"sm\" | \"md\" | \"lg\"", "\"md\"", "Photo or initial with a status dot."],

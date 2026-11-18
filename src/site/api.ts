@@ -101,6 +101,7 @@ export const api: Record<string, Section[]> = {
       ["ChatPane composer · footer", "ReactNode", "", "아래에 붙는 입력창과 그 위 한 줄."],
       ["MessageLog", "children", "", "맨 아래에 붙어 따라 내려가는 메시지 목록."],
       ["SystemNote icon · time · onSelect", "IconName, string, () => void", "\"info\"", "시스템 한 줄. onSelect면 링크가 됩니다."],
+      ["SystemNote replies · onOpenThread", "ThreadReplies, () => void", "", "ChatMessage와 같은 답글 요약과 누를 때 이벤트."],
       ["TypingIndicator members", "Face[]", "[]", "일하는 사람 얼굴. children이 없으면 비워 둡니다."],
       ["DayDivider tone · align", "\"new\", \"center\" | \"start\"", "\"center\"", "날짜나 새 메시지 구분선."],
       ["PresenceAvatar name · tone · avatar · state · size", "Face, \"xs\" | \"sm\" | \"md\" | \"lg\"", "\"md\"", "사진이나 첫 글자에 상태 점."],

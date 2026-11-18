@@ -963,6 +963,7 @@
     "answer": "집계 기준을 completed_at으로 바꿔서 오늘 오후에 올리겠습니다.",
     "follow": "테스트도 같이 붙일게요.",
     "replies": "답글 2개",
+    "noteReplies": "답글 1개",
     "last": "마지막 답글 09:20",
     "typing": "준 작업 중…",
     "placeholder": "메시지 보내기 · @로 멘션",

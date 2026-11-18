@@ -79,6 +79,8 @@
 .chat-system.is-link { width: 100%; border: 0; background: none; font: inherit; font-size: var(--font-size-caption); text-align: left; cursor: pointer; }
 .chat-system.is-link:hover { background: var(--color-bg-subtle); color: var(--color-fg-default); }
 .chat-system.is-link > span { text-decoration: underline; text-decoration-color: var(--color-border-strong); text-underline-offset: 3px; }
+.chat-system-thread { display: grid; padding-bottom: var(--space-1); }
+.chat-system-thread > .chat-replies { margin: 0 0 0 calc(var(--space-4) + 48px + var(--icon-size-sm) + var(--space-2)); }
 .chat-dots { display: inline-flex; gap: 3px; align-items: center; }
 .chat-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--color-fg-muted); animation: chat-bounce 1.2s infinite; }
 .chat-dots i:nth-child(2) { animation-delay: 0.15s; }

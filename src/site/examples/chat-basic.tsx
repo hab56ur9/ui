@@ -34,7 +34,7 @@ export default function Example() {
           <ChatMessage author={text.mina} tone={2} badge={{ label: text.minaRole }} time="09:12" reactions={[{ emoji: "👍", count: 2, mine: true }]}>
             <p><Mention>{text.jun}</Mention> {text.ask}</p>
           </ChatMessage>
-          <SystemNote icon="check" time="09:13">{text.note}</SystemNote>
+          <SystemNote icon="check" time="09:13" replies={{ label: text.noteReplies, members: [people.jun] }}>{text.note}</SystemNote>
           <ChatMessage author={text.jun} tone={5} badge={{ label: text.junRole }} time="09:15" selected replies={{ label: text.replies, last: text.last, members: [people.mina, people.jun] }}>
             {text.answer}
           </ChatMessage>

@@ -3553,7 +3553,9 @@
                 "properties": {
                   "icon": {},
                   "time": {},
-                  "onSelect": {}
+                  "onSelect": {},
+                  "replies": {},
+                  "onOpenThread": {}
                 },
                 "required": [],
                 "additionalProperties": false
