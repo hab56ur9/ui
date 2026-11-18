@@ -9,9 +9,10 @@ const VARIANTS = ["primary", "secondary", "danger"];
 const isObject = (value) => typeof value === "object" && value !== null && !Array.isArray(value);
 const described = (value) => typeof value?.description === "string" && value.description.trim() !== "";
 
-export function checkSpec(spec, components) {
+export function checkSpec(spec, components, icons) {
   const errors = [];
   const fail = (path, message) => errors.push(`${path}: ${message}`);
+  const checkIcon = (path, name) => icons && typeof name === "string" && !icons.includes(name) && fail(path, `names unknown icon ${name}`);
   const byName = new Map(components.map((component) => [component.name, component]));
   const data = isObject(spec.data) ? spec.data : {};
   const formats = isObject(spec.formats) ? spec.formats : {};
@@ -34,7 +35,10 @@ export function checkSpec(spec, components) {
     if (key in BUILTIN_ACTIONS) fail(`actions.${key}`, "is built in; declare only app actions");
     if (!described(action)) fail(`actions.${key}.description`, "is required");
   }
-  for (const [i, item] of (spec.nav ?? []).entries()) if (!screens[item.screen]) fail(`nav.${i}.screen`, `names no screen (${item.screen})`);
+  for (const [i, item] of (spec.nav ?? []).entries()) {
+    if (!screens[item.screen]) fail(`nav.${i}.screen`, `names no screen (${item.screen})`);
+    checkIcon(`nav.${i}.icon`, item.icon);
+  }
 
   const checkAction = (path, action) => {
     if (!isObject(action) || typeof action.name !== "string") return fail(path, "needs a name");
@@ -73,6 +77,7 @@ export function checkSpec(spec, components) {
     const known = new Map(component.props.map((prop) => [prop.name, prop]));
     for (const key of Object.keys(props)) if (!known.has(key)) fail(`${path}.props.${key}`, `is not a prop of ${node.type}`);
     for (const prop of component.props) if (!prop.optional && prop.name !== "children" && !(prop.name in props)) fail(`${path}.props.${prop.name}`, `is required by ${node.type}`);
+    checkIcon(`${path}.props.icon`, props.icon);
     for (const [key, value] of Object.entries(props)) checkValue(`${path}.props.${key}`, value);
     if (node.children !== undefined) checkValue(`${path}.children`, node.children);
   };
@@ -99,6 +104,7 @@ export function checkSpec(spec, components) {
     if (!isObject(value) || typeof value.type !== "string") return checkValue(path, value);
     const component = byName.get(value.type);
     if (!component) return fail(path, `uses unknown component ${value.type}`);
+    checkIcon(`${path}.props.icon`, value.props?.icon);
     for (const [key, item] of Object.entries(value.props ?? {})) {
       if (!component.props.some((prop) => prop.name === key)) fail(`${path}.props.${key}`, `is not a prop of ${value.type}`);
       checkValue(`${path}.props.${key}`, item);

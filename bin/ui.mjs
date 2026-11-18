@@ -326,7 +326,8 @@ function lint(files) {
 function checkFile(file) {
   if (!file) throw new Error("ui spec check <spec.json>");
   const { components } = JSON.parse(readFileSync(join(pkgRoot, "dist/components.json"), "utf8"));
-  const errors = checkSpec(JSON.parse(readFileSync(resolve(file), "utf8")), components);
+  const icons = Object.keys(JSON.parse(readFileSync(join(pkgRoot, "dist/icons.json"), "utf8")));
+  const errors = checkSpec(JSON.parse(readFileSync(resolve(file), "utf8")), components, icons);
   for (const error of errors) console.log(`  ✗ ${error}`);
   console.log(errors.length ? `${file}: ${errors.length} problems` : `${file}: valid`);
   if (errors.length) process.exitCode = 1;

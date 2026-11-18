@@ -56,6 +56,15 @@ test("the check rejects a desktop nav item without an icon", () => {
   assert.ok(errorsOf((spec) => delete spec.nav[1].icon).some((error) => error.startsWith("nav.1.icon:")));
 });
 
+test("the check rejects icon names that the icon set lacks", () => {
+  const icons = ["home", "user", "search"];
+  const spec = desk();
+  spec.screens.people.widgets[0].content = { type: "Button", props: { icon: "rocket" }, children: "Go" };
+  const errors = checkSpec(spec, components, icons);
+  assert.ok(errors.includes("nav.0.icon: names unknown icon hash"));
+  assert.ok(errors.includes("screens.people.widgets.0.content.props.icon: names unknown icon rocket"));
+});
+
 test("the check rejects an unknown state", () => {
   assert.ok(errorsOf((spec) => (spec.frame.sidebar.props.value = { $state: "overlay" })).some((error) => error.includes("reads unknown state overlay")));
 });

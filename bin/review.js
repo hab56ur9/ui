@@ -7,9 +7,15 @@ let on = false;
 let dragged = null;
 let applying = false;
 let savedState = JSON.stringify(source ? JSON.parse(source.textContent) : null);
+const TEXTS = {
+  en: { earlier: "Move earlier", later: "Move later", narrower: "Narrower", wider: "Wider", shorter: "Shorter", taller: "Taller", note: "Note", remove: "Remove or restore", widget: "New widget", review: "Review", done: "Done", add: "+ Widget", save: "Save", changes: (n) => `${n} changes`, saved: "saved", failed: (status) => `Save failed (${status})` },
+  ko: { earlier: "앞으로", later: "뒤로", narrower: "좁게", wider: "넓게", shorter: "낮게", taller: "높게", note: "메모", remove: "빼기 또는 되돌리기", widget: "새 위젯", review: "검토", done: "완료", add: "+ 위젯", save: "저장", changes: (n) => `변경 ${n}건`, saved: "저장됨", failed: (status) => `저장 실패 (${status})` },
+};
+const t = TEXTS[document.documentElement.lang.split("-")[0]] ?? TEXTS.en;
 
 const STYLE = `
 .ui-review-bar { position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 100; display: flex; gap: var(--space-2); align-items: center; padding: var(--space-2); border: var(--border-width-default) solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg-raised); box-shadow: var(--elevation-lifted); font: inherit; }
+.ui-review-bar.is-idle > :not(.ui-review-toggle) { display: none; }
 .ui-review-bar span { padding: 0 var(--space-2); color: var(--color-fg-muted); font-size: var(--font-size-caption); }
 .ui-review-on .widget[data-id] { outline: var(--border-width-strong) dashed var(--color-border-strong); outline-offset: calc(-1 * var(--border-width-strong)); }
 .ui-review-on .widget[data-id].is-dragover { outline-color: var(--color-main-default); }
@@ -66,14 +72,14 @@ function tools(widget, screen) {
     const current = Number(state[key] ?? getComputedStyle(widget).getPropertyValue(`--${key}`)) || 1;
     state[key] = Math.min(key === "w" ? 12 : 12, Math.max(1, current + step));
   };
-  button("◀", "Move earlier", () => move(screen, id, -1));
-  button("▶", "Move later", () => move(screen, id, 1));
-  button("W−", "Narrower", size("w", -1));
-  button("W+", "Wider", size("w", 1));
-  button("H−", "Shorter", size("h", -1));
-  button("H+", "Taller", size("h", 1));
-  button("✎", "Note", () => editNote(widget.querySelector(":scope > .ui-review-note"), widgetEntry(screen, id)));
-  button("✕", "Remove or restore", () => {
+  button("◀", t.earlier, () => move(screen, id, -1));
+  button("▶", t.later, () => move(screen, id, 1));
+  button("W−", t.narrower, size("w", -1));
+  button("W+", t.wider, size("w", 1));
+  button("H−", t.shorter, size("h", -1));
+  button("H+", t.taller, size("h", 1));
+  button("✎", t.note, () => editNote(widget.querySelector(":scope > .ui-review-note"), widgetEntry(screen, id)));
+  button("✕", t.remove, () => {
     const state = widgetEntry(screen, id);
     state.removed = state.removed ? undefined : true;
   });
@@ -157,7 +163,7 @@ function overlayTools(dialog, id) {
   note.className = "ui-review-note is-overlay";
   const button = document.createElement("button");
   button.type = "button";
-  button.textContent = "✎ Note";
+  button.textContent = `✎ ${t.note}`;
   button.addEventListener("click", (e) => {
     e.stopPropagation();
     editNote(note, (review.overlays[id] ??= {}));
@@ -205,7 +211,7 @@ function addWidget() {
   const screen = root.dataset.screen;
   const state = entry(screen);
   const id = `new-${(state.added ?? []).length + 1}`;
-  (state.added ??= []).push({ id, title: "New widget", w: 4, h: 2 });
+  (state.added ??= []).push({ id, title: t.widget, w: 4, h: 2 });
   apply();
 }
 
@@ -277,15 +283,16 @@ function status() {
   const current = snapshot();
   const changes = Object.values(current.screens).reduce((n, s) => n + Object.keys(s.widgets ?? {}).length + (s.added?.length ?? 0) + (s.order ? 1 : 0), 0) + Object.keys(current.overlays ?? {}).length;
   const saved = JSON.stringify(current) === savedState;
-  const text = `${on ? "Review · " : ""}${changes} changes${saved ? " · saved" : ""}`;
+  const text = `${on ? `${t.review} · ` : ""}${t.changes(changes)}${saved ? ` · ${t.saved}` : ""}`;
   if (label.textContent !== text) label.textContent = text;
+  label.parentElement?.classList.toggle("is-idle", !on && !changes);
 }
 
 async function save() {
   const body = JSON.stringify(snapshot(), null, 2);
   const response = await fetch(`/__ui/review?file=${encodeURIComponent(location.pathname)}`, { method: "POST", headers: { "content-type": "application/json" }, body });
   if (!response.ok) {
-    label.textContent = `Save failed (${response.status})`;
+    label.textContent = t.failed(response.status);
     return false;
   }
   savedState = JSON.stringify(JSON.parse(body));
@@ -306,12 +313,13 @@ function mount() {
     el.addEventListener("click", run);
     return el;
   };
-  const toggle = make("Review", () => {
+  const toggle = make(t.review, () => {
     on = !on;
-    toggle.textContent = on ? "Done" : "Review";
+    toggle.textContent = on ? t.done : t.review;
     apply();
   });
-  bar.append(label, toggle, make("+ Widget", addWidget), make("Save", save));
+  toggle.className = "ui-review-toggle";
+  bar.append(label, toggle, make(t.add, addWidget), make(t.save, save));
   if (!embedded) document.body.append(bar);
   new MutationObserver(() => {
     queueMicrotask(apply);
