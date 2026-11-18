@@ -8,7 +8,7 @@ let dragged = null;
 let applying = false;
 let savedState = JSON.stringify(source ? JSON.parse(source.textContent) : null);
 const TEXTS = {
-  en: { earlier: "Move earlier", later: "Move later", narrower: "Narrower", wider: "Wider", shorter: "Shorter", taller: "Taller", note: "Note", remove: "Remove or restore", widget: "New widget", review: "Review", done: "Done", add: "+ Widget", save: "Save", changes: (n) => `${n} changes`, saved: "saved", failed: (status) => `Save failed (${status})` },
+  en: { earlier: "Move earlier", later: "Move later", narrower: "Narrower", wider: "Wider", shorter: "Shorter", taller: "Taller", note: "Note", remove: "Remove or restore", widget: "New widget", review: "Review", done: "Done", add: "+ Widget", save: "Save", changes: (n) => `${n} ${n === 1 ? "change" : "changes"}`, saved: "saved", failed: (status) => `Save failed (${status})` },
   ko: { earlier: "앞으로", later: "뒤로", narrower: "좁게", wider: "넓게", shorter: "낮게", taller: "높게", note: "메모", remove: "빼기 또는 되돌리기", widget: "새 위젯", review: "검토", done: "완료", add: "+ 위젯", save: "저장", changes: (n) => `변경 ${n}건`, saved: "저장됨", failed: (status) => `저장 실패 (${status})` },
 };
 const t = TEXTS[document.documentElement.lang.split("-")[0]] ?? TEXTS.en;
