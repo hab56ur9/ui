@@ -1,6 +1,6 @@
 {
   "name": "design-system",
-  "version": "0.3.0-alpha.10",
+  "version": "0.3.0-alpha.11",
   "description": "Builds pages, widget dashboards, technical documents and decks on the ui design system — live pages follow token updates, snapshots record the token version.",
   "author": {
     "name": "nathan",
