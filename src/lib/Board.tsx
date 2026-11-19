@@ -108,7 +108,7 @@ export type BoardProps = {
   children?: ReactNode;
 };
 
-export type WidgetProps = Omit<WidgetSpec, "render"> & { frame?: "card" | "plain"; children: ReactNode };
+export type WidgetProps = Omit<WidgetSpec, "render"> & { frame?: "card" | "plain" | "none"; children: ReactNode };
 
 export function Widget({ id, title, subtitle, w, h, frame = "card", children }: WidgetProps) {
   const motion = useMotion();

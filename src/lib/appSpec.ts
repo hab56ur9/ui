@@ -3,8 +3,8 @@ import type { IconName } from "./Icon";
 import type { JsonUIAction, JsonUIContent, JsonUIFormat } from "./JsonUI";
 
 export type SpecButton = { label: string; action: JsonUIAction; variant?: ButtonVariant };
-export type SpecWidget = { id: string; w: number; h: number | "auto"; title?: string; subtitle?: string; frame?: "card" | "plain"; action?: JsonUIAction; content: JsonUIContent; description?: string };
-export type SpecScreen = { description?: string; layout?: "grid" | "article"; title?: string; lede?: string; eyebrow?: string; wide?: boolean; toc?: boolean; actions?: SpecButton[]; widgets?: SpecWidget[]; sidebar?: JsonUIContent };
+export type SpecWidget = { id: string; w: number; h: number | "auto" | "fill"; title?: string; subtitle?: string; frame?: "card" | "plain" | "none"; action?: JsonUIAction; content: JsonUIContent; description?: string };
+export type SpecScreen = { description?: string; layout?: "grid" | "article" | "full"; title?: string; lede?: string; eyebrow?: string; wide?: boolean; toc?: boolean; actions?: SpecButton[]; widgets?: SpecWidget[]; sidebar?: JsonUIContent };
 export type SpecOverlay = { description?: string; kind?: "modal" | "sheet"; title: string; lede?: string; body?: string; actions?: SpecButton[] };
 export type SpecPanel = { description?: string; title?: string; content: JsonUIContent };
 export type SpecNavItem = { screen: string; label: string; icon?: IconName; group?: string; sub?: string };

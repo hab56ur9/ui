@@ -94,7 +94,7 @@ export function checkSpec(spec, components, icons) {
       seen.add(widget.id);
       if (!described(widget)) fail(`${at}.description`, "is required");
       if (!(Number.isInteger(widget.w) && widget.w >= 1 && widget.w <= 12)) fail(`${at}.w`, "must be 1–12 columns");
-      if (!(widget.h === "auto" || (Number.isInteger(widget.h) && widget.h >= 1))) fail(`${at}.h`, "must be a whole number of rows or \"auto\"");
+      if (!(widget.h === "auto" || widget.h === "fill" || (Number.isInteger(widget.h) && widget.h >= 1))) fail(`${at}.h`, "must be a whole number of rows, \"auto\" or \"fill\"");
       if (widget.action !== undefined) checkAction(`${at}.action`, widget.action);
       checkValue(`${at}.content`, widget.content);
     }
@@ -115,7 +115,7 @@ export function checkSpec(spec, components, icons) {
   (frame.actions ?? []).forEach((node, i) => checkFrameNode(`frame.actions.${i}`, node));
   const groups = new Set((spec.nav ?? []).map((item) => item.group).filter(Boolean));
   (frame.sections ?? []).forEach((section, i) => (section.groups ?? []).forEach((group) => groups.has(group) || fail(`frame.sections.${i}.groups`, `names no nav group (${group})`)));
-  for (const [id, screen] of Object.entries(screens)) if (screen.layout !== undefined && !["grid", "article"].includes(screen.layout)) fail(`screens.${id}.layout`, "must be grid or article");
+  for (const [id, screen] of Object.entries(screens)) if (screen.layout !== undefined && !["grid", "article", "full"].includes(screen.layout)) fail(`screens.${id}.layout`, "must be grid, article or full");
   if (frame.shell !== undefined && !SHELLS.includes(frame.shell)) fail("frame.shell", `must be one of ${SHELLS.join(", ")}`);
   if (frame.shell === "desktop") for (const [i, item] of (spec.nav ?? []).entries()) if (typeof item.icon !== "string") fail(`nav.${i}.icon`, "is required by the desktop shell");
   const sidebars = [["frame.sidebar", frame.sidebar], ...Object.entries(screens).map(([id, screen]) => [`screens.${id}.sidebar`, screen.sidebar])].filter(([, value]) => value !== undefined);
@@ -182,8 +182,8 @@ export function specSchema(components) {
       title: { type: "string" },
       subtitle: { type: "string" },
       w: { type: "integer", minimum: 1, maximum: 12 },
-      h: { oneOf: [{ type: "integer", minimum: 1 }, { const: "auto" }] },
-      frame: { enum: ["card", "plain"] },
+      h: { oneOf: [{ type: "integer", minimum: 1 }, { enum: ["auto", "fill"] }] },
+      frame: { enum: ["card", "plain", "none"] },
       description: text,
       action: { $ref: "#/$defs/action" },
       content: { $ref: "#/$defs/content" },
@@ -224,7 +224,7 @@ export function specSchema(components) {
       actions: { type: "object", additionalProperties: entry({ params: { type: "object" } }) },
       screens: {
         type: "object",
-        additionalProperties: entry({ layout: { enum: ["grid", "article"] }, toc: { type: "boolean" }, eyebrow: { type: "string" }, wide: { type: "boolean" }, title: { type: "string" }, lede: { type: "string" }, actions: { type: "array", items: { $ref: "#/$defs/button" } }, sidebar: { $ref: "#/$defs/content" }, widgets: { type: "array", items: { $ref: "#/$defs/widget" } } }, ["widgets"]),
+        additionalProperties: entry({ layout: { enum: ["grid", "article", "full"] }, toc: { type: "boolean" }, eyebrow: { type: "string" }, wide: { type: "boolean" }, title: { type: "string" }, lede: { type: "string" }, actions: { type: "array", items: { $ref: "#/$defs/button" } }, sidebar: { $ref: "#/$defs/content" }, widgets: { type: "array", items: { $ref: "#/$defs/widget" } } }, ["widgets"]),
       },
       panels: {
         type: "object",
@@ -295,20 +295,25 @@ export function buildHtml(spec, { module, lang = "en" }) {
   const buttons = (items = []) =>
     items.map((button) => `h(Button, { variant: ${quote(button.variant ?? "secondary")}, onClick: () => act(${quote(button.action)}) }, ${quote(button.label)})`);
   const screens = Object.entries(spec.screens).map(([id, screen]) => {
-    const widgets = (screen.widgets ?? []).map((widget) => {
-      const head = { id: widget.id, title: widget.title ?? "", ...(widget.subtitle && { subtitle: widget.subtitle }), w: widget.w, h: widget.h === "auto" ? 1 : widget.h, ...(widget.frame && { frame: widget.frame }) };
+    const widgetOf = (widget) => {
+      const head = { id: widget.id, title: widget.title ?? "", ...(widget.subtitle && { subtitle: widget.subtitle }), w: widget.w, h: typeof widget.h === "number" ? widget.h : 1, ...(widget.frame && { frame: widget.frame }) };
       const press = widget.action ? `,\n  h("button", { type: "button", "data-press": "", "aria-label": ${quote(widget.title ?? widget.id)}, style: ${PRESS}, onClick: () => act(${quote(widget.action)}) })` : "";
       return `h(Widget, { ${Object.entries(head).map(([key, value]) => `${key}: ${quote(value)}`).join(", ")} },\n  ${indent(content(widget.content), 1)}${press},\n)`;
-    });
+    };
+    const widgets = (screen.widgets ?? []).map(widgetOf);
     if (screen.layout === "article") {
       for (const name of ["Article", "RichText", "Pager"]) used.add(name);
       const head = [`title: ${quote(screen.title ?? "")}`, ...(screen.eyebrow ? [`eyebrow: ${quote(screen.eyebrow)}`] : []), ...(screen.lede ? [`lede: h(RichText, { text: ${quote(screen.lede)} })`] : []), ...(screen.wide ? ["wide: true"] : []), `pager: pagerFor(${quote(id)})`];
       return `function ${screenName(id)}({ act, state }) {\n  return h(Article, { ${head.join(", ")} },\n    h(WidgetGrid, { flow: true },\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
     }
     const actions = buttons(screen.actions);
-    const page = { ...(screen.title && { title: screen.title }), ...(screen.lede && { lede: screen.lede }) };
+    const page = { ...(screen.title && { title: screen.title }), ...(screen.lede && { lede: screen.lede }), ...(screen.layout === "full" && { full: true }) };
     const pageProps = actions.length ? `{ ...${quote(page)}, actions: [${actions.join(", ")}] }` : quote(page);
-    return `function ${screenName(id)}({ act, state }) {\n  return h(Page, ${pageProps},\n    h(WidgetGrid, null,\n      ${indent(widgets.join(",\n"), 3)},\n    ),\n  );\n}`;
+    const fixed = (screen.widgets ?? []).filter((widget) => widget.h !== "fill").map(widgetOf);
+    const filled = (screen.widgets ?? []).filter((widget) => widget.h === "fill").map(widgetOf);
+    const grid = (props, items) => `h(WidgetGrid, ${props},\n      ${indent(items.join(",\n"), 3)},\n    )`;
+    const grids = [...(fixed.length || !filled.length ? [grid("null", fixed)] : []), ...(filled.length ? [grid("{ fill: true }", filled)] : [])];
+    return `function ${screenName(id)}({ act, state }) {\n  return h(Page, ${pageProps},\n    ${grids.join(",\n    ")},\n  );\n}`;
   });
   const overlays = Object.entries(spec.overlays ?? {}).map(([id, overlay]) => {
     const kind = overlay.kind === "sheet" ? "Sheet" : "Modal";

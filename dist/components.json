@@ -139,9 +139,10 @@
           "kind": "enum",
           "values": [
             "card",
+            "none",
             "plain"
           ],
-          "type": "\"card\" | \"plain\" | undefined"
+          "type": "\"card\" | \"none\" | \"plain\" | undefined"
         },
         {
           "name": "children",
@@ -2499,6 +2500,12 @@
           "type": "ReactNode"
         },
         {
+          "name": "full",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
           "name": "children",
           "optional": false,
           "kind": "node",
@@ -2522,6 +2529,12 @@
       "props": [
         {
           "name": "flow",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "fill",
           "optional": true,
           "kind": "boolean",
           "type": "boolean | undefined"

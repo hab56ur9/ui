@@ -89,3 +89,18 @@ test("a panel without a title passes the check and builds without a Panel frame"
 test("the check rejects a panel title that is not a string", () => {
   assert.ok(errorsOf((spec) => (spec.panels.t1.title = 7)).includes("panels.t1.title: must be a string"));
 });
+
+test("a full screen with a fill widget passes the check and builds a fill grid", () => {
+  const spec = desk();
+  spec.screens.channel.layout = "full";
+  spec.screens.channel.widgets.push({ id: "log", w: 12, h: "fill", frame: "none", description: "Channel log.", content: { type: "ChatMessage", props: { author: "Ana", time: "21:40" }, children: "Hi." } });
+  assert.deepEqual(checkSpec(spec, components), []);
+  const html = buildHtml(spec, { module: "/ui/ui.js" });
+  assert.match(html, /h\(Page, \{"title":"Channel","full":true\}/);
+  assert.match(html, /h\(WidgetGrid, \{ fill: true \},\n\s+h\(Widget, \{ id: "log", title: "", w: 12, h: 1, frame: "none" \}/);
+});
+
+test("the check rejects an unknown widget height and screen layout", () => {
+  assert.ok(errorsOf((spec) => (spec.screens.channel.widgets[0].h = "rest")).some((error) => error.startsWith("screens.channel.widgets.0.h:")));
+  assert.ok(errorsOf((spec) => (spec.screens.channel.layout = "bleed")).some((error) => error.startsWith("screens.channel.layout:")));
+});

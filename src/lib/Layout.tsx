@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 
-export type PageProps = { title?: ReactNode; lede?: ReactNode; actions?: ReactNode; children: ReactNode };
+export type PageProps = { title?: ReactNode; lede?: ReactNode; actions?: ReactNode; full?: boolean; children: ReactNode };
 
-export function Page({ title, lede, actions, children }: PageProps) {
+export function Page({ title, lede, actions, full, children }: PageProps) {
   return (
-    <main className="page">
+    <main className={full ? "page is-full" : "page"}>
       {(title || actions) && (
         <header className="page-head">
           <div>
@@ -19,12 +19,12 @@ export function Page({ title, lede, actions, children }: PageProps) {
   );
 }
 
-export type WidgetGridProps = { flow?: boolean; children: ReactNode };
+export type WidgetGridProps = { flow?: boolean; fill?: boolean; children: ReactNode };
 
-export function WidgetGrid({ flow, children }: WidgetGridProps) {
+export function WidgetGrid({ flow, fill, children }: WidgetGridProps) {
   if (flow) return <div className="board is-flow">{children}</div>;
   return (
-    <div className="board-frame">
+    <div className={fill ? "board-frame is-fill" : "board-frame"}>
       <div className="board">{children}</div>
     </div>
   );

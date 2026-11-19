@@ -11,7 +11,7 @@ import { Page, WidgetGrid } from "./Layout";
 import { Pager, Toc } from "./navigation";
 import { Modal, Sheet } from "./overlay/Dialog";
 import { Panel, PanelAction } from "./Panel";
-import { navGroups, sectionOf, specFormats, tocOf, type AppSpec, type SpecButton, type SpecScreen } from "./appSpec";
+import { navGroups, sectionOf, specFormats, tocOf, type AppSpec, type SpecButton, type SpecScreen, type SpecWidget } from "./appSpec";
 import { Tabs } from "./Tabs";
 import { TextField } from "./TextField";
 
@@ -49,13 +49,24 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
       </Button>
     ));
 
-  const widgetsOf = (view: SpecScreen) =>
-    (view.widgets ?? []).map((widget) => (
-      <Widget key={widget.id} id={widget.id} title={widget.title ?? ""} subtitle={widget.subtitle} w={widget.w} h={widget.h === "auto" ? 1 : widget.h} frame={widget.frame}>
+  const widgetsOf = (widgets: SpecWidget[]) =>
+    widgets.map((widget) => (
+      <Widget key={widget.id} id={widget.id} title={widget.title ?? ""} subtitle={widget.subtitle} w={widget.w} h={typeof widget.h === "number" ? widget.h : 1} frame={widget.frame}>
         {show(widget.content)}
         {widget.action && <button type="button" className="spec-press" data-press="" aria-label={widget.title ?? widget.id} onClick={() => widget.action && onAction(widget.action)} />}
       </Widget>
     ));
+  const gridsOf = (view: SpecScreen) => {
+    const widgets = view.widgets ?? [];
+    const fixed = widgets.filter((widget) => widget.h !== "fill");
+    const filled = widgets.filter((widget) => widget.h === "fill");
+    return (
+      <>
+        {(fixed.length > 0 || filled.length === 0) && <WidgetGrid>{widgetsOf(fixed)}</WidgetGrid>}
+        {filled.length > 0 && <WidgetGrid fill>{widgetsOf(filled)}</WidgetGrid>}
+      </>
+    );
+  };
 
   const pagerFor = (id: string) => {
     const at = nav.findIndex((item) => item.screen === id);
@@ -70,11 +81,11 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
   const body =
     view.layout === "article" ? (
       <Article title={view.title ?? ""} eyebrow={view.eyebrow} lede={view.lede && <RichText text={view.lede} />} wide={view.wide} pager={pagerFor(screen)}>
-        <WidgetGrid flow>{widgetsOf(view)}</WidgetGrid>
+        <WidgetGrid flow>{widgetsOf(view.widgets ?? [])}</WidgetGrid>
       </Article>
     ) : (
-      <Page title={view.title} lede={view.lede} actions={view.actions?.length ? buttons(view.actions) : undefined}>
-        <WidgetGrid>{widgetsOf(view)}</WidgetGrid>
+      <Page title={view.title} lede={view.lede} actions={view.actions?.length ? buttons(view.actions) : undefined} full={view.layout === "full"}>
+        {gridsOf(view)}
       </Page>
     );
 

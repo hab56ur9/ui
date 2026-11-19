@@ -244,7 +244,8 @@
           "layout": {
             "enum": [
               "grid",
-              "article"
+              "article",
+              "full"
             ]
           },
           "toc": {
@@ -4108,14 +4109,18 @@
               "minimum": 1
             },
             {
-              "const": "auto"
+              "enum": [
+                "auto",
+                "fill"
+              ]
             }
           ]
         },
         "frame": {
           "enum": [
             "card",
-            "plain"
+            "plain",
+            "none"
           ]
         },
         "description": {
