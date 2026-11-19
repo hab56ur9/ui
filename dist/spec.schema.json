@@ -3939,6 +3939,7 @@
                   "state": {},
                   "scope": {},
                   "meta": {},
+                  "allowAlways": {},
                   "onDecide": {}
                 },
                 "required": [

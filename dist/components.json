@@ -5331,6 +5331,12 @@
           "type": "string | undefined"
         },
         {
+          "name": "allowAlways",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
           "name": "onDecide",
           "optional": true,
           "kind": "action",

@@ -16,6 +16,7 @@ export type ApprovalCardProps = {
   state?: ApprovalState;
   scope?: ApprovalScope;
   meta?: string;
+  allowAlways?: boolean;
   onDecide?: (decision: ApprovalDecision, scope: ApprovalScope) => void;
 };
 
@@ -28,7 +29,7 @@ const label = (state: ApprovalState, scope?: ApprovalScope): MessageKey => {
   return "approval.allowed";
 };
 
-export function ApprovalCard({ title, description, command, state = "pending", scope, meta, onDecide }: ApprovalCardProps) {
+export function ApprovalCard({ title, description, command, state = "pending", scope, meta, allowAlways = true, onDecide }: ApprovalCardProps) {
   const { text: t } = useI18n();
   const deciding = state === "pending" && onDecide;
   return (
@@ -55,7 +56,7 @@ export function ApprovalCard({ title, description, command, state = "pending", s
       {deciding && (
         <footer className="approval-foot">
           <ButtonBase onClick={() => onDecide("denied", "once")}>{t("approval.deny")}</ButtonBase>
-          <ButtonBase onClick={() => onDecide("allowed", "always")}>{t("approval.allowAlways")}</ButtonBase>
+          {allowAlways && <ButtonBase onClick={() => onDecide("allowed", "always")}>{t("approval.allowAlways")}</ButtonBase>}
           <ButtonBase variant="primary" onClick={() => onDecide("allowed", "once")}>{t("approval.allowOnce")}</ButtonBase>
         </footer>
       )}
