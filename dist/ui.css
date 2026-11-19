@@ -562,9 +562,15 @@ p {
   height: 100%;
 }
 
-.widget-body:has(> .stat) {
+.widget[data-short] > .widget-body:has(> .stat) {
   overflow: clip;
   overflow-clip-margin: var(--layout-inset);
+}
+
+.widget[data-short] .stat-note {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .stat-label {
@@ -596,11 +602,8 @@ p {
 }
 
 .stat-note {
-  overflow: hidden;
   color: var(--color-fg-muted);
   font-size: var(--font-size-caption);
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .delta {

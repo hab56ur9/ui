@@ -113,7 +113,7 @@ export type WidgetProps = Omit<WidgetSpec, "render"> & { frame?: "card" | "plain
 export function Widget({ id, title, subtitle, w, h, frame = "card", children }: WidgetProps) {
   const motion = useMotion();
   return (
-    <section className={`widget is-static is-${frame}`} data-id={id} data-motion={motion ? "enter" : undefined} style={{ "--w": w, "--h": h } as CSSProperties}>
+    <section className={`widget is-static is-${frame}`} data-id={id} data-short={h === 1 || undefined} data-motion={motion ? "enter" : undefined} style={{ "--w": w, "--h": h } as CSSProperties}>
       {title && (
         <header className="widget-head">
           <div className="widget-titles">
@@ -348,7 +348,7 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
           const table = tables.has(item.id) && def.table;
           const state = [item.id === dragging ? "is-placeholder" : "", item.id === resizing ? "is-resizing" : ""].filter(Boolean).join(" ");
           return (
-            <section key={item.id} className={`widget ${state}`.trim()} data-id={item.id} data-motion={motion ? "enter" : undefined} aria-label={def.title} style={{ "--w": item.w, "--h": item.h, "--motion-order": order } as CSSProperties}>
+            <section key={item.id} className={`widget ${state}`.trim()} data-id={item.id} data-short={item.h === 1 || undefined} data-motion={motion ? "enter" : undefined} aria-label={def.title} style={{ "--w": item.w, "--h": item.h, "--motion-order": order } as CSSProperties}>
               <header className="widget-head" onPointerDown={(e) => armDrag(item.id, e)}>
                 <button type="button" className="widget-handle" aria-label={text("move", { title: def.title })} title={text("move", { title: def.title })} onKeyDown={(e) => moveByKey(item.id, e)}>
                   <Icon name="grip" size="sm" />
