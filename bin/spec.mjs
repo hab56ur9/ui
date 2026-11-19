@@ -403,7 +403,7 @@ const groupsOf = (items) => items.reduce((groups, item) => {
 }, []);
 const fromHash = () => {
   const id = location.hash.replace(/^#\\//, "");
-  return id in screens ? id : ${quote(spec.start)};
+  return Object.hasOwn(screens, id) ? id : ${quote(spec.start)};
 };
 
 function App() {
@@ -425,15 +425,15 @@ function App() {
     if (action.name === "navigate") go(action.params?.screen ?? value);
     if (action.name === "open") setOverlay(action.params.overlay);
     if (action.name === "close" || action.close) setOverlay(null);
-    if (action.name === "panel") setPanel(action.params?.panel ?? (value in panels ? value : null));
+    if (action.name === "panel") setPanel(action.params?.panel ?? (Object.hasOwn(panels, value) ? value : null));
     const detail = ["string", "number", "boolean"].includes(typeof value) ? value : action.params && JSON.stringify(action.params);
     const shown = detail ? \` \${detail}\` : "";
-    if (action.name in actionNotes) toast({ message: \`\${action.name}\${shown}: \${actionNotes[action.name]}\`, status: "info" });
+    if (Object.hasOwn(actionNotes, action.name)) toast({ message: \`\${action.name}\${shown}: \${actionNotes[action.name]}\`, status: "info" });
   };
   const state = { screen, panel };
   const Screen = screens[screen];
-  const Overlay = overlay && overlays[overlay];
-  const PanelView = panel && panels[panel];
+  const Overlay = overlay && Object.hasOwn(overlays, overlay) && overlays[overlay];
+  const PanelView = panel && Object.hasOwn(panels, panel) && panels[panel];
   const Sidebar = sidebars[screen] ?? defaultSidebar;
   const inspector = PanelView && h("div", { "data-panel": panel, style: { display: "contents" } }, h(PanelView, { act, state }));
   const section = sectionOf(screen);

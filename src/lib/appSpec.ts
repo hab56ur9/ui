@@ -59,10 +59,10 @@ export function specNext(spec: AppSpec, at: SpecPosition, action: JsonUIAction, 
   const screen = action.params?.screen ?? value;
   const panel = action.params?.panel ?? value;
   const overlay = action.params?.overlay;
-  if (action.name === "navigate" && named(screen) && screen in spec.screens) next.screen = screen;
+  if (action.name === "navigate" && named(screen) && Object.hasOwn(spec.screens, screen)) next.screen = screen;
   if (action.name === "open" && named(overlay)) next.overlay = overlay;
   if (action.name === "close" || action.close) next.overlay = null;
-  if (action.name === "panel") next.panel = named(panel) && panel in (spec.panels ?? {}) ? panel : null;
+  if (action.name === "panel") next.panel = named(panel) && Object.hasOwn(spec.panels ?? {}, panel) ? panel : null;
   return next;
 }
 

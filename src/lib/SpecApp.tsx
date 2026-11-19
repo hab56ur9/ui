@@ -35,7 +35,7 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
   const [frameRef, size] = useSize<HTMLDivElement>();
   const [query, setQuery] = useState("");
   const formats = useMemo(() => specFormats(spec.formats, locale), [spec.formats, locale]);
-  const screen = asked !== undefined && asked in spec.screens ? asked : spec.start;
+  const screen = asked !== undefined && Object.hasOwn(spec.screens, asked) ? asked : spec.start;
   const ctx: JsonUIContext = { data, formats, state: { screen, panel }, components, onAction };
   const frame = spec.frame ?? {};
   const nav = spec.nav ?? [];
@@ -78,7 +78,7 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
       </Page>
     );
 
-  const panelSpec = panel ? spec.panels?.[panel] : undefined;
+  const panelSpec = panel && Object.hasOwn(spec.panels ?? {}, panel) ? spec.panels?.[panel] : undefined;
   const inspector = panelSpec && (
     <div className="spec-part" data-panel={panel}>
       {panelSpec.title === undefined ? (
@@ -91,7 +91,7 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
     </div>
   );
 
-  const overlaySpec = overlay ? spec.overlays?.[overlay] : undefined;
+  const overlaySpec = overlay && Object.hasOwn(spec.overlays ?? {}, overlay) ? spec.overlays?.[overlay] : undefined;
   const Dialog = overlaySpec?.kind === "sheet" ? Sheet : Modal;
   const dialog = overlaySpec && (
     <div className="spec-part" data-overlay={overlay}>

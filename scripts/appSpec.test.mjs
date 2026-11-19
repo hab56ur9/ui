@@ -21,6 +21,7 @@ test("specNext navigates by params or by value and ignores unknown screens", () 
   assert.equal(specNext(spec, at, { name: "navigate", params: { screen: "list" } }).screen, "list");
   assert.equal(specNext(spec, at, { name: "navigate" }, "intro").screen, "intro");
   assert.equal(specNext(spec, at, { name: "navigate" }, "nowhere").screen, "home");
+  assert.equal(specNext(spec, at, { name: "navigate" }, "toString").screen, "home");
 });
 
 test("specNext opens and closes overlays", () => {
@@ -35,6 +36,7 @@ test("specNext toggles panels and drops unknown ones", () => {
   assert.equal(shown.panel, "info");
   assert.equal(specNext(spec, shown, { name: "panel" }).panel, null);
   assert.equal(specNext(spec, at, { name: "panel" }, "missing").panel, null);
+  assert.equal(specNext(spec, at, { name: "panel" }, "constructor").panel, null);
 });
 
 test("specNext leaves the position alone for app actions", () => {
