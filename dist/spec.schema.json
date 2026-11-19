@@ -286,7 +286,6 @@
         "type": "object",
         "required": [
           "description",
-          "title",
           "content"
         ],
         "properties": {

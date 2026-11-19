@@ -2574,6 +2574,12 @@
           "type": "JsonUIComponents | undefined"
         },
         {
+          "name": "shell",
+          "optional": true,
+          "kind": "object",
+          "type": "SpecAppShell | undefined"
+        },
+        {
           "name": "onAction",
           "optional": true,
           "kind": "action",

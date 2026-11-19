@@ -76,3 +76,16 @@ test("the build puts the sidebar and panels in a desktop shell", () => {
   assert.match(html, /function T1Panel\(\{ act, state \}\)/);
   assert.match(html, /value: state\["panel"\]/);
 });
+
+test("a panel without a title passes the check and builds without a Panel frame", () => {
+  const spec = desk();
+  delete spec.panels.t1.title;
+  assert.deepEqual(checkSpec(spec, components), []);
+  const html = buildHtml(spec, { module: "/ui/ui.js" });
+  assert.match(html, /function T1Panel\(\{ act, state \}\) \{\n  return h\(ChatMessage, /);
+  assert.doesNotMatch(html, /h\(Panel, /);
+});
+
+test("the check rejects a panel title that is not a string", () => {
+  assert.ok(errorsOf((spec) => (spec.panels.t1.title = 7)).includes("panels.t1.title: must be a string"));
+});

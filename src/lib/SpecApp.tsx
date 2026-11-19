@@ -1,9 +1,9 @@
 import { Fragment, useMemo, useState, type ReactNode } from "react";
-import { AppShell } from "./AppShell";
+import { AppShell, type AppShellProps } from "./AppShell";
 import { Article, RichText } from "./article";
 import { Widget } from "./Board";
 import { Button } from "./controls";
-import { DesktopShell } from "./DesktopShell";
+import { DesktopShell, type DesktopShellProps } from "./DesktopShell";
 import { useSize } from "./hooks";
 import { useI18n } from "./i18n";
 import { draw, resolve, type JsonUIAction, type JsonUIComponents, type JsonUIContent, type JsonUIContext } from "./JsonUI";
@@ -15,6 +15,8 @@ import { navGroups, sectionOf, specFormats, tocOf, type AppSpec, type SpecButton
 import { Tabs } from "./Tabs";
 import { TextField } from "./TextField";
 
+export type SpecAppShell = Pick<DesktopShellProps, "search" | "status" | "sizes" | "onResize" | "overlay" | "overlayScope" | "onOverlayClose"> & Pick<AppShellProps, "title" | "onBack">;
+
 export type SpecAppProps = {
   spec: AppSpec;
   data?: Record<string, unknown>;
@@ -22,12 +24,13 @@ export type SpecAppProps = {
   panel?: string | null;
   overlay?: string | null;
   components?: JsonUIComponents;
+  shell?: SpecAppShell;
   onAction?: (action: JsonUIAction, value?: unknown) => void;
 };
 
 const NARROW = 1024;
 
-export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay = null, components, onAction = () => undefined }: SpecAppProps) {
+export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay = null, components, shell = {}, onAction = () => undefined }: SpecAppProps) {
   const { locale, text } = useI18n();
   const [frameRef, size] = useSize<HTMLDivElement>();
   const [query, setQuery] = useState("");
@@ -78,9 +81,13 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
   const panelSpec = panel ? spec.panels?.[panel] : undefined;
   const inspector = panelSpec && (
     <div className="spec-part" data-panel={panel}>
-      <Panel variant="pane" title={panelSpec.title} actions={<PanelAction icon="close" label={text("close")} onClick={() => onAction({ name: "panel" })} />}>
-        {show(panelSpec.content)}
-      </Panel>
+      {panelSpec.title === undefined ? (
+        show(panelSpec.content)
+      ) : (
+        <Panel variant="pane" title={panelSpec.title} actions={<PanelAction icon="close" label={text("close")} onClick={() => onAction({ name: "panel" })} />}>
+          {show(panelSpec.content)}
+        </Panel>
+      )}
     </div>
   );
 
@@ -141,6 +148,13 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
     <div ref={frameRef} className="spec-app" data-density={spec.app.density ?? "comfortable"} data-medium="app">
       {desktop ? (
         <DesktopShell
+          search={shell.search}
+          status={shell.status}
+          sizes={shell.sizes}
+          onResize={shell.onResize}
+          overlay={shell.overlay}
+          overlayScope={shell.overlayScope}
+          onOverlayClose={shell.onOverlayClose}
           path={[brand, titleOf(screen)]}
           titleActions={actions}
           rail={nav.map((item) => ({ id: item.screen, label: item.label, icon: item.icon ?? "grid", current: item.screen === screen, onSelect: () => go(item.screen) }))}
@@ -156,7 +170,8 @@ export function SpecApp({ spec, data = {}, screen: asked, panel = null, overlay 
           mobileNav={mobileNav}
           scroll={frame.scroll}
           navHeader={frame.search && <TextField label={frame.search.label ?? ""} hideLabel type="search" icon="search" placeholder={frame.search.placeholder ?? frame.search.label ?? ""} value={query} onChange={setQuery} />}
-          title={title}
+          title={shell.title ?? title}
+          onBack={shell.onBack}
           actions={actions}
           aside={inspector || (frame.toc && toc.length ? <Toc key={screen} title={frame.toc} items={toc} offset={120} /> : undefined)}
         >

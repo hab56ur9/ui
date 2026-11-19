@@ -33,7 +33,7 @@ export { ImagePreview, type ImagePreviewProps } from "./ImagePreview";
 export { Panel, PanelAction, type PanelActionProps, type PanelProps } from "./Panel";
 export { Avatar, List, PhotoGrid, Post, ProfileHeader, Stories, type AvatarProps, type GridPhoto, type ListItem, type ListProps, type PhotoGridProps, type PostProps, type ProfileHeaderProps, type ProfileStat, type StoriesProps, type StoryItem } from "./Social";
 export { Page, Stack, WidgetGrid, type PageProps, type WidgetGridProps } from "./Layout";
-export { SpecApp, type SpecAppProps } from "./SpecApp";
+export { SpecApp, type SpecAppProps, type SpecAppShell } from "./SpecApp";
 export { specNext, type AppSpec, type SpecPosition } from "./appSpec";
 export type { JsonUIAction, JsonUIComponents, JsonUIContent, JsonUINode } from "./JsonUI";
 export { Markdown, type MarkdownProps } from "./markdown/Markdown";

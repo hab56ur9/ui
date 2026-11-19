@@ -58,6 +58,7 @@ spec    check validates an app spec against the components and its own data,
         screen, overlay, panel and sidebar, example data inline, widgets marked with data-id.
         frame.shell desktop puts the nav in a DesktopShell rail with frame.sidebar or
         screens.<id>.sidebar beside it; the panel action opens panels.<id> on the right.
+        A panel without a title draws its content alone, for content with its own header.
         The desktop shell is for wide windows. {"$state": "panel"} or "screen" reads
         the open panel or screen, such as a list's selected value.
         --lang sets the page language, number and date formats (default en).

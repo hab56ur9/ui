@@ -125,7 +125,7 @@ export function checkSpec(spec, components, icons) {
   }
   for (const [id, panel] of Object.entries(panels)) {
     const path = `panels.${id}`;
-    if (typeof panel.title !== "string") fail(`${path}.title`, "is required");
+    if (panel.title !== undefined && typeof panel.title !== "string") fail(`${path}.title`, "must be a string");
     if (!described(panel)) fail(`${path}.description`, "is required");
     if (panel.content === undefined) fail(`${path}.content`, "is required");
     checkValue(`${path}.content`, panel.content);
@@ -228,7 +228,7 @@ export function specSchema(components) {
       },
       panels: {
         type: "object",
-        additionalProperties: entry({ title: { type: "string" }, content: { $ref: "#/$defs/content" } }, ["title", "content"]),
+        additionalProperties: entry({ title: { type: "string" }, content: { $ref: "#/$defs/content" } }, ["content"]),
       },
       overlays: {
         type: "object",
@@ -317,6 +317,7 @@ export function buildHtml(spec, { module, lang = "en" }) {
   });
   const closeLabel = lang === "ko" ? "닫기" : "Close";
   const panels = Object.entries(spec.panels ?? {}).map(([id, panel]) => {
+    if (panel.title === undefined) return `function ${partName(id, "Panel")}({ act, state }) {\n  return ${indent(content(panel.content), 1)};\n}`;
     for (const name of ["Panel", "PanelAction"]) used.add(name);
     return `function ${partName(id, "Panel")}({ act, state }) {\n  return h(Panel, { variant: "pane", title: ${quote(panel.title)}, actions: h(PanelAction, { icon: "close", label: ${quote(closeLabel)}, onClick: () => act({ name: "panel" }) }) },\n    ${indent(content(panel.content), 2)},\n  );\n}`;
   });
