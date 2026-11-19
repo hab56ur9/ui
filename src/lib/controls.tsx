@@ -60,7 +60,7 @@ export function Stat({ label, value, delta, note, trend, color = 1, size = "md" 
           {delta.label && <span>{delta.label}</span>}
         </div>
       )}
-      {note && <div className="stat-note">{note}</div>}
+      {note && <div className="stat-note" title={note}>{note}</div>}
       {trend && trend.length > 0 && (
         <div className="stat-trend">
           <Sparkline points={trend} color={color} />
