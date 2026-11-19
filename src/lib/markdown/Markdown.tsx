@@ -16,6 +16,7 @@ export type MarkdownProps = {
   children?: string;
   defaultValue?: string;
   readOnly?: boolean;
+  autoFocus?: boolean;
   imageHosts?: string[];
   onChange?: (markdown: string) => void;
   data?: Record<string, unknown>;
@@ -85,7 +86,7 @@ function grow(el: HTMLTextAreaElement | null) {
   el.style.height = `${el.scrollHeight}px`;
 }
 
-export function Markdown({ children, defaultValue, readOnly = false, imageHosts, onChange, data, formats, onAction }: MarkdownProps) {
+export function Markdown({ children, defaultValue, readOnly = false, autoFocus = false, imageHosts, onChange, data, formats, onAction }: MarkdownProps) {
   const { text } = useI18n();
   const source = defaultValue ?? children ?? "";
   const [own, setBlocks] = useState<EditorBlock[]>(() => fromMarkdown(source));
@@ -94,7 +95,7 @@ export function Markdown({ children, defaultValue, readOnly = false, imageHosts,
   const refs = useMemo(() => parseMarkdown(toMarkdown(blocks)).refs, [blocks]);
   const inline = (value: string) => renderInline(value, refs, imageHosts);
   const seen = new Map<string, number>();
-  const [focus, setFocus] = useState<Focus>(null);
+  const [focus, setFocus] = useState<Focus>(() => (autoFocus && !readOnly && own.length ? { id: own[0].id, caret: 0 } : null));
   const [menu, setMenu] = useState(0);
   const [drag, setDrag] = useState<{ id: string; over: number } | null>(null);
   const root = useRef<HTMLDivElement>(null);
