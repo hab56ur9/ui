@@ -24,6 +24,7 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
   const tabId = (id: string) => `${base}-tab-${id}`;
   const sliding = variant === "line" && orientation === "horizontal";
   const [mark, setMark] = useState<{ left: number; width: number }>();
+  const [clip, setClip] = useState({ start: false, end: false });
 
   useLayoutEffect(() => {
     const node = list.current;
@@ -38,6 +39,26 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
     tabs.forEach((tab) => observer.observe(tab));
     return () => observer.disconnect();
   }, [selected, sliding, items]);
+
+  useLayoutEffect(() => {
+    const node = list.current;
+    if (!node || orientation === "vertical") return;
+    const measure = () => {
+      const scrolled = Math.abs(node.scrollLeft);
+      const start = scrolled > 1;
+      const end = scrolled + node.clientWidth < node.scrollWidth - 1;
+      setClip((was) => (was.start === start && was.end === end ? was : { start, end }));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    node.querySelectorAll<HTMLElement>('[role="tab"]').forEach((tab) => observer.observe(tab));
+    node.addEventListener("scroll", measure, { passive: true });
+    return () => {
+      observer.disconnect();
+      node.removeEventListener("scroll", measure);
+    };
+  }, [orientation, items]);
 
   const select = (id: string) => {
     setOwn(id);
@@ -67,7 +88,7 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
 
   return (
     <div className={`tabs is-${variant} is-${orientation}${fill ? " is-fill" : ""}`}>
-      <div ref={list} className="tabs-list" role="tablist" aria-label={label} aria-orientation={orientation} onKeyDown={onKeyDown}>
+      <div ref={list} className={`tabs-list${clip.start ? " is-clip-start" : ""}${clip.end ? " is-clip-end" : ""}`} role="tablist" aria-label={label} aria-orientation={orientation} onKeyDown={onKeyDown}>
         {items.map((item) => {
           const active = item.id === selected;
           return (
