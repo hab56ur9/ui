@@ -1,10 +1,12 @@
 import { MotionScope, useMotion } from "./MotionScope";
 import { Children, isValidElement, useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactElement, type ReactNode } from "react";
 import { BoardActions } from "./BoardActions";
+import { ButtonBase } from "./controls";
 import { DataTable, type DataTableProps } from "./DataTable";
 import { Icon } from "./Icon";
 import { motionMs, reducedMotion, token, tokenMs, tokenPx } from "./hooks";
 import { useI18n } from "./i18n";
+import { ContextMenu, type MenuItem } from "./overlay/Menu";
 import { useOptionalUI } from "./overlay/Provider";
 
 export type WidgetSpec = {
@@ -94,6 +96,9 @@ type GridProps = {
   onHide?: (widget: WidgetSpec, previous: LayoutItem[]) => void;
   announce?: (message: string) => void;
   busy?: boolean;
+  heads?: boolean;
+  arranging?: boolean;
+  onArrange?: (arranging: boolean) => void;
 };
 
 export type BoardProps = {
@@ -105,6 +110,7 @@ export type BoardProps = {
   actions?: boolean;
   busy?: boolean;
   motion?: boolean;
+  heads?: boolean;
   children?: ReactNode;
 };
 
@@ -136,8 +142,9 @@ const specsOf = (children: ReactNode): WidgetSpec[] =>
 
 const isText = (node: ReactNode) => typeof node === "string";
 
-export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit, commitDelay = 1500, toolbar, actions = true, busy, motion = true }: BoardProps) {
+export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit, commitDelay = 1500, toolbar, actions = true, busy, motion = true, heads = true }: BoardProps) {
   const { text } = useI18n();
+  const [arranging, setArranging] = useState(false);
   const specs = specsOf(children);
   const board = useBoardLayout(specs, { initial: initialLayout, onChange: onLayoutChange, onCommit: onLayoutCommit, delay: commitDelay });
   return (
@@ -146,11 +153,16 @@ export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit,
         <div className="toolbar" role="toolbar" aria-label={text("boardTools")}>
           {isText(toolbar) ? <span className="toolbar-label">{toolbar}</span> : toolbar}
           <span className="toolbar-spacer" />
+          {arranging && (
+            <ButtonBase variant="primary" icon="check" onClick={() => setArranging(false)}>
+              {text("arrangeDone")}
+            </ButtonBase>
+          )}
           {actions && <BoardActions board={board} />}
         </div>
       )}
       <MotionScope on={motion}>
-        <BoardGrid widgets={specs} layout={board.layout} onLayoutChange={board.setLayout} busy={busy} />
+        <BoardGrid widgets={specs} layout={board.layout} onLayoutChange={board.setLayout} busy={busy} heads={heads} arranging={arranging} onArrange={setArranging} />
       </MotionScope>
     </>
   );
@@ -176,7 +188,7 @@ function track(event: PointerEvent, move: (e: globalThis.PointerEvent) => void, 
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
-function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = false }: GridProps) {
+function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = false, heads = true, arranging = false, onArrange }: GridProps) {
   const motion = useMotion();
   const { text } = useI18n();
   const ui = useOptionalUI();
@@ -189,6 +201,7 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
   const [dragging, setDragging] = useState<string | null>(null);
   const [resizing, setResizing] = useState<string | null>(null);
   const [tables, setTables] = useState<Set<string>>(new Set());
+  const [menu, setMenu] = useState<{ id: string; at: { x: number; y: number } } | null>(null);
   const defOf = (id: string) => widgets.find((w) => w.id === id) as WidgetSpec;
   const shown = layout.filter((item) => !item.hidden);
 
@@ -262,7 +275,7 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
   };
 
   const armDrag = (id: string, event: PointerEvent<HTMLElement>) => {
-    if (event.button !== 0 || (event.target as Element).closest(".widget-actions")) return;
+    if (event.button !== 0 || (event.target as Element).closest(".widget-actions, .widget-resize")) return;
     event.preventDefault();
     const node = event.currentTarget.closest<HTMLElement>(".widget") as HTMLElement;
     const travelled = (e: globalThis.PointerEvent) => Math.hypot(e.clientX - event.clientX, e.clientY - event.clientY) >= DRAG_THRESHOLD;
@@ -278,7 +291,7 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
     );
   };
 
-  const moveByKey = (id: string, event: KeyboardEvent<HTMLButtonElement>) => {
+  const moveByKey = (id: string, event: KeyboardEvent<HTMLElement>) => {
     const step = ({ ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 } as Record<string, number>)[event.key];
     if (!step) return;
     event.preventDefault();
@@ -339,7 +352,38 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
       return next;
     });
 
-  const classes = ["board", dragging ? "is-dragging" : "", busy ? "is-refetching" : ""].filter(Boolean).join(" ");
+  useEffect(() => {
+    if (!arranging) return;
+    const onKey = (event: globalThis.KeyboardEvent) => event.key === "Escape" && onArrange?.(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [arranging]);
+
+  const menuItems = (id: string): MenuItem[] => {
+    const def = defOf(id);
+    return [
+      { id: "arrange", label: text("arrange"), icon: "grip" },
+      ...(def.table ? [{ id: "table", label: tables.has(id) ? text("chartView") : text("tableView"), icon: "table" }] : []),
+      { id: "hide", label: text("hide", { title: def.title }), icon: "eye-off" },
+    ];
+  };
+  const pick = (id: string, action: string) => {
+    if (action === "arrange") return onArrange?.(true);
+    if (action === "table") return flipTable(id);
+    hide(id);
+  };
+  const openMenu = (id: string, x: number, y: number) => setMenu({ id, at: { x, y } });
+  const onWidgetKey = (id: string, event: KeyboardEvent<HTMLElement>) => {
+    if (event.target !== event.currentTarget) return;
+    if (event.key === "ContextMenu" || (event.shiftKey && event.key === "F10")) {
+      event.preventDefault();
+      const box = event.currentTarget.getBoundingClientRect();
+      return openMenu(id, box.left + box.width / 2, box.top + box.height / 2);
+    }
+    if (arranging) moveByKey(id, event);
+  };
+
+  const classes = ["board", dragging ? "is-dragging" : "", busy ? "is-refetching" : "", arranging ? "is-arranging" : ""].filter(Boolean).join(" ");
   return (
     <div className="board-frame">
       <div className={classes} ref={grid}>
@@ -348,7 +392,27 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
           const table = tables.has(item.id) && def.table;
           const state = [item.id === dragging ? "is-placeholder" : "", item.id === resizing ? "is-resizing" : ""].filter(Boolean).join(" ");
           return (
-            <section key={item.id} className={`widget ${state}`.trim()} data-id={item.id} data-short={item.h === 1 || undefined} data-motion={motion ? "enter" : undefined} aria-label={def.title} style={{ "--w": item.w, "--h": item.h, "--motion-order": order } as CSSProperties}>
+            <section
+              key={item.id}
+              className={`widget ${state}`.trim()}
+              data-id={item.id}
+              data-short={item.h === 1 || undefined}
+              data-motion={motion ? "enter" : undefined}
+              aria-label={def.title}
+              tabIndex={heads ? undefined : 0}
+              style={{ "--w": item.w, "--h": item.h, "--motion-order": order } as CSSProperties}
+              onPointerDown={arranging ? (e) => armDrag(item.id, e) : undefined}
+              onContextMenu={
+                heads
+                  ? undefined
+                  : (e) => {
+                      e.preventDefault();
+                      openMenu(item.id, e.clientX, e.clientY);
+                    }
+              }
+              onKeyDown={heads ? undefined : (e) => onWidgetKey(item.id, e)}
+            >
+              {heads && (
               <header className="widget-head" onPointerDown={(e) => armDrag(item.id, e)}>
                 <button type="button" className="widget-handle" aria-label={text("move", { title: def.title })} title={text("move", { title: def.title })} onKeyDown={(e) => moveByKey(item.id, e)}>
                   <Icon name="grip" size="sm" />
@@ -368,13 +432,15 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
                   </button>
                 </div>
               </header>
+              )}
               <div className="widget-body">{table ? <DataTable {...table()} /> : def.render()}</div>
-              <div className="widget-resize" tabIndex={0} role="button" aria-label={text("resize", { title: def.title })} onPointerDown={(e) => startResize(item.id, e)} onKeyDown={(e) => resizeByKey(item.id, e)} />
+              {(heads || arranging) && <div className="widget-resize" tabIndex={0} role="button" aria-label={text("resize", { title: def.title })} onPointerDown={(e) => startResize(item.id, e)} onKeyDown={(e) => resizeByKey(item.id, e)} />}
               <span className="widget-size">{`${item.w} × ${item.h}`}</span>
             </section>
           );
         })}
       </div>
+      {!heads && <ContextMenu at={menu?.at ?? null} items={menu ? menuItems(menu.id) : []} label={menu ? defOf(menu.id).title : ""} onSelect={(action) => menu && pick(menu.id, action)} onClose={() => { grid.current?.querySelector<HTMLElement>(`[data-id="${menu?.id}"]`)?.focus(); setMenu(null); }} />}
       {!announce && (
         <p className="sr-only" aria-live="polite">
           {message}

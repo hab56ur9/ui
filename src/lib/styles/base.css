@@ -371,6 +371,30 @@ p {
   outline-offset: var(--focus-ring-offset);
 }
 
+.board > .widget:not(:has(> .widget-head)) > .widget-body {
+  margin-top: var(--layout-inset);
+}
+
+.board > .widget[tabindex]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-main-default);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.board.is-arranging > .widget {
+  outline: var(--border-width-strong) dashed var(--color-main-default);
+  outline-offset: calc(var(--border-width-strong) * -1);
+  cursor: grab;
+  touch-action: none;
+}
+
+.board.is-arranging > .widget > .widget-body {
+  pointer-events: none;
+}
+
+.board.is-arranging > .widget > .widget-resize {
+  opacity: 1;
+}
+
 .widget-ghost {
   position: fixed;
   left: 0;
@@ -565,6 +589,13 @@ p {
 .widget[data-short] > .widget-body:has(> .stat) {
   overflow: clip;
   overflow-clip-margin: var(--layout-inset);
+}
+
+.widget[data-short] > .widget-body > .stat:has(> .stat-label) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-3);
 }
 
 .widget[data-short] .stat-note {

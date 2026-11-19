@@ -240,6 +240,7 @@ export const api: Record<string, Section[]> = {
         ["actions", "boolean", "true", "Draws the add-widget and reset-layout buttons."],
         ["busy", "boolean", "false", "Keeps the previous view translucent while new data loads."],
         ["motion", "boolean", "true", "Entrance motion; false turns it off. Widgets appear in order, numbers roll up, and bars, lines and Meters draw in."],
+        ["heads", "boolean", "true", "Shows the widget header (drag handle, title, table and hide). With false the header is gone, and right-clicking a widget (or Shift+F10) opens a menu with Rearrange, Show as table and Hide. Widgets move by drag and resize from the corner only while rearranging, which Esc or Done ends. The title stays as the widget's accessible name, so put a label inside the content."],
       ],
     },
     {

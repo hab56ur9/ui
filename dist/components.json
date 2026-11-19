@@ -69,6 +69,12 @@
           "type": "boolean | undefined"
         },
         {
+          "name": "heads",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
           "name": "children",
           "optional": true,
           "kind": "node",
