@@ -149,7 +149,7 @@ export function Board({ children, initialLayout, onLayoutChange, onLayoutCommit,
   const board = useBoardLayout(specs, { initial: initialLayout, onChange: onLayoutChange, onCommit: onLayoutCommit, delay: commitDelay });
   return (
     <>
-      {(toolbar !== undefined || actions) && (
+      {(toolbar !== undefined || actions || arranging) && (
         <div className="toolbar" role="toolbar" aria-label={text("boardTools")}>
           {isText(toolbar) ? <span className="toolbar-label">{toolbar}</span> : toolbar}
           <span className="toolbar-spacer" />
@@ -354,7 +354,7 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
 
   useEffect(() => {
     if (!arranging) return;
-    const onKey = (event: globalThis.KeyboardEvent) => event.key === "Escape" && onArrange?.(false);
+    const onKey = (event: globalThis.KeyboardEvent) => event.key === "Escape" && !event.defaultPrevented && onArrange?.(false);
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [arranging]);
@@ -370,7 +370,12 @@ function BoardGrid({ widgets, layout, onLayoutChange, onHide, announce, busy = f
   const pick = (id: string, action: string) => {
     if (action === "arrange") return onArrange?.(true);
     if (action === "table") return flipTable(id);
+    const index = positionOf(id);
     hide(id);
+    requestAnimationFrame(() => {
+      const rest = nodes();
+      rest[Math.min(index, rest.length - 1)]?.focus();
+    });
   };
   const openMenu = (id: string, x: number, y: number) => setMenu({ id, at: { x, y } });
   const onWidgetKey = (id: string, event: KeyboardEvent<HTMLElement>) => {
