@@ -58,6 +58,7 @@ export { ActionList, Modal, Sheet, type ActionListItem, type ActionListProps, ty
 export { Viewer, type ViewerProps } from "./overlay/Viewer";
 export { CommandPalette, type CommandGroup, type CommandItem, type CommandPaletteProps } from "./overlay/CommandPalette";
 export { themes, type Theme } from "./theme";
+export { Menu, type MenuItem, type MenuProps } from "./overlay/Menu";
 export { Popover, type PopoverProps } from "./overlay/Popover";
 export { Tooltip, type TooltipProps } from "./overlay/Tooltip";
 export { Toast, UIProvider, useConfirm, useToast, type UIProviderProps, type ConfirmProps, type ToastHandle, type ToastProps, type ToastStatus } from "./overlay/Provider";

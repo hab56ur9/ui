@@ -79,6 +79,7 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | Button | children, variant ("secondary", "primary", "danger"), icon, label (name and tooltip of an icon-only button), onClick, disabled, type ("button", "submit"); nothing else passes through |
 | Callout | children*, tone ("info", "good", "warning", "critical", "do", "dont"), accent ("left", "top"), title |
 | ActionList | items* ({ id, label }[]), onSelect* ((id) => void); full-width choices, usually inside a Sheet |
+| Menu | items* ({ id, label, icon?, danger?, disabled? }[]), onSelect* ((id) => void), label (the ⋯ button's name, "More" by default), icon; a ⋯ button whose actions drop below it, danger items last after a divider |
 | Option (inside Options) | name*, chosen (decided) or recommended (still open), children of Pros and Cons |
 | Segmented | options* ({ value, label }[]), value or defaultValue, label*, onChange |
 | Tabs | items* ({ id, label }[]), value or defaultValue, onChange, variant ("line", "pill") |

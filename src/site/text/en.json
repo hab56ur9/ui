@@ -872,6 +872,13 @@
     "filterBody": "Show only tickets waiting for QA.",
     "apply": "Apply"
   },
+  "menu-basic": {
+    "link": "Copy link",
+    "mute": "Mute notifications",
+    "archive": "Archive (coming soon)",
+    "trash": "Move to trash",
+    "delete": "Delete channel"
+  },
   "tooltip-reaction": {
     "author": "Hana",
     "body": "I grouped today's release batch. Please take a look.",

@@ -496,6 +496,7 @@
             "ActionList",
             "Viewer",
             "CommandPalette",
+            "Menu",
             "Popover",
             "Tooltip",
             "Anatomy",
@@ -2175,6 +2176,7 @@
                 "properties": {
                   "defaultValue": {},
                   "readOnly": {},
+                  "autoFocus": {},
                   "imageHosts": {},
                   "onChange": {},
                   "data": {},
@@ -2804,6 +2806,33 @@
                 },
                 "required": [
                   "groups"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Menu"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "props": {
+                "type": "object",
+                "properties": {
+                  "items": {},
+                  "onSelect": {},
+                  "label": {},
+                  "icon": {}
+                },
+                "required": [
+                  "items",
+                  "onSelect"
                 ],
                 "additionalProperties": false
               }

@@ -2622,6 +2622,12 @@
           "type": "boolean | undefined"
         },
         {
+          "name": "autoFocus",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
           "name": "imageHosts",
           "optional": true,
           "kind": "list",
@@ -3789,6 +3795,35 @@
           "optional": true,
           "kind": "boolean",
           "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "Menu",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "kind": "list",
+          "type": "MenuItem[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": false,
+          "kind": "action",
+          "type": "(id: string) => void"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "icon",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
         }
       ]
     },

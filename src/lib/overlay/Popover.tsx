@@ -27,8 +27,9 @@ const isTouch = (event: PointerEvent) => event.pointerType === "touch";
 const isKeyboardFocus = (event: FocusEvent) => event.target instanceof Element && event.target.matches(":focus-visible");
 const leavesAnchor = (event: FocusEvent) => event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget);
 
-function place(panel: HTMLElement, target: DOMRect) {
-  const left = Math.min(Math.max(target.left, EDGE), window.innerWidth - EDGE - panel.offsetWidth);
+export function place(panel: HTMLElement, target: DOMRect, align: "start" | "end" = "start") {
+  const start = align === "end" ? target.right - panel.offsetWidth : target.left;
+  const left = Math.min(Math.max(start, EDGE), window.innerWidth - EDGE - panel.offsetWidth);
   const below = target.bottom + GAP;
   const fitsBelow = below + panel.offsetHeight <= window.innerHeight - EDGE;
   const above = Math.max(target.top - GAP - panel.offsetHeight, EDGE);

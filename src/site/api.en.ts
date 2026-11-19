@@ -479,6 +479,18 @@ export const api: Record<string, Section[]> = {
       ],
     },
   ],
+  menu: [
+    {
+      type: "api",
+      title: "<Menu>",
+      rows: [
+        ["items", "{ id, label, icon?, danger?, disabled? }[]", "", "The actions, one row each. A `danger` item draws in the danger color, and a divider opens the run of danger items."],
+        ["onSelect", "(id: string) => void", "", "Called with the chosen id after the menu closes."],
+        ["label", "string", "\"More\"", "The button's accessible name and tooltip, also the menu's name."],
+        ["icon", "IconName", "\"more\"", "The button's icon."],
+      ],
+    },
+  ],
   tooltip: [
     {
       type: "api",
@@ -830,6 +842,7 @@ export const api: Record<string, Section[]> = {
       rows: [
         ["defaultValue · children", "string", "\"\"", "The starting markdown; read-only views can pass it as `children`."],
         ["readOnly", "boolean", "false", "Shows the same look without editing; also for server rendering and print."],
+        ["autoFocus", "boolean", "false", "When editable, opens the first block for editing on the first render with the caret at its start."],
         ["imageHosts", "string[]", "", "Hosts that external images load from, with the port when it is not the default (`localhost:4411`). When set, only same-origin images and images from listed hosts load; the rest show as links, so rendering someone else's text does not leak the viewer's IP."],
         ["onChange", "(markdown: string) => void", "", "Called with the whole standard markdown on every edit."],
         ["data · formats · onAction", "data map · format functions · action handler", "", "Used by ` ```ui ` blocks. ` ```mermaid ` `xychart-beta` and `pie` blocks draw with the chart components; other Mermaid blocks stay as code."],

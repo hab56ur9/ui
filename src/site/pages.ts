@@ -1329,6 +1329,51 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "menu",
+    "group": "피드백",
+    "title": "메뉴",
+    "lede": "메뉴는 ⋯ 버튼을 눌러 그 화면에서 할 수 있는 동작을 고르게 합니다. 항목마다 아이콘을 둘 수 있고, 지우기처럼 되돌리기 어려운 동작은 위험 항목으로 맨 아래에 모입니다. 버튼 오른쪽 끝에 맞춰 아래로 뜨고, 화면 가장자리에서는 안쪽으로 밀려 들어옵니다.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "더보기 메뉴",
+        "example": "menu-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "자주 쓰지 않는 동작을 모아 머리 줄을 가볍게 합니다.",
+            "자주 쓰는 동작이나 하나뿐인 동작은 버튼으로 바로 둡니다."
+          ],
+          [
+            "위험 항목은 맨 아래에 두고, 고른 뒤 확인 창이나 되돌리기 토스트를 띄웁니다.",
+            "위험 항목을 다른 항목 사이에 섞습니다."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "버튼은 `aria-haspopup=\"menu\"`와 `aria-expanded`를 받고, 패널은 `role=\"menu\"`, 항목은 `role=\"menuitem\"`입니다.",
+          "열리면 첫 항목에 포커스가 가고, ↑↓로 오가며 Home·End로 처음과 끝에 갑니다.",
+          "Esc는 닫고 포커스를 버튼으로 돌려줍니다. Tab과 바깥 클릭도 닫습니다.",
+          "항목을 고르면 포커스가 버튼으로 돌아온 뒤 `onSelect`가 불립니다."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.popover",
+          "radius.card",
+          "elevation.overlay",
+          "color.danger.default"
+        ]
+      }
+    ]
+  },
+  {
     "id": "tooltip",
     "group": "피드백",
     "title": "툴팁",

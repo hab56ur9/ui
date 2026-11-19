@@ -1311,6 +1311,51 @@ export const pages: Page[] = [
     ]
   },
   {
+    "id": "menu",
+    "group": "피드백",
+    "title": "Menu",
+    "lede": "A menu lets people press a ⋯ button and pick an action for the screen. Each item can carry an icon, and actions that are hard to undo, such as deleting, gather at the bottom as danger items. It aligns to the button's right edge below it and slides inward at the screen edge.",
+    "sections": [
+      {
+        "type": "demo",
+        "title": "More menu",
+        "example": "menu-basic",
+        "layout": "centered"
+      },
+      {
+        "type": "guidelines",
+        "items": [
+          [
+            "Gather rarely used actions to keep a header light.",
+            "Keep a frequent or single action as its own button."
+          ],
+          [
+            "Put danger items last, and follow the choice with a confirm or an undo toast.",
+            "Mix danger items between other items."
+          ]
+        ]
+      },
+      {
+        "type": "a11y",
+        "items": [
+          "The button gets `aria-haspopup=\"menu\"` and `aria-expanded`; the panel is a `role=\"menu\"` and each item a `role=\"menuitem\"`.",
+          "Opening focuses the first item; ↑ and ↓ move between items, and Home and End jump to the ends.",
+          "Esc closes it and returns focus to the button; Tab and an outside click also close it.",
+          "Choosing an item returns focus to the button, then calls `onSelect`."
+        ]
+      },
+      {
+        "type": "tokens",
+        "paths": [
+          "size.popover",
+          "radius.card",
+          "elevation.overlay",
+          "color.danger.default"
+        ]
+      }
+    ]
+  },
+  {
     "id": "tooltip",
     "group": "피드백",
     "title": "Tooltip",
