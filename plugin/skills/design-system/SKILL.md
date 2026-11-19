@@ -65,7 +65,7 @@ Every exported component and its props are listed in https://hab56ur9.github.io/
 | Component | Props |
 | --- | --- |
 | AppShell | brand*, nav* (groups of { title?, items: { id, label, icon?, href?, onSelect?, current?, sub? }[] }), navHeader, title, actions, aside, scroll ("frame" scrolls inside the shell, "page" scrolls the document; use "page" when the page should print or be captured whole), mobileNav, tabBar |
-| Page | title, lede, actions (any number of buttons; they line up at the right), full (drops the page inset so the content meets the frame edges), children* |
+| Page | title, lede, actions (any number of buttons; they line up at the right), full (drops the page inset so the content meets the frame edges; a full page carries no title, lede or actions), children* |
 | Board | initialLayout, onLayoutChange (every move, for live mirrors), onLayoutCommit (once after changes settle; save from this one), commitDelay, toolbar, actions, busy, motion (entrance motion, on by default; false turns it off) |
 | Widget | id*, title*, subtitle, w* (1–12 columns), h* (rows of 72px in the app medium; the height is fixed, so a DataTable widget with n rows needs h = ceil((n + 1) / 2) + 1, which can leave up to one row of space; charts read well at h 4–5 and a widget fits about two Meters per row of h), minW, minH, maxH, table (returns DataTable props { columns, rows } for the table view), frame ("card", "plain", or "none" for a borderless body widget such as a chat log) |
 | Stat | label, value*, delta ({ change: ratio, goodWhenUp?, neutral?, label }; neutral for values such as spend whose rise is neither good nor bad), note, trend (Point[]), color, size |
