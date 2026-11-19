@@ -1,6 +1,6 @@
 export const SPEC_VERSION = 1;
 export const BUILTIN_ACTIONS = { navigate: ["screen"], open: ["overlay"], close: [], panel: ["panel"] };
-const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "DesktopShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "Modal", "Sheet", "Toast"]);
+const FRAME_ONLY = new Set(["LangProvider", "UIProvider", "AppShell", "DesktopShell", "Page", "Article", "WidgetGrid", "Board", "Widget", "Modal", "Sheet", "Toast", "SpecApp"]);
 const KINDS = ["modal", "sheet"];
 const SHELLS = ["app", "desktop"];
 const STATES = ["screen", "panel"];

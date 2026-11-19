@@ -443,6 +443,29 @@ p {
   color: var(--color-fg-muted);
 }
 
+.spec-app {
+  height: 100%;
+}
+
+.spec-part {
+  display: contents;
+}
+
+.spec-screen {
+  min-height: 0;
+  overflow: auto;
+}
+
+.spec-press {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: transparent;
+  cursor: pointer;
+}
+
 .stack {
   display: flex;
   flex-direction: column;

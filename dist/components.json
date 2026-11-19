@@ -2535,6 +2535,53 @@
       ]
     },
     {
+      "name": "SpecApp",
+      "props": [
+        {
+          "name": "spec",
+          "optional": false,
+          "kind": "object",
+          "type": "AppSpec"
+        },
+        {
+          "name": "data",
+          "optional": true,
+          "kind": "object",
+          "type": "Record<string, unknown> | undefined"
+        },
+        {
+          "name": "screen",
+          "optional": true,
+          "kind": "string",
+          "type": "string | undefined"
+        },
+        {
+          "name": "panel",
+          "optional": true,
+          "kind": "string",
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "overlay",
+          "optional": true,
+          "kind": "string",
+          "type": "string | null | undefined"
+        },
+        {
+          "name": "components",
+          "optional": true,
+          "kind": "object",
+          "type": "JsonUIComponents | undefined"
+        },
+        {
+          "name": "onAction",
+          "optional": true,
+          "kind": "action",
+          "type": "((action: JsonUIAction, value?: unknown) => void) | undefined"
+        }
+      ]
+    },
+    {
       "name": "Markdown",
       "props": [
         {
