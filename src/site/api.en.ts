@@ -232,7 +232,7 @@ export const api: Record<string, Section[]> = {
       description: "Place content wrapped in `<Widget>` tags on the board. The board doesn't know where layouts are stored: it takes one through `initialLayout`, fires `onLayoutChange` on every change and, once changes stop for `commitDelay`, fires `onLayoutCommit` once with the final layout. A pending commit fires right away when the page closes or moves to the background. Where to store, failures and retries are up to the app that listens.",
       rows: [
         ["children", "<Widget>…", "", "The widgets. Their order is the initial layout order."],
-        ["initialLayout", "LayoutItem[]", "", "A layout the app loads from anywhere (browser, server) and passes in. It applies even when it arrives late, as long as the user hasn't changed the layout yet, and is ignored when its widget list differs. Without it, widgets follow tag order."],
+        ["initialLayout", "LayoutItem[]", "", "A layout the app loads from anywhere (browser, server) and passes in. It applies even when it arrives late, as long as the user hasn't changed the layout yet, and is merged with the current widgets: saved order, sizes and hidden state stay, widgets missing from it join the end at their default size, and widgets that no longer exist drop out. Without it, widgets follow tag order."],
         ["onLayoutChange", "(layout) => void", "", "Fires with the new layout on every move, resize, hide, add and reset."],
         ["onLayoutCommit", "(layout) => void", "", "Fires once with the final layout after changes stop. Save to a server here."],
         ["commitDelay", "number", "1500", "How long (ms) the board waits after the last change before committing."],

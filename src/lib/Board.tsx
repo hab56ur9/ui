@@ -8,6 +8,7 @@ import { motionMs, reducedMotion, token, tokenMs, tokenPx } from "./hooks";
 import { useI18n } from "./i18n";
 import { ContextMenu, type MenuItem } from "./overlay/Menu";
 import { useOptionalUI } from "./overlay/Provider";
+import { mergeLayout, type LayoutItem } from "./boardLayout";
 
 export type WidgetSpec = {
   id: string;
@@ -22,16 +23,15 @@ export type WidgetSpec = {
   table?: () => DataTableProps;
 };
 
-export type LayoutItem = { id: string; w: number; h: number; hidden: boolean };
+export type { LayoutItem };
 
 const defaults = (widgets: WidgetSpec[]): LayoutItem[] => widgets.map(({ id, w, h }) => ({ id, w, h, hidden: false }));
-
-const fits = (saved: unknown, widgets: WidgetSpec[]): saved is LayoutItem[] => Array.isArray(saved) && saved.length === widgets.length && saved.every((item) => widgets.some((w) => w.id === item?.id));
 
 type Events = { initial?: LayoutItem[]; onChange?: (layout: LayoutItem[]) => void; onCommit?: (layout: LayoutItem[]) => void; delay: number };
 
 export function useBoardLayout(widgets: WidgetSpec[], { initial, onChange, onCommit, delay }: Events) {
-  const [layout, setState] = useState<LayoutItem[]>(() => (fits(initial, widgets) ? initial : defaults(widgets)));
+  const [state, setState] = useState<LayoutItem[]>(() => mergeLayout(initial, widgets));
+  const layout = mergeLayout(state, widgets);
   const touched = useRef(false);
   const pending = useRef<LayoutItem[] | null>(null);
   const timer = useRef<number | undefined>(undefined);
@@ -46,8 +46,8 @@ export function useBoardLayout(widgets: WidgetSpec[], { initial, onChange, onCom
   }, []);
 
   useEffect(() => {
-    if (touched.current || !fits(initial, widgets)) return;
-    setState(initial);
+    if (touched.current || initial === undefined) return;
+    setState(mergeLayout(initial, widgets));
   }, [initial]);
 
   useEffect(() => {
