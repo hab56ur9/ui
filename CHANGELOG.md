@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.3.0-alpha.11](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.10...v0.3.0-alpha.11) (2026-11-19)
+
+
+### Features
+
+* **action-bar:** add ActionBar that lifts toasts above it ([5aaf11e](https://github.com/hab56ur9/ui/commit/5aaf11e8e4440da5b413c410b801afe91d70576f))
+* add SpecApp runtime renderer for app specs ([9ef951d](https://github.com/hab56ur9/ui/commit/9ef951dcab2361795cdbda9133214da5a325537c))
+* **approval:** let ApprovalCard leave out the always-allow button ([374c9b1](https://github.com/hab56ur9/ui/commit/374c9b18865b8ba45e38193f3f119328d93beede))
+* **chat:** add thread replies to SystemNote ([dac2a09](https://github.com/hab56ur9/ui/commit/dac2a09601a9a37fb80d773c3ac55363be8dca0c))
+* **chat:** draw a stamp label in place of a reaction emoji ([3ac012f](https://github.com/hab56ur9/ui/commit/3ac012f2f575f85a6f8b3a69eb96ca25f7447abe))
+* **density:** shrink widget rows, headers and page title in compact ([1fc951e](https://github.com/hab56ur9/ui/commit/1fc951ecbf59dbaa3c54e07ff26ed2fc0aae3ab7))
+* **icons:** add pin icon ([d59e25c](https://github.com/hab56ur9/ui/commit/d59e25c5abe18d30a62e59565106178ffdbac9f1))
+* **overlay:** let dialog and sheet actions be disabled ([2da4cf6](https://github.com/hab56ur9/ui/commit/2da4cf6eaaf6fe10400749f3f775312fe7159727))
+* **scripts:** add a WCAG AA contrast check over every site page in both themes ([3b99f58](https://github.com/hab56ur9/ui/commit/3b99f5860f0ff6e8746a12b3a744d036c23582e4))
+* **segmented:** add a disabled prop that dims the whole control, selected option included ([ee6859a](https://github.com/hab56ur9/ui/commit/ee6859a29d67bc00982fab09cab30b05cb0192db))
+* **spec-app:** pass shell props through and draw untitled panels without a frame ([892730c](https://github.com/hab56ur9/ui/commit/892730cf739ae8b2e5f5897063a658c729827e02))
+* **spec:** borderless widgets, fill height and full screens ([4c1b056](https://github.com/hab56ur9/ui/commit/4c1b056650e9e1e5e67e7b439ac9c9c2fc446788))
+* **spec:** build desktop apps with a sidebar and a side panel ([ad3c01e](https://github.com/hab56ur9/ui/commit/ad3c01ef980e598e65453c7cff325d84dd3c2ccd))
+* **spec:** localize the review bar and check icon names ([a40f55d](https://github.com/hab56ur9/ui/commit/a40f55dbabed275f812c52733907a54dd67a8447))
+* **spec:** read the open screen and panel with $state ([3fd6390](https://github.com/hab56ur9/ui/commit/3fd63909879a8540db3f288ce72e69fb1033f98f))
+* **TextField:** add inputMode for mobile keypads ([bdfc04b](https://github.com/hab56ur9/ui/commit/bdfc04be87c8a29b26d8a23da6ae70677fe42a78))
+
+
+### Bug Fixes
+
+* **action-bar:** keep the toast offset while another bar stays docked ([1e7a97f](https://github.com/hab56ur9/ui/commit/1e7a97fb90735a2697e3e124df6776e797783f91))
+* **activity:** keep the time visible when the row head is narrow ([020bb90](https://github.com/hab56ur9/ui/commit/020bb904f9738a3045a3bc90677f0bc661294c77))
+* **approval:** move the status badge below long titles on narrow cards ([4cda1f9](https://github.com/hab56ur9/ui/commit/4cda1f9f15bf438df6d10040256368b6d6d590e5))
+* **approval:** wrap narrow footer buttons instead of cutting their labels ([eeabbaf](https://github.com/hab56ur9/ui/commit/eeabbafc5fe0315e42965ecbcf56f5aab2d7ec6c))
+* **article:** keep the right gutter when the docs table of contents is hidden ([d142ce1](https://github.com/hab56ur9/ui/commit/d142ce187090212908a61d7cabd3f5242932b7e2))
+* **article:** wrap the example toolbar so narrow screens keep every control readable ([98ff493](https://github.com/hab56ur9/ui/commit/98ff493656935907549f89cf5b87c3c9f7a9ec9f))
+* **board:** keep chat widgets at their row height ([7d15d3a](https://github.com/hab56ur9/ui/commit/7d15d3a3db6c185a5f496d8b29b27aa2b3c4e20b))
+* **board:** let chat widgets fill the rows they span ([2e808e1](https://github.com/hab56ur9/ui/commit/2e808e1d0738690f97dedd16cf189e4395a6c0db))
+* **chat:** even out the stamp spacing in the inline reaction menu ([0e18373](https://github.com/hab56ur9/ui/commit/0e18373e60cefe40de2c9147a9c5885866bb0ed9))
+* **chat:** raise the stamp label contrast to meet 4.5:1 on the light reaction pill ([8e347ef](https://github.com/hab56ur9/ui/commit/8e347ef3e58da6102b73e688a6726b4893df563e))
+* **chat:** use raised surface for selected message ([059bc57](https://github.com/hab56ur9/ui/commit/059bc57c4ab7a0c1a1cfabc9a63a7aaec3168cec))
+* **checks:** measure locked multi-select rows and let Chrome pick its debugging port ([b2856ef](https://github.com/hab56ur9/ui/commit/b2856efbdc6f721b5cb3126c6f070b74366c2bc2))
+* **contrast:** raise status and mention text to 4.5:1 in both themes ([586a34a](https://github.com/hab56ur9/ui/commit/586a34ac1af375f8a0a9a69d1028f2faa4608248))
+* **image-compare:** give labels a caption surface in both themes ([8f939e5](https://github.com/hab56ur9/ui/commit/8f939e597f178396432ab0984f99c2ed8ff51b2a))
+* **kanban:** lower the column minimum to 140px so four columns fit above the switch width ([cdd8f47](https://github.com/hab56ur9/ui/commit/cdd8f47b8998f85bcec8b52e0fc27828b6e31139))
+* **kanban:** scroll the switcher board inside itself when columns outgrow its width ([a4af7e5](https://github.com/hab56ur9/ui/commit/a4af7e5b358c6e265c8060bd5eedea21cda2ec4a))
+* **multi-select:** keep locked rows at full contrast and skip their hover ([ad0491c](https://github.com/hab56ur9/ui/commit/ad0491c47f2dfcad8e30f1779205c1846cdc0153))
+* **spec:** look up screen, panel and overlay ids as own keys only ([3cce9e6](https://github.com/hab56ur9/ui/commit/3cce9e658340110f46e9eb8eb3cde1ac61acbea3))
+* **spec:** use the singular for one change in the English review bar ([2bc4eb7](https://github.com/hab56ur9/ui/commit/2bc4eb797dc55fcca2a3926e51c1826375d41dff))
+* **tabs:** fade the clipped edge when tabs overflow their row ([db4f092](https://github.com/hab56ur9/ui/commit/db4f092275f72a948306ae7b6cb9130ccc593436))
+* **tabs:** keep fill tabs at least as wide as their content ([44d0a1b](https://github.com/hab56ur9/ui/commit/44d0a1be3485bc8b6b45f9dd82e819139f7ab4be))
+* **tabs:** scroll the selected tab clear of the faded edge ([2180048](https://github.com/hab56ur9/ui/commit/218004815a9509a3081c7062f06ca0ba31c0bffa))
+* **theme:** switch themes without running color transitions ([2c0b55a](https://github.com/hab56ur9/ui/commit/2c0b55ad37308b1bb05a2def61f57585ba88fdb6))
+* **toast:** pause the dismiss timer only while it runs ([f977b20](https://github.com/hab56ur9/ui/commit/f977b20b8d5dfbfbd18c881d45e5675c49717bd6))
+
 ## [0.3.0-alpha.10](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.9...v0.3.0-alpha.10) (2026-11-14)
 
 
