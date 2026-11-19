@@ -1,6 +1,8 @@
 import { useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { Badge } from "./Badge";
+import { scrollBehavior } from "./hooks";
 import { Icon, type IconName } from "./Icon";
+import { reach } from "./reach";
 
 export type TabItem = { id: string; label: string; icon?: IconName; badge?: string | number; disabled?: boolean; content?: ReactNode };
 export type TabsProps = { items: TabItem[]; value?: string; defaultValue?: string; onChange?: (id: string) => void; variant?: "line" | "pill"; fill?: boolean; orientation?: "horizontal" | "vertical"; label?: string };
@@ -59,6 +61,15 @@ export function Tabs({ items, value, defaultValue, onChange, variant = "line", f
       node.removeEventListener("scroll", measure);
     };
   }, [orientation, items]);
+
+  useLayoutEffect(() => {
+    const node = list.current;
+    const tab = node?.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+    if (!node || !tab || orientation === "vertical") return;
+    const pad = parseFloat(getComputedStyle(node).scrollPaddingInlineStart) || 0;
+    const left = reach({ start: node.scrollLeft, size: node.clientWidth }, { start: tab.offsetLeft, size: tab.offsetWidth }, pad);
+    if (left !== undefined) node.scrollTo({ left, behavior: scrollBehavior() });
+  }, [selected, orientation]);
 
   const select = (id: string) => {
     setOwn(id);

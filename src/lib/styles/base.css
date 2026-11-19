@@ -1855,6 +1855,7 @@ button.chip-label:hover {
   display: flex;
   gap: var(--space-1);
   overflow-x: auto;
+  scroll-padding-inline: var(--space-8);
   scrollbar-width: none;
 }
 
