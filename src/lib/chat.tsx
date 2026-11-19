@@ -106,9 +106,18 @@ export type ChatMessageProps = {
 };
 
 export function ChatMessage({ author, tone = 1, avatar, badge, time, via, continued = false, selected = false, pending = false, actions = [], reactions = [], onReact, replies, onOpenThread, anchor, children }: ChatMessageProps) {
+  const [live, setLive] = useState(false);
   return (
-    <article id={anchor} className={cx("chat-message", continued && "is-continued", selected && "is-selected")} tabIndex={-1}>
-      {actions.length > 0 && <MessageActions actions={actions} />}
+    <article
+      id={anchor}
+      className={cx("chat-message", continued && "is-continued", selected && "is-selected")}
+      tabIndex={-1}
+      onPointerEnter={() => setLive(true)}
+      onPointerLeave={(event) => setLive(event.currentTarget.contains(document.activeElement))}
+      onFocus={() => setLive(true)}
+      onBlur={(event) => setLive(event.currentTarget.contains(event.relatedTarget as Node) || event.currentTarget.matches(":hover"))}
+    >
+      {live && actions.length > 0 && <MessageActions actions={actions} />}
       {continued ? <span className="chat-time is-side">{time}</span> : <PresenceAvatar name={author} tone={tone} avatar={avatar} />}
       <div className="chat-body">
         {!continued && (
