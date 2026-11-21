@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.3.0-alpha.12](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.11...v0.3.0-alpha.12) (2026-11-21)
+
+
+### Features
+
+* **board:** headless widgets with a context menu and a rearrange mode ([d38d4dc](https://github.com/hab56ur9/ui/commit/d38d4dce9bda1777d78958da4152456ad96cb66a))
+* **board:** merge a saved layout with added and removed widgets ([579d93f](https://github.com/hab56ur9/ui/commit/579d93f83856435b1716dbe1884eb17b953fc359))
+* **diagram:** show the step number on every arrow of a step ([d985c8f](https://github.com/hab56ur9/ui/commit/d985c8f8478b4e88adc7bd4ee29852fd81fd5580))
+* **doc:** keep each top-level section on one printed page with keepSections ([#13](https://github.com/hab56ur9/ui/issues/13)) ([1395d3d](https://github.com/hab56ur9/ui/commit/1395d3d6600055c46c2deee105e6254ac2a607d0))
+
+
+### Bug Fixes
+
+* **board:** keep rearranging on menu Esc and refocus after hiding ([717ce2b](https://github.com/hab56ur9/ui/commit/717ce2b1ea13b03ba8b07f6370c9c55253bf09da))
+* **layout:** let Page fill the desktop shell's main area ([51ac9db](https://github.com/hab56ur9/ui/commit/51ac9db0b39c08f974a7834d6868e1287109351e))
+* **stat:** clip and shorten notes only in one-row widgets ([b14cdf3](https://github.com/hab56ur9/ui/commit/b14cdf3a4a65a12d60a7d2f7c6aef1d41b3eae0d))
+* **stat:** keep a Stat note inside its widget card ([e421737](https://github.com/hab56ur9/ui/commit/e4217371b6a40485f54d4806d18e7b12420ee814))
+
+
+### Performance Improvements
+
+* **chat:** render message actions only while hovered or focused ([cbeaa18](https://github.com/hab56ur9/ui/commit/cbeaa186d4197c3c5f5199c5c4e3b2d5c596fc56))
+
 ## [0.3.0-alpha.11](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.10...v0.3.0-alpha.11) (2026-11-19)
 
 
