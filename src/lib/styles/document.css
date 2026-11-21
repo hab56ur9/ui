@@ -1051,6 +1051,7 @@ h3.doc-heading::before {
     break-after: avoid;
   }
 
+  .doc.keeps-sections .doc-body,
   .doc.keeps-sections .doc-section.is-level-1 + .doc-section.is-level-1 {
     break-before: page;
   }
