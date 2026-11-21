@@ -494,7 +494,7 @@ function DiagramRoot({ title, id, direction = "right", flow = "packets", motion 
     return () => observer.disconnect();
   }, [signature]);
 
-  const numbered = arrows.map((arrow, i) => arrow.step !== undefined && arrows.findIndex((other) => other.step === arrow.step) === i);
+  const numbered = arrows.map((arrow) => arrow.step !== undefined);
   const { placed, width, height, across, paths, spots } = arrange(nodes, arrows, groups, sizes ?? new Map(), direction, numbered);
   const byId = new Map(placed.map((node) => [node.id, node]));
   const motions = arrows.map((arrow) => motionOf(arrow, flow));

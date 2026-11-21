@@ -83,7 +83,7 @@ A diagram is written with tags in an HTML page that loads the design system. Nod
 - `flow: "dots"` turns every arrow into marching dots for continuous flow.
 - `flow: "pulses"` glides one glowing dot along every arrow at a steady speed, staggered so arrows do not fire together; it reads as live traffic with less noise than dots.
 - `flow: "both"` combines them; `motion` on one arrow overrides the diagram's flow.
-- Arrows with the same step move together, and each step number is drawn once.
+- Arrows with the same step move together, and each of them shows the step number.
 - Entrance motion is built in: nodes appear in order, a Stat inside a node rolls up its number, a Meter fills and a chart line draws. Pass `motion: false` for a diagram that should appear at once.
 
 ## Posters
