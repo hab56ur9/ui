@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0-alpha.14](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.13...v0.3.0-alpha.14) (2026-11-21)
+
+
+### Bug Fixes
+
+* **doc:** keep sections in the copy the print button prints ([#17](https://github.com/hab56ur9/ui/issues/17)) ([655bc9b](https://github.com/hab56ur9/ui/commit/655bc9b1391667505d1478b3cafa2724d525d18c))
+
 ## [0.3.0-alpha.13](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.12...v0.3.0-alpha.13) (2026-11-21)
 
 
