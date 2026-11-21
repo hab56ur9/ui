@@ -1025,7 +1025,7 @@ export const api: Record<string, Section[]> = {
       title: "<Option>",
       rows: [
         ["name", "ReactNode", "", "선택지 이름입니다."],
-        ["chosen", "boolean", "false", "고른 안입니다. 강조 테두리와 「선택함」 배지가 붙습니다."],
+        ["chosen", "boolean", "false", "고른 안입니다. 강조 테두리와 「선택」 배지가 붙습니다."],
         ["children", "ReactNode", "", "요약 문장, `<Pros>`·`<Cons>`, 숫자 카드, 코드처럼 안에 그릴 모든 것을 태그로 씁니다."],
       ],
     },

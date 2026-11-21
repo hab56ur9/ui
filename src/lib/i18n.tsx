@@ -173,7 +173,7 @@ const MESSAGES = {
     "doc.dropped": "제외",
     "doc.pros": "장점",
     "doc.cons": "단점",
-    "doc.chosen": "선택함",
+    "doc.chosen": "선택",
     "doc.recommended": "추천",
     "doc.change": "변경 내용",
     "chat.send": "보내기",
