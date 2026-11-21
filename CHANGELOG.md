@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0-alpha.13](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.12...v0.3.0-alpha.13) (2026-11-21)
+
+
+### Bug Fixes
+
+* **ci:** give headless Chrome a chosen debugging port and wait for its page ([#15](https://github.com/hab56ur9/ui/issues/15)) ([79a4911](https://github.com/hab56ur9/ui/commit/79a49119d3dcef45a6ce83b15e0608a226199801))
+* **doc:** start kept sections on a new printed page so none is dropped ([#14](https://github.com/hab56ur9/ui/issues/14)) ([501c783](https://github.com/hab56ur9/ui/commit/501c78350804ee1258e4c9aea8e3fb1f6aa1b5d8))
+
 ## [0.3.0-alpha.12](https://github.com/hab56ur9/ui/compare/v0.3.0-alpha.11...v0.3.0-alpha.12) (2026-11-21)
 
 
