@@ -580,7 +580,7 @@ export const api: Record<string, Section[]> = {
         ["meta", "{ status, authors, reviewers?, date, version? }", "", '`status` is `"draft"`, `"review"` or `"final"`.'],
         ["toc", "boolean", "true", "Draws the contents from the section titles."],
         ["printable", "boolean", "true", "Shows the print button at the top right."],
-        ["keepSections", "boolean", "false", "Starts every top-level section on a new printed page after a cover with the title and contents, so a section that fits on a page is never split."],
+        ["keepSections", "boolean", "false", "Starts each top-level section after the first on a new printed page, so a section that fits on a page is never split."],
       ],
     },
     {

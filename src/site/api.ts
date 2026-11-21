@@ -580,7 +580,7 @@ export const api: Record<string, Section[]> = {
         ["meta", "{ status, authors, reviewers?, date, version? }", "", '`status`는 `"draft"`, `"review"`, `"final"`입니다.'],
         ["toc", "boolean", "true", "장 제목으로 목차를 그립니다."],
         ["printable", "boolean", "true", "오른쪽 위 인쇄 버튼을 보여 줍니다."],
-        ["keepSections", "boolean", "false", "인쇄할 때 제목과 목차를 첫 페이지에 두고 최상위 섹션을 모두 새 페이지에서 시작해, 한 페이지에 맞는 섹션은 나뉘지 않습니다."],
+        ["keepSections", "boolean", "false", "인쇄할 때 두 번째 최상위 섹션부터 새 페이지에서 시작해, 한 페이지에 맞는 섹션은 나뉘지 않습니다."],
       ],
     },
     {

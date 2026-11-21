@@ -145,7 +145,7 @@ A deck is HTML. Deck holds the slides on a 1920×1080 canvas with the slide medi
 
 ## Tech docs
 
-A technical document is HTML. Doc holds the header, contents and numbered sections with the doc medium tokens, and prints only itself on A4 portrait through its print button; keepSections prints the title and contents as a cover and starts every top-level section on a new page. Its meta takes status (draft, review, final), authors, reviewers, date and version, each optional. Steps fits four items across a document column; use TextList ordered for longer sequences. The summary states the conclusion in one sentence, requirements live in a RequirementTable and the design refers to them with Ref, alternatives go in Options, and open questions get their own section. A design doc starts from the design-doc example; a question-driven proposal starts from the rfc example, one Problem and one Solution paragraph per question.
+A technical document is HTML. Doc holds the header, contents and numbered sections with the doc medium tokens, and prints only itself on A4 portrait through its print button; keepSections starts each top-level section after the first on a new printed page. Its meta takes status (draft, review, final), authors, reviewers, date and version, each optional. Steps fits four items across a document column; use TextList ordered for longer sequences. The summary states the conclusion in one sentence, requirements live in a RequirementTable and the design refers to them with Ref, alternatives go in Options, and open questions get their own section. A design doc starts from the design-doc example; a question-driven proposal starts from the rfc example, one Problem and one Solution paragraph per question.
 
 ## Reference pages
 
