@@ -107,7 +107,7 @@ export function Doc({ title, summary, meta = {}, toc = true, printable = true, k
       <div className="doc-body">{children}</div>
       {printing && (
         <PrintCopy kind="doc" medium="doc" onDone={stopPrinting}>
-          <Doc title={title} summary={summary} meta={meta} toc={toc} printable={false}>
+          <Doc title={title} summary={summary} meta={meta} toc={toc} printable={false} keepSections={keepSections}>
             {children}
           </Doc>
         </PrintCopy>
