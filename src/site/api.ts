@@ -580,6 +580,7 @@ export const api: Record<string, Section[]> = {
         ["meta", "{ status, authors, reviewers?, date, version? }", "", '`status`는 `"draft"`, `"review"`, `"final"`입니다.'],
         ["toc", "boolean", "true", "장 제목으로 목차를 그립니다."],
         ["printable", "boolean", "true", "오른쪽 위 인쇄 버튼을 보여 줍니다."],
+        ["keepSections", "boolean", "false", "인쇄할 때 맞는 크기라면 최상위 섹션을 한 페이지에 담습니다."],
       ],
     },
     {

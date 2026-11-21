@@ -192,6 +192,12 @@
           "type": "boolean | undefined"
         },
         {
+          "name": "keepSections",
+          "optional": true,
+          "kind": "boolean",
+          "type": "boolean | undefined"
+        },
+        {
           "name": "children",
           "optional": false,
           "kind": "node",

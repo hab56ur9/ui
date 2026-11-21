@@ -575,7 +575,8 @@
                   "summary": {},
                   "meta": {},
                   "toc": {},
-                  "printable": {}
+                  "printable": {},
+                  "keepSections": {}
                 },
                 "required": [
                   "title"

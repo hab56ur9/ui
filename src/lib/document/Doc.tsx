@@ -9,7 +9,7 @@ export type DocStatus = "draft" | "review" | "final";
 const STATUS_TONE: Record<DocStatus, BadgeTone> = { draft: "neutral", review: "warning", final: "main" };
 
 export type DocMeta = { status?: DocStatus; authors?: string[]; reviewers?: string[]; date?: string; version?: string };
-export type DocProps = { title: ReactNode; summary?: ReactNode; meta?: DocMeta; toc?: boolean; printable?: boolean; children: ReactNode };
+export type DocProps = { title: ReactNode; summary?: ReactNode; meta?: DocMeta; toc?: boolean; printable?: boolean; keepSections?: boolean; children: ReactNode };
 
 type Entry = { id: string; number: string; title: string; level: number };
 
@@ -26,7 +26,7 @@ const jump = (e: MouseEvent, selector: string) => {
   target.classList.add("is-flash");
 };
 
-export function Doc({ title, summary, meta = {}, toc = true, printable = true, children }: DocProps) {
+export function Doc({ title, summary, meta = {}, toc = true, printable = true, keepSections = false, children }: DocProps) {
   const { text } = useI18n();
   const root = useRef<HTMLElement>(null);
   const [outline, setOutline] = useState<Entry[]>([]);
@@ -55,7 +55,7 @@ export function Doc({ title, summary, meta = {}, toc = true, printable = true, c
     ) : null;
 
   return (
-    <article ref={root} className="doc" data-medium="doc">
+    <article ref={root} className={`doc${keepSections ? " keeps-sections" : ""}`} data-medium="doc">
       <header className="doc-head">
         <div className="doc-head-row">
           {meta.status && STATUS_TONE[meta.status] && (

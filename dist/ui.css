@@ -6656,6 +6656,10 @@ h3.doc-heading::before {
     break-after: avoid;
   }
 
+  .doc.keeps-sections .doc-section.is-level-1 {
+    break-inside: avoid;
+  }
+
   .figure,
   .options .card,
   .code-block,
