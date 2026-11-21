@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
 import { createServer } from "node:http";
+import { createServer as createNetServer } from "node:net";
 import { tmpdir } from "node:os";
 import { extname, join, normalize } from "node:path";
 
@@ -8,6 +9,14 @@ const root = join(import.meta.dirname, "..", "site");
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".woff2": "font/woff2" };
 const CHROMES = [process.env.CHROME, "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser"].filter(Boolean);
 export const sleep = (ms) => new Promise((done) => setTimeout(done, ms));
+
+const freePort = () =>
+  new Promise((done) => {
+    const probe = createNetServer().listen(0, "127.0.0.1", () => {
+      const { port } = probe.address();
+      probe.close(() => done(port));
+    });
+  });
 
 export async function openSite(name) {
   if (!existsSync(join(root, "index.html"))) {
@@ -33,18 +42,21 @@ export async function openSite(name) {
   const origin = `http://127.0.0.1:${server.address().port}`;
 
   const profile = mkdtempSync(join(tmpdir(), `${name}-`));
-  const chrome = spawn(chromePath, ["--headless=new", "--no-sandbox", "--disable-gpu", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore", detached: true });
-  const portFile = join(profile, "DevToolsActivePort");
-  let targets;
-  for (let i = 0; i < 100 && !targets; i++) {
+  const port = await freePort();
+  const chrome = spawn(chromePath, ["--headless=new", "--no-sandbox", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore", detached: true });
+  let page;
+  for (let i = 0; i < 300 && !page; i++) {
     await sleep(100);
-    if (!existsSync(portFile)) continue;
-    const port = readFileSync(portFile, "utf8").split("\n")[0];
-    targets = await fetch(`http://127.0.0.1:${port}/json/list`)
+    const targets = await fetch(`http://127.0.0.1:${port}/json/list`)
       .then((r) => r.json())
-      .catch(() => undefined);
+      .catch(() => []);
+    page = targets.find((t) => t.type === "page");
   }
-  const socket = new WebSocket(targets.find((t) => t.type === "page").webSocketDebuggerUrl);
+  if (!page) {
+    console.error(`${name}: ${chromePath} did not open a debugging port within 30 seconds`);
+    process.exit(1);
+  }
+  const socket = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((done) => socket.addEventListener("open", done));
   let seq = 0;
   const pending = new Map();
